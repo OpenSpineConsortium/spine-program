@@ -1,0 +1,2609 @@
+{
+ "schema": "reader_e_features_v2",
+ "person_key": "ctsp:0890",
+ "corpus": "ctsp",
+ "case": "0890",
+ "family": "v11",
+ "ct": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct/0890_ct.nii.gz",
+ "mask": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels/0890_label.nii.gz",
+ "ctd": null,
+ "class_map": null,
+ "code_path": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/SchwingNet/tools/reader_e_features.py",
+ "code_sha256": "1568f4d2287fa18d6a26811c53abeb32a13018d44f36349f862eda1481866df7",
+ "generated_utc": "2026-09-25T04:54:34Z",
+ "hostname": "hao1",
+ "python": "3.11.16",
+ "numpy": "2.2.6",
+ "nibabel": "5.4.2",
+ "notes": [
+  "reader C's thoracic count from a rib-free C7 is TS-only; refused here by design (see adapter)"
+ ],
+ "reader_c_class_map": "/wsu/home/go/go24/go2432/bench/totalsegmentator/class_map.json",
+ "reader_c_class_map_sha256": "253e91856c15f6a787578f693382a620190b795f8013d54c441f261c860ceeb7",
+ "modules": {
+  "rib_count_reader": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/tools/rib_count_reader.py",
+  "tp_morphology": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/tools/tp_morphology.py",
+  "extract_transition_morphometrics": "/wsu/home/go/go24/go2432/CTSpinoPelvic1K/scripts/extract_transition_morphometrics.py",
+  "ostk": "/wsu/home/go/go24/go2432/OpenSpineToolkit/ostk/__init__.py"
+ },
+ "grid": {
+  "shape": [
+   512,
+   512,
+   468
+  ],
+  "zooms_mm": [
+   0.781,
+   0.781,
+   0.8
+  ],
+  "axcodes_native_ct": "PIR",
+  "axcodes_native_mask": "PIR",
+  "mask_shape_native": [
+   512,
+   468,
+   512
+  ],
+  "mask_on_ct_grid": "same grid",
+  "fov_z_mm": [
+   -474.2,
+   -100.6
+  ],
+  "fov_lr_mm": 400.0,
+  "fov_ap_mm": 400.0
+ },
+ "ranges": {
+  "path": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/SchwingNet/tools/reader_e_ranges.json",
+  "sha256": "10ec0239a8401ef57a3cea5c5709dcae3cf406b971c4a0c04a62543b3019c616",
+  "rule": "out_of_range = value < lo or value > hi, lo = max(p1, median - 3*sd_pub), hi = min(p99, median + 3*sd_pub); per-level gate when the instance's position from the sacral plateau is valid, pooled gate always; the wider of the two never overrides the narrower one"
+ },
+ "loader": "ostk.labels.labels_for(counts=bincount) -> scheme decided on pelvis mass",
+ "guard": null,
+ "guard_verdict_text": null,
+ "self_check": {
+  "scheme_L1_id": 20,
+  "id29_voxels": 0,
+  "sacrum26_voxels": 366002,
+  "hip_left_voxels": 543279,
+  "hip_right_voxels": 568170
+ },
+ "warnings": [],
+ "sacrum_source": "release_26",
+ "sacrum_present": true,
+ "sacrum_unverified": false,
+ "sacrum_ml_unverified": null,
+ "sacrum_ml": 178.71,
+ "hips_present": true,
+ "hip_ml": 542.7,
+ "ribs_labelled_present": true,
+ "hardware_present": false,
+ "loader_extra": {},
+ "n_instances": 8,
+ "spacing": {
+  "case_median_ml": 47.835,
+  "case_median_si_extent_mm": 46.0,
+  "n_whole": 6,
+  "gaps": [],
+  "doubled_candidates": [],
+  "fragments": [],
+  "halves": [],
+  "spacing_mm": [
+   9.1,
+   28.3,
+   30.2,
+   31.8,
+   30.2,
+   28.4,
+   28.6
+  ]
+ },
+ "sequence": {
+  "pos_from_plateau_valid": true,
+  "last_rib_inst_k": 2,
+  "last_rib_source": "reader_c_cage",
+  "n_instances": 8,
+  "n_below_last_rib": 5
+ },
+ "crest": {
+  "has_crest": true,
+  "crest_z_left": -270.2,
+  "crest_z99_left": -271.8,
+  "crest_at_pos_from_bottom_left": 1,
+  "crest_frac_of_body_left": 0.339,
+  "crest_match_left": "inside",
+  "crest_above_lowest_body_mm_left": 44.8,
+  "crest_z_right": -275.0,
+  "crest_z99_right": -276.6,
+  "crest_at_pos_from_bottom_right": 1,
+  "crest_frac_of_body_right": 0.226,
+  "crest_match_right": "inside",
+  "crest_above_lowest_body_mm_right": 40.0
+ },
+ "junction": {
+  "has_sacrum": true,
+  "has_hips": true,
+  "tp_height_left_mm": 17.6,
+  "tp_height_slab_left_mm": 17.6,
+  "tp_tip_components_left": 1,
+  "tp_tip_ml_left": 1.11,
+  "tp_gap_left_mm": 8.0,
+  "tp_gap_edt_left_mm": 3.65,
+  "tp_contact_left_mm2": 0.0,
+  "tp_gap_ilium_left_mm": 17.8,
+  "tp_gap_ilium_edt_left_mm": 16.3,
+  "tp_contact_ilium_left_mm2": 0.0,
+  "tp_height_right_mm": 17.6,
+  "tp_height_slab_right_mm": 17.6,
+  "tp_tip_components_right": 1,
+  "tp_tip_ml_right": 1.12,
+  "tp_gap_right_mm": 5.2,
+  "tp_gap_edt_right_mm": 3.65,
+  "tp_contact_right_mm2": 0.0,
+  "tp_gap_ilium_right_mm": 13.8,
+  "tp_gap_ilium_edt_right_mm": 12.89,
+  "tp_contact_ilium_right_mm2": 0.0,
+  "tp_height_max_mm": 17.6,
+  "tp_height_asym_mm": 0.0,
+  "tp_gap_min_mm": 3.65,
+  "tp_gap_asym_mm": 0.0,
+  "tp_contact_max_mm2": 0.0,
+  "tp_contact_asym_mm2": 0.0,
+  "has_tp_ala_contact": true,
+  "above": {
+   "tp_height_left_mm": 13.6,
+   "tp_height_slab_left_mm": 30.4,
+   "tp_gap_edt_left_mm": 29.08,
+   "tp_contact_left_mm2": 0.0,
+   "tp_height_right_mm": 14.4,
+   "tp_height_slab_right_mm": 28.8,
+   "tp_gap_edt_right_mm": 28.19,
+   "tp_contact_right_mm2": 0.0,
+   "tp_height_max_mm": 14.4,
+   "tp_height_asym_mm": 0.8
+  },
+  "ala_rise_left_mm": 12.0,
+  "ala_rise_right_mm": 6.4,
+  "ala_rise_max_mm": 12.0,
+  "ala_rise_asym_mm": 5.6,
+  "ala_rise_wholedepth_max_mm": 9.6,
+  "sacrum_crop_voxels": 366002,
+  "has_ala_rise": true,
+  "has_foramina": true,
+  "foramina_left": 2,
+  "foramina_right": 2,
+  "foramina_median_area_mm2": 33.75,
+  "foramina_slab_offset_mm": 11.7,
+  "has_disc_low": true,
+  "has_disc_above": true,
+  "disc_low_mm": 13.6,
+  "disc_above_mm": 8.8,
+  "disc_ratio": 1.545,
+  "disc_low_mm_out_of_range": false,
+  "disc_above_mm_out_of_range": false,
+  "tp_height_left_mm_out_of_range": false,
+  "tp_height_right_mm_out_of_range": false
+ },
+ "range_gate": {
+  "n_instances_out_of_range": 4,
+  "instances_out_of_range": [
+   {
+    "k": 2,
+    "keys": [
+     "SCD"
+    ]
+   },
+   {
+    "k": 5,
+    "keys": [
+     "VBHp"
+    ]
+   },
+   {
+    "k": 6,
+    "keys": [
+     "VBHp"
+    ]
+   },
+   {
+    "k": 7,
+    "keys": [
+     "VBHp"
+    ]
+   }
+  ],
+  "n_scd_below_published_floor": 1,
+  "n_epw_withheld": 2,
+  "n_tp_body_half_invalid": 0,
+  "n_body_cut_fallback": 1,
+  "junction_out_of_range": []
+ },
+ "immaturity": {
+  "has_sacral_profile": true,
+  "sacral_gap_below_45mm": false,
+  "iliac_apophysis_open": null,
+  "age_years": null,
+  "sacral_run_mm_below_45": 19,
+  "sacral_min_occ_below_45": 0.82
+ },
+ "fov": {
+  "junction_tl_in_fov": true,
+  "junction_ls_in_fov": true,
+  "partial_top": true,
+  "partial_bottom": false,
+  "lateral_fov_ok_at_lowest": true,
+  "sacrum_in_field": true,
+  "n_partial_instances": 2
+ },
+ "unusual_spine": {
+  "any": false,
+  "flags": []
+ },
+ "reader_c": {
+  "refusals": [
+   "thoracic count refused (T13 not excluded): t1_not_in_fov: the first rib-bearing body is the top body in the field (no rib-free C7 above)"
+  ],
+  "thoracic_refusals": [
+   "t1_not_in_fov: the first rib-bearing body is the top body in the field (no rib-free C7 above)"
+  ],
+  "notes": [],
+  "n_seeds": 10,
+  "junction_tests": [],
+  "fused_evidence": [],
+  "rib_hu_reference": 478.5,
+  "rib_cage_levels": [
+   0,
+   1
+  ],
+  "rib_levels_outside_cage": {
+   "above": [],
+   "below": []
+  },
+  "runs": [
+   {
+    "k": 0,
+    "len_mm": 21.0,
+    "s": [
+     9,
+     29
+    ],
+    "z": -110.7,
+    "hu": 171.0,
+    "cut": [
+     true,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [
+     "L",
+     "R"
+    ],
+    "class_for_audit": {
+     "T2": 1.0
+    }
+   },
+   {
+    "k": 1,
+    "len_mm": 23.0,
+    "s": [
+     37,
+     59
+    ],
+    "z": -138.7,
+    "hu": 184.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [
+     "L",
+     "R"
+    ],
+    "class_for_audit": {
+     "T3": 1.0
+    }
+   },
+   {
+    "k": 2,
+    "len_mm": 26.0,
+    "s": [
+     67,
+     92
+    ],
+    "z": -168.8,
+    "hu": 187.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [],
+    "class_for_audit": {
+     "T4": 1.0
+    }
+   },
+   {
+    "k": 3,
+    "len_mm": 27.0,
+    "s": [
+     100,
+     126
+    ],
+    "z": -202.0,
+    "hu": 194.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [],
+    "class_for_audit": {
+     "T5": 1.0
+    }
+   },
+   {
+    "k": 4,
+    "len_mm": 25.0,
+    "s": [
+     133,
+     157
+    ],
+    "z": -233.8,
+    "hu": 186.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [],
+    "class_for_audit": {
+     "T6": 1.0
+    }
+   },
+   {
+    "k": 5,
+    "len_mm": 26.0,
+    "s": [
+     163,
+     188
+    ],
+    "z": -263.8,
+    "hu": 179.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [],
+    "class_for_audit": {
+     "T7": 1.0
+    }
+   },
+   {
+    "k": 6,
+    "len_mm": 27.0,
+    "s": [
+     197,
+     223
+    ],
+    "z": -297.5,
+    "hu": 169.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [],
+    "class_for_audit": {
+     "T8": 1.0
+    }
+   },
+   {
+    "k": 7,
+    "len_mm": 64.0,
+    "s": [
+     232,
+     295
+    ],
+    "z": -328.1,
+    "hu": 251.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": true,
+    "ribs": [],
+    "class_for_audit": {
+     "sacrum": 1.0
+    }
+   }
+  ],
+  "junction_tl": true,
+  "junction_ls": true,
+  "n_rib_free": 5,
+  "n_rib_free_is_lower_bound": false,
+  "stump_levels": [],
+  "n_rib_bearing": null,
+  "sacrum_fused_evidence": false,
+  "subtype_call": "ordinary",
+  "sacrum_run_mm": 64.0,
+  "ts_s1_mm_on_column": 0.0,
+  "seconds_core": 5.6,
+  "seconds": 5.6,
+  "anchors": {
+   "muscle_median": null,
+   "vertebra_median": 283.0,
+   "fill": null
+  },
+  "adapter": {
+   "instances": {
+    "0": 43,
+    "1": 42,
+    "2": 41,
+    "3": 40,
+    "4": 39,
+    "5": 38,
+    "6": 37,
+    "7": 36
+   },
+   "note": "instances -> TS T1..L5 ids in top-to-bottom order (cycling); no instance is cervical to reader C, so its C7-anchored thoracic count is refused by design",
+   "sacrum_to": 25,
+   "ribs_to": 92,
+   "seeds_after_cleaning": [
+    [
+     42,
+     [
+      -16.5,
+      -53.7,
+      -112.0
+     ],
+     29.98
+    ],
+    [
+     41,
+     [
+      -18.2,
+      -46.5,
+      -139.5
+     ],
+     34.81
+    ],
+    [
+     40,
+     [
+      -19.2,
+      -39.2,
+      -169.9
+     ],
+     40.94
+    ],
+    [
+     39,
+     [
+      -20.7,
+      -32.2,
+      -202.8
+     ],
+     45.88
+    ],
+    [
+     38,
+     [
+      -19.9,
+      -28.5,
+      -234.3
+     ],
+     50.14
+    ],
+    [
+     37,
+     [
+      -19.0,
+      -28.2,
+      -264.4
+     ],
+     49.79
+    ],
+    [
+     36,
+     [
+      -19.8,
+      -34.3,
+      -297.2
+     ],
+     52.22
+    ],
+    [
+     25,
+     [
+      -20.3,
+      -60.0,
+      -310.0
+     ],
+     null
+    ],
+    [
+     25,
+     [
+      -20.0,
+      -57.9,
+      -321.5
+     ],
+     null
+    ],
+    [
+     25,
+     [
+      -21.9,
+      -92.4,
+      -335.0
+     ],
+     null
+    ]
+   ],
+   "vertebral_seeds_dropped": 1,
+   "sacral_top_for_seed_cleaning_mm": {
+    "global": -287.0,
+    "under_column": -295.0
+   }
+  },
+  "ribs": [
+   {
+    "vox": 18493,
+    "ml": 9.03,
+    "medial_mm": 22.1,
+    "medial_dy": -13.8,
+    "hu_mean": 485.0,
+    "hu_p90": 907.0,
+    "medial_xyz": [
+     -33.2,
+     -70.3,
+     -101.4
+    ],
+    "lateral_mm": 118.5,
+    "side": "left",
+    "ts_rib_frac": 0.95,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -32.8,
+     -72.6,
+     -108.3
+    ],
+    "chord_mm": 132.5,
+    "attached": true,
+    "rib_like": true,
+    "is_rib": true,
+    "stump": false,
+    "level": 0,
+    "curve_i": 13
+   },
+   {
+    "vox": 3732,
+    "ml": 1.82,
+    "medial_mm": 23.9,
+    "medial_dy": -15.4,
+    "hu_mean": 454.0,
+    "hu_p90": 825.0,
+    "medial_xyz": [
+     -36.3,
+     -62.5,
+     -137.4
+    ],
+    "lateral_mm": 70.7,
+    "side": "left",
+    "ts_rib_frac": 0.86,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -34.7,
+     -63.9,
+     -136.7
+    ],
+    "chord_mm": 60.4,
+    "attached": true,
+    "rib_like": true,
+    "is_rib": true,
+    "stump": false,
+    "level": 1,
+    "curve_i": 43
+   },
+   {
+    "vox": 2829,
+    "ml": 1.38,
+    "medial_mm": 25.7,
+    "medial_dy": -22.1,
+    "hu_mean": 467.0,
+    "hu_p90": 762.0,
+    "medial_xyz": [
+     -33.2,
+     -66.4,
+     -302.2
+    ],
+    "lateral_mm": 32.3,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -37.5,
+     -68.4,
+     -295.5
+    ],
+    "chord_mm": 20.9,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": true,
+    "level": null,
+    "curve_i": 233
+   },
+   {
+    "vox": 2066,
+    "ml": 1.01,
+    "medial_mm": 0.5,
+    "medial_dy": 0.4,
+    "hu_mean": 257.0,
+    "hu_p90": 326.0,
+    "medial_xyz": [
+     -19.9,
+     -54.7,
+     -307.8
+    ],
+    "lateral_mm": 28.4,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -18.5,
+     -48.9,
+     -304.5
+    ],
+    "chord_mm": 29.7,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "level": null
+   },
+   {
+    "vox": 334,
+    "ml": 0.16,
+    "medial_mm": 10.1,
+    "medial_dy": 0.4,
+    "hu_mean": 249.0,
+    "hu_p90": 304.0,
+    "medial_xyz": [
+     -30.0,
+     -35.2,
+     -187.0
+    ],
+    "lateral_mm": 24.2,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -32.9,
+     -30.5,
+     -182.1
+    ],
+    "chord_mm": 16.9,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "stump: not TS rib and dimmer than this patient's ribs",
+    "level": null
+   },
+   {
+    "vox": 231,
+    "ml": 0.11,
+    "medial_mm": 20.8,
+    "medial_dy": 14.3,
+    "hu_mean": 481.0,
+    "hu_p90": 837.0,
+    "medial_xyz": [
+     -34.7,
+     -18.8,
+     -290.2
+    ],
+    "lateral_mm": 19.7,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "skipped",
+    "chord_mm": 10.4,
+    "is_rib": false,
+    "rib_like": false,
+    "level": null
+   },
+   {
+    "vox": 183,
+    "ml": 0.09,
+    "medial_mm": 7.4,
+    "medial_dy": 6.5,
+    "hu_mean": 238.0,
+    "hu_p90": 285.0,
+    "medial_xyz": [
+     -22.2,
+     -36.7,
+     -153.4
+    ],
+    "lateral_mm": 18.5,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -29.5,
+     -35.5,
+     -150.0
+    ],
+    "chord_mm": 11.8,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "level": null
+   },
+   {
+    "vox": 376,
+    "ml": 0.18,
+    "medial_mm": 10.8,
+    "medial_dy": -10.5,
+    "hu_mean": 248.0,
+    "hu_p90": 308.0,
+    "medial_xyz": [
+     -16.8,
+     -41.4,
+     -279.0
+    ],
+    "lateral_mm": 22.1,
+    "side": "right",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -10.1,
+     -46.5,
+     -277.8
+    ],
+    "chord_mm": 16.1,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "stump: not TS rib and dimmer than this patient's ribs",
+    "level": null
+   },
+   {
+    "vox": 288,
+    "ml": 0.14,
+    "medial_mm": 17.7,
+    "medial_dy": -17.7,
+    "hu_mean": 254.0,
+    "hu_p90": 323.0,
+    "medial_xyz": [
+     -19.1,
+     -46.1,
+     -247.8
+    ],
+    "lateral_mm": 16.7,
+    "side": "right",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -11.1,
+     -46.2,
+     -247.8
+    ],
+    "chord_mm": 14.2,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "stump: not TS rib and dimmer than this patient's ribs",
+    "level": null
+   },
+   {
+    "vox": 254,
+    "ml": 0.12,
+    "medial_mm": 4.9,
+    "medial_dy": 4.8,
+    "hu_mean": 245.0,
+    "hu_p90": 294.0,
+    "medial_xyz": [
+     -18.3,
+     -26.6,
+     -281.4
+    ],
+    "lateral_mm": 27.7,
+    "side": "right",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -8.9,
+     -31.2,
+     -282.1
+    ],
+    "chord_mm": 20.7,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "level": null
+   },
+   {
+    "vox": 959,
+    "ml": 0.47,
+    "medial_mm": 26.9,
+    "medial_dy": -24.9,
+    "hu_mean": 517.0,
+    "hu_p90": 929.0,
+    "medial_xyz": [
+     -9.7,
+     -63.3,
+     -299.0
+    ],
+    "lateral_mm": 27.3,
+    "side": "right",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -5.1,
+     -70.4,
+     -296.1
+    ],
+    "chord_mm": 18.4,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "stump: a nubbin (< 0.5 ml or < 20 mm) that TS does not call rib",
+    "level": null
+   },
+   {
+    "vox": 907,
+    "ml": 0.44,
+    "medial_mm": 23.9,
+    "medial_dy": 19.9,
+    "hu_mean": 507.0,
+    "hu_p90": 930.0,
+    "medial_xyz": [
+     -6.6,
+     -16.4,
+     -297.4
+    ],
+    "lateral_mm": 26.8,
+    "side": "right",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 6,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -0.8,
+     -36.2,
+     -312.3
+    ],
+    "chord_mm": 34.7,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "level": null
+   },
+   {
+    "vox": 6500,
+    "ml": 3.17,
+    "medial_mm": 22.0,
+    "medial_dy": -12.1,
+    "hu_mean": 472.0,
+    "hu_p90": 894.0,
+    "medial_xyz": [
+     0.4,
+     -59.4,
+     -136.6
+    ],
+    "lateral_mm": 76.0,
+    "side": "right",
+    "ts_rib_frac": 0.91,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -1.0,
+     -63.1,
+     -135.7
+    ],
+    "chord_mm": 73.7,
+    "attached": true,
+    "rib_like": true,
+    "is_rib": true,
+    "stump": false,
+    "level": 1,
+    "curve_i": 40
+   },
+   {
+    "vox": 15534,
+    "ml": 7.58,
+    "medial_mm": 23.2,
+    "medial_dy": -14.7,
+    "hu_mean": 513.0,
+    "hu_p90": 952.0,
+    "medial_xyz": [
+     2.0,
+     -70.3,
+     -104.6
+    ],
+    "lateral_mm": 120.1,
+    "side": "right",
+    "ts_rib_frac": 0.96,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     0.1,
+     -73.7,
+     -112.5
+    ],
+    "chord_mm": 121.8,
+    "attached": true,
+    "rib_like": true,
+    "is_rib": true,
+    "stump": false,
+    "level": 0,
+    "curve_i": 15
+   }
+  ]
+ },
+ "instances": [
+  {
+   "source_label_for_audit": "17:T10",
+   "vox": 3967,
+   "ml": 1.94,
+   "centroid_xyz": [
+    -15.8,
+    -95.1,
+    -105.5
+   ],
+   "zmin": -113.4,
+   "zmax": -101.4,
+   "si_extent_mm": 12.0,
+   "lr_extent_mm": 34.4,
+   "ap_extent_mm": 23.4,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": true,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 0,
+   "run_k": 0,
+   "run_match": "inside",
+   "rib_left_n": 1,
+   "rib_left_trace_chord_mm": 132.5,
+   "rib_left_lateral_mm": 118.5,
+   "rib_left_hu": 485.0,
+   "rib_left_is_rib": true,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 1,
+   "rib_right_trace_chord_mm": 121.8,
+   "rib_right_lateral_mm": 120.1,
+   "rib_right_hu": 513.0,
+   "rib_right_is_rib": true,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": true,
+   "rib_bearing_trace": true,
+   "run_len_mm": 21.0,
+   "run_cut_top": true,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 7,
+   "pos_from_last_rib_run": -1,
+   "ml_ratio_case_median": 0.041,
+   "si_extent_ratio_case_median": 0.261,
+   "spacing_above_mm": null,
+   "spacing_below_mm": 9.1,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 7,
+   "pos_from_last_rib_inst": -2,
+   "morph_selected": false,
+   "has_tp": false,
+   "has_morph": false,
+   "rib_left_trace_chord_out_of_range": false,
+   "rib_right_trace_chord_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "18:T11",
+   "vox": 61408,
+   "ml": 29.98,
+   "centroid_xyz": [
+    -16.8,
+    -66.7,
+    -114.6
+   ],
+   "zmin": -141.4,
+   "zmax": -101.4,
+   "si_extent_mm": 40.0,
+   "lr_extent_mm": 50.8,
+   "ap_extent_mm": 64.1,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": true,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 1,
+   "run_k": 0,
+   "run_match": "inside",
+   "rib_left_n": 1,
+   "rib_left_trace_chord_mm": 132.5,
+   "rib_left_lateral_mm": 118.5,
+   "rib_left_hu": 485.0,
+   "rib_left_is_rib": true,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 1,
+   "rib_right_trace_chord_mm": 121.8,
+   "rib_right_lateral_mm": 120.1,
+   "rib_right_hu": 513.0,
+   "rib_right_is_rib": true,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": true,
+   "rib_bearing_trace": true,
+   "run_len_mm": 21.0,
+   "run_cut_top": true,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 7,
+   "pos_from_last_rib_run": -1,
+   "ml_ratio_case_median": 0.627,
+   "si_extent_ratio_case_median": 0.87,
+   "spacing_above_mm": 9.1,
+   "spacing_below_mm": 28.3,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 6,
+   "pos_from_last_rib_inst": -1,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 17.19,
+    "left_reach_mm": 7.03,
+    "left_thickness_mm": 16.43,
+    "left_slenderness": 0.428,
+    "left_ap_spread_mm": 46.88,
+    "left_si_spread_mm": 20.8,
+    "right_reach_mm": 5.47,
+    "right_thickness_mm": 16.83,
+    "right_slenderness": 0.325,
+    "right_ap_spread_mm": 43.75,
+    "right_si_spread_mm": 22.4
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "closed_ring_column",
+    "canal_column": {
+     "n_candidates": 6,
+     "n_kept": 6,
+     "n_column": 6,
+     "dropped_far": 0,
+     "dropped_wall": 0,
+     "min_px": 29,
+     "hole_vox": 2724,
+     "wall_median_mm": -66.0
+    },
+    "VBHa": 19.083,
+    "VBHp": 24.213,
+    "EPDu": 24.257,
+    "EPWu": 36.579,
+    "EPDl": 29.407,
+    "EPWl": 39.214,
+    "SCW": 20.728,
+    "SCD": 17.215,
+    "plate_rms_mm": 0.49,
+    "plate_ok": true,
+    "wedge_ratio": 0.788,
+    "body_ml": 16.92,
+    "corners_world": {
+     "sup_ant": [
+      -17.54,
+      -42.19,
+      -101.41
+     ],
+     "sup_post": [
+      -23.79,
+      -65.62,
+      -101.41
+     ],
+     "inf_ant": [
+      -16.74,
+      -37.45,
+      -119.88
+     ],
+     "inf_post": [
+      -23.79,
+      -65.42,
+      -125.62
+     ]
+    },
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": false,
+    "EPWu_out_of_range": false,
+    "EPWl_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": false,
+   "morph_epw_withheld_reason": [],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 17.2,
+     "level_hi": 31.2,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 21.05,
+     "level_hi": 32.0,
+     "level_out": false
+    },
+    "EPWu": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 26.66,
+     "level_hi": 48.71,
+     "level_out": false
+    },
+    "EPWl": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 26.66,
+     "level_hi": 48.71,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 14.26,
+     "level_hi": 26.47,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 13.3,
+     "level_hi": 20.7,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 0,
+   "morph_any_out_of_range": false,
+   "rib_left_trace_chord_out_of_range": false,
+   "rib_right_trace_chord_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "19:T12",
+   "vox": 71288,
+   "ml": 34.81,
+   "centroid_xyz": [
+    -18.3,
+    -60.3,
+    -142.9
+   ],
+   "zmin": -170.2,
+   "zmax": -124.6,
+   "si_extent_mm": 45.6,
+   "lr_extent_mm": 43.0,
+   "ap_extent_mm": 68.8,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 2,
+   "run_k": 1,
+   "run_match": "inside",
+   "rib_left_n": 1,
+   "rib_left_trace_chord_mm": 60.4,
+   "rib_left_lateral_mm": 70.7,
+   "rib_left_hu": 454.0,
+   "rib_left_is_rib": true,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 1,
+   "rib_right_trace_chord_mm": 73.7,
+   "rib_right_lateral_mm": 76.0,
+   "rib_right_hu": 472.0,
+   "rib_right_is_rib": true,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": true,
+   "rib_bearing_trace": true,
+   "run_len_mm": 23.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 6,
+   "pos_from_last_rib_run": 0,
+   "ml_ratio_case_median": 0.728,
+   "si_extent_ratio_case_median": 0.991,
+   "spacing_above_mm": 28.3,
+   "spacing_below_mm": 30.2,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 5,
+   "pos_from_last_rib_inst": 0,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 17.19,
+    "left_reach_mm": 3.12,
+    "left_thickness_mm": 24.14,
+    "left_slenderness": 0.129,
+    "left_ap_spread_mm": 52.34,
+    "left_si_spread_mm": 25.6,
+    "right_reach_mm": 2.34,
+    "right_thickness_mm": 25.95,
+    "right_slenderness": 0.09,
+    "right_ap_spread_mm": 50.78,
+    "right_si_spread_mm": 26.4
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "ostk_body_mask_fallback",
+    "canal_column": {
+     "n_candidates": 4,
+     "n_kept": 2,
+     "n_column": 0,
+     "dropped_far": 2,
+     "dropped_wall": 0,
+     "min_px": 29
+    },
+    "VBHa": 24.877,
+    "VBHp": 30.975,
+    "EPDu": 31.345,
+    "EPWu": 37.886,
+    "EPDl": 31.335,
+    "EPWl": 41.627,
+    "SCW": 23.516,
+    "SCD": 7.918,
+    "plate_rms_mm": 0.59,
+    "plate_ok": true,
+    "wedge_ratio": 0.803,
+    "body_ml": 23.28,
+    "corners_world": {
+     "sup_ant": [
+      -14.41,
+      -36.05,
+      -124.57
+     ],
+     "sup_post": [
+      -26.13,
+      -64.85,
+      -128.54
+     ],
+     "inf_ant": [
+      -18.31,
+      -30.19,
+      -148.43
+     ],
+     "inf_post": [
+      -10.51,
+      -59.86,
+      -154.81
+     ]
+    },
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": false,
+    "EPWu_out_of_range": false,
+    "EPWl_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": true,
+    "SCD_below_published_floor": true
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": false,
+   "morph_epw_withheld_reason": [],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 22.4,
+     "level_hi": 32.8,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 24.0,
+     "level_hi": 34.4,
+     "level_out": false
+    },
+    "EPWu": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 28.66,
+     "level_hi": 52.16,
+     "level_out": false
+    },
+    "EPWl": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 28.66,
+     "level_hi": 52.16,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 19.21,
+     "level_hi": 52.28,
+     "level_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 26.56,
+     "level_hi": 56.74,
+     "level_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 17.34,
+     "level_hi": 29.41,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": true,
+     "level": "T12",
+     "level_lo": 14.57,
+     "level_hi": 21.63,
+     "level_out": true,
+     "below_published_floor": true
+    }
+   },
+   "morph_n_out_of_range": 1,
+   "morph_any_out_of_range": true,
+   "rib_left_trace_chord_out_of_range": false,
+   "rib_right_trace_chord_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "20:L1",
+   "vox": 83848,
+   "ml": 40.94,
+   "centroid_xyz": [
+    -19.6,
+    -54.6,
+    -173.1
+   ],
+   "zmin": -201.4,
+   "zmax": -155.0,
+   "si_extent_mm": 46.4,
+   "lr_extent_mm": 68.0,
+   "ap_extent_mm": 75.8,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 3,
+   "run_k": 2,
+   "run_match": "inside",
+   "rib_left_n": 1,
+   "rib_left_trace_chord_mm": 11.8,
+   "rib_left_lateral_mm": 18.5,
+   "rib_left_hu": 238.0,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 0,
+   "rib_right_trace_chord_mm": null,
+   "rib_right_lateral_mm": null,
+   "rib_right_hu": null,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 26.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 5,
+   "pos_from_last_rib_run": 1,
+   "ml_ratio_case_median": 0.856,
+   "si_extent_ratio_case_median": 1.009,
+   "spacing_above_mm": 30.2,
+   "spacing_below_mm": 31.8,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 4,
+   "pos_from_last_rib_inst": 1,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 17.97,
+    "left_reach_mm": 14.06,
+    "left_thickness_mm": 15.68,
+    "left_slenderness": 0.897,
+    "left_ap_spread_mm": 53.91,
+    "left_si_spread_mm": 25.6,
+    "right_reach_mm": 10.94,
+    "right_thickness_mm": 15.26,
+    "right_slenderness": 0.717,
+    "right_ap_spread_mm": 52.34,
+    "right_si_spread_mm": 25.6
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "closed_ring_column",
+    "canal_column": {
+     "n_candidates": 6,
+     "n_kept": 5,
+     "n_column": 5,
+     "dropped_far": 1,
+     "dropped_wall": 0,
+     "min_px": 29,
+     "hole_vox": 2412,
+     "wall_median_mm": -53.1
+    },
+    "VBHa": 26.408,
+    "VBHp": 27.7,
+    "EPDu": 25.579,
+    "EPWu": 40.311,
+    "EPDl": 31.041,
+    "EPWl": 41.552,
+    "SCW": 22.297,
+    "SCD": 14.917,
+    "plate_rms_mm": 0.48,
+    "plate_ok": true,
+    "wedge_ratio": 0.953,
+    "body_ml": 23.58,
+    "corners_world": {
+     "sup_ant": [
+      -21.44,
+      -28.32,
+      -154.36
+     ],
+     "sup_post": [
+      -26.91,
+      -53.08,
+      -157.73
+     ],
+     "inf_ant": [
+      -19.49,
+      -23.3,
+      -180.21
+     ],
+     "inf_post": [
+      -26.91,
+      -52.98,
+      -185.43
+     ]
+    },
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": false,
+    "EPWu_out_of_range": false,
+    "EPWl_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": false,
+   "morph_epw_withheld_reason": [],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 24.8,
+     "level_hi": 37.2,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 25.6,
+     "level_hi": 36.0,
+     "level_out": false
+    },
+    "EPWu": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 29.04,
+     "level_hi": 51.66,
+     "level_out": false
+    },
+    "EPWl": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 29.04,
+     "level_hi": 51.66,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 19.29,
+     "level_hi": 50.58,
+     "level_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 27.26,
+     "level_hi": 62.31,
+     "level_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 18.69,
+     "level_hi": 30.86,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 14.07,
+     "level_hi": 21.76,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 0,
+   "morph_any_out_of_range": false,
+   "rib_left_trace_chord_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "21:L2",
+   "vox": 93953,
+   "ml": 45.88,
+   "centroid_xyz": [
+    -20.8,
+    -48.1,
+    -204.9
+   ],
+   "zmin": -233.4,
+   "zmax": -187.0,
+   "si_extent_mm": 46.4,
+   "lr_extent_mm": 69.5,
+   "ap_extent_mm": 84.4,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 4,
+   "run_k": 3,
+   "run_match": "inside",
+   "rib_left_n": 1,
+   "rib_left_trace_chord_mm": 16.9,
+   "rib_left_lateral_mm": 24.2,
+   "rib_left_hu": 249.0,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [
+    "stump: not TS rib and dimmer than this patient's ribs"
+   ],
+   "rib_right_n": 0,
+   "rib_right_trace_chord_mm": null,
+   "rib_right_lateral_mm": null,
+   "rib_right_hu": null,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 27.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 4,
+   "pos_from_last_rib_run": 2,
+   "ml_ratio_case_median": 0.959,
+   "si_extent_ratio_case_median": 1.009,
+   "spacing_above_mm": 31.8,
+   "spacing_below_mm": 30.2,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 3,
+   "pos_from_last_rib_inst": 2,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 19.53,
+    "left_reach_mm": 14.06,
+    "left_thickness_mm": 13.12,
+    "left_slenderness": 1.072,
+    "left_ap_spread_mm": 57.03,
+    "left_si_spread_mm": 25.6,
+    "right_reach_mm": 10.94,
+    "right_thickness_mm": 14.89,
+    "right_slenderness": 0.735,
+    "right_ap_spread_mm": 57.03,
+    "right_si_spread_mm": 24.0
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "closed_ring_column",
+    "canal_column": {
+     "n_candidates": 9,
+     "n_kept": 8,
+     "n_column": 8,
+     "dropped_far": 1,
+     "dropped_wall": 0,
+     "min_px": 29,
+     "hole_vox": 3720,
+     "wall_median_mm": -47.7
+    },
+    "VBHa": 29.035,
+    "VBHp": 27.233,
+    "EPDu": 27.039,
+    "EPWu": 38.972,
+    "EPDl": 32.858,
+    "EPWl": 51.321,
+    "SCW": 24.249,
+    "SCD": 15.887,
+    "plate_rms_mm": 0.55,
+    "plate_ok": true,
+    "wedge_ratio": 1.066,
+    "body_ml": 27.55,
+    "corners_world": {
+     "sup_ant": [
+      -23.01,
+      -21.21,
+      -187.18
+     ],
+     "sup_post": [
+      -28.48,
+      -47.6,
+      -189.26
+     ],
+     "inf_ant": [
+      -27.69,
+      -15.61,
+      -215.29
+     ],
+     "inf_post": [
+      -28.48,
+      -48.44,
+      -216.48
+     ]
+    },
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": false,
+    "EPWu_out_of_range": false,
+    "EPWl_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": false,
+   "morph_epw_withheld_reason": [],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 25.6,
+     "level_hi": 36.0,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 25.78,
+     "level_hi": 35.2,
+     "level_out": false
+    },
+    "EPWu": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 33.1,
+     "level_hi": 52.9,
+     "level_out": false
+    },
+    "EPWl": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 33.1,
+     "level_hi": 52.9,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 20.92,
+     "level_hi": 52.94,
+     "level_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 27.74,
+     "level_hi": 62.84,
+     "level_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 16.94,
+     "level_hi": 29.7,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 13.1,
+     "level_hi": 21.5,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 0,
+   "morph_any_out_of_range": false,
+   "rib_left_trace_chord_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "22:L3",
+   "vox": 102693,
+   "ml": 50.14,
+   "centroid_xyz": [
+    -19.9,
+    -45.2,
+    -235.1
+   ],
+   "zmin": -259.8,
+   "zmax": -215.8,
+   "si_extent_mm": 44.0,
+   "lr_extent_mm": 78.1,
+   "ap_extent_mm": 86.7,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 5,
+   "run_k": 4,
+   "run_match": "inside",
+   "rib_left_n": 0,
+   "rib_left_trace_chord_mm": null,
+   "rib_left_lateral_mm": null,
+   "rib_left_hu": null,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 0,
+   "rib_right_trace_chord_mm": null,
+   "rib_right_lateral_mm": null,
+   "rib_right_hu": null,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 25.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 3,
+   "pos_from_last_rib_run": 3,
+   "ml_ratio_case_median": 1.048,
+   "si_extent_ratio_case_median": 0.957,
+   "spacing_above_mm": 30.2,
+   "spacing_below_mm": 28.4,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 2,
+   "pos_from_last_rib_inst": 3,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 21.09,
+    "left_reach_mm": 14.84,
+    "left_thickness_mm": 13.07,
+    "left_slenderness": 1.136,
+    "left_ap_spread_mm": 57.03,
+    "left_si_spread_mm": 28.8,
+    "right_reach_mm": 14.06,
+    "right_thickness_mm": 13.88,
+    "right_slenderness": 1.013,
+    "right_ap_spread_mm": 54.69,
+    "right_si_spread_mm": 24.8
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "closed_ring_column",
+    "canal_column": {
+     "n_candidates": 15,
+     "n_kept": 11,
+     "n_column": 11,
+     "dropped_far": 4,
+     "dropped_wall": 0,
+     "min_px": 29,
+     "hole_vox": 5041,
+     "wall_median_mm": -45.3
+    },
+    "VBHa": 28.029,
+    "VBHp": 25.512,
+    "EPDu": 32.079,
+    "EPWu": 46.791,
+    "EPDl": 33.896,
+    "EPWl": 52.061,
+    "SCW": 24.372,
+    "SCD": 15.907,
+    "plate_rms_mm": 0.79,
+    "plate_ok": true,
+    "wedge_ratio": 1.099,
+    "body_ml": 30.39,
+    "corners_world": {
+     "sup_ant": [
+      -26.91,
+      -14.04,
+      -221.19
+     ],
+     "sup_post": [
+      -26.13,
+      -46.11,
+      -220.61
+     ],
+     "inf_ant": [
+      -19.88,
+      -12.59,
+      -248.28
+     ],
+     "inf_post": [
+      -28.48,
+      -45.3,
+      -246.0
+     ]
+    },
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": true,
+    "EPWu_out_of_range": false,
+    "EPWl_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": false,
+   "morph_epw_withheld_reason": [],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 26.4,
+     "level_hi": 36.8,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 25.6,
+     "level_hi": 35.52,
+     "level_out": true
+    },
+    "EPWu": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 32.62,
+     "level_hi": 57.04,
+     "level_out": false
+    },
+    "EPWl": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 32.62,
+     "level_hi": 57.04,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 22.75,
+     "level_hi": 50.32,
+     "level_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 27.34,
+     "level_hi": 57.02,
+     "level_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 16.5,
+     "level_hi": 32.03,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 12.83,
+     "level_hi": 20.97,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 1,
+   "morph_any_out_of_range": true
+  },
+  {
+   "source_label_for_audit": "23:L4",
+   "vox": 101961,
+   "ml": 49.79,
+   "centroid_xyz": [
+    -18.3,
+    -43.6,
+    -263.5
+   ],
+   "zmin": -284.6,
+   "zmax": -242.2,
+   "si_extent_mm": 42.4,
+   "lr_extent_mm": 71.9,
+   "ap_extent_mm": 82.8,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 6,
+   "run_k": 5,
+   "run_match": "inside",
+   "rib_left_n": 0,
+   "rib_left_trace_chord_mm": null,
+   "rib_left_lateral_mm": null,
+   "rib_left_hu": null,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 1,
+   "rib_right_trace_chord_mm": 14.2,
+   "rib_right_lateral_mm": 16.7,
+   "rib_right_hu": 254.0,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [
+    "stump: not TS rib and dimmer than this patient's ribs"
+   ],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 26.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 2,
+   "pos_from_last_rib_run": 4,
+   "ml_ratio_case_median": 1.041,
+   "si_extent_ratio_case_median": 0.922,
+   "spacing_above_mm": 28.4,
+   "spacing_below_mm": 28.6,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 1,
+   "pos_from_last_rib_inst": 4,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 21.09,
+    "left_reach_mm": 8.59,
+    "left_thickness_mm": 15.16,
+    "left_slenderness": 0.567,
+    "left_ap_spread_mm": 48.44,
+    "left_si_spread_mm": 34.4,
+    "right_reach_mm": 10.16,
+    "right_thickness_mm": 20.0,
+    "right_slenderness": 0.508,
+    "right_ap_spread_mm": 54.69,
+    "right_si_spread_mm": 32.8
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "closed_ring_column",
+    "canal_column": {
+     "n_candidates": 14,
+     "n_kept": 13,
+     "n_column": 13,
+     "dropped_far": 1,
+     "dropped_wall": 0,
+     "min_px": 29,
+     "hole_vox": 5966,
+     "wall_median_mm": -45.3
+    },
+    "VBHa": 27.683,
+    "VBHp": 24.585,
+    "EPDu": 33.152,
+    "EPWu": null,
+    "EPDl": 29.226,
+    "EPWl": null,
+    "SCW": 26.165,
+    "SCD": 14.299,
+    "plate_rms_mm": 0.77,
+    "plate_ok": true,
+    "wedge_ratio": 1.126,
+    "body_ml": 31.21,
+    "corners_world": {
+     "sup_ant": [
+      -26.91,
+      -13.9,
+      -252.74
+     ],
+     "sup_post": [
+      -26.13,
+      -46.83,
+      -249.05
+     ],
+     "inf_ant": [
+      -26.91,
+      -15.95,
+      -280.34
+     ],
+     "inf_post": [
+      -26.91,
+      -44.36,
+      -273.5
+     ]
+    },
+    "EPWu_withheld_raw": 49.304,
+    "EPWl_withheld_raw": 50.757,
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": true,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": true,
+   "morph_epw_withheld_reason": [
+    "two_lowest_presacral"
+   ],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "L4",
+     "level_lo": 26.4,
+     "level_hi": 36.8,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "L4",
+     "level_lo": 24.8,
+     "level_hi": 35.2,
+     "level_out": true
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false,
+     "level": "L4",
+     "level_lo": 22.44,
+     "level_hi": 48.0,
+     "level_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false,
+     "level": "L4",
+     "level_lo": 24.26,
+     "level_hi": 47.43,
+     "level_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "L4",
+     "level_lo": 18.89,
+     "level_hi": 33.8,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "L4",
+     "level_lo": 12.86,
+     "level_hi": 21.99,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 1,
+   "morph_any_out_of_range": true,
+   "rib_right_trace_chord_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "24:L5",
+   "vox": 106950,
+   "ml": 52.22,
+   "centroid_xyz": [
+    -19.5,
+    -48.4,
+    -292.1
+   ],
+   "zmin": -315.0,
+   "zmax": -267.8,
+   "si_extent_mm": 47.2,
+   "lr_extent_mm": 87.5,
+   "ap_extent_mm": 75.8,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 7,
+   "run_k": 6,
+   "run_match": "inside",
+   "rib_left_n": 0,
+   "rib_left_trace_chord_mm": null,
+   "rib_left_lateral_mm": null,
+   "rib_left_hu": null,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 3,
+   "rib_right_trace_chord_mm": 34.7,
+   "rib_right_lateral_mm": 27.7,
+   "rib_right_hu": 507.0,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [
+    "stump: not TS rib and dimmer than this patient's ribs"
+   ],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 27.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 1,
+   "pos_from_last_rib_run": 5,
+   "ml_ratio_case_median": 1.092,
+   "si_extent_ratio_case_median": 1.026,
+   "spacing_above_mm": 28.6,
+   "spacing_below_mm": null,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 0,
+   "pos_from_last_rib_inst": 5,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 21.88,
+    "left_reach_mm": 17.19,
+    "left_thickness_mm": 20.57,
+    "left_slenderness": 0.835,
+    "left_ap_spread_mm": 54.69,
+    "left_si_spread_mm": 40.8,
+    "right_reach_mm": 19.53,
+    "right_thickness_mm": 19.58,
+    "right_slenderness": 0.997,
+    "right_ap_spread_mm": 46.88,
+    "right_si_spread_mm": 41.6
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "closed_ring_column",
+    "canal_column": {
+     "n_candidates": 15,
+     "n_kept": 15,
+     "n_column": 15,
+     "dropped_far": 0,
+     "dropped_wall": 0,
+     "min_px": 29,
+     "hole_vox": 8549,
+     "wall_median_mm": -49.2
+    },
+    "VBHa": 27.0,
+    "VBHp": 23.25,
+    "EPDu": 32.379,
+    "EPWu": null,
+    "EPDl": 24.649,
+    "EPWl": null,
+    "SCW": 35.141,
+    "SCD": 15.596,
+    "plate_rms_mm": 0.96,
+    "plate_ok": true,
+    "wedge_ratio": 1.161,
+    "body_ml": 31.3,
+    "corners_world": {
+     "sup_ant": [
+      -19.58,
+      -18.84,
+      -290.38
+     ],
+     "sup_post": [
+      -19.58,
+      -49.22,
+      -279.19
+     ],
+     "inf_ant": [
+      -24.57,
+      -28.64,
+      -315.05
+     ],
+     "inf_post": [
+      -19.58,
+      -49.22,
+      -302.44
+     ]
+    },
+    "EPWu_withheld_raw": 56.103,
+    "EPWl_withheld_raw": 48.908,
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": true,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": true,
+   "morph_epw_withheld_reason": [
+    "two_lowest_presacral"
+   ],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "L5",
+     "level_lo": 26.4,
+     "level_hi": 37.9,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "L5",
+     "level_lo": 24.5,
+     "level_hi": 40.3,
+     "level_out": true
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false,
+     "level": "L5",
+     "level_lo": 26.24,
+     "level_hi": 52.96,
+     "level_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false,
+     "level": "L5",
+     "level_lo": 20.54,
+     "level_hi": 48.91,
+     "level_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "L5",
+     "level_lo": 20.36,
+     "level_hi": 40.73,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "L5",
+     "level_lo": 12.56,
+     "level_hi": 25.8,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 1,
+   "morph_any_out_of_range": true,
+   "rib_right_trace_chord_out_of_range": false
+  }
+ ],
+ "render": {
+  "sag": "/rs/rs_grp_oschome/go2432/data/or_ready/auto_reference/readerE/j0bis/ctsp/0890/v11/render_sag.png",
+  "cor": "/rs/rs_grp_oschome/go2432/data/or_ready/auto_reference/readerE/j0bis/ctsp/0890/v11/render_cor.png"
+ },
+ "failures": {},
+ "n_failures": 0,
+ "stage_seconds": {
+  "load": 5.23,
+  "loader": 0.0,
+  "instance_table": 0.67,
+  "reader_c": 6.27,
+  "rib_features": 0.0,
+  "spacing": 0.0,
+  "sequence": 0.0,
+  "crest": 4.82,
+  "tp_ala": 2.74,
+  "ala_rise": 1.13,
+  "foramina": 1.24,
+  "discs": 0.15,
+  "tp_metrics": 0.05,
+  "ostk_morphometry": 5.09,
+  "immaturity": 0.0,
+  "fov": 0.0,
+  "render": 3.46
+ },
+ "seconds_total": 31.38
+}

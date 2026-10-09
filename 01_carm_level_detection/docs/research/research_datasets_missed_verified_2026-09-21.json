@@ -1,0 +1,284 @@
+{
+ "question": "Find datasets that a spine-surgery imaging project has MISSED. The project builds a vertebra/sacrum detector for level counting under intraoperative C-arm fluoroscopy, trained on physics-calibrated renders of living whole-spine CTs. It needs (A) paired CT + REAL 2-D X-ray/fluoroscopy of the torso with known or recoverable pose, from any device other than a Siemens Cios Fusion, and (B) real intraoperative spine fluoroscopy WITH vertebra labels (boxes, landmarks, level names), even without CT, as a test or fine-tuning set. Return hard facts: name, year, institution, anatomy, subject type (patient/cadaver/animal/phantom), device make/model and detector type (image intensifier vs flat panel), number of volumes/images, label or pose ground truth and how obtained, whether stored intensities are raw/log/vendor-processed (DICOM Pixel Intensity Relationship if known), licence, and the exact access route (URL, DOI, request contact, DUA). Mark anything unverifiable.\n\nALREADY FOUND — do NOT re-report these; only report NEWER versions, sub-sets, or siblings: DeepFluoro (JHU 2020; vendor DICOMs doi:10.7281/T1/C304HZ); Ljubljana Tomazevic spine 2D-3D gold standard; Ljubljana cerebral angiography 3D-2D gold standard; Veriserum; CAMS-Knee; CM Spine (208 G-arm lumbar images, CAS); LevelCheck JHU clinical data; Pelphix; SyntheX; COBRA2026 pelvic CBCT projections (Zenodo 21322350); SPARE; TCIA 4D-Lung; Balgrist lumbar cadaver set (Jecklin 2024 MedIA 98:103322, 13 whole-torso cadavers, Cios Spin + Ziehm Vision + Ziehm Vision FD); D'Isidoro 2021 hip gold standard (Yareta, Philips BV Pulsera); Flepp 2025 cadaveric femur (IJCARS); Charters UCLA kV setup radiographs T2-L2; Goswami 2020 pig limb IOERT; Liu 2019 MV portal; Sun 2021 CrossModalNet; KCL cardiac sheath phantom; MSKCC phantom CBCT super-resolution set.\n\nSEARCH ANGLES THE FIRST SEARCH NEVER REACHED — cover each explicitly:\n1. Siewerdsen / Uneri / Otake / De Silva / Ketcha / Zhang (JHU I-STAR lab) spine cadaver sets: CBCT + fluoroscopy / radiographs of thoracolumbar cadavers used in LevelCheck, \"known-component registration\", \"3D-2D registration for spine\", \"radiographic level verification\" papers 2012-2026; any released subsets, e.g., on the JHU Data Archive (archive.data.jhu.edu), Zenodo, or GitHub (e.g., \"xreg\", \"ljubljana\", \"istar\").\n2. TUM CAMP / Navab / Fotouhi / Unberath (before JHU) C-arm datasets: \"X-ray to CT\" registration with the Siemens Arcadis Orbic or Cios Spin, \"Fluoroscopy-CT spine phantom\", \"C-arm pose estimation datasets\", \"Deep Learning-based 2D/3D registration dataset\", \"CAMP intraoperative X-ray\".\n3. Bern ISTB / ARTORG / Zheng Guoyan, Imperial Hamlyn Centre, KCL, Leuven, Mannheim, Erlangen (Maier/Fotouhi: \"C-arm CBCT projection data\", \"CONRAD phantoms\", \"Erlangen spine CBCT raw projections\"), Siemens-sponsored \"Artis zeego raw projection\" releases; Stryker/Medtronic O-arm and Airo intraoperative CBCT with raw projections.\n4. Chinese institutions: Chinese Academy of Sciences, Beihang (Tianzhu robot), Tsinghua, Shanghai Jiao Tong, Peking, Zhejiang, Tianjin, Shenzhen — spine surgical robot papers 2018-2026 that released CT + intraoperative C-arm / G-arm images of lumbar spine (patients, cadavers, pigs, sheep), e.g., on GitHub, Figshare, Mendeley Data, Zenodo, IEEE DataPort, Baidu, or \"available upon request\".\n5. Animal models: porcine / ovine / canine spine with CT and C-arm fluoroscopy released for pedicle screw navigation, robotic spine surgery, vertebroplasty, or 2D/3D registration.\n6. Same-patient CT + radiograph (NOT registered, but pose recoverable by registration) public collections of the torso: TCIA collections containing both CT and CR/DX/RF of the same patients (e.g., LIDC-IDRI radiographs, CPTAC, TCGA, Spine-Mets, pediatric, trauma), MIDRC, BIMCV, RSNA challenges, MIMIC, NIH, Stanford AIMI (e.g., \"CT + radiograph pairs\", \"Lumbar spine CT and radiograph\"), Kaggle; count how many patients have BOTH a lumbar/thoracic/pelvic radiograph and a CT.\n7. Real intraoperative spine fluoroscopy WITH labels, no CT required: vertebra detection/segmentation/landmark datasets on intraoperative X-ray or fluoroscopy (lumbar, thoracic, cervical), level identification datasets, pedicle screw fluoroscopy datasets, \"spine surgery X-ray dataset\" on Kaggle/HuggingFace/Zenodo/Figshare/Mendeley/IEEE DataPort/GitHub, and published papers 2019-2026 that trained on intraoperative spine fluoroscopy and released or offered their data.\n8. Data-challenge and benchmark sites: grand-challenge.org, MICCAI/IPCAI/SPIE challenges involving fluoroscopy + CT (e.g., \"2D/3D registration challenge\", \"TrackRad\", \"CathAction\", \"X-ray pose estimation challenge\"), and their data access terms.\n\nThen: (a) a single ranked table of the NEW candidates by fit to needs A and B; (b) the one to obtain first for each need and exactly how; (c) a plain statement of whether any public living-patient intraoperative lumbar fluoroscopy set with vertebra labels exists.",
+ "summary": "This pass found one new open dataset and several that are available only on request. It found no public set of intraoperative lumbar fluoroscopy from living patients with vertebra labels. The only new set that can be downloaded is LUMOS (Zhejiang University, Zenodo record 18173664, CC BY-NC 4.0). It holds 803 living patients, 1,620 lumbar AP or lateral diagnostic radiographs and 280 lumbar CTs, and the paper says 280 patients have both within six months. It serves need A only after pose is recovered by registration, only as radiography rather than C-arm fluoroscopy, and only once the undocumented match between CT ids and radiograph ids has been confirmed. The strongest leads that need a request are two. Huashan Hospital (Fudan) has 140 living lumbar patients with preoperative CT and intraoperative AP and lateral films; the device is unnamed and the contact is [e-mail withheld]. Registering each film to its CT would turn it into a labelled need-B set. The JHU I-STAR group has real cadaver long-length images (Huang 2022: 13 cadavers, 100 vertebra-labelled images; Zhang 2021/2022: multi-slot O-arm), none of it on JHU GitLab or the JHU Data Archive. Everything else is a weak fit:\n- SheepSpineX: 9 sheep cervical spines, 270 AP/LAT pairs matched to CT, on an image-intensifier C-arm.\n- One JHU cadaver and one JHU phantom, imaged on a prototype Siemens flat-panel C-arm.\n- DVAP-Reg's SimReg and HybReg sets: promised but not deposited.\n- A live-minipig study with no CT.\n- 27 patients in TCIA COVID-19-NY-SBU with an abdominal film and an abdomen/pelvis CT, unpaired and unlabelled.\n\nSearch angles 2, 3, 7 and 8 produced no claim that survived verification, so the negative answer on need B is incomplete, not proven.",
+ "findings": [
+  {
+   "claim": "LUMOS is the only NEW OPEN candidate for need A. It comes from Zhejiang University and the Second Affiliated Hospital of Zhejiang University School of Medicine (Shi, Shen, Ye, Jiang, Bu, Wang; ACM MM 2025, doi:10.1145/3746027.3758282, pp. 13250-13257). It covers 803 living patients, with 1,620 lumbar AP or lateral radiographs and 280 non-contrast lumbar CTs, anonymised DICOM plus NPY, 46.4 GB. The paper says 280 patients have a paired CT taken no more than 6 months from the radiographs. No pose or projection geometry is given, so pose must come from 2D/3D registration. It is diagnostic radiography, not C-arm fluoroscopy.",
+   "confidence": "high",
+   "sources": [
+    "https://zenodo.org/records/18173664",
+    "https://keyueshi.github.io/LUMOS",
+    "https://doi.org/10.1145/3746027.3758282"
+   ],
+   "evidence": "Checked on the Zenodo API record, the README, the clinical xlsx, the paper PDF and DICOM headers read from the zips with range requests.\n- Access: open, CC BY-NC 4.0. Commercial use needs written permission from the host ethics committee. Published 2025-10-27.\n- Radiographs: Modality CR, Philips DigitalDiagnost, SID about 1100 mm, pixels 0.142-0.144 mm. MONOCHROME1 and MONOCHROME2 are mixed, and there is no PixelIntensityRelationship tag. They are therefore almost certainly vendor-processed display images, not raw or log data (an inference).\n- CTs: Philips Brilliance 64 and Ingenuity Flex, 512x512, 0.39-0.49 mm pixels, 1-4 mm slices.\n- Labels: DXA BMD/BMC, T and Z scores, and vertebral height and width in a 52-column spreadsheet. There are no vertebra boxes or landmarks.\n- Inference from the verified pixel sizes: 512 x 0.39-0.49 mm is a reconstruction field of 200-250 mm, narrower than an adult abdomen. Renders from these CTs would lack lateral soft tissue, so check truncation before using them for any formation or photon calibration.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "The LUMOS record does not document which radiograph belongs to which CT. The folder ids suggest patients 1-280 are the paired ones, but nothing proves it.",
+   "confidence": "medium",
+   "sources": [
+    "https://zenodo.org/records/18173664"
+   ],
+   "evidence": "- lumos_npy.zip holds exactly 280 CT ids (1-280) and 803 X-ray ids, with 1,605 X-ray .npy files against the 1,620 stated.\n- One X-ray zip is named lumos_x_001_280, ending exactly at 280.\n- PatientID is blank and StudyDate is set to 19700101.\n- lumos_clinical_data.xlsx has 803 rows and no modality or CT-availability column, so it cannot confirm the overlap.\n- One verifier read the paper's statement that 280 patients have paired CT. Another could not reach dl.acm.org (403).\n- The split vote concerned whether the pair count is stated anywhere, not the file layout.",
+   "vote": "2-1"
+  },
+  {
+   "claim": "Huashan Hospital (Fudan University) assembled paired preoperative lumbar CT and intraoperative lumbar AP and lateral films for 140 living patients (January 2020 to December 2023), selected retrospectively. This is the best-fitting new set for need A and could become need B, but it is request-only and nothing about the device is known.",
+   "confidence": "medium",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/39375133/",
+    "https://rs.yiigle.com/cmaid/1516197"
+   ],
+   "evidence": "Source: Shao MH ... Jiang JY, Zhonghua Yi Xue Za Zhi 2024;104(37):3513-3519, doi:10.3760/cma.j.cn112137-20240408-00815.\n- Patients: 70 men and 70 women aged 40-60, degenerative disease only. Deformity, fracture, tumour and prior surgery were excluded.\n- Coverage: the films cover L1-L5.\n- Device: described only as a 'simple mobile X-ray fluoroscopy system' common in operating rooms. No make or model, no detector type (image intensifier or flat panel), no intensity format and no Pixel Intensity Relationship are given. All UNVERIFIED.\n- Pose: the real films carry no ground-truth pose. Training used DRRs style-transferred to look like the real films (840 vertebrae, split 600/120/120). The reported 0.81 mm mRPD and 97% success rate are on synthetic images.\n- Access: no data-availability or ethics statement. Two co-authors are from Shanghai Maestro Surgical Robotics Co. The only route is the corresponding author, Jiang Jianyuan ([e-mail withheld]).\n- Potential for need B: because every film has its own patient's CT, registering each film would give projected vertebra boxes, making this a labelled living-patient intraoperative lumbar set.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "JHU I-STAR has real cadaver long-length images that carry vertebra labels, a lead for need B, but none have been released. The Zenodo record from the same work (7161385) holds only simulated images.",
+   "confidence": "medium",
+   "sources": [
+    "https://zenodo.org/records/7161385",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8292105/",
+    "https://doi.org/10.1088/1361-6560/abde96",
+    "https://doi.org/10.1002/mp.15819",
+    "https://doi.org/10.1117/12.2549710",
+    "https://doi.org/10.1117/12.2549876"
+   ],
+   "evidence": "- Zenodo 7161385 (Huang, 2022, CC-BY-4.0) holds 10,368 simulated long films (5,184 AP, 5,184 LAT), each stored as 3 slot PNGs, with centroid labels. They are projected from 162 CTs: 80 from UW/SpineWeb and 82 from TCIA CT Lymph Nodes. The full 31,109-entry archive listing contains no real images.\n- The companion paper is Huang et al., Comput Methods Programs Biomed 2022, S0169260722006034. It tested on 50 AP and 50 LAT REAL long-length images from 13 cadaveric specimens, which are not in the record.\n- Uneri 2019 (SPIE, prototype O-arm model 1000, one 77-year-old male cadaver, 10 pedicle screws) SIMULATED its virtual long films from stitched CBCT. That O-arm had no multi-slot collimator.\n- Zhang et al. (SPIE 2020; Phys Med Biol 2021;66:055008; Med Phys 2022) later built a multi-slot O-arm and acquired real long-length images of phantoms and cadavers, reporting a median TRE of 1.2 mm / 0.6 deg in cadavers.\n- For both the Huang cadaver images and the Zhang O-arm images: device model, detector, intensity format and label type are UNVERIFIED, and neither paper has a data statement.\n- The Zenodo facts are high confidence. The existence of the successor real data was surfaced by verifiers rather than by a surviving claim, so this finding is medium.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "The Otake 2013 JHU cadaver set is a small need-A candidate with a registration-derived pose and no release.",
+   "confidence": "high",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4915373/"
+   ],
+   "evidence": "Source: Otake et al., Phys Med Biol 2013;58(23):8535, PMID 24246386.\n- Subject: one fresh, unfrozen, unfixed cadaver, with a supine CT and a prone CT.\n- Device: a prototype Siemens mobile C-arm with a Varian PaxScan 3030 CB flat panel (768x768, 0.388 mm, 302 cm2 field). The model is not named.\n- Images: 36 projections giving 72 CT-projection pairs, covering thoracic, abdominal and lumbar regions at magnifications 1.7, 2.0 and 2.4. Positions were supine, prone, supine with lordosis and prone with kyphosis, with the curves induced by a block.\n- Targets: 19 vertebral targets, C6 to L5, placed as points in CT.\n- Ground truth: registration consistency plus expert visual check, with PDE under 3 mm. The authors call this a surrogate for truth; it was not measured with fiducials or tracking.\n- Access: no release statement. Siewerdsen moved to MD Anderson (Surgical Data Science Program) in 2022, so a request should go to him there and to co-authors still at JHU (Zbijewski, Stayman).",
+   "vote": "3-0"
+  },
+  {
+   "claim": "The original LevelCheck paper's only real paired data is one Rando chest phantom (35 frames), and the Ketcha 2017 clinical set is a LevelCheck sibling on radiography. Neither is new or public.",
+   "confidence": "high",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3429949/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5755708"
+   ],
+   "evidence": "Otake 2012 (Phys Med Biol 57(17):5485):\n- A custom Rando anthropomorphic chest phantom with a natural skeleton.\n- Same prototype flat-panel C-arm (PaxScan 3030 CB, 100 kVp).\n- 35 frames over a 70 deg arc about AP.\n- Pose from registration to 4 projections of known relative geometry.\n- Levels are single manual points in CT.\n- The rest is 50,000 DRRs from 10 TCIA CTs.\n- No data statement.\n\nKetcha 2017 (msLevelCheck, Phys Med Biol 62(11):4604):\n- 24 thoracolumbar surgery patients: 24 preoperative CTs (Siemens, Toshiba, GE) and 61 intraoperative radiographs.\n- Radiographs on a Carestream DRX-1 mobile flat-panel DR unit: 0.14 mm pixels, SDD 100 cm, radiographic rather than fluoroscopic geometry.\n- No data statement.\n- The larger LevelCheck cohort (De Silva 2016b: 178 CTs, 398 radiographs) is already known to the project.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "NEGATIVE: neither public JHU repository holds any I-STAR spine, LevelCheck, CBCT or radiograph data.",
+   "confidence": "high",
+   "sources": [
+    "https://git.lcsr.jhu.edu/istar",
+    "https://archive.data.jhu.edu"
+   ],
+   "evidence": "JHU LCSR GitLab (API, checked 2026-09-21):\n- The istar group has no subgroups and 4 public projects: wseitstest (a trivial Pages test), aiaiTools, mtf-3d (archived) and cmakeall (archived).\n- Instance-wide searches for spine, levelcheck, fluoro, cadaver, xreg, siewerdsen, uneri, drr and registration all return 0.\n- None of the 89 public projects on the instance is relevant.\n\nJHU Dataverse (675 published datasets, queried with curl_cffi because plain curl gets a Cloudflare 403):\n- Siewerdsen, LevelCheck, Uneri, radiograph, CBCT, vertebra and lumbar all return 0.\n- The only fluoroscopy or 2D/3D-registration datasets are ones the project already has: C304HZ (DeepFluoro vendor data), IFSXNV (DeepFluoro release) and 2PGJQU (SyntheX).\n\nOnly public, published items are visible, so restricted deposits cannot be ruled out.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "DVAP-Reg (TMMU / Army Medical University, KLPOP lab; Medical Image Analysis 109:103930, March 2026) promises 2D/3D-SimReg and 2D/3D-HybReg spine registration datasets, plus a 2D/3D-CDIR platform. As of 2026-09-21 they have not been released, and their contents were not verified.",
+   "confidence": "high",
+   "sources": [
+    "https://github.com/TMMU-KLPOP/DVAP-Reg",
+    "https://doi.org/10.1016/j.media.2025.103930"
+   ],
+   "evidence": "- The repository holds only a 605-byte README.md. The last push was 2025-12-15, by [e-mail withheld]. There is no code, no data, no releases and no licence.\n- The README still says the paper is 'submitted' and that the datasets 'will be submitted' to the National Basic Science Data Center (nbsdc.cn, run by CAS).\n- The ScienceDirect abstract says the code and data are on GitHub, but they are not there.\n- Open issue #1 (2026-08-26) asks for a release timeline and has no answer.\n- Searches of NBSDC and the web for SimReg, HybReg and DVAP found no deposit.\n- The paper is PMID 41506054.\n- Whether HybReg contains REAL intraoperative X-ray, and from what device, is UNVERIFIED.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "SheepSpineX (SJTU Institute of Medical Robotics and Shanghai General Hospital; X2P-Net, Bioengineering (Basel) 2026;13(2):178, doi:10.3390/bioengineering13020178) is real CT-paired C-arm imaging with projected vertebra labels. It uses an image-intensifier device, but the specimens are ex vivo sheep CERVICAL spines, not a human torso.",
+   "confidence": "high",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12938846/"
+   ],
+   "evidence": "- Specimens: 9 slaughterhouse sheep cervical spines, each with a CT and 30 real AP/LAT pairs, giving about 270 pairs. Each case has 4-7 vertebrae; the split is 5/1/3.\n- Labels: vertebral-body centroids annotated on CT and projected into both views. That implies a projection matrix for each view, but the paper gives no calibration, fiducials, pixel size or SDD.\n- Device: Siemens Arcadis Varic. The paper does not state the detector type. Vendor listings describe a 9/6/4.5 image intensifier (outside the paper).\n- Other points: nothing links it to TINAVI or a robot. BiSpineX is only DRRs from 337 VerSe CTs and can be regenerated.\n- Access: no repository and no data licence. Request to Guoyan Zheng ([e-mail withheld]) and Donghua Hang ([e-mail withheld]), under MDPI boilerplate ('further inquiries').",
+   "vote": "3-0"
+  },
+  {
+   "claim": "The Xinqiao Hospital live-minipig study (Army Medical University, Chongqing; BMC Musculoskelet Disord 2025, PMID 40410739) fails need A and is weak for need B.",
+   "confidence": "high",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12100916/"
+   ],
+   "evidence": "- Subjects: 3 live, anaesthetised, six-month-old male Guangxi Bama minipigs at L1-L5, plus bare porcine lumbar spines and a machined mold with 78 markers.\n- Imaging: a G-arm (for the mold and bare bone) and a C-arm (for the live pigs). No make or model is given, and there is no CT.\n- System: the ZETNa 2-D navigation system from co-author Chongqing Bosscom Technology, with optical trackers on the X-ray source and the image intensifier.\n- Ground truth: marker points (AP 0.54±0.16 mm, lateral 0.57±0.14 mm) and tool-position comparisons. There are no vertebra boxes, landmarks or level labels.\n- Access: CC BY 4.0 covers the article only. The images are available on request from Chao Zhang ([e-mail withheld]) and Wenjie Zheng ([e-mail withheld]).",
+   "vote": "3-0"
+  },
+  {
+   "claim": "TCIA COVID-19-NY-SBU (DOI 10.7937/TCIA.BBAG-2923, CC BY 4.0) is a negligible same-patient pool. Only 27 patients have both an abdominal plain film and an abdomen/pelvis CT, with no fluoroscopy and no labels.",
+   "confidence": "high",
+   "sources": [
+    "https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=89096912"
+   ],
+   "evidence": "The NBIA getSeries query of 2026-09-21 returned 17,950 series for 1,384 patients.\n- CR: 11,509 series, all Carestream DRX-Revolution or DRX-1, 11,144 of them CHEST.\n- DX: 2,623 series, all DRX-Revolution.\n- No RF or XA series.\n- ThirdPartyAnalysis is NO on every series.\n- About 487 series are portable abdominal or KUB films. About 1,400 CT series are abdomen/pelvis, 12 of them lumbar reformats.\n- 92 patients have an abdominal film, 212 have an abdomen/pelvis CT, and 27 have both.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "RANKED TABLE of new candidates, by combined fit to need A (CT paired with real torso 2-D from a non-Cios device) and need B (real intraoperative spine frames with vertebra labels):\n1. LUMOS: A partial (open; living; lumbar; 280 paired; Philips DR radiography, not fluoroscopy; pose by registration; NC licence). B none.\n2. Huashan 140: A strong if obtained (living; intraoperative lumbar AP/LAT; preoperative CT; device unknown). B potential, since labels can be projected after registration. Request only.\n3. JHU real long-length cadaver images (Huang 2022, 13 cadavers, 100 labelled images; Zhang 2021/2022 multi-slot O-arm with CBCT): A cadaver on an O-arm. B labelled real cadaver images. Request only.\n4. SheepSpineX: A real, CT-paired, image intensifier, but sheep cervical. B projected centroids. Request only.\n5. Otake 2013 JHU cadaver: 36 flat-panel projections, supine and prone CT, C6-L5 targets. Request only.\n6. DVAP-Reg HybReg: contents unknown, not deposited.\n7. Ketcha 2017: living, 61 DRX-1 radiographs, LevelCheck sibling, unreleased.\n8. Otake 2012 Rando: one thoracic phantom, 35 frames.\n9. COVID-19-NY-SBU: 27 unpaired, unlabelled patients.\n10. Xinqiao minipig: no CT, no labels.\nExcluded as simulated only: Zenodo 7161385 and BiSpineX.",
+   "confidence": "medium",
+   "sources": [
+    "https://zenodo.org/records/18173664",
+    "https://pubmed.ncbi.nlm.nih.gov/39375133/",
+    "https://zenodo.org/records/7161385",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12938846/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4915373/",
+    "https://github.com/TMMU-KLPOP/DVAP-Reg",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5755708",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3429949/",
+    "https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=89096912",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12100916/"
+   ],
+   "evidence": "The ranking is a judgment built from the verified facts in the findings above. The positions of 2 and 3 depend on data access, which is unknown. For a cadaver lumbar set, rank 3 adds less than the Balgrist set already in hand (13 cadavers on three devices). What sets Huashan apart is that its subjects are living and its frames are intraoperative.",
+   "vote": "synthesis"
+  },
+  {
+   "claim": "FIRST TO OBTAIN.\nNeed A: LUMOS, because it is the only one that needs no request. Download Zenodo record 18173664. Start with the four CT zips (lumos_ct_001_070 to lumos_ct_211_280, 14.3 GB) and lumos_x_001_280, not the full 46.4 GB, and put them on the grid CephFS volume. Before trusting any pair, confirm that CT id n and X-ray id n are the same patient, and check the 200-250 mm reconstruction field for body truncation.\nNeed B: request the Huashan set from Jiang Jianyuan ([e-mail withheld]). Ask for:\n- the C-arm or G-arm make and model\n- DICOM headers including Pixel Intensity Relationship\n- the number of frames per patient\n- DUA terms, given the Shanghai Maestro Surgical Robotics co-authors\nIts preoperative CTs would let vertebra boxes be projected onto real intraoperative lumbar frames from living patients.\nSecondary request: the Huang 2022 and Zhang 2021 cadaver long-length images, from Siewerdsen (MD Anderson) with Uneri, Zbijewski or Stayman (JHU) copied.",
+   "confidence": "medium",
+   "sources": [
+    "https://zenodo.org/records/18173664",
+    "https://pubmed.ncbi.nlm.nih.gov/39375133/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3429949/"
+   ],
+   "evidence": "- LUMOS is open under CC BY-NC 4.0, which is fine for research. Commercial use needs written ethics-committee permission.\n- Huashan and JHU give no data statement, so both requests may be refused.\n- Current affiliations of Uneri and the other JHU co-authors were not verified. Only Siewerdsen's 2022 move was noted by a verifier.",
+   "vote": "synthesis"
+  },
+  {
+   "claim": "PLAIN STATEMENT: this pass found no public set of intraoperative lumbar fluoroscopy from living patients with vertebra labels. Every intraoperative set from living patients that it found (Huashan 140, Ketcha 24 on DRX-1, the LevelCheck clinical cohort) is request-only or unreleased, and none publishes vertebra labels on the real frames. The only open living-patient lumbar set with both CT and 2-D images (LUMOS) is diagnostic radiography.",
+   "confidence": "medium",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/39375133/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5755708",
+    "https://zenodo.org/records/18173664",
+    "https://git.lcsr.jhu.edu/istar",
+    "https://archive.data.jhu.edu"
+   ],
+   "evidence": "This rests on the absence of evidence. Angles 7 (labelled intraoperative spine fluoroscopy on Kaggle, HuggingFace, Zenodo, Figshare, Mendeley, IEEE DataPort and GitHub) and 8 (challenge sites) produced no surviving claims, so they were not shown to be empty. Sets the project already holds, such as CM Spine (208 G-arm lumbar images), were not re-examined here.",
+   "vote": "synthesis"
+  }
+ ],
+ "caveats": "- **Search coverage is uneven.** Five angles produced no claim that survived verification:\n  - angle 2: TUM CAMP, Navab and Fotouhi C-arm sets;\n  - angle 3: Bern ISTB/ARTORG, Imperial, KCL, Leuven, Mannheim, Erlangen/CONRAD, and raw projections from Artis zeego, O-arm and Airo;\n  - angle 7: labelled intraoperative spine fluoroscopy on the open repositories;\n  - angle 8: grand-challenge and other challenge sites;\n  - most of angle 6: MIDRC, BIMCV, MIMIC, Stanford AIMI and the RSNA challenges.\n\n  The only same-patient pair counts come from LUMOS (280) and COVID-19-NY-SBU (27). These gaps are unsearched ground, not negative results. The one exception is Zheng Guoyan's current group (SJTU), which was reached through SheepSpineX.\n- **Device and intensity data are mostly missing.** The detector type and stored-intensity format (Pixel Intensity Relationship) are unknown for every set except LUMOS. LUMOS has no PixelIntensityRelationship tag and mixes MONOCHROME1 and MONOCHROME2. The Arcadis Varic's image intensifier comes from vendor listings, not from the paper.\n- **Ground-truth pose is not externally measured anywhere.** In the JHU sets it comes from registration consistency or from registration to projections of known geometry, not from fiducials or tracking. SheepSpineX does not document how its projection matrices were obtained.\n- **Access routes are boilerplate.** Every request-only route rests on 'further inquiries' or 'reasonable request' wording, with no DUA or licence stated. Industry co-authors (Shanghai Maestro Surgical Robotics; Chongqing Bosscom) may restrict sharing.\n- **Date-sensitive items (checked 2026-09-21).** The DVAP-Reg deposit at NBSDC could appear at any time; NBSDC was searched only by keyword. The JHU GitLab and Dataverse negatives cover public, published items only. Siewerdsen left JHU in 2022, and other co-authors' affiliations were not verified.\n- **Inferences, not verified facts.** Three points in the findings are my inference from verified numbers:\n  - LUMOS radiographs are vendor-processed display images;\n  - the LUMOS 200-250 mm CT reconstruction field will truncate body soft tissue in renders;\n  - the Huashan films could be labelled by registering them to their CTs.\n- **One split vote.** The LUMOS CT-to-radiograph linkage claim passed 2-1. One verifier could not reach the ACM paper (403).",
+ "openQuestions": [
+  "Do LUMOS CT id n and X-ray id n belong to the same patient? This can be tested outside the release metadata. One way: register DRRs to radiographs and compare the fit for matched ids against shuffled ids. Another: compare the spreadsheet's vertebral heights and widths with heights measured on the CT for the same id.",
+  "What C-arm or G-arm did Huashan Hospital use (make, model, image intensifier or flat panel, DICOM Pixel Intensity Relationship)? How many intraoperative frames does each patient have, and will the group share them under a DUA?",
+  "What is in DVAP-Reg's 2D/3D-HybReg: real intraoperative X-ray from TMMU patients, cadavers, or hybrid synthetic? Has it been deposited at NBSDC under an identifier?",
+  "Can the JHU real long-length cadaver images be obtained from Siewerdsen at MD Anderson or from Uneri, Zbijewski or Stayman at JHU? These are the 100 labelled images from 13 specimens (Huang 2022) and the multi-slot O-arm images (Zhang 2021/2022). What device and label format do they carry?"
+ ],
+ "refuted": [],
+ "unverified": [],
+ "sources": [
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4915373/",
+   "quality": "primary",
+   "angle": "JHU I-STAR spine cadaver CT + radiograph data (angle 1)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3429949/",
+   "quality": "primary",
+   "angle": "JHU I-STAR spine cadaver CT + radiograph data (angle 1)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://zenodo.org/records/7161385",
+   "quality": "primary",
+   "angle": "JHU I-STAR spine cadaver CT + radiograph data (angle 1)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5755708",
+   "quality": "primary",
+   "angle": "JHU I-STAR spine cadaver CT + radiograph data (angle 1)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8292105/",
+   "quality": "primary",
+   "angle": "JHU I-STAR spine cadaver CT + radiograph data (angle 1)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://git.lcsr.jhu.edu/istar",
+   "quality": "primary",
+   "angle": "JHU I-STAR spine cadaver CT + radiograph data (angle 1)",
+   "claimCount": 4
+  },
+  {
+   "url": "https://github.com/TMMU-KLPOP/DVAP-Reg",
+   "quality": "primary",
+   "angle": "Chinese spine-robot groups and animal models (angles 4-5)",
+   "claimCount": 4
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39375133/",
+   "quality": "primary",
+   "angle": "Chinese spine-robot groups and animal models (angles 4-5)",
+   "claimCount": 4
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12938846/",
+   "quality": "primary",
+   "angle": "Chinese spine-robot groups and animal models (angles 4-5)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12100916/",
+   "quality": "primary",
+   "angle": "Chinese spine-robot groups and animal models (angles 4-5)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://zenodo.org/records/18173664",
+   "quality": "primary",
+   "angle": "Public archives with the same patients' CT and radiographs (angle 6)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=89096912",
+   "quality": "primary",
+   "angle": "Public archives with the same patients' CT and radiographs (angle 6)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://www.cancerimagingarchive.net/collection/cmb-mml/",
+   "quality": "primary",
+   "angle": "Public archives with the same patients' CT and radiographs (angle 6)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/pdf/2508.21154",
+   "quality": "primary",
+   "angle": "Public archives with the same patients' CT and radiographs (angle 6)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/pdf/2006.01174",
+   "quality": "primary",
+   "angle": "Public archives with the same patients' CT and radiographs (angle 6)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://zenodo.org/records/22768651",
+   "quality": "primary",
+   "angle": "Labelled intraoperative spine fluoroscopy and challenges (angles 7-8)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://www.nature.com/articles/s41598-025-27784-2",
+   "quality": "primary",
+   "angle": "Labelled intraoperative spine fluoroscopy and challenges (angles 7-8)",
+   "claimCount": 5
+  }
+ ],
+ "stats": {
+  "angles": 5,
+  "sourcesFetched": 17,
+  "claimsExtracted": 82,
+  "claimsVerified": 25,
+  "confirmed": 25,
+  "killed": 0,
+  "unverified": 0,
+  "afterSynthesis": 14,
+  "urlDupes": 2,
+  "budgetDropped": 11,
+  "agentCalls": 99
+ }
+}

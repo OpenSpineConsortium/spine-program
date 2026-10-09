@@ -1,0 +1,354 @@
+{
+ "dump": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_elekta_xvi/eval_cobra_elekta_test.json",
+ "weights": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_elekta_xvi/weights/best.pt",
+ "data": "/rs/rs_grp_oschome/go2432/data/realxray/cobra_elekta",
+ "split": "test",
+ "frames": 648,
+ "missing_meta": 0,
+ "cases": 27,
+ "case_ids": [
+  "A053",
+  "A169",
+  "A268",
+  "A280",
+  "A294",
+  "B005",
+  "B008",
+  "B053",
+  "B080",
+  "B082",
+  "B103",
+  "B131",
+  "B135",
+  "B140",
+  "C000",
+  "C042",
+  "C048",
+  "C122",
+  "C149",
+  "C176",
+  "C180",
+  "C183",
+  "D152",
+  "D235",
+  "D322",
+  "D336",
+  "D425"
+ ],
+ "truth_vertebrae": 893,
+ "truth_sacra": 609,
+ "frames_with_sacrum": 609,
+ "has_outline_truth": false,
+ "operating_points": {
+  "0.74": "cross-device threshold pre-stated in SchwingNet/results/a1.json",
+  "0.25": "YOLO default"
+ },
+ "matching": "greedy one-to-one in descending confidence; IoU >= 0.5 (body / outline) or mutual centre containment (centre)",
+ "bootstrap": {
+  "cluster": "case",
+  "n_boot": 2000,
+  "seed": 0,
+  "alpha": 0.05,
+  "intervals": [
+   "percentile",
+   "bca"
+  ]
+ },
+ "conventions": {
+  "body": {
+   "at": {
+    "0.74": {
+     "vertebra_recall": {
+      "k": 40,
+      "n": 893,
+      "clusters": 27,
+      "point": 0.04479283314669653,
+      "clusters_with_error": 24,
+      "clusters_all_wrong": 14,
+      "wilson_naive": [
+       0.033065288493432585,
+       0.06041997358504206
+      ],
+      "percentile": [
+       0.024360136765705472,
+       0.06404596244798091
+      ],
+      "bca": [
+       0.026736815627051873,
+       0.0672684218221255
+      ],
+      "bca_note": "z0=0.064 a=0.0418",
+      "design_effect": 2.194794110492854,
+      "n_effective": 406.8718772894245,
+      "wilson_effective_n": [
+       0.028597704432834974,
+       0.06950319344720887
+      ],
+      "ceiling_regime": false,
+      "cluster": "case"
+     },
+     "sacrum_found": {
+      "k": 86,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.1412151067323481,
+      "clusters_with_error": 27,
+      "clusters_all_wrong": 7,
+      "wilson_naive": [
+       0.11580122652742744,
+       0.17112691172070968
+      ],
+      "percentile": [
+       0.09660756084491949,
+       0.18892508143322476
+      ],
+      "bca": [
+       0.09807591069183667,
+       0.19028100301091483
+      ],
+      "bca_note": "z0=0.011 a=0.0145",
+      "design_effect": 2.7876514528452154,
+      "n_effective": 218.4634665780847,
+      "wilson_effective_n": [
+       0.10121908426099963,
+       0.19361083101419357
+      ],
+      "ceiling_regime": false,
+      "cluster": "case"
+     },
+     "sacrum_box_recall": {
+      "k": 86,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.1412151067323481,
+      "clusters_with_error": 27,
+      "clusters_all_wrong": 7,
+      "wilson_naive": [
+       0.11580122652742744,
+       0.17112691172070968
+      ],
+      "percentile": [
+       0.09660756084491949,
+       0.18892508143322476
+      ],
+      "bca": [
+       0.09807591069183667,
+       0.19028100301091483
+      ],
+      "bca_note": "z0=0.011 a=0.0145",
+      "design_effect": 2.7876514528452154,
+      "n_effective": 218.4634665780847,
+      "wilson_effective_n": [
+       0.10121908426099963,
+       0.19361083101419357
+      ],
+      "ceiling_regime": false,
+      "cluster": "case"
+     },
+     "vertebra_prf": {
+      "tp": 40,
+      "predictions": 64,
+      "precision": 0.625,
+      "recall": 0.04479283314669653,
+      "f1": 0.08359456635318703
+     },
+     "sacrum_prf": {
+      "tp": 86,
+      "predictions": 93,
+      "precision": 0.9247311827956989,
+      "recall": 0.1412151067323481,
+      "f1": 0.24501424501424499
+     }
+    },
+    "0.25": {
+     "vertebra_recall": {
+      "k": 270,
+      "n": 893,
+      "clusters": 27,
+      "point": 0.3023516237402016,
+      "clusters_with_error": 24,
+      "clusters_all_wrong": 3,
+      "wilson_naive": [
+       0.2731279755128115,
+       0.33326845439334046
+      ],
+      "percentile": [
+       0.26297465994511393,
+       0.3424178716941578
+      ],
+      "bca": [
+       0.26169493045555053,
+       0.3408051681088834
+      ],
+      "bca_note": "z0=-0.008 a=-0.0164",
+      "design_effect": 1.7451530237782815,
+      "n_effective": 511.702978382172,
+      "wilson_effective_n": [
+       0.26415191241189107,
+       0.34349679638509045
+      ],
+      "ceiling_regime": false,
+      "cluster": "case"
+     },
+     "sacrum_found": {
+      "k": 208,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.3415435139573071,
+      "clusters_with_error": 27,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.304977894557535,
+       0.3800956310303152
+      ],
+      "percentile": [
+       0.2958126162127734,
+       0.3871124081505028
+      ],
+      "bca": [
+       0.291041189457576,
+       0.3839291686023514
+      ],
+      "bca_note": "z0=-0.045 a=-0.0207",
+      "design_effect": 1.4933285877606357,
+      "n_effective": 407.81379596652846,
+      "wilson_effective_n": [
+       0.29718753616145666,
+       0.3888568404517405
+      ],
+      "ceiling_regime": false,
+      "cluster": "case"
+     },
+     "sacrum_box_recall": {
+      "k": 208,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.3415435139573071,
+      "clusters_with_error": 27,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.304977894557535,
+       0.3800956310303152
+      ],
+      "percentile": [
+       0.2958126162127734,
+       0.3871124081505028
+      ],
+      "bca": [
+       0.291041189457576,
+       0.3839291686023514
+      ],
+      "bca_note": "z0=-0.045 a=-0.0207",
+      "design_effect": 1.4933285877606357,
+      "n_effective": 407.81379596652846,
+      "wilson_effective_n": [
+       0.29718753616145666,
+       0.3888568404517405
+      ],
+      "ceiling_regime": false,
+      "cluster": "case"
+     },
+     "vertebra_prf": {
+      "tp": 270,
+      "predictions": 612,
+      "precision": 0.4411764705882353,
+      "recall": 0.3023516237402016,
+      "f1": 0.35880398671096353
+     },
+     "sacrum_prf": {
+      "tp": 208,
+      "predictions": 301,
+      "precision": 0.6910299003322259,
+      "recall": 0.3415435139573071,
+      "f1": 0.45714285714285713
+     }
+    }
+   },
+   "curve": {
+    "0.01": {
+     "vertebra_recall": 0.5834266517357223,
+     "sacrum_found": 0.48440065681444994
+    },
+    "0.02": {
+     "vertebra_recall": 0.5341545352743561,
+     "sacrum_found": 0.4614121510673235
+    },
+    "0.03": {
+     "vertebra_recall": 0.509518477043673,
+     "sacrum_found": 0.44499178981937604
+    },
+    "0.05": {
+     "vertebra_recall": 0.47368421052631576,
+     "sacrum_found": 0.4220032840722496
+    },
+    "0.08": {
+     "vertebra_recall": 0.42777155655095184,
+     "sacrum_found": 0.4006568144499179
+    },
+    "0.10": {
+     "vertebra_recall": 0.40985442329227323,
+     "sacrum_found": 0.39408866995073893
+    },
+    "0.15": {
+     "vertebra_recall": 0.3594624860022396,
+     "sacrum_found": 0.3645320197044335
+    },
+    "0.20": {
+     "vertebra_recall": 0.3269876819708847,
+     "sacrum_found": 0.35139573070607555
+    },
+    "0.25": {
+     "vertebra_recall": 0.3023516237402016,
+     "sacrum_found": 0.3415435139573071
+    },
+    "0.30": {
+     "vertebra_recall": 0.2687569988801792,
+     "sacrum_found": 0.33169129720853857
+    },
+    "0.40": {
+     "vertebra_recall": 0.22732362821948487,
+     "sacrum_found": 0.3021346469622332
+    },
+    "0.50": {
+     "vertebra_recall": 0.18924972004479285,
+     "sacrum_found": 0.2824302134646962
+    },
+    "0.60": {
+     "vertebra_recall": 0.14781634938409854,
+     "sacrum_found": 0.24794745484400657
+    },
+    "0.70": {
+     "vertebra_recall": 0.0761478163493841,
+     "sacrum_found": 0.17569786535303777
+    },
+    "0.74": {
+     "vertebra_recall": 0.04479283314669653,
+     "sacrum_found": 0.1412151067323481
+    },
+    "0.80": {
+     "vertebra_recall": 0.008958566629339306,
+     "sacrum_found": 0.054187192118226604
+    },
+    "0.90": {
+     "vertebra_recall": 0.0,
+     "sacrum_found": 0.0
+    }
+   },
+   "vertebra": {
+    "pr_auc": 0.2357465439721542,
+    "ap50_interp": 0.24181929193070617,
+    "n_predictions": 17085,
+    "max_recall": 0.5834266517357223
+   },
+   "sacrum": {
+    "pr_auc": 0.3659978905983878,
+    "ap50_interp": 0.3652351122165444,
+    "n_predictions": 2478,
+    "max_recall": 0.48440065681444994
+   }
+  }
+ },
+ "meta_dir_pinned": "/rs/rs_grp_oschome/go2432/data/realxray/cobra_elekta/meta",
+ "rescore_name": "devcorpus__dc_A_held_elekta_xvi__cobra_test",
+ "truth_mode": "wv"
+}

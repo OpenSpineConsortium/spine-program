@@ -1,0 +1,266 @@
+{
+ "what": "Evidence for the rows tools/acquisition_census_addendum.py adds to ranking.csv: coverage measured from a seeded sample of image headers read through HTTP range requests (no download), converted to P with the TotalSegmentator extent-bin rates of fov_calibration.json (ts_by_extent). P_*_per_CT folds in the fraction of CTs <= 3 mm.",
+ "method": {
+  "sampler": "zip central directory -> local header -> first 64 kB -> NIfTI-1 or MHA header; seed 20260924",
+  "sources_swept": [
+   "Zenodo API: 29 body-region x CT queries, records >= 5 GB, open, a CT term (157 records; sweep/zenodo_ge5GB_ct.tsv)",
+   "Hugging Face hub search: AMOS, PANORAMA, FLARE, CT-RATE, Merlin, PanTS, AbdomenAtlas, BodyMaps, RSPECT, abdominal/pelvis/whole-body CT"
+  ]
+ },
+ "measured": {
+  "waw_tace": {
+   "label": "waw_tace",
+   "record": "12741586",
+   "n_images_matching": 854,
+   "n_sampled": 100,
+   "frac_le3mm": 0.96,
+   "extent_median_mm": 285.0,
+   "extent_iqr_mm": [
+    237.0,
+    419.0
+   ],
+   "P_both_per_CT": 0.271,
+   "P_cage_per_CT": 0.24,
+   "gb": 48.19
+  },
+  "kidney_thoraxabdomen": {
+   "label": "kidney_thoraxabdomen",
+   "record": "8014290",
+   "n_images_matching": 215,
+   "n_sampled": 60,
+   "frac_le3mm": 1.0,
+   "extent_median_mm": 657.0,
+   "extent_iqr_mm": [
+    622.0,
+    682.0
+   ],
+   "P_both_per_CT": 0.926,
+   "P_cage_per_CT": 0.882,
+   "gb": 38.35
+  },
+  "curvas": {
+   "label": "curvas",
+   "record": "13767408",
+   "n_images_matching": 90,
+   "n_sampled": 25,
+   "frac_le3mm": 1.0,
+   "extent_median_mm": 932.0,
+   "extent_iqr_mm": [
+    881.0,
+    995.0
+   ],
+   "P_both_per_CT": 0.895,
+   "P_cage_per_CT": 0.822,
+   "gb": 29.4
+  },
+  "curvas_pdacvi": {
+   "label": "curvas_pdacvi",
+   "record": "17552201",
+   "n_images_matching": 109,
+   "n_sampled": 45,
+   "frac_le3mm": 0.933,
+   "extent_median_mm": 471.0,
+   "extent_iqr_mm": [
+    410.0,
+    636.0
+   ],
+   "P_both_per_CT": 0.683,
+   "P_cage_per_CT": 0.409,
+   "gb": 15.42
+  },
+  "aortaseg60": {
+   "label": "aortaseg60",
+   "record": "18147026",
+   "n_images_matching": 60,
+   "n_sampled": 36,
+   "frac_le3mm": 1.0,
+   "extent_median_mm": 661.0,
+   "extent_iqr_mm": [
+    626.0,
+    685.0
+   ],
+   "P_both_per_CT": 0.935,
+   "P_cage_per_CT": 0.925,
+   "gb": 15.86
+  },
+  "deep_psma": {
+   "label": "deep_psma",
+   "record": "15281784",
+   "n_images_matching": 200,
+   "n_sampled": 50,
+   "frac_le3mm": 0.48,
+   "extent_median_mm": 1095.0,
+   "extent_iqr_mm": [
+    1003.0,
+    1095.0
+   ],
+   "P_both_per_CT": 0.427,
+   "P_cage_per_CT": 0.387,
+   "gb": 24.07
+  },
+  "quadra_hc": {
+   "label": "quadra_hc",
+   "record": "16686025",
+   "n_images_matching": 96,
+   "n_sampled": 30,
+   "frac_le3mm": 1.0,
+   "extent_median_mm": 1062.0,
+   "extent_iqr_mm": [
+    1062.0,
+    1062.0
+   ],
+   "P_both_per_CT": 0.889,
+   "P_cage_per_CT": 0.806,
+   "gb": 20.18
+  },
+  "barts_crl": {
+   "label": "barts_crl",
+   "record": "14004841",
+   "n_images_matching": 220,
+   "n_sampled": 40,
+   "frac_le3mm": 1.0,
+   "extent_median_mm": 457.0,
+   "extent_iqr_mm": [
+    422.0,
+    512.0
+   ],
+   "P_both_per_CT": 0.732,
+   "P_cage_per_CT": 0.386,
+   "gb": 20.32
+  },
+  "lumvbcanseg": {
+   "label": "lumvbcanseg",
+   "record": "8181250",
+   "n_images_matching": 185,
+   "n_sampled": 30,
+   "frac_le3mm": 1.0,
+   "extent_median_mm": 268.0,
+   "extent_iqr_mm": [
+    252.0,
+    286.0
+   ],
+   "P_both_per_CT": 0.04,
+   "P_cage_per_CT": 0.259,
+   "gb": 10.08
+  },
+  "pengwin26": {
+   "label": "pengwin26",
+   "record": "19732767",
+   "n_images_matching": 340,
+   "n_sampled": 40,
+   "frac_le3mm": 1.0,
+   "extent_median_mm": 252.0,
+   "extent_iqr_mm": [
+    227.0,
+    286.0
+   ],
+   "P_both_per_CT": 0.078,
+   "P_cage_per_CT": 0.182,
+   "gb": 19.58
+  },
+  "panorama": {
+   "label": "panorama",
+   "record": "13715870 13742336 11034011 10999754",
+   "n_images_matching": 2238,
+   "n_sampled": 160,
+   "frac_le3mm": 0.894,
+   "extent_median_mm": 445.0,
+   "P_both_per_CT": 0.505,
+   "P_cage_per_CT": 0.311,
+   "gb": 194.18,
+   "per_batch": {
+    "batch_1 (13715870)": {
+     "n_images": 557,
+     "frac_le3mm": 0.95,
+     "extent_median_mm": 466,
+     "P_both_per_CT": 0.57,
+     "P_cage_per_CT": 0.338
+    },
+    "batch_2 (13742336)": {
+     "n_images": 566,
+     "frac_le3mm": 0.925,
+     "extent_median_mm": 432,
+     "P_both_per_CT": 0.511,
+     "P_cage_per_CT": 0.353
+    },
+    "batch_3 (11034011)": {
+     "n_images": 580,
+     "frac_le3mm": 0.85,
+     "extent_median_mm": 446,
+     "P_both_per_CT": 0.511,
+     "P_cage_per_CT": 0.334
+    },
+    "batch_4 (10999754)": {
+     "n_images": 535,
+     "frac_le3mm": 0.85,
+     "extent_median_mm": 442,
+     "P_both_per_CT": 0.428,
+     "P_cage_per_CT": 0.219
+    }
+   },
+   "patient_ids": {
+    "distinct": 2224,
+    "with_more_than_one_volume": 11
+   }
+  }
+ },
+ "pantsmini_sites": {
+  "source": "BodyMaps/PanTSMini metadata.xlsx (9,901 rows), read 2026-09-24",
+  "volumes_by_site": {
+   "CT Colonography / ACRIN (US)": 2810,
+   "University Hospital Basel (TotalSegmentator)": 1229,
+   "Memorial Sloan Kettering": 966,
+   "University Hospital Tuebingen (autoPET)": 894,
+   "University of Minnesota (KiTS)": 665,
+   "no site": 694,
+   "Gong'an County (CN)": 484,
+   "multi-site MSD": 411,
+   "Medical University of Warsaw (= WAW-TACE)": 293,
+   "Longgang (AMOS)": 200,
+   "IRCAD": 173,
+   "other named public sources": 982
+  },
+  "slices_le_3mm": 8794,
+  "phases": {
+   "non-contrast": 4485,
+   "venous": 2897,
+   "arterial": 2450,
+   "delay": 68
+  }
+ },
+ "summary_after_addendum": {
+  "tier1_census": {
+   "collections": 46,
+   "n_new": 14754,
+   "E_low": 829.9,
+   "E_high": 1698.8,
+   "E_count": 458.4,
+   "TB": 1.38
+  },
+  "tier1_late": {
+   "collections": 10,
+   "n_new": 3365,
+   "E_low": 163.3,
+   "E_high": 335.5,
+   "E_count": 90.7,
+   "TB": 0.41
+  },
+  "tier2": {
+   "collections": 17,
+   "n_new": 30486,
+   "E_low": 153.3,
+   "E_high": 456.3,
+   "E_count": 143.8,
+   "TB": 3.06
+  },
+  "gated": {
+   "collections": 7,
+   "n_new": 70764,
+   "E_low": 1790.7,
+   "E_high": 3848.1,
+   "E_count": 1065.6,
+   "TB": 0.12
+  },
+  "added_rows": 32
+ }
+}

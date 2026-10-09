@@ -1,0 +1,25 @@
+pattern,tier,spdx,standard,note
+(?i)^cc0|creative commons zero|public domain dedication,open,CC0-1.0,yes,
+(?i)\bcc[- ]by(-| )?(4\.0|3\.0|2\.0)?$|^cc-by$|creative commons attribution(?! ?-? ?(non|share|no)),open,CC-BY-4.0,yes,version read from the text; 4.0 is the default when none is stated
+(?i)cc[- ]by[- ]sa|attribution[- ]sharealike,open,CC-BY-SA-4.0,yes,
+(?i)cc[- ]by[- ]nc[- ]sa|attribution[- ]noncommercial[- ]sharealike,non-commercial,CC-BY-NC-SA-4.0,yes,
+(?i)cc[- ]by[- ]nc[- ]nd|attribution[- ]noncommercial[- ]noderiv,restricted,CC-BY-NC-ND-4.0,yes,redistribution yes but no derivatives: re-annotation and training-set assembly are derivative uses
+(?i)cc[- ]by[- ]nc(?![- ](sa|nd))|attribution[- ]noncommercial(?![- ](share|no)),non-commercial,CC-BY-NC-4.0,yes,
+(?i)cc[- ]by[- ]nd(?![- ]nc)|attribution[- ]noderiv,restricted,CC-BY-ND-4.0,yes,no derivatives
+(?i)\bodc[- ]?by\b|open data commons attribution,open,ODC-By-1.0,yes,
+(?i)\bodbl\b|open database licen[cs]e,open,ODbL-1.0,yes,
+(?i)\bpddl\b|public domain dedication and licen[cs]e,open,PDDL-1.0,yes,
+(?i)\bmit licen[cs]e\b|^mit$,open,MIT,yes,a software licence applied to data is recorded as stated
+(?i)\bapache(-| )2,open,Apache-2.0,yes,
+(?i)\bgpl\b|gnu general public,open,GPL-3.0-only,yes,copyleft software licence applied to data
+(?i)physionet open (data|access)|open data commons open database.*physionet|physionet.*open access,open,,yes,PhysioNet Open Data / Open Access policy
+(?i)physionet credentialed|credentialed health data licen[cs]e,restricted,,yes,PhysioNet Credentialed Health Data License (DUA-bound)
+(?i)physionet restricted|restricted access.*physionet,restricted,,yes,PhysioNet Restricted (DUA-bound)
+(?i)tcia.*(cc[- ]by|creative commons attribution)|cc[- ]by.*tcia,open,CC-BY-4.0,yes,TCIA collections under CC BY 3.0/4.0 with the TCIA data usage policy (attribution only)
+(?i)tcia (data usage policy|limited access|restricted)|limited.access collection,restricted,,yes,TCIA limited-access or DUA collections
+(?i)us (government )?public domain|work of the (u\.?s\.? )?(federal )?government|no copyright,open,,yes,US government works (NHANES, NLM)
+(?i)research (use|purposes) only|non-?commercial (research|use) only|academic use only,non-commercial,,no,research-use-only terms without a named licence: redistribution is charted from the text (restricted when redistribution is forbidden or unstated)
+(?i)^not stated$|^none$|^unknown$|no licen[cs]e,unknown,,no,
+(?i)kaggle competition rules|competition (data )?rules,restricted,,no,competition rules bind use to the competition unless a separate licence is named
+(?i)data[- ]use agreement|\bdua\b|end[- ]user licen[cs]e agreement,restricted,,no,DUA-bound
+.*,custom,,no,anything else: tier custom is scored as Q6 = 1 (custom terms) and the text is quoted

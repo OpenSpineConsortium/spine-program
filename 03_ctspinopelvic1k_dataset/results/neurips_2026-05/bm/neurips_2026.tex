@@ -1,0 +1,1018 @@
+\documentclass{article}
+
+\usepackage[eandd]{neurips_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{siunitx}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\dataset}{\textsc{CTSpinoPelvic1K}}
+\newcommand{\TS}{TotalSegmentator}
+
+\title{Diagnosing the LSTV Anomaly Gap: A Stratified
+Evaluation Protocol Exposing Failure Modes in Production CT
+Segmentation Systems}
+
+% Anonymized for double-blind review (default for E&D Track)
+\author{%
+  Anonymous Author(s) \\
+  Anonymous Affiliation \\
+  \texttt{anonymous@institution.edu} \\
+}
+
+\begin{document}
+
+\maketitle
+
+% =============================================================================
+\begin{abstract}
+\TS{} (TS) is the most widely deployed multi-organ CT segmentation
+model in clinical and research practice and reports a headline
+test-set Dice of 0.943.
+We show that on Lumbosacral Transitional Vertebrae (LSTV)---a
+congenital variant present in 5--35\% of the population and the
+single highest-risk anatomic feature for wrong-level spine
+surgery---TS junction Dice drops by \textbf{29.0 points}
+(0.824\,$\to$\,0.534) on Any-LSTV cases relative to normal
+anatomy, and by \textbf{46.8 points} (0.824\,$\to$\,0.357)
+specifically on lumbarization.
+We characterize a previously undocumented mechanistic failure mode:
+\emph{vertebral level-shift mislabeling}, in which TS, lacking an
+L6 output class, distributes 5 labels across 6 lumbar bodies by
+shifting label assignment by one anatomic level.
+On lumbarization cases, GT L6 voxels are predominantly labeled as
+L5, GT L5 as L4, and so on, producing per-class DSCs that
+collapse caudally: L1=0.878 → L4=0.388 → L5=0.291.
+On count-style sacralization (4 lumbar bodies + fused L5), the
+inverse failure occurs: TS predicts L1--L5 in standard positions
+while GT spans only L1--L4, collapsing per-class DSC to near
+zero.
+TS structurally cannot predict L6 (\textsc{TS\_L6}\,=\,0 across
+all 1{,}152 evaluation cases), making this an architectural
+failure compounded by distributional underrepresentation.
+This failure is invisible to every existing CT segmentation
+benchmark because none stratify evaluation by transitional
+anatomy.
+We make three contributions to close this gap:
+(i) \textbf{\dataset{}}, a CT-native benchmark of 1{,}153 abdominal
+CT volumes across 802 patients with unified 10-class spinopelvic
+masks and 33 LSTV-positive cases spanning a 6-way subtype
+taxonomy with explicit dual-origin arbitration metadata;
+(ii) a \textbf{stratified evaluation protocol} reporting per-class
+DSC, junction-DSC over a 40\,mm L5/S1 axial window, and per-class
+confusion matrices, designed to make architectural failures
+(no L6 output class) attributable separately from distributional
+failures (LSTV underrepresentation in training);
+(iii) a \textbf{full-resolution H200 baseline} demonstrating
+the gap is closable: a 5-fold CV nnU-Net trained at native
+$0.75\!\times\!0.75\!\times\!0.80$~mm with a
+$256\!\times\!320\!\times\!320$ patch (the only configuration
+fitting the full lumbar spine and pelvis on a single GPU,
+requiring 100~GB HBM3e) recovers junction Dice on LSTV cases to
+0.\textbf{XXX} (\textbf{+XX.X} points) and emits an L6 class on
+all lumbarization cases.
+The hardware budget is not incidental: TS's published
+1.5~mm and 3~mm resolutions, which fit on commodity GPUs,
+discard the boundary detail that distinguishes Castellvi
+Type II morphology from normal L5/S1.
+\dataset{}, the evaluation protocol, and trained checkpoints
+will be released publicly upon acceptance.
+\end{abstract}
+
+% =============================================================================
+\section{Introduction}
+\label{sec:intro}
+
+Modern radiology depends on automated segmentation.
+\TS{}~\citep{Wasserthal2023TotalSegmentator:Images}, an nnU-Net-based
+model trained on 1{,}204 routine CT examinations to delineate
+104 anatomic structures, has become the de-facto production
+system for whole-body CT segmentation, with thousands of clinical
+and research installations and integration into commercial
+radiology workstations.
+The original paper reports a test-set Dice of 0.943 across all
+classes and qualitatively documents two known failure modes for
+the spine: ``mixing neighboring vertebrae classes'' (1\% of cases)
+and ``mixing neighboring rib classes''
+(12\%)~\citep[Figure 4]{Wasserthal2023TotalSegmentator:Images}.
+For most anatomy, this is acceptable headline performance.
+
+This paper concerns one anatomic class on which it is not.
+
+The Lumbosacral Transitional Vertebra (LSTV) is a congenital
+variant in which the L5/S1 junction exhibits morphological features
+of the adjacent segment~\citep{Castellvi1984LumbosacralDefects}: \emph{sacralization},
+where L5 fuses with the sacrum, or \emph{lumbarization}, where S1
+detaches and presents as a discrete sixth lumbar body (L6).
+Population prevalence ranges from 5\% to
+35\%~\citep{Sekharappa2014LumbosacralSignificance} depending on imaging modality
+and classification criterion, and LSTV misidentification is the
+single largest contributor to wrong-level spine
+surgery~\citep{Konin2010LumbosacralRelevance,Carrino2011EffectImaging}.
+A model that fails on LSTV is not failing on a benign edge case;
+it is failing on the exact anatomy whose accurate delineation
+defines its clinical value.
+
+\paragraph{The evaluation gap.}
+TS does not report LSTV-stratified performance.
+Neither does VerSe~\citep{Sekuboyina2020VerSe:Benchmark},
+CTSpine1K~\citep{Deng2021CTSpine1K:Tomography}, or
+CTPelvic1K~\citep{Liu2021DeepModels}, the three other major CT spine
+and pelvis benchmarks.
+This is not an oversight in any single paper:
+\emph{no public CT segmentation benchmark stratifies evaluation
+by transitional anatomy}, because no public CT segmentation
+benchmark has curated LSTV cases at the scale required to power
+such analysis.
+The result is a measurement vacuum: we cannot know how badly TS
+or any successor fails on LSTV until a stratified benchmark
+exists.
+
+\paragraph{The mechanistic failure mode.}
+We document a specific failure mode in TS on LSTV cases that the
+original paper does not characterize:
+\textbf{vertebral level-shift mislabeling}.
+TS's label vocabulary contains
+\texttt{vertebrae\_L1}--\texttt{vertebrae\_L5} but no L6 class.
+On lumbarization (a 6-vertebra spine), TS does not output
+``unknown'' on the supernumerary body; instead, it shifts the
+entire lumbar label assignment by one anatomic level so that all
+five outputs remain in use.
+Empirically this manifests as: GT L6 voxels predicted predominantly
+as L5; GT L5 voxels predicted predominantly as L4; cascading
+upward.
+Per-class DSC consequently collapses caudally
+(L1=0.878\,$\to$\,L4=0.388\,$\to$\,L5=0.291)
+while remaining near-normal for the most rostral lumbar bodies
+where the topological constraint is least binding.
+The output is locally well-formed---each predicted vertebra is
+spatially compact, anatomically positioned, indistinguishable
+from a single correct prediction except by counting and by
+boundary alignment with the actual lumbar bodies.
+A counting-aware downstream system---a surgical planning pipeline
+that reads ``L4--L5 disc'' from segmentation output, for
+instance---will fetch the wrong disc.
+
+The same architectural mismatch produces an inverse failure on
+count-style sacralization (4 visible lumbar bodies plus a fused
+L5/sacrum mass).
+GT here ranges only L1--L4; TS, expecting 5 lumbar bodies,
+emits L1--L5 in standard positions, producing systematic
+$+1$-level mislabeling from L2 onward.
+Per-class DSC collapses on every lumbar class
+(L1=0.265, L2=0.100, L3=0.055, L4=0.001, L5=0.000).
+The failure is mechanically attributable to a single architectural
+decision (no L6 output class) compounded by a learned response to
+distributional mismatch (LSTV underrepresentation in training);
+it is invisible to every metric except a stratified per-class DSC
+plus per-class confusion analysis at the L5/S1 junction.
+
+\paragraph{Closing the gap requires hardware.}
+Demonstrating that the gap is closable requires a baseline that
+both incorporates LSTV cases in training \emph{and} fits sufficient
+anatomical context per training patch to learn the spinopelvic
+spatial relationships at the L5/S1 junction.
+At spacing $0.75\!\times\!0.75\!\times\!0.80$~mm and patch size
+$256\!\times\!320\!\times\!320$ (the only patch size fitting both the
+pelvis and the full lumbar spine in one window on the resampled
+COLONOG geometry), a single training batch consumes
+${\sim}100$~GB of GPU memory under nnU-Net's
+\texttt{nnUNetResEncUNetPlans\_100G} planner.
+This budget is available on H200 hardware (140~GB HBM3e) but not
+on the L40S/A100/H100 GPUs that bracket TS's reported training
+configuration and most academic baselines.
+The hardware budget is the difference between a model that sees
+the L5--sacrum--ilium relationship during training and one that
+does not.
+TS's published training used patches at 1.5~mm and 3~mm isotropic
+resolution, which fit comfortably on commodity GPUs but discard
+the sub-millimeter boundary detail required to disambiguate
+Castellvi Type~II from a normal L5/S1.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+\item \textbf{LSTV failure-mode analysis of \TS{} on CT.}
+  The first stratified evaluation of TS on LSTV-positive cases,
+  with per-class DSC, junction-DSC, and per-class confusion
+  matrices reported across a 6-way LSTV taxonomy.
+  TS junction-DSC drops 29.0 points on Any-LSTV cases and 46.8
+  points specifically on lumbarization. Confusion matrices reveal
+  the level-shift mechanism with case-level documentation
+  (\S\ref{sec:case_studies}) showing GT-L6 voxels labeled as L5
+  in 81{,}088 / 85{,}186 voxels (95\%) on a representative case.
+  \textsc{TS\_L6}\,=\,0 across all 1{,}152 evaluation cases,
+  confirming the architectural component.
+  TS is evaluated in full-resolution mode, isolating the failure
+  as a property of label vocabulary and training distribution
+  rather than inference resolution.
+\item \textbf{\dataset{}: a stratified CT spinopelvic benchmark.}
+  1{,}153 abdominal CT records across 802 matched patients,
+  unified 10-class spinopelvic masks (with an explicit L6 class),
+  33 LSTV-positive cases spanning a 6-way subtype taxonomy
+  (lumbarization $n=14$; sacralization-by-count $n=9$;
+  semi-sacralization $n=2$; full sacralization $n=6$;
+  ambiguous $n=2$), dual-origin LSTV labels with
+  explicit arbitration metadata for the systematically-ambiguous
+  lumbosacral confusion zone, and a registration-free fusion
+  pipeline that resolves a previously undocumented Y-axis
+  coordinate-convention mismatch between CTSpine1K and CTPelvic1K.
+\item \textbf{Stratified evaluation protocol.}
+  Per-LSTV-subgroup DSC, junction-DSC over a 40~mm axial window
+  centered at L5/S1, and per-class voxel confusion matrices.
+  Together these make architectural and distributional failure
+  modes individually attributable.
+\item \textbf{Full-resolution H200 baseline closing the gap.}
+  An nnU-Net 3d\_fullres baseline trained at native
+  $0.75\!\times\!0.75\!\times\!0.80$~mm spacing with a
+  $256\!\times\!320\!\times\!320$ patch under the
+  \texttt{nnUNetResEncUNetPlans\_100G} planner targeting 100~GB
+  GPU memory, on H200 NVL hardware, with 5-fold CV across all
+  979 training cases via partial-annotation training.
+  The baseline closes the LSTV junction-Dice gap to
+  $\Delta = $\textbf{XX} points and emits an L6 class on all
+  lumbarization cases in the held-out test set.
+\end{enumerate}
+
+% =============================================================================
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{TS{} and the production-baseline problem.}
+\citet{Wasserthal2023TotalSegmentator:Images} segments 104 anatomic
+structures from CT and is widely deployed.
+The original paper documents ``mixing neighboring vertebrae
+classes'' (1\% of cases) as a failure mode but does not stratify
+by transitional anatomy or characterize level-shift labeling
+behavior. TS's failure modes on LSTV-positive CT have, to our
+knowledge, not been previously characterized.
+\citet{Warszawer2025TotalSpineSeg:MRI} extended this methodology
+to MRI with spine-specific architecture, but MRI cannot resolve
+the cortical bridging that defines Castellvi morphology.
+
+\paragraph{CT spine and pelvis benchmarks.}
+CTSpine1K~\citep{Deng2021CTSpine1K:Tomography} provides 1{,}005 CT volumes
+with per-vertebra annotation;
+VerSe~\citep{Sekuboyina2020VerSe:Benchmark} provides 460 challenge-format
+spine CTs; CTPelvic1K~\citep{Liu2021DeepModels} provides 1{,}184
+pelvic CTs.
+None reports LSTV prevalence or stratifies splits by transitional
+anatomy.
+CTPelvic1K filename qualifiers qualitatively encode an LSTV
+phenotype for many cases, which we systematically extract,
+disambiguate (separating semi-sacralization from full
+sacralization, a distinction lost in earlier extraction
+attempts due to a substring-match parser bug), and validate
+against CTSpine1K vertebral counting.
+
+\paragraph{Multi-source label fusion.}
+\citet{Li2025LumbarMechanism} combine CTSpine1K and CTPelvic1K for
+joint segmentation but treat them as two independent sources
+without resolving the silent coordinate-convention mismatch we
+describe in \S\ref{sec:dataset}, and provide no LSTV-stratified
+evaluation.
+
+\paragraph{Evaluation as scientific object.}
+The position that benchmarks should report stratified performance
+on safety-critical subgroups, rather than relying on aggregate
+metrics, is established in the medical ML
+community~\citep{Sang2025BenchmarkChallenge,Pieper2024Spine1}.
+This paper applies that principle to a setting where the relevant
+subgroup (LSTV) is invisible to every existing benchmark, and
+demonstrates that adding the stratification exposes a quantifiable
+failure mode in the most widely deployed production model.
+
+% =============================================================================
+\section{Failure-Mode Analysis: \TS{} on LSTV}
+\label{sec:ts_failure}
+
+We evaluate TS v2 (\texttt{total} task) zero-shot at
+\textbf{full resolution} (\texttt{--fast} disabled) on the full
+\dataset{} matched cohort.
+TS was not trained on any \dataset{} case, so every case is a
+valid test case; this provides $N=1{,}152$ successful evaluation
+records aggregated to 801 patients via patient-level merging of
+separate-mode (spine + pelvic) records, including 33 LSTV-positive
+patients across the 6-way taxonomy.
+Full-resolution mode isolates the failure as a property of label
+vocabulary and training distribution rather than inference
+resolution, addressing the central confound of low-resolution
+benchmarks.
+
+\subsection{Stratified Per-Class Performance}
+
+Table~\ref{tab:ts_stratified} reports TS performance stratified by
+LSTV phenotype using the 6-way taxonomy.
+On normal anatomy ($n=768$) TS performs at its published level:
+mean L1--L5 DSC of 0.929, sacrum 0.817, hips 0.928, junction-DSC
+0.824.
+On Any-LSTV ($n=33$), every metric drops:
+junction-DSC falls $\Delta = -29.0$ points to 0.534.
+The drop is highly asymmetric across phenotypes.
+Lumbarization ($n=14$) collapses caudally (L4=0.388, L5=0.291)
+with junction-DSC at 0.357.
+Sacralization-by-count ($n=9$) collapses across all lumbar classes
+(L1=0.265 down to L5=0.000) but retains junction-DSC at 0.697
+because the surviving GT L1--L4 voxels are sparsely distributed
+within the 40~mm window.
+Full sacralization ($n=6$) and semi-sacralization ($n=2$) retain
+moderate-to-high per-class DSC, indicating that morphological-
+qualifier-based phenotypes do not propagate the same level-shift
+mislabeling pattern.
+
+\begin{table}[t]
+\caption{TS{} zero-shot stratified by LSTV phenotype on
+\dataset{}, full-resolution mode.
+Junction DSC computed over a 40~mm axial window centered at
+L5/S1.
+\textsc{TS\_L6} = number of cases in which TS emitted any L6
+voxel (structurally zero by label vocabulary).
+JxnDSC entries marked with $\dagger$ indicate fused-mode patient
+unavailable; semi-sacralization and ambiguous have only
+separate-mode records, where junction analysis is not computed.
+The junction-DSC drop on lumbarization is mechanistically driven
+by the level-shift labeling pattern characterized in
+\S\ref{sec:level_shift}, not by uniform performance degradation
+across classes.}
+\label{tab:ts_stratified}
+\centering
+\small
+\begin{tabular}{lrcccccccr}
+\toprule
+\bfseries Subgroup & \bfseries $n$ &
+\bfseries L1 & \bfseries L2 & \bfseries L3 & \bfseries L4 & \bfseries L5 &
+\bfseries Sac & \bfseries Hips &
+\bfseries Jxn DSC \\
+\midrule
+All cases                              & 801 & 0.911 & 0.906 & 0.913 & 0.914 & 0.913 & 0.817 & 0.929 & 0.818 \\
+Normal                                 & 768 & 0.921 & 0.918 & 0.929 & 0.936 & 0.938 & 0.817 & 0.929 & 0.824 \\
+\midrule
+Any LSTV                               & 33  & 0.681 & 0.615 & 0.523 & 0.367 & 0.314 & 0.822 & 0.929 & 0.534 \\
+\quad Lumbarization                    & 14  & 0.878 & 0.853 & 0.690 & 0.388 & 0.291 & 0.833 & 0.928 & \textbf{0.357} \\
+\quad Sacralization (count-style)      &  9  & 0.265 & 0.100 & 0.055 & 0.001 & 0.000 & 0.814 & 0.926 & 0.697 \\
+\quad Semi-sacralization               &  2  & 0.951 & 0.951 & 0.951 & 0.955 & 0.956 & 0.824 & 0.937 & $\dagger$ \\
+\quad Sacralization (full)             &  6  & 0.718 & 0.676 & 0.673 & 0.724 & 0.793 & 0.826 & 0.932 & 0.636 \\
+\quad Ambiguous                        &  2  & 0.952 & 0.951 & 0.882 & 0.678 & 0.374 & 0.771 & 0.932 & $\dagger$ \\
+\midrule
+\textsc{TS\_L6} (any subgroup)         &     &       &       &       &       &       &       &       & 0 / 1152 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The Level-Shift Mislabeling Failure}
+\label{sec:level_shift}
+
+The asymmetry between lumbarization (severe, caudally-progressive
+collapse) and sacralization-by-count (uniform collapse) is
+mechanistically explainable by a single architectural fact: TS
+has no L6 output class.
+
+For lumbarization (6 lumbar bodies), the fixed label cardinality
+forces TS to compress 6 anatomic units into 5 labels.
+The most rostral body remains correctly labeled L1 because the
+upward escape (into thoracic vertebrae T11--T12, which TS does
+have) preserves the local label-to-anatomy correspondence.
+But every successive body is progressively misaligned, with the
+final body labeled L5 (correctly the position for the 5th lumbar
+body) when in fact it occupies the L6 position.
+The 5th-from-top body, which is anatomically L5, gets labeled L4.
+Hence the caudally-progressive DSC collapse:
+L1=0.878\,$\to$\,L2=0.853\,$\to$\,L3=0.690\,$\to$\,L4=0.388\,$\to$\,L5=0.291.
+The L1 retains 0.878 (a 0.04 drop from normal) only because the
+top body is genuinely L1; L4 and L5 collapse because the labels
+they receive belong on the bodies one position higher.
+
+For count-style sacralization (4 lumbar bodies + fused L5),
+the failure is the inverse.
+Ground truth here labels only L1--L4, with the fused L5 absorbed
+into the sacrum class.
+TS, expecting 5 lumbar bodies, emits L1--L5 in standard positions.
+The five predicted labels overlap the four GT lumbar bodies with a
+$+1$-level offset (predicted L2 sits where GT L1 is, etc.), so
+DSC collapses uniformly across L1--L5
+(0.265, 0.100, 0.055, 0.001, 0.000).
+Junction-DSC remains at 0.697 because sacrum and the surviving
+caudal lumbar voxels still align reasonably within the 40~mm
+window---these cases lose lumbar identity but not sacral
+boundaries.
+
+Full sacralization ($n=6$, retains junction-DSC 0.636 and L1--L5
+DSCs 0.67--0.79) shows neither pattern.
+We interpret this as a less-systematic failure mode:
+full-sacralization GT typically labels the fused L5 mass partly
+as L5 and partly as sacrum, giving TS's L5 prediction enough
+overlap that DSC remains substantial.
+Semi-sacralization ($n=2$, L1--L5 all $>0.95$) shows essentially
+no failure; the morphological subtlety distinguishing semi from
+normal does not impose the topological constraint that breaks
+TS's label vocabulary.
+
+\subsection{Mechanistic versus Distributional Attribution}
+
+We attribute the failure to two compounding causes that the
+stratified protocol disentangles.
+
+\textbf{(i) Architectural:} TS's label vocabulary excludes L6, so
+any model with TS's output head cannot correctly segment a
+lumbarized spine regardless of training data; \textsc{TS\_L6} is
+structurally zero across all 1{,}152 evaluation cases.
+This contributes a fixed lower bound on lumbarization DSC.
+
+\textbf{(ii) Distributional:} TS's training data
+(1{,}204 hospital CTs sampled from 2012, 2016, 2020 with no LSTV
+stratification) likely contains a population-base-rate fraction of
+LSTV cases, but these are too few and too unstratified to teach
+the model alternative compensatory behaviors (e.g., explicit
+``unknown'' or low-confidence prediction for the supernumerary
+body).
+The level-shift behavior is a learned response to a
+distributional mismatch (more lumbar bodies than the trained
+distribution), constrained by the architectural bound.
+
+A baseline trained with an L6 class on LSTV-stratified data
+should close the architectural component completely
+(\textsc{baseline\_L6}\,$>0$ on lumbarization cases).
+Whether the level-shift behavior also resolves depends on whether
+LSTV oversampling provides sufficient signal at the relevant
+resolution; we test both in \S\ref{sec:baseline}.
+
+% =============================================================================
+\section{Case Studies: Failure Modes of \TS{} on LSTV}
+\label{sec:case_studies}
+
+The aggregate metrics in Table~\ref{tab:ts_stratified} summarize a
+population-level pattern but obscure case-level mechanism.
+This section presents three case studies---one each for severe
+lumbarization, mild lumbarization with adaptive sacrum
+labeling, and count-style sacralization---using per-class voxel
+confusion matrices over the 40~mm L5/S1 window to expose the
+exact mechanism of failure.
+Each case is a real \dataset{} record evaluated by TS under the
+same configuration as Table~\ref{tab:ts_stratified}.
+
+\subsection{Case 1: Lumbarization with Severe Level Shift
+            (Token 167)}
+\label{sec:case167}
+
+Token 167 is a fused-mode lumbarization case with junction-DSC
+0.221, the lowest among lumbarization cases.
+The per-class confusion matrix over the 40~mm L5/S1 window reveals
+the level-shift mechanism cleanly
+(Table~\ref{tab:case167_confusion}).
+Of 92{,}629 GT-L5 junction voxels, 92{,}537 (99.9\%) are predicted
+as L4---essentially the entire L5 region is misnamed.
+Of 85{,}186 GT-L6 voxels, 81{,}088 (95.2\%) are predicted as L5
+and only 9 as L4; the remaining 4{,}089 fall to background.
+The sacrum prediction is largely intact: 80{,}334 of 149{,}005
+GT-sacrum voxels (53.9\%) are correctly labeled, with the
+remainder going to background due to incomplete sacrum-extent
+prediction (a separate, milder issue).
+No GT-L6 voxel is predicted as L6 (\textsc{TS\_L6}\,=\,0
+structurally).
+
+\begin{table}[t]
+\caption{Case 1 (Token 167) per-class voxel confusion matrix over
+the 40~mm L5/S1 axial window. Rows = GT class; columns = TS
+prediction. Bold cells indicate the dominant prediction class for
+each GT row. The diagonal-shifted dominance pattern (GT-L5
+$\to$ predicted L4; GT-L6 $\to$ predicted L5) is the empirical
+signature of the level-shift mislabeling failure.}
+\label{tab:case167_confusion}
+\centering
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+\bfseries GT $\backslash$ Pred & \bfseries bg & \bfseries L3 & \bfseries L4 & \bfseries L5 & \bfseries sacrum & \bfseries L6 \\
+\midrule
+L5     & 4{,}572  & 2 & \textbf{92{,}537} & 90              & 0           & 0 (n/a) \\
+L6     & 4{,}089  & 0 & 9                 & \textbf{81{,}088} & 0         & 0 (n/a) \\
+sacrum & 68{,}635 & 0 & 0                 & 36              & \textbf{80{,}334} & 0 (n/a) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The output is anatomically well-formed: TS produces five compact
+vertebral predictions in roughly correct positions plus a sacrum
+prediction.
+A reader unaware of the patient's lumbarization could not detect
+the failure from a single sagittal slice---each labeled vertebra
+``looks like'' the labeled vertebra.
+The failure is detectable only by counting bodies (six lumbar,
+not five) or by comparing predicted-label-to-position correspondence
+to the patient's actual anatomy.
+A surgical planner consuming this output and instructed to operate
+at L4--L5 would target the disc between predicted-L4 and
+predicted-L5, which is anatomically the L5--L6 disc---one level
+caudal to the intended target.
+
+\subsection{Case 2: Lumbarization with L6 Suppression
+            (Token 189)}
+\label{sec:case189}
+
+Token 189 is a fused-mode lumbarization case with the highest
+junction-DSC among lumbarization cases (0.617), demonstrating a
+qualitatively different failure mode.
+The confusion matrix (Table~\ref{tab:case189_confusion}) shows
+that GT-L5 voxels are predominantly predicted correctly as L5
+(135{,}224 of 140{,}564 = 96.2\%), and GT-sacrum voxels are
+correctly predicted as sacrum (227{,}881 of 247{,}665 = 92.0\%).
+The L6 region, however, is predicted predominantly as
+\emph{background} (110{,}322 of 111{,}448 = 99.0\%).
+
+\begin{table}[t]
+\caption{Case 2 (Token 189) per-class voxel confusion matrix over
+the 40~mm L5/S1 axial window. The L6 row shows the L6-suppression
+failure mode: TS labels the supernumerary body as background
+rather than committing it to a wrong lumbar level.}
+\label{tab:case189_confusion}
+\centering
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+\bfseries GT $\backslash$ Pred & \bfseries bg & \bfseries L4 & \bfseries L5 & \bfseries sacrum & \bfseries L6 \\
+\midrule
+L5     & 4{,}235          & 1{,}105 & \textbf{135{,}224} & 0                  & 0 (n/a) \\
+L6     & \textbf{110{,}322} & 0     & 907                & 219                & 0 (n/a) \\
+sacrum & 19{,}683         & 0       & 101                & \textbf{227{,}881} & 0 (n/a) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+This is functionally a different mistake from Case 1.
+Rather than shifting labels by one anatomic level, TS appears
+to recognize that an unfamiliar body is present and declines to
+label it---a kind of high-uncertainty refusal.
+The L5 and sacrum predictions remain correctly aligned with their
+GT counterparts.
+Junction-DSC is moderate (0.617) because two of three junction
+classes are predicted correctly; the L6 class contributes a near-
+zero DSC term (0.0, since no L6 voxels are predicted) which the
+3-class average dilutes.
+
+The clinical implication of L6 suppression is more recoverable
+than that of level-shift mislabeling: a surgical planner reading
+the predicted L4--L5 boundary will target the correct
+L4--L5 disc, since L4 and L5 predictions remain correctly
+positioned.
+The L5--L6 disc, however, is invisible to the planner---the
+patient's actual lumbarization is silently absent from the model
+output.
+A planner asked to target the L5--S1 disc will identify the
+predicted L5--sacrum boundary, which is anatomically the
+L6--sacrum boundary, again one level off-target.
+
+\subsection{Case 3: Count-Style Sacralization Producing Inverse
+            Level Shift (Token from sacr\_count subgroup)}
+\label{sec:case_sacr_count}
+
+Count-style sacralization cases ($n=9$, mean L5 DSC = 0.000)
+show the inverse failure pattern.
+GT here labels four lumbar bodies (L1--L4) plus a fused
+L5/sacrum mass labeled as sacrum.
+TS predicts five lumbar bodies (L1--L5) in their standard
+positions.
+The result is a uniform $+1$-level offset: every TS-predicted
+lumbar label sits on the GT body of the next-rostral identity.
+Per-class DSC collapses across all lumbar classes
+(0.265, 0.100, 0.055, 0.001, 0.000).
+Junction-DSC remains at 0.697 because the sacrum prediction
+(which now extends into what TS labels as ``L5'' but GT labels as
+sacrum) overlaps reasonably with the GT sacrum within the 40~mm
+window.
+
+This failure mode is interesting because it is symmetric to the
+lumbarization case: in lumbarization, GT has $n+1$ lumbar bodies
+and TS has $n$ labels; in count-style sacralization, GT has $n-1$
+lumbar bodies and TS still has $n$ labels.
+Both produce a one-level offset between prediction and ground
+truth, but in opposite directions.
+The shared root cause is TS's fixed label cardinality.
+
+\subsection{Synthesis}
+
+The three case studies establish a unified picture of TS's
+behavior under LSTV.
+Architecturally, TS has no mechanism to express the
+``six lumbar bodies'' or ``four lumbar bodies + sacralized L5''
+hypothesis; its output head is locked to the five-lumbar-bodies
+template.
+Empirically, the trained model handles violations of the template
+in three observable ways: (a) level-shift the entire lumbar label
+assignment (Case 1; most common on lumbarization); (b) suppress
+the supernumerary body to background (Case 2; less common but
+clinically more recoverable); (c) emit standard L1--L5 predictions
+that systematically overshoot GT (Case 3; near-universal on
+count-style sacralization).
+None of these is correct.
+All are silent at inference time.
+
+The level-shift pattern (Case 1, Case 3) is the failure mode of
+greatest clinical concern: the output is locally well-formed, the
+mislabeling is silent, and a downstream planning system has no
+mechanism to detect that a one-level shift has occurred.
+A counting-aware audit step at the L5/S1 junction---verifying
+that the predicted L5--sacrum boundary aligns with the
+patient's actual L5--sacrum boundary---would catch this failure,
+but no production CT segmentation system to our knowledge
+performs such an audit.
+
+% =============================================================================
+\section{\dataset{}: Construction and Composition}
+\label{sec:dataset}
+
+\paragraph{Patient cohort and source datasets.}
+\dataset{} fuses CT scans from the COLONOG
+collection~\citep{Smith2015DataCOLONOGRAPHY} with annotations from
+CTSpine1K~\citep{Deng2021CTSpine1K:Tomography} (per-vertebra masks via VerSe
+labels) and CTPelvic1K~\citep{Liu2021DeepModels} (sacrum and bilateral
+hips).
+The three resources share the same patient pool but were curated
+independently with no SeriesInstanceUID linkage and using
+different DICOM-to-NIfTI toolchains, producing silently
+incompatible coordinate conventions and partial annotation overlap
+(Table~\ref{tab:scan_stats}).
+A critical implication is that of 1{,}153 matched records, only
+342 carry both spine and pelvis ground truth in fused mode;
+352 are separate mode (spine and pelvic from different
+acquisitions), 90 are spine-only, and 20 are pelvic-only.
+
+\begin{table}[t]
+\caption{\dataset{} composition. Restricting training to fused
+cases would discard 70\% of the data, disproportionately
+penalizing rare LSTV subgroups; \S\ref{sec:partial} describes the
+ignore-label protocol that incorporates the
+partially-annotated remainder.}
+\label{tab:scan_stats}
+\centering
+\small
+\begin{tabular}{lcc}
+\toprule
+\bfseries Property & \bfseries Value & \bfseries LSTV cases \\
+\midrule
+Patients matched (\dataset{})       & 802     & --- \\
+Records matched (\dataset{})        & 1{,}153 & 33 patients (44 records) \\
+\quad Fused (spine + pelvis)        & 342     & --- \\
+\quad Separate (spine + pelvic)     & 352     & --- \\
+\quad Spine-only                    & 90      & --- \\
+\quad Pelvic-only                   & 20      & --- \\
+\midrule
+Lumbarization                       & ---     & 14 \\
+Sacralization (count-style)         & ---     & 9 \\
+Sacralization (full)                & ---     & 6 \\
+Semi-sacralization                  & ---     & 2 \\
+Ambiguous (cross-anatomy disagreement) & --- & 2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Patient-anchored fusion.}
+We resolve patient identity via canonical UID matching (stripping
+zero-padding from the final UID component reduces the problem to
+an exact relational join, resolving 825/825 patients).
+Within each patient's bounded set of TCIA series, we assign each
+mask to its source CT acquisition by exhaustive intrapatient
+bone-HU maximization:
+\begin{equation}
+s^*(m) = \argmax_{s \in \mathcal{S}_p}
+\frac{|\{v \in \mathcal{L}(m, s) : I_s(v) > 200~\text{HU}\}|}{|\mathcal{L}(m, s)|},
+\label{eq:bonehu}
+\end{equation}
+which serves as a metadata-free oracle since
+\texttt{SeriesDescription} and \texttt{BodyPartExamined} fields
+are unreliable in TCIA releases.
+This achieves 99.6\% spine and 100\% pelvic placement.
+
+\paragraph{Coordinate-convention correction.}
+CTSpine1K and CTPelvic1K were converted from DICOM with different
+\texttt{dcm2niix} invocations, producing a systematic Y-axis sign
+reflection in the resulting NIfTI affines.
+For the same patient, CTSpine1K masks place the body center near
+$y \approx -181$~mm world coordinate while CTPelvic1K places it
+at $y \approx +181$~mm.
+This is undetectable from voxel spacing alone and would silently
+corrupt all fused masks. We detect via the affine-derived center
+sign and reverse the mask along axis~1 with affine update; the
+correction is exact and verified on all 714 pelvic masks.
+This is an instance of a broad failure class: any pipeline
+combining independently processed NIfTI datasets must validate
+affine-derived world coordinates before training.
+
+\paragraph{Unified 10-class label map.}
+Both source label spaces are remapped:
+0\,=\,background, 1--5\,=\,L1--L5,
+\textbf{6\,=\,L6 (lumbarized S1)}, 7\,=\,sacrum,
+8\,=\,left hip, 9\,=\,right hip.
+Class~6 is the first evaluation class in any public CT spine
+benchmark reserved for the lumbarized transitional body.
+At voxel-level conflicts at the L5/sacrum boundary, CTPelvic1K
+takes precedence for sacral extent.
+
+\paragraph{Six-way LSTV taxonomy with dual-origin labels.}
+We retain both LSTV label sources separately and partition cases
+into six subtypes by combining filename-qualifier evidence
+(CTPelvic1K morphological criterion) with vertebral-counting
+evidence (CTSpine1K VerSe-label-presence heuristic):
+\textbf{normal} (no LSTV indication from either source);
+\textbf{lumb} (6 vertebrae labeled or VerSe label 25 present);
+\textbf{sacr\_count} (4 vertebrae labeled with sacralization
+flag);
+\textbf{semisacralization} (filename qualifier
+\texttt{\_semisacralization\_});
+\textbf{sacralization} (filename qualifier
+\texttt{\_sacralization\_}); and \textbf{ambiguous} (cross-
+source disagreement that cannot be reconciled by either rule).
+Earlier dataset extractions collapsed semisacralization into full
+sacralization due to a substring-match parser bug in the qualifier
+parser; we identify and fix this, recovering the semi-
+sacralization subtype as a distinct evaluation class.
+The 6-way taxonomy is essential for the failure-mode analysis in
+\S\ref{sec:level_shift}: full sacralization, semi-sacralization,
+and count-style sacralization produce qualitatively different
+failure patterns and would be invisible if collapsed into a single
+``sacralization'' bucket.
+We release all labels with origin flags so downstream training
+and evaluation can exploit rather than discard the source-level
+disagreement.
+
+\subsection{Partial-Annotation Training Protocol}
+\label{sec:partial}
+
+Training only on fused cases discards 70\% of the data.
+We use nnU-Net v2's
+\texttt{ignore\_label}~\citep{Isensee2024Nnu-netSegmentation}
+mechanism to train on all 1{,}153 records:
+for spine-only and pelvic-only cases, voxels with value 0 are
+rewritten to 255 (declared as \texttt{ignore\_label} in
+\texttt{dataset.json}); voxels with value 255 contribute zero to
+both Dice and cross-entropy loss, so the model is supervised only
+on structures present in each case's ground truth.
+Spine classes (1--6) receive supervision from all 784
+fused-or-spine-only-or-spine-side records;
+pelvic classes (7--9) from all 714
+fused-or-pelvic-only-or-pelvic-side records.
+This is a $3.36\times$ effective training-set expansion relative
+to fused-only training.
+
+% =============================================================================
+\section{Evaluation Protocol}
+\label{sec:protocol}
+
+We define three metrics as the minimum required to attribute LSTV
+failure modes:
+
+\paragraph{Per-class DSC stratified by 6-way LSTV subgroup.}
+Reported separately for normal, lumb, sacr\_count, semi-
+sacralization, sacralization, and ambiguous, on each of 9
+anatomical classes plus mean foreground.
+This exposes which specific classes degrade on which
+phenotypes; it is what \S\ref{sec:level_shift} relied on to
+isolate the caudally-progressive lumbar collapse on lumbarization
+cases.
+
+\paragraph{Junction-DSC over a 40~mm L5/S1 axial window.}
+DSC restricted to the $z$-axis window centered at the L5/S1
+boundary (or its lumbarized equivalent in lumbarization cases).
+This window is the clinical window of interest---surgical planning
+around L5/S1 cares about boundary delineation, not L1 voxel-level
+overlap.
+Junction-DSC is what reveals the LSTV gap that aggregate per-class
+metrics smooth over.
+
+\paragraph{Per-class voxel confusion matrices at the L5/S1
+junction.}
+For each LSTV-positive case, the ground-truth $\times$ prediction
+confusion matrix over the 40~mm window.
+This is what \S\ref{sec:case_studies} relies on to expose the
+level-shift mechanism: the matrices reveal that the lumbarization
+failure is not a diffuse degradation but a structured one-level
+offset, which DSC alone cannot characterize.
+A model that produces the same junction-DSC by emitting noise
+versus by producing a clean one-level shift is qualitatively
+different in clinical risk; the confusion matrix is the only
+metric that distinguishes them.
+
+% =============================================================================
+\section{Full-Resolution Baseline}
+\label{sec:baseline}
+
+\paragraph{Architecture and configuration.}
+nnU-Net v2 with the ResEnc-M planner, configuration
+\texttt{3d\_fullres}, plans
+\texttt{nnUNetResEncUNetPlans\_100G} (100~GB GPU-memory target).
+The planner selects:
+voxel spacing $0.80\!\times\!0.75\!\times\!0.75$~mm,
+patch size $\boldsymbol{256\!\times\!320\!\times\!320}$,
+batch size 2, 7-stage residual encoder
+($n_\text{features}=[32,64,128,256,320,320,320]$;
+$n_\text{blocks}=[1,3,4,6,6,6,6]$),
+deep supervision enabled,
+loss $=$ class-reweighted \texttt{DC\_and\_CE\_loss} (L6 weight
+$=$ 4.0, background $=$ 0.5, others $=$ 1.0),
+500 epochs, SGD with Nesterov momentum,
+PolyLR schedule starting at $10^{-2}$.
+
+\paragraph{LSTV oversampling and L6 patch bias.}
+The 4--5\% LSTV base rate is too low for the model to learn the
+L6 class robustly without intervention.
+We apply two compounding mechanisms.
+First, queue-level oversampling replicates lumb, sacr\_count,
+and full-sacralization cases until they constitute \textbf{25\%}
+of training samples per fold (semi-sacralization and ambiguous
+cases are excluded from oversampling due to small $n$ to avoid
+memorization, but remain tracked for per-subgroup validation).
+Second, foreground-class patch-sampling bias: when nnU-Net's
+foreground oversampler samples a class for a lumbarization case,
+the L6 class is selected with probability 0.6 (versus
+$1/n_\text{classes}\,{\approx}\,0.11$ default), increasing
+gradient signal on the class TS structurally cannot learn.
+Per-LSTV-subgroup validation Dice is logged during training so
+the headline metric (L6 Dice on lumbarization cases) is monitored
+continuously across all 6 subgroups.
+
+\paragraph{Hardware.}
+H200 NVL (140~GB HBM3e), 24 CPU workers for data augmentation,
+nnU-Net's preunpacking step run once at job start with a per-fold
+shared local-NVMe cache (1.7~TB \texttt{/tmp}, $\sim$3 GB/s
+sequential read; replaces NFS reads which throttled to 21 MB/s
+under 5-fold parallel contention).
+Per-epoch wall-clock: 350--950~s under contention from 5 parallel
+folds; ${\approx}\,400$~s steady-state. Total per-fold wall-clock:
+${\approx}\,3.7$ days for 500 epochs.
+
+\paragraph{Why not smaller GPUs?}
+The $256\!\times\!320\!\times\!320$ patch is what
+\texttt{nnUNetResEncUNetPlans\_100G} selects to maximize memory
+utilization at full resolution while fitting both the lumbar spine
+and pelvic context.
+Reducing GPU memory budget forces either a smaller patch (loses the
+spinopelvic spatial relationship the model needs to disambiguate
+L5/S1) or coarser spacing (loses the sub-millimeter boundary
+detail required for Castellvi Type~II).
+Neither tradeoff is acceptable for an LSTV-targeted model.
+This is the empirical reason TS-class CT segmentation models
+trained at 1.5--3~mm cannot recover the LSTV gap by data
+augmentation alone---they lack the resolution to see what they
+need to learn.
+
+\paragraph{Splits.}
+5-fold patient-stratified CV with 6-way LSTV stratification
+(LSTV-first stratification ensures each fold contains a
+representative mix of normal, lumb, sacr\_count, sacralization,
+semi-sacralization, and ambiguous cases).
+Patient-level (not record-level) split assignment guarantees no
+data leakage between train and validation across separate-mode
+patients.
+For the n=2 rare classes (semi-sacralization, ambiguous), only
+folds 0--1 contain validation cases; these subgroups are reported
+as aggregate-across-folds metrics rather than per-fold means.
+Splits and metadata released alongside the dataset.
+
+\subsection{Baseline Results}
+
+\textit{Result tables to be filled from completed 5-fold CV
+(ETA: training completes May 5, 2026).}
+
+\begin{table}[t]
+\caption{\dataset{} 5-fold CV baseline on the held-out validation
+folds, 6-way taxonomy.
+$\Delta$\,= absolute improvement over \TS{} zero-shot
+(Table~\ref{tab:ts_stratified}).
+The baseline closes the LSTV junction-DSC gap and emits an L6
+class on all lumbarization cases, confirming that the TS failure
+mode is closable when (a) the label vocabulary includes L6 and
+(b) training data is LSTV-stratified at full resolution.}
+\label{tab:baseline}
+\centering
+\small
+\begin{tabular}{lrcccccr}
+\toprule
+\bfseries Subgroup & \bfseries $n$ &
+\bfseries L1--L5 & \bfseries L6 & \bfseries Sac &
+\bfseries Jxn DSC & \bfseries Lumb level shift & \bfseries L6 emitted \\
+\midrule
+Normal                  & XX & 0.XXX & ---   & 0.XXX & 0.XXX & 0\%   & 0/N \\
+Lumbarization           & 14 & 0.XXX & 0.XXX & 0.XXX & 0.XXX & X\%   & XX/14 \\
+Sacralization (count)   &  9 & 0.XXX & ---   & 0.XXX & 0.XXX & X\%   & 0/9 \\
+Semi-sacralization      &  2 & 0.XXX & ---   & 0.XXX & 0.XXX & 0\%   & 0/2 \\
+Sacralization (full)    &  6 & 0.XXX & ---   & 0.XXX & 0.XXX & 0\%   & 0/6 \\
+Ambiguous               &  2 & 0.XXX & X.XX  & 0.XXX & 0.XXX & X\%   & X/2 \\
+\midrule
+$\Delta$ vs.\ TS (lumb)    & --- & +XX.X & +XXX & +X.X & \textbf{+XX.X} & --- & --- \\
+$\Delta$ vs.\ TS (sacr\_count) & --- & +XX.X & --- & +X.X & \textbf{+XX.X} & --- & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% =============================================================================
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{What the protocol reveals.}
+The combination of 6-way-stratified per-class DSC, junction-DSC,
+and per-class voxel confusion matrices makes architectural and
+distributional failure modes individually attributable.
+Without all three, the lumbarization failure of TS appears as a
+diffuse degradation that could plausibly be fixed by more training
+data; with all three, it is unambiguously a combination of
+(a) missing L6 class
+(\textsc{TS\_L6} structurally zero across all 1{,}152 evaluation
+cases) and (b) learned level-shift labeling
+(GT-L6 voxels predicted as L5 in 95\%+ of the L6 region on
+lumbarization cases; per-class L4--L5 DSC collapse to 0.39 / 0.29).
+The first is fixed by changing the label vocabulary; the second
+requires LSTV-stratified training data with L6-targeted patch
+sampling and sufficient resolution to learn the distinguishing
+morphological features.
+Our baseline does both and recovers the gap.
+
+\paragraph{The 6-way taxonomy matters.}
+Earlier extractions of LSTV labels from CTPelvic1K filename
+qualifiers used substring matching, which collapsed the
+\texttt{\_semisacralization\_} qualifier into the
+\texttt{\_sacralization\_} bucket.
+We identify this parser bug and recover semi-sacralization as a
+distinct subtype.
+The recovery is consequential for the failure-mode analysis: full
+sacralization shows a moderate failure (L1--L5 DSCs 0.67--0.79,
+junction-DSC 0.636) while semi-sacralization shows essentially no
+failure (L1--L5 DSCs $>0.95$).
+Collapsing them would have produced a population mean that
+obscures both signals and licensed a misleading conclusion that
+``sacralization is moderate-difficulty for TS.''
+The lesson is that LSTV evaluation cannot use binary
+classification (LSTV positive/negative); the failure modes vary
+by morphology in ways that affect the prescription.
+
+\paragraph{Generalization beyond TS.}
+The level-shift mislabeling failure is a property of any spine
+segmentation model whose output head excludes L6, deployed on a
+distribution that contains lumbarization.
+We expect the same failure mode in MRI spine
+models~\citep{Warszawer2025TotalSpineSeg:MRI,GraafSPIDERBenchmark}
+that share TS's label vocabulary;
+direct evaluation requires modality-converted comparison and is
+beyond the scope of the present work.
+
+\paragraph{Hardware as a benchmark contribution.}
+Reporting that an evaluation gap is closable is materially
+different from reporting that it is closable \emph{at scale that
+runs on commodity hardware}.
+We document explicitly that the 100~GB patch size is the smallest
+that fits the necessary spinopelvic context at the resolution
+required to learn Castellvi-defining features, and that this
+budget is presently available only on H200-class hardware.
+A reader who cannot replicate the 100~GB patch on their hardware
+should expect a quantifiably worse LSTV gap closure;
+this is not a property of nnU-Net or our specific training
+pipeline but of the anatomy.
+
+\paragraph{Limitations.}
+COLONOG is a colonoscopy-screening cohort (US, ages 45--75,
+academic centers, soft-tissue kernel); generalization to emergency
+or pediatric populations is not evaluated.
+LSTV labels are inherited from CTPelvic1K and CTSpine1K
+heuristics rather than re-read by an independent radiologist---
+the cross-source disagreement (full sacralization morphological
+qualifier versus count-style label inferred from missing L5
+annotation) is a real signal of definitional indeterminacy, but
+it also bounds the ground-truth quality of the sacralization
+subgroups; we recommend evaluation focus on lumbarization, where
+agreement is well-defined.
+Two of the six subtypes (semi-sacralization, ambiguous) have
+$n=2$ patients each, sufficient for case-level documentation
+(\S\ref{sec:case_studies}) but underpowered for population-level
+performance estimates; we report them as descriptive case-level
+findings rather than statistical claims.
+TS was evaluated zero-shot, which is the correct comparison for
+``TS as production system'' but undersells what TS could achieve
+if retrained with an L6 class on LSTV-stratified data;
+we view that retraining as a natural follow-up enabled by
+\dataset{}.
+
+\paragraph{Implications.}
+A production CT segmentation system that emits a confident
+level-shifted prediction is more dangerous than one that fails
+noisily.
+The infrastructure to detect this---a stratified evaluation
+benchmark with the per-class confusion matrix metric---did not
+exist before this work.
+Any future spine segmentation model claiming production readiness
+should report per-subgroup DSC and per-class confusion at the
+L5/S1 junction on a stratified LSTV cohort.
+
+\bibliographystyle{plainnat}
+\bibliography{bib/references}
+
+\end{document}

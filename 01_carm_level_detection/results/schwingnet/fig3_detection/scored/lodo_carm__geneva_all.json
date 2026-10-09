@@ -1,0 +1,362 @@
+{
+ "dump": "/rs/rs_grp_oschome/go2432/data/or_ready/lodo/sweeps/lodo_carm__geneva_all.json",
+ "weights": "/wsu/home/go/go24/go2432/spine-detector/runs/realxray/rx_lodo_carmlspine_1024/weights/best.pt",
+ "data": "/rs/rs_grp_oschome/go2432/data/realxray/geneva_hip",
+ "split": "test",
+ "frames": 116,
+ "missing_meta": 0,
+ "cases": 1,
+ "case_ids": [
+  "phantom"
+ ],
+ "truth_vertebrae": 37,
+ "truth_sacra": 87,
+ "frames_with_sacrum": 87,
+ "has_outline_truth": false,
+ "operating_points": {
+  "0.74": "cross-device threshold pre-stated in SchwingNet/results/a1.json",
+  "0.25": "YOLO default"
+ },
+ "matching": "greedy one-to-one in descending confidence; IoU >= 0.5 (body / outline) or mutual centre containment (centre)",
+ "bootstrap": {
+  "cluster": "case",
+  "n_boot": 2000,
+  "seed": 0,
+  "alpha": 0.05,
+  "intervals": [
+   "percentile",
+   "bca"
+  ]
+ },
+ "conventions": {
+  "body": {
+   "at": {
+    "0.74": {
+     "vertebra_recall": {
+      "k": 0,
+      "n": 37,
+      "clusters": 1,
+      "point": 0.0,
+      "clusters_with_error": 1,
+      "clusters_all_wrong": 1,
+      "wilson_naive": [
+       0.0,
+       0.09405782583720246
+      ],
+      "percentile": [
+       null,
+       null
+      ],
+      "bca": [
+       null,
+       null
+      ],
+      "note": "one cluster: no cluster-level interval",
+      "cluster": "case",
+      "frame_level": {
+       "percentile": [
+        0.0,
+        0.0
+       ],
+       "bca": [
+        null,
+        null
+       ],
+       "clusters": 116,
+       "note": "frames of ONE specimen resampled: frames are not exchangeable, so this understates the uncertainty"
+      }
+     },
+     "sacrum_found": {
+      "k": 8,
+      "n": 87,
+      "clusters": 1,
+      "point": 0.09195402298850575,
+      "clusters_with_error": 1,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.047332892255086745,
+       0.1710856478947126
+      ],
+      "percentile": [
+       null,
+       null
+      ],
+      "bca": [
+       null,
+       null
+      ],
+      "note": "one cluster: no cluster-level interval",
+      "cluster": "case",
+      "frame_level": {
+       "percentile": [
+        0.034482758620689655,
+        0.14942528735632185
+       ],
+       "bca": [
+        0.034482758620689655,
+        0.14942528735632185
+       ],
+       "clusters": 87,
+       "note": "frames of ONE specimen resampled: frames are not exchangeable, so this understates the uncertainty"
+      }
+     },
+     "sacrum_box_recall": {
+      "k": 8,
+      "n": 87,
+      "clusters": 1,
+      "point": 0.09195402298850575,
+      "clusters_with_error": 1,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.047332892255086745,
+       0.1710856478947126
+      ],
+      "percentile": [
+       null,
+       null
+      ],
+      "bca": [
+       null,
+       null
+      ],
+      "note": "one cluster: no cluster-level interval",
+      "cluster": "case",
+      "frame_level": {
+       "percentile": [
+        0.03528385772913817,
+        0.15555555555555556
+       ],
+       "bca": [
+        0.0449438202247191,
+        0.17582417582417584
+       ],
+       "clusters": 116,
+       "note": "frames of ONE specimen resampled: frames are not exchangeable, so this understates the uncertainty"
+      }
+     },
+     "vertebra_prf": {
+      "tp": 0,
+      "predictions": 0,
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0
+     },
+     "sacrum_prf": {
+      "tp": 8,
+      "predictions": 10,
+      "precision": 0.8,
+      "recall": 0.09195402298850575,
+      "f1": 0.16494845360824742
+     }
+    },
+    "0.25": {
+     "vertebra_recall": {
+      "k": 4,
+      "n": 37,
+      "clusters": 1,
+      "point": 0.10810810810810811,
+      "clusters_with_error": 1,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.04285189940411474,
+       0.2470853154412602
+      ],
+      "percentile": [
+       null,
+       null
+      ],
+      "bca": [
+       null,
+       null
+      ],
+      "note": "one cluster: no cluster-level interval",
+      "cluster": "case",
+      "frame_level": {
+       "percentile": [
+        0.024390243902439025,
+        0.21433397683397656
+       ],
+       "bca": [
+        0.027777777777777776,
+        0.25
+       ],
+       "clusters": 116,
+       "note": "frames of ONE specimen resampled: frames are not exchangeable, so this understates the uncertainty"
+      }
+     },
+     "sacrum_found": {
+      "k": 31,
+      "n": 87,
+      "clusters": 1,
+      "point": 0.3563218390804598,
+      "clusters_with_error": 1,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.263727303130343,
+       0.46106795748578344
+      ],
+      "percentile": [
+       null,
+       null
+      ],
+      "bca": [
+       null,
+       null
+      ],
+      "note": "one cluster: no cluster-level interval",
+      "cluster": "case",
+      "frame_level": {
+       "percentile": [
+        0.26436781609195403,
+        0.4482758620689655
+       ],
+       "bca": [
+        0.25287356321839083,
+        0.4482758620689655
+       ],
+       "clusters": 87,
+       "note": "frames of ONE specimen resampled: frames are not exchangeable, so this understates the uncertainty"
+      }
+     },
+     "sacrum_box_recall": {
+      "k": 31,
+      "n": 87,
+      "clusters": 1,
+      "point": 0.3563218390804598,
+      "clusters_with_error": 1,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.263727303130343,
+       0.46106795748578344
+      ],
+      "percentile": [
+       null,
+       null
+      ],
+      "bca": [
+       null,
+       null
+      ],
+      "note": "one cluster: no cluster-level interval",
+      "cluster": "case",
+      "frame_level": {
+       "percentile": [
+        0.26373626373626374,
+        0.45977011494252873
+       ],
+       "bca": [
+        0.26744186046511625,
+        0.4673913043478261
+       ],
+       "clusters": 116,
+       "note": "frames of ONE specimen resampled: frames are not exchangeable, so this understates the uncertainty"
+      }
+     },
+     "vertebra_prf": {
+      "tp": 4,
+      "predictions": 6,
+      "precision": 0.6666666666666666,
+      "recall": 0.10810810810810811,
+      "f1": 0.18604651162790697
+     },
+     "sacrum_prf": {
+      "tp": 31,
+      "predictions": 45,
+      "precision": 0.6888888888888889,
+      "recall": 0.3563218390804598,
+      "f1": 0.46969696969696967
+     }
+    }
+   },
+   "curve": {
+    "0.01": {
+     "vertebra_recall": 0.40540540540540543,
+     "sacrum_found": 0.45977011494252873
+    },
+    "0.02": {
+     "vertebra_recall": 0.32432432432432434,
+     "sacrum_found": 0.4482758620689655
+    },
+    "0.03": {
+     "vertebra_recall": 0.32432432432432434,
+     "sacrum_found": 0.4367816091954023
+    },
+    "0.05": {
+     "vertebra_recall": 0.2702702702702703,
+     "sacrum_found": 0.42528735632183906
+    },
+    "0.08": {
+     "vertebra_recall": 0.1891891891891892,
+     "sacrum_found": 0.41379310344827586
+    },
+    "0.10": {
+     "vertebra_recall": 0.1891891891891892,
+     "sacrum_found": 0.41379310344827586
+    },
+    "0.15": {
+     "vertebra_recall": 0.16216216216216217,
+     "sacrum_found": 0.39080459770114945
+    },
+    "0.20": {
+     "vertebra_recall": 0.10810810810810811,
+     "sacrum_found": 0.367816091954023
+    },
+    "0.25": {
+     "vertebra_recall": 0.10810810810810811,
+     "sacrum_found": 0.3563218390804598
+    },
+    "0.30": {
+     "vertebra_recall": 0.10810810810810811,
+     "sacrum_found": 0.3333333333333333
+    },
+    "0.40": {
+     "vertebra_recall": 0.10810810810810811,
+     "sacrum_found": 0.2988505747126437
+    },
+    "0.50": {
+     "vertebra_recall": 0.02702702702702703,
+     "sacrum_found": 0.26436781609195403
+    },
+    "0.60": {
+     "vertebra_recall": 0.0,
+     "sacrum_found": 0.19540229885057472
+    },
+    "0.70": {
+     "vertebra_recall": 0.0,
+     "sacrum_found": 0.11494252873563218
+    },
+    "0.74": {
+     "vertebra_recall": 0.0,
+     "sacrum_found": 0.09195402298850575
+    },
+    "0.80": {
+     "vertebra_recall": 0.0,
+     "sacrum_found": 0.034482758620689655
+    },
+    "0.90": {
+     "vertebra_recall": 0.0,
+     "sacrum_found": 0.0
+    }
+   },
+   "vertebra": {
+    "pr_auc": 0.21667390040651535,
+    "ap50_interp": 0.19213581552360287,
+    "n_predictions": 576,
+    "max_recall": 0.40540540540540543
+   },
+   "sacrum": {
+    "pr_auc": 0.3392255192229315,
+    "ap50_interp": 0.33898809917763534,
+    "n_predictions": 106,
+    "max_recall": 0.45977011494252873
+   }
+  }
+ },
+ "arm": "lodo_carm",
+ "set": "geneva_all",
+ "arm_label": "real frames of COBRA Elekta + DeepFluoro; C-ArmLSpine never seen (rx_lodo_carmlspine_1024)",
+ "set_label": "Geneva BV Pulsera phantom, every frame",
+ "dataset": "geneva_hip",
+ "quoted_convention": "body",
+ "status": "DEVICE-HELD-OUT"
+}

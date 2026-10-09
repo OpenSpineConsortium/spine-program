@@ -1,0 +1,2216 @@
+{
+ "when": "2026-09-23",
+ "task": "A28 body-box rescore of every quoted detector-derived number",
+ "grid_job": "40419569 (cancelled: grid-mismatch bug), 40419582 (complete)",
+ "truth": {
+  "dir": "/rs/rs_grp_oschome/go2432/data/or_ready/bodybox_rescore/truth/cobra_elekta",
+  "summary": {
+   "cases": 27,
+   "frames": 648,
+   "wv_vertebra_boxes": 893,
+   "body_vertebra_boxes": 855,
+   "drops": {
+    "body_too_small": 22,
+    "visible_frac<0.5": 16
+   }
+  },
+  "self_check": {
+   "n": 38,
+   "median_iou": 0.9999,
+   "min_iou": 0.9796,
+   "rule": "released whole-vertebra boxes re-projected here; median must be >= 0.9, minimum >= 0.7"
+  },
+  "rule": "body box = 2nd-98th percentile extent of <= 20k projected SPINEPS body voxels, clipped; visible_frac >= 0.5; sides >= 8 px (the released export's own rule)"
+ },
+ "wv_self_check": "every quoted WV number re-derived from the raw dumps against the released meta before the body rescore was read: pooled 832/893 = 93.2, design-B lodo 90/893 = 10.1 with PR-AUC 0.266/0.391, lodo_carm 814/893, dc_P 842/893, render 338/893 = 37.8, D-only 340/893 = 38.1 -- all exact",
+ "interval": "2,000-resample bootstrap clustered by case/person, percentile (BCa alongside in the scored files), seed 0",
+ "conventions": {
+  "WV": "retired whole-vertebra outline (CT/CBCT-projected release labels)",
+  "BODY": "A28 vertebral body: SPINEPS instance x semantic corpus 49/50 (tools/body_masks.py)",
+  "sacrum": "whole sacrum in both conventions (SPINEPS defines no corpus for the sacrum)"
+ },
+ "rows": [
+  {
+   "id": "A1",
+   "group": "A a1 held-out detector, C-ArmLSpine test",
+   "quantity": "vertebra recall at pre-stated 0.74",
+   "whole_vertebra": {
+    "value": 80.5,
+    "k": 231,
+    "n": 287,
+    "ci": [
+     74.1,
+     86.8
+    ]
+   },
+   "body": {
+    "value": 5.2,
+    "k": 15,
+    "n": 287,
+    "ci": [
+     2.4,
+     8.5
+    ]
+   },
+   "body_kind": "stored (a1.json)",
+   "consumers": [
+    "tables/tab2_detection.tex row 1",
+    "main.tex abstract + key results",
+    "sections/results.tex detection para",
+    "Figure 3a/c"
+   ],
+   "convention_note": "WV = CBCT-projected whole-vertebra outline; BODY = same WV-trained detector read against the SPINEPS body boxes the C-ArmLSpine meta already carries -- a convention mismatch of the detector, not a retrained score",
+   "manuscript": {
+    "alters_sentence": true,
+    "sentence": "main.tex key results: 'A detector trained on the real exposures of two other C-arms found 231 of 287 vertebrae (80.5%...)' and abstract: 'The held-out detector found 231 of 287 vertebrae (80.5%...)' state no box convention; under the paper's adopted body convention the same arm reads 5.2%, so these two sentences must say 'whole-vertebra' (results.tex and tab2 already do)"
+   }
+  },
+  {
+   "id": "A1s",
+   "group": "A a1 held-out detector, C-ArmLSpine test",
+   "quantity": "sacrum found at pre-stated 0.74",
+   "whole_vertebra": {
+    "value": 76.8,
+    "k": 43,
+    "n": 56,
+    "ci": [
+     64.3,
+     89.3
+    ]
+   },
+   "body": {
+    "value": 76.8,
+    "k": 43,
+    "n": 56,
+    "ci": [
+     64.3,
+     89.3
+    ]
+   },
+   "body_kind": "unchanged (sacrum whole in both conventions)",
+   "consumers": [
+    "tables/tab2_detection.tex row 1",
+    "main.tex abstract + key results",
+    "sections/results.tex"
+   ],
+   "convention_note": "the sacrum keeps the whole-sacrum box in both conventions (SPINEPS defines no corpus for the sacrum)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "A2",
+   "group": "A a1 held-out detector, C-ArmLSpine test",
+   "quantity": "vertebra recall at YOLO default 0.25",
+   "whole_vertebra": {
+    "value": 90.6,
+    "k": 260,
+    "n": 287,
+    "ci": [
+     85.1,
+     95.1
+    ]
+   },
+   "body": {
+    "value": 5.2,
+    "k": 15,
+    "n": 287,
+    "ci": [
+     2.4,
+     8.5
+    ]
+   },
+   "body_kind": "stored (a1.json)",
+   "consumers": [
+    "tables/tab2_detection.tex row 1",
+    "main.tex abstract + key results",
+    "sections/results.tex detection para",
+    "Figure 3a/c"
+   ],
+   "convention_note": "WV = CBCT-projected whole-vertebra outline; BODY = same WV-trained detector read against the SPINEPS body boxes the C-ArmLSpine meta already carries -- a convention mismatch of the detector, not a retrained score",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "A2s",
+   "group": "A a1 held-out detector, C-ArmLSpine test",
+   "quantity": "sacrum found at YOLO default 0.25",
+   "whole_vertebra": {
+    "value": 83.9,
+    "k": 47,
+    "n": 56,
+    "ci": [
+     73.2,
+     92.9
+    ]
+   },
+   "body": {
+    "value": 83.9,
+    "k": 47,
+    "n": 56,
+    "ci": [
+     73.2,
+     92.9
+    ]
+   },
+   "body_kind": "unchanged (sacrum whole in both conventions)",
+   "consumers": [
+    "tables/tab2_detection.tex row 1",
+    "main.tex abstract + key results",
+    "sections/results.tex"
+   ],
+   "convention_note": "the sacrum keeps the whole-sacrum box in both conventions (SPINEPS defines no corpus for the sacrum)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "A3",
+   "group": "A a1 held-out detector, C-ArmLSpine test",
+   "quantity": "vertebra recall at own best-F1 0.60",
+   "whole_vertebra": {
+    "value": 87.1,
+    "k": 250,
+    "n": 287,
+    "ci": [
+     80.9,
+     92.3
+    ]
+   },
+   "body": {
+    "value": 5.2,
+    "k": 15,
+    "n": 287,
+    "ci": [
+     2.4,
+     8.5
+    ]
+   },
+   "body_kind": "stored (a1.json)",
+   "consumers": [
+    "results/a1.json only"
+   ],
+   "convention_note": "WV = CBCT-projected whole-vertebra outline; BODY = same WV-trained detector read against the SPINEPS body boxes the C-ArmLSpine meta already carries -- a convention mismatch of the detector, not a retrained score",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "A3s",
+   "group": "A a1 held-out detector, C-ArmLSpine test",
+   "quantity": "sacrum found at own best-F1 0.60",
+   "whole_vertebra": {
+    "value": 80.4,
+    "k": 45,
+    "n": 56,
+    "ci": [
+     69.6,
+     91.1
+    ]
+   },
+   "body": {
+    "value": 80.4,
+    "k": 45,
+    "n": 56,
+    "ci": [
+     69.6,
+     91.1
+    ]
+   },
+   "body_kind": "unchanged (sacrum whole in both conventions)",
+   "consumers": [
+    "results/a1.json only"
+   ],
+   "convention_note": "the sacrum keeps the whole-sacrum box in both conventions (SPINEPS defines no corpus for the sacrum)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "B1",
+   "group": "B a3 paired comparisons",
+   "quantity": "pooled-vs-heldout sacrum found at 0.25 (paired diff)",
+   "whole_vertebra": {
+    "value": 14.3,
+    "k": null,
+    "n": 56,
+    "ci": [
+     5.4,
+     23.2
+    ]
+   },
+   "body": {
+    "value": 14.3,
+    "k": null,
+    "n": 56,
+    "ci": [
+     5.4,
+     23.2
+    ]
+   },
+   "body_kind": "unchanged (sacrum whole in both conventions)",
+   "consumers": [
+    "sections/results.tex: 'The same-device control found the sacrum on 98.2%..., a paired difference of 14.3 points'"
+   ],
+   "convention_note": "identical in both conventions by construction",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "B2",
+   "group": "B a3 paired comparisons",
+   "quantity": "pooled-vs-heldout vertebra at 0.25 (paired diff)",
+   "whole_vertebra": {
+    "value": -49.8,
+    "k": null,
+    "n": 287,
+    "ci": [
+     -54.3,
+     -44.5
+    ]
+   },
+   "body": {
+    "value": 85.4,
+    "k": null,
+    "n": 287,
+    "ci": [
+     79.5,
+     90.8
+    ]
+   },
+   "body_kind": "stored (a3.json)",
+   "consumers": [
+    "results/a3.json (labelled box-convention artefact); NUMBERS.md"
+   ],
+   "convention_note": "outline -49.8 pp and body +85.4 pp are two readings of the same box-convention mismatch (pooled arm carries real carm frames that teach body boxes; the held-out arm does not); centre-rule +0.7 pp [0.0, 1.8] is the convention-insensitive comparison",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "B3_0.05",
+   "group": "B a3 paired comparisons",
+   "quantity": "film-trained vs render-trained detector on 233 film bodies at 0.05",
+   "whole_vertebra": null,
+   "body": {
+    "value": 27.5,
+    "k": null,
+    "n": 233,
+    "ci": [
+     20.5,
+     35.2
+    ]
+   },
+   "body_kind": "already body (human film body corners)",
+   "consumers": [
+    "sections/results.tex render-vs-film sentence",
+    "tables/tab2 film block",
+    "Figure 3c"
+   ],
+   "convention_note": "truth is the human vertebral-body corner annotation: no WV value exists and nothing changes",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "B3_0.25",
+   "group": "B a3 paired comparisons",
+   "quantity": "film-trained vs render-trained detector on 233 film bodies at 0.25",
+   "whole_vertebra": null,
+   "body": {
+    "value": 55.4,
+    "k": null,
+    "n": 233,
+    "ci": [
+     47.0,
+     63.6
+    ]
+   },
+   "body_kind": "already body (human film body corners)",
+   "consumers": [
+    "sections/results.tex render-vs-film sentence",
+    "tables/tab2 film block",
+    "Figure 3c"
+   ],
+   "convention_note": "truth is the human vertebral-body corner annotation: no WV value exists and nothing changes",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C1_0.74",
+   "group": "C learning curve, C-ArmLSpine",
+   "quantity": "stage 1 (styled renders of two other C-arms; Table 2 carm design-B row): vertebra recall at 0.74",
+   "whole_vertebra": {
+    "value": 63.1,
+    "k": 181,
+    "n": 287,
+    "ci": [
+     54.8,
+     71.0
+    ]
+   },
+   "body": {
+    "value": 12.5,
+    "k": 36,
+    "n": 287,
+    "ci": [
+     9.2,
+     15.9
+    ]
+   },
+   "body_kind": "stored (lcurve.json; RESCORED job 40417427)",
+   "consumers": [
+    "tables/tab2_detection.tex C-ArmLSpine design-B row (WV)",
+    "results.tex PENDING{G5}{learning curve...}"
+   ],
+   "convention_note": "C-ArmLSpine truth carries both conventions; primary `at` = body since job 40417427, WV now at #alt/outline. NUMBERS.md/tab2 citation paths that read #points[]/at now return the BODY value: stale citations",
+   "manuscript": {
+    "alters_sentence": true,
+    "sentence": "tables/tab2_detection.tex design-B row quotes 63.1 (181/287) citing lcurve #points[0]/at, but that path now returns the BODY 12.5% (36/287): the value printed is right for WV, the cited path is stale"
+   }
+  },
+  {
+   "id": "C1_0.25",
+   "group": "C learning curve, C-ArmLSpine",
+   "quantity": "stage 1 (styled renders of two other C-arms; Table 2 carm design-B row): vertebra recall at 0.25",
+   "whole_vertebra": {
+    "value": 87.8,
+    "k": 252,
+    "n": 287,
+    "ci": [
+     81.4,
+     93.2
+    ]
+   },
+   "body": {
+    "value": 15.0,
+    "k": 43,
+    "n": 287,
+    "ci": [
+     11.0,
+     19.0
+    ]
+   },
+   "body_kind": "stored (lcurve.json; RESCORED job 40417427)",
+   "consumers": [
+    "tables/tab2_detection.tex C-ArmLSpine design-B row (WV)",
+    "results.tex PENDING{G5}{learning curve...}"
+   ],
+   "convention_note": "C-ArmLSpine truth carries both conventions; primary `at` = body since job 40417427, WV now at #alt/outline. NUMBERS.md/tab2 citation paths that read #points[]/at now return the BODY value: stale citations",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C2_0.74",
+   "group": "C learning curve, C-ArmLSpine",
+   "quantity": "fine-tuned on 50 real frames: vertebra recall at 0.74",
+   "whole_vertebra": {
+    "value": 39.7,
+    "k": 114,
+    "n": 287,
+    "ci": [
+     36.6,
+     42.6
+    ]
+   },
+   "body": {
+    "value": 81.5,
+    "k": 234,
+    "n": 287,
+    "ci": [
+     76.1,
+     86.8
+    ]
+   },
+   "body_kind": "stored (lcurve.json; RESCORED job 40417427)",
+   "consumers": [
+    "Figure 3b (pending G5)",
+    "results.tex PENDING{G5}{learning curve...}"
+   ],
+   "convention_note": "C-ArmLSpine truth carries both conventions; primary `at` = body since job 40417427, WV now at #alt/outline. NUMBERS.md/tab2 citation paths that read #points[]/at now return the BODY value: stale citations",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C2_0.25",
+   "group": "C learning curve, C-ArmLSpine",
+   "quantity": "fine-tuned on 50 real frames: vertebra recall at 0.25",
+   "whole_vertebra": {
+    "value": 43.2,
+    "k": 124,
+    "n": 287,
+    "ci": [
+     40.2,
+     46.2
+    ]
+   },
+   "body": {
+    "value": 88.5,
+    "k": 254,
+    "n": 287,
+    "ci": [
+     82.7,
+     93.5
+    ]
+   },
+   "body_kind": "stored (lcurve.json; RESCORED job 40417427)",
+   "consumers": [
+    "Figure 3b (pending G5)",
+    "results.tex PENDING{G5}{learning curve...}"
+   ],
+   "convention_note": "C-ArmLSpine truth carries both conventions; primary `at` = body since job 40417427, WV now at #alt/outline. NUMBERS.md/tab2 citation paths that read #points[]/at now return the BODY value: stale citations",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C3_0.74",
+   "group": "C learning curve, C-ArmLSpine",
+   "quantity": "fine-tuned on 200 real frames: vertebra recall at 0.74",
+   "whole_vertebra": {
+    "value": 39.4,
+    "k": 113,
+    "n": 287,
+    "ci": [
+     36.8,
+     42.0
+    ]
+   },
+   "body": {
+    "value": 80.1,
+    "k": 230,
+    "n": 287,
+    "ci": [
+     74.5,
+     85.7
+    ]
+   },
+   "body_kind": "stored (lcurve.json; RESCORED job 40417427)",
+   "consumers": [
+    "Figure 3b (pending G5)",
+    "results.tex PENDING{G5}{learning curve...}"
+   ],
+   "convention_note": "C-ArmLSpine truth carries both conventions; primary `at` = body since job 40417427, WV now at #alt/outline. NUMBERS.md/tab2 citation paths that read #points[]/at now return the BODY value: stale citations",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C3_0.25",
+   "group": "C learning curve, C-ArmLSpine",
+   "quantity": "fine-tuned on 200 real frames: vertebra recall at 0.25",
+   "whole_vertebra": {
+    "value": 41.8,
+    "k": 120,
+    "n": 287,
+    "ci": [
+     38.7,
+     45.0
+    ]
+   },
+   "body": {
+    "value": 89.5,
+    "k": 257,
+    "n": 287,
+    "ci": [
+     83.8,
+     94.6
+    ]
+   },
+   "body_kind": "stored (lcurve.json; RESCORED job 40417427)",
+   "consumers": [
+    "Figure 3b (pending G5)",
+    "results.tex PENDING{G5}{learning curve...}"
+   ],
+   "convention_note": "C-ArmLSpine truth carries both conventions; primary `at` = body since job 40417427, WV now at #alt/outline. NUMBERS.md/tab2 citation paths that read #points[]/at now return the BODY value: stale citations",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_ar_only_C-ArmLSpine_0.74",
+   "group": "C learning curve, C-ArmLSpine",
+   "quantity": "all-real control 'only C-ArmLSpine': vertebra recall at 0.74",
+   "whole_vertebra": {
+    "value": 40.4,
+    "k": 116,
+    "n": 287,
+    "ci": [
+     37.8,
+     42.9
+    ]
+   },
+   "body": {
+    "value": 84.0,
+    "k": 241,
+    "n": 287,
+    "ci": [
+     78.2,
+     89.2
+    ]
+   },
+   "body_kind": "stored (lcurve.json)",
+   "consumers": [
+    "tables/tab2_detection.tex footnote d (body values at 0.25 already quoted)",
+    "results/lcurve/lcurve.md"
+   ],
+   "convention_note": "controls trained on real carm frames learn BODY boxes, so WV penalises them (the reversed mismatch)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_ar_only_C-ArmLSpine_0.25",
+   "group": "C learning curve, C-ArmLSpine",
+   "quantity": "all-real control 'only C-ArmLSpine': vertebra recall at 0.25",
+   "whole_vertebra": {
+    "value": 41.5,
+    "k": 119,
+    "n": 287,
+    "ci": [
+     38.8,
+     44.0
+    ]
+   },
+   "body": {
+    "value": 89.9,
+    "k": 258,
+    "n": 287,
+    "ci": [
+     84.5,
+     94.7
+    ]
+   },
+   "body_kind": "stored (lcurve.json)",
+   "consumers": [
+    "tables/tab2_detection.tex footnote d (body values at 0.25 already quoted)",
+    "results/lcurve/lcurve.md"
+   ],
+   "convention_note": "controls trained on real carm frames learn BODY boxes, so WV penalises them (the reversed mismatch)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_ar_pooled_real_0.74",
+   "group": "C learning curve, C-ArmLSpine",
+   "quantity": "all-real control 'pooled real': vertebra recall at 0.74",
+   "whole_vertebra": {
+    "value": 40.1,
+    "k": 115,
+    "n": 287,
+    "ci": [
+     37.7,
+     42.3
+    ]
+   },
+   "body": {
+    "value": 81.9,
+    "k": 235,
+    "n": 287,
+    "ci": [
+     76.4,
+     87.0
+    ]
+   },
+   "body_kind": "stored (lcurve.json)",
+   "consumers": [
+    "tables/tab2_detection.tex footnote d (body values at 0.25 already quoted)",
+    "results/lcurve/lcurve.md"
+   ],
+   "convention_note": "controls trained on real carm frames learn BODY boxes, so WV penalises them (the reversed mismatch)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_ar_pooled_real_0.25",
+   "group": "C learning curve, C-ArmLSpine",
+   "quantity": "all-real control 'pooled real': vertebra recall at 0.25",
+   "whole_vertebra": {
+    "value": 40.8,
+    "k": 117,
+    "n": 287,
+    "ci": [
+     38.4,
+     43.0
+    ]
+   },
+   "body": {
+    "value": 90.6,
+    "k": 260,
+    "n": 287,
+    "ci": [
+     85.4,
+     95.1
+    ]
+   },
+   "body_kind": "stored (lcurve.json)",
+   "consumers": [
+    "tables/tab2_detection.tex footnote d (body values at 0.25 already quoted)",
+    "results/lcurve/lcurve.md"
+   ],
+   "convention_note": "controls trained on real carm frames learn BODY boxes, so WV penalises them (the reversed mismatch)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_ar_renders_+_all_real_0.74",
+   "group": "C learning curve, C-ArmLSpine",
+   "quantity": "all-real control 'renders + all real': vertebra recall at 0.74",
+   "whole_vertebra": {
+    "value": 38.7,
+    "k": 111,
+    "n": 287,
+    "ci": [
+     35.9,
+     41.2
+    ]
+   },
+   "body": {
+    "value": 85.0,
+    "k": 244,
+    "n": 287,
+    "ci": [
+     79.3,
+     90.3
+    ]
+   },
+   "body_kind": "stored (lcurve.json)",
+   "consumers": [
+    "tables/tab2_detection.tex footnote d (body values at 0.25 already quoted)",
+    "results/lcurve/lcurve.md"
+   ],
+   "convention_note": "controls trained on real carm frames learn BODY boxes, so WV penalises them (the reversed mismatch)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_ar_renders_+_all_real_0.25",
+   "group": "C learning curve, C-ArmLSpine",
+   "quantity": "all-real control 'renders + all real': vertebra recall at 0.25",
+   "whole_vertebra": {
+    "value": 39.0,
+    "k": 112,
+    "n": 287,
+    "ci": [
+     36.8,
+     41.3
+    ]
+   },
+   "body": {
+    "value": 89.5,
+    "k": 257,
+    "n": 287,
+    "ci": [
+     83.7,
+     94.3
+    ]
+   },
+   "body_kind": "stored (lcurve.json)",
+   "consumers": [
+    "tables/tab2_detection.tex footnote d (body values at 0.25 already quoted)",
+    "results/lcurve/lcurve.md"
+   ],
+   "convention_note": "controls trained on real carm frames learn BODY boxes, so WV penalises them (the reversed mismatch)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_cobra_stage1_0.74",
+   "group": "C learning curve, COBRA Elekta",
+   "quantity": "COBRA stage 1 (design B lodo): vertebra recall at 0.74",
+   "whole_vertebra": {
+    "value": 10.1,
+    "k": 90,
+    "n": 893,
+    "ci": [
+     6.7,
+     13.1
+    ]
+   },
+   "body": {
+    "value": 1.3,
+    "k": 11,
+    "n": 855,
+    "ci": [
+     0.0,
+     3.2
+    ]
+   },
+   "body_kind": "computed (job 40419582: SPINEPS bodies_cobra projected through each frame's pose; self-check median IoU 0.9999)",
+   "consumers": [
+    "Table 2 COBRA design-B row",
+    "results/lcurve/lcurve.md"
+   ],
+   "convention_note": "the lcurve cell's `at` block is labelled body but scores the released WV CT-projected boxes (893); the true BODY truth covers 855 of 893 vertebrae (22 SPINEPS-body too small, 16 body not visible >= 0.5)",
+   "manuscript": {
+    "alters_sentence": true,
+    "sentence": "tables/tab2_detection.tex COBRA design-B row 10.1 (90/893): value unchanged for WV, but the row's source path (lcurve #at) is labelled body while being WV -- the label, not the number, is wrong"
+   }
+  },
+  {
+   "id": "C_cobra_stage1_0.25",
+   "group": "C learning curve, COBRA Elekta",
+   "quantity": "COBRA stage 1 (design B lodo): vertebra recall at 0.25",
+   "whole_vertebra": {
+    "value": 32.7,
+    "k": 292,
+    "n": 893,
+    "ci": [
+     28.4,
+     36.2
+    ]
+   },
+   "body": {
+    "value": 7.5,
+    "k": 64,
+    "n": 855,
+    "ci": [
+     4.0,
+     10.9
+    ]
+   },
+   "body_kind": "computed (job 40419582: SPINEPS bodies_cobra projected through each frame's pose; self-check median IoU 0.9999)",
+   "consumers": [
+    "Table 2 COBRA design-B row",
+    "results/lcurve/lcurve.md"
+   ],
+   "convention_note": "the lcurve cell's `at` block is labelled body but scores the released WV CT-projected boxes (893); the true BODY truth covers 855 of 893 vertebrae (22 SPINEPS-body too small, 16 body not visible >= 0.5)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_cobra_N48_s0_0.74",
+   "group": "C learning curve, COBRA Elekta",
+   "quantity": "COBRA N=48 s0: vertebra recall at 0.74",
+   "whole_vertebra": {
+    "value": 24.6,
+    "k": 220,
+    "n": 893,
+    "ci": [
+     16.9,
+     31.8
+    ]
+   },
+   "body": {
+    "value": 12.2,
+    "k": 104,
+    "n": 855,
+    "ci": [
+     8.2,
+     15.9
+    ]
+   },
+   "body_kind": "computed (job 40419582: SPINEPS bodies_cobra projected through each frame's pose; self-check median IoU 0.9999)",
+   "consumers": [
+    "Figure 3b pending",
+    "results/lcurve/lcurve.md"
+   ],
+   "convention_note": "the lcurve cell's `at` block is labelled body but scores the released WV CT-projected boxes (893); the true BODY truth covers 855 of 893 vertebrae (22 SPINEPS-body too small, 16 body not visible >= 0.5)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_cobra_N48_s0_0.25",
+   "group": "C learning curve, COBRA Elekta",
+   "quantity": "COBRA N=48 s0: vertebra recall at 0.25",
+   "whole_vertebra": {
+    "value": 52.9,
+    "k": 472,
+    "n": 893,
+    "ci": [
+     42.6,
+     61.8
+    ]
+   },
+   "body": {
+    "value": 19.4,
+    "k": 166,
+    "n": 855,
+    "ci": [
+     14.5,
+     24.2
+    ]
+   },
+   "body_kind": "computed (job 40419582: SPINEPS bodies_cobra projected through each frame's pose; self-check median IoU 0.9999)",
+   "consumers": [
+    "Figure 3b pending",
+    "results/lcurve/lcurve.md"
+   ],
+   "convention_note": "the lcurve cell's `at` block is labelled body but scores the released WV CT-projected boxes (893); the true BODY truth covers 855 of 893 vertebrae (22 SPINEPS-body too small, 16 body not visible >= 0.5)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_cobra_N408_s1_0.74",
+   "group": "C learning curve, COBRA Elekta",
+   "quantity": "COBRA N=408 s1: vertebra recall at 0.74",
+   "whole_vertebra": {
+    "value": 45.5,
+    "k": 406,
+    "n": 893,
+    "ci": [
+     34.5,
+     54.9
+    ]
+   },
+   "body": {
+    "value": 8.8,
+    "k": 75,
+    "n": 855,
+    "ci": [
+     5.0,
+     12.4
+    ]
+   },
+   "body_kind": "computed (job 40419582: SPINEPS bodies_cobra projected through each frame's pose; self-check median IoU 0.9999)",
+   "consumers": [
+    "Figure 3b pending",
+    "results/lcurve/lcurve.md"
+   ],
+   "convention_note": "the lcurve cell's `at` block is labelled body but scores the released WV CT-projected boxes (893); the true BODY truth covers 855 of 893 vertebrae (22 SPINEPS-body too small, 16 body not visible >= 0.5)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_cobra_N408_s1_0.25",
+   "group": "C learning curve, COBRA Elekta",
+   "quantity": "COBRA N=408 s1: vertebra recall at 0.25",
+   "whole_vertebra": {
+    "value": 83.2,
+    "k": 743,
+    "n": 893,
+    "ci": [
+     74.5,
+     89.7
+    ]
+   },
+   "body": {
+    "value": 17.8,
+    "k": 152,
+    "n": 855,
+    "ci": [
+     12.6,
+     23.2
+    ]
+   },
+   "body_kind": "computed (job 40419582: SPINEPS bodies_cobra projected through each frame's pose; self-check median IoU 0.9999)",
+   "consumers": [
+    "Figure 3b pending",
+    "results/lcurve/lcurve.md"
+   ],
+   "convention_note": "the lcurve cell's `at` block is labelled body but scores the released WV CT-projected boxes (893); the true BODY truth covers 855 of 893 vertebrae (22 SPINEPS-body too small, 16 body not visible >= 0.5)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_cobra_ar_pooled_real_0.74",
+   "group": "C learning curve, COBRA Elekta",
+   "quantity": "COBRA all-real control 'pooled real': vertebra recall at 0.74",
+   "whole_vertebra": {
+    "value": 93.2,
+    "k": 832,
+    "n": 893,
+    "ci": [
+     86.4,
+     97.7
+    ]
+   },
+   "body": {
+    "value": 35.8,
+    "k": 306,
+    "n": 855,
+    "ci": [
+     29.5,
+     42.0
+    ]
+   },
+   "wv_on_body_subset": {
+    "value": 93.7,
+    "k": 801,
+    "n": 855,
+    "ci": [
+     86.9,
+     98.3
+    ]
+   },
+   "body_kind": "computed (job 40419582)",
+   "consumers": [
+    "tables/tab2_detection.tex COBRA control row (pooled real, WV)"
+   ],
+   "convention_note": "COBRA real-frame training truth is itself WV (planning-CT projected), so even the same-device control collapses on SPINEPS body truth: the convention mismatch, not a detection failure -- the WV reading on the 855-vertebra body subset stays at 93.7%. A fair body score on COBRA needs the G4 body-box retrain",
+   "manuscript": {
+    "alters_sentence": true,
+    "sentence": "tables/tab2_detection.tex COBRA control row '93.2 (832/893)': the table's header note declares WV so the row stands, but footnote d's body-convention remark covers only C-ArmLSpine; COBRA's control reads 35.8% (306/855) on body truth and the footnote does not say so"
+   }
+  },
+  {
+   "id": "C_cobra_ar_pooled_real_0.25",
+   "group": "C learning curve, COBRA Elekta",
+   "quantity": "COBRA all-real control 'pooled real': vertebra recall at 0.25",
+   "whole_vertebra": {
+    "value": 97.4,
+    "k": 870,
+    "n": 893,
+    "ci": [
+     93.3,
+     99.8
+    ]
+   },
+   "body": {
+    "value": 36.3,
+    "k": 310,
+    "n": 855,
+    "ci": [
+     30.1,
+     42.3
+    ]
+   },
+   "wv_on_body_subset": {
+    "value": 97.8,
+    "k": 836,
+    "n": 855,
+    "ci": [
+     93.7,
+     99.9
+    ]
+   },
+   "body_kind": "computed (job 40419582)",
+   "consumers": [
+    "tables/tab2_detection.tex COBRA control row (pooled real, WV)"
+   ],
+   "convention_note": "COBRA real-frame training truth is itself WV (planning-CT projected), so even the same-device control collapses on SPINEPS body truth: the convention mismatch, not a detection failure -- the WV reading on the 855-vertebra body subset stays at 97.8%. A fair body score on COBRA needs the G4 body-box retrain",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_cobra_ar_C-ArmLSpine_held_out_0.74",
+   "group": "C learning curve, COBRA Elekta",
+   "quantity": "COBRA all-real control 'C-ArmLSpine held out': vertebra recall at 0.74",
+   "whole_vertebra": {
+    "value": 91.2,
+    "k": 814,
+    "n": 893,
+    "ci": [
+     83.4,
+     96.3
+    ]
+   },
+   "body": {
+    "value": 26.3,
+    "k": 225,
+    "n": 855,
+    "ci": [
+     20.5,
+     33.0
+    ]
+   },
+   "wv_on_body_subset": {
+    "value": 92.3,
+    "k": 789,
+    "n": 855,
+    "ci": [
+     84.6,
+     97.0
+    ]
+   },
+   "body_kind": "computed (job 40419582)",
+   "consumers": [
+    "results/lcurve/lcurve.md all-real lines"
+   ],
+   "convention_note": "COBRA real-frame training truth is itself WV (planning-CT projected), so even the same-device control collapses on SPINEPS body truth: the convention mismatch, not a detection failure -- the WV reading on the 855-vertebra body subset stays at 92.3%. A fair body score on COBRA needs the G4 body-box retrain",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_cobra_ar_C-ArmLSpine_held_out_0.25",
+   "group": "C learning curve, COBRA Elekta",
+   "quantity": "COBRA all-real control 'C-ArmLSpine held out': vertebra recall at 0.25",
+   "whole_vertebra": {
+    "value": 97.3,
+    "k": 869,
+    "n": 893,
+    "ci": [
+     92.7,
+     99.7
+    ]
+   },
+   "body": {
+    "value": 27.0,
+    "k": 231,
+    "n": 855,
+    "ci": [
+     21.0,
+     33.7
+    ]
+   },
+   "wv_on_body_subset": {
+    "value": 97.2,
+    "k": 831,
+    "n": 855,
+    "ci": [
+     92.3,
+     99.7
+    ]
+   },
+   "body_kind": "computed (job 40419582)",
+   "consumers": [
+    "results/lcurve/lcurve.md all-real lines"
+   ],
+   "convention_note": "COBRA real-frame training truth is itself WV (planning-CT projected), so even the same-device control collapses on SPINEPS body truth: the convention mismatch, not a detection failure -- the WV reading on the 855-vertebra body subset stays at 97.2%. A fair body score on COBRA needs the G4 body-box retrain",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_cobra_ar_renders_+_all_real_0.74",
+   "group": "C learning curve, COBRA Elekta",
+   "quantity": "COBRA all-real control 'renders + all real': vertebra recall at 0.74",
+   "whole_vertebra": {
+    "value": 94.3,
+    "k": 842,
+    "n": 893,
+    "ci": [
+     88.4,
+     98.0
+    ]
+   },
+   "body": {
+    "value": 40.2,
+    "k": 344,
+    "n": 855,
+    "ci": [
+     34.9,
+     46.1
+    ]
+   },
+   "wv_on_body_subset": {
+    "value": 95.1,
+    "k": 813,
+    "n": 855,
+    "ci": [
+     89.3,
+     98.6
+    ]
+   },
+   "body_kind": "computed (job 40419582)",
+   "consumers": [
+    "results/lcurve/lcurve.md all-real lines"
+   ],
+   "convention_note": "COBRA real-frame training truth is itself WV (planning-CT projected), so even the same-device control collapses on SPINEPS body truth: the convention mismatch, not a detection failure -- the WV reading on the 855-vertebra body subset stays at 95.1%. A fair body score on COBRA needs the G4 body-box retrain",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_cobra_ar_renders_+_all_real_0.25",
+   "group": "C learning curve, COBRA Elekta",
+   "quantity": "COBRA all-real control 'renders + all real': vertebra recall at 0.25",
+   "whole_vertebra": {
+    "value": 97.5,
+    "k": 871,
+    "n": 893,
+    "ci": [
+     93.5,
+     99.6
+    ]
+   },
+   "body": {
+    "value": 40.6,
+    "k": 347,
+    "n": 855,
+    "ci": [
+     35.2,
+     46.5
+    ]
+   },
+   "wv_on_body_subset": {
+    "value": 97.7,
+    "k": 835,
+    "n": 855,
+    "ci": [
+     93.4,
+     99.8
+    ]
+   },
+   "body_kind": "computed (job 40419582)",
+   "consumers": [
+    "results/lcurve/lcurve.md all-real lines"
+   ],
+   "convention_note": "COBRA real-frame training truth is itself WV (planning-CT projected), so even the same-device control collapses on SPINEPS body truth: the convention mismatch, not a detection failure -- the WV reading on the 855-vertebra body subset stays at 97.7%. A fair body score on COBRA needs the G4 body-box retrain",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_df_stage1_0.74",
+   "group": "C learning curve, DeepFluoro",
+   "quantity": "DF stage 1 (design B lodo; Table 2 DF row): vertebra recall at 0.74",
+   "whole_vertebra": {
+    "value": 69.9,
+    "k": 58,
+    "n": 83,
+    "ci": [
+     null,
+     null
+    ]
+   },
+   "body": null,
+   "body_kind": "declared WV (no SPINEPS body masks exist for the DeepFluoro specimen CTs; A28(iii): convert or declare)",
+   "consumers": [
+    "tables/tab2_detection.tex DeepFluoro rows"
+   ],
+   "convention_note": "DF truth is whole-vertebra boxes projected from the specimen CT segmentation; one test specimen, no case interval",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "C_df_stage1_0.25",
+   "group": "C learning curve, DeepFluoro",
+   "quantity": "DF stage 1 (design B lodo; Table 2 DF row): vertebra recall at 0.25",
+   "whole_vertebra": {
+    "value": 94.0,
+    "k": 78,
+    "n": 83,
+    "ci": [
+     null,
+     null
+    ]
+   },
+   "body": null,
+   "body_kind": "declared WV (no SPINEPS body masks exist for the DeepFluoro specimen CTs; A28(iii): convert or declare)",
+   "consumers": [
+    "tables/tab2_detection.tex DeepFluoro rows"
+   ],
+   "convention_note": "DF truth is whole-vertebra boxes projected from the specimen CT segmentation; one test specimen, no case interval",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "D1",
+   "group": "D contribution matrix, C-ArmLSpine target",
+   "quantity": "E-only (wide-arc COBRA source) on held-out C-arm, 0.25",
+   "whole_vertebra": {
+    "value": 86.8,
+    "k": 249,
+    "n": 287,
+    "ci": [
+     81.1,
+     91.8
+    ]
+   },
+   "body": {
+    "value": 11.1,
+    "k": 32,
+    "n": 287,
+    "ci": [
+     7.3,
+     15.5
+    ]
+   },
+   "body_kind": "stored (contribution_matrix.json; 24 body cells beside the 24 outline cells)",
+   "consumers": [
+    "sections/results.tex 'Transfer followed angular coverage' sentence (WV paragraph)",
+    "tables/tab2 single-source rows",
+    "Figure S2"
+   ],
+   "convention_note": "WV-trained arms read low on body truth (convention mismatch); arms carrying real carm frames read high on body and low on WV -- the two conventions cross, which is why one convention must be stated everywhere",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "D2",
+   "group": "D contribution matrix, C-ArmLSpine target",
+   "quantity": "D-only (cadaver Cios source) on held-out C-arm, 0.25",
+   "whole_vertebra": {
+    "value": 12.9,
+    "k": 37,
+    "n": 287,
+    "ci": [
+     8.3,
+     18.1
+    ]
+   },
+   "body": {
+    "value": 3.8,
+    "k": 11,
+    "n": 287,
+    "ci": [
+     1.4,
+     7.0
+    ]
+   },
+   "body_kind": "stored (contribution_matrix.json; 24 body cells beside the 24 outline cells)",
+   "consumers": [
+    "sections/results.tex 'Transfer followed angular coverage' sentence (WV paragraph)",
+    "tables/tab2 single-source rows",
+    "Figure S2"
+   ],
+   "convention_note": "WV-trained arms read low on body truth (convention mismatch); arms carrying real carm frames read high on body and low on WV -- the two conventions cross, which is why one convention must be stated everywhere",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "D3",
+   "group": "D contribution matrix, C-ArmLSpine target",
+   "quantity": "E cut to 240 frames on held-out C-arm, 0.25",
+   "whole_vertebra": {
+    "value": 39.0,
+    "k": 112,
+    "n": 287,
+    "ci": [
+     33.2,
+     44.7
+    ]
+   },
+   "body": {
+    "value": 3.1,
+    "k": 9,
+    "n": 287,
+    "ci": [
+     1.0,
+     5.8
+    ]
+   },
+   "body_kind": "stored (contribution_matrix.json; 24 body cells beside the 24 outline cells)",
+   "consumers": [
+    "sections/results.tex 'Transfer followed angular coverage' sentence (WV paragraph)",
+    "tables/tab2 single-source rows",
+    "Figure S2"
+   ],
+   "convention_note": "WV-trained arms read low on body truth (convention mismatch); arms carrying real carm frames read high on body and low on WV -- the two conventions cross, which is why one convention must be stated everywhere",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "D4",
+   "group": "D contribution matrix, C-ArmLSpine target",
+   "quantity": "renders-only on held-out C-arm, 0.25",
+   "whole_vertebra": {
+    "value": 31.7,
+    "k": 91,
+    "n": 287,
+    "ci": [
+     27.1,
+     36.1
+    ]
+   },
+   "body": {
+    "value": 2.4,
+    "k": 7,
+    "n": 287,
+    "ci": [
+     0.7,
+     4.5
+    ]
+   },
+   "body_kind": "stored (contribution_matrix.json; 24 body cells beside the 24 outline cells)",
+   "consumers": [
+    "sections/results.tex 'Transfer followed angular coverage' sentence (WV paragraph)",
+    "tables/tab2 single-source rows",
+    "Figure S2"
+   ],
+   "convention_note": "WV-trained arms read low on body truth (convention mismatch); arms carrying real carm frames read high on body and low on WV -- the two conventions cross, which is why one convention must be stated everywhere",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "D5",
+   "group": "D contribution matrix, C-ArmLSpine target",
+   "quantity": "add wide-arc E to D: marginal gain at 0.25 (paired)",
+   "whole_vertebra": {
+    "value": 71.8,
+    "k": null,
+    "n": 287,
+    "ci": [
+     63.4,
+     79.6
+    ]
+   },
+   "body": {
+    "value": 17.8,
+    "k": null,
+    "n": 287,
+    "ci": null
+   },
+   "body_kind": "derived (body cells 21.6% - 3.8%; no paired interval computed)",
+   "consumers": [
+    "main.tex abstract + key results (+71.8)",
+    "sections/results.tex"
+   ],
+   "convention_note": "abstract and key results quote +71.8 without a box convention; the derived body-convention gain is +17.8 pp",
+   "manuscript": {
+    "alters_sentence": true,
+    "sentence": "main.tex key results: '...the training source whose exposures span the gantry arc carried the transfer (+71.8 percentage points; 63.4, 79.6)' states no box convention (WV); under body truth the same margin is +17.8 pp of a 21.6% ceiling -- direction unchanged, size convention-dependent"
+   }
+  },
+  {
+   "id": "D6",
+   "group": "D contribution matrix, C-ArmLSpine target",
+   "quantity": "equal-count control: E cut to 240 vs full E, 0.25 (paired)",
+   "whole_vertebra": {
+    "value": -47.7,
+    "k": null,
+    "n": 287,
+    "ci": [
+     -53.7,
+     -41.8
+    ]
+   },
+   "body": {
+    "value": -8.0,
+    "k": null,
+    "n": 287,
+    "ci": null
+   },
+   "body_kind": "derived (body cells 3.1% - 11.1%)",
+   "consumers": [
+    "sections/results.tex 'cutting the wide-arc frames from 2,640 to 240 dropped it by 47.7 points'"
+   ],
+   "convention_note": "same sign in both conventions; the results paragraph declares WV in its opening sentence",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "D7",
+   "group": "D contribution matrix",
+   "quantity": "seed spread on device-held-out cells (seed 0 vs seed 1)",
+   "whole_vertebra": {
+    "value": "1.1-5.6 pp (COBRA 1.1; DF 3.3-5.6; C-ArmLSpine outline 4.2)",
+    "k": null,
+    "n": null,
+    "ci": null
+   },
+   "body": {
+    "value": "7.3 pp (C-ArmLSpine body-truth reading 21.6 vs 14.3)",
+    "k": null,
+    "n": null,
+    "ci": null
+   },
+   "body_kind": "stored (contribution_matrix.json #seed_spread)",
+   "consumers": [
+    "sections/results.tex 'seed repeats moved it 1.1--5.6 points'"
+   ],
+   "convention_note": "the body-convention spread reaches 7.3 pp and the sentence quotes only the WV 1.1-5.6",
+   "manuscript": {
+    "alters_sentence": true,
+    "sentence": "sections/results.tex: 'and seed repeats moved it 1.1--5.6 points' omits the 7.3-pp spread the same arms show under the body convention (NUMBERS.md's own row says the sentence should carry '(7.3 under the body convention)')"
+   }
+  },
+  {
+   "id": "D8",
+   "group": "D contribution matrix, COBRA target",
+   "quantity": "S-only (C-arm source) on held-out COBRA, 0.25",
+   "whole_vertebra": {
+    "value": 12.2,
+    "k": 109,
+    "n": 893,
+    "ci": [
+     8.0,
+     16.0
+    ]
+   },
+   "body": {
+    "value": 8.9,
+    "k": 76,
+    "n": 855,
+    "ci": [
+     4.4,
+     13.1
+    ]
+   },
+   "body_kind": "computed (job 40419582; WV self-check reproduces the stored cell exactly)",
+   "consumers": [
+    "tables/tab2 single-source rows",
+    "Figure S2"
+   ],
+   "convention_note": "stored cell had only `default` = WV; body truth now exists (855/893)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "D9",
+   "group": "D contribution matrix, COBRA target",
+   "quantity": "D-only (Cios source) on held-out COBRA, 0.25",
+   "whole_vertebra": {
+    "value": 38.1,
+    "k": 340,
+    "n": 893,
+    "ci": [
+     32.3,
+     44.5
+    ]
+   },
+   "body": {
+    "value": 4.1,
+    "k": 35,
+    "n": 855,
+    "ci": [
+     2.5,
+     6.5
+    ]
+   },
+   "body_kind": "computed (job 40419582; WV self-check reproduces the stored cell exactly)",
+   "consumers": [
+    "tables/tab2 single-source rows",
+    "Figure S2"
+   ],
+   "convention_note": "stored cell had only `default` = WV; body truth now exists (855/893)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "D10",
+   "group": "D contribution matrix, COBRA target",
+   "quantity": "design A held-COBRA (S+D) on held-out COBRA, 0.25",
+   "whole_vertebra": {
+    "value": 30.2,
+    "k": 270,
+    "n": 893,
+    "ci": [
+     26.3,
+     34.2
+    ]
+   },
+   "body": {
+    "value": 6.5,
+    "k": 56,
+    "n": 855,
+    "ci": [
+     4.5,
+     8.2
+    ]
+   },
+   "body_kind": "computed (job 40419582; WV self-check reproduces the stored cell exactly)",
+   "consumers": [
+    "tables/tab2 single-source rows",
+    "Figure S2"
+   ],
+   "convention_note": "stored cell had only `default` = WV; body truth now exists (855/893)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "E1_0.74",
+   "group": "E Figure 3a",
+   "quantity": "renders-only on C-ArmLSpine: vertebra at 0.74",
+   "whole_vertebra": {
+    "value": 0.3,
+    "k": 1,
+    "n": 287,
+    "ci": [
+     0.0,
+     1.1
+    ]
+   },
+   "body": {
+    "value": 0.0,
+    "k": 0,
+    "n": 287,
+    "ci": [
+     0.0,
+     0.0
+    ]
+   },
+   "body_kind": "stored (fig3 scored file carries body/outline/centre)",
+   "consumers": [
+    "Figure 3a",
+    "sections/results.tex 'Renders alone found 31.7%...'",
+    "tables/tab2 renders row"
+   ],
+   "convention_note": "WV quoted; body stored beside it",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "E1_0.25",
+   "group": "E Figure 3a",
+   "quantity": "renders-only on C-ArmLSpine: vertebra at 0.25",
+   "whole_vertebra": {
+    "value": 31.7,
+    "k": 91,
+    "n": 287,
+    "ci": [
+     27.0,
+     36.0
+    ]
+   },
+   "body": {
+    "value": 2.4,
+    "k": 7,
+    "n": 287,
+    "ci": [
+     0.7,
+     4.5
+    ]
+   },
+   "body_kind": "stored (fig3 scored file carries body/outline/centre)",
+   "consumers": [
+    "Figure 3a",
+    "sections/results.tex 'Renders alone found 31.7%...'",
+    "tables/tab2 renders row"
+   ],
+   "convention_note": "WV quoted; body stored beside it",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "E2_0.74",
+   "group": "E Figure 3a",
+   "quantity": "renders-only on COBRA: vertebra at 0.74",
+   "whole_vertebra": {
+    "value": 5.2,
+    "k": 46,
+    "n": 893,
+    "ci": [
+     3.0,
+     7.4
+    ]
+   },
+   "body": {
+    "value": 0.0,
+    "k": 0,
+    "n": 855,
+    "ci": [
+     0.0,
+     0.0
+    ]
+   },
+   "body_kind": "computed (job 40419582)",
+   "consumers": [
+    "Figure 3a",
+    "NUMBERS.md Fig 3 block"
+   ],
+   "convention_note": "the scored fig3 cobra files carry ONLY a `body` block that is in fact the WV CT-projected truth (has_outline_truth=false); the genuine body reading is this job's",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "E2_0.25",
+   "group": "E Figure 3a",
+   "quantity": "renders-only on COBRA: vertebra at 0.25",
+   "whole_vertebra": {
+    "value": 37.8,
+    "k": 338,
+    "n": 893,
+    "ci": [
+     33.9,
+     42.1
+    ]
+   },
+   "body": {
+    "value": 3.3,
+    "k": 28,
+    "n": 855,
+    "ci": [
+     1.7,
+     5.6
+    ]
+   },
+   "body_kind": "computed (job 40419582)",
+   "consumers": [
+    "Figure 3a",
+    "NUMBERS.md Fig 3 block"
+   ],
+   "convention_note": "the scored fig3 cobra files carry ONLY a `body` block that is in fact the WV CT-projected truth (has_outline_truth=false); the genuine body reading is this job's",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "E3_0.74",
+   "group": "E Figure 3a",
+   "quantity": "design-A lodo (real S+D frames) on COBRA: vertebra at 0.74",
+   "whole_vertebra": {
+    "value": 6.2,
+    "k": 55,
+    "n": 893,
+    "ci": [
+     2.9,
+     9.4
+    ]
+   },
+   "body": {
+    "value": 5.4,
+    "k": 46,
+    "n": 855,
+    "ci": [
+     1.7,
+     9.2
+    ]
+   },
+   "body_kind": "computed (job 40419582)",
+   "consumers": [
+    "Figure 3a",
+    "NUMBERS.md Fig 3 block"
+   ],
+   "convention_note": "the scored fig3 cobra files carry ONLY a `body` block that is in fact the WV CT-projected truth (has_outline_truth=false); the genuine body reading is this job's",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "E3_0.25",
+   "group": "E Figure 3a",
+   "quantity": "design-A lodo (real S+D frames) on COBRA: vertebra at 0.25",
+   "whole_vertebra": {
+    "value": 18.5,
+    "k": 165,
+    "n": 893,
+    "ci": [
+     13.7,
+     22.8
+    ]
+   },
+   "body": {
+    "value": 13.6,
+    "k": 116,
+    "n": 855,
+    "ci": [
+     7.9,
+     19.6
+    ]
+   },
+   "body_kind": "computed (job 40419582)",
+   "consumers": [
+    "Figure 3a",
+    "NUMBERS.md Fig 3 block"
+   ],
+   "convention_note": "the scored fig3 cobra files carry ONLY a `body` block that is in fact the WV CT-projected truth (has_outline_truth=false); the genuine body reading is this job's",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "E4",
+   "group": "E Figure 3a",
+   "quantity": "render / lodo_df on DeepFluoro (all four cells)",
+   "whole_vertebra": {
+    "value": "0.0 / 59.0 / 74.7 / 95.2 (0/83, 49/83, 62/83, 79/83)",
+    "k": null,
+    "n": 83,
+    "ci": null
+   },
+   "body": null,
+   "body_kind": "declared WV (no SPINEPS body masks for DeepFluoro)",
+   "consumers": [
+    "Figure 3a"
+   ],
+   "convention_note": "one specimen, no case interval; fig3 file's `body` label is WV",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "E5",
+   "group": "E Figure 3a/S2",
+   "quantity": "Geneva phantom cells (all arms)",
+   "whole_vertebra": {
+    "value": "e.g. dc_P 27.0 (10/37)",
+    "k": null,
+    "n": 37,
+    "ci": null
+   },
+   "body": null,
+   "body_kind": "declared WV (phantom; no SPINEPS body masks)",
+   "consumers": [
+    "Figure S2",
+    "results/dc_P_pooled_scores.json"
+   ],
+   "convention_note": "one phantom cluster",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "F1",
+   "group": "F counting from the sacrum",
+   "quantity": "C-ArmLSpine lodo_carm 0.74: matched bodies at the right ordinal",
+   "whole_vertebra": {
+    "value": 95.4,
+    "k": 188,
+    "n": 197,
+    "ci": [
+     89.4,
+     99.5
+    ]
+   },
+   "body": {
+    "value": 92.9,
+    "k": 13,
+    "n": 14,
+    "ci": [
+     75.0,
+     100.0
+    ]
+   },
+   "body_kind": "stored (counting.json body cell); denominator collapses 197 -> 14: convention-mismatch artefact, not a usable rescore",
+   "consumers": [
+    "main.tex abstract + key results ('Counting placed 188 of 197...')",
+    "sections/results.tex",
+    "Table 3",
+    "Figure 5b"
+   ],
+   "convention_note": "the WV-trained detector's boxes rarely reach IoU 0.5 against body truth, so almost no bodies match; a body-convention counting number needs the G5 body-trained flagship",
+   "manuscript": {
+    "alters_sentence": true,
+    "sentence": "main.tex abstract: 'Counting placed 188 of 197 matched bodies at the right ordinal (95.4%)' and sections/results.tex 'put 95.4% of 197 matched bodies at the right ordinal (188...)' state no box convention (the Figure 5 caption does); under body truth the matched set collapses to 14"
+   }
+  },
+  {
+   "id": "F2",
+   "group": "F counting from the sacrum",
+   "quantity": "C-ArmLSpine lodo_carm 0.25: matched-ordinal / within-one",
+   "whole_vertebra": {
+    "value": 84.7,
+    "k": 199,
+    "n": 235,
+    "ci": [
+     77.4,
+     90.7
+    ]
+   },
+   "body": {
+    "value": 78.6,
+    "k": 11,
+    "n": 14,
+    "ci": [
+     44.4,
+     100.0
+    ]
+   },
+   "body_kind": "stored (counting.json body cell); collapsed denominator, artefact",
+   "consumers": [
+    "sections/results.tex",
+    "results/COUNTING.md"
+   ],
+   "convention_note": "same mismatch as F1",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "F3_0.25",
+   "group": "F counting from the sacrum",
+   "quantity": "COBRA lodo_cobra 0.25: defined share / matched-ordinal (body truth)",
+   "whole_vertebra": {
+    "value": 18.2,
+    "k": 111,
+    "n": 609,
+    "ci": null,
+    "note": "ordinal 54/76 = 71.1 [56.6, 80.3] (WV truth)"
+   },
+   "body": {
+    "value": 55.6,
+    "k": 25,
+    "n": 45,
+    "ci": [
+     28.6,
+     72.5
+    ],
+    "note": "defined 111/609; within-one 44/45"
+   },
+   "body_kind": "computed (job 40419582, body labels + body meta)",
+   "consumers": [
+    "Table 3 COBRA row",
+    "results/COUNTING.md"
+   ],
+   "convention_note": "defined share is anchor-driven (sacrum, convention-free) and stays 18.2%; matched bodies fall 76 -> 45 and ordinal accuracy 71.1 -> 55.6 [28.6, 72.5] because the WV-trained detector's boxes miss body-truth IoU",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "F3_0.74",
+   "group": "F counting from the sacrum",
+   "quantity": "COBRA lodo_cobra 0.74: defined share / matched-ordinal (body truth)",
+   "whole_vertebra": null,
+   "body": {
+    "value": 45.5,
+    "k": 5,
+    "n": 11,
+    "ci": [
+     0.0,
+     100.0
+    ],
+    "note": "defined 22/609; within-one 9/11"
+   },
+   "body_kind": "computed (job 40419582, body labels + body meta)",
+   "consumers": [
+    "Table 3 COBRA row",
+    "results/COUNTING.md"
+   ],
+   "convention_note": "defined share is anchor-driven (sacrum, convention-free) and stays 18.2%; matched bodies fall 76 -> 45 and ordinal accuracy 71.1 -> 55.6 [28.6, 72.5] because the WV-trained detector's boxes miss body-truth IoU",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "F4",
+   "group": "F counting from the sacrum",
+   "quantity": "DeepFluoro 79.1 (53/67) and pooled three devices 81.0 (306/378) [75.7, 85.8]",
+   "whole_vertebra": {
+    "value": 81.0,
+    "k": 306,
+    "n": 378,
+    "ci": [
+     75.7,
+     85.8
+    ]
+   },
+   "body": null,
+   "body_kind": "declared: DF has no body truth, so the pooled three-device counting row cannot be rescored whole",
+   "consumers": [
+    "sections/results.tex pooled counting",
+    "Table 3"
+   ],
+   "convention_note": "COBRA part rescored above; DF part declared; pooled body row owed at G5",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "G1",
+   "group": "G coupling (classifier x count)",
+   "quantity": "det74/kfull: anchored frames, disagreement, flags (whole block)",
+   "whole_vertebra": {
+    "value": "233/290 anchored; 1,009 counted; disagree 3.2% [1.4, 5.4]; unflagged 921/922",
+    "k": null,
+    "n": null,
+    "ci": null
+   },
+   "body": null,
+   "body_kind": "declared: anchored on the WV detector's sacrum box; the sacrum box is identical in both conventions, but the count runs over detector body-box matches, so the body recompute is owed with the G5 body-trained flagship (NUMBERS.md records gate G5 owes this recompute)",
+   "consumers": [
+    "sections/results.tex coupled-call paragraph",
+    "Table 3",
+    "Table 4",
+    "Figure 5c/d"
+   ],
+   "convention_note": "classifier numbers are convention-free (it crops by name); only the count arm carries the box convention",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "H1",
+   "group": "H naming, C-ArmLSpine",
+   "quantity": "cv5 lateral exact 98.2 (606/617) [95.7, 100.0] and the whole a4/a7/a9 family",
+   "whole_vertebra": {
+    "value": 98.2,
+    "k": 606,
+    "n": 617,
+    "ci": [
+     95.7,
+     100.0
+    ]
+   },
+   "body": null,
+   "body_kind": "declared: the denominators (617/631/676 agreed vertebrae) are defined by IoU matching against the CBCT-projected WV truth bank; the classifier itself crops by name and is convention-free; a body re-match is owed at G5",
+   "consumers": [
+    "main.tex abstract + key results",
+    "sections/results.tex naming paragraph",
+    "Table 3",
+    "Figure 5a"
+   ],
+   "convention_note": "no stored body variant exists in a4/a7/a9; the C-ArmLSpine meta carries body boxes, so the re-match is possible once the flagship's body-trained detector defines the matched set",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "H2",
+   "group": "H naming, C-ArmLSpine",
+   "quantity": "zero-shot lateral 96.3 (594/617) vs AP 37.9 (239/631), delta +57.7 [48.9, 66.4]",
+   "whole_vertebra": {
+    "value": 96.3,
+    "k": 594,
+    "n": 617,
+    "ci": [
+     93.1,
+     98.7
+    ]
+   },
+   "body": null,
+   "body_kind": "declared (same WV-matched denominators)",
+   "consumers": [
+    "main.tex abstract",
+    "sections/results.tex"
+   ],
+   "convention_note": "as H1",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "I_CSXA",
+   "group": "I plain-film naming",
+   "quantity": "CSXA exact naming",
+   "whole_vertebra": null,
+   "body": {
+    "value": 99.8,
+    "k": 3629,
+    "n": 3635,
+    "ci": [
+     99.6,
+     100.0
+    ]
+   },
+   "body_kind": "already body (human vertebral-body corner truth); nothing changes",
+   "consumers": [
+    "sections/results.tex 'patient-keyed film validation read 97.3%-99.8%'",
+    "Table 3"
+   ],
+   "convention_note": "truth was annotated as body boxes from the start",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "I_BUU",
+   "group": "I plain-film naming",
+   "quantity": "BUU exact naming",
+   "whole_vertebra": null,
+   "body": {
+    "value": 97.3,
+    "k": 2671,
+    "n": 2744,
+    "ci": [
+     96.5,
+     98.0
+    ]
+   },
+   "body_kind": "already body (human vertebral-body corner truth); nothing changes",
+   "consumers": [
+    "sections/results.tex 'patient-keyed film validation read 97.3%-99.8%'",
+    "Table 3"
+   ],
+   "convention_note": "truth was annotated as body boxes from the start",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "I_NHANES",
+   "group": "I plain-film naming",
+   "quantity": "NHANES II exact naming",
+   "whole_vertebra": null,
+   "body": {
+    "value": 99.1,
+    "k": 441,
+    "n": 445,
+    "ci": [
+     98.2,
+     99.8
+    ]
+   },
+   "body_kind": "already body (human vertebral-body corner truth); nothing changes",
+   "consumers": [
+    "sections/results.tex 'patient-keyed film validation read 97.3%-99.8%'",
+    "Table 3"
+   ],
+   "convention_note": "truth was annotated as body boxes from the start",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "J1",
+   "group": "J pooled all-device detector (dc_P)",
+   "quantity": "C-ArmLSpine test recall at 0.25",
+   "whole_vertebra": {
+    "value": 39.0,
+    "k": 112,
+    "n": 287,
+    "ci": null
+   },
+   "body": {
+    "value": 89.5,
+    "k": 257,
+    "n": 287,
+    "ci": null
+   },
+   "body_kind": "stored (dc_P_pooled_scores.json matched_convention; centre 89.9%)",
+   "consumers": [
+    "results/lcurve/lcurve.md all-real lines; not yet in a table"
+   ],
+   "convention_note": "dc_P trains on real carm frames, so body >> WV here",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "J2",
+   "group": "J pooled all-device detector (dc_P)",
+   "quantity": "COBRA test recall (eval 97.5 = 871/893 at 0.25)",
+   "whole_vertebra": {
+    "value": 97.5,
+    "k": 871,
+    "n": 893,
+    "ci": [
+     93.5,
+     99.6
+    ]
+   },
+   "body": {
+    "value": 40.6,
+    "k": 347,
+    "n": 855,
+    "ci": [
+     35.2,
+     46.5
+    ]
+   },
+   "body_kind": "computed (job 40419582)",
+   "consumers": [
+    "results/lcurve/lcurve.md; not yet in a table"
+   ],
+   "convention_note": "same COBRA training-truth mismatch as the control row; WV on the body subset 97.7% (835/855)",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "J3",
+   "group": "J pooled all-device detector (dc_P)",
+   "quantity": "DeepFluoro 97.6 (81/83) and Geneva 27.0 (10/37)",
+   "whole_vertebra": {
+    "value": "97.6 / 27.0",
+    "k": null,
+    "n": null,
+    "ci": null
+   },
+   "body": null,
+   "body_kind": "declared WV (no body masks)",
+   "consumers": [
+    "results/dc_P_pooled_scores.json"
+   ],
+   "convention_note": "as E4/E5",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  },
+  {
+   "id": "K1",
+   "group": "K COBRA panel-aware (cobra_window)",
+   "quantity": "pooled all-real conf 0.74: 93.2% (832/893); whole-panel-only 95.4% (333/349); renders 5.2% (46/893)",
+   "whole_vertebra": {
+    "value": 93.2,
+    "k": 832,
+    "n": 893,
+    "ci": [
+     86.4,
+     97.7
+    ]
+   },
+   "body": {
+    "value": 35.8,
+    "k": 306,
+    "n": 855,
+    "ci": [
+     29.5,
+     42.0
+    ]
+   },
+   "body_kind": "computed for the pooled 93.2 and renders 5.2 (rows above); the whole-panel 95.4 split is owned by the cobra-window workflow and is not yet rescored -- the body truth it needs now sits at or_ready/bodybox_rescore/truth/cobra_elekta",
+   "consumers": [
+    "tables/tab2 via lcurve all_real; panel split not yet quoted"
+   ],
+   "convention_note": "all WV COBRA truth today; renders at 0.74 read 0/855 on body truth",
+   "manuscript": {
+    "alters_sentence": false,
+    "sentence": null
+   }
+  }
+ ]
+}

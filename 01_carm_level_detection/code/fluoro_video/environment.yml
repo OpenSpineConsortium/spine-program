@@ -1,0 +1,20 @@
+# Copied 2026-10-08 from the private repository spinesurg-ct-nnunet (branch L6_Class): tools/fluoro_video/environment.yml [untracked at 097933a (laptop copy of 2026-10-08)]
+# Pinned environment for tools/fluoro_video (created on the grid at /rs/rs_grp_oschome/go2432/envs/fluoroclip).
+# The exact, fully resolved package set (every dependency, with URL and md5) is explicit_lock.txt:
+#   conda create -p <prefix> --file tools/fluoro_video/explicit_lock.txt
+# This file pins the direct dependencies to the versions and builds that lock resolved to.
+name: fluoroclip
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11.16
+  - numpy=1.26.4
+  - scipy=1.13.1
+  - pillow=10.4.0
+  - pyyaml=6.0.2
+  - matplotlib-base=3.9.2
+  - av=12.3.0              # PyAV: decoding with per-frame pts (links the ffmpeg 6.1.2 libraries below)
+  - ffmpeg=6.1.2=gpl_hdfc89ed_706   # ffprobe + ffmpeg (libx264 for previews; dav1d/libvpx/theora decoders)
+  - tesseract=5.5.1        # OCR of on-screen clocks / angles (eng traineddata included)
+  - pytesseract=0.3.13
+  - pytest=9.1.1

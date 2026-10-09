@@ -1,0 +1,6 @@
+# gradio 5.9.1 ships a client whose schema walker raises on additionalProperties: true while the app starts.
+gradio>=5.25,<6
+huggingface_hub>=0.26
+pillow>=10.0
+# gradio's CLI imports requests without declaring it; on a slim base the app dies before its own first line.
+requests>=2.31

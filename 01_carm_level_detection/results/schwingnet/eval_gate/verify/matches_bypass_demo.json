@@ -1,0 +1,59 @@
+{
+ "what": "tools/arc_recall_eval.py --matches: the VOID leaked curve's predictions (dc_P_pooled on its own 17 selection subjects) re-aggregated under --weights pooled=<a checkpoint the gate passes for those subjects>. The output's leaked curves are NOT kept; this file records only the verdict it carried and that its cells equal the void curve.",
+ "command": "python tools/arc_recall_eval.py --set-root <copy of devcorpus_arc/anglesweep/SET_INFO.json> --out <scratch> --weights pooled=/wsu/home/go/go24/go2432/FluoroCap/detect_v5z_final_best.pt --matches <grid devcorpus_arc/recall_vs_angle_selection_leaked/matches.json> --touched SchwingNet/results/eval_gate/touched.json",
+ "matches_json_weights": {
+  "pooled": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_P_pooled/weights/best.pt",
+  "lodoA": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_surgio_b51_dr/weights/best.pt",
+  "lodoB": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_surgio_b51_dr_s1/weights/best.pt",
+  "real_lodo": "/wsu/home/go/go24/go2432/spine-detector/runs/realxray/rx_lodo_carmlspine_1024/weights/best.pt"
+ },
+ "output_eval_gate": {
+  "held_out": true,
+  "overlap": 0,
+  "unresolved": 0,
+  "checks": [
+   {
+    "checkpoint": "/wsu/home/go/go24/go2432/FluoroCap/detect_v5z_final_best.pt",
+    "held_out": true,
+    "n_keys": 17,
+    "ancestors": [
+     "/wsu/home/go/go24/go2432/spine-detector/runs/pose/runs/pose/runs/detect_v3/weights/best.pt"
+    ]
+   }
+  ]
+ },
+ "output_weights": {
+  "pooled": "/wsu/home/go/go24/go2432/FluoroCap/detect_v5z_final_best.pt"
+ },
+ "pooled_cells_identical_to_void_curve": 456,
+ "pooled_cells_different": 0,
+ "examples": [
+  {
+   "card": "elekta_xvi",
+   "conf": 0.25,
+   "cls": "body",
+   "tilt": 0.0,
+   "lat": -90.0,
+   "recall": 0.3904761904761905,
+   "n": 105
+  },
+  {
+   "card": "elekta_xvi",
+   "conf": 0.25,
+   "cls": "body",
+   "tilt": 0.0,
+   "lat": 0.0,
+   "recall": 0.8942307692307693,
+   "n": 104
+  },
+  {
+   "card": "elekta_xvi",
+   "conf": 0.25,
+   "cls": "body",
+   "tilt": 0.0,
+   "lat": 90.0,
+   "recall": 0.3523809523809524,
+   "n": 105
+  }
+ ]
+}

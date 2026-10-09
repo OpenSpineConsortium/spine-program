@@ -1,0 +1,364 @@
+% SchwingNet/lit/refs_additions.bib -- entries verified 2026-09-24 against PubMed E-utilities, Europe PMC, Crossref,
+% arXiv and the DICOM standard while checking acquisition_space_review_2026-09-24 (see CITABLE_CLAIMS.md for the row
+% each entry belongs to and for the ranking against the 35-reference cap). Ready to paste into refs.bib.
+%
+% Conventions follow refs.bib and REFS_AUDIT.md: NLM journal abbreviations; the PMID goes in `note` of @article entries
+% only (nejm.bbx hides an article's note and prints every other entry type's note); dates for online-only items go
+% in `addendum`; given names are full where Crossref or PubMed gave them and initials otherwise.
+%
+% Already in refs.bib, do not duplicate: deepdrr2018 (MICCAI 2018 DeepDRR), polypose2025, synthex2023, killeen2025,
+% grupp2020 (DeepFluoro), levelcheck2012 (Otake 2012), levelcheck2016 (Lo 2015), desilva2016 (De Silva 2016, Spine),
+% manbachi2018, ljubljana2d3d (Tomazevic 2002, the LUMBAR Ljubljana set), figueroa2012.
+%
+% Ranking for the one free slot (CITABLE_CLAIMS.md): zheng2018pda first; polypose2025 + diffdrr2022 mandatory only if
+% the PolyPose/DiffDRR renders stay in Methods; then desilva2016pmb, luchmann2024x23d, diffpose2024.
+
+% ---------------------------------------------------------------------------------------------------------------
+% RANK 1. Pairwise domain adaptation. PMID 29376104; PMCID PMC5767648. Spine task: 420 real X-rays, 42 C-arm CT
+% volumes; 1,000,000 synthetic pretraining images; 140 real images for adaptation; failure rate (TRE > 10 mm)
+% 16.07 % -> 11.20 %, mean TRE 7.45 -> 5.65 mm (PDA+). Full text read on PMC.
+@article{zheng2018pda,
+  author  = {Zheng, Jiannan and Miao, Shun and Wang, Z. Jane and Liao, Rui},
+  title   = {Pairwise domain adaptation module for {CNN}-based {2-D}/{3-D} registration},
+  journal = {J Med Imaging (Bellingham)},
+  year    = {2018},
+  volume  = {5},
+  number  = {2},
+  pages   = {021204},
+  doi     = {10.1117/1.JMI.5.2.021204},
+  note    = {PMID: 29376104}
+}
+
+% Content mismatch in LevelCheck. PMID 26992245; PMCID PMC4915376. Without masking at 50 multistarts, gradient
+% correlation failed in > 14 % of cases and gradient orientation in 0 % (median PD error 5.5 mm, IQR 2.6 mm).
+% Given names from the existing desilva2016 / levelcheck2016 entries for the shared authors; Reaungamornrat's and
+% Stayman's given names were not in the record read today.
+@article{desilva2016pmb,
+  author  = {{De Silva}, Tharindu and Uneri, Ali and Ketcha, Michael D. and Reaungamornrat, S. and Kleinszig, Gerhard and Vogt, Sebastian and Aygun, Nafi and Lo, Sheng-Fu L. and Wolinsky, Jean-Paul and Siewerdsen, Jeffrey H.},
+  title   = {{3D}--{2D} image registration for target localization in spine surgery: investigation of similarity metrics providing robustness to content mismatch},
+  journal = {Phys Med Biol},
+  year    = {2016},
+  volume  = {61},
+  number  = {8},
+  pages   = {3009--3025},
+  doi     = {10.1088/0031-9155/61/8/3009},
+  note    = {PMID: 26992245}
+}
+
+% Known-component registration. PMID 26421941; PMCID PMC4640195. CMA-ES on image-gradient similarity; TRE 1-4 mm
+% (parametric screw models), < 1 mm (exactly known); device-mismatch detection > 99 %. It is screw-placement QA; the
+% review's "prevents slipping to adjacent levels" is not in the paper.
+@article{uneri2015kcreg,
+  author  = {Uneri, Ali and {De Silva}, Tharindu and Stayman, J. W. and Kleinszig, Gerhard and Vogt, Sebastian and Khanna, A. Jay and Gokaslan, Ziya L. and Wolinsky, Jean-Paul and Siewerdsen, Jeffrey H.},
+  title   = {Known-component {3D}--{2D} registration for quality assurance of spine surgery pedicle screw placement},
+  journal = {Phys Med Biol},
+  year    = {2015},
+  volume  = {60},
+  number  = {20},
+  pages   = {8007--8024},
+  doi     = {10.1088/0031-9155/60/20/8007},
+  note    = {PMID: 26421941}
+}
+
+% X23D, synthetic training. PMID 36286365; PMCID PMC9604813. 17,420 DRRs from 871 CTSpine1K CTs; F1 88 %, surface
+% score 71 %, +22 % surface score over the counterpart; four or eight input views; 4.2 s per vertebra (four-view).
+% The "81.1 ms" and "three shots" belong to jecklin2024x23d.
+@article{jecklin2022x23d,
+  author  = {Jecklin, Sascha and Jancik, C. and Farshad, Mazda and F{\"u}rnstahl, Philipp and Esfandiari, Hooman},
+  title   = {{X23D}---intraoperative {3D} lumbar spine shape reconstruction based on sparse multi-view {X}-ray data},
+  journal = {J Imaging},
+  year    = {2022},
+  volume  = {8},
+  number  = {10},
+  pages   = {271},
+  doi     = {10.3390/jimaging8100271},
+  note    = {PMID: 36286365}
+}
+
+% X23D on real fluoroscopy. PMID 39197301. Three intraoperative shots, 84 % F1, 81.1 ms. Published December 1, 2024
+% (Europe PMC); arXiv 2401.16027.
+@article{jecklin2024x23d,
+  author  = {Jecklin, Sascha and Shen, Youyang and Gout, Amandine and Suter, Daniel and Calvet, Lilian and Zingg, Lukas and Straub, Jennifer and Cavalcanti, Nicola Alessandro and Farshad, Mazda and F{\"u}rnstahl, Philipp and Esfandiari, Hooman},
+  title   = {Domain adaptation strategies for {3D} reconstruction of the lumbar spine using real fluoroscopy data},
+  journal = {Med Image Anal},
+  year    = {2024},
+  volume  = {98},
+  pages   = {103322},
+  doi     = {10.1016/j.media.2024.103322},
+  note    = {PMID: 39197301}
+}
+
+% X23D ex-vivo screw study. PMID 39558228; PMCID PMC11575073. Five surgeons, six torsi, 49 screws (24 X23D, 25
+% fluoroscopy); breaches 5 vs 6 (one clinically significant in each; the grade-C medial breach is the CONTROL group's);
+% 167 vs 156 s per level; 33.26 vs 49.5 mGy; no significant difference on any outcome (p > 0.05).
+@article{luchmann2024x23d,
+  author  = {Luchmann, Dietmar and Jecklin, Sascha and Cavalcanti, Nicola A. and Laux, Christoph J. and Massalimova, Aidana and Esfandiari, Hooman and Farshad, Mazda and F{\"u}rnstahl, Philipp},
+  title   = {Spinal navigation with {AI}-driven {3D}-reconstruction of fluoroscopy images: an ex-vivo feasibility study},
+  journal = {BMC Musculoskelet Disord},
+  year    = {2024},
+  volume  = {25},
+  number  = {1},
+  pages   = {925},
+  doi     = {10.1186/s12891-024-08052-2},
+  note    = {PMID: 39558228}
+}
+
+% DeepDRR, journal version (the MICCAI 2018 paper is deepdrr2018). PMID 31187399; PMCID PMC7297499. Landmark
+% detection on 78 real pelvic X-rays of two cadavers: 24.7 +/- 21.3 mm (DeepDRR-trained) vs 78.2 +/- 26.5 mm (naive DRR).
+@article{deepdrr2019,
+  author  = {Unberath, Mathias and Zaech, Jan-Nico and Gao, Cong and Bier, Bastian and Goldmann, Florian and Lee, Sing Chun and Fotouhi, Javad and Taylor, Russell and Armand, Mehran and Navab, Nassir},
+  title   = {Enabling machine learning in {X}-ray-based procedures via realistic simulation of image formation},
+  journal = {Int J Comput Assist Radiol Surg},
+  year    = {2019},
+  volume  = {14},
+  number  = {9},
+  pages   = {1517--1528},
+  doi     = {10.1007/s11548-019-02011-2},
+  note    = {PMID: 31187399}
+}
+
+% DiffDRR. Crossref chapter record 10.1007/978-3-031-23179-7_1 (pp. 1-11, published online January 10, 2023) and
+% book record 10.1007/978-3-031-23179-7 (editors, ISBN 978-3-031-23178-0 / 978-3-031-23179-7, Springer Nature
+% Switzerland, Cham, 2023). The LNCS volume number is NOT in either record and Springer's page was unreachable, so
+% the volume field is omitted rather than guessed. arXiv 2208.12737 (August 26, 2022). MANDATORY if a DiffDRR render
+% or the PolyPose sampling appears in Methods.
+@inproceedings{diffdrr2022,
+  author    = {Gopalakrishnan, Vivek and Golland, Polina},
+  title     = {Fast auto-differentiable digitally reconstructed radiographs for solving inverse problems in intraoperative imaging},
+  booktitle = {{Clinical Image-Based Procedures -- CLIP 2022}},
+  editor    = {Chen, Yufei and Linguraru, Marius George and Shekhar, Raj and Wesarg, Stefan and Erdt, Marius and Drechsler, Klaus and {Oyarzun Laura}, Cristina},
+  series    = {{Lecture Notes in Computer Science}},
+  publisher = {Springer},
+  address   = {Cham},
+  year      = {2023},
+  pages     = {1--11},
+  doi       = {10.1007/978-3-031-23179-7_1}
+}
+
+% DiffPose. Crossref 10.1109/CVPR52733.2024.01108, pp. 11662-11672, Seattle, June 16, 2024; arXiv 2312.06358.
+% Same shape as he2016 (no note, no publisher: both print in the list).
+@inproceedings{diffpose2024,
+  author    = {Gopalakrishnan, Vivek and Dey, Neel and Golland, Polina},
+  title     = {Intraoperative {2D}/{3D} image registration via differentiable {X}-ray rendering},
+  booktitle = {{2024 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}},
+  year      = {2024},
+  pages     = {11662--11672},
+  doi       = {10.1109/CVPR52733.2024.01108}
+}
+
+% XVR. Preprint, not peer reviewed. arXiv abstract read 2026-09-24: v1 March 20, 2025; v2 May 19, 2026.
+@misc{xvr2025,
+  author        = {Gopalakrishnan, Vivek and Chlorogiannis, David-Dimitris and Abumoussa, Andrew and Larson, Anna M. and Haouchine, Nazim and Orbach, Darren B. and Frisken, Sarah and Dey, Neel and Golland, Polina},
+  title         = {Rapid patient-specific neural networks for intraoperative {X}-ray to volume registration},
+  year          = {2025},
+  howpublished  = {arXiv:2503.16309 [cs.CV]},
+  eprint        = {2503.16309},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  doi           = {10.48550/arXiv.2503.16309},
+  url           = {https://arxiv.org/abs/2503.16309},
+  addendum      = {Posted March 20, 2025; version 2, May 19, 2026}
+}
+
+% LXPose. PMID 42299683 (Europe PMC); Crossref: Comput Assist Surg (Abingdon) 2026;31(1):2684372, published
+% June 16, 2026. Two-stage CNN; inference 20 ms; "comparable to the state-of-the-art" on two datasets.
+@article{lxpose2026,
+  author   = {Facente, Federica and Billot, Benjamin and Gopalakrishnan, Vivek and Kattel, Manasi and Wei, Wen and Golland, Polina and Delingette, Herv{\'e} and Ayache, Nicholas and Berthet-Rayne, Pierre},
+  title    = {Toward real-time alignment of {3D} {CT} and {2D} {X}-ray with multi-stage {CNNs}},
+  journal  = {Comput Assist Surg (Abingdon)},
+  year     = {2026},
+  volume   = {31},
+  number   = {1},
+  pages    = {2684372},
+  doi      = {10.1080/24699322.2026.2684372},
+  addendum = {Published June 16, 2026},
+  note     = {PMID: 42299683}
+}
+
+% Intrinsic tolerance. Preprint, not peer reviewed; phantoms on five commercial C-arms. Focal-length errors to
+% 500 px (~100 mm): mean 3-D reconstruction error < 0.2 mm; principal-point shifts to 200 px: reprojection increase
+% < 0.5 px after extrinsic re-optimisation.
+@misc{li2026intrinsic,
+  author        = {Li, Lin and Aubert, Benjamin and Kemper, Paul and Plumley, Aric},
+  title         = {Intrinsic tolerance in {C}-arm imaging: how extrinsic re-optimization preserves {3D} reconstruction accuracy},
+  year          = {2026},
+  howpublished  = {arXiv:2603.14031 [cs.CV]},
+  eprint        = {2603.14031},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  doi           = {10.48550/arXiv.2603.14031},
+  url           = {https://arxiv.org/abs/2603.14031},
+  addendum      = {Posted March 14, 2026}
+}
+
+% Multi-view 2D/3D registration. Preprint (arXiv page says ICRA 2025; the proceedings record was not checked).
+% mTRE 0.79 +/- 2.17 mm on six DeepFluoro specimens (pelvis). No spine, no level-ambiguity claim.
+@misc{cui2025multiview,
+  author        = {Cui, Yuxin and Song, Rui and Li, Yibin and Meng, Max Q.-H. and Min, Zhe},
+  title         = {Robust and accurate multi-view {2D}/{3D} image registration with differentiable {X}-ray rendering and dual cross-view constraints},
+  year          = {2025},
+  howpublished  = {arXiv:2506.22191 [cs.CV]},
+  eprint        = {2506.22191},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  doi           = {10.48550/arXiv.2506.22191},
+  url           = {https://arxiv.org/abs/2506.22191},
+  addendum      = {Posted June 27, 2025}
+}
+
+% The CEREBRAL Ljubljana set (10 patients, fiducial gold standard), used by DiffPose and XVR. PMID 23649179.
+% NOT the lumbar Ljubljana set the manuscript cites as ljubljana2d3d.
+@article{mitrovic2013,
+  author  = {Mitrovi{\'c}, Uro{\v{s}} and {\v{S}}piclin, {\v{Z}}iga and Likar, Bo{\v{s}}tjan and Pernu{\v{s}}, Franjo},
+  title   = {{3D}--{2D} registration of cerebral angiograms: a method and evaluation on clinical images},
+  journal = {IEEE Trans Med Imaging},
+  year    = {2013},
+  volume  = {32},
+  number  = {8},
+  pages   = {1550--1563},
+  doi     = {10.1109/TMI.2013.2259844},
+  note    = {PMID: 23649179}
+}
+
+% CTSpine1K, journal version. MELBA 2025, Special Issue on MICCAI Open Data 2024-2025, pp. 824-832, published
+% December 31, 2025; arXiv 2105.14711. 1,005 CT volumes, 11,172 vertebrae. The journal abbreviation follows NLM rules
+% but was NOT found in the NLM Catalog from here -- check before it prints.
+@article{ctspine1k2025,
+  author   = {Deng, Yang and Wang, Ce and Hui, Yuan and Li, Qian and Li, Jun and Luo, Shiwei and Sun, Mengke and Quan, Quan and Yang, Shuxin and Hao, You and Liu, Pengbo and Xiao, Honghu and Zhao, Chunpeng and Wu, Xinbao and Zhou, S. Kevin},
+  title    = {{CTSpine1K}: a large-scale dataset for spinal vertebrae segmentation in computed tomography},
+  journal  = {Mach Learn Biomed Imaging},
+  year     = {2025},
+  volume   = {2025},
+  pages    = {824--832},
+  doi      = {10.59275/j.melba.2025-gf84},
+  addendum = {Published December 31, 2025}
+}
+
+% The source of "63 %" (and so of the review's "37 %"). PMID 15087800. Two readers, 30 cadaver pedicle screws:
+% radiographs classified 63 % correctly as in or out of the pedicle, CT 87 %. Misclassification in both directions.
+@article{learch2004,
+  author  = {Learch, Thomas J. and Massie, Jennifer B. and Pathria, Mini N. and Ahlgren, Bradley A. and Garfin, Steven R.},
+  title   = {Assessment of pedicle screw placement utilizing conventional radiography and computed tomography: a proposed systematic approach to improve accuracy of interpretation},
+  journal = {Spine (Phila Pa 1976)},
+  year    = {2004},
+  volume  = {29},
+  number  = {7},
+  pages   = {767--773},
+  doi     = {10.1097/01.brs.0000112071.69448.a1},
+  note    = {PMID: 15087800}
+}
+
+% The source of "83 %". PMID 9201864. Cadaver spines, biplanar radiographs: accuracy 73-83 % by grader experience.
+@article{ferrick1997,
+  author  = {Ferrick, M. R. and Kowalski, J. M. and Simmons, E. D., Jr.},
+  title   = {Reliability of roentgenogram evaluation of pedicle screw position},
+  journal = {Spine (Phila Pa 1976)},
+  year    = {1997},
+  volume  = {22},
+  number  = {11},
+  pages   = {1249--1252},
+  doi     = {10.1097/00007632-199706010-00016},
+  note    = {PMID: 9201864}
+}
+
+% Third source in the X23D introduction. PMID 17146296. 120 cadaver screws (44 misplaced): radiograph sensitivity
+% 70.1 %, specificity 83.0 %; CT 84.7 % and 89.7 %.
+@article{choma2006,
+  author  = {Choma, T. J. and Denis, F. and Lonstein, J. E. and Perra, J. H. and Schwender, J. D. and Garvey, T. A. and Mullin, W. J.},
+  title   = {Stepwise methodology for plain radiographic assessment of pedicle screw placement: a comparison with computed tomography},
+  journal = {J Spinal Disord Tech},
+  year    = {2006},
+  volume  = {19},
+  number  = {8},
+  pages   = {547--553},
+  doi     = {10.1097/01.bsd.0000211221.74307.57},
+  note    = {PMID: 17146296}
+}
+
+% AAPM TG-238, the only citable overview of mobile 3-D C-arms. PMID 36710257. It lists Cios Spin, O-arm and Ziehm
+% Vision RFD 3D but carries none of the review's projection counts, FOVs or doses, and does not mention LoopX or
+% Excelsius3D. Given names as the PMC page prints them.
+@article{supanich2023tg238,
+  author  = {Supanich, Mark and Siewerdsen, Jeff and Fahrig, Rebecca and Farahani, Keyvan and Gang, Grace Jianan and Helm, Pat and Jans, Jan and Jones, Kyle and Koenig, Thomas and Kuhls-Gilcrist, Andrew and Lin, MingDe and Riddell, Cyril and Ritschl, Ludwig and Schafer, Sebastian and Schueler, Beth and Silver, Mike and Timmer, Jan and Trousset, Yves and Zhang, Jie},
+  title   = {{AAPM} {Task} {Group} {Report} 238: {3D} {C}-arms with volumetric imaging capability},
+  journal = {Med Phys},
+  year    = {2023},
+  volume  = {50},
+  number  = {8},
+  pages   = {e904--e945},
+  doi     = {10.1002/mp.16245},
+  note    = {PMID: 36710257}
+}
+
+% Learning-curve shape: power-law generalisation error. Preprint (arXiv abstract read 2026-09-24).
+@misc{hestness2017,
+  author        = {Hestness, Joel and Narang, Sharan and Ardalani, Newsha and Diamos, Gregory and Jun, Heewoo and Kianinejad, Hassan and Patwary, Md. Mostofa Ali and Yang, Yang and Zhou, Yanqi},
+  title         = {Deep learning scaling is predictable, empirically},
+  year          = {2017},
+  howpublished  = {arXiv:1712.00409 [cs.LG]},
+  eprint        = {1712.00409},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG},
+  doi           = {10.48550/arXiv.1712.00409},
+  url           = {https://arxiv.org/abs/1712.00409},
+  addendum      = {Posted December 1, 2017}
+}
+
+% Learning-curve shape: logarithmic gain with data volume (JFT-300M). The arXiv page names ICCV 2017; the IEEE
+% proceedings record was not checked, so the arXiv record is cited.
+@misc{sun2017,
+  author        = {Sun, Chen and Shrivastava, Abhinav and Singh, Saurabh and Gupta, Abhinav},
+  title         = {Revisiting unreasonable effectiveness of data in deep learning era},
+  year          = {2017},
+  howpublished  = {arXiv:1707.02968 [cs.CV]},
+  eprint        = {1707.02968},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  doi           = {10.48550/arXiv.1707.02968},
+  url           = {https://arxiv.org/abs/1707.02968},
+  addendum      = {Posted July 10, 2017; version 2, August 4, 2017}
+}
+
+% The DICOM standard, for the five positioner and patient-position tags (PS3.3 sections C.8.7.5, C.7.3.1 and
+% C.8.19.6.13, current edition, read 2026-09-24). Supplement only. The edition year was not recorded by the pages read.
+@misc{dicomps3,
+  author       = {{National Electrical Manufacturers Association}},
+  title        = {{DICOM} {PS3.3}: information object definitions},
+  howpublished = {NEMA, Rosslyn, VA},
+  url          = {https://dicom.nema.org/medical/dicom/current/output/chtml/part03/PS3.3.html},
+  addendum     = {Accessed September 24, 2026}
+}
+
+% ---------------------------------------------------------------------------------------------------------------
+% THORACIC LEVEL CONFIRMATION (2026-09-24, Greg's request; CITABLE_CLAIMS.md rows 31-40). Both entries are now in
+% refs.bib and cited in the Introduction (kirshblum2011 displaced konin2010, kulik2013 displaced diffpose2024).
+% Verified against PubMed efetch (full author lists, pages, DOIs) on 2026-09-24.
+
+% ISNCSCI 2011. PMID 22330108; PMCID PMC3232636. Key muscles C5-T1 and L2-S1 only; "For those myotomes that are not
+% clinically testable by a manual muscle exam, i.e., C1 to C4, T2 to L1, and S2 to S5, the motor level is presumed
+% to be the same as the sensory level".
+@article{kirshblum2011,
+  author  = {Kirshblum, Steven C. and Burns, Stephen P. and Biering-Sorensen, Fin and Donovan, William and Graves, Daniel E. and Jha, Amitabh and Johansen, Mark and Jones, Linda and Krassioukov, Andrei and Mulcahey, M. J. and Schmidt-Read, Mary and Waring, William},
+  title   = {International standards for neurological classification of spinal cord injury (revised 2011)},
+  journal = {J Spinal Cord Med},
+  year    = {2011},
+  volume  = {34},
+  number  = {6},
+  pages   = {535--546},
+  doi     = {10.1179/204577211X13207446293695},
+  note    = {PMID: 22330108}
+}
+
+% Thoracic screw stimulation recorded from the rectus abdominis. PMID 23686531; PMCID PMC3777061. Discussion:
+% "surface electrodes are used within the rectus abdominis muscle making individual dermatome analysis impossible".
+@article{kulik2013,
+  author  = {Kulik, Gerit and Pralong, Etienne and McManus, John and Debatisse, Damien and Schizas, Constantin},
+  title   = {A {CT}-based study investigating the relationship between pedicle screw placement and stimulation threshold of compound muscle action potentials measured by intraoperative neurophysiological monitoring},
+  journal = {Eur Spine J},
+  year    = {2013},
+  volume  = {22},
+  number  = {9},
+  pages   = {2062--2068},
+  doi     = {10.1007/s00586-013-2754-0},
+  note    = {PMID: 23686531}
+}

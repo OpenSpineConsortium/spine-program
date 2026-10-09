@@ -1,0 +1,2930 @@
+{
+ "generated": "2026-10-08",
+ "generator": "build_dedup_plan.py",
+ "totals": {
+  "link_confirmed": 37.296,
+  "link_likely": 38.603,
+  "link_possible": 19.921,
+  "link_upper": 95.82,
+  "a03": 56.1,
+  "held_removal": 0.457,
+  "held_review": 1.189,
+  "cand_now": 353.659,
+  "cand_later": 218.35,
+  "alias_concrete": 1631,
+  "alias_subjects": 830,
+  "alias_rule": 12,
+  "alias_pending_rows": 13498,
+  "alias_pending_explicit": 29,
+  "alias_pending_families": 6,
+  "alias_candidate": 0
+ },
+ "deletion_candidates_checked": 77,
+ "candidates_inside_canonical_roots": [
+  [
+   "A05",
+   "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v300/raw/TotalSegmentator_v3",
+   "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v300/raw/TotalSegmentator_v3/Totalsegmentator_dataset_v300.zip",
+   "B04 candidate"
+  ],
+  [
+   "A06",
+   "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v300/raw/TotalSegmentator_v3",
+   "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v300/raw/TotalSegmentator_v3/Totalsegmentator_dataset_v300.zip",
+   "B04 candidate"
+  ],
+  [
+   "A09",
+   "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K",
+   "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/labels_v10",
+   "B05 keep, later candidate"
+  ]
+ ],
+ "plan_tsv_sha256": "f52b133b9a8d107375ef9fd7cca3598d93437f1ac2c034b004209d2f21ce89d7",
+ "groups": [
+  {
+   "group_id": "A01",
+   "kind": "a",
+   "title": "VerSe'19 copies of the 95 series also held as VerSe'20 copies, inside raw/",
+   "status": "POSSIBLE",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/raw/verse20",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/raw/verse20",
+     "current_path": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20",
+     "role": "canonical",
+     "size_gb": null,
+     "size_basis": "part of raw/ 71 GB (AUDIT L662); 309 series-copies (AUDIT L940)",
+     "read_by": "unified/ links of the 309 scans whose chosen release is verse20 (VFG unified metas, T2-VF section 1)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/raw/verse19",
+     "current_path": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse19",
+     "role": "duplicate",
+     "size_gb": 14.4,
+     "size_basis": "estimate for the 95 shared series: 71 GB x 95 / 469 series-copies (AUDIT L662, L940)",
+     "read_by": "unified/ links of the 65 scans whose chosen release is verse19 (55 VerSe'19-only + 10 stand-ins; VFG manifest source_dataset); 1 code file names data/raw (T2-REFS)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "469 series-copies on disk for 374 scans: 160 VerSe'19 + 309 VerSe'20 (AUDIT L940); 95 scans carry other_releases = [verse19] with chosen release verse20 (VFG unified metas; T2-VF section 1).",
+     "For: the two tiny masks verse201_seg (44.9 KB) and verse278_seg (26.8 KB) are byte-identical across releases (AUDIT L959).",
+     "Against: VerSe'20 images are `<id>_CT-iso.nii.gz`, 'sagittal-iso resampled', and VerSe'20 centroids are in 1 mm iso ASL space (VFR src/verse_pipeline/utils/miccai.py docstring); VerSe'20 re-released overlapping series with corrected labels (AUDIT L952). CTs may match while masks and centroids differ, or nothing may match."
+    ],
+    "confirm_by": [
+     "$RS/data/versefusion/raw/VerSeFusion_data/raw/verse19/{*} paired BY BYTES with $RS/data/versefusion/raw/VerSeFusion_data/raw/verse20/{*} (sizes first, then sha256; a shared (verse|gl)[0-9]{3} token required)"
+    ]
+   },
+   "action": "LINK-AFTER-HASH, file by file: each VerSe'19 file whose bytes equal a VerSe'20 file becomes a symlink to it. Files without a twin stay. The 10 VerSe'20 series held only as their VerSe'19 copy (AUDIT L952) have no pair and are not touched; refetching them from VerSe'20 is a repair, not a deduplication. Identity: C01.",
+   "reason": "Same bytes under two release folders; the VerSe'20 copy is the corrected release and the one unified/ reads.",
+   "canonical_why": "VerSe'20 is the corrected re-release (AUDIT L952) and unify's PREFERRED_RELEASE (VFR src/verse_pipeline/unify.py L66), so unified/ already reads the VerSe'20 copy of all 95.",
+   "gate": [
+    "B06"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 14.4,
+    "low": 7.17e-05,
+    "category": "possible",
+    "basis": "estimate; 71.7 KB (two masks) is on record"
+   },
+   "plan_rows": [
+    {
+     "mode": "content",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/raw/verse19",
+     "dup_include": "*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/raw/verse20",
+     "canon_include": "*",
+     "exclude": "-",
+     "key_regex": "(verse|gl)[0-9]{3}",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 14.4
+    }
+   ],
+   "notes": [
+    "unified/ links are absolute HOME spellings written with Path.absolute() (VFR unify.py L286-L291); they point at the VerSe'20 copy for the 95, so linking VerSe'19 files changes nothing they read. The apply job writes links in the $RS spelling (LAY L161-L164)."
+   ]
+  },
+  {
+   "group_id": "A02",
+   "kind": "a",
+   "title": "VerSe canonical/ files that are byte copies of raw/ files (a check)",
+   "status": "NOT EXPECTED",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/raw",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/raw",
+     "current_path": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw",
+     "role": "canonical",
+     "size_gb": 71.0,
+     "size_basis": "du 2026-09-01 (AUDIT L662)",
+     "read_by": "see A01"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/canonical",
+     "current_path": "/wsu/home/go/go24/go2432/VerSeFusion/data/canonical",
+     "role": "duplicate",
+     "size_gb": 67.0,
+     "size_basis": "du 2026-09-01 (AUDIT L662)",
+     "read_by": "corrected/ (373 metas point their CT at canonical; T2-VF section 3), qc/ and orientation/ (input_dir), manifest/ and the HF export; 0 code files in ssn: or ctsp: (T2-REFS)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "By construction no regular file of canonical/ equals a raw/ file: a scan already in PIR is passed through as a symlink to its raw file (VFR src/verse_pipeline/reorient.py L96-L104); every other scan is reoriented with img.as_reoriented (VFR src/verse_pipeline/utils/nifti.py L95-L102) and re-saved by nib.save, a new gzip stream and header (reorient.py L106-L120).",
+     "raw/ holds 59 scans already in PIR of 374 (ssn:tools/convert_versefusion.py docstring: LAS 216, PSR 67, PIR 59, LPS 31, LSP 1).",
+     "The code that wrote canonical/ on the grid is not the laptop clone: the clone writes data/reoriented from sub-* folders and `git log -S data/canonical` finds nothing (T2 note, unknown U1)."
+    ],
+    "confirm_by": [
+     "$RS/data/versefusion/raw/VerSeFusion_data/canonical/{*} paired BY BYTES with $RS/data/versefusion/raw/VerSeFusion_data/raw/{*} (sizes first, then sha256; a shared (verse|gl)[0-9]{3} token required)"
+    ]
+   },
+   "action": "HASH ONLY in practice: expected verdict none. Any twin found is a pass-through written as a copy and may be linked to raw/. Whether canonical/ is a lossless transpose is a voxel question this hash cannot answer: see B01, step 1.",
+   "reason": "Settles at the byte level whether canonical/ holds copies of raw/.",
+   "canonical_why": "raw/ holds the release bytes; canonical/ is derived from it.",
+   "gate": [
+    "B06"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 0.0,
+    "low": 0.0,
+    "category": "check",
+    "basis": "0 expected by construction"
+   },
+   "plan_rows": [
+    {
+     "mode": "content",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/canonical",
+     "dup_include": "*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/raw",
+     "canon_include": "*",
+     "exclude": "-",
+     "key_regex": "(verse|gl)[0-9]{3}",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 0
+    }
+   ],
+   "notes": []
+  },
+  {
+   "group_id": "A03",
+   "kind": "a",
+   "title": "VerSeFusion HF staging trees against raw/ and corrected/",
+   "status": "UNKNOWN",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/raw/verse20 | raw/verse19 | corrected (first match)",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/hf_staging*",
+     "current_path": "/wsu/home/go/go24/go2432/VerSeFusion/data/hf_staging*",
+     "role": "duplicate",
+     "size_gb": 56.1,
+     "size_basis": "upper bound: census 194.192 GB for VerSeFusion/data (CEN-H) minus 138.088 GB for raw + canonical + unified (AUDIT L662; layout_map row VerSeFusion/data)",
+     "read_by": "the HF export stage (NPR stage 11); no code file in ssn: or ctsp:"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/{raw/verse20,raw/verse19,corrected}",
+     "current_path": "/wsu/home/go/go24/go2432/VerSeFusion/data/{raw,corrected}",
+     "role": "canonical",
+     "size_gb": null,
+     "size_basis": "see A01; corrected/ 0.122 GB (AUDIT L666)",
+     "read_by": "-"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "The laptop copy of the grid tree has hf_staging_sample (10 scans) and hf_staging_lstv (68 scans) (VFG listing); the census counts 1,389 `.metadata` files (CEN-H top_ext), the marker huggingface_hub's large-folder upload writes per file.",
+     "Staging is 'via copy (default) or symlink' (VFR src/verse_pipeline/hf_export.py docstring) but 'hardlink staging' in the later README (NPR stage 11). Hard links inside one item survive rsync -aH (plan/migrate_batch.sbatch L48-L51), so if they are hard links they share an inode on Ceph and free nothing.",
+     "Raw VerSe'20 gl series are spelled in capitals (VFG unified/scan-gl003/scan-gl003_meta.json original paths: raw/verse20/01_training/GL003/GL003.nii.gz) while staging spells gl003; the hash job compares key tokens in lowercase, so a gl byte twin pairs instead of falling to key_mismatch."
+    ],
+    "confirm_by": [
+     "$RS/data/versefusion/raw/VerSeFusion_data/{hf_staging*/*} paired BY BYTES with $RS/data/versefusion/raw/VerSeFusion_data/raw/verse20 or $RS/data/versefusion/raw/VerSeFusion_data/raw/verse19 or $RS/data/versefusion/raw/VerSeFusion_data/corrected/{*} (sizes first, then sha256; a shared (verse|gl)[0-9]{3} token required)"
+    ]
+   },
+   "action": "LINK-AFTER-HASH for plain copies of raw/ and corrected/ files; nothing for hard links (same_inode). A staged copy of a reoriented scan (a canonical/ file) has no raw/ twin and stays a file until B01 decides canonical/. Whether the HF repos stay public is Greg's call (unknown U5).",
+   "reason": "Explains the 56 GB census gap and frees it if the staging trees are copies.",
+   "canonical_why": "raw/ first (original bytes; the VerSe'20 copy before the VerSe'19 copy, as A01 ranks them, so a staged file never pairs with a VerSe'19 file that A01 would replace), then corrected/ (a staged corrected mask exists only there). canonical/ is not a canonical root: it is B01's 67 GB conditional deletion candidate, and a link into it would lose its bytes the day it is deleted (review 2026-10-08).",
+   "gate": [
+    "B06"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 56.1,
+    "low": 0.0,
+    "category": "range",
+    "basis": "0 if hard links (NPR stage 11), up to the 56.1 GB census gap if copies"
+   },
+   "plan_rows": [
+    {
+     "mode": "content",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data",
+     "dup_include": "hf_staging*/*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/raw/verse20|/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/raw/verse19|/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/corrected",
+     "canon_include": "*",
+     "exclude": "-",
+     "key_regex": "(verse|gl)[0-9]{3}",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 56.1
+    }
+   ],
+   "notes": [
+    "Expected 0 GB if NPR stage 11 is right about hard links.",
+    "Rank: for the 14 veridah_applied scans the staged masks are VERIDAH output and rank with corrected/ (rank 5), not with the other HF copies (rank 4); see section 1."
+   ]
+  },
+  {
+   "group_id": "A04",
+   "kind": "a",
+   "title": "verse_drr doubled-prefix renders: glgl* = gl*, path/glverse* = path/verse*",
+   "status": "CONFIRMED",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/versefusion/derived/verse_drr (the single-prefix files)",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/derived/verse_drr",
+     "current_path": "/wsu/home/go/go24/go2432/verse_drr/{ann,img,path}/glgl*, path/glverse*",
+     "role": "duplicate",
+     "size_gb": 0.2,
+     "size_basis": "estimate: 357 path files at the ctsp_drr/path mean (0.444 GB / 801 files, CEN-H) plus 13 renders",
+     "read_by": "38 code files name ~/verse_drr (PRB); the v9 bank ingests the 13 twice (AUDIT L958)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "13 byte-identical renders glgl003..glgl146 = gl003..gl146 and 344 glverse* path duplicates (AUDIT L240-L243, L668; PIS section 3 row 9)."
+    ],
+    "confirm_by": [
+     "$RS/data/versefusion/derived/verse_drr/{ann/glgl*|img/glgl*|path/glgl*|path/glverse*} against the same folder with the basename rewritten by glgl=>gl;glverse=>verse"
+    ]
+   },
+   "action": "HASH, then Greg deletes the 13 + 344 files (the audit's repair, AUDIT L240-L243) and restates verse_drr as 374. Held (removal_preferred): a symlink frees the bytes but keeps 387 anns for every bank builder, so the double count stays. ALLOW_HOLD=A04 links them if deletion is refused.",
+   "reason": "Byte-identical, but the defect is the extra name, not the extra bytes.",
+   "canonical_why": "The 2026-09-19 12h run that made the other 374 renders (AUDIT L668); the glgl* files are a 2026-09-20 re-prefixing that --resume did not recognise (AUDIT L240-L243).",
+   "gate": [
+    "B06"
+   ],
+   "hold": "removal_preferred",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 0.2,
+    "low": 0.0,
+    "category": "held_removal",
+    "basis": "estimate"
+   },
+   "plan_rows": [
+    {
+     "mode": "rename",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/versefusion/derived/verse_drr",
+     "dup_include": "ann/glgl*|img/glgl*|path/glgl*|path/glverse*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/versefusion/derived/verse_drr",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "glgl=>gl;glverse=>verse",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "removal_preferred",
+     "est_gb": 0.2
+    }
+   ],
+   "notes": [
+    "Writers to fix before any rerun, or the twins come back: slurm/reproduce_all.sh L108 still passes `--prefix gl` to tools/make_drr_dataset.py for ~/verse_drr with --resume (the re-prefixing AUDIT L242-L243 names; its repair says 'fix the prefix logic in make_drr_dataset.py'); slurm/path_render.sh L40-L41 writes path files into ~/verse_drr with `--prefix gl --path-only --resume`, which is how a path file becomes `gl` + `verse###` = path/glverse###; slurm/verse_path_missing.sh L19 writes into ~/verse_drr with --resume (prefix empty). tools/make_drr_dataset.py L31's usage example still reads ~/vf_813 (C1-T9 sent to ignore) into ~/verse_drr."
+   ]
+  },
+  {
+   "group_id": "A05",
+   "kind": "a",
+   "title": "TotalSegmentator v2.0.1 ct.nii.gz = v3.0.0 ct.nii.gz (paired by bytes, never by s####)",
+   "status": "CONFIRMED",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v300/raw/TotalSegmentator_v3/Totalsegmentator_dataset_v300/s####/ct.nii.gz",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v300/raw/TotalSegmentator_v3",
+     "current_path": "/wsu/home/go/go24/go2432/data/TotalSegmentator_v3",
+     "role": "canonical",
+     "size_gb": 89.759,
+     "size_basis": "CEN-H (zip 37.416 + unpacked 52.344: AUDIT L485-L486)",
+     "read_by": "12 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v201/raw/TotalSegmentator",
+     "current_path": "/wsu/home/go/go24/go2432/data/TotalSegmentator",
+     "role": "duplicate",
+     "size_gb": 32.317,
+     "size_basis": "upper bound: the whole v2 unpacked tree, 55.898 GB (CEN-H) minus the 23.581 GB zip (AUDIT L483); the CT share is not recorded (U5)",
+     "read_by": "17 code files (PRB); $RS/data/validation_ts/raw/* are links into $HOME/data/TotalSegmentator/<s>/ct.nii.gz (LAY L167)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "'1,118 of the 1,939 v3 subjects have a ct.nii.gz byte-identical to a v2 CT that already has a mask ... The join is by md5, never by s####' (AUDIT L1311-L1314). Over all CTs, 1,935 distinct scans and all 1,228 v2 folders map in (PIS L120).",
+     "v2 s1406-s1429 are byte-identical to 24 other v3 ids (s1463, s1504, ... s2139) and the vacated numbers are other people (PIS section 3 row 6).",
+     "md5, size, shape and affine of all 3,167 CTs: ~/ts_dupscan_out/ct_fingerprints.json (AUDIT L496)."
+    ],
+    "confirm_by": [
+     "$RS/data/totalsegmentator_v201/raw/TotalSegmentator/{*/ct.nii.gz} paired BY BYTES with $RS/data/totalsegmentator_v300/raw/TotalSegmentator_v3/{*/ct.nii.gz} (sizes first, then sha256)"
+    ]
+   },
+   "action": "LINK-AFTER-HASH, file by file: each v2 ct.nii.gz with a v3 twin becomes a link to it. segmentations/ and meta.csv are never touched (refined in v3: AUDIT L479; meta columns differ: PIS L120). The v2 CTs without a twin stay (110 by AUDIT L1311-L1313 if the 1,118 is all; U15). Keep one zip as the re-derivation origin until Greg decides B04.",
+   "reason": "The largest byte-identical group; v2 paths stay readable through the links.",
+   "canonical_why": "v3.0.0 is the corrected, current release (refined segmentations, v2 label mix-ups fixed: DM totalsegmentator_v201 card), holds every v2 CT (PIS L120), and is the hashed root ts_subjects (ssn:tools/data_manifest.py ROOTS).",
+   "gate": [
+    "B07"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 32.317,
+    "low": 0.0,
+    "category": "confirmed",
+    "basis": "upper bound (whole v2 unpacked tree)"
+   },
+   "plan_rows": [
+    {
+     "mode": "content",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v201/raw/TotalSegmentator",
+     "dup_include": "*/ct.nii.gz",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v300/raw/TotalSegmentator_v3",
+     "canon_include": "*/ct.nii.gz",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 32.317
+    }
+   ],
+   "notes": [
+    "The link crosses Ceph source folders (totalsegmentator_v201 -> totalsegmentator_v300): a container that binds only the v2 folder sees it dangle; bind /rs/rs_grp_oschome/go2432 (LAY L154-L160)."
+   ]
+  },
+  {
+   "group_id": "A06",
+   "kind": "a",
+   "title": "TotalSegmentator v3.0.0 duplicates inside the release: s1446 = s1445, s2109 = s2110 = s2107",
+   "status": "CONFIRMED",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v300/raw/TotalSegmentator_v3/Totalsegmentator_dataset_v300/{s1445,s2107}/ct.nii.gz",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v300/raw/TotalSegmentator_v3",
+     "current_path": "/wsu/home/go/go24/go2432/data/TotalSegmentator_v3/Totalsegmentator_dataset_v300/{s1446,s2109,s2110}/ct.nii.gz",
+     "role": "duplicate",
+     "size_gb": 0.08,
+     "size_basis": "estimate: 3 x the v3 mean of 27 MB per subject (52.344 GB / 1,939; AUDIT L486)",
+     "read_by": "as A05"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "s1445 = s1446 (and TS's own meta.csv puts them train and test), s2107 = s2109 = s2110; s2093 ~ s2094 is near, not equal (PIS L162)."
+    ],
+    "confirm_by": [
+     "Totalsegmentator_dataset_v300/s1446/ct.nii.gz => Totalsegmentator_dataset_v300/s1445/ct.nii.gz",
+     "Totalsegmentator_dataset_v300/s2109/ct.nii.gz => Totalsegmentator_dataset_v300/s2107/ct.nii.gz",
+     "Totalsegmentator_dataset_v300/s2110/ct.nii.gz => Totalsegmentator_dataset_v300/s2107/ct.nii.gz"
+    ]
+   },
+   "action": "LINK-AFTER-HASH. s2093/s2094 is not in the group (not equal on record); it is a declared alias candidate in C03.",
+   "reason": "Three repeat CTs inside the corrected release.",
+   "canonical_why": "The lowest id of each group; '1,939 - 4 duplicate ids' already counts the higher ids as repeats (PIS L120).",
+   "gate": [
+    "B07"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 0.08,
+    "low": 0.0,
+    "category": "confirmed",
+    "basis": "estimate"
+   },
+   "plan_rows": [
+    {
+     "mode": "pairs",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v300/raw/TotalSegmentator_v3",
+     "dup_include": "-",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v300/raw/TotalSegmentator_v3",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "Totalsegmentator_dataset_v300/s1446/ct.nii.gz=>Totalsegmentator_dataset_v300/s1445/ct.nii.gz|Totalsegmentator_dataset_v300/s2109/ct.nii.gz=>Totalsegmentator_dataset_v300/s2107/ct.nii.gz|Totalsegmentator_dataset_v300/s2110/ct.nii.gz=>Totalsegmentator_dataset_v300/s2107/ct.nii.gz",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 0.08
+    }
+   ],
+   "notes": []
+  },
+  {
+   "group_id": "A07",
+   "kind": "a",
+   "title": "CTSpinoPelvic1K v11 build output labels (s1v11/out/v11_labels) = the release labels",
+   "status": "LIKELY",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/labels",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/labels",
+     "current_path": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels",
+     "role": "canonical",
+     "size_gb": 1.189,
+     "size_basis": "1,189,127,569 B (AUDIT L620)",
+     "read_by": "23 code files name CTSpinoPelvic1K/labels (T2-REFS)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11/out/v11_labels",
+     "current_path": "/wsu/home/go/go24/go2432/s1v11/out/v11_labels",
+     "role": "duplicate",
+     "size_gb": 1.189,
+     "size_basis": "upper bound: one copy of the 802 labels",
+     "read_by": "0 code files name ~/s1v11 (PRB); the v11 build workspace (MP L428)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "'389 .gz among the first 400 files listed' (DM ctspinopelvic1k_build_tree card); 'may be hard links of the release labels (not recorded)' (DM section 4 row 42). If they are hard links on HOME, B02 and B14 copy them in two rsync calls, and hard links cannot span two calls (LAY L174-L179), so on Ceph they become two copies."
+    ],
+    "confirm_by": [
+     "$RS/data/ctspinopelvic1k_build_tree/derived/s1v11/out/v11_labels/{*} paired BY BYTES with $RS/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/labels/{*} (sizes first, then sha256; a shared [0-9]{4} token required)"
+    ]
+   },
+   "action": "HASH; link only after Greg has read ~/s1v11 (flagged irreplaceable and owner-only until read for a token: MP L428, DM section 4 row 42, LAY rule 8). Held (greg_review).",
+   "reason": "Up to 1.19 GB if the two batches turned hard links into copies.",
+   "canonical_why": "The published v11 labels, checked 810 OK against Zenodo v11 SHA256SUMS.txt (AUDIT L620).",
+   "gate": [
+    "B02",
+    "B14"
+   ],
+   "hold": "greg_review",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 1.189,
+    "low": 0.0,
+    "category": "held_review",
+    "basis": "upper bound"
+   },
+   "plan_rows": [
+    {
+     "mode": "content",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11/out/v11_labels",
+     "dup_include": "*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/labels",
+     "canon_include": "*",
+     "exclude": "-",
+     "key_regex": "[0-9]{4}",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "greg_review",
+     "est_gb": 1.189
+    }
+   ],
+   "notes": []
+  },
+  {
+   "group_id": "A08",
+   "kind": "a",
+   "title": "Scratch label copies ~/pitest and ~/pdwtest = release labels (v10 expected)",
+   "status": "LIKELY",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/labels",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/scratch_2026-09-10/pitest",
+     "current_path": "/wsu/home/go/go24/go2432/pitest",
+     "role": "duplicate",
+     "size_gb": 0.0139,
+     "size_basis": "13,899,387 B (MP section 8; notes G7)",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/scratch_2026-09-10/pdwtest",
+     "current_path": "/wsu/home/go/go24/go2432/pdwtest",
+     "role": "duplicate",
+     "size_gb": 0.0027,
+     "size_basis": "2,710,749 B",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/labels",
+     "current_path": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels",
+     "role": "canonical",
+     "size_gb": 1.189,
+     "size_basis": "1,189,127,569 B (AUDIT L620)",
+     "read_by": "23 code files name CTSpinoPelvic1K/labels (T2-REFS)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "'scratch copies of release label files ... may be hard links' (MP L423)."
+    ],
+    "confirm_by": [
+     "$RS/data/ctspinopelvic1k_build_tree/derived/scratch_2026-09-10/pitest/{*} paired BY BYTES with $RS/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/labels/{*} (sizes first, then sha256; a shared [0-9]{4} token required)",
+     "$RS/data/ctspinopelvic1k_build_tree/derived/scratch_2026-09-10/pdwtest/{*} paired BY BYTES with $RS/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/labels/{*} (sizes first, then sha256; a shared [0-9]{4} token required)"
+    ]
+   },
+   "action": "LINK-AFTER-HASH what matches the v11 labels (expected: nothing); otherwise Greg deletes them (both are already deletion candidates, MP L423). The hash still answers whether they are copies of v11 files.",
+   "reason": "Scratch copies of published files.",
+   "canonical_why": "The published v11 labels. labels_v10 is not a canonical root: it is B05's later deletion candidate, and a link into it would lose its bytes the day it is deleted (review 2026-10-08). Dated 2026-09-10, before v11 (2026-09-18, AUDIT L615), so the scratch files are expected to be v10 copies, which differ from v11 in every label file (id 29: AUDIT L913) and so find no twin here; they stay files, and Greg deletes them (MP L423).",
+   "gate": [
+    "B02",
+    "B14"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 0.0166,
+    "low": 0.0,
+    "category": "possible",
+    "basis": "recorded sizes; expected 0 (v10 copies have no v11 twin)"
+   },
+   "plan_rows": [
+    {
+     "mode": "content",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/scratch_2026-09-10/pitest",
+     "dup_include": "*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/labels",
+     "canon_include": "*",
+     "exclude": "-",
+     "key_regex": "[0-9]{4}",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 0.0139
+    },
+    {
+     "mode": "content",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/scratch_2026-09-10/pdwtest",
+     "dup_include": "*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/labels",
+     "canon_include": "*",
+     "exclude": "-",
+     "key_regex": "[0-9]{4}",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 0.0027
+    }
+   ],
+   "notes": []
+  },
+  {
+   "group_id": "A09",
+   "kind": "a",
+   "title": "CTSpinoPelvic1K CT 0533: the release file = the repair work-tree candidate",
+   "status": "LIKELY",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/ct/0533_ct.nii.gz",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/ct/0533_ct.nii.gz",
+     "current_path": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct/0533_ct.nii.gz",
+     "role": "canonical",
+     "size_gb": 0.25,
+     "size_basis": "250,067,995 B (AUDIT L1345-L1353)",
+     "read_by": "37 code files name CTSpinoPelvic1K/ct (T2-REFS)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctsp0533_repair/ct/0533_ct.nii.gz (or 0533_ct.cast.nii.gz)",
+     "current_path": "(Ceph-native)",
+     "role": "duplicate",
+     "size_gb": 0.25,
+     "size_basis": "same file",
+     "read_by": "ssn:slurm/ctsp0533_repair.sh"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "The release file was installed by `cp $CAND ... && mv -f` from the work-tree candidate (ssn:slurm/ctsp0533_repair.sh L148-L169)."
+    ],
+    "confirm_by": [
+     "ct/0533_ct.nii.gz => ct/0533_ct.nii.gz",
+     "ct/0533_ct.cast.nii.gz => ct/0533_ct.nii.gz"
+    ]
+   },
+   "action": "RECORD ONLY. The duplicate is Ceph-native work-tree output, which the apply job never replaces; the work-tree copy is a deletion candidate for Greg (0.25 GB). The truncated original (0533_ct.TRUNCATED.20e673dc6c2a.nii.gz) stays as the record of the defect.",
+   "reason": "Confirms the release bytes against the repair output.",
+   "canonical_why": "The release copy (250,067,995 B, sha256 478a74e9...a164d5; AUDIT L1345-L1353); the release must not depend on a work tree.",
+   "gate": [
+    "B02"
+   ],
+   "hold": "record_only",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 0.25,
+    "low": 0.0,
+    "category": "held_removal",
+    "basis": "recorded size"
+   },
+   "plan_rows": [
+    {
+     "mode": "pairs",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/ctsp0533_repair",
+     "dup_include": "-",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "ct/0533_ct.nii.gz=>ct/0533_ct.nii.gz|ct/0533_ct.cast.nii.gz=>ct/0533_ct.nii.gz",
+     "allow_unpaired": 1,
+     "hold": "record_only",
+     "est_gb": 0.25
+    }
+   ],
+   "notes": []
+  },
+  {
+   "group_id": "A10",
+   "kind": "a",
+   "title": "The April release inputs ($RS/data/ctsp_april) against the v11 release CTs (a check)",
+   "status": "UNKNOWN",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/ct",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctsp_april",
+     "current_path": "(Ceph-native)",
+     "role": "duplicate",
+     "size_gb": 86.883,
+     "size_basis": "CEN-C (1,623 files)",
+     "read_by": "0 code files (T2-REFS); the NeurIPS appendix SPINEPS run (ssn:docs/RESUME_2026-09-22_PM.md L139)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/ct",
+     "current_path": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct",
+     "role": "canonical",
+     "size_gb": 192.813,
+     "size_basis": "192,813,331,872 B (AUDIT L619)",
+     "read_by": "37 code files (T2-REFS)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "The April CTs were re-resampled in part on 27 April (DM ctspinopelvic1k_april card); whether any file equals a v11 CT is not recorded (notes U4)."
+    ],
+    "confirm_by": [
+     "$RS/data/ctsp_april/{*.nii.gz} paired BY BYTES with $RS/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/ct/{*.nii.gz} (sizes first, then sha256)"
+    ]
+   },
+   "action": "RECORD ONLY (Ceph-native; feeds the B05 decision on ctsp_april).",
+   "reason": "Answers notes U4 cheaply (sizes first).",
+   "canonical_why": "The v11 release CT is the reference form of each person's CT (DM ctspinopelvic1k card).",
+   "gate": [
+    "B02"
+   ],
+   "hold": "record_only",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 0.0,
+    "low": 0.0,
+    "category": "check",
+    "basis": "unknown; most April CTs were re-resampled"
+   },
+   "plan_rows": [
+    {
+     "mode": "content",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/ctsp_april",
+     "dup_include": "*.nii.gz",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/ct",
+     "canon_include": "*.nii.gz",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "record_only",
+     "est_gb": 0
+    }
+   ],
+   "notes": []
+  },
+  {
+   "group_id": "A11",
+   "kind": "a",
+   "title": "BUU-LSPINE v1 smoke set (buu_v1) inside buu_full",
+   "status": "CONFIRMED",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/buu_lspine_3600/raw/buu_full",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/buu_lspine_v1_smoke/raw/buu_v1",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/raw/buu_v1",
+     "role": "duplicate",
+     "size_gb": 0.04,
+     "size_basis": "estimate: 38 images at the 1.0 MB mean JPEG of dataset2024.zip",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/buu_lspine_3600/raw/buu_full",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/raw/buu_full",
+     "role": "canonical",
+     "size_gb": null,
+     "size_basis": "not in the census",
+     "read_by": "17 code files (PRB)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "'all 77 byte-identical to buu_full' (MDMR L172); '38 images byte-identical to buu_full' (MP L497)."
+    ],
+    "confirm_by": [
+     "$RS/data/buu_lspine_v1_smoke/raw/buu_v1/{*} paired BY BYTES with $RS/data/buu_lspine_3600/raw/buu_full/{*} (sizes first, then sha256; equal basenames required)"
+    ]
+   },
+   "action": "LINK-AFTER-HASH (or Greg deletes: already a candidate, MP L497). Both folders are owner-only (LAY rule 8), so the links stay inside one access class.",
+   "reason": "A subset copy.",
+   "canonical_why": "The complete 3,600-pair release, of which buu_v1 is a subset.",
+   "gate": [
+    "B04"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 0.04,
+    "low": 0.0,
+    "category": "confirmed",
+    "basis": "estimate"
+   },
+   "plan_rows": [
+    {
+     "mode": "content",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/buu_lspine_v1_smoke/raw/buu_v1",
+     "dup_include": "*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/buu_lspine_3600/raw/buu_full",
+     "canon_include": "*",
+     "exclude": "-",
+     "key_regex": "BASENAME",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 0.04
+    }
+   ],
+   "notes": []
+  },
+  {
+   "group_id": "A12",
+   "kind": "a",
+   "title": "BUU-LSPINE(2000) JPEGs = the buu_full JPEGs",
+   "status": "CONFIRMED",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/buu_lspine_3600/raw/buu_full",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/buu_lspine_2000/raw/BUU-LSPINE",
+     "current_path": "/wsu/home/go/go24/go2432/XRSpinoPelvic1K/data/BUU-LSPINE (*.jpg)",
+     "role": "duplicate",
+     "size_gb": 4.0,
+     "size_basis": "estimate: dataset2024.zip 4,023,726,207 B holds the 4,000 JPEGs plus 4,000 CSVs and the report (AUDIT L843)",
+     "read_by": "1 code file (PRB: slurm/plainfilm_recount.sh); ~/spine-detector/data/raw/buu_2000 is a symlink to it (LAY L167)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/buu_lspine_3600/raw/buu_full",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/raw/buu_full",
+     "role": "canonical",
+     "size_gb": null,
+     "size_basis": "not in the census",
+     "read_by": "17 code files (PRB)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "'all 4,000 JPEGs byte-identical, but 1,337 of 4,000 CSVs differ in column 5' (MDMR L171, L786)."
+    ],
+    "confirm_by": [
+     "$RS/data/buu_lspine_2000/raw/BUU-LSPINE/{*.jpg} paired BY BYTES with $RS/data/buu_lspine_3600/raw/buu_full/{*.jpg} (sizes first, then sha256; equal basenames required)"
+    ]
+   },
+   "action": "LINK-AFTER-HASH for the JPEGs only. The CSVs and the report stay: a different annotation vintage with posture labels (AUDIT L843).",
+   "reason": "4,000 identical images under a second release name.",
+   "canonical_why": "The complete 3,600-pair release; every 2000 JPEG name is in it (AUDIT L843).",
+   "gate": [
+    "B04",
+    "B05"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 4.0,
+    "low": 0.0,
+    "category": "confirmed",
+    "basis": "estimate"
+   },
+   "plan_rows": [
+    {
+     "mode": "content",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/buu_lspine_2000/raw/BUU-LSPINE",
+     "dup_include": "*.jpg",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/buu_lspine_3600/raw/buu_full",
+     "canon_include": "*.jpg",
+     "exclude": "-",
+     "key_regex": "BASENAME",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 4.0
+    }
+   ],
+   "notes": [
+    "Both folders are owner-only (LAY rule 8)."
+   ]
+  },
+  {
+   "group_id": "A13",
+   "kind": "a",
+   "title": "BUU '(1)' unzip collisions inside buu_full",
+   "status": "CONFIRMED",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/buu_lspine_3600/raw/buu_full (the name without '(1)')",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/buu_lspine_3600/raw/buu_full",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/raw/buu_full/**/*(1)*",
+     "role": "duplicate",
+     "size_gb": 0.007,
+     "size_basis": "estimate: 7 JPEGs",
+     "read_by": "3 reach films_drr (AUDIT L852)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "Seven '(1)' files are md5-proven copies of their originals (AUDIT L829, L840, L852; PIS section 3 row 18)."
+    ],
+    "confirm_by": [
+     "$RS/data/buu_lspine_3600/raw/buu_full/{*[(]1[)]*} against the same folder with the basename rewritten by (1)=>"
+    ]
+   },
+   "action": "HASH, then Greg deletes them (held, removal_preferred): three reach films_drr, and a link would keep the double count.",
+   "reason": "Byte-identical; the defect is the extra name.",
+   "canonical_why": "The original file name of the release.",
+   "gate": [
+    "B04"
+   ],
+   "hold": "removal_preferred",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 0.007,
+    "low": 0.0,
+    "category": "held_removal",
+    "basis": "estimate"
+   },
+   "plan_rows": [
+    {
+     "mode": "rename",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/buu_lspine_3600/raw/buu_full",
+     "dup_include": "*[(]1[)]*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/buu_lspine_3600/raw/buu_full",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "(1)=>",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "removal_preferred",
+     "est_gb": 0.007
+    }
+   ],
+   "notes": []
+  },
+  {
+   "group_id": "A14",
+   "kind": "a",
+   "title": "Mendeley 5jdfdgp762 downloaded twice (spondy_landmark = mendeley_716)",
+   "status": "LIKELY",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/mendeley_5jdfdgp762/raw/mendeley_716",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/mendeley_5jdfdgp762/raw/spondy_landmark",
+     "current_path": "/wsu/home/go/go24/go2432/data/spondy_landmark",
+     "role": "duplicate",
+     "size_gb": 0.089,
+     "size_basis": "CEN-H (1,416 files)",
+     "read_by": "1 code file (PRB: tools/ct_inventory.py lists it as a CT root, DM section 4 row 41)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/mendeley_5jdfdgp762/raw/mendeley_716",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/raw/mendeley_716",
+     "role": "canonical",
+     "size_gb": 0.2,
+     "size_basis": "batch estimate (B04.tsv)",
+     "read_by": "5 code files (PRB)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "The same release file, Dataset.zip 43,892,677 B (MP L495; DM section 4 row 41); the sha256 that files.json records has not been compared."
+    ],
+    "confirm_by": [
+     "$RS/data/mendeley_5jdfdgp762/raw/spondy_landmark/{*} paired BY BYTES with $RS/data/mendeley_5jdfdgp762/raw/mendeley_716/{*} (sizes first, then sha256; equal basenames required)"
+    ]
+   },
+   "action": "LINK-AFTER-HASH (or Greg deletes: already a candidate, MP L495). The index already skips raw/spondy_landmark (README.yaml index_skip).",
+   "reason": "A second download of one release.",
+   "canonical_why": "The older download and the one the tools read (5 code files, PRB).",
+   "gate": [
+    "B04",
+    "B14"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 0.089,
+    "low": 0.0,
+    "category": "likely",
+    "basis": "census size"
+   },
+   "plan_rows": [
+    {
+     "mode": "content",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/mendeley_5jdfdgp762/raw/spondy_landmark",
+     "dup_include": "*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/mendeley_5jdfdgp762/raw/mendeley_716",
+     "canon_include": "*",
+     "exclude": "-",
+     "key_regex": "BASENAME",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 0.089
+    }
+   ],
+   "notes": []
+  },
+  {
+   "group_id": "A15",
+   "kind": "a",
+   "title": "AASCE grid copy against the open mirror (the 962 identical files)",
+   "status": "CONFIRMED",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/thoracic_xr/mirror_zlinzju_ke30_u7_AASCE2019",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/aasce2019_boostnet/raw/aasce",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/raw/aasce",
+     "role": "duplicate",
+     "size_gb": 0.859,
+     "size_basis": "upper bound: the whole Ceph thoracic_xr folder is 0.859 GB (CEN-C)",
+     "read_by": "8 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/thoracic_xr/mirror_zlinzju_ke30_u7_AASCE2019",
+     "current_path": "(Ceph-native)",
+     "role": "canonical",
+     "size_gb": null,
+     "size_basis": "inside thoracic_xr 0.859 GB (CEN-C)",
+     "read_by": "9 code files name thoracic_xr (T2-REFS)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "grid_copy_md5.json: 'identical 962, differing 98 = the 01-July-2019-* challenge test set, only in mirror 35' (sources.json aasce2019_boostnet acquired.cite); 'all 481 byte-identical to the mirror's boostnet training set' (AUDIT L570)."
+    ],
+    "confirm_by": [
+     "$RS/data/aasce2019_boostnet/raw/aasce/{*} excluding *01-July-2019-* paired BY BYTES with $RS/data/thoracic_xr/mirror_zlinzju_ke30_u7_AASCE2019/{*} (sizes first, then sha256; equal basenames required)"
+    ]
+   },
+   "action": "LINK-AFTER-HASH for the identical files. The 98 differing challenge-test files stay files on both sides until someone says which bytes are the original (U20); DM section 4 row 32 says keep both copies.",
+   "reason": "962 identical files in a batch copy and a Ceph-native mirror.",
+   "canonical_why": "The mirror is the superset (609 labelled against 481), pinned by a codeload zip md5 fe9430ab5c064c0d102d44810900e612 (sources.json aasce2019_boostnet), and Ceph-native, so it is never modified: the batch copy is the side that becomes links.",
+   "gate": [
+    "B04"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 0.859,
+    "low": 0.0,
+    "category": "confirmed",
+    "basis": "upper bound"
+   },
+   "plan_rows": [
+    {
+     "mode": "content",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/aasce2019_boostnet/raw/aasce",
+     "dup_include": "*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/thoracic_xr/mirror_zlinzju_ke30_u7_AASCE2019",
+     "canon_include": "*",
+     "exclude": "*01-July-2019-*",
+     "key_regex": "BASENAME",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 0.859
+    }
+   ],
+   "notes": []
+  },
+  {
+   "group_id": "A16",
+   "kind": "a",
+   "title": "FluoroCap render subsets: fluorocap_drr_smoke and fluorocap_pack inside fluorocap_drr",
+   "status": "CONFIRMED (smoke) / UNKNOWN (pack)",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/fluorocap/derived/fluorocap_drr",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/fluorocap/derived/fluorocap_drr_smoke",
+     "current_path": "/wsu/home/go/go24/go2432/fluorocap_drr_smoke",
+     "role": "duplicate",
+     "size_gb": null,
+     "size_basis": "not in the census (137 anns + .npy)",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/fluorocap/derived/fluorocap_pack",
+     "current_path": "/wsu/home/go/go24/go2432/fluorocap_pack",
+     "role": "duplicate",
+     "size_gb": null,
+     "size_basis": "not in the census (1,500 images)",
+     "read_by": "1 code file (PRB: tools/build_fluorocap_pack.py)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/fluorocap/derived/fluorocap_drr",
+     "current_path": "/wsu/home/go/go24/go2432/fluorocap_drr",
+     "role": "canonical",
+     "size_gb": null,
+     "size_basis": "not in the census (2,385 panels)",
+     "read_by": "3 code files (PRB)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "fluorocap_drr_smoke is a subset of fluorocap_drr: '137, byte-identical ann and .npy' (PIS section 3 row 19); fluorocap_pack shares 939 names with fluorocap_drr and 44 with the smoke set, bytes not recorded (PIS L129)."
+    ],
+    "confirm_by": [
+     "$RS/data/fluorocap/derived/fluorocap_drr_smoke/{*} against $RS/data/fluorocap/derived/fluorocap_drr at the same relative path (files with no counterpart allowed)",
+     "$RS/data/fluorocap/derived/fluorocap_pack/{*} paired BY BYTES with $RS/data/fluorocap/derived/fluorocap_drr/{*} (sizes first, then sha256)"
+    ]
+   },
+   "action": "LINK-AFTER-HASH, or Greg deletes the FluoroCap banks whole: directive D1 dropped FluoroCap from training (MP L435).",
+   "reason": "Subset copies.",
+   "canonical_why": "The bank the smoke set was cut from and the review pack overlaps (PIS L129).",
+   "gate": [
+    "B09"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 0.0,
+    "low": 0.0,
+    "category": "confirmed",
+    "basis": "not sized (U9/U18)"
+   },
+   "plan_rows": [
+    {
+     "mode": "relpath",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/fluorocap/derived/fluorocap_drr_smoke",
+     "dup_include": "*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/fluorocap/derived/fluorocap_drr",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 1,
+     "hold": "-",
+     "est_gb": 0
+    },
+    {
+     "mode": "content",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/fluorocap/derived/fluorocap_pack",
+     "dup_include": "*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/fluorocap/derived/fluorocap_drr",
+     "canon_include": "*",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 0
+    }
+   ],
+   "notes": []
+  },
+  {
+   "group_id": "A17",
+   "kind": "a",
+   "title": "films_all2_fov96_ctx: rung_3, 4, 6, 8 and full = rung_2",
+   "status": "LIKELY",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/films_all2_fov96_ctx/rung_2.npz",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/films_all2_fov96_ctx",
+     "current_path": "/wsu/home/go/go24/go2432/films_all2_fov96_ctx/rung_{3,4,6,8,full}.npz",
+     "role": "duplicate",
+     "size_gb": 17.886,
+     "size_basis": "5 x 3,577,265,632 B (MDMR L231)",
+     "read_by": "2 code files (PRB: tools/fluorocap_infer.py, tools/model_registry.py); 20 by name (T2-REFS)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "'Rungs 2,3,4,6,8,full are the same file six times (3,577,265,632 B each)' (MDMR L231), on exact size equality plus md5 of three sampled 16 MiB blocks, 'not a full md5' (MDMR L795-L798).",
+     "Equal arrays give equal bytes: np.savez_compressed writes each member through zipfile.ZipFile.open(name, 'w'), whose entries carry the fixed date 1980-01-01, so the write time does not enter the file (checked on the laptop on 2026-10-08 with numpy 2.5.3: two writes 3 s apart were byte-identical)."
+    ],
+    "confirm_by": [
+     "rung_3.npz => rung_2.npz",
+     "rung_4.npz => rung_2.npz",
+     "rung_6.npz => rung_2.npz",
+     "rung_8.npz => rung_2.npz",
+     "rung_full.npz => rung_2.npz"
+    ]
+   },
+   "action": "LINK-AFTER-HASH. The canonical rung_2.npz is made read-only: tools/make_context_crops.py rewrites rung_<k>.npz in place (np.savez_compressed, L681-L686) and np.savez follows a symlink, so a rebuild would otherwise overwrite rung_2 through rung_3. The read-only bit turns such a rebuild into a crash (EACCES), so run ROLLBACK=1 for this group before any rebuild of the bank.",
+   "reason": "17.9 GB in five copies of one file.",
+   "canonical_why": "The first saturated rung; the wider rungs of a short-film bank 'are literally the same file' (MDMR L214-L217).",
+   "gate": [
+    "B11"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 17.886,
+    "low": 0.0,
+    "category": "likely",
+    "basis": "recorded sizes"
+   },
+   "plan_rows": [
+    {
+     "mode": "pairs",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/films_all2_fov96_ctx",
+     "dup_include": "-",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/films_all2_fov96_ctx",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "rung_3.npz=>rung_2.npz|rung_4.npz=>rung_2.npz|rung_6.npz=>rung_2.npz|rung_8.npz=>rung_2.npz|rung_full.npz=>rung_2.npz",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 17.886
+    }
+   ],
+   "notes": [
+    "Owner-only bank (holds BUU pixels; LAY rule 8)."
+   ]
+  },
+  {
+   "group_id": "A18",
+   "kind": "a",
+   "title": "films_ann_fov96_ctx (the headline bank): rung_3, 4, 6, 8 and full = rung_2",
+   "status": "LIKELY",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/films_ann_fov96_ctx/rung_2.npz",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/films_ann_fov96_ctx",
+     "current_path": "/wsu/home/go/go24/go2432/films_ann_fov96_ctx/rung_{3,4,6,8,full}.npz",
+     "role": "duplicate",
+     "size_gb": 9.388,
+     "size_basis": "5 x 1,877,620,575 B (MDMR L239)",
+     "read_by": "5 code files (PRB); 15 by name (T2-REFS)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "'THE HEADLINE BANK ... Rungs 2..full all 1,877,620,575 B' (MDMR L239): sizes only."
+    ],
+    "confirm_by": [
+     "rung_3.npz => rung_2.npz",
+     "rung_4.npz => rung_2.npz",
+     "rung_6.npz => rung_2.npz",
+     "rung_8.npz => rung_2.npz",
+     "rung_full.npz => rung_2.npz"
+    ]
+   },
+   "action": "LINK-AFTER-HASH; canonical made read-only (as A17). This is the headline bank: tools/make_context_crops.py rewrites every rung_<k>.npz in place (np.savez_compressed, L681-L686), and with rung_2.npz read-only a rebuild crashes on the first rung, so run ROLLBACK=1 for A18 before any rebuild.",
+   "reason": "9.4 GB in five copies of one file.",
+   "canonical_why": "As A17.",
+   "gate": [
+    "B11"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 9.388,
+    "low": 0.0,
+    "category": "likely",
+    "basis": "recorded sizes"
+   },
+   "plan_rows": [
+    {
+     "mode": "pairs",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/films_ann_fov96_ctx",
+     "dup_include": "-",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/films_ann_fov96_ctx",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "rung_3.npz=>rung_2.npz|rung_4.npz=>rung_2.npz|rung_6.npz=>rung_2.npz|rung_8.npz=>rung_2.npz|rung_full.npz=>rung_2.npz",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 9.388
+    }
+   ],
+   "notes": []
+  },
+  {
+   "group_id": "A19",
+   "kind": "a",
+   "title": "base_val/rung_1.npz in the eight C-arm mix banks = the carm_mix copy",
+   "status": "LIKELY",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_mix_fov96_ctx/base_val/rung_1.npz",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvmix0_fov96_ctx/base_val/rung_1.npz",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cvmix0_fov96_ctx/base_val/rung_1.npz",
+     "role": "duplicate",
+     "size_gb": 1.405,
+     "size_basis": "CEN-H",
+     "read_by": "0 to 4 code files each (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvmix1_fov96_ctx/base_val/rung_1.npz",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cvmix1_fov96_ctx/base_val/rung_1.npz",
+     "role": "duplicate",
+     "size_gb": 1.405,
+     "size_basis": "CEN-H",
+     "read_by": "0 to 4 code files each (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvmix2_fov96_ctx/base_val/rung_1.npz",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cvmix2_fov96_ctx/base_val/rung_1.npz",
+     "role": "duplicate",
+     "size_gb": 1.405,
+     "size_basis": "CEN-H",
+     "read_by": "0 to 4 code files each (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvmix3_fov96_ctx/base_val/rung_1.npz",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cvmix3_fov96_ctx/base_val/rung_1.npz",
+     "role": "duplicate",
+     "size_gb": 1.405,
+     "size_basis": "CEN-H",
+     "read_by": "0 to 4 code files each (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvmix4_fov96_ctx/base_val/rung_1.npz",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cvmix4_fov96_ctx/base_val/rung_1.npz",
+     "role": "duplicate",
+     "size_gb": 1.405,
+     "size_basis": "CEN-H",
+     "read_by": "0 to 4 code files each (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvdaymix0_fov96_ctx/base_val/rung_1.npz",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cvdaymix0_fov96_ctx/base_val/rung_1.npz",
+     "role": "duplicate",
+     "size_gb": 1.405,
+     "size_basis": "CEN-H",
+     "read_by": "0 to 4 code files each (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvdaymix1_fov96_ctx/base_val/rung_1.npz",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cvdaymix1_fov96_ctx/base_val/rung_1.npz",
+     "role": "duplicate",
+     "size_gb": 1.405,
+     "size_basis": "CEN-H",
+     "read_by": "0 to 4 code files each (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvdaymix2_fov96_ctx/base_val/rung_1.npz",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cvdaymix2_fov96_ctx/base_val/rung_1.npz",
+     "role": "duplicate",
+     "size_gb": 1.405,
+     "size_basis": "CEN-H",
+     "read_by": "0 to 4 code files each (PRB)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "Written by tools/merge_banks.py only when absent (L72-L75) from the base bank's validation crops; eight banks use --base ~/allspine_v7_fov96_ctx/rung_1.npz --base-cache $HOME/carm_base_cache (slurm/carmlspine_cv.sh L28-L29, slurm/carmlspine_cv_day.sh L38-L39) and carm_mix the same base without the cache (slurm/carmlspine_finetune.sh L28). base_val/meta.json differs per bank (mixed_from; merge_banks.py L77-L81) and is not in the group."
+    ],
+    "confirm_by": [
+     "$RS/data/multisource_banks/derived/carm_cvmix0_fov96_ctx/{base_val/rung_1.npz} against $RS/data/multisource_banks/derived/carm_mix_fov96_ctx at the same relative path",
+     "$RS/data/multisource_banks/derived/carm_cvmix1_fov96_ctx/{base_val/rung_1.npz} against $RS/data/multisource_banks/derived/carm_mix_fov96_ctx at the same relative path",
+     "$RS/data/multisource_banks/derived/carm_cvmix2_fov96_ctx/{base_val/rung_1.npz} against $RS/data/multisource_banks/derived/carm_mix_fov96_ctx at the same relative path",
+     "$RS/data/multisource_banks/derived/carm_cvmix3_fov96_ctx/{base_val/rung_1.npz} against $RS/data/multisource_banks/derived/carm_mix_fov96_ctx at the same relative path",
+     "$RS/data/multisource_banks/derived/carm_cvmix4_fov96_ctx/{base_val/rung_1.npz} against $RS/data/multisource_banks/derived/carm_mix_fov96_ctx at the same relative path",
+     "$RS/data/multisource_banks/derived/carm_cvdaymix0_fov96_ctx/{base_val/rung_1.npz} against $RS/data/multisource_banks/derived/carm_mix_fov96_ctx at the same relative path",
+     "$RS/data/multisource_banks/derived/carm_cvdaymix1_fov96_ctx/{base_val/rung_1.npz} against $RS/data/multisource_banks/derived/carm_mix_fov96_ctx at the same relative path",
+     "$RS/data/multisource_banks/derived/carm_cvdaymix2_fov96_ctx/{base_val/rung_1.npz} against $RS/data/multisource_banks/derived/carm_mix_fov96_ctx at the same relative path"
+    ]
+   },
+   "action": "LINK-AFTER-HASH; canonical made read-only.",
+   "reason": "11.2 GB in eight copies.",
+   "canonical_why": "The copy slurm/carmlspine_finetune.sh reads by path to score forgetting (L39-L40).",
+   "gate": [
+    "B11"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 11.24,
+    "low": 0.0,
+    "category": "likely",
+    "basis": "8 x 1.405 GB (CEN-H)"
+   },
+   "plan_rows": [
+    {
+     "mode": "relpath",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvmix0_fov96_ctx",
+     "dup_include": "base_val/rung_1.npz",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_mix_fov96_ctx",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 1.405
+    },
+    {
+     "mode": "relpath",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvmix1_fov96_ctx",
+     "dup_include": "base_val/rung_1.npz",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_mix_fov96_ctx",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 1.405
+    },
+    {
+     "mode": "relpath",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvmix2_fov96_ctx",
+     "dup_include": "base_val/rung_1.npz",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_mix_fov96_ctx",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 1.405
+    },
+    {
+     "mode": "relpath",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvmix3_fov96_ctx",
+     "dup_include": "base_val/rung_1.npz",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_mix_fov96_ctx",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 1.405
+    },
+    {
+     "mode": "relpath",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvmix4_fov96_ctx",
+     "dup_include": "base_val/rung_1.npz",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_mix_fov96_ctx",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 1.405
+    },
+    {
+     "mode": "relpath",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvdaymix0_fov96_ctx",
+     "dup_include": "base_val/rung_1.npz",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_mix_fov96_ctx",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 1.405
+    },
+    {
+     "mode": "relpath",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvdaymix1_fov96_ctx",
+     "dup_include": "base_val/rung_1.npz",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_mix_fov96_ctx",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 1.405
+    },
+    {
+     "mode": "relpath",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_cvdaymix2_fov96_ctx",
+     "dup_include": "base_val/rung_1.npz",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/carm_mix_fov96_ctx",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 1.405
+    }
+   ],
+   "notes": [
+    "carm_mix_fov96_ctx predates the 2026-09-23 C-ArmLSpine repair like every HOME carm_* bank (DM section 4 row 20), so it may be rebuilt. No launch script deletes it: slurm/carmlspine_finetune.sh builds it only when rung_1.npz is absent (L28) and tools/merge_banks.py writes base_val/rung_1.npz only when absent (L72-L75); the scripts that rm -rf are those of carm_drr (carmlspine_finetune.sh L23) and of the fold banks carm_cv*_drr (carmlspine_cv.sh L24, carmlspine_cv_day.sh L34, carmlspine_cv_v9.sh L29, carmlspine_cv_day_v9.sh L28). A rebuild that removes the folder must run ROLLBACK=1 for A19 first; dedup_guard.sh refuses the deletion while the links are live."
+   ]
+  },
+  {
+   "group_id": "A20",
+   "kind": "a",
+   "title": "C-ArmLSpine frame .npy in the eight fold banks = carm_drr",
+   "status": "DROPPED (review 2026-10-08)",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/carmlspine/derived/carm_drr/img",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/carmlspine/derived/carm_cv0_drr/img",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cv0_drr/img",
+     "role": "duplicate (not linked)",
+     "size_gb": 0.237,
+     "size_basis": "whole bank incl. anns (CEN-H)",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/carmlspine/derived/carm_cv1_drr/img",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cv1_drr/img",
+     "role": "duplicate (not linked)",
+     "size_gb": 0.258,
+     "size_basis": "whole bank incl. anns (CEN-H)",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/carmlspine/derived/carm_cv2_drr/img",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cv2_drr/img",
+     "role": "duplicate (not linked)",
+     "size_gb": 0.252,
+     "size_basis": "whole bank incl. anns (CEN-H)",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/carmlspine/derived/carm_cv3_drr/img",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cv3_drr/img",
+     "role": "duplicate (not linked)",
+     "size_gb": 0.235,
+     "size_basis": "whole bank incl. anns (CEN-H)",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/carmlspine/derived/carm_cv4_drr/img",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cv4_drr/img",
+     "role": "duplicate (not linked)",
+     "size_gb": 0.26,
+     "size_basis": "whole bank incl. anns (CEN-H)",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/carmlspine/derived/carm_cvday0_drr/img",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cvday0_drr/img",
+     "role": "duplicate (not linked)",
+     "size_gb": 0.172,
+     "size_basis": "whole bank incl. anns (CEN-H)",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/carmlspine/derived/carm_cvday1_drr/img",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cvday1_drr/img",
+     "role": "duplicate (not linked)",
+     "size_gb": 0.22,
+     "size_basis": "whole bank incl. anns (CEN-H)",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/carmlspine/derived/carm_cvday2_drr/img",
+     "current_path": "/wsu/home/go/go24/go2432/carm_cvday2_drr/img",
+     "role": "duplicate (not linked)",
+     "size_gb": 0.229,
+     "size_basis": "whole bank incl. anns (CEN-H)",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/carmlspine/derived/carm_drr",
+     "current_path": "/wsu/home/go/go24/go2432/carm_drr",
+     "role": "canonical (rejected)",
+     "size_gb": 0.252,
+     "size_basis": "CEN-H",
+     "read_by": "2 code files (PRB)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "tools/carmlspine_to_bank.py writes img/<stem>.npy as the realxray PNG decoded to uint8 (np.save, L64); fold banks differ only in the ann split (L41-L51). All predate the 2026-09-23 repair (DM section 4 row 20).",
+     "slurm/carmlspine_finetune.sh L22-L23 runs `rm -rf $HOME/carm_drr; tools/carmlspine_to_bank.py --out $HOME/carm_drr` whenever ~/carm_fov96_ctx/rung_1.npz is absent, and DM section 4 row 20 says every HOME carm_* bank predates the repair (296 frames then, 299 after; case118 relabelled), so a rebuild is expected. A read-only bit does not stop rm -rf. After A20 such a rebuild would leave the eight fold banks' images dangling, or resolving to repaired frames under their old anns; those fold banks are the frozen record of the published C-ArmLSpine CV numbers. The fold banks themselves are rm -rf'd and rebuilt by slurm/carmlspine_cv.sh L24, carmlspine_cv_day.sh L34 and their _v9 copies (L29, L28)."
+    ],
+    "confirm_by": []
+   },
+   "action": "DROPPED: no plan rows, so neither job touches these banks (1.86 GB at most). carm_drr is due for rebuild (DM section 4 row 20); if the fold banks are to be deduplicated later, link them to a frozen snapshot that no script writes, and change carmlspine_finetune.sh to build into a new folder.",
+   "reason": "A canonical that a launch script deletes and rebuilds.",
+   "canonical_why": "Would have been the bank the folds re-split. Not a safe canonical: a launch script deletes and rebuilds it (identity evidence).",
+   "gate": [
+    "B10"
+   ],
+   "hold": "dropped (no plan rows)",
+   "dropped": true,
+   "recoverable_gb": {
+    "high": 0.0,
+    "low": 0.0,
+    "category": "dropped",
+    "basis": "1.863 GB at most, by CEN-H, stays as it is"
+   },
+   "plan_rows": [],
+   "notes": []
+  },
+  {
+   "group_id": "A21",
+   "kind": "a",
+   "title": "spine-detector yolo* exports = data/interim/images",
+   "status": "DROPPED (review 2026-10-08)",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/spine_detector_corpus/derived/interim/images",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/spine_detector_corpus/derived/yolo/images",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/yolo/images",
+     "role": "duplicate (not linked)",
+     "size_gb": null,
+     "size_basis": "not in the census (U15)",
+     "read_by": "17 code files name ~/spine-detector/data/yolo* (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/spine_detector_corpus/derived/yolo_v2/images",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/yolo_v2/images",
+     "role": "duplicate (not linked)",
+     "size_gb": null,
+     "size_basis": "not in the census (U15)",
+     "read_by": "17 code files name ~/spine-detector/data/yolo* (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/spine_detector_corpus/derived/yolo_v3/images",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/yolo_v3/images",
+     "role": "duplicate (not linked)",
+     "size_gb": null,
+     "size_basis": "not in the census (U15)",
+     "read_by": "17 code files name ~/spine-detector/data/yolo* (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/spine_detector_corpus/derived/yolo_v5f_p00/images",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/yolo_v5f_p00/images",
+     "role": "duplicate (not linked)",
+     "size_gb": null,
+     "size_basis": "not in the census (U15)",
+     "read_by": "17 code files name ~/spine-detector/data/yolo* (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/spine_detector_corpus/derived/yolo_v5f_p05/images",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/yolo_v5f_p05/images",
+     "role": "duplicate (not linked)",
+     "size_gb": null,
+     "size_basis": "not in the census (U15)",
+     "read_by": "17 code files name ~/spine-detector/data/yolo* (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/spine_detector_corpus/derived/yolo_v5f_p08/images",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/yolo_v5f_p08/images",
+     "role": "duplicate (not linked)",
+     "size_gb": null,
+     "size_basis": "not in the census (U15)",
+     "read_by": "17 code files name ~/spine-detector/data/yolo* (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/spine_detector_corpus/derived/yolo_v6f/images",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/yolo_v6f/images",
+     "role": "duplicate (not linked)",
+     "size_gb": null,
+     "size_basis": "not in the census (U15)",
+     "read_by": "17 code files name ~/spine-detector/data/yolo* (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/spine_detector_corpus/derived/interim",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/interim",
+     "role": "canonical (rejected)",
+     "size_gb": null,
+     "size_basis": "not in the census",
+     "read_by": "3 code files (PRB)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "sd:src/export_yolo.py copies data/interim/images/<image_id>.png into <out>/images/<split>/ with shutil.copy2 unless --symlink is given (L102-L128); which exports used --symlink is not recorded. B04 moves the yolo* exports as one hard-link group (MP section 5 B04; LAY L179). yolo_v4z (zoomed windows) and yolo_hw (crops) are not copies and are left out.",
+     "sd:src/build_dataset.py _save (L40-L43) rewrites data/interim/images/<id>.png in place with cv2.imwrite and never checks its return value; its paths are repo-relative (INTERIM = Path('data/interim'), L36), run from WorkDir ~/spine-detector. After linking, a corpus rebuild either gives every yolo* export new pixels under its old labels (canonical writable) or, with the read-only bit, fails silently on every image while manifest.parquet is rewritten with new transforms, so images and boxes disagree and nothing raises."
+    ],
+    "confirm_by": []
+   },
+   "action": "DROPPED: no plan rows, so neither job touches the exports. If they are to be deduplicated later, link both the exports and interim/ to a frozen snapshot that no script writes. names_member in dedup_lib.sh now also matches a path relative to a job's WorkDir, but that sees only jobs queued at apply time, not a later rebuild.",
+   "reason": "A canonical that its own builder rewrites in place.",
+   "canonical_why": "Would have been the export source. Not a safe canonical: it is the working output of the corpus builder, rewritten in place (identity evidence).",
+   "gate": [
+    "B04"
+   ],
+   "hold": "dropped (no plan rows)",
+   "dropped": true,
+   "recoverable_gb": {
+    "high": 0.0,
+    "low": 0.0,
+    "category": "dropped",
+    "basis": "not sized (U15)"
+   },
+   "plan_rows": [],
+   "notes": [
+    "Owner-only folders (LAY rule 8)."
+   ]
+  },
+  {
+   "group_id": "A22",
+   "kind": "a",
+   "title": "allspine_v8 rung files against allspine_v9",
+   "status": "UNSETTLED (expected to differ)",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/allspine_v9_fov96_ctx",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/allspine_v8_fov96_ctx",
+     "current_path": "/wsu/home/go/go24/go2432/allspine_v8_fov96_ctx",
+     "role": "duplicate",
+     "size_gb": 5.494,
+     "size_basis": "CEN-H",
+     "read_by": "5 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/allspine_v9_fov96_ctx",
+     "current_path": "/wsu/home/go/go24/go2432/allspine_v9_fov96_ctx",
+     "role": "canonical",
+     "size_gb": 5.494,
+     "size_basis": "CEN-H",
+     "read_by": "30 code files (PRB)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "v9 is 'v8 identical minus the subject keying' (AUDIT L678); equal sizes and film counts only (CEN-H; XDU). make_context_crops.py adds a person array only under --g3-split or --patient-json (L681-L685), so the files should differ."
+    ],
+    "confirm_by": [
+     "$RS/data/multisource_banks/derived/allspine_v8_fov96_ctx/{rung_*.npz} against $RS/data/multisource_banks/derived/allspine_v9_fov96_ctx at the same relative path"
+    ]
+   },
+   "action": "HASH; link only what matches (expected: nothing). v8 itself is a B09 candidate once its readers move to v9.",
+   "reason": "Settles notes U16.",
+   "canonical_why": "v9 is the shipped, subject-keyed bank (XDU header; AUDIT L678).",
+   "gate": [
+    "B11"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 5.494,
+    "low": 0.0,
+    "category": "possible",
+    "basis": "upper bound; expected 0"
+   },
+   "plan_rows": [
+    {
+     "mode": "relpath",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/allspine_v8_fov96_ctx",
+     "dup_include": "rung_*.npz",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/allspine_v9_fov96_ctx",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 5.494
+    }
+   ],
+   "notes": []
+  },
+  {
+   "group_id": "A23",
+   "kind": "a",
+   "title": "cut_physics_v2 and cut_rare_v2 anns against v1",
+   "status": "UNSETTLED",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/cut_physics/ann | /rs/rs_grp_oschome/go2432/data/multisource_banks/derived/cut_rare/ann",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/cut_physics_v2/ann",
+     "current_path": "/wsu/home/go/go24/go2432/cut_physics_v2/ann",
+     "role": "duplicate",
+     "size_gb": 0.007,
+     "size_basis": "CEN-H",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/cut_rare_v2/ann",
+     "current_path": "/wsu/home/go/go24/go2432/cut_rare_v2/ann",
+     "role": "duplicate",
+     "size_gb": 0.003,
+     "size_basis": "CEN-H",
+     "read_by": "0 code files (PRB)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "'Label-identical to v1 (pixels not compared)' (MDMR L300, L305, L806). The images come from two CUT generators (~/cut_v1, ~/cut_v2), so img/ should differ and is left out."
+    ],
+    "confirm_by": [
+     "$RS/data/multisource_banks/derived/cut_physics_v2/{ann/*} against $RS/data/multisource_banks/derived/cut_physics at the same relative path",
+     "$RS/data/multisource_banks/derived/cut_rare_v2/{ann/*} against $RS/data/multisource_banks/derived/cut_rare at the same relative path"
+    ]
+   },
+   "action": "HASH; link the anns that match.",
+   "reason": "Small; settles MDMR's 'label-identical'.",
+   "canonical_why": "v1, the first of each pair.",
+   "gate": [
+    "B11"
+   ],
+   "hold": "-",
+   "dropped": false,
+   "recoverable_gb": {
+    "high": 0.01,
+    "low": 0.0,
+    "category": "possible",
+    "basis": "CEN-H"
+   },
+   "plan_rows": [
+    {
+     "mode": "relpath",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/cut_physics_v2",
+     "dup_include": "ann/*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/cut_physics",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 0.007
+    },
+    {
+     "mode": "relpath",
+     "dup_root": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/cut_rare_v2",
+     "dup_include": "ann/*",
+     "canon_roots": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/cut_rare",
+     "canon_include": "-",
+     "exclude": "-",
+     "key_regex": "-",
+     "rename_map": "-",
+     "pairs": "-",
+     "allow_unpaired": 0,
+     "hold": "-",
+     "est_gb": 0.003
+    }
+   ],
+   "notes": []
+  },
+  {
+   "group_id": "B01",
+   "kind": "b",
+   "title": "VerSe and VerSeFusion: raw / unified / canonical / corrected / tables / HF staging / vf_813 / vf_v10 / vf_813_probe / vf_morphometrics / bench_ts",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/raw",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/raw",
+     "current_path": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw",
+     "role": "canonical (rank 1)",
+     "size_gb": 71.0,
+     "size_basis": "du 2026-09-01 (AUDIT L662)",
+     "read_by": "unified/ (all 374 metas point into raw/; T2-VF section 1); 1 code file (T2-REFS)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/unified",
+     "current_path": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified",
+     "role": "keep: interface (rank 2)",
+     "size_gb": 0.088,
+     "size_basis": "AUDIT L662 (748 NIfTI links over 374 scan-*)",
+     "read_by": "49 code files (T2-REFS)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/canonical",
+     "current_path": "/wsu/home/go/go24/go2432/VerSeFusion/data/canonical",
+     "role": "keep, later candidate (rank 3)",
+     "size_gb": 67.0,
+     "size_basis": "AUDIT L662",
+     "read_by": "corrected/ (373 metas), qc/, orientation/, manifest/, HF export; 0 code files in ssn:/ctsp: (T2-REFS); the laptop VerSeFusion clone names data/reoriented in 3 files"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/corrected",
+     "current_path": "/wsu/home/go/go24/go2432/VerSeFusion/data/corrected",
+     "role": "keep: model output (rank 5)",
+     "size_gb": 0.122,
+     "size_basis": "AUDIT L666",
+     "read_by": "manifest/ and the HF export (NPR stages 10-11)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/{manifest,qc,lstv,orientation}",
+     "current_path": "/wsu/home/go/go24/go2432/VerSeFusion/data/{manifest,qc,lstv,orientation}",
+     "role": "keep: tables",
+     "size_gb": null,
+     "size_basis": "small",
+     "read_by": "manifest.csv: tools/patient_keys.py --verse-manifest default (L486); 12 code files (T2-REFS)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data/hf_staging*",
+     "current_path": "/wsu/home/go/go24/go2432/VerSeFusion/data/hf_staging*",
+     "role": "see A03 (rank 4; the 14 veridah_applied scans rank 5)",
+     "size_gb": 56.1,
+     "size_basis": "upper bound, see A03",
+     "read_by": "-"
+    },
+    {
+     "path": "(remote)",
+     "current_path": "HF gregoryschwingmdphd/VerseFusion, -Sample, -LSTV",
+     "role": "remote (rank 4; the 14 veridah_applied scans rank 5)",
+     "size_gb": null,
+     "size_basis": "'~22 GB' full corpus (NPR)",
+     "read_by": "not carded in DATA_MANIFEST (U5)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/derived/vf_813",
+     "current_path": "/wsu/home/go/go24/go2432/vf_813",
+     "role": "keep: lossy conversion (rank 6)",
+     "size_gb": 58.0,
+     "size_basis": "MDMR 2.2 (layout_map)",
+     "read_by": "15 code files (PRB), 21 by name (T2-REFS); Dataset815"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/derived/vf_v10",
+     "current_path": "/wsu/home/go/go24/go2432/vf_v10",
+     "role": "keep or candidate (rank 6)",
+     "size_gb": null,
+     "size_basis": "not sized",
+     "read_by": "5 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/derived/vf_813_probe",
+     "current_path": "/wsu/home/go/go24/go2432/vf_813_probe",
+     "role": "candidate after one look",
+     "size_gb": null,
+     "size_basis": "name and date 2026-09-12 only (layout_map)",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "(stays on HOME: no layout row)",
+     "current_path": "/wsu/home/go/go24/go2432/vf_morphometrics",
+     "role": "keep: results, no layout row",
+     "size_gb": null,
+     "size_basis": "not sized",
+     "read_by": "1 code file (T2-REFS: slurm/versefusion_tl_morphometrics.sh)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/bench_ts",
+     "current_path": "/wsu/home/go/go24/go2432/bench_ts",
+     "role": "keep: second labeller (rank 7)",
+     "size_gb": 1.511,
+     "size_basis": "CEN-H",
+     "read_by": "31 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse; /rs/rs_grp_oschome/go2432/data/rare_class",
+     "current_path": "(Ceph-native)",
+     "role": "keep: Ceph-native derived",
+     "size_gb": null,
+     "size_basis": "not sized",
+     "read_by": "layout_map 'already on CEPH'"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "unified/ holds no pixel data: every meta.json points into raw/ (ct 374, mask 374, preview 224; T2-VF section 1). LAY L156-L159 says its links reach raw/ and canonical/; the metas say raw/ only (U3).",
+     "canonical/ against raw/:",
+     "  Bytes: not byte copies. 315 scans were reoriented and re-saved (new gzip stream and header) and the 59 scans already in PIR are symlinks to raw/, by the laptop code (VFR reorient.py L96-L120; ssn:tools/convert_versefusion.py docstring for the 59). The grid code that wrote canonical/ is not on the laptop (U1); A02 hashes it.",
+     "  Content: a permutation and flip of voxel axes, not a resample (VFR docs/design.md L58-L60; utils/nifti.py L95-L102 img.as_reoriented). The orientation audit read canonical/ and found 374 of 374 in PIR with native spacing, 74 of them 1 mm isotropic (VFG orientation/orientation_audit.json), so NPR's '1 mm isotropic' (NPR L54) is wrong. Masks are cast back to their source dtype (reorient.py L116-L118). Not measured: voxel equality with raw/ after the recorded transform, and whether CT scaling survived (as_reoriented reads np.asanyarray(dataobj), which applies scl_slope; nib.save re-applies the on-disk dtype) (U2).",
+     "  What it adds: PIR arrays and PIR centroid JSON (the MICCAI'20 centroids are in 1 mm iso ASL space; VFR utils/miccai.py docstring); it saves one reorientation, '~10 min' for the corpus (NPR L203); and it is the input path of corrected/ (373 metas point CT at canonical, 14 keep msk_canonical as the pre-correction mask; T2-VF section 3), qc/ and orientation/ (input_dir), manifest/ and the HF export. The project's own code reorients in memory instead (mem:vf813-drops-c1-t9-use-raw-verse-for-whole-spine).",
+     "corrected/ is VERIDAH output on 14 scans (12 t13_shift, 2 label_override), 360 pass through (VFG corrected/veridah_manifest.json); the manifest's has_T13 = 18 counts the corrected tree, the release masks give 6 (AUDIT L948; DM section 4 row 10). The two applied label_override scans are verse559 and verse642 (veridah_applied true); verse606 also carries a label_override entry that was not applied (error length_mismatch:mask=18,override=19) (VFG corrected/veridah_manifest.json). NPR L443-L446 says the 2 label_override corrections 'were further confirmed by manual review'; NPR L311-L312 says all 14 'were also confirmed by independent visual inspection'. The two statements disagree and neither names a review record, so all 14 stay model output here, with a manual confirmation claimed, not recorded, for verse559 and verse642.",
+     "The HF export stages the corrected masks (NPR stage 11 ships veridah_manifest.json; A03: a staged corrected mask exists only in corrected/), so for the 14 veridah_applied scans the HF staging copies and the HF repos hold model output and rank with corrected/ (rank 5), not with the other HF copies (rank 4).",
+     "vf_813 is a second PIR copy of every CT cast to int16, with C1-T9 and the coccyx sent to ignore and TotalSegmentator rib pseudolabels (ssn:tools/convert_versefusion.py docstring and L190-L198; DM versefusion card): 'fatal for anything needing C2' (mem:vf813-drops-c1-t9-use-raw-verse-for-whole-spine). Whether the int16 cast is lossless is U8.",
+     "vf_v10 maps vf_813 labels to the CTSP v10 ids for measurement only (ssn:tools/ds813_to_v10.py docstring). bench_ts is SPINEPS+VERIDAH output over 1,228 TS v2 + 374 VerSe CTs, a second labeller, not a copy (AUDIT L489)."
+    ],
+    "confirm_by": [
+     "A01-A03 hash results",
+     "a voxel-equality job (not written here; needs a NIfTI reader): for each of the 374 scans load raw and canonical, apply the recorded reorient_xform, array_equal on CT and mask, centroids within 1e-3 mm"
+    ]
+   },
+   "action": "raw/, unified/, corrected/ (labelled model output), tables, vf_813 (never a whole-spine source), bench_ts (indexed as an automatic labeller): KEEP. canonical/: KEEP now; CANDIDATE for Greg (67 GB) once (1) the voxel-equality job passes on all 374, (2) corrected/ and manifest/ are repointed to raw/ or re-derived (373 corrected metas name canonical paths), (3) the HF export's fate is decided (U5), and (4) dedup_guard.sh passes on canonical/: no dedup ledger has a live link into it (A03 no longer uses canonical/ as a canonical root, so none is expected; the guard checks rather than assumes). vf_v10: KEEP or CANDIDATE (regenerable with one command). vf_813_probe: CANDIDATE after one look (U9). Writers to fix so the vf_813 renders and the verse_drr twins are not recreated: see A04's note (slurm/reproduce_all.sh L108, slurm/path_render.sh L40-L41, slurm/verse_path_missing.sh L19, tools/make_drr_dataset.py L31).",
+   "reason": "Quality order: raw (VerSe'20 > VerSe'19) > unified (no bytes of its own) > canonical (re-encoded; voxel equality claimed, not measured) > HF staging and repos (except the 14 veridah_applied scans, whose staged masks rank with corrected/) > corrected (model output; manual confirmation claimed, not recorded, for verse559 and verse642) > vf_813 (lossy) > vf_v10 (relabelled) > bench_ts (automatic labels).",
+   "canonical_why": "The release bytes and the expert masks, and the origin every other member is rebuilt from (DM verse19_20 and versefusion re-acquisition recipes). Within raw/, the VerSe'20 copy of a series ranks above its VerSe'19 copy (A01).",
+   "deletion_candidates": [
+    {
+     "what": "VerSe canonical/",
+     "gb": 67.0,
+     "when": "conditional",
+     "condition": "after the voxel-equality job, the repointing of corrected/ and manifest/, the HF-export decision, and dedup_guard.sh passing on canonical/"
+    }
+   ]
+  },
+  {
+   "group_id": "B02",
+   "kind": "b",
+   "title": "VerSe render banks rendered again from a worse source or with another physics",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/versefusion/derived/verse_drr, verse_drr_obl, verse_drr_obl2",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/derived/verse_drr",
+     "current_path": "/wsu/home/go/go24/go2432/verse_drr",
+     "role": "canonical",
+     "size_gb": null,
+     "size_basis": "not sized",
+     "read_by": "38 code files (PRB); glgl* in A04"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/derived/verse_drr_obl, verse_drr_obl2",
+     "current_path": "/wsu/home/go/go24/go2432/verse_drr_obl, verse_drr_obl2",
+     "role": "canonical",
+     "size_gb": null,
+     "size_basis": "not sized (1,494 / 2,989 renders: AUDIT L670)",
+     "read_by": "12 and 10 code files (T2-REFS)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/derived/ctsp_drr_obl, ctsp_drr_obl2",
+     "current_path": "/wsu/home/go/go24/go2432/ctsp_drr_obl, ctsp_drr_obl2",
+     "role": "candidate",
+     "size_gb": 1.096,
+     "size_basis": "0.366 + 0.730 (CEN-H)",
+     "read_by": "PRB 1 for the exact path (slurm/fluorogen_generate.sh); 18 code files contain the name (T2-REFS): repoint them first"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/derived/verse_drr_film",
+     "current_path": "/wsu/home/go/go24/go2432/verse_drr_film",
+     "role": "keep: styled twin",
+     "size_gb": null,
+     "size_basis": "not sized",
+     "read_by": "2 code files (T2-REFS)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/derived/verse_soft_drr",
+     "current_path": "/wsu/home/go/go24/go2432/verse_soft_drr",
+     "role": "not a duplicate",
+     "size_gb": null,
+     "size_basis": "not sized",
+     "read_by": "2 code files (T2-REFS)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/versefusion/derived/implant_verse",
+     "current_path": "/wsu/home/go/go24/go2432/implant_verse",
+     "role": "not a duplicate",
+     "size_gb": 187.0,
+     "size_basis": "MDMR 2.2",
+     "read_by": "0 code files (PRB)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "ctsp_drr_obl (1,256) and ctsp_drr_obl2 (2,511) are the same 314 VerSe series rendered from ~/vf_813, whose maps send C1-T9 to ignore, under a CTSP prefix; 60 series are missing (AUDIT L245-L248; MDMR L348-L355; PIS section 3 row 8). Whether any img/*.npy equals a verse_drr_obl image is not recorded, and tools/make_oblique_drr.py is not in the repository (U8).",
+     "verse_drr_film is a film-styled twin with the same boxes (slurm/film_lora_apply.sh L13-L14), dated 2026-09-17, before the spacing fix (AUDIT L670; U19).",
+     "verse_soft_drr is a soft-tissue render with the row-spacing defect on 181 of 374 (AUDIT L250-L253): another physics, not a copy. implant_verse is 1,119 synthetic hardware CTs from 373 series (verse116 missing): new content, regenerable by tools/make_implant_ct.py (MP L439)."
+    ],
+    "confirm_by": [
+     "none needed for the decision; an img/*.npy hash of ctsp_drr_obl* against verse_drr_obl* would settle U8"
+    ]
+   },
+   "action": "ctsp_drr_obl, ctsp_drr_obl2: CANDIDATE (1.1 GB; MP L482-L483) after their readers move to verse_drr_obl*. verse_drr, verse_drr_obl*, verse_drr_film: KEEP. verse_soft_drr and implant_verse are deletion candidates of the migration plan (MP L494, L439) for other reasons; they are not duplicates and are not counted here. Fix the writers listed in A04's note before any rerun, or a rerun recreates the doubled prefixes and the vf_813 route.",
+   "reason": "Misnamed renders from the lossy source, with complete replacements on disk.",
+   "canonical_why": "Rendered from unified/ (the release masks), complete labels, and after the row-spacing fix (verse_drr clean on 387/387: AUDIT L250-L253).",
+   "deletion_candidates": [
+    {
+     "what": "ctsp_drr_obl + ctsp_drr_obl2",
+     "gb": 1.096,
+     "when": "now",
+     "condition": "after repointing their readers"
+    }
+   ]
+  },
+  {
+   "group_id": "B03",
+   "kind": "b",
+   "title": "DeepFluoro: the H5 release, the vendor DICOM deposit, the Hugging Face re-host, the frame export",
+   "canonical": "H5 for labels and poses; vendor DICOM for original pixels",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/deepfluoro_h5/raw/deepfluoro",
+     "current_path": "/wsu/home/go/go24/go2432/deepfluoro/unpacked_full/ipcai_2020_full_res_data.h5",
+     "role": "keep: labels and poses",
+     "size_gb": 2.542,
+     "size_basis": "2,541,608,861 B (DM deepfluoro_h5)",
+     "read_by": "18 code files (T2-REFS)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/deepfluoro_h5/raw/deepfluoro/data",
+     "current_path": "/wsu/home/go/go24/go2432/deepfluoro/data (IFSXNV zips)",
+     "role": "keep: small",
+     "size_gb": 2.594,
+     "size_basis": "CEN-H (3 files)",
+     "read_by": "1 code file; ~/user/diffdrr_data points at it (LAY L168; U13)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/deepfluoro_h5/raw/deepfluoro/unpacked",
+     "current_path": "/wsu/home/go/go24/go2432/deepfluoro/unpacked",
+     "role": "keep: second H5",
+     "size_gb": 0.042,
+     "size_basis": "CEN-H; by size the ds_8x release (U11)",
+     "read_by": "-"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/deepfluoro_vendor/unpacked",
+     "current_path": "(Ceph-native)",
+     "role": "keep: original pixels",
+     "size_gb": 72.709,
+     "size_basis": "72,708,547,975 B (DM deepfluoro_vendor)",
+     "read_by": "17 code files (T2-REFS)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/deepfluoro_vendor/*.zip (the deposit zips: the 19 deposit files less the rotations table)",
+     "current_path": "(Ceph-native)",
+     "role": "candidate",
+     "size_gb": 38.3,
+     "size_basis": "37,381,313 KB of zips (AUDIT L713) = 110.987 GB folder (CEN-C) minus the unpacked tree",
+     "read_by": "the unpack script only"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/deepfluoro_vendor/02_fluoroscopy_rotations.tab.part",
+     "current_path": "(Ceph-native)",
+     "role": "keep: rotations table",
+     "size_gb": 0.0,
+     "size_basis": "18,345 B (DM deepfluoro_vendor card; AUDIT L173)",
+     "read_by": "the per-frame rotation table, 2,659 rows expected (DM deepfluoro_vendor card; AUDIT L170-L173)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/polypose/hf/.../xvr-data/.../deepfluoro",
+     "current_path": "(Ceph-native)",
+     "role": "keep while PolyPose reads it",
+     "size_gb": null,
+     "size_basis": "not sized (polypose folder 87.713 GB with conda envs; U12)",
+     "read_by": "10 code files name xvr-data (T2-REFS)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro",
+     "current_path": "(Ceph-native)",
+     "role": "keep: export",
+     "size_gb": null,
+     "size_basis": "part of 3.408 GB (CEN-C)",
+     "read_by": "-"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "'not byte-identical - different containers, different compression' (ACC lines 17-24); the vendor deposit holds about seven times the H5's frames (2,659 against 366) plus pre- and post-operative CT (AUDIT L730). The HF re-host's poses need a 180-degree flip (ssn:tools/polypose_apply_pose_flip.py) and its identity with the H5 was checked by slurm/polypose_identity.sh with an unrecorded result (DM deepfluoro_xvr_hf card; U11)."
+    ],
+    "confirm_by": [
+     "report/hf_vs_h5.json on Ceph (U11)"
+    ]
+   },
+   "action": "H5, vendor unpacked/, IFSXNV zips, export, the rotations table: KEEP with the roles above. Vendor zips (the zips alone; 02_fluoroscopy_rotations.tab.part is not a zip and stays): CANDIDATE (38.3 GB) only after (1) an `unzip -l` of every zip is compared, name by name and size by size, with unpacked/ in a job, because the first unpack run was OOM-killed with 0 bytes landed (AUDIT L713) and no zip-against-unpacked check is recorded (NHANES has one: zip-against-disk found 0 unextracted, job 40416364, DM nhanes2_zenodo_landmarks card); the card also lists a joined/ folder beside the zips, unsized here, which the comparison should account for; and (2) the .tab.part rename is settled (U14). unpacked/ is what every reader and the hashed root deepfluoro_vendor use, and the deposit re-downloads with byte checks (DM deepfluoro_vendor recipe). HF re-host: KEEP while PolyPose reads it, then CANDIDATE (unsized). Identity: C05.",
+   "reason": "Three containers of one cadaver set; each ranks first for something except the re-host.",
+   "canonical_why": "Pixels: the vendor DICOM ranks first (original vendor bytes and headers; the H5 frames are processed display images: DM deepfluoro_h5 'Modality'). Truth: the H5 ranks first (only it carries poses, segmentations and landmarks; 2,293 of the 2,659 vendor frames have no released pose: DM deepfluoro_vendor card).",
+   "deletion_candidates": [
+    {
+     "what": "DeepFluoro vendor deposit zips",
+     "gb": 38.3,
+     "when": "now",
+     "condition": "after an unzip -l comparison with unpacked/ and the .tab.part check"
+    }
+   ]
+  },
+  {
+   "group_id": "B04",
+   "kind": "b",
+   "title": "TotalSegmentator: the two release zips beside their unpacked trees, and the v2.0.1 tree beside v3.0.0",
+   "canonical": "the unpacked v3.0.0 tree (CTs), with v2.0.1 kept for the banks built from it",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v300/raw/TotalSegmentator_v3/Totalsegmentator_dataset_v300.zip",
+     "current_path": "/wsu/home/go/go24/go2432/data/TotalSegmentator_v3/Totalsegmentator_dataset_v300.zip",
+     "role": "candidate",
+     "size_gb": 37.416,
+     "size_basis": "37,415,622,057 B (AUDIT L485)",
+     "read_by": "-"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v201/raw/TotalSegmentator/Totalsegmentator_dataset_v201.zip",
+     "current_path": "/wsu/home/go/go24/go2432/data/TotalSegmentator/Totalsegmentator_dataset_v201.zip",
+     "role": "candidate",
+     "size_gb": 23.581,
+     "size_basis": "23,581,218,285 B (AUDIT L483)",
+     "read_by": "-"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/totalsegmentator_v201/raw/TotalSegmentator",
+     "current_path": "/wsu/home/go/go24/go2432/data/TotalSegmentator/s####/segmentations, meta.csv",
+     "role": "keep",
+     "size_gb": null,
+     "size_basis": "inside 32.317 GB",
+     "read_by": "ts_drr, physics_drr (1,831 TS renders), anchor_drr, implant_ts, bench_ts, validation_ts (AUDIT L487-L499)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "'keeps both the zip and the unpacked tree (the zip is the candidate)' (MP L442-L443); each zip re-downloads with its Zenodo md5 (v3 md5 0728beea...: AUDIT L1307-L1309). v2.0.1 has vertebra label mix-ups that v3 fixes (DM totalsegmentator_v201 card, citing ssn:tools/ts_to_drr.py L16-L19); 110 v2 CTs have no byte twin in v3 if the 1,118 of AUDIT L1311-L1313 is the full count (U15)."
+    ],
+    "confirm_by": [
+     "A05 hash results for the CTs"
+    ]
+   },
+   "action": "Both zips: CANDIDATE (61.0 GB); keep one until A05 has linked and Greg has chosen. v2.0.1 segmentations and meta.csv: KEEP (live banks; superseded for new work). ts_drr_v3 is a migration candidate (no bank or arm reads it: AUDIT L360-L363; MP L493), not a duplicate.",
+   "reason": "Archives beside their unpacked trees.",
+   "canonical_why": "v3.0.0 is the corrected release; v2.0.1 is what every live TS bank read.",
+   "deletion_candidates": [
+    {
+     "what": "TotalSegmentator v2.0.1 + v3.0.0 zips",
+     "gb": 60.997,
+     "when": "now",
+     "condition": "keep one until A05 is applied"
+    }
+   ]
+  },
+  {
+   "group_id": "B05",
+   "kind": "b",
+   "title": "CTSpinoPelvic1K: v11 and v10 labels, the HF mirror, the April release, the build archive and its staging",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K (ct/ + labels/ v11)",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K",
+     "current_path": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/{ct,labels}",
+     "role": "canonical",
+     "size_gb": 194.002,
+     "size_basis": "192.813 CT + 1.189 labels (AUDIT L619-L620); the folder is 196.195 GB with labels_v10 (CEN-H)",
+     "read_by": "76 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/labels_v10",
+     "current_path": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels_v10",
+     "role": "keep, later candidate",
+     "size_gb": 1.074,
+     "size_basis": "1,074,444,805 B (AUDIT L621)",
+     "read_by": "8 code files (T2-REFS)"
+    },
+    {
+     "path": "(remote)",
+     "current_path": "HF OpenSpineConsortium/CTSpinoPelvic1K labels/",
+     "role": "remote: stale",
+     "size_gb": null,
+     "size_basis": "-",
+     "read_by": "never a label source: v10 (mem:hf-mirror-is-v10)"
+    },
+    {
+     "path": "(remote)",
+     "current_path": "HF gregoryschwingmdphd/CTSpinoPelvic1K",
+     "role": "remote: not the release",
+     "size_gb": null,
+     "size_basis": "1,000 + 1,000 files (AUDIT L618)",
+     "read_by": "-"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctsp_april",
+     "current_path": "(Ceph-native)",
+     "role": "keep: superseded release inputs",
+     "size_gb": 86.883,
+     "size_basis": "CEN-C (1,623 files)",
+     "read_by": "the NeurIPS appendix SPINEPS numbers (ssn:docs/RESUME_2026-09-22_PM.md L139); A10 hashes it"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive",
+     "current_path": "/wsu/home/go/go24/go2432/build_archive",
+     "role": "candidate",
+     "size_gb": 6.237,
+     "size_basis": "CEN-H (13 files, 9 .tar.zst)",
+     "read_by": "2 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_stage",
+     "current_path": "/wsu/home/go/go24/go2432/build_archive_stage",
+     "role": "candidate",
+     "size_gb": 3.035,
+     "size_basis": "CEN-H (2,474 files)",
+     "read_by": "2 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private",
+     "current_path": "/wsu/home/go/go24/go2432/build_archive_private",
+     "role": "keep: owner-only key",
+     "size_gb": 0.0,
+     "size_basis": "CEN-H (one JSON: annotator_map.json)",
+     "read_by": "2 code files (PRB): ctsp:scripts/archive_reviews.py writes it, ctsp:slurm/archive_build_inputs.sh L87 names it"
+    },
+    {
+     "path": "-",
+     "current_path": "/wsu/home/go/go24/go2432/CTSpinoPelvic1K/data/{hf_export_osc,hf_export_v2..v6,v5_final,zenodo_v6,zenodo_v7,s1_recarve,...}",
+     "role": "absent",
+     "size_gb": 0.0,
+     "size_basis": "~/CTSpinoPelvic1K/data holds 16 files, 13,697,321 B on 2026-10-08 (CEN-J)",
+     "read_by": "176 ctsp: build scripts name hf_export_v* (T2-REFS): the build chain reads folders that no longer exist"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "v10 and v11 differ only in id 29: every label file differs, the vertebral voxels do not (AUDIT L913; mem:s1-carve-changed-spinopelvic; ctsp:CLAUDE.md). The build archive is the 13 files of Zenodo 10.5281/zenodo.22647933 as uploaded, md5-checked (mem:zenodo-deposit); build_archive_stage is the unpacked 04_reviews, 08 and 09 components of the same archive (DM build-tree card)."
+    ],
+    "confirm_by": [
+     "A07, A08, A10 hash results"
+    ]
+   },
+   "action": "ct/ + labels/: KEEP. labels_v10: KEEP as 'superseded v10, for v10-era comparisons'; CANDIDATE (1.07 GB) once the code that gates on 29 is retired with it (ctsp:CLAUDE.md). HF mirror: index only; refreshing it to v11 is publishing, not deduplication. ctsp_april: KEEP while the NeurIPS appendix depends on it. build_archive, build_archive_stage: CANDIDATE (MP L477-L479; 9.27 GB): the citable deposit holds the same files; keeping one Ceph copy as offline insurance is Greg's call. build_archive_private: KEEP, owner-only. It holds annotator_map.json, the only key from the annotator_NN pseudonyms in the deposited reviews to the students; archive_reviews.py writes it outside the archive on purpose so it is never deposited (ctsp:scripts/archive_reviews.py docstring; L132-L135 write it and chmod 600; ctsp:slurm/archive_build_inputs.sh L87). It can be rebuilt (handles sorted, L103-L104) only while the three HF review repositories stay unchanged. MP section 8 lists it as 'staging of the published build archive'; that reason does not hold for this file. Absent folders: B02 rows resolve ABSENT at preflight.",
+   "reason": "One current release, one superseded, one stale mirror, one archive with its staging, and the private key the archive must not contain.",
+   "canonical_why": "Zenodo v11 = grid labels/ (sha256 810 OK, AUDIT L620): citable, current, corrected. The CTs are byte-identical on the grid and on HF (AUDIT L898).",
+   "deletion_candidates": [
+    {
+     "what": "build_archive + build_archive_stage",
+     "gb": 9.272,
+     "when": "now",
+     "condition": ""
+    },
+    {
+     "what": "labels_v10",
+     "gb": 1.074,
+     "when": "later",
+     "condition": "after the id-29 code is retired"
+    }
+   ]
+  },
+  {
+   "group_id": "B06",
+   "kind": "b",
+   "title": "CTSpine1K: the HOME copy (gone) and the Ceph copy",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/ctspine1k",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ctspine1k",
+     "current_path": "(Ceph-native)",
+     "role": "canonical",
+     "size_gb": 162.35,
+     "size_basis": "CEN-C (2,020 files)",
+     "read_by": "6 code files name data/ctspine1k (T2-REFS)"
+    },
+    {
+     "path": "-",
+     "current_path": "/wsu/home/go/go24/go2432/CTSpinoPelvic1K/data/ctspine1k",
+     "role": "absent",
+     "size_gb": 0.0,
+     "size_basis": "190 GB on 2026-09-01 (_du_data.txt); absent on 2026-10-08 (CEN-J)",
+     "read_by": "4 ctsp: build scripts name the repository-relative data/ctspine1k (download_raw.sh L180, create_dataset.sh L129, verify_mask_seriesuid.sh L20, diagnose_series.py L30)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "MP L438 lists the HOME copy as a duplicate of the Ceph copy (sha256-verified 2026-09-23); the census of 2026-10-08 no longer finds it (CEN-J)."
+    ],
+    "confirm_by": [
+     "-"
+    ]
+   },
+   "action": "Nothing to delete. B03's CTSpine1K row resolves ABSENT at preflight; point the four build scripts at the Ceph copy before any rerun of the April build chain. The COLONOG people: C02.",
+   "reason": "Already resolved by an unrecorded removal (notes U1).",
+   "canonical_why": "Complete (1,005 volumes), every file checked against the HF listing's size and LFS sha256 (DM ctspine1k card).",
+   "deletion_candidates": []
+  },
+  {
+   "group_id": "B07",
+   "kind": "b",
+   "title": "BUU-LSPINE(2000): dataset2024.zip beside the extracted tree",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/buu_lspine_2000/raw/BUU-LSPINE (extracted) and buu_full (A12)",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/buu_lspine_2000/raw/dataset2024.zip",
+     "current_path": "/wsu/home/go/go24/go2432/XRSpinoPelvic1K/data/dataset2024.zip",
+     "role": "candidate",
+     "size_gb": 4.024,
+     "size_basis": "4,023,726,207 B (MP L447)",
+     "read_by": "-"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "A laptop copy of the same size is at <repo XRSpinoPelvic1K 4f22935>/dataset2024.zip (notes, section 4)."
+    ],
+    "confirm_by": [
+     "-"
+    ]
+   },
+   "action": "CANDIDATE (4.0 GB; MP L447).",
+   "reason": "An archive beside its extracted tree, with a second copy on the laptop.",
+   "canonical_why": "The extracted tree is what tools read; its JPEGs equal buu_full's (A12).",
+   "deletion_candidates": [
+    {
+     "what": "BUU-LSPINE(2000) dataset2024.zip",
+     "gb": 4.024,
+     "when": "now",
+     "condition": ""
+    }
+   ]
+  },
+  {
+   "group_id": "B08",
+   "kind": "b",
+   "title": "NHANES II: CDC TIFFs, the Zenodo zip and its extracted pickles, and two render writers",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/nhanes2_cdc_films/raw/nhanes_full (pixels) + the Zenodo zip (landmarks)",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/nhanes2_cdc_films/raw/nhanes_full",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/raw/nhanes_full",
+     "role": "keep: original films",
+     "size_gb": 91.0,
+     "size_basis": "B04.tsv",
+     "read_by": "-"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/nhanes2_zenodo_landmarks/raw/nhanes_annotated/extracted",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/raw/nhanes_annotated/extracted",
+     "role": "candidate: extracted pickles",
+     "size_gb": 159.0,
+     "size_basis": "MP L440",
+     "read_by": "-"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/nhanes2_zenodo_landmarks/raw/nhanes_annotated/NHANESII_Annotations_VertebralOsetophytes.zip",
+     "current_path": "/wsu/home/go/go24/go2432/spine-detector/data/raw/nhanes_annotated/NHANESII_Annotations_VertebralOsetophytes.zip",
+     "role": "keep: the release zip",
+     "size_gb": 1.017,
+     "size_basis": "1,017,496,285 B (DM nhanes2_zenodo_landmarks card)",
+     "read_by": "sd:src/build_dataset.py do_nhanes reads it (L47-L48)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/nhanes2_cdc_films/derived/nhanes_pseudo",
+     "current_path": "/wsu/home/go/go24/go2432/nhanes_pseudo",
+     "role": "keep: pseudo labels",
+     "size_gb": 74.0,
+     "size_basis": "B10.tsv",
+     "read_by": "nhanesps bank"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/films_drr, /rs/rs_grp_oschome/go2432/data/nhanes2_zenodo_landmarks/derived/nhanes_drr",
+     "current_path": "/wsu/home/go/go24/go2432/films_drr (NHANES part), ~/nhanes_drr",
+     "role": "keep: render writers",
+     "size_gb": null,
+     "size_basis": "-",
+     "read_by": "different banks"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "'extracted pickles 159 GB regenerate from the 1.0 GB zip' (MP L440); the pickles carry pixels (L00452's pixels survive only inside the pickle: ssn:slurm/film_corpus_inventory.sh L46-L50), and the zip keeps them. nhanes_pseudo saves (img0 * 255).astype(uint8) as .npy (ssn:tools/pseudolabel_real_films.py L322): re-encoded pixels with pseudo labels that exist nowhere else. films_drr and nhanes_drr come from two writers with different windowing (ssn:tools/manifest_to_drr_format.py L122; ssn:tools/nhanes_to_drr_format.py L126)."
+    ],
+    "confirm_by": [
+     "-"
+    ]
+   },
+   "action": "Extracted pickles (nhanes_annotated/extracted only): CANDIDATE (159 GB). TIFFs, the zip, nhanes_pseudo, render banks: KEEP. The zip, NHANESII_Annotations_VertebralOsetophytes.zip, sits in nhanes_annotated/ beside extracted/ (DM nhanes2_zenodo_landmarks card, 'Where it is now') and is the only local copy of the expert per-level masks (543 pkl) and of L00452's pixels, which have no TIFF. A request to the migration plan, not made here: plan/batch_items/B04.tsv L2 and the nhanes_annotated row of plan/layout_map.csv (MP L440) flag the whole nhanes_annotated folder as the candidate; narrow both to extracted/. Identity (the double inclusion that leaked 48 of 54 validation patients): C04.",
+   "reason": "An archive's extracted copy at 159 times its size.",
+   "canonical_why": "Original films; the 1.0 GB zip regenerates the 159 GB of pickles.",
+   "deletion_candidates": [
+    {
+     "what": "NHANES extracted pickles (nhanes_annotated/extracted)",
+     "gb": 159.0,
+     "when": "now",
+     "condition": "the zip beside it stays"
+    }
+   ]
+  },
+  {
+   "group_id": "B09",
+   "kind": "b",
+   "title": "Crop banks superseded by allspine_v9, and the scaling subset banks",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/allspine_v9_fov96_ctx (shipped) and allspine_v7_fov96_ctx (holdout bank)",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/allspine_fov96_ctx",
+     "current_path": "/wsu/home/go/go24/go2432/allspine_fov96_ctx",
+     "role": "candidate",
+     "size_gb": 4.542,
+     "size_basis": "CEN-H",
+     "read_by": "2 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/allspine_v6_fov96_ctx",
+     "current_path": "/wsu/home/go/go24/go2432/allspine_v6_fov96_ctx",
+     "role": "candidate",
+     "size_gb": 23.018,
+     "size_basis": "CEN-H",
+     "read_by": "4 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/allspine_v7nofluoro_fov96_ctx",
+     "current_path": "/wsu/home/go/go24/go2432/allspine_v7nofluoro_fov96_ctx",
+     "role": "candidate",
+     "size_gb": 31.068,
+     "size_basis": "CEN-H",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/extra_fov96_ctx",
+     "current_path": "/wsu/home/go/go24/go2432/extra_fov96_ctx",
+     "role": "candidate",
+     "size_gb": 12.282,
+     "size_basis": "CEN-H",
+     "read_by": "4 launch and cleanup scripts (T2-REFS)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/buu_lspine_3600/derived/buu_fov96_ctx",
+     "current_path": "/wsu/home/go/go24/go2432/buu_fov96_ctx",
+     "role": "candidate",
+     "size_gb": 9.981,
+     "size_basis": "CEN-H",
+     "read_by": "0 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/scaling",
+     "current_path": "/wsu/home/go/go24/go2432/scaling",
+     "role": "candidate (conditional)",
+     "size_gb": 129.2,
+     "size_basis": "B11.tsv",
+     "read_by": "3 code files (PRB); cut from the deleted allspine_v2 by every launch script"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/merged_ctx",
+     "current_path": "/wsu/home/go/go24/go2432/merged_ctx",
+     "role": "candidate",
+     "size_gb": null,
+     "size_basis": "not sized",
+     "read_by": "2 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/allspine_v8_fov96_ctx",
+     "current_path": "/wsu/home/go/go24/go2432/allspine_v8_fov96_ctx",
+     "role": "keep, later candidate",
+     "size_gb": 5.494,
+     "size_basis": "CEN-H",
+     "read_by": "5 code files (PRB)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/multisource_banks/derived/allspine_v9_fov96_ctx, allspine_v7_fov96_ctx",
+     "current_path": "/wsu/home/go/go24/go2432/allspine_v9_fov96_ctx, allspine_v7_fov96_ctx",
+     "role": "keep",
+     "size_gb": 14.611,
+     "size_basis": "CEN-H",
+     "read_by": "30 and 15 code files (PRB)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "Re-cuts of the same render and film folders with other mixes, splits and keyings (MDMR section 3). v6 and v7 carry the NHANES double inclusion and the CTSP cross-naming leak (mem:nhanes-double-inclusion; mem:split-leak-cross-naming); v8 puts five VerSe people on both sides (PIS section 3 row 7). extra and buu are all-train pools whose films are in the shipped or holdout banks (MDMR L236, L243; XDU). merged_ctx is m_mask22_scale_ctx minus the scale array (MDMR L248). The scaling banks copy their parent's rows into each new file (ssn:tools/subset_bank.py docstring and L108)."
+    ],
+    "confirm_by": [
+     "A22 for v8 against v9"
+    ]
+   },
+   "action": "v1, v6, v7nofluoro (MP L474-L476), extra, buu, merged_ctx (MP candidates table): CANDIDATE (80.9 GB sized). scaling: CANDIDATE only once the scaling figures are frozen. MP section 8 calls them 'regenerable by tools/subset_bank.py', but every launch cuts them from ~/allspine_v2_fov96_ctx (slurm/leads_chain.sh L56-L57, slurm/film_lora_apply.sh L51, slurm/scaling_sweep.sh L27 and L38), and that bank was deleted on 2026-09-20 (mem:grid-quota-and-deleted-banks). Regenerating them needs allspine_v2 rebuilt from render sources that have changed since, so the result would not be the same bytes. v8: KEEP until its readers move to v9, then CANDIDATE (5.5 GB). v9, v7: KEEP. films_all2 and films_ann: KEEP the banks; their rung files are A17 and A18.",
+   "reason": "Superseded or regenerable re-cuts of the same rows.",
+   "canonical_why": "v9 is keyed by subject across sources (mem:split-leak-cross-naming); v7 is the holdout path for 57 references (MP L213-L216).",
+   "deletion_candidates": [
+    {
+     "what": "allspine v1, v6, v7nofluoro, extra, buu banks",
+     "gb": 80.891,
+     "when": "now",
+     "condition": ""
+    },
+    {
+     "what": "scaling subset banks",
+     "gb": 129.2,
+     "when": "conditional",
+     "condition": "once the scaling figures are frozen; regenerable only after rebuilding allspine_v2, and not byte-identical"
+    },
+    {
+     "what": "allspine_v8",
+     "gb": 5.494,
+     "when": "later",
+     "condition": "after its 5 readers move to v9"
+    }
+   ]
+  },
+  {
+   "group_id": "B10",
+   "kind": "b",
+   "title": "Archives kept beside their unpacked trees (C-ArmLSpine, Ljubljana, Geneva, RibFrac)",
+   "canonical": "the unpacked trees, except Geneva and RibFrac (below)",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/carmlspine/C-ArmLSpine.zip",
+     "current_path": "(Ceph-native)",
+     "role": "candidate (conditional)",
+     "size_gb": 15.582,
+     "size_basis": "15,581,614,253 B (AUDIT L710)",
+     "read_by": "-"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ljubljana/2D-3D-GS.zip",
+     "current_path": "(Ceph-native)",
+     "role": "candidate",
+     "size_gb": 0.079,
+     "size_basis": "79,049,365 B (AUDIT L715); a laptop copy of the same size (ctsp:2D-3D-GS.zip)",
+     "read_by": "-"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/geneva_hip_src (archive)",
+     "current_path": "(Ceph-native)",
+     "role": "keep",
+     "size_gb": null,
+     "size_basis": "folder 1.111 GB",
+     "read_by": "-"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/ribfrac (only -image.nii.gz extracted)",
+     "current_path": "/wsu/home/go/go24/go2432/data/ribs (RibFrac image zips, RibSeg v2, Moller masks)",
+     "role": "keep until labels are placed",
+     "size_gb": 78.699,
+     "size_basis": "HOME 78.699 GB, 89 files; Ceph 78.200 GB, 661 files (DM ribfrac card)",
+     "read_by": "-"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "The Geneva manifest hashed the 69-file work directory, not the 482-file source archive (DM section 4 row 26), so the archive is the only release-original form. RibFrac is 'held twice, as zips on HOME and unzipped images on Ceph' (DM ribfrac card), but only the -image files were extracted, so the zips still hold what the Ceph tree lacks."
+    ],
+    "confirm_by": [
+     "-"
+    ]
+   },
+   "action": "C-ArmLSpine.zip: CANDIDATE (15.6 GB) once the deposit is confirmed to still serve it with its MD5 (C-ArmLSpine.zip.ok). 2D-3D-GS.zip: CANDIDATE (0.08 GB). Geneva archive: KEEP. RibFrac zips: KEEP until their label members sit beside the Ceph images; then the image part is redundant (Greg).",
+   "reason": "Archives beside unpacked trees.",
+   "canonical_why": "Readers and hashed roots use the unpacked trees.",
+   "deletion_candidates": [
+    {
+     "what": "2D-3D-GS.zip",
+     "gb": 0.079,
+     "when": "now",
+     "condition": ""
+    },
+    {
+     "what": "C-ArmLSpine.zip",
+     "gb": 15.582,
+     "when": "conditional",
+     "condition": "the deposit still serves it"
+    }
+   ]
+  },
+  {
+   "group_id": "B11",
+   "kind": "b",
+   "title": "FluoroCap stages: raw/ (PMC re-encodes) and raw_hires/ (publisher originals), youtube/",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/fluorocap/raw/FluoroCap/raw_hires and the frozen releases",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/fluorocap/raw/FluoroCap/raw",
+     "current_path": "/wsu/home/go/go24/go2432/FluoroCap/raw",
+     "role": "keep",
+     "size_gb": 2.27,
+     "size_basis": "AUDIT L759",
+     "read_by": "panels cut from it (U30)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/fluorocap/raw/FluoroCap/raw_hires",
+     "current_path": "/wsu/home/go/go24/go2432/FluoroCap/raw_hires",
+     "role": "keep",
+     "size_gb": null,
+     "size_basis": "2,080 files (AUDIT L759)",
+     "read_by": "1 code file (T2-REFS)"
+    },
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/fluorocap/raw/FluoroCap/youtube",
+     "current_path": "/wsu/home/go/go24/go2432/FluoroCap/youtube",
+     "role": "not a duplicate (migration candidate)",
+     "size_gb": 181.0,
+     "size_basis": "AUDIT L761",
+     "read_by": "0 code files (T2-REFS)"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "youtube/ is already a migration candidate because directive D1 dropped FluoroCap from training (MP L435); it is a duplicate only if $RS/data/external/fluoro_video holds the same videos (U12)."
+    ],
+    "confirm_by": [
+     "-"
+    ]
+   },
+   "action": "KEEP raw/ and raw_hires/ (which panels were cut from which is U30). youtube/ is not counted here. Subset banks: A16.",
+   "reason": "Two resolutions of one figure set.",
+   "canonical_why": "Original bytes over re-encoded: raw_hires replaces 2,059 PMC copies, median gain 6.25x (AUDIT L759, L768); the frozen releases are authoritative (MP L209).",
+   "deletion_candidates": []
+  },
+  {
+   "group_id": "B12",
+   "kind": "b",
+   "title": "COBRA frames counted up to four times (Ceph-native; already links or re-windowed)",
+   "canonical": "/rs/rs_grp_oschome/go2432/data/realxray/cobra_elekta*",
+   "members": [
+    {
+     "path": "/rs/rs_grp_oschome/go2432/data/realxray/cobra_elekta, _v2, _ap45, _v2_ap45",
+     "current_path": "(Ceph-native)",
+     "role": "keep",
+     "size_gb": null,
+     "size_basis": "-",
+     "read_by": "tools/realxray_train.py"
+    }
+   ],
+   "identity": {
+    "claimed_by": [
+     "'2,445 of the 5,013 duplicate train images are byte-identical (the ap45 banks are symlink views ...), and the rest are those same exposures re-windowed into new PNGs'; the four splits.json are byte-identical (AUDIT L1172-L1182). films_drr_buucorr/img is already a symlink to films_drr/img (ssn:tools/correct_buu_schema.py L95-L97)."
+    ],
+    "confirm_by": [
+     "-"
+    ]
+   },
+   "action": "Nothing to free: the defect is in tools/realxray_train.py ready() (AUDIT L120-L123) and in the index's counting (C09).",
+   "reason": "Recorded so nobody hashes it again.",
+   "canonical_why": "-",
+   "deletion_candidates": []
+  },
+  {
+   "group_id": "C01",
+   "kind": "c",
+   "title": "VerSe: 374 series of 355 subjects; series held twice in raw/; canonical/ counted",
+   "canonical": "subject key of the canonical release",
+   "members": [],
+   "identity": {
+    "claimed_by": [
+     "VerSe'19 160 series / 141 subjects, VerSe'20 319 / 300, overlap 105 series (86 subjects), union 374 scans of 355 patients (AUDIT L656-L658); manifest.csv maps series_id -> patient_id, 374 -> 355 (VFG manifest/manifest.csv; ssn:tools/patient_keys.py L115-L133); the 18 subjects (PIS section 3 row 7). The index keys verse:<series> (BI L754) and counts canonical/ items (BI L756) and both raw copies. BI's VERSE_SUB (L713) is case-sensitive, so the raw VerSe'20 GL### items (raw/verse20/01_training/GL003/GL003.nii.gz: VFG unified metas) get no subject key."
+    ],
+    "confirm_by": [
+     "index_aliases.csv rows with group_id C01"
+    ]
+   },
+   "action": "subject alias verse:<series> -> verse:<patient_id> (37 rows); item level: the VerSe'19 copy of a series also held as VerSe'20 counted = 0 with lineage to the VerSe'20 item (95 series; duplicate_of when A01 linked it); canonical/ items counted = 0 (converted_from raw); render banks: pass the VerSe map to key_any (BI L794); match VERSE_SUB case-insensitively and lowercase the key (BI L713), or the raw GL### items stay unkeyed.",
+   "reason": "never deleted; recorded as one subject so no split puts a person on both sides",
+   "subjects": "18 subjects own 37 series (19 phantom subject keys today)",
+   "leak_on_record": "5 patients on both sides of allspine_v8 (verse401, 406, 407, 408, 416; PIS section 3 row 7).",
+   "alias_rows": {
+    "concrete": 37,
+    "rule": 0,
+    "pending_table": 0,
+    "candidate": 0
+   }
+  },
+  {
+   "group_id": "C02",
+   "kind": "c",
+   "title": "CT COLONOGRAPHY people: TCIA, CTSpinoPelvic1K, CTSpine1K, the April release",
+   "canonical": "subject key of the canonical release",
+   "members": [],
+   "identity": {
+    "claimed_by": [
+     "One release id = one person, 802/802 by two routes (PIS L119); the manifest token is the TCIA PatientID tail, not the release id (release 0145 = token 100; mem:identity-audit-findings); 782 CTSpine1K COLONOG volumes match a CTSP token and 1.3.6.1.4.1.9328.50.4.0085 and .0680 do not (OCT crosswalk_report.json); checked here: all 782 alias_rows.csv rows agree with the deposit manifest's token -> volume_id map. A person link, not an acquisition link: CTSpine1K's retained series may be the other position (ssn:tools/other_ct_dedupe.py L7-L8; mem:ctspine1k-selection-code-deleted). The TCIA raw DICOM and tcia_nifti are gone from HOME and Ceph (CEN-J; CEN-C; U1)."
+    ],
+    "confirm_by": [
+     "index_aliases.csv rows with group_id C02"
+    ]
+   },
+   "action": "subject alias tcia_ctc:<PatientID> -> ctsp:<vid> (802 rows, spelled as BI L650 keys the TCIA DICOM: 782 PatientIDs recorded in alias_rows.csv, 20 spelled by rule and marked so) plus one rule row (token = the CTC- id as is, else int() of the last OID component: ssn:tools/other_ct_dedupe.py L68-L69), and ctspine1k:COLONOG/<PatientID> -> ctsp:<vid> (782); the two non-CTSP volumes keep their own key tcia_ctc:<PatientID>; the April records need a keyed adapter and their manifest (not at any cited location). Neither tcia_ctc nor ctspine1k is in patient_keys.PERSON_FORMAT (ssn:tools/patient_keys.py L316-L337), so resolve_key refuses both until entries are added, and BI has no CTSpine1K adapter that emits ctspine1k: keys. Never write a token as ctsp:<token>: canon_key zero-pads token 100 to ctsp:0100, release 0100, another person (ssn:tools/patient_keys.py L250-L255; BI L111-L112). No item-level duplicate_of between a CTSpine1K volume and a CTSP CT until a series match is shown.",
+   "reason": "never deleted; recorded as one subject so no split puts a person on both sides",
+   "subjects": "802 CTSP persons; 782 CTSpine1K COLONOG volumes are CTSP persons; 2 are not; 1,153 April records are the same 802",
+   "leak_on_record": "357 CTSP people sat on both sides of the v6/v7 split through cross-naming (DM section 4 row 15).",
+   "alias_rows": {
+    "concrete": 1586,
+    "rule": 1,
+    "pending_table": 1,
+    "candidate": 0
+   }
+  },
+  {
+   "group_id": "C03",
+   "kind": "c",
+   "title": "TotalSegmentator v2.0.1 inside v3.0.0: 24 renumbered, 15 merged, 3 repeats inside v3",
+   "canonical": "subject key of the canonical release",
+   "members": [],
+   "identity": {
+    "claimed_by": [
+     "v2 s1406-s1429 = 24 other v3 ids, vacated numbers reissued (PIS section 3 row 6); s1445=s1446, s2107=s2109=s2110 (PIS L162); s2093/s2094 near, not equal (PIS L162) but merged by make_split's DECLARED_ALIASES (ssn:tools/make_split.py L91-L93) and in the frozen split (SchwingNet/results/fig6/frozen/v1/split_final.json group_of: ts:s2094 -> ts:s2093); s0254/s0927 'one scan whose bytes differ' (PIS L98; ssn:tools/make_split.py L92), while ssn:tools/ts_transitional_registry.py L901-L903 says 'v201 s0254 and s0927 differ from v300 s0254 / s0927 only in the gzip stream', so which release each id of the pair belongs to is not recorded. The index keys ts:<s####> for both releases (BI L698): 24 people split, 15 merged. No keyer produces ts201: or ts300:: key_for and key_any return release-blind ts:s#### (SCHEMES ts_plain, ts_render: ssn:tools/patient_keys.py L55-L56, L70), and PERSON_FORMAT has no ts201/ts300 corpus (L316-L337), so resolve_key refuses such keys."
+    ],
+    "confirm_by": [
+     "index_aliases.csv rows with group_id C03"
+    ]
+   },
+   "action": "release-qualified raw keys (ts201:, ts300:) mapped to the canonical subject ts:<v300 id>; all 29 rows here are pending_table until a release-qualified TotalSegmentator scheme exists (a patient_keys scheme, PERSON_FORMAT entries, a bank registry for the release, and BI emitting ts201:/ts300: instead of ts: at L698): 24 renumbered rows, 3 in-release rows, s2094 -> s2093 as same_scan_declared (as make_split and split_final.json already merge them), and s0927 -> s0254 with its release unrecorded; the other 1,204 v2 ids map from ct_fingerprints.json (or from A05's hash results). Item level: a v2 CT with a v3 twin counted = 0 with lineage to it (duplicate_of when A05 linked it).",
+   "reason": "never deleted; recorded as one subject so no split puts a person on both sides",
+   "subjects": "1,935 distinct scans over 3,167 folders (PIS L120); persons unknowable (no patient id: PIS L185-L192)",
+   "leak_on_record": "Both halves of all 24 pairs are live across ts_drr/anchor_drr/physics_drr (v2) and ts_drr_v3/anchor_drr_c2 (v3) (PIS section 3 row 6).",
+   "alias_rows": {
+    "concrete": 0,
+    "rule": 0,
+    "pending_table": 30,
+    "candidate": 0
+   }
+  },
+  {
+   "group_id": "C04",
+   "kind": "c",
+   "title": "NHANES II under three names",
+   "canonical": "subject key of the canonical release",
+   "members": [],
+   "identity": {
+    "claimed_by": [
+     "Spellings nhanes_00160, NH_00160_c/_l, NHANESPS_C00160 (PIS L149); 48 of 54 validation patients had their other copy in training (ssn:docs/NHANES_DOUBLE_INCLUSION_2026-09-22.md). Both raw adapters key nhanes:<5 digits> (BI L500, L509-L510); no NHANESPS rule was found in ssn:tools/patient_keys.py (U29)."
+    ],
+    "confirm_by": [
+     "index_aliases.csv rows with group_id C04"
+    ]
+   },
+   "action": "three rule rows to nhanes:<5 digits>; item level: the 542 pickle images that are the same picture as a CDC TIFF counted = 0 with lineage (L00452 has no TIFF and stays counted).",
+   "reason": "never deleted; recorded as one subject so no split puts a person on both sides",
+   "subjects": "364 annotated people (179 with both a C and an L film); 362 of them also in nhanes_pseudo (PIS L122, L149)",
+   "leak_on_record": "48 of 54 validation patients (banks v2, v6, v7).",
+   "alias_rows": {
+    "concrete": 0,
+    "rule": 3,
+    "pending_table": 0,
+    "candidate": 0
+   }
+  },
+  {
+   "group_id": "C05",
+   "kind": "c",
+   "title": "DeepFluoro specimens across the H5, the 8x H5, the vendor deposit, the HF re-host",
+   "canonical": "subject key of the canonical release",
+   "members": [],
+   "identity": {
+    "claimed_by": [
+     "8x H5 names the six 01-06: 01=17-1882, 02=18-1109, 03=18-0725, 04=18-2799, 05=18-2800, 06=17-1905 (PIS L131); the fluoroscopy PatientID merges 18-2799 with 18-2800 and splits others (PIS section 3 row 15)."
+    ],
+    "confirm_by": [
+     "index_aliases.csv rows with group_id C05"
+    ]
+   },
+   "action": "6 rows deepfluoro_8x:<NN> -> deepfluoro:<accession>; the HF subjectNN map waits for report/hf_vs_h5.json (U11); never key on the vendor PatientID.",
+   "reason": "never deleted; recorded as one subject so no split puts a person on both sides",
+   "subjects": "6 cadavers",
+   "leak_on_record": "-",
+   "alias_rows": {
+    "concrete": 6,
+    "rule": 0,
+    "pending_table": 1,
+    "candidate": 0
+   }
+  },
+  {
+   "group_id": "C06",
+   "kind": "c",
+   "title": "BUU-LSPINE byte pairs and the 2000/3600 releases",
+   "canonical": "subject key of the canonical release",
+   "members": [],
+   "identity": {
+    "claimed_by": [
+     "0140/0719 share byte-identical AP and LA JPEGs, 0449/0629 an AP JPEG (PIS L123); make_split declares them (ssn:tools/make_split.py L93). Whether buu_2000 names carry the buu_full case numbers is not checked (T3 unknown 17)."
+    ],
+    "confirm_by": [
+     "index_aliases.csv rows with group_id C06"
+    ]
+   },
+   "action": "2 rows buu:0719 -> buu:0140, buu:0629 -> buu:0449 (bytes proven, person not); A12's links give the 2000 JPEGs duplicate_of their buu_full items.",
+   "reason": "never deleted; recorded as one subject so no split puts a person on both sides",
+   "subjects": "3,600 by the released table; at most 3,598 if the two byte pairs are one person each (PIS L123)",
+   "leak_on_record": "-",
+   "alias_rows": {
+    "concrete": 2,
+    "rule": 0,
+    "pending_table": 0,
+    "candidate": 0
+   }
+  },
+  {
+   "group_id": "C07",
+   "kind": "c",
+   "title": "VinDr-SpineXR images and studies",
+   "canonical": "subject key of the canonical release",
+   "members": [],
+   "identity": {
+    "claimed_by": [
+     "The render banks carry vindr_<image_id> and the index turns it into vindr:<image_id>, a key that looks like a study key (PIS L78; ssn:tools/patient_keys.py L159-L166, L334)."
+    ],
+    "confirm_by": [
+     "index_aliases.csv rows with group_id C07"
+    ]
+   },
+   "action": "10,466 rows image -> study from annotations/{train,test}.csv (on the grid, restricted under the DUA); unit = study.",
+   "reason": "never deleted; recorded as one subject so no split puts a person on both sides",
+   "subjects": "10,466 images over 5,000 studies; the study is the finest unit (PIS L125, L206-L212)",
+   "leak_on_record": "77.8 % of vindrps validation cases have a same-study sibling in training (DM section 4 row 30).",
+   "alias_rows": {
+    "concrete": 0,
+    "rule": 0,
+    "pending_table": 1,
+    "candidate": 0
+   }
+  },
+  {
+   "group_id": "C08",
+   "kind": "c",
+   "title": "Mendeley 5jdfdgp762: a redistribution of BUU and VinDr",
+   "canonical": "subject key of the canonical release",
+   "members": [],
+   "identity": {
+    "claimed_by": [
+     "16 Test images byte-identical to BUU originals, 500 more at r = 1.0000 (PIS section 3 row 10); duplicate_of on 500 of 584 anns (PIS section 2 mendeley row)."
+    ],
+    "confirm_by": [
+     "index_aliases.csv rows with group_id C08"
+    ]
+   },
+   "action": "rows from the anns' duplicate_of (on the grid) to buu:<NNNN> and vindr:<study>.",
+   "reason": "never deleted; recorded as one subject so no split puts a person on both sides",
+   "subjects": "about 500 BUU persons and 12 VinDr studies; 71 refused (PIS L126)",
+   "leak_on_record": "-",
+   "alias_rows": {
+    "concrete": 0,
+    "rule": 0,
+    "pending_table": 1,
+    "candidate": 0
+   }
+  },
+  {
+   "group_id": "C09",
+   "kind": "c",
+   "title": "COBRA cases seen by several frame banks",
+   "canonical": "subject key of the canonical release",
+   "members": [],
+   "identity": {
+    "claimed_by": [
+     "Subject keys are right (cobra:<case>, BI L555, L590); every exported frame is counted (BI L564-L571) and ct_def.mha / cbct_rtk.mha are counted as acquisitions (BI L595-L601)."
+    ],
+    "confirm_by": [
+     "index_aliases.csv rows with group_id C09"
+    ]
+   },
+   "action": "no alias; item level: exported frames, ct_def and cbct_rtk counted = 0 with lineage to projections.mha / ct_original.mha.",
+   "reason": "never deleted; recorded as one subject so no split puts a person on both sides",
+   "subjects": "145 cases in the four cobra_elekta* banks (PIS L163)",
+   "leak_on_record": "one detector arm saw the same 145 patients up to four times (AUDIT L18).",
+   "alias_rows": {
+    "concrete": 0,
+    "rule": 1,
+    "pending_table": 0,
+    "candidate": 0
+   }
+  },
+  {
+   "group_id": "C10",
+   "kind": "c",
+   "title": "Renders keyed to their source CT (implant, PolyPose, CTSP_VERSE_, CTSP cross-naming, devcorpus, C-arm case views)",
+   "canonical": "subject key of the canonical release",
+   "members": [],
+   "identity": {
+    "claimed_by": [
+     "make_split already folds 8,859 implant and PolyPose renders to their source (ssn:SchwingNet/results/rare_class/split_plan.md L205); the index's render-bank adapter passes no crosswalk, VerSe, implant or VinDr map to key_any (BI L794)."
+    ],
+    "confirm_by": [
+     "index_aliases.csv rows with group_id C10"
+    ]
+   },
+   "action": "rule rows; implant renders resolve to ctsp:, ts: or verse: by their source scheme, as key_any does (make_implant_ct hardware records, else the one declared build whose case format fits: ssn:tools/patient_keys.py L393-L394, L426-L450), since implant_verse (373 VerSe series) and implant_ts exist beside the CTSP implants; the adapter must pass the Dataset813 crosswalk, the VerSe map and the implant map to key_any.",
+   "reason": "never deleted; recorded as one subject so no split puts a person on both sides",
+   "subjects": "799 CTSP implant people, 312 VerSe series under CTSP_VERSE_, 17 devcorpus subjects, 148-149 C-arm sessions (PIS section 3 rows 3, 4, 8, 16, 17)",
+   "leak_on_record": "301 of 801 CTSP people on both sides of anchor_drr's own split (PIS section 3 row 4).",
+   "alias_rows": {
+    "concrete": 0,
+    "rule": 7,
+    "pending_table": 0,
+    "candidate": 0
+   }
+  },
+  {
+   "group_id": "C11",
+   "kind": "c",
+   "title": "Family B: exact pixel folds and near-duplicates across collections",
+   "canonical": "subject key of the canonical release",
+   "members": [],
+   "identity": {
+    "claimed_by": [
+     "Cross-collection exact duplicates are both counted, each with pixel_sha1 in extra (BI L872); alias_pairs*.csv are not in the repository (DM L3705-L3706)."
+    ],
+    "confirm_by": [
+     "index_aliases.csv rows with group_id C11"
+    ]
+   },
+   "action": "rows from TIERS tier1/tier2 same_ct_as; a candidate table for the 1,186 with status unreviewed; unit = volume for AbdomenAtlas BDMAP ids and the AMOS unlabelled set.",
+   "reason": "never deleted; recorded as one subject so no split puts a person on both sides",
+   "subjects": "127 exact folds (TIERS L16-L20); 1,186 near-duplicate candidates unreviewed (TIERS L217-L219)",
+   "leak_on_record": "-",
+   "alias_rows": {
+    "concrete": 0,
+    "rule": 0,
+    "pending_table": 1,
+    "candidate": 0
+   }
+  }
+ ]
+}

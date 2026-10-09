@@ -1,0 +1,829 @@
+===== PAGE 1 =====
+Preprint: Under Review [VOLUME # TBD]:1–20, 2026 Machine Learning for Healthcare (MLHC) 2026
+CTSpinoPelvic1K: A Unified CT Benchmark for
+Lumbosacral Transitional Vertebra Segmentation
+Anonymous Author(s)anonymous@institution.edu
+Anonymous Institution
+Abstract 1
+Machine learning models for spine segmentation face two compounding blind spots: a2
+modality gap(predominance of MRI-derived benchmarks despite CT being the clinical3
+standard for surgical planning) and ananomaly gap(near-complete absence of Lum-4
+bosacral Transitional Vertebra (LSTV) annotation in existing CT datasets despite a 5–5
+35% population prevalence). We introduceCTSpinoPelvic1K, a CT-native benchmark6
+of 1,137 colonoscopy-protocol abdominal CT volumes across 804 patients with a unified7
+10-class spinopelvic segmentation labelmap and dual-origin LSTV phenotype labels.8
+The benchmark is assembled from CTSpine1K and CTPelvic1K—two independently cu-9
+rated public datasets sharing a patient cohort but using incompatible NIfTI coordinate10
+conventions—via a two-phase patient-anchored pipeline: canonical UID matching resolves11
+identity with algebraic certainty, after which intrapatient exhaustive bone-HU maximiza-12
+tion selects the source CT series for each annotation with no heuristic fallbacks. A key13
+methodological contribution is apartial-annotation training protocol: only 338 of the14
+1,137 cases carry fused spine-plus-pelvis ground truth, but we describe how the remaining15
+799 spine-only and pelvic-only cases can be incorporated into training via nnU-Net v2’s16
+ignore labelmechanism by rewriting unobserved background voxels, yielding a 3.36×17
+increase in effective training data without biasing the model toward predicting background18
+on unobserved structures. We further characterize systematic 0% cross-source agreement19
+between two independent radiology teams at the sacralization boundary—not annotation20
+noise but radiologically meaningful definitional indeterminacy between morphological and21
+vertebral-counting operationalizations—and release both annotations with explicit arbitra-22
+tion metadata. A zero-shot TotalSegmentator benchmark concretely quantifies the anomaly23
+gap: junction Dice drops 19.6 points (0.770→0.574) from Normal to Any-LSTV cases,24
+with lumbarization cases degrading to 0.421 junction Dice owing to TotalSegmentator’s25
+structural inability to emit an L6 class. TheCTSpinoPelvic1Kdataset is publicly re-26
+leased on HuggingFace; the preprocessing pipeline, conversion scripts, and nnU-Net training27
+infrastructure will be released under a permissive license upon acceptance.28
+Keywords:Spine Segmentation Benchmark, Partial-Annotation Training, Lumbosacral29
+Transitional Vertebra, Multi-Dataset Label Fusion, Annotation Arbitration, TCIA, Surgi-30
+cal Planning, CT 31
+Data and Code AvailabilityTheCTSpinoPelvic1Kdataset (images, unified masks,32
+and dual-origin LSTV metadata) is derived from public TCIA collections under their33
+respective data use agreements and is publicly released athttps://huggingface.co/datasets/34
+anonymous-mlhc/CTSpinoPelvic1K. The preprocessing pipeline, conversion scripts, and35
+nnU-Net training infrastructure are not currently public; they will be released under a36
+permissive open-source license upon acceptance. 37
+©2026 A. Author(s).
+===== PAGE 2 =====
+CTSpinoPelvic1K
+IRBAll scans from de-identified public TCIA repositories.38
+1. Introduction39
+The lumbosacral junction is among the most clinically consequential regions of the axial40
+skeleton. Surgical procedures at this level—transforaminal lumbar interbody fusion (TLIF),41
+pedicle screw instrumentation, laminectomy, and sacropelvic fixation—require preoperative42
+planning at millimeter accuracy, and errors at the lumbosacral level carry the highest medi-43
+colegal burden in spine surgery (Carrino et al., 2011). Accurate automated segmentation of44
+the lumbar vertebrae, sacrum, and pelvic girdle supports pedicle screw trajectory optimiza-45
+tion, sacropelvic parameter measurement, intervertebral implant sizing, and intraoperative46
+neuronavigation registration.47
+The LSTV problem.A Lumbosacral Transitional Vertebra (LSTV) is a vertebra at48
+the L5–S1 junction exhibiting morphological characteristics of the adjacent segment (?).49
+Sacralizationoccurs when the fifth lumbar vertebra undergoes bony fusion with the sacrum,50
+reducing the mobile lumbar spine to four segments.Lumbarizationoccurs when the first51
+sacral segment detaches, mimicking an independent sixth lumbar vertebra. Prevalence52
+estimates range from 5% to 35% depending on imaging modality and classification crite-53
+rion (Sekharappa et al., 2014). Wrong-level surgery attributable to transitional anatomy54
+misidentification occurs in an estimated 4.5–15% of cases where preoperative level counting55
+relied on plain film or MRI alone (Konin and Walz, 2010).56
+The modality gap.The most widely used spine segmentation benchmarks—SPIDER,57
+Spine Generic, and TotalSpineSeg—are built entirely on MRI (Graaf et al.; Cohen-Adad58
+et al., 2021; Warszawer et al., 2025). Castellvi morphology is defined by cortical bridging and59
+transverse process ossification, features CT resolves at sub-millimeter resolution and MRI60
+does not. A model trained on MRI and deployed on preoperative CT acquires an implicit61
+domain shift that degrades lumbosacral boundary delineation at the junction where clinical62
+decisions are made.63
+The anomaly gap.CT-trained benchmarks including CTSpine1K (Deng et al., 2021),64
+VerSe (Sekuboyina et al., 2020), TotalSegmentator-CT (Wasserthal et al., 2023), and CT-65
+Pelvic1K (Liu et al., 2021) do not report or control for LSTV prevalence, do not stratify66
+splits by transitional anatomy, and make no attempt to evaluate per-type performance at67
+the lumbosacral junction. No prior ML benchmark has curated LSTV in CT with dense68
+spinopelvic segmentation labels at scale, nor analyzed disagreement structure between in-69
+dependent LSTV annotation operationalizations.70
+The annotation uncertainty problem.Even when LSTV labels are attempted, inde-71
+pendent radiologists applying different operationalizations of the same morphological con-72
+cept can systematically disagree at the lumbosacral boundary. Existing datasets resolve this73
+by publishing a single adjudicated label, discarding the disagreement signal. The medical74
+machine learning community increasingly recognizes that inter-rater disagreement is signal,75
+not noise (Dawid and Skene, 1979):CTSpinoPelvic1Kapplies this principle specifically76
+to the LSTV confusion zone, where disagreement reflects genuine definitional indeterminacy77
+rather than annotator error.78
+2
+===== PAGE 3 =====
+CTSpinoPelvic1K
+The partial-annotation opportunity .A systematic side-effect of fusing independently79
+curated annotation sets is that most cases arepartiallyannotated: the spine mask is present80
+without a matching pelvic mask, or vice versa. Prior work typically discards these, retaining81
+only the intersection where both annotations exist. ForCTSpinoPelvic1K, this would col-82
+lapse a 1,137-case benchmark to just 338 usable training cases—a two-thirds reduction that83
+especially penalizes rare subgroups. We describe how nnU-Net v2’s nativeignore label84
+mechanism enables principled training across all 1,137 cases by rewriting unobserved back-85
+ground voxels to 255, eliciting zero loss contribution from unobserved structures without86
+biasing the model. 87
+Contributions. 88
+1.CTSpinoPelvic1K dataset.1,137 abdominal CT volumes across 804 matched pa-89
+tients with unified 10-class spinopelvic masks and 53 LSTV-labeled cases spanning90
+four phenotypes, released as a public HuggingFace dataset.91
+2.Registration-free fusion of CTSpine1K and CTPelvic1K.Canonical UID match-92
+ing resolves patient identity algebraically (825/825 patients, 100%); intrapatient bone-93
+HU maximization assigns each mask to its source CT series without heuristic metadata94
+fallbacks or spatial registration. We characterize and correct a previously undocu-95
+mented Y-axis coordinate-convention mismatch that would silently corrupt all fused96
+masks. 97
+3.Partial-annotation training protocol.We describe an nnU-Net v2ignore label98
+protocol that enables a 3.36×effective training-set expansion on this multi-source99
+setting by using all 1,137 cases rather than only the 338 fully fused ones. Trained-100
+baseline evaluation is deferred to future work (Section 9).101
+4.Dual-origin LSTV labels with arbitration metadata.Retention of both102
+CTPelvic1K morphological and CTSpine1K counting-based LSTV labels, with explicit103
+origin flags. We document 0% cross-source sacralization agreement— not anno-104
+tation noise but definitional indeterminacy between two legitimate operationalizations—105
+making the confusion zone explicit and available for uncertainty-aware training.106
+5.Zero-shot T otalSegmentator benchmark quantifying the anomaly gap.The107
+most widely deployed multi-organ CT segmentation model in production use loses 19.6108
+junction-DSC points from Normal to Any-LSTV cases (0.770→0.574), collapsing to109
+0.421 on lumbarization cases owing to the absence of an L6 output class.110
+Generalizable Insights about Machine Learning in the Context of Healthcare111
+(1) Partial-annotation training via ignore-label materially expands the usable112
+training set when fusing federated annotation sources.OnCTSpinoPelvic1K,113
+restricting training to fused cases would discard 70% of the annotated data; ignore-label114
+training uses all 1,137 cases with principled supervision masking. The pattern applies115
+directly to any multi-source dataset where different teams annotate different structures on116
+the same underlying images. 117
+3
+===== PAGE 4 =====
+CTSpinoPelvic1K
+(2) Inter-rater disagreement at anatomical boundaries is a recoverable sig-118
+nal, not noise.Two independent radiology teams applying legitimate but distinct oper-119
+ationalizations of the same morphological concept achieve 0% cross-source agreement on120
+sacralization. Datasets should retain both annotations with origin flags; downstream121
+training and evaluation can then exploit rather than discard this disagreement.122
+(3) Coordinate-convention validation is a prerequisite for multi-source med-123
+ical image fusion.The Y-axis reflection between CTSpine1K and CTPelvic1K is un-124
+detectable from voxel spacing alone and would have silently corrupted all fused masks.125
+Any pipeline combining independently processed NIfTI datasets must explicitly validate126
+affine-derived world coordinates on representative landmarks before training.127
+2. Related Work128
+CT spine and pelvis benchmarks.CTSpine1K (Deng et al., 2021) annotated 1,005129
+multi-source CTs with per-vertebra segmentation, and VerSe (Sekuboyina et al., 2020)130
+contributed 460 scans in challenge format. Neither reports LSTV prevalence or stratifies131
+evaluation by transitional anatomy, and many VerSe-derived scans are cropped to a nar-132
+row spinal field of view, discarding the pelvic anatomy required for spinopelvic parameter133
+computation. TotalSegmentator-CT (Wasserthal et al., 2023) labels 104 structures across134
+1,204 CTs, but provides no LSTV classification and reports neighboring-class confusion as135
+a known failure mode at the lumbosacral junction. CTPelvic1K (Liu et al., 2021) encodes136
+LSTV qualitatively in COLONOG mask filenames, which we leverage as a primary label137
+source.138
+MRI benchmarks and the modality gap.SPIDER (Graaf et al.) provides 447 lum-139
+bar MRIs. TotalSpineSeg (Warszawer et al., 2025) is MRI-native; sacrum labels were boot-140
+strapped via CT-to-MRI rigid registration, introducing residual domain noise at the lum-141
+bosacral boundary.142
+Multi-dataset label fusion and partial-annotation training.Li et al. (2025) demon-143
+strated combining CTSpine1K and CTPelvic1K improves joint segmentation using a 3D144
+residual encoder-decoder with linear self-attention at the bottleneck and cross-scale feature145
+fusion in the decoder. That work treats the two datasets as independent sources, pro-146
+vides no LSTV-stratified evaluation, and does not resolve their incompatible coordinate147
+conventions. On the methodological side, Wasserthal et al. (2023) and recent nnU-Net148
+work (Isensee et al., 2024) have established that ignore-label training enables principled use149
+of partial-annotation cases at scale. We are the first to describe this mechanism applied to150
+the spine+pelvis multi-source fusion setting with explicit LSTV-stratified evaluation.151
+LSTV in the ML literature.Kwak et al. (2025) evaluated a CNN on lumbar radio-152
+graphs for binary LSTV detection. BUU-LSPINE (Klinwichit et al., 2023) contributes 3,600153
+lumbar X-rays with LSTV annotation, demonstrating clinical demand for automated LSTV154
+recognition thatCTSpinoPelvic1Kextends into 3D surgical planning CT. No prior ML155
+benchmark has curated LSTV in CT with dense spinopelvic segmentation labels at scale.156
+Orthopedic trauma and oncological benchmarks.The PENGWIN challenge (Sang157
+et al., 2025) and Spine-Mets-CT-SEG (Pieper et al., 2024) establish that per-pathology158
+4
+===== PAGE 5 =====
+CTSpinoPelvic1K
+Table 1: Comparison of spine, pelvis, and adjacent CT benchmarks.✓= available, — =
+not available,†= via cross-modal registration,‡= qualitative filename encoding
+only.CTSpinoPelvic1Kis the only benchmark combining fused labels, LSTV
+annotation, dual-origin arbitration, and a registration-free fusion pipeline
+applicable to arbitrary TCIA collection pairs.
+Dataset Mod.NV ertebral Pelvic F used LSTV Dual-Prov. Pathological F ocus CT-native
+VerSe (Sekuboyina et al., 2020) CT 460✓— — — — Normal anatomy✓CTSpine1K (Deng et al., 2021) CT 1,005✓— — — — Normal anatomy✓CTPelvic1K (Liu et al., 2021) CT 1,184 partial✓—‡— Normal + metal artifacts✓TotalSegmentator (Wasserthal et al., 2023) CT 1,204✓ ✓ ✓— — General multi-organ✓SPIDER (Graaf et al.) MRI 447✓— — — — Normal anatomy —TotalSpineSeg (Warszawer et al., 2025) MRI 1,404✓† †— — Normal anatomy —
+PENGWIN (Sang et al., 2025) CT 150 —✓— — — Pelvic fractures✓Spine-Mets-CT-SEG (Pieper et al., 2024) CT 55✓— — — — Spinal metastases✓BUU-LSPINE (Klinwichit et al., 2023) X-Ray 3,600✓— —✓— LSTV —
+CTSpinoPelvic1K(ours) CT1,137✓ ✓ ✓ ✓ ✓LSTV / congenital variants✓
+evaluation is required: population-average metrics mask failure modes on the clinically159
+highest-risk cases. 160
+3. Dataset Construction: Patient-Anchored Fusion of CTSpine1K and161
+CTPelvic1K 162
+CTSpine1K and CTPelvic1K share a common COLONOG patient cohort but were indepen-163
+dently curated: masks are released as NIfTI files without theSeriesInstanceUIDlinkage164
+to the primary DICOM data, and the two teams used differentdcm2niixinvocations, pro-165
+ducing silently incompatible coordinate conventions (Section 5.3). Fusing these annotation166
+sets therefore requires solving two problems: (i)identity—determining which pelvic mask167
+belongs to which patient in which dataset—and (ii)alignment—determining which specific168
+CT acquisition each mask was drawn from, in world coordinates. We solve both without169
+spatial registration or heuristic metadata fallbacks. 170
+Identity via canonical UID join.Both CTSpine1K and CTPelvic1K mask filenames171
+encode the TCIAPatientIDwith zero-padded UID suffixes whose padding conventions dif-172
+fer between dataset releases, causing naive string matching to fail. Canonical UID matching173
+(Eq. 1) reduces the problem to anO(N) exact relational join, algebraically guaranteed cor-174
+rect up to padding. On CTSpine1K∪CTPelvic1K this resolves 825/825 patients (100%)175
+with zero heuristic fallbacks. 176
+Alignment via intrapatient bone-HU maximization.Restricting candidate series177
+to the patient’s own TCIA acquisitions reduces the search space from a global index (∼105–178
+106 CT series) to|S p| ≈4 candidates. Within this bounded set, bone-HU maximization179
+(Eq. 2) serves as a metadata-free oracle for mask-to-series assignment—useful because the180
+DICOM metadata fields normally relied upon (SeriesDescription,BodyPartExamined)181
+are frequently missing or mislabeled in TCIA releases. Placement succeeds on 789/792182
+spine masks (99.6%) and 714/714 pelvic masks (100%); the failure modes are documented183
+in Section 7. 184
+5
+===== PAGE 6 =====
+CTSpinoPelvic1K
+Partial-annotation opportunity .Because CTSpine1K and CTPelvic1K annotate over-185
+lapping but non-identical patient subsets, the fused benchmark ispartially annotated: 338186
+of 1,137 cases carry both spine and pelvic ground truth, 443 are spine-only, and 356 are187
+pelvic-only. Prior work typically discards partial cases, retaining only the intersection.188
+We instead describe an nnU-Net v2ignore labelprotocol for training across all 1,137189
+cases (Section 5.5), yielding a 3.36×effective training-set expansion relative to fused-only190
+baselines.191
+Scope of generalization.The patient-anchored pipeline is specific to the CTSpine1K/CTPelvic1K192
+fusion demonstrated here. The underlying primitives—UID canonicalization for identity193
+resolution, and tissue-HU-based intrapatient series selection for alignment—are applicable194
+whenever two annotation sets share a TCIA patient cohort, but we do not claim empirical195
+validation beyond the single dataset pair reported here. We discuss candidate extensions196
+in Section 9.197
+4. Source Data198
+CTSpinoPelvic1Kassembles three interlocking public TCIA resources sharing a common199
+patient cohort.200
+COLONOG.The CT Colonography collection (Smith et al., 2015) provides paired supine201
+and prone abdominal CTs from 825 subjects. Protocol: 100–120 kVp, in-plane resolution202
+0.625–0.977 mm, slice thickness 0.8–1.0 mm, soft-tissue kernel. The paired acquisitions—203
+absent from all prior spine benchmarks— enable position-invariant training.204
+CTSpine1K.CTSpine1K (Deng et al., 2021) annotated 784 COLONOG cases with per-205
+vertebra segmentation using the VerSe label scheme (IDs 20–25 encode L1–L6; ID 26 encodes206
+sacrum).207
+CTPelvic1K.CTPelvic1K (Liu et al., 2021) provides four-class pelvic masks (sacrum,208
+left hip, right hip) for 714 of the same COLONOG patients. Despite originating from the209
+same acquisitions, differentdcm2niixinvocations produced a systematic Y-axis reflection210
+between label spaces (Section 5). CTPelvic1K mask filenames encode patient UID, Series-211
+Number, and LSTV phenotype as a qualifier, providing the primary LSTV label source for212
+CTSpinoPelvic1K.213
+5. Methods214
+5.1. Phase 1: Patient-Anchored Identity Resolution215
+Both CTSpine1K and CTPelvic1K mask filenames encode the TCIAPatientIDDICOM216
+tag but not theSeriesInstanceUID. Both UIDs carry zero-padded last components that217
+vary between dataset releases, causing naive string matching to fail. We establish patient218
+identity via canonical UID matching:219
+canon(u) = prefix(u)∥int(suffix(u)) (1)
+6
+===== PAGE 7 =====
+CTSpinoPelvic1K
+Table 2: COLONOG scan statistics forCTSpinoPelvic1K.
+Property V alue
+Patients total 825
+With both positions 694
+Spine masks (CTSpine1K) 784
+Pelvic masks (CTPelvic1K) 714
+Matched patients (CTSpinoPelvic1K) 804
+Matched volumes (CTSpinoPelvic1K) 1,137
+Fused (spine + pelvis) 338
+Spine-only 443
+Pelvic-only 356
+where int(·) strips leading zeros from the final UID component. Identity isalgebraically220
+exact—no heuristic required. PatientDB (schema in Appendix A) organizes all data using221
+canonical patient UID as the primary key, and resolves825/825 patients (100%).222
+5.2. Phase 2: Intrapatient Exhaustive Series Assignment223
+For maskmbelonging to patientp, we identify its source TCIA series by exhaustive intra-224
+patient search. COLONOG patients have|S p| ≈4 CT-quality series, making this tractable.225
+For each candidate series, we compute bone-HU coverage:226
+fbone(m, s) =
+P
+v∈L(m,s) 1[Is(v)> τbone]
+|L(m, s)| τbone = 200 HU (2)
+and selects ∗(m) = arg maxs∈Sp fbone(m, s). The same criterion applies to both spine and227
+pelvic masks, differing only in the geometric alignment functionL(m, s). This eliminates228
+metadata-dependent heuristics: a correctly matched spine mask exhibitsf bone ≫0.5; place-229
+ment over a soft-tissue or scout series yieldsfbone ≈0 (Figure 3). Algorithm 1 in Appendix C230
+provides pseudocode. 231
+5.3. Affine Placement: The Y-Axis Reflection232
+The DICOM standard mandates an LPS+ patient basis while NIfTI natively encodes RAS+.233
+When independent teams convert the same DICOM source using different toolchains, the234
+resulting NIfTI affines carry silently inverted axes. CTSpine1K encodes center voxels at235
+worldy≈ −181 mm; CTPelvic1K aty≈+181 mm for the same patients. Given NIfTI236
+affineAand voxel extentN y: 237
+yctr =A 1,3 + Ny
+2 ·A 1,1,flip =
+ 
+ymask
+ctr ·y ref
+ctr <0
+
+(3)
+When flip = true, the mask array is reversed along axis 1 and the affine updated exactly.238
+Detection succeeds on all 714 pelvic masks; zero failures. CTPelvic1K masks are addi-239
+tionally z-cropped sub-volumes; the starting z-offset is recovered by cross-correlating CT240
+bone-density and mask occupancy profiles. 241
+7
+===== PAGE 8 =====
+CTSpinoPelvic1K
+5.4. Unified Label Map242
+CTSpine1K VerSe labels and CTPelvic1K labels are remapped into a unified 10-class243
+scheme: 0 = background; 1–5 = L1–L5 (VerSe 20–24); 6 = L6 / lumbarized S1 (VerSe 25;244
+LSTV only); 7 = sacrum (VerSe 26 / CTPelvic1K label 1); 8 = left hip (CTPelvic1K 2);245
+9 = right hip (CTPelvic1K 3). Class 6 is the first evaluation class in any public benchmark246
+reserved for the lumbarized transitional body. At voxel-level conflicts at the L5/sacrum247
+boundary, CTPelvic1K takes precedence for sacral extent.248
+5.5. Partial-Annotation T raining Protocol249
+Fusion status is derived post-hoc: a case isfusedwhens ∗(spine) =s ∗(pelvic),spine-only250
+when only a spine mask exists, andpelvic-onlywhen only a pelvic mask exists. Training251
+on fused cases alone would discard 799 of 1,137 volumes (70%), with a disproportionate252
+penalty on rare LSTV subgroups. We instead define a training protocol incorporating all253
+1,137 cases via nnU-Net v2’signore labelmechanism.254
+Concretely, for each case we rewrite the saved label volume as follows:255
+Config Label rewrite
+fusedidentity (all 10 classes valid)
+spine-onlyvoxels= 0→255; classes 1–6 retained
+pelvic-onlyvoxels= 0→255; classes 7–9 retained
+256
+Theignoreclass 255 is declared in the nnU-Netdataset.json; voxels at this value257
+contribute zero to both the cross-entropy and the Dice loss, so the model is supervised258
+only on structures present in each case’s ground truth. For aspine-onlycase, the model259
+learns “here are L1–L6” without being penalized on the pelvic region; symmetrically for260
+pelvic-only. Spine classes receive supervision from all 338 fused plus 443 spine-only cases261
+(781 total); pelvic classes from 338 fused plus 356 pelvic-only cases (694 total). This is262
+a principled use of federated annotation sources. The test set is restricted to fused cases263
+so that per-class DSC, HD95, and mIOU are all computable on complete ground truth.264
+Empirical evaluation of a trained nnU-Net baseline under this protocol is deferred to future265
+work (Section 9).266
+6. LSTV Labels and the Lumbosacral Confusion Zone267
+6.1. Dual-Origin Label Sources268
+CTPelvic1K filename qualifiersencode amorphological criterion: the annotator in-269
+spects for cortical bridging, transverse process hypertrophy, and pseudoarticulation with the270
+sacral ala, assigning one of four classes (Normal,Lumbarization,Semi-sacralization,271
+Sacralization) based on Castellvi morphology. This is the canonical radiological defini-272
+tion.273
+CTSpine1K vertebral heuristicsapply avertebral counting criterion: VerSe label 25274
+present⇒lumbarization; VerSe label 24 absent⇒sacralization; labels 20–24 present with-275
+out 25⇒normal.276
+Figure 1 illustrates representative cases for each LSTV phenotype.277
+8
+===== PAGE 9 =====
+CTSpinoPelvic1K
+Table 3:CTSpinoPelvic1Kstratified splits. Training uses all configurations via ignore-
+label; validation and test restricted to fused cases for clean per-class evaluation.
+ConfigurationTrain Val Test Total
+Fused (10 classes) 234 52 52 338
+Spine-only (ignore) 309 72 68 449
+Pelvic-only (ignore) 268 52 56 376
+T otal training volumes 811 176 176 1,163
+LSTV-positive (any config) 36 9 9 54
+LSTV-positive (fused only) 3 2 2 7
+Table 4: Cross-source LSTV agreement. The 0% sacralization agreement quantifies the
+lumbosacral confusion zone.
+LSTV ClassN% Cross-val Agreement
+Normal 1,084 95.3 100%✓
+Lumbarization 22 1.9 n/a † —
+Semi-sacralization 3 0.3 67% ‡ partial
+Sacralization 28 2.5 0% § 0%
+T otal LSTV53 4.7 — —
+T otal1,137 100 — —
+† Pelvic protocol omits lumbarization body.
+‡ n= 3; 1 case UNKNOWN. § Definition mismatch; see text.
+6.2. The Confusion Zone 278
+Table 4 shows cross-source agreement. Sacralization shows0% cross-source agreement279
+(n= 28 CTPelvic1K sacralization cases, zero overlap with CTSpine1K sacralization cases).280
+This is not annotation error: a patient exhibiting Castellvi Type II morphology (bilateral281
+pseudoarticulation satisfying the morphological criterion) can simultaneously retain five282
+independently countable lumbar vertebral bodies if the bridging is partial. Both annotators283
+are correct within their own criterion; the case sits precisely at the boundary of both284
+classification systems (panel B of Figure 1). 285
+Figure 2 illustrates the three anatomical configurations that produce systematic dis-286
+agreement: Type A (partial bridging with retained L5 body; Castellvi Type II), Type B287
+(asymmetric ossification), and Type C (definitional indeterminacy between “sacralized L5”288
+and “lumbarized S1” without MRI correlation). 289
+9
+===== PAGE 10 =====
+CTSpinoPelvic1K
+Figure 1:Representative CTSpinoPelvic1K lumbosacral segmentation masks for
+each LSTV phenotype.All renders are from fused cases displayed in anterior
+clinical view at native voxel resolution. Label colors follow the 10-class scheme: L1
+(royal blue), L2 (sky blue), L3 (cyan-teal), L4 (green), L5 (yellow), L6 (orange),
+spine sacrum (red), pelvic sacrum (magenta).(A)Normal anatomy(COLONOG
+token 2): five lumbar vertebrae above the sacrum in standard configuration.
+(B)Sacralization — morphological criterion(COLONOG token 32): Castellvi-
+type sacral fusion encoded in the CTPelvic1K filename qualifier; the CTSpine1K
+vertebral counting criterion independently labels this caseNormal, exemplifying
+the 0% cross-source sacralization agreement.(C)Sacralization — vertebral-count
+criterion(COLONOG token 107): VerSe label 24 absent; only four lumbar ver-
+tebrae identifiable. No CTPelvic1K morphological qualifier encodes this case
+as abnormal, again illustrating the definitional non-overlap.(D)Lumbarization
+(COLONOG token 167): VerSe label 25 (L6, orange) present as a discrete addi-
+tional lumbar body between L5 (yellow) and the sacrum.
+7. Dataset Quality Assessment290
+Bone fractionf bone (Eq. 2) provides an automated series-conflict detector. Figure 3 shows291
+the distribution across all 1,503 placed masks. Spine: mean 68.3%, SD 11.2%, min 15.2%.292
+Pelvic: mean 66.2%, SD 8.9%, min 36.8%. 789/792 spine masks placed (99.6%); the 3293
+failures correspond to CTSpine1K annotations where no intrapatient series exceeded the294
+bone-HU threshold, and these cases are excluded from spine-containing configurations only.295
+All 714/714 pelvic masks placed (100%). Zero spine masks had fewer than four identifiable296
+lumbar labels; 9 had exactly four (all concordant with CTPelvic1K sacralization or semi-297
+sacralization qualifiers).298
+10
+===== PAGE 11 =====
+CTSpinoPelvic1K
+Normal L5–S1
+L3
+L4
+L5
+L5–S1
+S1
+✓Morph.:Normal
+✓Count.:Normal
+Type A: Partial Bridging
+L3
+L4
+L5 (countable)
+pseudoarticulation
+(Castellvi Type II)
+S1
+XMorph.:Sacralization
+✓Count.:Normal
+CONFUSION ZONE
+Disagreement by Bridging Extent
+(conceptual; exact values from manifest TBD)
+none partial full
+# disagreements
+←bridging extent→
+confusion zone
+agree agree
+Figure 2:The lumbosacral confusion zone. Left: normal L5–S1 anatomy with dis-
+crete junction.Center: the Type A configuration that accounts for the majority
+of the 0% sacralization agreement: Castellvi Type II pseudoarticulation satisfies
+the morphological criterion (sacralization) while a discrete L5 body satisfies the
+counting criterion (normal). The transition zone (orange, dashed outline) is the
+voxel region at L5/S1 boundary whose class assignment is ambiguous.Right:
+conceptual disagreement rate as a function of cortical bridging extent. The con-
+fusion zone (red bars) is concentrated at intermediate bridging; full fusion and
+absent bridging produce reliable agreement. Exact values will be reported from
+the placed manifest.
+8. Zero-Shot Benchmark: TotalSegmentator299
+We evaluate the most widely deployed multi-organ CT segmentation model in production300
+clinical use as a zero-shot baseline onCTSpinoPelvic1K. This isolates theanomaly gap:301
+the performance cost, at the lumbosacral junction, of a model whose training distribution302
+and label vocabulary were not designed with LSTV in mind.303
+8.1. Inference Setup 304
+Off-the-shelf inference with the pretrainedtotaltask (Wasserthal et al., 2023), executed305
+infast mode(--fast), which resamples the input volume to 3 mm isotropic resolution be-306
+fore prediction. Inference was run on a single NVIDIA L40S GPU (46 GB) across the full307
+CTSpinoPelvic1Kmatched cohort (N= 921 volumes completing inference: 272 fused,308
+340 spine-only, 309 pelvic-native), of which 46 are LSTV-positive (26 sacralization, 16 lum-309
+barization, 4 other). We remap TotalSegmentator’s native output labels (vertebrae L1–310
+vertebrae L5,sacrum,hip left,hip right) to our 10-class scheme. TotalSegmentator311
+does not emit an L6 class, so class 6 performance is zero by construction; for lumbariza-312
+tion cases whose ground truth contains an L6 body, this contributes a hard failure mode313
+that directly quantifies the clinical gap. Because TotalSegmentator was not trained on any314
+CTSpinoPelvic1Kcase, we evaluate it zero-shot on the full matched cohort rather than315
+11
+===== PAGE 12 =====
+CTSpinoPelvic1K
+Figure 3:Bone-HU coverage distribution across 1,503 placed masks.Spine (N=
+789, blue) and pelvic (N= 714, orange) both show strong bimodal separation
+between correctly matched bone-protocol CT series (f bone >0.5; dominant right
+mode) and mismatched or scout-image series (f bone ≈0; small left mode). The
+gap between modes validates bone-HU maximization as a series-selection criterion
+without any metadata dependence.
+Table 5: TotalSegmentator zero-shot per-class DSC (%) on the fullCTSpinoPelvic1K
+fused cohort (n= 272), fast mode (3 mm). Junction DSC is evaluated over a
+40 mm axial window centered on the L5/S1 boundary. Class 6 (L6) is zero by
+construction: TotalSegmentator does not emit an L6 class.
+Model L1–L5 L6 Sacrum Jxn DSC
+TotalSegmentator 85.4 0.0 ⋆ 77.4 76.6
+⋆ TotalSegmentator does not emit an L6 class (structurally zero).
+L1–L5 is the mean of L1=84.7, L2=84.6, L3=85.7, L4=86.0, L5=85.9.
+restricting to the 52-case test split; this materially increases the statistical power of the316
+LSTV-subgroup analysis (Section 8.3). The 3 mm fast-mode setting trades approximately317
+1–2 DSC points of headline performance (Wasserthal et al., 2023) for∼20×wall-clock318
+speedup; we report fast-mode numbers as a realistic deployment proxy, noting that the319
+LSTV performance gap reported below is a property of TS’s label vocabulary (no L6 class)320
+and training distribution, not of the resampling resolution.321
+8.2. Per-Class Performance on the F ull F used Cohort322
+Table 5 reports per-class DSC on the full fused cohort (n= 272).323
+12
+===== PAGE 13 =====
+CTSpinoPelvic1K
+Table 6: TotalSegmentator zero-shot performance stratified by LSTV phenotype (fast
+mode, 3 mm). Jxn DSC = 40 mm axial-window Dice at the L5/S1 boundary;
+ErrRate = per-voxel class-mismatch fraction within that window; TS L6 = count
+of cases in which TS emitted any L6 voxel (structurally zero by label vocabu-
+lary). The 19.6-point junction-DSC gap between Normal and Any-LSTV con-
+cretely quantifies the clinical cost of the anomaly gap.
+SubgroupnJxn DSC ErrRate TS L6
+Normal 875 0.770 0.330 0
+Any LSTV 46 0.574 0.317 0
+Sacralization 26 0.651 0.213 0
+Lumbarization 16 0.421 0.526 0
+TotalSegmentator achieves 85.4% mean L1–L5 Dice and 77.4% sacrum Dice on the full324
+fused cohort, but drops to 76.6% at the L5/S1 junction window—and, critically, collapses325
+further on LSTV-positive cases (Section 8.3). This baseline is well motivated: it is the326
+most widely deployed multi-organ CT segmentation model in production clinical use, and327
+its failure mode onCTSpinoPelvic1K’s LSTV subgroup constitutes the concrete anomaly328
+gap our benchmark is designed to close. 329
+8.3. LSTV Subgroup Analysis 330
+Because TotalSegmentator is zero-shot onCTSpinoPelvic1K, every matched case is a331
+valid test case; we therefore evaluate its LSTV-subgroup performance on the full matched332
+cohort rather than the 52-case fused test split. This yields 46 LSTV-positive cases (26333
+sacralization, 16 lumbarization, 4 other) alongside 875 normal-anatomy cases—a sample size334
+sufficient to resolve phenotype-stratified performance differences at the junction. Table 6335
+reports the stratified analysis. 336
+Three findings stand out. First, the junction DSC gap between Normal (0.770) and Any-337
+LSTV (0.574) is 19.6 points—a clinically large disparity at the exact anatomic level where338
+wrong-level surgery risk is concentrated. Second, the disparity is driven asymmetrically339
+by phenotype: sacralization cases retain 0.651 junction DSC, whereas lumbarization cases340
+collapse to 0.421. The gap is mechanistic rather than mysterious: every lumbarization case341
+carries a ground-truth L6 body that TS cannot emit (TS L6=0 across all 16 cases), so the342
+L5/S1 window is guaranteed to contain a voxel-count proportion of unrecoverable error.343
+Third, per-vertebra Dice degrades monotonically from L1 (58.6%) to L5 (37.2%) within the344
+Any-LSTV subgroup, confirming that the loss of performance concentrates at the caudal345
+lumbar levels rather than being distributed uniformly across the spine.346
+Per-case qualitative predictions for the 9 LSTV-positive cases in the fused test split,347
+together with agreement-status stratification, are provided in Appendix D.348
+13
+===== PAGE 14 =====
+CTSpinoPelvic1K
+9. Discussion349
+Partial-annotation training unlocks the full data scale.For federated annotation350
+sources—the normal case when fusing independently curated datasets—discarding partial351
+cases imposes a silent two-thirds data penalty at theCTSpinoPelvic1Kscale. Ignore-label352
+training lets every annotated voxel contribute supervision only where its class is observed.353
+The pattern generalizes beyond spine/pelvis fusion: any multi-source dataset where different354
+teams annotate different structures on the same underlying images can apply this mechanism355
+directly.356
+The confusion zone is a scientific contribution.The 0% cross-source sacralization357
+agreement documents, at scale, that two legitimate expert-level annotation strategies for the358
+same anatomical feature produce non-overlapping classifications at the Castellvi Type I–II359
+boundary. No prior spine ML benchmark has reported this because no prior benchmark360
+retained both annotation sources with origin. Thelstv agreementflag makes the361
+ambiguity explicit, enabling uncertainty-aware training and calibration benchmarking on362
+known-ambiguous cases.363
+The anomaly gap is empirically measurable.The zero-shot TotalSegmentator bench-364
+mark directly quantifies the clinical cost of the anomaly gap: the most widely deployed365
+multi-organ CT segmentation model loses 19.6 junction-DSC points from Normal to Any-366
+LSTV cases, and 34.9 points on lumbarization specifically (0.770→0.421). Of the lumbarization-367
+case error, a mechanically identifiable fraction traces to a single architectural decision—the368
+absence of an L6 output class—illustrating how label vocabulary choices made during bench-369
+mark design propagate as hard failure modes years later in deployment.370
+Implications for surgical planning AI.A segmentation model that outputs high un-371
+certainty at L5/S1 for a Castellvi Type II case is more useful to a surgeon than one that372
+outputs a hard incorrect label with high confidence.CTSpinoPelvic1Kprovides the an-373
+notation structure necessary to train and evaluate such models.374
+The coordinate convention problem is general.The Y-axis reflection between CT-375
+Spine1K and CTPelvic1K is an instance of a broad failure class: whenever independent376
+teams convert the same DICOM source using different toolchains, silently inverted NIfTI377
+axes result. Any multi-source fusion pipeline must validate affine-derived world coordinates378
+for representative landmarks.379
+Limitations.CTSpinoPelvic1Kderives from colonoscopy-protocol CT (soft-tissue ker-380
+nel), which may not generalize to bone-kernel protocols used in some surgical planning381
+workflows. LSTV labels are inherited without independent re-reading; the 0% sacraliza-382
+tion agreement highlights sensitivity to annotation protocol. Semi-sacralization has limited383
+representation (n= 3). TotalSegmentator was evaluated in fast mode (3 mm isotropic384
+resampling); full-resolution (1.5 mm) inference would be expected to recover 1–2 DSC385
+points on standard anatomy, but the label-vocabulary-driven lumbarization failure mode386
+is resolution-invariant. The present submission does not include a trained nnU-Net base-387
+line; the infrastructure for partial-annotation training is described in Section 5.5 and the388
+training pipeline is fully implemented, but empirical evaluation is deferred to future work.389
+Consequently, the head-to-head comparison of the ignore-label protocol against fused-only390
+14
+===== PAGE 15 =====
+CTSpinoPelvic1K
+training is described but not empirically validated. The COLONOG cohort (colonoscopy-391
+screening age, 45–75, US academic centers) may not represent the full distribution of spine392
+morphology in surgical planning populations. 393
+F uture directions.Immediate next steps include: training and evaluating the nnU-Net394
+v2 baseline under the partial-annotation protocol described in Section 5.5; running a fused-395
+only vs. all-cases ablation to isolate the contribution of ignore-label training; and bench-396
+marking additional architectures—including the cross-scale attention architecture of Li et al.397
+(2025) and other recent spine-pelvis fusion models—on the released benchmark. Within398
+the spine domain, further extensions include Castellvi sub-type classification (Type I–IV),399
+bone-kernel protocol inclusion, and validation on LSTV-enriched external cohorts with in-400
+dependent re-reading. The patient-anchored pipeline introduced here is also applicable in401
+principle to other TCIA collection pairs that share a patient cohort; empirical validation402
+on such extensions is beyond the scope of the present work.403
+References 404
+John A. Carrino, Paul D. Campbell, Dennis C. Lin, William B. Morrison, Mark E.405
+Schweitzer, Adam E. Flanders, John Eng, and Alexander R. Vaccaro. Effect of spinal406
+segment variants on numbering vertebral levels at lumbar MR imaging.Radiology,407
+259(1):196–202, 4 2011. ISSN 1527-1315. doi: 10.1148/RADIOL.11081511. URL408
+https://pubmed.ncbi.nlm.nih.gov/21436097/.409
+Julien Cohen-Adad, Eva Alonso-Ortiz, Mihael Abramovic, Carina Arneitz, Nicole Atche-410
+son, Laura Barlow, Robert L. Barry, Markus Barth, Marco Battiston, Christian B¨ uchel,411
+Matthew Budde, Virginie Callot, Anna J.E. Combes, Benjamin De Leener, Maxime412
+Descoteaux, Paulo Loureiro de Sousa, Marek Dost´ al, Julien Doyon, Adam Dvorak,413
+Falk Eippert, Karla R. Epperson, Kevin S. Epperson, Patrick Freund, J¨ urgen Fin-414
+sterbusch, Alexandru Foias, Michela Fratini, Issei Fukunaga, Claudia A.M. Gandini415
+Wheeler-Kingshott, Giancarlo Germani, Guillaume Gilbert, Federico Giove, Charley416
+Gros, Francesco Grussu, Akifumi Hagiwara, Pierre Gilles Henry, Tom´ aˇ s Hor´ ak, Masaaki417
+Hori, James Joers, Kouhei Kamiya, Haleh Karbasforoushan, Miloˇ s Keˇ rkovsk´ y, Ali Khat-418
+ibi, Joo Won Kim, Nawal Kinany, Hagen H. Kitzler, Shannon Kolind, Yazhuo Kong,419
+Petr Kudliˇ cka, Paul Kuntke, Nyoman D. Kurniawan, Slawomir Kusmia, Ren´ e Labounek,420
+Maria Marcella Lagan` a, Cornelia Laule, Christine S. Law, Christophe Lenglet, Tobias421
+Leutritz, Yaou Liu, Sara Llufriu, Sean Mackey, Eloy Martinez-Heras, Loan Mattera, Igor422
+Nestrasil, Kristin P. O’Grady, Nico Papinutto, Daniel Papp, Deborah Pareto, Todd B.423
+Parrish, Anna Pichiecchio, Ferran Prados, `Alex Rovira, Marc J. Ruitenberg, Rebecca S.424
+Samson, Giovanni Savini, Maryam Seif, Alan C. Seifert, Alex K. Smith, Seth A. Smith,425
+Zachary A. Smith, Elisabeth Solana, Y. Suzuki, George Tackley, Alexandra Tinnermann,426
+Jan Valoˇ sek, Dimitri Van De Ville, Marios C. Yiannakas, Kenneth A. Weber, Nikolaus427
+Weiskopf, Richard G. Wise, Patrik O. Wyss, and Junqian Xu. Open-access quantitative428
+MRI data of the spinal cord and reproducibility across participants, sites and manu-429
+facturers.Scientific Data 2021 8:1, 8(1):219–, 8 2021. ISSN 2052-4463. doi: 10.1038/430
+s41597-021-00941-8. URLhttps://www.nature.com/articles/s41597-021-00941-8.431
+15
+===== PAGE 16 =====
+CTSpinoPelvic1K
+Alexander Philip Dawid and Allan M Skene. Maximum likelihood estimation of observer432
+error-rates using the EM algorithm.Journal of the Royal Statistical Society: Series C433
+(Applied Statistics), 28(1):20–28, 1979.434
+Yang Deng, Ce Wang, Yuan Hui, Qian Li, Jun Li, Shiwei Luo, Mengke Sun, Quan435
+Quan, Shuxin Yang, You Hao, Pengbo Liu, Honghu Xiao, Chunpeng Zhao, Xinbao436
+Wu, and S. Kevin Zhou. CTSpine1K: A Large-Scale Dataset for Spinal Vertebrae437
+Segmentation in Computed Tomography.Machine Learning for Biomedical Imaging, 3438
+(MICCAI Open Data 2024-2025):824–832, 5 2021. doi: 10.59275/j.melba.2025-gf84. URL439
+https://arxiv.org/pdf/2105.14711.440
+Jasper Willem van der Graaf, Miranda L. van Hooff, Constantinus F. M. Buckens, Matthieu441
+Rutten, Job L. C. van Susante, Robert Jan Kroeze, Marinus de Kleuver, Bram van442
+Ginneken, and Nikolas Lessmann. SPIDER - Lumbar spine segmentation in MR images:443
+a dataset and a public benchmark. doi: 10.5281/ZENODO.10159290. URLhttps:444
+//zenodo.org/records/10159290.445
+Fabian Isensee, Tassilo Wald, Constantin Ulrich, Michael Baumgartner, Saikat Roy, Klaus446
+Maier-Hein, and Paul F Jaeger. nnu-net revisited: A call for rigorous validation in 3d447
+medical image segmentation. InInternational Conference on Medical Image Computing448
+and Computer-Assisted Intervention, pages 488–498, 2024.449
+Podchara Klinwichit, Watcharaphong Yookwan, Sornsupha Limchareon, Krisana Chin-450
+nasarn, Jun Su Jang, and Athita Onuean. BUU-LSPINE: A Thai Open451
+Lumbar Spine Dataset for Spondylolisthesis Detection.Applied Sciences 2023,452
+Vol. 13, Page 8646, 13(15):8646, 7 2023. ISSN 2076-3417. doi: 10.3390/453
+APP13158646. URLhttps://www.mdpi.com/2076-3417/13/15/8646/htmhttps://454
+www.mdpi.com/2076-3417/13/15/8646.455
+G. P. Konin and Daniel M. Walz. Lumbosacral Transitional Vertebrae: Classification, Imag-456
+ing Findings, and Clinical Relevance.American Journal of Neuroradiology, 31(10):1778–457
+1786, 11 2010. ISSN 0195-6108. doi: 10.3174/AJNR.A2036. URLhttps://www.ajnr.458
+org/content/31/10/1778https://www.ajnr.org/content/31/10/1778.abstract.459
+Donghyuk Kwak, Du Hyun Ro, and Dong Ho Kang. Automated Detection of Lum-460
+bosacral Transitional Vertebrae on Plain Lumbar Radiographs Using a Deep Learn-461
+ing Model.Journal of clinical medicine, 14(21), 11 2025. ISSN 2077-0383. doi:462
+10.3390/JCM14217671. URLhttps://pubmed.ncbi.nlm.nih.gov/41227066/.463
+Chaofan Li, Liping Chen, Qiong Liu, and Jinnan Teng. Lumbar and pelvic CT image464
+segmentation based on cross-scale feature fusion and linear self-attention mechanism.465
+Scientific Reports 2025 15:1, 15(1):28131–, 8 2025. ISSN 2045-2322. doi: 10.1038/466
+s41598-025-13569-0. URLhttps://www.nature.com/articles/s41598-025-13569-0.467
+Pengbo Liu, Hu Han, Yuanqi Du, Heqin Zhu, Yinhao Li, Feng Gu, Honghu Xiao, Jun Li,468
+Chunpeng Zhao, Li Xiao, and others. Deep learning to segment pelvic bones: large-scale469
+CT datasets and baseline models.International Journal of Computer Assisted Radiology470
+and Surgery, 16(5):749–756, 2021.471
+16
+===== PAGE 17 =====
+CTSpinoPelvic1K
+S Pieper, N Haouchine, D B Hackney, W M Wells, M Sanhinova, T Balboni, A Spek-472
+tor, M Huynh, S Tanguturi, E Kim, J P Guenette, D E Kozono, B Czajkowski,473
+S Caplan, P Doyle, H Kang, and R N Alkalay. Spine metastatic bone cancer: pre474
+and post radiotherapy CT (Spine-Mets-CT-SEG) [Dataset] (Version 1), 2024. URL475
+https://doi.org/10.7937/kh36-ds04. 476
+Yudi Sang, Yanzhen Liu, Sutuke Yibulayimu, Yunning Wang, Benjamin D Killeen, Mingxu477
+Liu, Ping-Cheng Ku, Ole Johannsen, Karol Gotkowski, Maximilian Zenk, Klaus Maier-478
+Hein, Fabian Isensee, Peiyan Yue, Yi Wang, Haidong Yu, Zhaohong Pan, Yutong He,479
+Xiaokun Liang, Daiqi Liu, Fuxin Fan, Artur Jurgas, Andrzej Skalski, Yuxi Ma, Jing Yang,480
+Szymon P lotka, Rafa l Litka, Gang Zhu, Yingchun Song, Mathias Unberath, Mehran481
+Armand, Dan Ruan, S Kevin Zhou, Qiyong Cao, Chunpeng Zhao, Xinbao Wu, Yu Wang,482
+Y Sang, G Zhu, Y Song, Y Liu, S Yibulayimu, Y Wang, Y Wang are, B D Killeen,483
+M Liu, P-c Ku, M Unberath, M Armand, O Johannsen, K Gotkowski, M Zenk, K Maier,484
+Z Pan, Y He, X Liang are with, A Jurgas, A Skalski, Poland Y Ma, J Yang, Q Cao,485
+C Zhao, and X Wu. Benchmark of Segmentation Techniques for Pelvic Fracture in486
+CT and X-ray: Summary of the PENGWIN 2024 Challenge. 4 2025. URLhttps:487
+//arxiv.org/pdf/2504.02382. 488
+Vijay Sekharappa, Rohit Amritanand, Venkatesh Krishnan, and Kenny Samuel David.489
+Lumbosacral Transition Vertebra: Prevalence and Its Significance.Asian Spine Jour-490
+nal, 8(1):51, 2 2014. ISSN 19761902. doi: 10.4184/ASJ.2014.8.1.51. URLhttps:491
+//pmc.ncbi.nlm.nih.gov/articles/PMC3939369/.492
+Anjany Sekuboyina, Amirhossein Bayat, Malek{E Husseini}, Maximilian L¨ offler, Markus493
+Rempfler, Jan Kukaˇ cka, Giles Tetteh, Alexander Valentinitsch, Christian Payer, Martin494
+Urschler, Maodong Chen, Dalong Cheng, Nikolas Lessmann, Yujin Hu, Tianfu Wang,495
+Dong Yang, Daguang Xu, Felix Ambellan, Stefan Zachowk, Tao Jiang, Xinjun Ma,496
+Christoph Angerman, Xin Wang, Qingyue Wei, Kevin Brown, Matthias Wolf, Alexan-497
+dre Kirszenberg, ´Elodie Puybareauq, Bj¨ orn H. Menze, and Jan{S Kirschke}. VerSe: A498
+Vertebrae Labelling and Segmentation Benchmark. Technical report, Cornell University499
+Library, 1 2020. 500
+K Smith, K Clark, W Bennett, T Nolan, J Kirby, M Wolfsberger, J Moulton, B Vendt,501
+and J Freymann. Data From CT COLONOGRAPHY, 2015. URLhttps://doi.org/502
+10.7937/K9/TCIA.2015.NWTESAY1. 503
+Yehuda Warszawer, Nathan Molinier, Jan Valoˇ sek, Pierre-Louis Benveniste, Sandrine504
+B´ edard, Emanuel Shirbint, Feroze B Mohamed, Charidimos Tsagkas, Shannon Kolind,505
+and Larry Lynd. TotalSpineSeg: Robust Spine Segmentation with Landmark-Based La-506
+beling in MRI, 2025. 507
+Jakob Wasserthal, Hanns-Christian Breit, Manfred T Meyer, Maurice Pradella, Daniel508
+Hinck, Alexander W Sauter, Tobias Heye, Daniel T Boll, Joshy Cyriac, Shan Yang,509
+and others. TotalSegmentator: robust segmentation of 104 anatomic structures in CT510
+images.Radiology: Artificial Intelligence, 5(5):e230024, 2023.511
+17
+===== PAGE 18 =====
+CTSpinoPelvic1K
+(a) (b) (c)Phase 1: PatientDB Phase 2: Intrapatient Exhaustive
+Search Output Manifest
+COLONOG
+825 patients
+paired CTs
+CTSpine1K
+784 spine segs
+CTPelvic1K
+714 pelvic masks
+Canonical UID Matching
+canon(u) = prefix∥int(suffix)
+PatientDB
+patient id[PK]tcia series[] masks[]
+Patient Registryp∈ {1, . . . ,804}
+Spine Segm s
+world-space affine
+Pelvic Maskmp
+Y-flip + z-xcorr
+s1: pronef bone=72%⋆
+s2: supinef bone= 5%
+s3: scoutf bone= 0%
+s∗(ms)= arg max
+s
+fbone
+s1: pronef bone= 8%
+s2: supinef bone=71%⋆
+s3: scoutf bone= 0%
+s∗(mp)= arg max
+s
+fbone
+s∗
+s=s∗
+p?
+fused
+same CT
+separate
+own CT each
+yes no
+placed manifest.json
+fused:N= 338
+separate:N= 361
+spine only:N= 90
+pelvic only:N= 15
+1,498/1,498 placed
+10-Class Schema
+L1L2L3L4L5L6ScLHRH
+L1-5 (1-5) L6 (6)
+Sc (7) LH (8) RH (9)
+53 LSTV cases
+22 lumb.|3 semi|28 sacral.
+dual-prov. flags included
+Figure 4:Two-phase CTSpinoPelvic1K construction pipeline. (a)Phase 1: canon-
+ical UID matching builds PatientDB.(b)Phase 2: bone-HU exhaustive search
+assigns each mask to its optimal series; outcomes merge into the manifest.
+(c)The manifest feeds the 10-class schema and dual-origin LSTV summary.
+⋆= bone-HU winner.
+Appendix A. PatientDB Schema512
+PatientDB organizes all data using canonical patient UID as the primary key, with five513
+entities:PATIENT(root entity indexed by canonical UID);TCIA SERIES(CT acquisitions514
+per patient);SPINE MASKandPELVIC MASK(annotation entities from CTSpine1K and CT-515
+Pelvic1K respectively); andPLACED CASE(output rows in the final manifest, linking a mask516
+to its selected series and fusion type). The separation of identity (Phase 1) from alignment517
+(Phase 2) reduces a globally intractable matching problem to a locally bounded one per518
+patient, and generalizes immediately to any TCIA collection pair sharing a patient cohort.519
+Appendix B. Pipeline Construction (Detailed)520
+Figure 4 illustrates the two-phase construction pipeline in full. All styles in the TikZ521
+diagram use pure named colors as style arguments; no compound color (of the formA!n) is522
+passed as a parameterized argument.523
+18
+===== PAGE 19 =====
+CTSpinoPelvic1K
+Appendix C. Algorithms and Implementation524
+Algorithm 1Phase 2: Intrapatient Exhaustive Series Assignment
+Require:PatientDBD, alignment functionAlign(m, s) returning placed voxelsL
+Require:Bone-HU thresholdτ= 200 HU
+Ensure:Placement manifestM
+1:foreach patientp∈ Ddo
+2:S p ←CT-quality series for patientp
+3:foreach maskm∈ {SpineMasks(p)∪PelvicMasks(p)}do
+4:f ∗ ←0,s ∗ ←∅
+5:foreach seriess∈ S p do
+6:L ←Align(m, s)
+7:f← |{v∈ L:I s(v)> τ}|/|L|
+8:iff > f ∗ then
+9:f ∗ ←f,s ∗ ←s
+10:end if
+11:end for
+12:M[p][m]←(s ∗, f∗)
+13:Persist aligned maskL ∗ toplaced/
+14:end for
+15:end for
+16:returnM
+NIfTI orientation convention.All placed masks are saved in PIR (Posterior-Inferior-525
+Right) orientation, matching MONAIOrientationd(axcodes=‘PIR’)at training time.526
+T otalSegmentator inference configuration.TotalSegmentator v2 (totaltask) was527
+run in fast mode (--fast), which triggers the 3 mm isotropic-resampling model rather528
+than the default 1.5 mm variant. Inference was executed per case on a single NVIDIA529
+L40S GPU (46 GB); typical per-case wall-clock time was 20–60 seconds, dominated by the530
+two-stage resample/predict loop. Of the 1,137 matched volumes, 921 completed inference531
+successfully and are reported in Tables 5 and 6; failures were attributable to input-header532
+edge cases and are excluded rather than imputed. Output labels were remapped one-to-one533
+onto the 10-classCTSpinoPelvic1Kscheme, with TSsacrum→class 7,vertebrae L1–L5534
+→classes 1–5,hip left/hip right→classes 8/9. Class 6 (L6) has no TS source class by535
+construction. 536
+Partial-annotation label rewrite.The conversion scripttools/convert hf to nnunet.py537
+reads each case’s label NIfTI; forspine-onlyandpelvic-onlycases, voxels with value 0538
+are rewritten to 255 (the declaredignore label) before being written tolabelsTr/.fused539
+cases are copied verbatim. The resultingdataset.jsondeclares:"labels":{"background":0,...,"right hip":9,"ignore":255}.540
+Planned nnU-Net configuration.The infrastructure for the future trained baseline541
+uses nnU-Net v2 with the ResEncM planner, GPU memory target 100 GB, overwritten plans542
+namennUNetResEncUNetPlans 100G, configuration3d fullres, and a 100-epoch trainer543
+variant. Loss:DC and CE loss(nnU-Net default). Precision: bf16 mixed. One H200 GPU544
+19
+===== PAGE 20 =====
+CTSpinoPelvic1K
+(140 GB HBM3e). Fold 0 only; thesplits final.jsonis generated by the conversion545
+script to match our train/val/test assignment exactly.546
+Dual-origin flag schema.Each manifest record includes:lstv pelvic(CTPelvic1K547
+morphological label);lstv vertebral(CTSpine1K counting heuristic);lstv agreement548
+(Boolean: both sources agree on non-Normal classification);lstv confusion zone(Boolean:549
+sources disagree on LSTV status, marking a confusion-zone case).550
+Appendix D. LSTV Case Details551
+The 9 LSTV-positive test cases are distributed as: 2 fused (1 lumbarization, 1 sacraliza-552
+tion), 3 spine-only (1 lumbarization, 2 sacralization), and 4 pelvic-native (2 lumbarization,553
+2 sacralization). Per-case qualitative predictions, agreement status, and junction segmen-554
+tation overlays are provided with the released dataset aslstv test qualitative.pdf; the555
+small cohort size precludes reporting sensitivity/specificity with meaningful confidence in-556
+tervals here.557
+20

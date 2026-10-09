@@ -1,0 +1,106 @@
+# spine-program: what must never be committed (the copy rules of _plan/PLAN.md section 2, made mechanical)
+
+# imaging data, arrays, archives of data
+*.nii
+*.nii.gz
+*.dcm
+*.dicom
+*.mha
+*.mhd
+*.nrrd
+*.npz
+*.npy
+*.h5
+*.hdf5
+*.mat
+*.raw
+*.sta
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+
+# model weights and checkpoints
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+*.bin
+*.pkl
+*.pickle
+*.joblib
+*.weights
+checkpoint_best*
+checkpoint_final*
+
+# environments, caches, builds
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+.conda/
+conda-env/
+node_modules/
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# logs and scratch (small LaTeX logs that document a build are tracked by name where a folder keeps them)
+*.stackdump
+*.out.log
+slurm-*.out
+nohup.out
+*.tmp
+*.swp
+*~
+
+# operating-system files
+Thumbs.db
+desktop.ini
+.DS_Store
+._*
+$RECYCLE.BIN/
+
+# credentials and tokens: by pattern, never by exception
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+*.token
+.hf_*token*
+.zenodo_token
+.fluorocap
+.env
+.env.*
+*.credentials
+*credential*
+*secret*
+client_secret_*.json
+*apikey*
+*api_key*
+.netrc
+.beethoven-vendor/
+.ashley-vendor/
+
+# never from the laptop
+HANDOFF/GREG_ONLY/
+private_ip/
+
+# the working copy of a Word file
+~$*
+
+# exceptions: tracked files whose names collide with a pattern above (checked 2026-10-08)
+!03_ctspinopelvic1k_dataset/manuscripts/mpda_as_submitted_2026-09-07/LaTeX_source_CTSpinoPelvic1K.zip
+!10_data_platform_grid/code/spine_data_review/tests/check_no_credentials.py
+!10_data_platform_grid/code/spine_data_review/tests/scan_run_for_credentials.py

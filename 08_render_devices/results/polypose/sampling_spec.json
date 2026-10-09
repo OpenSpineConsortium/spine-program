@@ -1,0 +1,2791 @@
+{
+ "spec_version": "2",
+ "written": "2026-09-23",
+ "supersedes": {
+  "spec_version": "1",
+  "written": "2026-09-23",
+  "what_changed": "the single LL target of v1 is replaced by a joint draw (SS, LL, TK | PI) with a supine conversion, a Roussouly shape rule, an in-field thoracolumbar coupling, an explicit rejection envelope and an envelope-covering fill-in; the cohort is now the grid re-measurement (one code path), not the release CSV"
+ },
+ "purpose": "Per-level sampling distribution, junction rules and checks for generative use of the PolyPose polyrigid transform on labelled spine CT. The transform is published (Gopalakrishnan, Dey, Golland, NeurIPS 2025); only the sampling distribution, the junction rules and the checks are ours.",
+ "conventions": {
+  "angle_sign": "delta > 0 = more lordosis at that segment (extension direction); delta < 0 = less lordosis (flexion direction). Kyphosis-positive quantities (TLK) are reported with the opposite sign by measure_sagittal.py and converted at the boundary.",
+  "segment_naming": "a segment is named upper-lower (L4-L5); its delta is the relative rotation of the upper body about the segment hinge with the lower body held.",
+  "hinge": "centre of the intervertebral disc below the moving body: midpoint of the upper body's inferior plate centroid and the lower body's superior plate centroid, both from measure_sagittal.py (the release surface fit). Rotation axis = patient left-right axis (bicoxofemoral vector where femoral heads exist, else image x).",
+  "chain": "absolute pose of body k = product of the relative hinge rotations of every mobile segment between k and the pelvis; the pelvis (sacrum, hips, femora, and any body fused to the sacrum) is the identity.",
+  "frame": "analysis in the RAS canonical frame of nib.as_closest_canonical; volumes are never reoriented when written; axcodes are read and recorded.",
+  "label_ids": "resolved with ostk.labels.labels_for(volume); the VerSe-native map (L1=20 ... L6=25, sacrum=26, T13=28, hips 30/31, femora 32/33) is required; id 29 is retired in v11 and never gated on.",
+  "frames": "STANDING frame = the published normative cohorts; SUPINE frame = this cohort and every warped output; IMAGE frame = the CT with the pelvis fixed. PI is the same in all three (posture-invariant); LL, SS, TK are converted standing->supine with supine_conversion; PT and SS do not exist in the image frame beyond the pelvis' resting orientation on the table (see image_space_realisation)."
+ },
+ "panjabi_note": "Table 3 (p. 892, image-only scan on disk, read by eye 2026-09-23) is VERTEBRAL BODY MORPHOMETRY (EPWu, EPDu, VBHp, end-plate inclinations EPItu/EPItl/EPIt), NOT segmental range of motion. The request's 'Panjabi 1991 Table 3 ROM' conflates it with the ROM papers above. Used here only for the thoracic body wedge reference: EPIt T10 1.7, T11 4.5, T12 4.0 deg (mean, SEM 0.14-0.79).",
+ "citations": {
+  "albano2020": {
+   "ref": "Albano D, Messina C, Gambino A, Gurgitano M, Sciabica C, Oliveira Pavan GR, Gitto S, Sconfienza LM. Segmented lordotic angles to assess lumbosacral transitional vertebra on EOS. Eur Spine J 2020;29(10):2470-2476.",
+   "pmid": "32783082",
+   "doi": "10.1007/s00586-020-06565-7",
+   "values": "906 EOS exams, 172 LSTV (I 89, II 42, III 33, IV 8). cVPVA = vertical posterior vertebral angle of the most caudal lumbar segment; dVPVA = cVPVA - proximal segment angle. AUC: LSTV vs none cVPVA 0.797 (cut 28.2), dVPVA 0.782 (cut 11.1); type II 0.665 / 0.718; type III-IV 0.797 / 0.831; II vs III-IV 0.693 / 0.665; sacralisation vs lumbarisation 0.741 / 0.774",
+   "verified": "abstract read verbatim 2026-09-23 (Europe PMC)"
+  },
+  "banitalebi2026": {
+   "ref": "Banitalebi A, Rossvoll I, Banitalebi H, Myklebust TA, Hermansen E. Comparing Spinopelvic Angles and Magnification on Supine MRI With Standing Radiographs in Lumbar Spinal Stenosis. Clin Spine Surg 2026;39(2):E104-E111.",
+   "pmid": "40298377",
+   "design": "lumbar spinal stenosis, supine MRI vs standing radiograph (n=211 in the spec's row)",
+   "used_for": "the smallest published SS offset (+0.9), which pulls the offset draw toward zero",
+   "verified": "citation confirmed 2026-09-23 via PubMed esummary; the +0.9 value is from the earlier session's reading"
+  },
+  "barrey2011": {
+   "ref": "Barrey C, Roussouly P, Perrin G, Le Huec JC. Sagittal balance disorders in severe degenerative spine. Can we identify the compensatory mechanisms? Eur Spine J 2011;20 Suppl 5:626-633.",
+   "pmid": "21796393",
+   "doi": "10.1007/s00586-011-1930-3",
+   "values": "three stages (balanced; balanced with compensatory mechanisms; imbalanced) and the mechanisms: 'reduction of thoracic kyphosis, intervertebral hyperextension, retrolisthesis, pelvis backtilt, knee flessum and ankle extension'",
+   "used_for": "the SIGN PATTERN of the cascade the sampler reproduces (loss of LL -> PT up, SS down at fixed PI, thoracic hypokyphosis). Knee and ankle are outside the CT",
+   "verified": "abstract read verbatim 2026-09-23 (Europe PMC core); the mechanism list above is quoted from it"
+  },
+  "bernhardt1989": {
+   "ref": "Bernhardt M, Bridwell KH. Segmental analysis of the sagittal plane alignment of the normal thoracic and lumbar spines and thoracolumbar junction. Spine 1989;14(7):717-721.",
+   "pmid": "2772721",
+   "design": "n=102 lateral radiographs: thoracolumbar junction (T10-L2) is for practical purposes straight; lordosis starts at L1-2 and increases caudally",
+   "verified": "abstract read 2026-09-23; per-segment table values not in the abstract"
+  },
+  "boisvert2008": {
+   "ref": "Boisvert J, Cheriet F, Pennec X, Labelle H, Ayache N. Geometric variability of the scoliotic spine using statistics on articulated shape models. IEEE Trans Med Imaging 2008;27(4):557-568.",
+   "pmid": "18390352",
+   "doi": "10.1109/tmi.2007.911474",
+   "note": "295 scoliotic patients; inter-vertebral pose variability inhomogeneous (lumbar > thoracic) and anisotropic. Cross-check only: scoliotic cohort."
+  },
+  "bouaicha2014": {
+   "ref": "Bouaicha S, Lamanna C, Jentzsch T, Simmen HP, Werner CM. Comparison of the sagittal spine lordosis by supine computed tomography and upright conventional radiographs in patients with spinal trauma. Biomed Res Int 2014;2014:967178.",
+   "pmid": "25003134",
+   "doi": "10.1155/2014/967178",
+   "design": "n=153 spinal trauma; group A 101 with vertebral fracture, group B 52 without osseous lesion; supine CT vs upright radiograph",
+   "values": "group A mean difference -3.8 deg; group B -2.1 to -1.5 deg",
+   "used_for": "the positive tail of the standing-to-supine LL offset (the spec's +2.1 row)",
+   "verified": "author list, DOI, n and both group differences confirmed verbatim 2026-09-23 (Europe PMC core). CAUTION: the abstract prints the group-B difference as -2.1 and does not state which modality is subtracted from which, so the SIGN of this row in supine_conversion is not established by the abstract. It is one of four LL rows and the draw's mean does not rest on it"
+  },
+  "castellvi1984": {
+   "ref": "Castellvi AE, Goldstein LA, Chan DP. Lumbosacral transitional vertebrae and their relationship with lumbar extradural defects. Spine 1984;9(5):493-495.",
+   "note": "Type I enlarged transverse process (a >19 mm / b bilateral); II incomplete lumbarisation/sacralisation with a pseudoarthrosis; III complete osseous fusion; IV = II one side + III other side. Journal, title and pages 493-495 confirmed 2026-09-23 via PubMed efetch (PMID 6495013); type definitions per Konin & Walz AJNR 2010 (on disk as MANUAL_REFS/KONIN_WALZ.pdf)",
+   "pmid": "6495013"
+  },
+  "chen2019": {
+   "ref": "Chen HF, Mi J, Zhang HH, Zhao CQ. Pelvic incidence measurement using a computed tomography data-based three-dimensional pelvic model. J Orthop Surg Res 2019;14(1):13.",
+   "pmid": "30630533",
+   "doi": "10.1186/s13018-018-1050-4",
+   "design": "n=320 subjects with normal pelvic anatomy, PI from CT-based 3-D pelvic models",
+   "values": "PI 43.50 +/- 7.39 under 40 y; 45.94 +/- 9.08 at 40-80 y",
+   "used_for": "a third supine-CT PI reference",
+   "verified": "citation, n=320 and both age-stratified values confirmed verbatim 2026-09-23 via PubMed efetch. NOTE: the single figure 44.97 +/- 8.52 used in outside_checks is a POOLING of the two age strata, not a number the paper prints"
+  },
+  "cheng2022": {
+   "ref": "Cheng L, Jiang C, Huang J, et al. Lumbosacral transitional vertebra contributed to lumbar spine degeneration: an MR study of clinical patients. J Clin Med 2022;11(9):2339.",
+   "pmid": "35566465",
+   "pmcid": "PMC9104340",
+   "doi": "10.3390/jcm11092339",
+   "values": "type I 182, II 107, III 43, IV 18, controls 179. Cranial disc herniation 41.9 % (III) and 50.0 % (IV) vs 25.7 %; endplate defects 27.9 % / 33.3 % vs 14.4 %; transitional disc bulging 2.3 % / 5.6 % vs 39.1 %. III/IV protect the transitional disc and load the level above",
+   "verified": "full text read 2026-09-23"
+  },
+  "chevillotte2018": {
+   "ref": "Chevillotte T, Coudert P, Cawley D, et al. Influence of posture on relationships between pelvic parameters and lumbar lordosis: comparison of the standing, seated, and supine positions. Orthop Traumatol Surg Res 2018;104(5):565-568.",
+   "pmid": "30009961",
+   "doi": "10.1016/j.otsr.2018.06.005",
+   "values": "n=15 asymptomatic <50 y: LL standing 54.8+/-9.8, seated 15.9+/-14.6, supine 50.2+/-9.6; SS standing 37.1+/-6.3, supine 41+/-7.2; PI identical in all positions",
+   "verified": "abstract read verbatim 2026-09-23"
+  },
+  "chung2020": {
+   "ref": "Chung NS, Lee HD, Jeon CH. Differences in lumbar segment angle among Roussouly types of global sagittal alignment in asymptomatic adult subjects. Spine Deform 2020;8(2):227-232.",
+   "pmid": "31925766",
+   "design": "n=160 asymptomatic adults; segment angles by Roussouly type",
+   "values": "share of total LL carried by L4-S1 per type: 0.834 / 0.652 / 0.647 / 0.615 (types 1/2/3/4)",
+   "used_for": "the type-modulated lower-arc share, i.e. how much of a requested dLL goes to L4-S1",
+   "verified": "citation confirmed 2026-09-23 via PubMed esummary; the per-type shares are from the earlier session's reading of the tables"
+  },
+  "diebo2015": {
+   "ref": "Diebo BG, Varghese JJ, Lafage R, Schwab FJ, Lafage V. Sagittal alignment of the spine: What do you need to know? Clin Neurol Neurosurg 2015;139:295-301.",
+   "pmid": "26562194",
+   "doi": "10.1016/j.clineuro.2015.10.024",
+   "design": "review",
+   "used_for": "the same cascade, as a second statement of it",
+   "verified": "citation and abstract confirmed 2026-09-23 via Europe PMC core"
+  },
+  "dl_radiograph2025": {
+   "ref": "Kwak D, Ro DH, Kang DH. Automated detection of lumbosacral transitional vertebrae on plain lumbar radiographs using a deep learning model. J Clin Med 2025;14(21):7671.",
+   "pmcid": "PMC12610351",
+   "pmid": "41227066",
+   "values": "3,116 standing lateral radiographs; ResNet-50 partial fine-tune; test n=313: accuracy 76.4 %, sensitivity 85.1 %, specificity 61.9 %, AUC 0.84",
+   "verified": "abstract read verbatim 2026-09-23 (PubMed efetch): authors, journal and the independent-test AUC 0.84 (ResNet-50 partial fine-tune, standing lateral lumbar radiographs, binary LSTV presence) all confirmed",
+   "doi": "10.3390/jcm14217671"
+  },
+  "fan2023": {
+   "ref": "Fan X, Xue D, Pan Z, Wang Y. Comparison of sagittal spinal alignment on standing plain x-rays and supine MRI in degenerative lumbar disease. Front Surg 2023;10:1103952.",
+   "pmid": "36911604",
+   "doi": "10.3389/fsurg.2023.1103952",
+   "design": "n=64 degenerative lumbar disease, standing radiograph vs supine MRI",
+   "values": "TJK on MRI underestimates the radiograph by 2 deg; SS on MRI overestimates by 2 deg; LL approximately equal",
+   "used_for": "the supine offsets dLL 0.0, dSS +2.0, dTK -2.0",
+   "verified": "abstract read verbatim 2026-09-23 (Europe PMC core); all three offsets match the spec exactly"
+  },
+  "haffer2021": {
+   "ref": "Haffer H, Becker L, Putzier M, et al. Changes of fixed anatomical spinopelvic parameter in patients with lumbosacral transitional vertebrae: a matched pair analysis. Diagnostics (Basel) 2021;11(1):59.",
+   "pmid": "33401698",
+   "pmcid": "PMC7824527",
+   "doi": "10.3390/diagnostics11010059",
+   "values": "supine abdominopelvic CT, 53 LSTV vs 53 matched controls (Ia 10, Ib 6, IIa 14, IIb 9, IIIa 5, IIIb 2, IV 7): PI 61.6+/-10.8 vs 50.5+/-8.4; sacral table angle 96.7+/-5.2 vs 102.2+/-4.2; 6-lumbar subgroup (n=11) at true S1 PI 65.3+/-8.5 vs 48.5+/-10.2, at L6 plate 54.6+/-14.1; 4-lumbar (n=9) PI 62.5+/-8.8 vs 52.8+/-6.5",
+   "verified": "tables read 2026-09-23"
+  },
+  "hasegawa2018": {
+   "ref": "Hasegawa K, Okamoto M, Hatsushikano S, Caseiro G, Watanabe K. Difference in whole spinal alignment between supine and standing positions in patients with adult spinal deformity using a new comparison method with slot-scanning three-dimensional X-ray imager and computed tomography through digital reconstructed radiography. BMC Musculoskelet Disord 2018;19:437.",
+   "pmid": "30522465",
+   "doi": "10.1186/s12891-018-2355-5",
+   "design": "n=24 adult spinal deformity, all female, mean age 60.1; standing slot-scan vs supine CT DRR",
+   "used_for": "the standing-supine offsets in deformity and the older-supine-cohort comparison; explicitly NOT a normative source",
+   "verified": "citation, n=24 and design confirmed 2026-09-23 via Europe PMC core; the per-parameter offsets are not in the abstract and were read from the earlier session's table"
+  },
+  "hyun2019": {
+   "ref": "Hyun SJ, Han S, Kim YB, Kim YJ, Kang GB, Cheong JY. Predictive formula of ideal lumbar lordosis and lower lumbar lordosis determined by individual pelvic incidence in asymptomatic elderly population. Eur Spine J 2019;28(9):1906-1913.",
+   "pmid": "30903294",
+   "design": "asymptomatic elderly, standing radiographs",
+   "values": "LL = 0.62 PI + 27.61, R2 0.348 (as quoted in regressions.LL_on_PI_published)",
+   "used_for": "a second outside slope for LL on PI (0.62) and the implied PI-LL correlation 0.59",
+   "verified": "title, authors, journal, year, volume and pages confirmed 2026-09-23 via PubMed esummary; the formula itself was taken from the earlier session's reading and is NOT re-confirmed from the abstract here"
+  },
+  "izatt2012": {
+   "ref": "Izatt MT, Adam CJ, Verzin EJ, Labrom RD, Askin GN. CT and radiographic analysis of sagittal profile changes following thoracoscopic anterior scoliosis surgery. Scoliosis 2012;7(1):15.",
+   "pmid": "22913616",
+   "pmcid": "PMC3495407",
+   "doi": "10.1186/1748-7161-7-15",
+   "design": "n=30 Lenke 1 adolescent idiopathic scoliosis, supine CT vs standing radiograph, >= 24 months after thoracoscopic anterior fusion",
+   "used_for": "the adolescent-deformity tail of the supine offset",
+   "verified": "citation, n=30 and design confirmed verbatim 2026-09-23 (Europe PMC core). NOT VERIFIED: the abstract says only that 'linear relationships were found between supine CT and standing radiographic measurements'; the equation LL_supine = 0.71 LL + 9.7 quoted in the spec is NOT in the abstract and is a full-text or derived value. It contributes only to the spread of the offset draw, not to its mean"
+  },
+  "jacob2023": {
+   "ref": "Jacob AM, Yadav SK, Elhence A, et al. Evaluation of spinopelvic parameters in patients with lumbosacral transitional vertebra: a cross sectional and comparative study. Am J Neurodegener Dis 2023;12(4):123-132.",
+   "pmid": "37736164",
+   "values": "standing radiographs: PI 58.5+/-9.3 vs 50+/-8.8; PT 19.4+/-8.8 vs 13.6+/-7.8; LL 57.6+/-13.2 vs 50.7+/-12.2; SS and PI-LL n.s.",
+   "verified": "abstract read 2026-09-23"
+  },
+  "karabag2024": {
+   "ref": "Karabag H, Iplikcioglu AC. Analysis of spinopelvic parameters and lumbar lordosis in patients with transitional lumbosacral vertebrae, with special reference to sacralization and lumbarization. World Neurosurg 2024;183:e900-e908.",
+   "pmid": "38218445",
+   "doi": "10.1016/j.wneu.2024.01.056",
+   "values": "1,420 asymptomatic, 108 transitional: upper- vs lower-plate measurement differs by ~27 deg (PI) and ~14 deg (LL)",
+   "verified": "abstract read 2026-09-23"
+  },
+  "konin2010": {
+   "ref": "Konin GP, Walz DM. Lumbosacral transitional vertebrae: classification, imaging findings, and clinical relevance. AJNR Am J Neuroradiol 2010;31(10):1778-1786.",
+   "note": "on disk MANUAL_REFS/KONIN_WALZ.pdf; the 19 mm Castellvi threshold is craniocaudal in this source"
+  },
+  "korean2020": {
+   "ref": "Park JH, Kim YB, Hyun SJ, Kang KB, Park PS. Changes in thoracic kyphosis and thoracolumbar kyphosis in asymptomatic Korean male subjects aged >50 years: do they progress above T5, T10, T12, or L2? Asian Spine J 2020;14(2):192-197.",
+   "pmid": "31575109",
+   "pmcid": "PMC7113465",
+   "doi": "10.31616/asj.2019.0060",
+   "design": "n=179 asymptomatic Korean males, 53-83 y (mean 65.2 +/- 6.8), standing radiographs, three age groups (6th/7th/8th decade, n=48/85/46)",
+   "values": "TK T5-T12 29.6 +/- 9.1; TLK T10-L2 10.0 +/- 7.4; segment T10-T12 9.5 +/- 6.2 / 12.9 +/- 6.5 / 12.2 +/- 7.1 by decade; T12-L2 -1.9 +/- 6.1 with no age difference",
+   "verified": "full text read via Europe PMC 2026-09-23; every quoted value verbatim (supersedes the earlier search-snippet-only status)"
+  },
+  "kuoppala2025": {
+   "ref": "Kuoppala A, Maatta J, Hanhivaara J, Niinimaki J, Nevalainen M. Lumbosacral transitional vertebra alters the mobility of the lumbar spine on flexion-extension radiographs. Int Orthop 2025.",
+   "pmid": "40801985",
+   "pmcid": "PMC12488840",
+   "doi": "10.1007/s00264-025-06637-7",
+   "values": "LSTV Castellvi II-IV n=29 vs control n=20: L5/S1 flexion-extension ROM 3.3+/-3.8 vs 7.3+/-3.8 (P<0.001); L4/5 flexion 6.7+/-4.3 vs 3.2+/-4.0 (P=0.019); total lumbar ROM 33.5+/-14.2 vs 38.3+/-12.1 (P=0.23). Conclusion: compensation distributes over the superior segments, not excessively to the adjacent level",
+   "verified": "full text read 2026-09-23"
+  },
+  "lafage2011": {
+   "ref": "Lafage V, Schwab F, Vira S, Patel A, Ungar B, Farcy JP. Spino-pelvic parameters after surgery can be predicted: a preliminary formula and validation of standing alignment. Spine 2011;36(13):1037-1045.",
+   "pmid": "21217459",
+   "design": "PT predicted from PI, maximal LL and maximal TK",
+   "values": "r = 0.93, SE 4.4 deg (abstract). The coefficients PT = 1.14 + 0.71 PI - 0.52 LL - 0.19 TK circulate in secondary sources and are NOT verified from the paper",
+   "used_for": "an outside check of the assembled covariance, never as an input",
+   "verified": "citation confirmed 2026-09-23 via PubMed esummary; the coefficients remain secondary-quoted and unused"
+  },
+  "laouissat2018": {
+   "ref": "Laouissat F, Sebaaly A, Gehrchen M, Roussouly P. Classification of normal sagittal spine alignment: refounding the Roussouly classification. Eur Spine J 2018;27(8):2002-2011.",
+   "pmid": "28455623",
+   "design": "n=296 asymptomatic adults, prospective radiographic study",
+   "values": "adds type 3 anteverted pelvis (3AP: PI < 50 with SS 35-45 and low PT); per-type PI 39 / 41 / 53 / 62 / 48 and PT 10 / 10 / 13 / 12 / 4 (1/2/3/4/3AP)",
+   "used_for": "the 3AP anteverted floor on PT* and the type-frequency comparison",
+   "verified": "citation, n=296 and the 3AP definition confirmed 2026-09-23; the per-type PI and PT rows are from the earlier session's reading"
+  },
+  "lee2016": {
+   "ref": "Lee SK, Lee SH, Song KS, et al. Lumbar lordosis of spinal stenosis patients during intraoperative prone positioning. Clin Orthop Surg 2016;8(1):65-70.",
+   "pmid": "26929801",
+   "doi": "10.4055/cios.2016.8.1.65",
+   "values": "n=67: preoperative 43.5+/-14.9, intraoperative prone (OSI frame) 48.8+/-13.2, change +5.3+/-10.6",
+   "verified": "abstract read 2026-09-23"
+  },
+  "mahato2011": {
+   "ref": "Mahato NK. Relationship of sacral articular surfaces and gender with occurrence of lumbosacral transitional vertebrae. Spine J 2011;11(10):961-965.",
+   "pmid": "21924685",
+   "doi": "10.1016/j.spinee.2011.08.007",
+   "note": "sacral morphology; lumbarisation commoner in women, sacralisation in men; no PI/LL values. Mahato 2019 (Int J Spine Surg 13:17-23, PMID 30805281) is an FE ROM study of the transitional junction"
+  },
+  "means2022": {
+   "alias_of": "sardar2022",
+   "ref": "See sardar2022 (MEANS, PMID 35797462). 'means2022' is used in cohort_measurement.outside_checks for the same cohort.",
+   "verified": "alias recorded 2026-09-23 so that no number carries a key with no reference"
+  },
+  "milele2022": {
+   "ref": "Mi Le JR, Yeh KT, Chen CW, Jaw FS, Yang SH, Wu WT. Quantitative evaluation of correlation between lumbosacral lordosis and pelvic incidence in standing position among asymptomatic Asian adults. Sci Rep 2022;12:18965.",
+   "pmid": "36347920",
+   "doi": "10.1038/s41598-022-21840-x",
+   "design": "n=324 standing, mean age 55+/-13; segmental contribution to L1-S1 lordosis L1-L2 2.3 %, L2-L3 11.7 %, L3-L4 18.1 %, L4-L5 25.2 %, L5-S1 42.7 %",
+   "verified": "abstract read 2026-09-23"
+  },
+  "muller2023": {
+   "superseded_by": "muller2024",
+   "note": "same paper as muller2024; kept so older rows resolve. Do not cite this key in new text.",
+   "ref": "Muller JA, Krenn VA, Boni T, Haeusler M. The influence of lumbosacral transitional vertebrae on lumbar lordosis and the angle of pelvic incidence. J Anat 2024;244(4):(online 2023).",
+   "verified": "full text read 2026-09-23"
+  },
+  "muller2024": {
+   "ref": "Muller JA, Krenn VA, Boni T, Haeusler M. The influence of lumbosacral transitional vertebrae on lumbar lordosis and the angle of pelvic incidence. J Anat 2024;244(4):594-600.",
+   "pmid": "38030157",
+   "used_for": "lordosis measured at the first non-mobile plate in sacralisation (30.2)",
+   "verified": "citation confirmed 2026-09-23 via PubMed esummary. Same paper as the key 'muller2023', which named it by its online-first year; J Anat gives the issue as 2024",
+   "supersedes_key": "muller2023"
+  },
+  "ouchida2024": {
+   "ref": "Ouchida J, Nakashima H, Kanemura T, Tsushima M, Ito S, Segi N, Tomita H, Morishita K, Oyama H, Oshima K, Imagama S. Analysis of spinopelvic parameters in adult patients with lumbosacral transitional vertebrae. Eur Spine J 2024;33(8):2952-2959.",
+   "pmid": "38922415",
+   "used_for": "one of the LSTV-vs-control PI contrasts (52.1 vs 47.8)",
+   "verified": "citation confirmed 2026-09-23 via PubMed esummary; the PI values are from the earlier session's reading"
+  },
+  "oxland1992": {
+   "ref": "Oxland TR, Lin RM, Panjabi MM. Three-dimensional mechanical properties of the thoracolumbar junction. J Orthop Res 1992;10(4):573-580.",
+   "pmid": "1613631",
+   "doi": "10.1002/jor.1100100412",
+   "design": "in vitro, n=11 T11-L1 three-vertebra specimens, 7.5 N m, ROM to one side, mean +/- SD",
+   "verified": "abstract read verbatim 2026-09-23; both segments' four-direction values with SDs re-confirmed verbatim from the PubMed efetch abstract the same day (T11-T12 2.7/2.4/3.5/1.8, T12-L1 2.9/3.9/3.7/1.2)"
+  },
+  "pan2022": {
+   "ref": "Pan C, Wang G, Wang X, Kuang L, Wang B, Liu X, Li T, Cui X, Sun J, Lv G. Predictive formulae of ideal lumbar lordosis determined by individual pelvic incidence and thoracic kyphosis in asymptomatic adults. J Orthop Sci 2022;27(1):101-107.",
+   "pmid": "33419627",
+   "doi": "10.1016/j.jos.2020.11.022",
+   "design": "asymptomatic adults, standing radiographs; LL predicted from PI AND TK",
+   "values": "quoted in the spec as LL = 0.618 PI + 19.23 at TK 40, R2 0.595",
+   "used_for": "a third outside slope for LL on PI, at a fixed TK",
+   "verified": "title, authors, journal, year, volume and pages confirmed 2026-09-23 via PubMed esummary; the coefficients were taken from the earlier session's reading and are NOT re-confirmed from the abstract here"
+  },
+  "pan2024": {
+   "ref": "Pan C, Bourghli A, Li Y, Li L, Kuang L, Wang B, Sun J, Lv G, Obeid I. Predicting thoracic kyphosis morphology and the thoracolumbar inflection point determined by individual lumbar lordosis in asymptomatic adults. Eur Spine J 2024;33(5):1830-1839.",
+   "pmid": "37851162",
+   "doi": "10.1007/s00586-023-07983-z",
+   "erratum_pmid": "38937353",
+   "design": "n=280 asymptomatic adults, standing full-spine radiographs",
+   "values": "T10-L1 = -3.6 - 0.2*LL (R2 0.201); T4-L1 = 3.4 - 0.5*LL (R2 0.457); TKA = -10.3 + 1.1*LLA (R2 0.180); IP = -12.7 + 1.6*LLA (R2 0.330). Kyphosis is negative in the source",
+   "used_for": "the thoracolumbar coupling dTLK = 0.2 dLL, the 40 % in-field share (0.2/0.5), and the LL-TK correlation 0.45",
+   "verified": "abstract read verbatim 2026-09-23 (Europe PMC core): both regressions and both R2 match the spec exactly"
+  },
+  "panjabi1991": {
+   "ref": "Panjabi MM, Takata K, Goel V, et al. Thoracic human vertebrae: quantitative three-dimensional anatomy. Spine 1991;16(8):888-901.",
+   "pmid": "1948374",
+   "doi": "10.1097/00007632-199108000-00006",
+   "note": "Table 3 (p. 892, image-only scan on disk, read by eye 2026-09-23) is VERTEBRAL BODY MORPHOMETRY (EPWu, EPDu, VBHp, end-plate inclinations EPItu/EPItl/EPIt), NOT segmental range of motion. The request's 'Panjabi 1991 Table 3 ROM' conflates it with the ROM papers above. Used here only for the thoracic body wedge reference: EPIt T10 1.7, T11 4.5, T12 4.0 deg (mean, SEM 0.14-0.79)."
+  },
+  "panjabi1992": {
+   "ref": "Panjabi MM, Goel V, Oxland T, et al. Human lumbar vertebrae: quantitative three-dimensional anatomy. Spine 1992;17(3):299-306.",
+   "doi": "10.1097/00007632-199203000-00010",
+   "note": "Table 2 (p. 301, read by eye 2026-09-23): end-plate inclinations EPItu/EPItl (mean +/- SEM, n=12 dry bone): L1 2.7/4.0, L2 3.5/2.1, L3 1.7/2.7, L4 4.7/2.7, L5 2.2/1.8 -> body wedge EPIt L1 6.7, L2 5.6, L3 4.4, L4 7.4, L5 4.0 deg. A body-frame definition; not the radiographic wedge."
+  },
+  "pearcy1984a": {
+   "ref": "Pearcy M, Portek I, Shepherd J. Three-dimensional x-ray analysis of normal movement in the lumbar spine. Spine 1984;9(3):294-297.",
+   "pmid": "6374922",
+   "design": "in vivo biplanar radiography, asymptomatic volunteers: each lumbar joint ~14 deg total flexion+extension, lower levels slightly more",
+   "verified": "abstract read verbatim 2026-09-23"
+  },
+  "pearcy1984b": {
+   "ref": "Pearcy MJ, Tibrewal SB. Axial rotation and lateral bending in the normal lumbar spine measured by three-dimensional radiography. Spine 1984;9(6):582-587.",
+   "pmid": "6495028",
+   "design": "in vivo: ~2 deg axial rotation per joint (L3-4, L4-5 slightly more); lateral bending ~10 deg at the upper three levels, 6 deg L4-5, 3 deg L5-S1",
+   "verified": "abstract read verbatim 2026-09-23"
+  },
+  "peterson1995": {
+   "ref": "Peterson MD, Nelson LM, McManus AC, Jackson RP. The effect of operative position on lumbar lordosis. A radiographic study of patients under anesthesia in the prone and 90-90 positions. Spine 1995;20(12):1419-1424.",
+   "pmid": "7676342",
+   "values": "n=40: 90-90 position lost >35 % of total lordosis and ~60 % segmental at L2-L5; prone on a Jackson table preserved standing lordosis and increased L5-S1 by 22 %",
+   "verified": "abstract read 2026-09-23"
+  },
+  "polypose": {
+   "ref": "Gopalakrishnan V, Dey N, Golland P. PolyPose: Deformable 2D/3D registration via polyrigid transformations. NeurIPS 2025. arXiv:2505.19256.",
+   "pmid": "40492249",
+   "pmcid": "PMC12148084",
+   "code": "github.com/eigenvivek/polypose, MIT, commit 909a9bb2eeccf05065c7bc1d3703fb99f87b35b9 (2025-10-22, 'Add DeepFluoro experiment scripts (#17)'), package version 0.0.0rc1, python>=3.10, deps cupy-cuda12x>=13.3.0 diffdrr>=6.0.0 jaxtyping>=0.3 monai>=1.4.0 totalsegmentator>=2.10.0 xvr; pinned in requirements.txt (256,716 B) and uv.lock (953,572 B) at that commit",
+   "mechanism": "src/polypose/weights/weights.py compute_weights(subject, labels: list|list[list], weightfn='gravity'|'invdf'|'exp', normalize=True): per rigid body, a distance transform of the union of its label ids, weight = mass/(D^2+1) (gravity), normalised per voxel. src/polypose/warp/polyrigid.py PolyRigid(drr, weights[K,D,H,W], poses_rot[K,3], poses_xyz[K,3]): log-Euclidean weighted average of the K se(3) poses per voxel, exponentiated. warp.py: volume via grid_sample bilinear/border, mask via nearest; Warp.jacdet gives the Jacobian determinant of the field.",
+   "validation": "DeepFluoro 6 cadavers: pelvis Dice 0.99, femurs 0.98, HD95 1.48/1.56 mm, 0.00 % folds (docs/MORPHOLOGY_SYNTHESIS_PRIOR_ART.md)",
+   "verified": "README, pyproject.toml, src/polypose/weights/weights.py, warp/polyrigid.py, warp/warp.py and the commit list read 2026-09-23 through the GitHub API; the label-map input is compute_weights(labels=list of lists), which the README does not document"
+  },
+  "ratio_report": {
+   "ref": "reports/Synthetic real ratio X-ray detectors.md (this repo), section 'A recipe for the C-arm level detector'",
+   "values": "real frames 10-20 % of the sampled mix (synthetic 4:1 to 9:1), never beyond 10:1; 4x epoch-level repetition of real transitional frames; 25-35 % of rendered CTs carry the variant, by CT choice; 200-500 renders per CT; nobody has measured anatomical-variant augmentation"
+  },
+  "roussouly2005": {
+   "ref": "Roussouly P, Gollogly S, Berthonnaud E, Dimnet J. Classification of the normal variation in the sagittal alignment of the human lumbar spine and pelvis in the standing position. Spine 2005;30(3):346-353.",
+   "pmid": "15682018",
+   "doi": "10.1097/01.brs.0000152379.54463.65",
+   "design": "asymptomatic adults, standing; a four-part classification of sagittal morphology. The abstract does not print the sample size and it is not asserted here",
+   "used_for": "the four shape types the sampler's share table is indexed by",
+   "verified": "citation confirmed 2026-09-23 via Europe PMC core. The abstract does NOT print the per-type sacral-slope thresholds; the SS < 35 / 35-45 / > 45 cut points used here are the classification as it is universally restated (and as laouissat2018 restates it)"
+  },
+  "sardar2022": {
+   "ref": "Sardar ZM, Cerpa M, Kelly M, et al. Age and gender based spinopelvic and regional spinal alignment in asymptomatic adult volunteers: results of the Multi-Ethnic Alignment Normative Study (MEANS). Spine 2022;47(19):1382-1390.",
+   "pmid": "35797462",
+   "doi": "10.1097/BRS.0000000000004415",
+   "values": "n=468, age 40.4+/-14.8: TK(T4-T12) 37.4+/-10.9, LL(L1-S1) 57.4+/-11.3, PI 52.0+/-10.7, PT 12.5+/-7.3, SS 39.5+/-8.2, PI-LL -5.4+/-10.7; LL = 14.6 + 0.57 PI + 0.57 TK - 0.2 age",
+   "verified": "abstract read verbatim 2026-09-23"
+  },
+  "shen2023": {
+   "ref": "Shen Y, Sardar ZM, Le Huec JC, et al. Variation in lumbar shape and lordosis in a large asymptomatic population: a MEANS study. Spine 2023;48(11):758-765.",
+   "pmid": "36944088",
+   "doi": "10.1097/brs.0000000000004624",
+   "design": "n=468; apex L4 56.6 %, L3 40.2 %; PI-LL mean -5.4 (range -35 to 39.7)",
+   "verified": "abstract read 2026-09-23 (Europe PMC)"
+  },
+  "shen2024": {
+   "ref": "Shen Y, Sardar ZM, Malka M, Katiyar P, Greisberg G, Hassan F, Reyes JL, Le Huec JC, Bourret S, Hasegawa K, Wong HK, Liu G, Hey HWD, Riahi H, Kelly M, Lombardi JM, Lenke LG. Characteristics of Spinal Morphology According to the 'Current' and 'Theoretical' Roussouly Classification Systems in a Diverse, Asymptomatic Cohort: Multi-Ethnic Alignment Normative Study (MEANS). Global Spine J 2025;15(2):1295-1305.",
+   "pmid": "38417069",
+   "pmcid": "PMC11572046",
+   "doi": "10.1177/21925682241235611",
+   "design": "n=467 asymptomatic volunteers from five countries, EOS imaging",
+   "values": "PI by CURRENT type 40.8 +/- 9.2 / 43.6 +/- 7.6 / 52.4 +/- 7.6 / 62.4 +/- 8.6 / 43.7 +/- 5.0 (1/2/3/4/3AP); 34.7 % (162/467) have a current type different from the theoretical one",
+   "used_for": "the type-frequency check on the generated set",
+   "verified": "every value confirmed verbatim 2026-09-23 from the PMC full text; distinct from shen2023 (PMID 36944088), which is the lumbar-shape MEANS paper"
+  },
+  "tini1977": {
+   "ref": "Tini PG, Wieser C, Zinn WM. The transitional vertebra of the lumbosacral spine: its radiological classification, incidence, prevalence, and clinical significance. Rheumatol Rehabil 1977;16(3):180-185.",
+   "pmid": "143714",
+   "note": "prevalence equal in patients and population; no spinopelvic angles"
+  },
+  "veilleux2020": {
+   "ref": "Veilleux NJ, Kalore NV, Vossen JA, Wayne JS. Automatic Characterization of Pelvic and Sacral Measures from 200 Subjects. J Bone Joint Surg Am 2020;102(17):e130.",
+   "pmid": "32881722",
+   "doi": "10.2106/JBJS.20.00343",
+   "design": "n=200, automated measurement from supine CT, asymptomatic",
+   "values": "PI 52.05, SS 36.49, PT 15.60",
+   "used_for": "THE outside check of this cohort's pelvis: cohort PI 51.98 / SS 36.44 / PT 15.54 land within 0.07 deg of all three",
+   "verified": "authors, journal, year, pages, PMID, DOI and all three values confirmed 2026-09-23 via Europe PMC core"
+  },
+  "vialle2005": {
+   "ref": "Vialle R, Levassor N, Rillardon L, Templier A, Skalli W, Guigui P. Radiographic analysis of the sagittal alignment and balance of the spine in asymptomatic subjects. J Bone Joint Surg Am 2005;87(2):260-267.",
+   "pmid": "15687145",
+   "doi": "10.2106/jbjs.d.02043",
+   "values": "n=300: LL 60+/-10, SS 41+/-8.4, PT 13+/-6, PI 55+/-10.6",
+   "verified": "abstract read 2026-09-23"
+  },
+  "vrtovec2012": {
+   "ref": "Vrtovec T, Janssen MM, Pernus F, Castelein RM, Viergever MA. Analysis of pelvic incidence from 3-dimensional images of a normal population. Spine 2012;37(8):E479-E485.",
+   "pmid": "21971132",
+   "doi": "10.1097/BRS.0b013e31823770af",
+   "design": "n=370 normal subjects, mean age 41.5 (range 1-87), PI measured in 3-D from CT with multiplanar reformation",
+   "values": "PI male 46.6 +/- 9.2, female 47.6 +/- 10.7, both 47.1 +/- 10.0",
+   "used_for": "a second supine-CT PI reference",
+   "verified": "n and PI 47.1 +/- 10.0 confirmed verbatim 2026-09-23 via Europe PMC core. CORRECTION: the spec's inline cite said 'Eur Spine J 2012'; the paper is in Spine. A different Vrtovec 2012 paper (Spine J 12(5):433-46, PMID 22480531) is a review and is NOT this source"
+  },
+  "wang2022": {
+   "ref": "Wang J, Zhang Q, Liu F, Yuan H, Zhang Y, Wang X, Li J. Predicting the ideal apex of lumbar lordosis based on individual pelvic incidence and inflection point in asymptomatic adults. Front Surg 2022;9:912357.",
+   "pmid": "36248369",
+   "doi": "10.3389/fsurg.2022.912357",
+   "design": "n=385 asymptomatic Chinese adults, mean age 38.3 +/- 11.9 (20-73), standing full-spine radiographs",
+   "values": "Table 1: PI 46.8 +/- 9.7, LL 55.9 +/- 9.1, TK 40.3 +/- 8.7. Table 4: rs(PI,LL) 0.663 (p<0.01), rs(LL,TK) 0.370 (p<0.01), rs(PI,TK) 0.051 (n.s.)",
+   "used_for": "the PI-LL, LL-TK and PI-TK entries of the correlation matrix",
+   "verified": "full text read 2026-09-23 (Frontiers open access): every value above is quoted verbatim from Tables 1 and 4. The abstract alone does NOT carry them"
+  },
+  "weng2025": {
+   "ref": "Weng R, Yu Y, Ren R, et al. Investigating biomechanical differences in lumbosacral transitional vertebrae among different Castellvi classifications. Front Bioeng Biotechnol 2025.",
+   "doi": "10.3389/fbioe.2025.1700758",
+   "pmcid": "PMC12672435",
+   "values": "single-subject FE, 400 N + 8 N m: L5-S1 flexion displacement reduced 63.7 % (IIIA), 50.9 % (IIIB), 47.8 % (IV) vs normal; the model retains a compliant disc, so residual motion is a modelling choice, not a measurement",
+   "verified": "full text read 2026-09-23"
+  },
+  "whitepanjabi1990": {
+   "ref": "White AA, Panjabi MM. Clinical Biomechanics of the Spine, 2nd ed. Philadelphia: Lippincott; 1990. Tables 2-2 (thoracic) and 2-3 (lumbar), representative values.",
+   "verified": "NOT verified today: no scan on hand and no online reproduction could be opened. Listed as secondary; not used as a bound."
+  },
+  "wilke2017": {
+   "ref": "Wilke HJ, Herkommer A, Werner K, Liebsch C. In vitro analysis of the segmental flexibility of the thoracic spine. PLoS One 2017;12(5):e0177823.",
+   "pmcid": "PMC5433776",
+   "design": "in vitro, n=6-7 per level, +/-7.5 N m pure moments, monosegmental FSUs T1-T2 to T11-T12 with the costovertebral joints kept and no rib cage; ROM reported per direction (ROM+ and ROM- columns in S1)",
+   "verified": "citation, PMID and DOI confirmed 2026-09-23 (PubMed). 2026-09-26: rom_deg T10-T11 recomputed from the per-specimen rows of S1 Dataset (pone.0177823.s001.xlsx), reproducing its Mean rows; two independent extractions agree to 0.01 deg. The Results bands (e.g. 'ranged from 3.1 to 3.8') are per-direction values, not two-direction totals",
+   "pmid": "28520819",
+   "doi": "10.1371/journal.pone.0177823"
+  },
+  "yamamoto1989": {
+   "ref": "Yamamoto I, Panjabi MM, Crisco T, Oxland T. Three-dimensional movements of the whole lumbar spine and lumbosacral joint. Spine 1989;14(11):1256-1260.",
+   "pmid": "2603060",
+   "doi": "10.1097/00007632-198911000-00020",
+   "design": "in vitro, n=10 fresh cadaveric L1-sacrum, pure moments to 10 N m, ROM per direction (axial torque and lateral bending to one side)",
+   "verified": "abstract read verbatim 2026-09-23 (Europe PMC); all five segments' flexion / extension / lateral-bending / axial-torque values re-confirmed verbatim from the PubMed efetch abstract the same day (L1-2 5.8/4.3/4.9/2.3 ... L5-S1 10.0/7.8/5.5/1.4)"
+  },
+  "yan2022": {
+   "ref": "Yan YZ, Wang B, Huang XQ, Ru X, Wang XY, Qu HB. Variation in Global Spinal Sagittal Parameters in Asymptomatic Adults with 11 Thoracic Vertebrae, four Lumbar Vertebrae, and six Lumbar Vertebrae. Orthop Surg 2022;14(2):341-348.",
+   "pmid": "34935276",
+   "doi": "10.1111/os.13185",
+   "design": "n=389 asymptomatic Chinese volunteers, standing full-spine radiographs, grouped by vertebral COUNT",
+   "values": "7C+12T+5L (normal) n=346; 7C+11T+5L n=12 (3.1 %); 7C+11T+6L n=8 (2.1 %); 7C+12T+4L n=8 (2.1 %); 7C+12T+6L n=15 (3.9 %). The variant groups differ from normal in sagittal alignment (p<0.05)",
+   "used_for": "NEW 2026-09-23: the only asymptomatic normative series found that reports sagittal parameters by VERTEBRAL COUNT, i.e. for six-lumbar, four-lumbar and eleven-thoracic spines. It is the closest published analogue of this project's L6 / four-lumbar / T13 subtypes and gives a prevalence of the count variants in an asymptomatic population (9.2 % combined)",
+   "verified": "citation, n=389 and every group size confirmed verbatim 2026-09-23 (Europe PMC core). The per-group parameter means are behind a Wiley paywall (HTTP 403) and are NOT on hand; only the group sizes and the statement of difference are used"
+  },
+  "yokoyama2016": {
+   "ref": "Yokoyama K, Kawanishi M, Yamada M, et al. Spinopelvic alignment and sagittal balance of asymptomatic adults with 6 lumbar vertebrae. Eur Spine J 2016;25(11):3583-3588.",
+   "pmid": "26482498",
+   "doi": "10.1007/s00586-015-4284-4",
+   "values": "29 of 167 (17.4 %) with six lumbar vertebrae: PI 64.8+/-9.54 vs 51.3+/-10.1 (P<0.0001); SS P=0.0125, PT P<0.0001; LL P=0.16 (n.s.)",
+   "verified": "abstract read 2026-09-23"
+  },
+  "yukawa2017": {
+   "superseded_by": "yukawa2018",
+   "note": "same paper as yukawa2018; kept so older rows resolve. Do not cite this key in new text.",
+   "ref": "Yukawa Y, Kato F, Suda K, Yamagata M, Ueta T, Yoshida M. Normative data for parameters of sagittal spinal alignment in healthy subjects: an analysis of gender specific differences and changes with aging in 626 asymptomatic individuals. Eur Spine J 2017;26(11):2851-2862.",
+   "verified": "values from the publisher abstract via search 2026-09-23; volume/pages to re-check"
+  },
+  "yukawa2018": {
+   "ref": "Yukawa Y, Kato F, Suda K, Yamagata M, Ueta T, Yoshida M. Normative data for parameters of sagittal spinal alignment in healthy subjects: an analysis of gender specific differences and changes with aging in 626 asymptomatic individuals. Eur Spine J 2018;27(2):426-432.",
+   "pmid": "27771788",
+   "doi": "10.1007/s00586-016-4807-7",
+   "design": "n=626 asymptomatic Japanese volunteers, standing full-length radiographs",
+   "values": "CL 4.1 +/- 11.7, TK(T1-T12) 36.0 +/- 10.1, LL(T12-S1) 49.7 +/- 11.2, PI 53.7 +/- 10.9, PT 14.5 +/- 8.4, SS 39.4 +/- 8.0, SVA 3.1 +/- 12.6 mm",
+   "used_for": "the alternate normative row and the LL fill-in reference",
+   "verified": "every value confirmed verbatim 2026-09-23 against the publisher record; supersedes the key 'yukawa2017', which named the same paper by its online-first year",
+   "supersedes_key": "yukawa2017"
+  },
+  "tu2023": {
+   "ref": "Tu Z, Xie F, Huang P, Ma Y, Wang Z, Luo Z, Hu X. The change of Roussouly classification after posterior lumbar fusion surgery. Quant Imaging Med Surg 2023;13(3):1375-1383.",
+   "pmid": "36915337",
+   "pmcid": "PMC10006121",
+   "doi": "10.21037/qims-22-365",
+   "used_for": "the wording of the four Roussouly type definitions in roussouly_shape_rule (type 1: SS < 35 with the LL apex at the centre of L5; type 2: SS < 35 with the apex at the base of L4; type 3: SS 35-45; type 4: SS > 45). It does not describe the anteverted 3AP type (that is laouissat2018)",
+   "verified": "citation and all four type definitions read verbatim 2026-09-23 (PMC full text)"
+  }
+ },
+ "rom_deg": {
+  "note": "Hard caps on the relative rotation of one segment, per direction, from the neutral supine pose. flex = lordosis-reducing, ext = lordosis-increasing, lb and ar are one-side values. Source per row. Values are in vitro at 7.5-10 N m; in vivo totals (Pearcy 1984) are ~14 deg per lumbar joint, i.e. the in vitro flex+ext sums (10.1-17.8) bracket them.",
+  "T10-T11": {
+   "flex": 3.07,
+   "ext": 3.07,
+   "lb": 3.99,
+   "ar": 4.04,
+   "sd": {
+    "flex": 0.98,
+    "ext": 1.07,
+    "lb": 0.78,
+    "ar": 0.79
+   },
+   "source": "wilke2017",
+   "note": "n=6 at +/-7.5 N m; means of the per-specimen rows of S1 Dataset (pone.0177823.s001.xlsx): flex = ROM+, ext = |ROM-|, lb and ar = mean of the two measured sides; sd = sample SD (n-1). Corrected 2026-09-26 from 1.75/1.75/2.1/2.4, which treated per-direction values as two-direction totals and halved them."
+  },
+  "T11-T12": {
+   "flex": 2.7,
+   "ext": 2.4,
+   "lb": 3.5,
+   "ar": 1.8,
+   "sd": {
+    "flex": 1.3,
+    "ext": 1.3,
+    "lb": 1.1,
+    "ar": 0.7
+   },
+   "source": "oxland1992"
+  },
+  "T12-L1": {
+   "flex": 2.9,
+   "ext": 3.9,
+   "lb": 3.7,
+   "ar": 1.2,
+   "sd": {
+    "flex": 1.4,
+    "ext": 1.4,
+    "lb": 1.1,
+    "ar": 0.7
+   },
+   "source": "oxland1992"
+  },
+  "L1-L2": {
+   "flex": 5.8,
+   "ext": 4.3,
+   "lb": 4.9,
+   "ar": 2.3,
+   "nz": {
+    "fe": 1.6,
+    "ar": 0.9,
+    "lb": 1.4
+   },
+   "source": "yamamoto1989"
+  },
+  "L2-L3": {
+   "flex": 6.5,
+   "ext": 4.3,
+   "lb": 7.0,
+   "ar": 2.6,
+   "nz": {
+    "fe": 1.0,
+    "ar": 0.8,
+    "lb": 2.0
+   },
+   "source": "yamamoto1989"
+  },
+  "L3-L4": {
+   "flex": 7.5,
+   "ext": 3.7,
+   "lb": 5.7,
+   "ar": 2.6,
+   "nz": {
+    "fe": 1.4,
+    "ar": 0.7,
+    "lb": 1.4
+   },
+   "source": "yamamoto1989"
+  },
+  "L4-L5": {
+   "flex": 8.9,
+   "ext": 5.8,
+   "lb": 5.7,
+   "ar": 2.2,
+   "nz": {
+    "fe": 1.8,
+    "ar": 0.4,
+    "lb": 1.6
+   },
+   "source": "yamamoto1989"
+  },
+  "L5-S1": {
+   "flex": 10.0,
+   "ext": 7.8,
+   "lb": 5.5,
+   "ar": 1.4,
+   "nz": {
+    "fe": 3.0,
+    "ar": 0.4,
+    "lb": 1.8
+   },
+   "source": "yamamoto1989"
+  },
+  "in_vivo_crosscheck": {
+   "flex_plus_ext_per_lumbar_joint": 14.0,
+   "ar_per_joint": 2.0,
+   "lb_upper_three": 10.0,
+   "lb_L4L5": 6.0,
+   "lb_L5S1": 3.0,
+   "source": "pearcy1984a, pearcy1984b"
+  },
+  "secondary_unverified": {
+   "whitepanjabi1990": "lumbar flex+ext L1-2 12, L2-3 14, L3-4 15, L4-5 16, L5-S1 17; lb 6,6,8,6,3; ar 2,2,2,2,1; T10-11 9/7/2, T11-12 12/9/2, T12-L1 12/8/2 (from memory of Tables 2-2/2-3; NOT used)"
+  }
+ },
+ "junction_rules": {
+  "note": "Multiplier on both sagittal caps (and on lb/ar) of the named segment. 0 = the upper body joins the pelvis rigid body (one inner list in compute_weights). Castellvi grade from the anomaly tables (castellvi_grades.csv / lstv_flag_labels_v2.csv for CTSpinoPelvic1K; verse_suppl_table1.csv castellvi_grading for VerSe), never inferred from label ids.",
+  "castellvi_multiplier": {
+   "0": 1.0,
+   "I": 1.0,
+   "Ia": 1.0,
+   "Ib": 1.0,
+   "II": 0.45,
+   "IIa": 0.45,
+   "IIb": 0.45,
+   "III": 0.0,
+   "IIIa": 0.0,
+   "IIIb": 0.0,
+   "IV": 0.0,
+   "unknown": 0.45
+  },
+  "castellvi_multiplier_sources": {
+   "I": "enlarged transverse process only, no articulation (castellvi1984, konin2010) -> full ROM",
+   "II": "pseudo-articulation: pooled II-IV L5/S1 ROM 3.3 vs 7.3 in controls (kuoppala2025) = 0.45; an upper bound for type II alone",
+   "III_IV": "osseous fusion by definition (castellvi1984); III/IV transitional disc protected from degeneration (cheng2022); rule: exactly zero relative motion, fused body in the pelvis rigid body. weng2025's residual FE motion comes from a modelled disc and is not used"
+  },
+  "subtypes": {
+   "ordinary": {
+    "mobile_segments": [
+     "T10-T11",
+     "T11-T12",
+     "T12-L1",
+     "L1-L2",
+     "L2-L3",
+     "L3-L4",
+     "L4-L5",
+     "L5-S1"
+    ],
+    "caps": "as rom_deg",
+    "shares": "as segment_share_of_LL",
+    "junction": "L5-S1 x castellvi_multiplier(grade)"
+   },
+   "L6": {
+    "definition": "six lumbar bodies above the sacrum (lumbarised S1), label 25 present",
+    "mobile_segments": [
+     "T10-T11",
+     "T11-T12",
+     "T12-L1",
+     "L1-L2",
+     "L2-L3",
+     "L3-L4",
+     "L4-L5",
+     "L5-L6",
+     "L6-S1"
+    ],
+    "caps": "anchored at the sacrum: L6-S1 <- L5-S1, L5-L6 <- L4-L5, L4-L5 <- L3-L4, L3-L4 <- L2-L3, L2-L3 <- L1-L2, L1-L2 <- L1-L2 (top cap reused)",
+    "shares": "anchored the same way, top share reused, renormalised: L1-L2 0.023, L2-L3 0.023, L3-L4 0.117, L4-L5 0.181, L5-L6 0.252, L6-S1 0.427 -> divided by 1.023",
+    "junction": "L6-S1 x castellvi_multiplier(grade at L6)",
+    "evidence_gap": "no published segmental ROM for six-lumbar spines; anchoring at the sacrum is a decision (lumbosacral mechanics are set by the pelvis), stated as such"
+   },
+   "sacralised_L5": {
+    "definition": "four mobile lumbar bodies; L5 fused to the sacrum (Castellvi III/IV at L5-S1, or the release's sacralization_count / n_lumbar 4)",
+    "mobile_segments": [
+     "T10-T11",
+     "T11-T12",
+     "T12-L1",
+     "L1-L2",
+     "L2-L3",
+     "L3-L4",
+     "L4-L5"
+    ],
+    "caps": "own caps; L4-L5 keeps L4-L5 (kuoppala2025: no excess at the adjacent level)",
+    "shares": "L5-S1 share removed and the rest renormalised: L1-L2 0.040, L2-L3 0.204, L3-L4 0.316, L4-L5 0.440",
+    "junction": "L5-S1 multiplier 0; L5 in the pelvis rigid body",
+    "note": "a partial (Castellvi II) sacralisation is handled by the multiplier, not by this subtype"
+   },
+   "T13": {
+    "definition": "thirteen rib-bearing vertebrae, label 28 present",
+    "mobile_segments": [
+     "T10-T11",
+     "T11-T12",
+     "T12-T13",
+     "T13-L1",
+     "L1-L2",
+     "L2-L3",
+     "L3-L4",
+     "L4-L5",
+     "L5-S1"
+    ],
+    "caps": "T12-T13 <- T11-T12 (oxland1992), T13-L1 <- T12-L1 (oxland1992), T11-T12 <- T10-T11 (wilke2017); lumbar as ordinary",
+    "shares": "as ordinary",
+    "evidence_gap": "no published ROM or sagittal series for T13 spines; the extra thoracic-type segment takes the thoracolumbar caps"
+   },
+   "lumbar_rib_L1": {
+    "definition": "hypoplastic rib on L1 (VerSe stump_rib L1; CTSP has_lumbar_rib)",
+    "rule": "ordinary; no evidence of altered motion"
+   },
+   "four_lumbar_count_without_fusion": {
+    "definition": "four lumbar bodies with a mobile L4-S1 (rare; count anomaly, not a fusion)",
+    "rule": "ordinary caps with L4-S1 <- L5-S1; flagged for manual review"
+   },
+   "both_LSTV_and_TLTV": {
+    "rule": "apply the lumbosacral subtype rule and the T13 rule together"
+   },
+   "unilateral": {
+    "rule": "IIIa (one side fused) counts as fused (a bony bridge blocks sagittal motion); IIa counts as II"
+   }
+  },
+  "compensation_decision": {
+   "model_adjacent_level_hypermobility": false,
+   "reason": "kuoppala2025: total lumbar ROM in LSTV 33.5 vs 38.3 (n.s.) and compensation spread over the superior segments, not the adjacent level; cheng2022 degeneration above III/IV is a long-term load effect, not a ROM value to sample. What IS retained: the requested dLL is distributed over the remaining mobile segments (their caps unchanged), so a fused spine reaches ordinary lordosis with fewer segments, which is the population finding (LL n.s. in yokoyama2016; higher in jacob2023)"
+  }
+ },
+ "pelvis_rule": {
+  "rigid_body": [
+   "sacrum",
+   "coccyx",
+   "left_hip",
+   "right_hip",
+   "femur_left",
+   "femur_right",
+   "any body with multiplier 0 at its caudal junction"
+  ],
+  "motion": "identity",
+  "invariant": "PI unchanged within 0.5 deg (re-measured); SS and PT unchanged within 0.5 deg"
+ },
+ "seeding": {
+  "master_seed": 20260923,
+  "per_variant_seed": "int(sha256(f'{master_seed}|{source_patient_key}|{variant_index}').hexdigest()[:16], 16)",
+  "rng": "numpy.random.Generator(PCG64(seed))",
+  "draw_order": "PI (measured, not drawn); (LL*, TK*, SS*) | PI as one multivariate-normal draw in the standing frame; supine offsets (LL, SS, TK); Roussouly type from SS*; T10-L1 share of dTK; then per segment cranial to caudal (sagittal, lb, ar). The order is part of the spec so a row is reproducible."
+ },
+ "manifest_row": [
+  "source_case",
+  "source_collection",
+  "patient_key",
+  "variant_index",
+  "seed",
+  "subtype",
+  "castellvi",
+  "junction_multipliers",
+  "rigid_bodies (list of label-id lists)",
+  "LL_target",
+  "LL_source_measured",
+  "dLL_requested_per_segment",
+  "dLL_clipped_per_segment",
+  "dLL_shortfall",
+  "lb_per_segment",
+  "ar_per_segment",
+  "polypose_commit",
+  "env_hash (sha256 of the pinned requirements + container image digest)",
+  "output_ct_sha256",
+  "output_label_sha256",
+  "output_bodymask_sha256",
+  "remeasured (measure_sagittal.py row)",
+  "checks (name -> pass/fail/value)",
+  "method_version",
+  "PI_source_measured",
+  "SS_source_supine",
+  "PT_source_supine",
+  "TLK_T10L2_source",
+  "drawn_standing {LL_star, TK_star, SS_star, PT_star}",
+  "drawn_supine {LL_star, TK_star, SS_star, PT_star}",
+  "supine_offsets_drawn {dLL, dSS, dTK}",
+  "roussouly_type",
+  "lower_arc_share_used",
+  "dLL_requested",
+  "dTK_total_drawn",
+  "dTLK_T10L1_requested",
+  "balance_residual_c",
+  "rejections_before_accept (count and reasons)",
+  "envelope_checks (name -> pass/fail/value)",
+  "source_plate_sanity (LL, disc, TLK gates passed on the source)"
+ ],
+ "joint_sagittal_model": {
+  "what": "One multivariate normal over (PI, LL, TK, SS) in the STANDING frame of the asymptomatic normative literature. The sampler never draws PI: PI is the patient's, measured on the source CT and invariant under the warp. It draws (LL*, TK*, SS*) from the conditional distribution given PI and sets PT* = PI - SS*.",
+  "variables": {
+   "PI": "pelvic incidence",
+   "LL": "L1-S1 lordosis",
+   "TK": "T4-T12 kyphosis",
+   "SS": "sacral slope",
+   "PT": "pelvic tilt = PI - SS"
+  },
+  "means_sd_standing": {
+   "PI": [
+    52.0,
+    10.7
+   ],
+   "LL": [
+    57.4,
+    11.3
+   ],
+   "TK": [
+    37.4,
+    10.9
+   ],
+   "SS": [
+    39.5,
+    8.2
+   ],
+   "PT": [
+    12.5,
+    7.3
+   ],
+   "PI_minus_LL": [
+    -5.4,
+    10.7
+   ],
+   "source": "sardar2022 (MEANS, n=468, age 40.4+/-14.8, multi-ethnic, PMID 35797462)",
+   "alternates": {
+    "yukawa2018": {
+     "PI": [
+      53.7,
+      10.9
+     ],
+     "LL_T12S1": [
+      49.7,
+      11.2
+     ],
+     "TK_T1T12": [
+      36.0,
+      10.1
+     ],
+     "SS": [
+      39.4,
+      8.0
+     ],
+     "PT": [
+      14.5,
+      8.4
+     ],
+     "n": 626
+    },
+    "vialle2005": {
+     "PI": [
+      55.0,
+      10.6
+     ],
+     "LL_max": [
+      60.0,
+      10.0
+     ],
+     "SS": [
+      41.0,
+      8.4
+     ],
+     "PT": [
+      13.0,
+      6.0
+     ],
+     "n": 300
+    },
+    "wang2022": {
+     "PI": [
+      46.8,
+      9.7
+     ],
+     "LL": [
+      55.9,
+      9.1
+     ],
+     "TK": [
+      40.3,
+      8.7
+     ],
+     "n": 385
+    }
+   },
+   "why_MEANS": "the only series with all five parameters, SDs, a PI-LL SD, a multi-ethnic sample and a published LL regression on PI, TK and age"
+  },
+  "correlations": {
+   "matrix_order": [
+    "PI",
+    "LL",
+    "TK",
+    "SS"
+   ],
+   "matrix": [
+    [
+     1.0,
+     0.6,
+     0.1,
+     0.8
+    ],
+    [
+     0.6,
+     1.0,
+     0.45,
+     0.86
+    ],
+    [
+     0.1,
+     0.45,
+     1.0,
+     0.35
+    ],
+    [
+     0.8,
+     0.86,
+     0.35,
+     1.0
+    ]
+   ],
+   "sources": {
+    "PI-SS": "0.80, vialle2005 (n=300)",
+    "SS-LL": "0.86, vialle2005 (maximal lordosis)",
+    "PI-LL": "0.60: vialle2005 regression LL = 0.54 PI + 27.6 implies 0.54*10.6/10 = 0.57; wang2022 rs 0.663; hyun2019 R2 0.348 -> 0.59; this cohort 0.64",
+    "LL-TK": "0.45: wang2022 rs 0.370; the >50 y series behind the search hit r 0.523; pan2024 T4-L1 R2 0.457 -> 0.68 (T4-L1 includes T12-L1); pan2024 T10-L1 R2 0.201 -> 0.45",
+    "PI-TK": "0.10: wang2022 rs 0.051 n.s.; the second Chinese series rs 0.177",
+    "SS-TK": "0.35: NOT published as a pair; set so that TK relates to SS through LL (0.86 x 0.45 = 0.39, rounded down); the matrix is then positive definite (eigenvalues [6.834, 36.162, 109.112, 276.122])"
+   },
+   "positive_definite": true
+  },
+  "conditional_given_PI": {
+   "mean_i = mu_i + beta_i * (PI - 52.0)": {
+    "LL": 0.6336,
+    "TK": 0.1019,
+    "SS": 0.6131
+   },
+   "residual_sd": {
+    "LL": 9.04,
+    "TK": 10.845,
+    "SS": 4.92
+   },
+   "residual_correlation": {
+    "LL-TK": 0.49,
+    "LL-SS": 0.792,
+    "TK-SS": 0.452
+   },
+   "residual_covariance_order_LL_TK_SS": [
+    [
+     81.722,
+     48.036,
+     35.211
+    ],
+    [
+     48.036,
+     117.622,
+     24.133
+    ],
+    [
+     35.211,
+     24.133,
+     24.206
+    ]
+   ],
+   "reading": "at a given PI one degree of PI buys 0.63 deg of LL (Vialle 0.54, Hyun 0.62), 0.61 deg of SS (Vialle 0.54) and 0.10 deg of TK; the residual spread of LL around its PI-conditional mean is 9.0 deg, of SS 4.9 deg, of TK 10.9 deg"
+  },
+  "outside_checks_of_the_assembled_matrix": {
+   "implied_PT_mean_sd": [
+    12.5,
+    6.43
+   ],
+   "published_PT": [
+    12.5,
+    7.3
+   ],
+   "implied_PI_minus_LL_mean_sd": [
+    -5.4,
+    9.85
+   ],
+   "published_PI_minus_LL": [
+    -5.4,
+    10.7
+   ],
+   "implied_PT_regression_on_PI_LL_TK": {
+    "coef": [
+     0.6495,
+     -0.4083,
+     -0.0384
+    ],
+    "resid_sd": 2.98
+   },
+   "published_PT_regression": "lafage2011 (PMID 21217459): PT predicted from PI, maximal LL and maximal TK, r = 0.93, SE 4.4 deg; coefficients quoted by secondary sources as PT = 1.14 + 0.71 PI - 0.52 LL - 0.19 TK and NOT verified from the paper; the assembled matrix gives 0.65 PI - 0.41 LL - 0.04 TK with residual 3.0 deg without having used it",
+   "reading": "the matrix reproduces two published quantities it was not fitted to (PT and PI-LL spread) and lands near the ISSG PT predictor; it is assembled from four cohorts, not estimated on one, and the SS-TK entry is an assumption"
+  },
+  "compensation_slopes_at_fixed_PI": {
+   "dSS_per_dLL": 0.431,
+   "dPT_per_dLL": -0.431,
+   "dSS_per_dTK_at_fixed_LL": 0.038,
+   "reading": "loss of one degree of lordosis retroverts the pelvis by 0.43 deg on average (Lafage secondary-quoted -0.52; the vertical-trunk identity with TK ~ 0.45 LL gives -0.55; this cohort's unconditional SS-on-LL slope 0.56); the cascade of barrey2011 / diebo2015 (loss of LL -> PT up, SS down at fixed PI; thoracic hypokyphosis; knee flexion beyond) is the sign pattern of these slopes; knee flexion is outside the CT"
+  },
+  "balance_identity": {
+   "c = SS - LL + TK": {
+    "mean": 19.5,
+    "sd": 10.3
+   },
+   "reading": "for a vertical trunk c is a constant plus the trunk's tilt; the published correlations give it an SD of 10.3 deg, far looser than the 3.1 deg SD of Vialle's T9 sagittal offset. The published matrix therefore does NOT encode a tight balance identity (TK definitions differ between series, cervical and T1 slope absorb the rest). The gate below uses the model's own band; a 3-degree identity would reject most of the literature's own cohort"
+  }
+ },
+ "supine_conversion": {
+  "why": "the normative cohorts stand; every CT here is supine; the sampler's targets and checks live in the supine frame",
+  "published_offsets_standing_to_supine_deg": {
+   "LL": [
+    [
+     "chevillotte2018",
+     -4.6,
+     15
+    ],
+    [
+     "bouaicha2014_no_fracture",
+     2.1,
+     52
+    ],
+    [
+     "fan2023",
+     0.0,
+     64
+    ],
+    [
+     "izatt2012_AIS_at_LL55",
+     -6.2,
+     30
+    ]
+   ],
+   "SS": [
+    [
+     "chevillotte2018",
+     3.9,
+     15
+    ],
+    [
+     "fan2023",
+     2.0,
+     64
+    ],
+    [
+     "banitalebi2026",
+     0.9,
+     211
+    ],
+    [
+     "hasegawa2018_ASD",
+     7.1,
+     24
+    ]
+   ],
+   "TK": [
+    [
+     "hasegawa2018_ASD_T4T12",
+     -2.5,
+     24
+    ],
+    [
+     "fan2023_TJK",
+     -2.0,
+     64
+    ],
+    [
+     "izatt2012_AIS_at_TK40",
+     -6.1,
+     30
+    ]
+   ]
+  },
+  "sign_disagreement": "LL: -4.6 (chevillotte2018, n=15, <50 y), 0 (fan2023, n=64, degenerative, MRI), +2.1 (bouaicha2014, n=52, trauma without fracture, CT), -6.2 at LL 55 (izatt2012, AIS adolescents, CT: LL_supine = 0.71 LL + 9.7), +11.3 (hasegawa2018, ASD, n=24). The direction is not consistent across series; the magnitude is a few degrees except in deformity",
+  "draw": {
+   "dLL": [
+    "normal",
+    -2.5,
+    3.0
+   ],
+   "dSS": [
+    "normal",
+    3.5,
+    2.5
+   ],
+   "dTK": [
+    "normal",
+    -2.5,
+    2.0
+   ],
+   "dPI": 0.0,
+   "note": "one draw per output, recorded; SD chosen to span the published series; PI invariant (chevillotte2018 identical in all positions; hasegawa2018's -4.3 in ASD is a landmark effect and is not modelled)"
+  },
+  "PT_supine": "PI - SS_supine",
+  "cohort_check": {
+   "cohort_ordinary_supine": {
+    "PI": [
+     51.98,
+     11.05
+    ],
+    "SS": [
+     36.44,
+     10.62
+    ],
+    "PT": [
+     15.54,
+     7.85
+    ],
+    "LL": [
+     51.13,
+     14.04
+    ],
+    "TLK_T10L2": [
+     3.97,
+     12.27
+    ],
+    "n": 710
+   },
+   "model_supine_at_cohort_mean_PI": {
+    "LL": [
+     54.9,
+     11.3
+    ],
+    "SS": [
+     43.0,
+     8.2
+    ],
+    "PT": [
+     9.0,
+     7.3
+    ]
+   },
+   "reading": "PI matches MEANS to 0.02 deg and Veilleux's automated supine CT to 0.07; SS is 6.6 deg below the supine model and PT 6.5 above it, which is the older, symptomatic, table-with-bolsters population effect documented in docs/SPINOPELVIC_ESTIMATOR.md (Hasegawa's older supine cohort: PI 53.4, SS 34.1, PT 19.2 within 2-4 deg of this one); LL is 3.8 deg below the supine model and its SD (14.0) is 1.24x the widest published (11.3): the cohort is wider than any normative series on both tails"
+  }
+ },
+ "image_space_realisation": {
+  "pelvis": "fixed in image space (pelvis_rule); PI, SS_image and PT_image are therefore INVARIANT by construction and re-measured as such (checks.pelvic_incidence)",
+  "PT_star_is_not_an_image_quantity": "SS and PT are the pelvis' orientation against the vertical. With the pelvis held, the only image-space trace of a different standing PT* is the orientation of the trunk relative to the sacrum, which is the sum of the segmental angles: d(trunk vs sacrum) = dLL - dTK. So the pelvic-tilt compensation is realised by the segmental deltas themselves and by nothing else; a separate rigid rotation of the column on the sacrum would double-count it and would change the measured LL by the same amount. The task text's 'junction rotation IS the pelvic-tilt compensation' is honoured in this sense: the junction carries its share of dLL (zero when fused) and the drawn PT* is the standing tilt that the resulting relative geometry corresponds to, recorded in the manifest, checked through the balance gate, never applied as a rotation",
+  "what_is_applied": [
+   "dLL over the mobile lumbar segments by the type-modulated shares (segment_share_of_LL)",
+   "dTLK_T10L1 = the in-field part of dTK over T10-T11, T11-T12, T12-L1 (thoracolumbar_coupling)",
+   "small lateral-bending and axial-rotation draws (per_segment_draw)",
+   "nothing on the pelvis, the sacrum, any fused body, or the femora"
+  ],
+  "what_is_recorded_but_not_applied": [
+   "dTK above T10 (out of field)",
+   "SS*, PT* (standing-frame, virtual)",
+   "the supine offsets drawn"
+  ],
+  "re_measured_after_warp": [
+   "LL_L1S1 (must move by dLL within tolerance)",
+   "TLK_T10L2 / TL_T11L1 (must move by dTLK within tolerance)",
+   "junction angle (share x dLL; exactly 0 when fused)",
+   "PI, SS_image, PT_image (unchanged within 0.5 deg)",
+   "every body's wedge (unchanged: rigid)"
+  ]
+ },
+ "roussouly_shape_rule": {
+  "types_by_standing_SS": {
+   "1": "SS* < 35: apex at the centre of L5, short lordosis (<= 3 bodies), long thoracolumbar kyphosis (roussouly2005; wording per tu2023)",
+   "2": "SS* < 35: apex at the base of L4, flat back, few lordotic segments",
+   "3": "35 <= SS* <= 45: apex at the centre of L4 / L3-L4 disc, ~4 lordotic bodies, inflection at the thoracolumbar junction",
+   "4": "SS* > 45: apex at the base of L3 or higher, >= 5 lordotic bodies, largest TK",
+   "3AP": "anteverted pelvis: PI 48 +/- 6 with SS > 35 and PT 4 +/- 3, 16 % of laouissat2018's 296; treated as type 3 for the shape, PT* floor set from it"
+  },
+  "type_frequencies": {
+   "shen2024_MEANS_current": "PI by current type 40.8 / 43.6 / 52.4 / 62.4 / 43.7 (1/2/3/4/3AP); 34.7 % of subjects change type between current and theoretical",
+   "laouissat2018": "PI 39 / 41 / 53 / 62 / 48 (1/2/3/4/3AP); PT 10 / 10 / 13 / 12 / 4",
+   "this_cohort_by_supine_SS_minus_3.9": {
+    "note": "type from STANDING SS = supine SS - 3.9 (Chevillotte 2018); types 1 and 2 are not separable by SS alone",
+    "type_1_or_2_SS_lt_35": {
+     "n": 710,
+     "share": 0.606
+    },
+    "type_3_SS_35_45": {
+     "n": 710,
+     "share": 0.261
+    },
+    "type_4_SS_gt_45": {
+     "n": 710,
+     "share": 0.134
+    }
+   }
+  },
+  "type_1_vs_2": "not separable by SS; assigned by the drawn thoracolumbar kyphosis: type 1 if the in-field TLK target is above its conditional mean (long TL kyphosis is type 1's defining trait), else type 2",
+  "lower_arc_share_L4_S1": {
+   "1": 0.834,
+   "2": 0.652,
+   "3": 0.647,
+   "4": 0.615,
+   "source": "chung2020 (PMID 31925766), n=160, share of total LL carried by L4-S1 per type"
+  },
+  "within_arc_split": {
+   "lower": {
+    "L4-L5": 0.371,
+    "L5-S1": 0.629
+   },
+   "upper": {
+    "L1-L2": 0.072,
+    "L2-L3": 0.366,
+    "L3-L4": 0.563
+   },
+   "source": "milele2022 segmental contributions 2.3 / 11.7 / 18.1 / 25.2 / 42.7 % renormalised within each arc"
+  },
+  "resulting_shares_by_type": {
+   "1": {
+    "L1-L2": 0.012,
+    "L2-L3": 0.061,
+    "L3-L4": 0.093,
+    "L4-L5": 0.309,
+    "L5-S1": 0.525
+   },
+   "2": {
+    "L1-L2": 0.025,
+    "L2-L3": 0.127,
+    "L3-L4": 0.196,
+    "L4-L5": 0.242,
+    "L5-S1": 0.41
+   },
+   "3": {
+    "L1-L2": 0.025,
+    "L2-L3": 0.129,
+    "L3-L4": 0.199,
+    "L4-L5": 0.24,
+    "L5-S1": 0.407
+   },
+   "4": {
+    "L1-L2": 0.028,
+    "L2-L3": 0.141,
+    "L3-L4": 0.217,
+    "L4-L5": 0.228,
+    "L5-S1": 0.387
+   }
+  },
+  "how_applied": "the INCREMENT dLL is distributed by the TARGET type's shares; the source's own per-segment angles are not re-targeted, because the cohort's per-segment measurements carry 8-12 deg SD of plate-fit noise (cohort_measurement) and targeting absolute segment angles would inject that noise into the warp. The warp therefore changes the amount of lordosis with a type-consistent distribution of the change; it does not re-shape a type-2 spine into a type-4 spine",
+  "cohort_shares_supine": {
+   "L1-L2": -0.003,
+   "L2-L3": 0.08,
+   "L3-L4": 0.193,
+   "L4-L5": 0.282,
+   "L5-S1": 0.464
+  },
+  "cohort_reading": "supine shares L2-L3 0.08 / L3-L4 0.19 / L4-L5 0.28 / L5-S1 0.46 against standing 0.12 / 0.18 / 0.25 / 0.43: the lower arc carries more of the supine lordosis (0.75 vs 0.68), L1-L2 is flat (-0.003)"
+ },
+ "segment_share_of_LL": {
+  "note": "How a requested change in L1-S1 lordosis is distributed over lumbar segments before capping: proportional to the published contribution of each segment to standing lordosis. Fused segments get share 0 and the rest are renormalised. v2: the population shares below are the type-3 row of roussouly_shape_rule.resulting_shares_by_type up to rounding; the sampler uses the type-modulated rows.",
+  "L1-L2": 0.023,
+  "L2-L3": 0.117,
+  "L3-L4": 0.181,
+  "L4-L5": 0.252,
+  "L5-S1": 0.427,
+  "source": "milele2022",
+  "crosscheck": "L4-S1 = 0.679 of LL here; MEANS (shen2023) apex at L4 in 56.6 %; bernhardt1989: lordosis starts at L1-2 and increases caudally"
+ },
+ "thoracolumbar_coupling": {
+  "field": "abdominopelvic CT holds T9/T10 down; T4-T12 kyphosis is not in the image. The in-field thoracic compensation is the T10-L1 segment",
+  "published": {
+   "pan2024": "T10-L1 = -3.6 - 0.2 LL (kyphosis negative; R2 0.201, n=280 standing) -> TLK_T10L1 = 3.6 + 0.2 LL kyphotic-positive; T4-L1 = 3.4 - 0.5 LL (R2 0.457): the T10-L1 segment carries 0.2/0.5 = 40 % of the LL-coupled thoracolumbar change",
+   "bernhardt1989": "T10-L2 is for practical purposes straight in 102 normals (abstract)",
+   "korean2020": "T10-T12 kyphosis 9.5 +/- 6.2 (younger), 12.2-12.9 (older)",
+   "fan2023": "thoracolumbar junction kyphosis 11 +/- 9 standing, 9 +/- 7 supine (degenerative)"
+  },
+  "cohort": {
+   "TLK_T10L2_supine": [
+    3.97,
+    12.27
+   ],
+   "TL_T11L1_supine": [
+    5.42,
+    9.1
+   ],
+   "TLK_on_LL_slope": {
+    "slope": -0.026,
+    "intercept": 5.68,
+    "r": -0.031,
+    "rmse": 11.79,
+    "n": 648
+   },
+   "reading": "the supine cohort shows NO coupling between TLK and LL (r = -0.03, n = 648) where the standing literature has a weak one (R2 0.20). The coupling is applied at its published strength anyway, because the target profile is a standing patient's; it is flagged as unverified in supine"
+  },
+  "draw": "dTLK_T10L1 = 0.2 * dLL + normal(0, 2.0), then split over T10-T11 / T11-T12 / T12-L1 as 0.340 / 0.283 / 0.377 (proportional to the mean of each segment's flex and ext caps: 3.07 / 2.55 / 3.40), clipped to rom_deg",
+  "dTK_total_drawn": "TK* - TK_source_standing is not observable (TK_source out of field); the sampler draws TK* | PI, LL* from the conditional for the envelope and the balance gate, sets dTK_total = TK* - E[TK | PI] and realises only 0.4 x its T4-L1 share in field as above"
+ },
+ "per_segment_draw": {
+  "distribution": "truncated normal",
+  "mean": "share_i(type*) * dLL for lumbar segments; the thoracolumbar_coupling split of dTLK_T10L1 for T10-T11 / T11-T12 / T12-L1",
+  "sd": "0.4 * cap in the direction of the mean (cap_ext if mean >= 0 else cap_flex); 0.4 * min(cap_flex, cap_ext) when mean = 0",
+  "bounds": "[-cap_flex, +cap_ext] after the junction multiplier",
+  "capping": "a draw beyond its bound is clipped and the clipped remainder is redistributed over the other mobile lumbar segments in proportion to their shares, once; any remainder after that is recorded as dLL_shortfall in the manifest row and the tolerance check compares against the clipped request",
+  "lateral_bending_deg": {
+   "distribution": "truncated normal",
+   "mean": 0,
+   "sd": 1.0,
+   "bounds": "+/- 0.5 * lb_i"
+  },
+  "axial_rotation_deg": {
+   "distribution": "truncated normal",
+   "mean": 0,
+   "sd": 0.5,
+   "bounds": "+/- 0.5 * ar_i"
+  },
+  "translation": "none drawn; every translation follows from the hinge rotations",
+  "thoracolumbar_segments": [
+   "T10-T11",
+   "T11-T12",
+   "T12-L1"
+  ],
+  "invariants_by_construction": [
+   "pelvic incidence (pelvis is the identity)",
+   "per-body wedge angle (bodies move rigidly)",
+   "vertebral count and every label id"
+  ],
+  "note_v2": "replaces v1's 'mean 0 for thoracolumbar segments'"
+ },
+ "rejection_envelope": {
+  "applies_to": "every drawn standing profile (LL*, TK*, SS*, PT*) BEFORE anything is rendered; a rejected draw is redrawn with the next sub-seed and counted in the manifest row",
+  "marginal_bounds_standing_deg": {
+   "LL_star": [
+    25,
+    88,
+    "MEANS 2.5 SD = 29-86, widened for the supine side and for the cohort's own 95 % band (28-72 supine)"
+   ],
+   "TK_star": [
+    10,
+    65,
+    "MEANS 2.5 SD = 10-65"
+   ],
+   "SS_star": [
+    15,
+    65,
+    "MEANS 2.5 SD = 19-60; Vialle 41 +/- 8.4; the cohort's supine SS reaches 60"
+   ],
+   "PT_star": [
+    -8,
+    35,
+    "Laouissat 3AP PT 4 +/- 3 gives the anteverted floor; Schwab ++ at 30 plus the model's 2.5 SD (12.5 + 2.5 x 7.3 = 30.8); Diebo's ASD mean 29.2"
+   ],
+   "PI_minus_LL_star": [
+    -30,
+    20,
+    "MEANS -5.4 +/- 10.7 -> 2.5 SD = -32..+21; Schwab ++ beyond 20; the cohort's supine 95 % band is -15..+16"
+   ]
+  },
+  "joint_bounds": {
+   "mahalanobis_given_PI": "the residual (LL*, TK*, SS*) - conditional mean must lie inside the 99 % ellipsoid of the conditional covariance (chi2_3 <= 11.34)",
+   "balance_residual": "|c* - 19.5| <= 2.5 x 10.3 = 25.8 with c* = SS* - LL* + TK* (joint_sagittal_model.balance_identity)",
+   "roussouly_consistency": "the type assigned from SS* must be admissible for the drawn LL*: SS* < 35 with LL* > 70 or SS* > 45 with LL* < 40 is rejected (per-type LL means are not published with SDs in the sources on hand; these are the type-1/2 vs type-4 corners of the Roussouly table)"
+  },
+  "per_level": "after distribution and one redistribution, the shortfall |dLL_shortfall| must be <= 3 deg and every segment inside its rom_deg cap x junction multiplier; otherwise the draw is rejected, not clipped further",
+  "source_plate_sanity": "a source whose own measurement fails any of: LL in [10, 85], |junction disc angle| <= 30, |TLK_T10L2| <= 40, s1 plate accepted, PI available, is NOT a source (cohort_measurement.defects_found: 7 + 15 + 7 CTSP cases); a fused-junction source additionally needs its Castellvi read",
+  "after_warp": "checks (below): re-measured LL within 2 deg of the request, TLK within 2 deg, PI/SS/PT within 0.5 deg, junction 0 when fused, Dice >= 0.98 per body, Jacobian > 0, body mask through the same field, DRR with a visible spine"
+ },
+ "fill_in_rule": {
+  "goal": "cover the WHOLE reference envelope, not only the thin bins: every anatomical profile the literature describes should exist in the bank",
+  "strata": "PI bins of 5 deg from 25 to 80 (11 bins) x conditional-LL deciles (10) x Roussouly type implied by the draw -> targets drawn from the supine-converted conditional model within each stratum; strata are filled to a common count, so the low-lordosis and high-lordosis corners get as many outputs as the centre",
+  "source_choice": "for each target (PI_bin, LL*): the source is drawn, seeded, uniformly among plate-sane ordinary cases with PI inside the bin and |LL* - LL_source_supine| <= 0.8 x the summed caps in that direction (38.7 flexion, 25.9 extension over five lumbar segments, v1); if none reaches, the nearest PI bin is tried once, then the target is recorded as unreachable",
+  "cohort_deficits_for_the_record": {
+   "LL_vs_chevillotte_supine": {
+    "n_cohort": 710,
+    "total_deficit": 128.6,
+    "bins_with_obs_over_exp_below_0.8": [
+     [
+      35.0,
+      40.0
+     ],
+     [
+      40.0,
+      45.0
+     ],
+     [
+      50.0,
+      55.0
+     ],
+     [
+      55.0,
+      60.0
+     ]
+    ],
+    "bins_with_obs_over_exp_above_1.5": [
+     [
+      25.0,
+      30.0
+     ],
+     [
+      65.0,
+      70.0
+     ],
+     [
+      70.0,
+      75.0
+     ]
+    ]
+   },
+   "LL_vs_yukawa_supine_shifted": {
+    "n_cohort": 710,
+    "total_deficit": 152.4,
+    "bins_with_obs_over_exp_below_0.8": [
+     [
+      15.0,
+      20.0
+     ],
+     [
+      25.0,
+      30.0
+     ],
+     [
+      30.0,
+      35.0
+     ],
+     [
+      35.0,
+      40.0
+     ],
+     [
+      40.0,
+      45.0
+     ]
+    ],
+    "bins_with_obs_over_exp_above_1.5": [
+     [
+      60.0,
+      65.0
+     ],
+     [
+      65.0,
+      70.0
+     ],
+     [
+      70.0,
+      75.0
+     ]
+    ]
+   },
+   "LL_vs_means_supine_shifted": {
+    "n_cohort": 710,
+    "total_deficit": 60.1,
+    "bins_with_obs_over_exp_below_0.8": [
+     [
+      55.0,
+      60.0
+     ]
+    ],
+    "bins_with_obs_over_exp_above_1.5": [
+     [
+      20.0,
+      25.0
+     ],
+     [
+      25.0,
+      30.0
+     ]
+    ]
+   },
+   "PI_vs_yukawa": {
+    "n_cohort": 710,
+    "total_deficit": 59.7,
+    "bins_with_obs_over_exp_below_0.8": [
+     [
+      65.0,
+      70.0
+     ],
+     [
+      70.0,
+      75.0
+     ]
+    ],
+    "bins_with_obs_over_exp_above_1.5": [
+     [
+      25.0,
+      30.0
+     ]
+    ]
+   },
+   "PI_vs_means": {
+    "n_cohort": 710,
+    "total_deficit": 32.5,
+    "bins_with_obs_over_exp_below_0.8": [],
+    "bins_with_obs_over_exp_above_1.5": []
+   }
+  },
+  "deficit_reading": "which bins are 'thin' depends on the reference: against Chevillotte / Yukawa-shifted the cohort is short by 129-152 cases at LL 35-60 and long above 60; against MEANS-shifted it is short by 60 at 50-60 and long below 35. The three references disagree by 8 deg in the mean, so the fill-in covers the envelope uniformly by stratum instead of chasing one reference's deficit",
+  "rare_class_rule": "for L6 / T13 / sacralised variants the target LL is drawn from the SAME reference distribution as ordinary spines (truncated at +/- 2.5 sd), so that lordosis does not separate the classes in the render bank. Rationale: 2-D angles separate LSTV from ordinary at AUC 0.78-0.83 in real life (albano2020), mostly through the fused junction; leaving that as-is would hand the network an angle shortcut for a decision that is a COUNT. PI, which the warp cannot change, keeps its real class association (yokoyama2016, haffer2021, jacob2023).",
+  "rare_class_profile_evidence": {
+   "PI_by_subtype_this_cohort": {
+    "ordinary": [
+     51.98,
+     710
+    ],
+    "L6": [
+     60.86,
+     14
+    ],
+    "sacralised_L5": [
+     47.9,
+     17
+    ],
+    "fused_III_IV": [
+     52.01,
+     20
+    ]
+   },
+   "published": "six-lumbar PI 64.8 vs 51.3 (yokoyama2016), 65.3 at true S1 (haffer2021); LSTV 58.5 vs 50 (jacob2023), 52.1 vs 47.8 (ouchida2024), 61.6 vs 50.5 (haffer2021); LL n.s. (yokoyama2016, jacob2023 +7); sacralisation measured at the first non-mobile plate 30.2 (muller2024) because the plate moves down one level (karabag2024: 27 deg between upper and lower plate)",
+   "reading": "this cohort reproduces the literature: L6 PI 60.9 vs ordinary 52.0, sacralised 47.9. PI is where the class lives and the warp cannot touch it; LL* | PI is drawn from the same conditional for every class so lordosis does not become a shortcut"
+  }
+ },
+ "variants_per_case": {
+  "real_rare_ct_inventory": {
+   "verse": {
+    "L6": 50,
+    "T13": 6,
+    "castellvi_2a": 35,
+    "2b": 25,
+    "3a": 14,
+    "3b": 28,
+    "4": 7,
+    "source": "SchwingNet/results/anomalous_inventory.json (masks); ~/lstv_flag/sources/verse_suppl_table1.csv (Loffler Suppl Table 1)"
+   },
+   "ctsp": {
+    "L6": 18,
+    "sacralised_or_4_lumbar": 20,
+    "T13_or_lumbar_rib": 14,
+    "fused_III_IV": 25,
+    "source": "cohort_ctsp_release.json"
+   },
+   "totalsegmentator": {
+    "L6_spineps_called": 12,
+    "in_bank": 9
+   },
+   "carmlspine_real": {
+    "L6_cases": 3,
+    "real_frames": 6,
+    "role": "test only, never trained on"
+   },
+   "real_rare_films": {
+    "buu3600_L6_patients": 15,
+    "buu3600_L6_films": 30,
+    "buu3600_four_lumbar_patients": 129,
+    "buu400_four_lumbar_patients": 7,
+    "source": "~/lstv_flag/sources/buu3600_lstv_labels.csv, buu400_lstv_labels.csv"
+   }
+  },
+  "N_rare_real_ct": 86,
+  "bank_sizes": {
+   "ctsp_plus_verse": 1176,
+   "full_with_ts_v3": 2911
+  },
+  "rule": "V warped variants per real rare CT, rendered at the same renders-per-CT as the source (200-500, ratio_report), so synthetic-anatomy : real-anatomy frames within the rare class = V : 1 <= 10 : 1 by construction; V chosen so that CTs carrying a variant are 25-35 % of rendered CTs: share = N_rare*(V+1) / (N_bank + N_rare*V)",
+  "V_ctsp_plus_verse": {
+   "V": 4,
+   "share": 0.283,
+   "alternatives": {
+    "3": 0.24,
+    "5": 0.321
+   }
+  },
+  "V_full_bank": {
+   "V": 10,
+   "share": 0.251,
+   "note": "the cap binds; 25 % is reached only at V = 10 on the full bank"
+  },
+  "film_level_caveat": "against the 30 real L6 films (BUU) the existing physics_rare bank already holds 845 L6 crops (28:1), so a literal 10:1 per real rare film cannot be honoured without discarding renders; the real-film lever is the 4x epoch oversampling of those 30 films (ratio_report, VERIDAH), applied unchanged",
+  "ordinary_fillin_variants": {
+   "N": 160,
+   "rule": "one variant per distinct ordinary source case, targets from the deficit histogram (total deficit 158.4 against the supine-shifted Yukawa reference); synthetic ordinary : real ordinary = 160 : 750 = 0.21"
+  },
+  "arm_design": "MEASURED ARM: train with and without the PolyPose variants at identical real-frame content and identical epoch counts; report per-class recall, PR-AUC and common-class precision on real held-out C-arm frames (body-box convention), paired bootstrap; the result is reported either way",
+  "v2_counting_rule": "CTs carrying a synthetic anatomy = rare variants (N_rare x V) + ordinary fill-in (N_fill); their share of rendered CTs must be 25-35 %; synthetic rare : real rare = V : 1 <= 10 : 1 by construction",
+  "full_bank_2911": {
+   "V": 10,
+   "N_rare": 86,
+   "rare_variants": 860,
+   "N_fill": 500,
+   "share": 0.318,
+   "rare_ratio": "10:1 (the cap)"
+  },
+  "ctsp_plus_verse_1176": {
+   "V": 4,
+   "N_rare": 86,
+   "rare_variants": 344,
+   "N_fill": 150,
+   "share": 0.296,
+   "rare_ratio": "4:1"
+  },
+  "renders_per_ct": {
+   "value": 300,
+   "window": [
+    200,
+    500
+   ],
+   "source": "ratio_report: SyntheX flattened at 250-500 renders per CT"
+  },
+  "corpus_size_estimate_full_bank": {
+   "cts_rendered": 4271,
+   "frames_per_device_card": 1281300,
+   "bytes_per_frame_estimate": "0.4-0.6 MB (1024 px 8-bit PNG)",
+   "bytes_per_device_card_estimate_TB": [
+    0.5,
+    0.8
+   ],
+   "note": "multiply by the number of device cards in the bank; the 20 TB volume holds ~25-40 card-corpora at this size; wall-clock is measured by the bank job, not estimated here"
+  },
+  "warp_cost_estimate": "PolyPose forward on a 512 x 512 x 600 grid: gravity-kernel EDT + per-voxel exp map, tens of seconds on one GPU plus the checks (Dice, Jacobian, DRR, re-measurement) ~1-2 min; 1,360 outputs x 3 seeds is a few GPU-days on one card and hours on 16 H200s; to be replaced by the measured number",
+  "epoch_oversampling_real_transitional_renders": 4
+ },
+ "superseded_v1": {
+  "target_LL": {
+   "note": "dLL_target = LL_target - LL_measured(source), with LL_measured from measure_sagittal.py on the unwarped volume (supine).",
+   "reference_supine_distribution": {
+    "mean": 45.1,
+    "sd": 11.2,
+    "derivation": "yukawa2017 standing 49.7 +/- 11.2 minus the 4.6 deg supine offset of chevillotte2018 (54.8 -> 50.2)",
+    "alternatives": {
+     "chevillotte_supine": [
+      50.2,
+      9.6
+     ],
+     "means_supine_shifted": [
+      52.8,
+      11.3
+     ]
+    }
+   },
+   "posture_note": "the C-arm frames are prone: prone on a Jackson/OSI frame equals or exceeds standing lordosis (peterson1995, lee2016 +5.3), the 90-90 / flexed-hip frames lose >35 % (peterson1995). The supine CT sits ~4.6 deg below standing. Targets therefore span the supine reference and its lordotic side, not a single posture.",
+   "rare_class_rule": "for L6 / T13 / sacralised variants the target LL is drawn from the SAME reference distribution as ordinary spines (truncated at +/- 2.5 sd), so that lordosis does not separate the classes in the render bank. Rationale: 2-D angles separate LSTV from ordinary at AUC 0.78-0.83 in real life (albano2020), mostly through the fused junction; leaving that as-is would hand the network an angle shortcut for a decision that is a COUNT. PI, which the warp cannot change, keeps its real class association (yokoyama2016, haffer2021, jacob2023).",
+   "ordinary_fillin_rule": "targets for ordinary spines are drawn from the per-5-degree DEFICIT histogram of the ordinary cohort against the reference (cohort_ctsp_release.json thin_bins_ordinary, to be superseded by cohort_grid.json); a source case is chosen, seeded, uniformly among ordinary cases whose measured LL lies within reach of the target (|LL_target - LL_source| <= 0.8 * sum of caps in that direction: 38.7 flexion, 25.9 extension over five lumbar segments) on the over-represented side of the target bin.",
+   "cohort_release_csv_supine": {
+    "ordinary_LL": {
+     "n": 710,
+     "mean": 51.63,
+     "sd": 13.36,
+     "p5": 28.2,
+     "p95": 72.2
+    },
+    "ordinary_PI": {
+     "n": 710,
+     "mean": 51.98,
+     "sd": 11.05
+    },
+    "L6_PI": {
+     "n": 14,
+     "mean": 60.86,
+     "sd": 14.7
+    },
+    "sacralised_L5_PI": {
+     "n": 18,
+     "mean": 49.12,
+     "sd": 9.48
+    },
+    "fused_III_IV_LL": {
+     "n": 20,
+     "mean": 52.19,
+     "sd": 9.86
+    },
+    "source": "CTSpinoPelvic1K-1/morphometrics/surgical_morphometrics.csv (v11) via tools/polypose/cohort_from_release.py"
+   },
+   "deficit_ordinary_vs_reference_supine_yukawa": {
+    "bins_deg": [
+     [
+      25,
+      30
+     ],
+     [
+      30,
+      35
+     ],
+     [
+      35,
+      40
+     ],
+     [
+      40,
+      45
+     ],
+     [
+      45,
+      50
+     ]
+    ],
+    "deficit_cases": [
+     20.2,
+     30.3,
+     53.0,
+     44.1,
+     7.6
+    ],
+    "total_deficit_cases": 158.4,
+    "excess_above_60": "obs/exp 2.3 (60-65), 3.1 (65-70), 5.9 (70-75)",
+    "reading": "the supine cohort is wider (sd 13.4) than any published series (9.6-11.3) with its excess above 60 deg; fill-in is on the LOW-lordosis side, 25-50 deg, which is also the flexed-frame intraoperative range"
+   }
+  },
+  "variants_per_case_ordinary_fillin": {
+   "N": 160,
+   "rule": "one variant per distinct ordinary source case, targets from the deficit histogram (total deficit 158.4 against the supine-shifted Yukawa reference); synthetic ordinary : real ordinary = 160 : 750 = 0.21"
+  }
+ },
+ "checks": {
+  "exit_nonzero_on_any_failure": true,
+  "jacobian": {
+   "rule": "Warp.jacdet > 0 at every voxel",
+   "tolerance": 0.0
+  },
+  "per_vertebra_dice": {
+   "rule": "Dice(warped label_k, rigidly transformed original label_k) >= 0.98 for every k",
+   "note": "nearest-neighbour resampling of a rigid motion is the noise floor"
+  },
+  "fused_junction": {
+   "rule": "relative motion of a body with multiplier 0 against the sacrum = 0: identical se(3) pose parameters, and re-measured junction angle change <= 0.25 deg"
+  },
+  "pelvic_incidence": {
+   "rule": "|PI_warped - PI_source| <= 0.5 deg; same for SS and PT"
+  },
+  "lordosis": {
+   "rule": "|dLL_measured - dLL_clipped_request| <= 2.0 deg (LL_L1S1_deg from measure_sagittal.py); noise floor: the same case measured on two label copies differing only in rib ids gave LL 43.83 vs 44.31 (0.5 deg)"
+  },
+  "thoracolumbar": {
+   "rule": "|dTLK_T10L1_measured - requested| <= 2.0 deg (TL_T11L1_deg and TLK_T10L2_deg from measure_sagittal.py, both must move in the requested direction)"
+  },
+  "wedge": {
+   "rule": "per-body wedge angle unchanged within 0.5 deg (rigid bodies)"
+  },
+  "body_mask": {
+   "rule": "SPINEPS body mask (tools/body_masks.py) warped through the same field, nearest neighbour; Dice(warped body mask, body mask re-run on the warped CT) reported, threshold 0.95"
+  },
+  "render": {
+   "rule": "one AP and one lateral DRR per output; bone term present (make_drr_dataset --paths2-only); the spine must be visible: bone-pixel fraction within the source's range and every vertebra's projected box non-empty"
+  },
+  "population": {
+   "rule": "over the generated set: KS test of supine LL, TLK and junction angle against the supine-converted model, per PI bin; the SD reported beside the model SD; the share of outputs in each Roussouly type reported beside laouissat2018 / shen2024"
+  },
+  "envelope_before_render": {
+   "rule": "rejection_envelope in full; the manifest row records every rejection and its reason"
+  },
+  "junction_share": {
+   "rule": "junction_angle_deg moves by share_L5S1(type*) x dLL within 2 deg; exactly 0 (<= 0.25 deg) when the multiplier is 0"
+  },
+  "source_sanity": {
+   "rule": "rejection_envelope.source_plate_sanity on the source row before any warp"
+  }
+ },
+ "environment": {
+  "grid_modules": "apptainer/1.2.2 and singularity/3.5.2 exist as modules ('module load apptainer/1.2.2'); /usr/bin/singularity does not exist, which is what killed the earlier prep",
+  "gpu": "cupy-cuda12x needs a GPU node: gvohp / galhp, qos gpu, --gres=gpu:1",
+  "python": "new pinned env 'polypose' built from the repository's requirements.txt at commit 909a9bb; export with 'conda env export --no-builds' AND 'pip freeze' into the run directory; sha256 of both = env_hash",
+  "network": "no network access at run time; weights and data staged beforehand",
+  "outputs": "/rs/rs_grp_oschome/go2432/data/polypose/",
+  "measurement_env_used_for_cohort": "~/mambaforge/envs/spineps/bin/python 3.11.16, numpy 2.2.6, scipy 1.15.3, nibabel 5.4.2",
+  "cohort_measurement_env": "grid ~/mambaforge/envs/spineps/bin/python 3.11.16, numpy 2.2.6, scipy 1.15.3, nibabel 5.4.2, Linux 5.15.80"
+ },
+ "cohort_measurement": {
+  "grid_jobs": {
+   "first_attempt": {
+    "array": "40416724",
+    "reduce": "40416725",
+    "result": "all 24 tasks FAILED in 3-6 s (sbatch environment)"
+   },
+   "second_attempt": {
+    "array": "40416766",
+    "result": "ran, but every row was 'AttributeError: extract_surgical_morphometrics has no attribute _sacral_plate': the grid's copy of the release script (sha 930c5536..., CTSpinoPelvic1K commit a0c5139, 2026-09-07) predates the sacral-plate fix (commit 2232bde, 2026-09-11); cancelled, rows deleted"
+   },
+   "third_attempt": {
+    "array": "40416793",
+    "reduce": "40416794",
+    "esm_sha256": "9f245f7cf98dfe1403f8238e88266d1f7ae0e303f152fd6bca7eb546a5b0097c",
+    "measure_sagittal_sha256": "6eead738d426b383ae31defcfccc6a0185f4b10c6ab9c8401fcb49061656f76d",
+    "result": "1,176 rows: 973 measured, 203 refused (VerSe unified masks in the legacy map, L1 = 1: 174 'verse' + 29 'gl' scans; refused rather than measured against the wrong map)",
+    "outputs": "/rs/rs_grp_oschome/go2432/data/polypose/cohort/{rows_00..23.jsonl, cohort_grid.json, cohort_grid.md}; local copy SchwingNet/results/polypose/cohort_rows/"
+   }
+  },
+  "code": "tools/polypose/measure_sagittal.py (grid), tools/polypose/cohort_reduce.py (grid), tools/polypose/cohort_sagittal.py (local clouds + envelopes + outside checks)",
+  "outputs": {
+   "json": "SchwingNet/results/polypose/cohort_sagittal.json",
+   "png": "SchwingNet/results/polypose/cohort_sagittal.png"
+  },
+  "ctsp_ordinary_supine": {
+   "PI": {
+    "n": 710,
+    "mean": 51.98,
+    "sd": 11.05,
+    "p5": 34.3,
+    "q1": 44.6,
+    "median": 51.6,
+    "q3": 59.4,
+    "p95": 70.3,
+    "min": 22.6,
+    "max": 90.0
+   },
+   "SS": {
+    "n": 710,
+    "mean": 36.44,
+    "sd": 10.62,
+    "p5": 18.9,
+    "q1": 29.4,
+    "median": 36.3,
+    "q3": 43.6,
+    "p95": 54.1,
+    "min": 4.6,
+    "max": 59.8
+   },
+   "PT": {
+    "n": 710,
+    "mean": 15.54,
+    "sd": 7.85,
+    "p5": 3.5,
+    "q1": 10.0,
+    "median": 15.0,
+    "q3": 20.8,
+    "p95": 29.3,
+    "min": -3.8,
+    "max": 39.8
+   },
+   "LL": {
+    "n": 710,
+    "mean": 51.13,
+    "sd": 14.04,
+    "p5": 28.0,
+    "q1": 43.1,
+    "median": 50.9,
+    "q3": 61.4,
+    "p95": 71.8,
+    "min": -24.5,
+    "max": 88.8
+   },
+   "PI_LL": {
+    "n": 710,
+    "mean": 0.85,
+    "sd": 10.93,
+    "p5": -15.2,
+    "q1": -6.1,
+    "median": 0.5,
+    "q3": 7.7,
+    "p95": 16.3,
+    "min": -25.4,
+    "max": 76.1
+   },
+   "TLK_T10L2": {
+    "n": 686,
+    "mean": 3.97,
+    "sd": 12.27,
+    "p5": -11.6,
+    "q1": -3.0,
+    "median": 4.4,
+    "q3": 10.5,
+    "p95": 19.5,
+    "min": -101.9,
+    "max": 97.5
+   },
+   "TL_T11L1": {
+    "n": 742,
+    "mean": 5.42,
+    "sd": 9.1,
+    "p5": -6.1,
+    "q1": 0.5,
+    "median": 5.4,
+    "q3": 10.2,
+    "p95": 18.1,
+    "min": -82.2,
+    "max": 69.0
+   },
+   "junction": {
+    "n": 710,
+    "mean": 23.72,
+    "sd": 8.42,
+    "p5": 11.5,
+    "q1": 18.1,
+    "median": 23.6,
+    "q3": 28.6,
+    "p95": 37.8,
+    "min": -23.9,
+    "max": 59.2
+   },
+   "junction_disc": {
+    "n": 710,
+    "mean": 8.64,
+    "sd": 9.04,
+    "p5": -3.2,
+    "q1": 3.6,
+    "median": 8.3,
+    "q3": 12.3,
+    "p95": 21.0,
+    "min": -12.8,
+    "max": 100.9
+   }
+  },
+  "ctsp_subtypes": {
+   "ctsp:L6": {
+    "PI": {
+     "n": 14,
+     "mean": 60.86,
+     "sd": 14.7,
+     "p5": 43.7,
+     "q1": 49.4,
+     "median": 56.9,
+     "q3": 73.6,
+     "p95": 81.7,
+     "min": 39.9,
+     "max": 83.7
+    },
+    "SS": {
+     "n": 14,
+     "mean": 41.0,
+     "sd": 8.59,
+     "p5": 29.2,
+     "q1": 35.8,
+     "median": 40.2,
+     "q3": 48.7,
+     "p95": 53.1,
+     "min": 28.4,
+     "max": 55.9
+    },
+    "PT": {
+     "n": 14,
+     "mean": 19.86,
+     "sd": 8.13,
+     "p5": 8.9,
+     "q1": 14.3,
+     "median": 17.1,
+     "q3": 29.0,
+     "p95": 30.1,
+     "min": 8.3,
+     "max": 30.2
+    },
+    "LL": {
+     "n": 14,
+     "mean": 52.49,
+     "sd": 11.36,
+     "p5": 39.2,
+     "q1": 41.8,
+     "median": 52.6,
+     "q3": 62.8,
+     "p95": 68.3,
+     "min": 36.8,
+     "max": 70.3
+    },
+    "TLK_T10L2": {
+     "n": 16,
+     "mean": 6.77,
+     "sd": 7.95,
+     "p5": -3.3,
+     "q1": -0.1,
+     "median": 8.1,
+     "q3": 13.1,
+     "p95": 17.4,
+     "min": -10.8,
+     "max": 19.2
+    },
+    "junction": {
+     "n": 14,
+     "mean": 21.59,
+     "sd": 12.24,
+     "p5": 5.7,
+     "q1": 13.7,
+     "median": 20.2,
+     "q3": 27.7,
+     "p95": 39.6,
+     "min": -3.3,
+     "max": 43.4
+    }
+   },
+   "ctsp:sacralised_L5": {
+    "PI": {
+     "n": 17,
+     "mean": 47.9,
+     "sd": 8.16,
+     "p5": 36.8,
+     "q1": 41.1,
+     "median": 48.4,
+     "q3": 50.7,
+     "p95": 59.1,
+     "min": 36.6,
+     "max": 66.9
+    },
+    "SS": {
+     "n": 17,
+     "mean": 36.4,
+     "sd": 11.09,
+     "p5": 20.0,
+     "q1": 24.9,
+     "median": 39.1,
+     "q3": 44.8,
+     "p95": 49.0,
+     "min": 16.8,
+     "max": 57.1
+    },
+    "PT": {
+     "n": 17,
+     "mean": 11.5,
+     "sd": 6.81,
+     "p5": 3.8,
+     "q1": 5.7,
+     "median": 11.3,
+     "q3": 15.8,
+     "p95": 22.0,
+     "min": 2.0,
+     "max": 28.8
+    },
+    "LL": {
+     "n": 17,
+     "mean": 53.42,
+     "sd": 13.52,
+     "p5": 33.6,
+     "q1": 48.8,
+     "median": 53.1,
+     "q3": 58.5,
+     "p95": 73.8,
+     "min": 28.2,
+     "max": 80.0
+    },
+    "TLK_T10L2": {
+     "n": 18,
+     "mean": 0.87,
+     "sd": 10.97,
+     "p5": -18.4,
+     "q1": -6.5,
+     "median": 3.2,
+     "q3": 7.7,
+     "p95": 15.0,
+     "min": -25.0,
+     "max": 15.6
+    },
+    "junction": {
+     "n": 17,
+     "mean": 22.04,
+     "sd": 10.2,
+     "p5": 7.6,
+     "q1": 15.4,
+     "median": 19.7,
+     "q3": 28.2,
+     "p95": 36.3,
+     "min": 6.3,
+     "max": 46.6
+    }
+   },
+   "ctsp:T13_or_lumbar_rib": {
+    "PI": {
+     "n": 14,
+     "mean": 51.19,
+     "sd": 8.0,
+     "p5": 40.3,
+     "q1": 45.3,
+     "median": 51.2,
+     "q3": 57.6,
+     "p95": 62.9,
+     "min": 39.4,
+     "max": 63.5
+    },
+    "SS": {
+     "n": 14,
+     "mean": 37.52,
+     "sd": 8.87,
+     "p5": 24.7,
+     "q1": 31.0,
+     "median": 40.5,
+     "q3": 44.0,
+     "p95": 48.1,
+     "min": 19.4,
+     "max": 51.4
+    },
+    "PT": {
+     "n": 14,
+     "mean": 13.68,
+     "sd": 9.5,
+     "p5": 0.6,
+     "q1": 7.3,
+     "median": 13.7,
+     "q3": 19.3,
+     "p95": 26.2,
+     "min": -1.4,
+     "max": 35.1
+    },
+    "LL": {
+     "n": 14,
+     "mean": 51.76,
+     "sd": 9.73,
+     "p5": 40.4,
+     "q1": 44.9,
+     "median": 48.2,
+     "q3": 59.2,
+     "p95": 66.4,
+     "min": 38.6,
+     "max": 70.0
+    },
+    "TLK_T10L2": {
+     "n": 12,
+     "mean": 13.98,
+     "sd": 8.77,
+     "p5": 2.9,
+     "q1": 8.8,
+     "median": 11.4,
+     "q3": 19.3,
+     "p95": 27.3,
+     "min": 2.1,
+     "max": 28.8
+    },
+    "junction": {
+     "n": 14,
+     "mean": 24.79,
+     "sd": 7.29,
+     "p5": 14.3,
+     "q1": 19.0,
+     "median": 25.9,
+     "q3": 28.8,
+     "p95": 36.2,
+     "min": 13.0,
+     "max": 36.4
+    }
+   },
+   "ctsp:fused_III_IV": {
+    "PI": {
+     "n": 20,
+     "mean": 52.01,
+     "sd": 11.25,
+     "p5": 38.5,
+     "q1": 45.5,
+     "median": 50.0,
+     "q3": 57.0,
+     "p95": 75.0,
+     "min": 36.9,
+     "max": 79.5
+    },
+    "SS": {
+     "n": 20,
+     "mean": 37.43,
+     "sd": 9.49,
+     "p5": 22.5,
+     "q1": 32.5,
+     "median": 38.5,
+     "q3": 44.7,
+     "p95": 50.2,
+     "min": 16.8,
+     "max": 51.6
+    },
+    "PT": {
+     "n": 20,
+     "mean": 14.58,
+     "sd": 8.1,
+     "p5": 4.6,
+     "q1": 9.6,
+     "median": 13.6,
+     "q3": 17.4,
+     "p95": 29.4,
+     "min": 2.0,
+     "max": 30.2
+    },
+    "LL": {
+     "n": 20,
+     "mean": 52.09,
+     "sd": 9.97,
+     "p5": 36.7,
+     "q1": 43.9,
+     "median": 53.2,
+     "q3": 57.5,
+     "p95": 67.5,
+     "min": 35.0,
+     "max": 72.1
+    },
+    "TLK_T10L2": {
+     "n": 23,
+     "mean": 3.78,
+     "sd": 10.34,
+     "p5": -16.4,
+     "q1": -0.1,
+     "median": 4.5,
+     "q3": 9.8,
+     "p95": 16.6,
+     "min": -25.0,
+     "max": 19.2
+    },
+    "junction": {
+     "n": 20,
+     "mean": 24.85,
+     "sd": 10.67,
+     "p5": 11.4,
+     "q1": 18.6,
+     "median": 22.8,
+     "q3": 32.2,
+     "p95": 43.6,
+     "min": 6.3,
+     "max": 46.6
+    }
+   }
+  },
+  "verse": {
+   "verse:all": {
+    "n_cases": 171,
+    "TLK_T10L2": {
+     "n": 93,
+     "mean": 3.76,
+     "sd": 11.22,
+     "p5": -14.1,
+     "q1": -1.6,
+     "median": 2.9,
+     "q3": 9.2,
+     "p95": 20.4,
+     "min": -41.4,
+     "max": 37.9
+    }
+   },
+   "verse:L6": {
+    "n_cases": 37,
+    "TLK_T10L2": {
+     "n": 26,
+     "mean": 7.4,
+     "sd": 9.4,
+     "p5": -6.6,
+     "q1": 1.5,
+     "median": 7.4,
+     "q3": 14.7,
+     "p95": 21.5,
+     "min": -8.8,
+     "max": 27.3
+    }
+   },
+   "verse:fused_III_IV": {
+    "n_cases": 22,
+    "TLK_T10L2": {
+     "n": 17,
+     "mean": 3.79,
+     "sd": 10.05,
+     "p5": -8.5,
+     "q1": -3.9,
+     "median": 2.5,
+     "q3": 10.3,
+     "p95": 19.6,
+     "min": -14.6,
+     "max": 22.3
+    }
+   }
+  },
+  "outside_checks": {
+   "hasegawa2018_supine_ct": {
+    "PI": {
+     "cohort_mean": 51.98,
+     "cohort_sd": 11.05,
+     "ref_mean": 53.4,
+     "ref_sd": 9.2,
+     "diff_of_means": -1.42,
+     "sd_ratio_cohort_over_ref": 1.2
+    },
+    "SS": {
+     "cohort_mean": 36.44,
+     "cohort_sd": 10.62,
+     "ref_mean": 34.1,
+     "ref_sd": 10.5,
+     "diff_of_means": 2.34,
+     "sd_ratio_cohort_over_ref": 1.01
+    },
+    "PT": {
+     "cohort_mean": 15.54,
+     "cohort_sd": 7.85,
+     "ref_mean": 19.2,
+     "ref_sd": 7.5,
+     "diff_of_means": -3.66,
+     "sd_ratio_cohort_over_ref": 1.05
+    },
+    "LL": {
+     "cohort_mean": 51.13,
+     "cohort_sd": 14.04,
+     "ref_mean": 33.1,
+     "ref_sd": 17.5,
+     "diff_of_means": 18.03,
+     "sd_ratio_cohort_over_ref": 0.8
+    },
+    "cite": "Hasegawa K et al. BMC Musculoskelet Disord 2018;19:437 (ASD, supine CT DRR; LL not normal)",
+    "n_ref": 24
+   },
+   "veilleux2020_supine_ct": {
+    "PI": {
+     "cohort_mean": 51.98,
+     "cohort_sd": 11.05,
+     "ref_mean": 52.05,
+     "ref_sd": null,
+     "diff_of_means": -0.07
+    },
+    "SS": {
+     "cohort_mean": 36.44,
+     "cohort_sd": 10.62,
+     "ref_mean": 36.49,
+     "ref_sd": null,
+     "diff_of_means": -0.05
+    },
+    "PT": {
+     "cohort_mean": 15.54,
+     "cohort_sd": 7.85,
+     "ref_mean": 15.6,
+     "ref_sd": null,
+     "diff_of_means": -0.06
+    },
+    "cite": "Veilleux NJ et al. JBJS Am 2020;102:e130 (automated supine CT, asymptomatic)",
+    "n_ref": 200
+   },
+   "chevillotte2018_supine": {
+    "SS": {
+     "cohort_mean": 36.44,
+     "cohort_sd": 10.62,
+     "ref_mean": 41.0,
+     "ref_sd": 7.2,
+     "diff_of_means": -4.56,
+     "sd_ratio_cohort_over_ref": 1.48
+    },
+    "LL": {
+     "cohort_mean": 51.13,
+     "cohort_sd": 14.04,
+     "ref_mean": 50.2,
+     "ref_sd": 9.6,
+     "diff_of_means": 0.93,
+     "sd_ratio_cohort_over_ref": 1.46
+    },
+    "cite": "Chevillotte T et al. OTSR 2018;104:565 (PMID 30009961), supine, <50 y",
+    "n_ref": 15
+   },
+   "fan2023_supine_mri": {
+    "SS": {
+     "cohort_mean": 36.44,
+     "cohort_sd": 10.62,
+     "ref_mean": 35.0,
+     "ref_sd": 9.0,
+     "diff_of_means": 1.44,
+     "sd_ratio_cohort_over_ref": 1.18
+    },
+    "LL": {
+     "cohort_mean": 51.13,
+     "cohort_sd": 14.04,
+     "ref_mean": 40.0,
+     "ref_sd": 13.0,
+     "diff_of_means": 11.13,
+     "sd_ratio_cohort_over_ref": 1.08
+    },
+    "TLK_T10L2_vs_TJK": {
+     "cohort_mean": 3.97,
+     "cohort_sd": 12.27,
+     "ref_mean": 9.0,
+     "ref_sd": 7.0,
+     "diff_of_means": -5.03,
+     "sd_ratio_cohort_over_ref": 1.75
+    },
+    "cite": "Fan X et al. Front Surg 2023 doi:10.3389/fsurg.2023.1103952 (degenerative, 62 y)",
+    "n_ref": 64
+   },
+   "vrtovec2012_supine_ct": {
+    "PI": {
+     "cohort_mean": 51.98,
+     "cohort_sd": 11.05,
+     "ref_mean": 47.1,
+     "ref_sd": 10.0,
+     "diff_of_means": 4.88,
+     "sd_ratio_cohort_over_ref": 1.1
+    },
+    "cite": "Vrtovec T et al. Eur Spine J 2012 (supine CT)",
+    "n_ref": 370
+   },
+   "chen2019_supine_ct": {
+    "PI": {
+     "cohort_mean": 51.98,
+     "cohort_sd": 11.05,
+     "ref_mean": 44.97,
+     "ref_sd": 8.52,
+     "diff_of_means": 7.01,
+     "sd_ratio_cohort_over_ref": 1.3
+    },
+    "cite": "Chen 2019 (supine CT), as tabulated in docs/SPINOPELVIC_ESTIMATOR.md",
+    "n_ref": 320
+   },
+   "means2022_standing": {
+    "PI": {
+     "cohort_mean": 51.98,
+     "cohort_sd": 11.05,
+     "ref_mean": 52.0,
+     "ref_sd": 10.7,
+     "diff_of_means": -0.02,
+     "sd_ratio_cohort_over_ref": 1.03
+    },
+    "SS": {
+     "cohort_mean": 36.44,
+     "cohort_sd": 10.62,
+     "ref_mean": 39.5,
+     "ref_sd": 8.2,
+     "diff_of_means": -3.06,
+     "sd_ratio_cohort_over_ref": 1.3
+    },
+    "PT": {
+     "cohort_mean": 15.54,
+     "cohort_sd": 7.85,
+     "ref_mean": 12.5,
+     "ref_sd": 7.3,
+     "diff_of_means": 3.04,
+     "sd_ratio_cohort_over_ref": 1.08
+    },
+    "LL": {
+     "cohort_mean": 51.13,
+     "cohort_sd": 14.04,
+     "ref_mean": 57.4,
+     "ref_sd": 11.3,
+     "diff_of_means": -6.27,
+     "sd_ratio_cohort_over_ref": 1.24
+    },
+    "PI_LL": {
+     "cohort_mean": 0.85,
+     "cohort_sd": 10.93,
+     "ref_mean": -5.4,
+     "ref_sd": 10.7,
+     "diff_of_means": 6.25,
+     "sd_ratio_cohort_over_ref": 1.02
+    },
+    "cite": "Sardar ZM et al. Spine 2022;47:1382 (MEANS, PMID 35797462)",
+    "n_ref": 468
+   },
+   "yukawa2018_standing": {
+    "PI": {
+     "cohort_mean": 51.98,
+     "cohort_sd": 11.05,
+     "ref_mean": 53.7,
+     "ref_sd": 10.9,
+     "diff_of_means": -1.72,
+     "sd_ratio_cohort_over_ref": 1.01
+    },
+    "SS": {
+     "cohort_mean": 36.44,
+     "cohort_sd": 10.62,
+     "ref_mean": 39.4,
+     "ref_sd": 8.0,
+     "diff_of_means": -2.96,
+     "sd_ratio_cohort_over_ref": 1.33
+    },
+    "PT": {
+     "cohort_mean": 15.54,
+     "cohort_sd": 7.85,
+     "ref_mean": 14.5,
+     "ref_sd": 8.4,
+     "diff_of_means": 1.04,
+     "sd_ratio_cohort_over_ref": 0.93
+    },
+    "LL": {
+     "cohort_mean": 51.13,
+     "cohort_sd": 14.04,
+     "ref_mean": 49.7,
+     "ref_sd": 11.2,
+     "diff_of_means": 1.43,
+     "sd_ratio_cohort_over_ref": 1.25
+    },
+    "cite": "Yukawa Y et al. Eur Spine J 2018;27:426 (PMID 27771788), LL T12-S1",
+    "n_ref": 626
+   },
+   "vialle2005_standing": {
+    "PI": {
+     "cohort_mean": 51.98,
+     "cohort_sd": 11.05,
+     "ref_mean": 55.0,
+     "ref_sd": 10.6,
+     "diff_of_means": -3.02,
+     "sd_ratio_cohort_over_ref": 1.04
+    },
+    "SS": {
+     "cohort_mean": 36.44,
+     "cohort_sd": 10.62,
+     "ref_mean": 41.0,
+     "ref_sd": 8.4,
+     "diff_of_means": -4.56,
+     "sd_ratio_cohort_over_ref": 1.26
+    },
+    "PT": {
+     "cohort_mean": 15.54,
+     "cohort_sd": 7.85,
+     "ref_mean": 13.0,
+     "ref_sd": 6.0,
+     "diff_of_means": 2.54,
+     "sd_ratio_cohort_over_ref": 1.31
+    },
+    "LL": {
+     "cohort_mean": 51.13,
+     "cohort_sd": 14.04,
+     "ref_mean": 60.0,
+     "ref_sd": 10.0,
+     "diff_of_means": -8.87,
+     "sd_ratio_cohort_over_ref": 1.4
+    },
+    "cite": "Vialle R et al. JBJS Am 2005;87:260 (PMID 15687145), LL = maximal lordosis",
+    "n_ref": 300
+   }
+  },
+  "correlations_cohort_vs_literature": {
+   "PI-SS": {
+    "cohort_r": 0.738,
+    "n": 710,
+    "literature_r": 0.8,
+    "literature_source": "vialle2005"
+   },
+   "PI-PT": {
+    "cohort_r": 0.409,
+    "n": 710,
+    "literature_r": 0.66,
+    "literature_source": "vialle2005"
+   },
+   "SS-LL": {
+    "cohort_r": 0.741,
+    "n": 710,
+    "literature_r": 0.86,
+    "literature_source": "vialle2005"
+   },
+   "PI-LL": {
+    "cohort_r": 0.643,
+    "n": 710,
+    "literature_r": 0.57,
+    "literature_source": "vialle2005 regression LL=0.54PI+27.6 -> r=0.54*10.6/10; 0.663 in wang2022"
+   },
+   "LL-TLK": {
+    "cohort_r": -0.031,
+    "n": 648,
+    "literature_r": 0.45,
+    "literature_source": "pan2024 T10-L1 = -3.6-0.2*LL, R2 0.201 -> r=0.45"
+   },
+   "PI-TLK": {
+    "cohort_r": -0.153,
+    "n": 648,
+    "literature_r": 0.05,
+    "literature_source": "wang2022 TK-PI rs 0.051 n.s."
+   }
+  },
+  "regressions": {
+   "LL_on_PI_cohort": {
+    "slope": 0.817,
+    "intercept": 8.64,
+    "r": 0.643,
+    "rmse": 10.74,
+    "n": 710
+   },
+   "LL_on_PI_published": {
+    "vialle2005": {
+     "slope": 0.54,
+     "intercept": 27.6,
+     "posture": "standing, maximal lordosis"
+    },
+    "hyun2019_elderly_men": {
+     "slope": 0.62,
+     "intercept": 27.61,
+     "R2": 0.348,
+     "posture": "standing"
+    },
+    "pan2022_at_TK40": {
+     "slope": 0.618,
+     "intercept": 19.23,
+     "R2": 0.595,
+     "posture": "standing"
+    }
+   },
+   "TLK_T10L2_on_LL_cohort": {
+    "slope": -0.026,
+    "intercept": 5.68,
+    "r": -0.031,
+    "rmse": 11.79,
+    "n": 648
+   },
+   "TL_T11L1_on_LL_cohort": {
+    "slope": -0.003,
+    "intercept": 5.62,
+    "r": -0.005,
+    "rmse": 9.17,
+    "n": 702
+   },
+   "TLK_on_LL_published": {
+    "pan2024_T10L1": {
+     "slope": 0.2,
+     "intercept": 3.6,
+     "R2": 0.201,
+     "n": 280,
+     "note": "kyphosis-positive rewrite of T10-L1 = -3.6 - 0.2*LL (kyphosis negative in the source)"
+    }
+   },
+   "SS_on_LL_cohort": {
+    "slope": 0.561,
+    "intercept": 7.78,
+    "r": 0.741,
+    "rmse": 7.13,
+    "n": 710
+   },
+   "SS_on_LL_published": {
+    "vialle2005_implied": {
+     "slope": 0.72,
+     "note": "r=0.86 x SD_SS/SD_LL"
+    },
+    "lafage2011_implied": {
+     "slope": 0.62,
+     "note": "SS = PI - PT with PT = 1.14 + 0.71 PI - 0.52 LL - 0.19 TK and TK ~ 0.5 LL; coefficients quoted from secondary sources, r = 0.93 / SE 4.4 deg from the abstract (PMID 21217459)"
+    }
+   }
+  },
+  "envelopes": {
+   "schwab_PI_LL_within_10": {
+    "n": 710,
+    "share": 0.665
+   },
+   "schwab_PI_LL_within_20": {
+    "n": 710,
+    "share": 0.954
+   },
+   "schwab_PT_under_20": {
+    "n": 710,
+    "share": 0.72
+   },
+   "schwab_PT_under_30": {
+    "n": 710,
+    "share": 0.958
+   },
+   "PI_LL_below_minus_25": {
+    "n": 710,
+    "share": 0.001
+   },
+   "PI_LL_above_plus_15": {
+    "n": 710,
+    "share": 0.07
+   },
+   "roussouly_by_supine_SS_minus_3.9": {
+    "note": "type from STANDING SS = supine SS - 3.9 (Chevillotte 2018); types 1 and 2 are not separable by SS alone",
+    "type_1_or_2_SS_lt_35": {
+     "n": 710,
+     "share": 0.606
+    },
+    "type_3_SS_35_45": {
+     "n": 710,
+     "share": 0.261
+    },
+    "type_4_SS_gt_45": {
+     "n": 710,
+     "share": 0.134
+    }
+   },
+   "note": "shares of ctsp:ordinary; thresholds are the SRS-Schwab modifiers (Schwab 2012 Spine 37:1077), applied to a SUPINE cohort for orientation only"
+  },
+  "segment_profile_supine": {
+   "T9-T10": {
+    "n": 554,
+    "mean": -5.9,
+    "sd": 11.68,
+    "p5": -22.3,
+    "q1": -7.9,
+    "median": -3.4,
+    "q3": -0.6,
+    "p95": 3.5,
+    "min": -88.1,
+    "max": 70.0
+   },
+   "T10-T11": {
+    "n": 686,
+    "mean": -2.51,
+    "sd": 8.38,
+    "p5": -14.0,
+    "q1": -4.2,
+    "median": -1.2,
+    "q3": 0.8,
+    "p95": 4.8,
+    "min": -81.2,
+    "max": 61.1
+   },
+   "T11-T12": {
+    "n": 742,
+    "mean": -3.49,
+    "sd": 6.61,
+    "p5": -13.0,
+    "q1": -5.5,
+    "median": -2.9,
+    "q3": -0.6,
+    "p95": 3.4,
+    "min": -61.8,
+    "max": 86.2
+   },
+   "T12-L1": {
+    "n": 748,
+    "mean": -1.95,
+    "sd": 7.31,
+    "p5": -8.3,
+    "q1": -4.3,
+    "median": -2.0,
+    "q3": 0.2,
+    "p95": 3.8,
+    "min": -91.3,
+    "max": 90.2
+   },
+   "L1-L2": {
+    "n": 750,
+    "mean": -0.17,
+    "sd": 9.69,
+    "p5": -7.9,
+    "q1": -3.0,
+    "median": -0.6,
+    "q3": 2.2,
+    "p95": 6.3,
+    "min": -77.7,
+    "max": 98.7
+   },
+   "L2-L3": {
+    "n": 750,
+    "mean": 4.11,
+    "sd": 11.89,
+    "p5": -3.6,
+    "q1": 1.4,
+    "median": 4.5,
+    "q3": 7.8,
+    "p95": 13.7,
+    "min": -133.6,
+    "max": 98.7
+   },
+   "L3-L4": {
+    "n": 750,
+    "mean": 9.85,
+    "sd": 8.63,
+    "p5": 1.6,
+    "q1": 6.1,
+    "median": 9.7,
+    "q3": 13.2,
+    "p95": 18.9,
+    "min": -87.5,
+    "max": 108.8
+   },
+   "L4-L5": {
+    "n": 750,
+    "mean": 14.44,
+    "sd": 7.64,
+    "p5": 4.0,
+    "q1": 10.8,
+    "median": 14.7,
+    "q3": 18.8,
+    "p95": 24.2,
+    "min": -89.8,
+    "max": 38.1
+   },
+   "L5-S1(junction)": {
+    "n": 710,
+    "mean": 23.72,
+    "sd": 8.42,
+    "p5": 11.5,
+    "q1": 18.1,
+    "median": 23.6,
+    "q3": 28.6,
+    "p95": 37.8,
+    "min": -23.9,
+    "max": 59.2
+   }
+  },
+  "cross_check_vs_release_csv": {
+   "n_matched": 802,
+   "PI": {
+    "n": 756,
+    "mean_diff": 0.0,
+    "sd_diff": 0.03,
+    "n_abs_diff_gt_5": 0,
+    "n_abs_diff_gt_10": 0
+   },
+   "SS": {
+    "n": 756,
+    "mean_diff": 0.0,
+    "sd_diff": 0.03,
+    "n_abs_diff_gt_5": 0,
+    "n_abs_diff_gt_10": 0
+   },
+   "PT": {
+    "n": 756,
+    "mean_diff": 0.0,
+    "sd_diff": 0.04,
+    "n_abs_diff_gt_5": 0,
+    "n_abs_diff_gt_10": 0
+   },
+   "LL": {
+    "n": 756,
+    "mean_diff": -0.48,
+    "sd_diff": 2.4,
+    "n_abs_diff_gt_5": 8,
+    "n_abs_diff_gt_10": 4
+   }
+  },
+  "findings": [
+   "PI, SS, PT reproduce the release CSV to 0.0 deg (same construction; a consistency check, not truth) and Veilleux's automated supine CT to <0.1 deg on all three (n=200; truth outside the computation)",
+   "per-level MEANS match the published standing profile after the supine shift (L3-L4 9.9, L4-L5 14.4, L5-S1 23.7 vs Mi Le shares x LL: 9.2, 12.9, 21.8) but every per-segment SD is 1.5-2x the widest published series and the LL SD is 1.24x MEANS: spread is the finding; the sampler takes its shape from the literature, not from the cohort",
+   "the TLK-LL coupling of the standing literature (R2 0.20) is absent supine (r = -0.03); the coupling is applied at its published strength and flagged",
+   "T9, the field-edge body, is unusable (wedge -8.9 +/- 16.2, p5 -50.8; T9-T10 segment -5.9 +/- 11.7): the topmost body in the field is excluded from the mobile chain and from every check",
+   "L6 PI 60.9 (n=14) vs ordinary 52.0 and sacralised 47.9 (n=17): the published class association of PI (yokoyama2016, haffer2021, muller2024) is present in this cohort",
+   "63.5 % of ordinary spines sit inside Schwab's |PI-LL| < 10 and 95.4 % inside 20; 72 % have PT < 20; by supine SS - 3.9, 61 % are Roussouly 1/2, 26 % type 3, 13 % type 4 (laouissat2018's young cohort is type-3 heavy; this is an older cohort)"
+  ],
+  "defects_found": {
+   "field_edge_body": "T9 (and any topmost body touching the FOV) is measured as if whole; MIN_VOX = 3000 does not catch a half body. Fix: measure_sagittal.py must drop the topmost body when its mask touches the volume boundary. Not fixed today; T9 excluded downstream",
+   "lumbosacral_disc_fit": "15 CTSP cases with |junction disc angle| > 30 (0097 L6 84.7, 0565 L6 59.8, 0825 100.9 ...): the lowest body's inferior plate or the S1 plate landed on the wrong surface. These are not sources and their rows are flagged",
+   "thoracolumbar_fit": "7 CTSP cases with |TLK_T10L2| > 40; 7 with LL < 10 or > 85 (0236, 0699, 0789 negative LL: an L1 or S1 plate on the wrong surface). Not sources",
+   "verse_legacy_map": "203 of 374 VerSe unified masks are in the legacy map (L1 = 1) and were refused; the bank build must resolve both maps through ostk.labels.labels_for or these scans cannot be warped",
+   "supine_offset_sign": "the published standing->supine LL offset ranges from -6 to +2 across five series; the sampler draws it from a distribution and says so"
+  },
+  "figure_caption_cohort_sagittal_png": "Supine CTSpinoPelvic1K profile re-measured with one code path. (a) PI against L1-S1 lordosis with the Schwab band and Vialle's regression; (b) thoracolumbar kyphosis against lordosis, no supine coupling; (c) sacral slope against pelvic tilt on PI isolines; (d) segmental profile against the standing shares. Transitional cases marked; fused junctions ringed."
+ },
+ "what_is_not_known": [
+  "no published series gives the per-type Roussouly LL mean with an SD; the type consistency gate uses table corners, not a distribution",
+  "the SS-TK correlation is not published as a pair and is set by assumption (0.35)",
+  "the Lafage 2011 PT coefficients were seen only in secondary quotations; the spec cites the abstract's r and SE and does not use the coefficients",
+  "no paper predicting LSTV from spinopelvic angles ALONE with a stated AUC was found; the closest is albano2020 (segmented lordotic angles on EOS, AUC 0.665-0.718 for type II, 0.797-0.831 for III-IV) and a 2025 deep-learning radiograph model (AUC 0.84, PMC12610351); geometry is weakly informative and the network must learn the count at the junction",
+  "no published segmental ROM exists for six-lumbar or thirteen-thoracic spines (v1 anchoring rule stands)",
+  "whether the standing coupling of TLK to LL should be imposed on a supine source at all: the cohort says it is absent supine",
+  "the T9 field-edge defect and the 29 disc/TLK/LL plate failures are excluded, not fixed"
+ ],
+ "citation_audit": {
+  "date": "2026-09-23",
+  "what": "every author-year key used anywhere in this file resolves to an entry in `citations`; check_sampling_spec.py enforces it",
+  "resolved_this_pass": [
+   "banitalebi2026",
+   "barrey2011",
+   "bouaicha2014",
+   "chen2019",
+   "chung2020",
+   "diebo2015",
+   "fan2023",
+   "hasegawa2018",
+   "hyun2019",
+   "izatt2012",
+   "lafage2011",
+   "laouissat2018",
+   "means2022",
+   "muller2024",
+   "ouchida2024",
+   "pan2022",
+   "pan2024",
+   "roussouly2005",
+   "shen2024",
+   "tu2023",
+   "veilleux2020",
+   "vrtovec2012",
+   "wang2022",
+   "yan2022",
+   "yukawa2018"
+  ],
+  "corrections": [
+   "vrtovec2012 was cited as 'Eur Spine J 2012'; the paper is Spine 2012;37(8):E479-E485 (PMID 21971132). A different Vrtovec 2012 (Spine J 12(5):433-46) is a review and is not the source",
+   "yukawa2017 and yukawa2018 are one paper (Eur Spine J 2018;27(2):426-432); yukawa2018 is canonical",
+   "muller2023 and muller2024 are one paper (J Anat 2024;244(4):594-600); muller2024 is canonical",
+   "shen2023 (PMID 36944088) and shen2024 (PMID 38417069) are DIFFERENT MEANS papers and both are kept",
+   "means2022 is an alias of sardar2022",
+   "tu2023 was cited in roussouly_shape_rule with no entry; the v1 checker crashed on the v2 spec before its key scan ran and never caught it. Resolved 2026-09-23: Tu et al., Quant Imaging Med Surg 2023;13(3):1375-1383 (PMID 36915337); the four type definitions were re-read verbatim from the PMC full text. check_sampling_spec.py was rewritten for spec_version 2 the same day (the v1 checker gated on the retired target_LL key: a check on a retired id)"
+  ],
+  "numbers_that_remain_unconfirmed": [
+   "chen2019: the 44.97 +/- 8.52 in outside_checks is a pooling of the paper's two age strata (43.50 +/- 7.39 and 45.94 +/- 9.08), not a printed value",
+   "izatt2012: LL_supine = 0.71 LL + 9.7 is not in the abstract; it affects only the spread of the supine-offset draw",
+   "hyun2019, pan2022, chung2020, laouissat2018, ouchida2024, bouaicha2014, banitalebi2026, hasegawa2018: paper identity confirmed by PubMed record, individual table values carried over from the earlier session's reading and not re-read today",
+   "lafage2011 coefficients remain secondary-quoted and are used for nothing",
+   "bouaicha2014: the abstract prints the group-B difference as -2.1 without saying which modality is subtracted, so the SIGN of that supine-offset row is not established",
+   "yan2022 per-group parameter means are paywalled; only group sizes are used"
+  ]
+ }
+}

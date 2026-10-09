@@ -1,0 +1,15 @@
+# Copied 2026-10-08 from the private repository spinesurg-ct-nnunet (branch L6_Class): tools/fluoro_video/overrides.yaml [untracked at 097933a (laptop copy of 2026-10-08)]
+# The ONLY place a person may state a box, a time or a keep/drop decision. Empty by default.
+# Prefer fixing the algorithm (config.yaml, with a Change log entry in README.md) over adding an entry here.
+#
+# Each entry:
+#   video:   <video_id from the inventory>             (required)
+#   action:  reject | split | merge | replace-box       (required)
+#   segment: <segment id, e.g. S003>                   (reject, split, replace-box)
+#   layout:  <layout id, e.g. L01>                     (replace-box on every segment of a layout)
+#   values:  {at_pts_s: [..]} | {segments: [S001, S002]} | {box: [x0, y0, x1, y1]}
+#   reason:  why, in words (required, >= 10 characters)
+#
+# Every clip an entry touches is marked overridden: true in clip.json, the video manifest and REPORT.md, with
+# the reason.
+overrides: []

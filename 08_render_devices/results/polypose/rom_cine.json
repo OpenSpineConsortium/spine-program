@@ -1,0 +1,236 @@
+{
+ "schema": "rom_cine/1",
+ "written": "2026-09-26",
+ "purpose": "Per-segment flexion/extension caps for the synthetic flexion-extension cine (tools/polypose/cine_render.py). A frame's segment angle is frac * m * (a_k * ext if a_k > 0 else a_k * flex) with a_k = -sin(2 pi k / N); lateral bending and axial rotation are held at 0.",
+ "conventions": "flex = lordosis-reducing, ext = lordosis-increasing, one direction each, degrees from the neutral pose (the spec's own convention, copied with its rows). A row is usable only when it carries numeric flex and ext and no 'pending' status. cine_render.py REFUSES to plan a region any of whose moving segments is pending or absent: no number is invented, interpolated or borrowed from a neighbouring segment.",
+ "copied_from": {
+  "path": "SchwingNet/results/polypose/sampling_spec.json",
+  "section": "rom_deg",
+  "sha256": "5eeb0a9fe7117c324be559a92935d70bd86ef3c540e034aa729598db650014d2",
+  "sha256_of": "the file as committed at `commit`, LF line endings: `git show <commit>:<path> | sha256sum`. A Windows working tree with core.autocrlf=true hashes the same commit as 192c264ba22fd888ee1f90cefca230b493184c998f9ef80c1531aa3235615838 (CRLF), which is what this field wrongly held until 2026-09-26; cine_render.load_rom compares it with CRLF normalised to LF (spec_is_copied_version), as a record only -- the rows are the refusal",
+  "git_blob": "45726c4f95a76bfa77761bfe19138a077ebb1cae",
+  "commit": "74d9c8192903d26d97ee70adbb57b383b1ff5a17",
+  "rows": [
+   "T10-T11",
+   "T11-T12",
+   "T12-L1",
+   "L1-L2",
+   "L2-L3",
+   "L3-L4",
+   "L4-L5",
+   "L5-S1"
+  ],
+  "citations": [
+   "oxland1992",
+   "pearcy1984a",
+   "pearcy1984b",
+   "wilke2017",
+   "yamamoto1989"
+  ],
+  "rule": "rows and citations copied verbatim, source keys included; cine_render.py refuses to plan if any copied row no longer equals the spec's row (drift)"
+ },
+ "note": "Hard caps on the relative rotation of one segment, per direction, from the neutral supine pose. flex = lordosis-reducing, ext = lordosis-increasing, lb and ar are one-side values. Source per row. Values are in vitro at 7.5-10 N m; in vivo totals (Pearcy 1984) are ~14 deg per lumbar joint, i.e. the in vitro flex+ext sums (10.1-17.8) bracket them.",
+ "in_vivo_crosscheck": {
+  "flex_plus_ext_per_lumbar_joint": 14.0,
+  "ar_per_joint": 2.0,
+  "lb_upper_three": 10.0,
+  "lb_L4L5": 6.0,
+  "lb_L5S1": 3.0,
+  "source": "pearcy1984a, pearcy1984b"
+ },
+ "rom_deg": {
+  "cervical": {
+   "C0-C1": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "C1-C2": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "C2-C3": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "C3-C4": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "C4-C5": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "C5-C6": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "C6-C7": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "C7-T1": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   }
+  },
+  "thoracic": {
+   "T1-T2": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "T2-T3": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "T3-T4": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "T4-T5": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "T5-T6": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "T6-T7": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "T7-T8": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "T8-T9": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   },
+   "T9-T10": {
+    "status": "pending: panjabi2001 / panjabi1976 extraction"
+   }
+  },
+  "thoracolumbar_lumbar": {
+   "T10-T11": {
+    "flex": 3.07,
+    "ext": 3.07,
+    "lb": 3.99,
+    "ar": 4.04,
+    "sd": {
+     "flex": 0.98,
+     "ext": 1.07,
+     "lb": 0.78,
+     "ar": 0.79
+    },
+    "source": "wilke2017",
+    "note": "n=6 at +/-7.5 N m; means of the per-specimen rows of S1 Dataset (pone.0177823.s001.xlsx): flex = ROM+, ext = |ROM-|, lb and ar = mean of the two measured sides; sd = sample SD (n-1). Corrected 2026-09-26 from 1.75/1.75/2.1/2.4, which treated per-direction values as two-direction totals and halved them."
+   },
+   "T11-T12": {
+    "flex": 2.7,
+    "ext": 2.4,
+    "lb": 3.5,
+    "ar": 1.8,
+    "sd": {
+     "flex": 1.3,
+     "ext": 1.3,
+     "lb": 1.1,
+     "ar": 0.7
+    },
+    "source": "oxland1992"
+   },
+   "T12-L1": {
+    "flex": 2.9,
+    "ext": 3.9,
+    "lb": 3.7,
+    "ar": 1.2,
+    "sd": {
+     "flex": 1.4,
+     "ext": 1.4,
+     "lb": 1.1,
+     "ar": 0.7
+    },
+    "source": "oxland1992"
+   },
+   "L1-L2": {
+    "flex": 5.8,
+    "ext": 4.3,
+    "lb": 4.9,
+    "ar": 2.3,
+    "nz": {
+     "fe": 1.6,
+     "ar": 0.9,
+     "lb": 1.4
+    },
+    "source": "yamamoto1989"
+   },
+   "L2-L3": {
+    "flex": 6.5,
+    "ext": 4.3,
+    "lb": 7.0,
+    "ar": 2.6,
+    "nz": {
+     "fe": 1.0,
+     "ar": 0.8,
+     "lb": 2.0
+    },
+    "source": "yamamoto1989"
+   },
+   "L3-L4": {
+    "flex": 7.5,
+    "ext": 3.7,
+    "lb": 5.7,
+    "ar": 2.6,
+    "nz": {
+     "fe": 1.4,
+     "ar": 0.7,
+     "lb": 1.4
+    },
+    "source": "yamamoto1989"
+   },
+   "L4-L5": {
+    "flex": 8.9,
+    "ext": 5.8,
+    "lb": 5.7,
+    "ar": 2.2,
+    "nz": {
+     "fe": 1.8,
+     "ar": 0.4,
+     "lb": 1.6
+    },
+    "source": "yamamoto1989"
+   },
+   "L5-S1": {
+    "flex": 10.0,
+    "ext": 7.8,
+    "lb": 5.5,
+    "ar": 1.4,
+    "nz": {
+     "fe": 3.0,
+     "ar": 0.4,
+     "lb": 1.8
+    },
+    "source": "yamamoto1989"
+   }
+  }
+ },
+ "citations": {
+  "oxland1992": {
+   "ref": "Oxland TR, Lin RM, Panjabi MM. Three-dimensional mechanical properties of the thoracolumbar junction. J Orthop Res 1992;10(4):573-580.",
+   "pmid": "1613631",
+   "doi": "10.1002/jor.1100100412",
+   "design": "in vitro, n=11 T11-L1 three-vertebra specimens, 7.5 N m, ROM to one side, mean +/- SD",
+   "verified": "abstract read verbatim 2026-09-23; both segments' four-direction values with SDs re-confirmed verbatim from the PubMed efetch abstract the same day (T11-T12 2.7/2.4/3.5/1.8, T12-L1 2.9/3.9/3.7/1.2)"
+  },
+  "pearcy1984a": {
+   "ref": "Pearcy M, Portek I, Shepherd J. Three-dimensional x-ray analysis of normal movement in the lumbar spine. Spine 1984;9(3):294-297.",
+   "pmid": "6374922",
+   "design": "in vivo biplanar radiography, asymptomatic volunteers: each lumbar joint ~14 deg total flexion+extension, lower levels slightly more",
+   "verified": "abstract read verbatim 2026-09-23"
+  },
+  "pearcy1984b": {
+   "ref": "Pearcy MJ, Tibrewal SB. Axial rotation and lateral bending in the normal lumbar spine measured by three-dimensional radiography. Spine 1984;9(6):582-587.",
+   "pmid": "6495028",
+   "design": "in vivo: ~2 deg axial rotation per joint (L3-4, L4-5 slightly more); lateral bending ~10 deg at the upper three levels, 6 deg L4-5, 3 deg L5-S1",
+   "verified": "abstract read verbatim 2026-09-23"
+  },
+  "wilke2017": {
+   "ref": "Wilke HJ, Herkommer A, Werner K, Liebsch C. In vitro analysis of the segmental flexibility of the thoracic spine. PLoS One 2017;12(5):e0177823.",
+   "pmcid": "PMC5433776",
+   "design": "in vitro, n=6-7 per level, +/-7.5 N m pure moments, monosegmental FSUs T1-T2 to T11-T12 with the costovertebral joints kept and no rib cage; ROM reported per direction (ROM+ and ROM- columns in S1)",
+   "verified": "citation, PMID and DOI confirmed 2026-09-23 (PubMed). 2026-09-26: rom_deg T10-T11 recomputed from the per-specimen rows of S1 Dataset (pone.0177823.s001.xlsx), reproducing its Mean rows; two independent extractions agree to 0.01 deg. The Results bands (e.g. 'ranged from 3.1 to 3.8') are per-direction values, not two-direction totals",
+   "pmid": "28520819",
+   "doi": "10.1371/journal.pone.0177823"
+  },
+  "yamamoto1989": {
+   "ref": "Yamamoto I, Panjabi MM, Crisco T, Oxland T. Three-dimensional movements of the whole lumbar spine and lumbosacral joint. Spine 1989;14(11):1256-1260.",
+   "pmid": "2603060",
+   "doi": "10.1097/00007632-198911000-00020",
+   "design": "in vitro, n=10 fresh cadaveric L1-sacrum, pure moments to 10 N m, ROM per direction (axial torque and lateral bending to one side)",
+   "verified": "abstract read verbatim 2026-09-23 (Europe PMC); all five segments' flexion / extension / lateral-bending / axial-torque values re-confirmed verbatim from the PubMed efetch abstract the same day (L1-2 5.8/4.3/4.9/2.3 ... L5-S1 10.0/7.8/5.5/1.4)"
+  }
+ }
+}

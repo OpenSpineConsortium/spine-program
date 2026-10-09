@@ -1,0 +1,14 @@
+# Append to ~/.ssh/config on your laptop (create the file if it does not exist).
+# On Windows, put it in the WSL home (~/.ssh/config inside WSL) since that is where
+# Claude Code runs ssh, and also in <laptop drive>/Users\<you>\.ssh\config for VS Code Remote-SSH.
+#
+# After this, `ssh grid` logs in without a password, and Claude's remote commands
+# (ssh -o BatchMode=yes grid "...") work non-interactively.
+
+Host grid
+    HostName grid.wayne.edu
+    User youraccessid
+    IdentityFile ~/.ssh/id_ed25519
+    ServerAliveInterval 60
+    ServerAliveCountMax 5
+    ConnectTimeout 15

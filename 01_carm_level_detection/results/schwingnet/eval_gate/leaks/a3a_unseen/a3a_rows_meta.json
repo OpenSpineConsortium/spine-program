@@ -1,0 +1,203 @@
+{
+ "eval_gate": {
+  "gate_version": "eval_gate/1",
+  "held_out": true,
+  "not_held_out_reason": null,
+  "n_checks": 2,
+  "overlap": 0,
+  "unresolved": 0,
+  "checks": [
+   {
+    "gate": "tools/eval_gate.py",
+    "gate_version": "eval_gate/1",
+    "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+    "where": "tools/rigor_fixes.py a3a-rows [render-trained]",
+    "checked_at": "2026-09-24T06:01:32",
+    "host": "arw4",
+    "checkpoint": "/wsu/home/go/go24/go2432/FluoroCap/anchor_det_v1.pt",
+    "checkpoint_sha256": "8df40e7f1435a7e6c6e83b9627b306f92870df11ced1d6a7b94f92427cfcf9ae",
+    "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+    "lineage_match": "path + sha256 verified",
+    "ancestors": [],
+    "public_roots": [
+     "public:ultralytics/yolo11m.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco.yaml')"
+    ],
+    "eval_set": "/wsu/home/go/go24/go2432/films_drr_buucorr first 17 spines",
+    "n_items": 17,
+    "n_keys": 17,
+    "keys_by_corpus": {
+     "nhanes": 17
+    },
+    "n_unkeyed": 0,
+    "unkeyed": [],
+    "overlap": 0,
+    "overlap_keys": [],
+    "overlap_detail": [],
+    "unresolved": 0,
+    "unresolved_rows": [],
+    "unresolved_decided": [],
+    "pose_donor_overlap": 0,
+    "pose_donor_keys": [],
+    "also_seen": {},
+    "held_out": true,
+    "not_held_out_reason": null,
+    "overlap_by": {},
+    "problems": []
+   },
+   {
+    "gate": "tools/eval_gate.py",
+    "gate_version": "eval_gate/1",
+    "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+    "where": "tools/rigor_fixes.py a3a-rows [film-trained]",
+    "checked_at": "2026-09-24T06:01:32",
+    "host": "arw4",
+    "checkpoint": "/wsu/home/go/go24/go2432/model_registry/797de71a9e0e42f7/detect_v5z_final_best.pt",
+    "checkpoint_sha256": "797de71a9e0e42f75ab81af8d1983a4c19045e47cfda771bf4dadd5559076d65",
+    "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+    "lineage_match": "path + sha256 verified",
+    "ancestors": [
+     "/wsu/home/go/go24/go2432/spine-detector/runs/pose/runs/pose/runs/detect_v3/weights/best.pt"
+    ],
+    "public_roots": [
+     "public:ultralytics/yolo11m-pose.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m-pose.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco-pose.yaml')"
+    ],
+    "eval_set": "/wsu/home/go/go24/go2432/films_drr_buucorr first 17 spines",
+    "n_items": 17,
+    "n_keys": 17,
+    "keys_by_corpus": {
+     "nhanes": 17
+    },
+    "n_unkeyed": 0,
+    "unkeyed": [],
+    "overlap": 0,
+    "overlap_keys": [],
+    "overlap_detail": [],
+    "unresolved": 0,
+    "unresolved_rows": [],
+    "unresolved_decided": [],
+    "pose_donor_overlap": 0,
+    "pose_donor_keys": [],
+    "also_seen": {},
+    "held_out": true,
+    "not_held_out_reason": null,
+    "overlap_by": {},
+    "problems": []
+   }
+  ]
+ },
+ "drr": "/wsu/home/go/go24/go2432/films_drr_buucorr",
+ "det_render": "/wsu/home/go/go24/go2432/FluoroCap/anchor_det_v1.pt",
+ "det_film": "/wsu/home/go/go24/go2432/model_registry/797de71a9e0e42f7/detect_v5z_final_best.pt",
+ "holdout_bank": "/wsu/home/go/go24/go2432/allspine_v7_fov96_ctx",
+ "spines": 17,
+ "rows": 322,
+ "bodies_at_0p05": 161,
+ "meta": {
+  "code_sha": "6e1cf8d",
+  "when": "2026-09-24 06:02",
+  "n_boot": 2000,
+  "seed": 0,
+  "alpha": 0.05,
+  "files_read": [
+   "/wsu/home/go/go24/go2432/films_drr_buucorr"
+  ]
+ },
+ "eval_gate_by_arm": {
+  "render": {
+   "gate_version": "eval_gate/1",
+   "held_out": true,
+   "not_held_out_reason": null,
+   "n_checks": 1,
+   "overlap": 0,
+   "unresolved": 0,
+   "checks": [
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py a3a-rows [render-trained]",
+     "checked_at": "2026-09-24T06:01:32",
+     "host": "arw4",
+     "checkpoint": "/wsu/home/go/go24/go2432/FluoroCap/anchor_det_v1.pt",
+     "checkpoint_sha256": "8df40e7f1435a7e6c6e83b9627b306f92870df11ced1d6a7b94f92427cfcf9ae",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "public_roots": [
+      "public:ultralytics/yolo11m.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco.yaml')"
+     ],
+     "eval_set": "/wsu/home/go/go24/go2432/films_drr_buucorr first 17 spines",
+     "n_items": 17,
+     "n_keys": 17,
+     "keys_by_corpus": {
+      "nhanes": 17
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": []
+    }
+   ]
+  },
+  "film": {
+   "gate_version": "eval_gate/1",
+   "held_out": true,
+   "not_held_out_reason": null,
+   "n_checks": 1,
+   "overlap": 0,
+   "unresolved": 0,
+   "checks": [
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py a3a-rows [film-trained]",
+     "checked_at": "2026-09-24T06:01:32",
+     "host": "arw4",
+     "checkpoint": "/wsu/home/go/go24/go2432/model_registry/797de71a9e0e42f7/detect_v5z_final_best.pt",
+     "checkpoint_sha256": "797de71a9e0e42f75ab81af8d1983a4c19045e47cfda771bf4dadd5559076d65",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "/wsu/home/go/go24/go2432/spine-detector/runs/pose/runs/pose/runs/detect_v3/weights/best.pt"
+     ],
+     "public_roots": [
+      "public:ultralytics/yolo11m-pose.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m-pose.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco-pose.yaml')"
+     ],
+     "eval_set": "/wsu/home/go/go24/go2432/films_drr_buucorr first 17 spines",
+     "n_items": 17,
+     "n_keys": 17,
+     "keys_by_corpus": {
+      "nhanes": 17
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": []
+    }
+   ]
+  }
+ }
+}

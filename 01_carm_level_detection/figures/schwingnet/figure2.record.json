@@ -1,0 +1,800 @@
+{
+ "numbers": [
+  {
+   "panel": "a",
+   "what": "points drawn: validation-split crops / never-seen patients' crops (the 520 real C-arm test bodies were in the t-SNE fit, not drawn)",
+   "value": [
+    13009,
+    756
+   ],
+   "source": "results/figure2/figure2_metrics.json#map.n"
+  },
+  {
+   "panel": "a",
+   "what": "open diamonds: last free vertebra (L4) above a fused L5, crops drawn / persons",
+   "value": [
+    7,
+    4
+   ],
+   "source": "results/figure2/figure2_transitional.json#map_rows_last_free, #fused_L5.last_free.n_persons"
+  },
+  {
+   "panel": "a",
+   "what": "nearest crop of another person (cosine, 512-d), validation split: crops, same level (count, share, 95 % person-cluster interval), within one level (count, share, interval), people",
+   "value": [
+    13009,
+    9740,
+    0.7487,
+    [
+     0.722,
+     0.7763
+    ],
+    12205,
+    0.9382,
+    [
+     0.9267,
+     0.949
+    ],
+    1612
+   ],
+   "source": "results/figure2/figure2_metrics.json#nearest_other_person"
+  },
+  {
+   "panel": "a",
+   "what": "the same before cleaning (results/learning, 15,898 crops incl. people in the train keys): same level, within one (record only; superseded)",
+   "value": [
+    15898,
+    0.7203,
+    0.9335
+   ],
+   "source": "results/figure2/figure2_metrics.json#nearest_other_person.as_published (= results/learning/analysis.json#ordering)"
+  },
+  {
+   "panel": "a",
+   "what": "verified T13 spines, in the encoder's training keys / all; T13 crops training / validation; held-out T13 embedded",
+   "value": [
+    7,
+    7,
+    44,
+    0,
+    0
+   ],
+   "source": "results/figure2/figure2_transitional.json#T13 (verified_spines_by_side, bank_T13_crops, held_out_T13_to_embed)"
+  },
+  {
+   "panel": "a",
+   "what": "T13 candidates in the registry, not verified (stream/side/truth tier/render): none is both outside the keys and rendered",
+   "value": {
+    "totalsegmentator/train/two-labeller/rendered": 1,
+    "totalsegmentator/train/two-labeller/not rendered": 2,
+    "totalsegmentator/train/single-labeller/rendered": 1,
+    "totalsegmentator/neither/single-labeller/not rendered": 3,
+    "verse/train/read/rendered": 6
+   },
+   "source": "results/figure2/figure2_transitional.json#T13.registry_candidates"
+  },
+  {
+   "panel": "b",
+   "what": "window (t-SNE units): box of validation L6 and sacrum (2nd-98th percentile), never-seen L6 (10th-90th) and every last-free crop (0-100), padded 6 %, widened to the axes' aspect",
+   "value": {
+    "lo": [
+     -34.58,
+     -30.09
+    ],
+    "hi": [
+     26.83,
+     40.54
+    ]
+   },
+   "source": "computed from results/figure2/figure2_map.npz"
+  },
+  {
+   "panel": "b",
+   "what": "share of the never-seen patients' L6 crops inside the window",
+   "value": 0.9,
+   "source": "computed from results/figure2/figure2_map.npz"
+  },
+  {
+   "panel": "b",
+   "what": "last-free crops inside the window / drawn",
+   "value": [
+    7,
+    7
+   ],
+   "source": "computed from results/figure2/figure2_map.npz"
+  },
+  {
+   "panel": "b",
+   "what": "direct labels [level, map x, map y, validation points of that level inside the window, label offset pt]",
+   "value": [
+    [
+     "L4",
+     12.77,
+     34.01,
+     500,
+     [
+      0,
+      12
+     ]
+    ],
+    [
+     "L5",
+     16.38,
+     13.93,
+     435,
+     [
+      14,
+      0
+     ]
+    ],
+    [
+     "L6",
+     5.15,
+     22.35,
+     98,
+     [
+      14,
+      0
+     ]
+    ],
+    [
+     "sacrum",
+     22.97,
+     1.81,
+     65,
+     [
+      -12,
+      12
+     ]
+    ]
+   ],
+   "source": "computed from results/figure2/figure2_map.npz"
+  },
+  {
+   "panel": "b",
+   "what": "L6 in the validation split: crops, people",
+   "value": [
+    98,
+    10
+   ],
+   "source": "results/figure2/figure2_metrics.json#per_level_n.L6"
+  },
+  {
+   "panel": "b",
+   "what": "never-seen patients' L6 (one labeller): crops (AP and lateral, whole-vertebra box), patients",
+   "value": [
+    180,
+    3
+   ],
+   "source": "results/figure2/figure2_metrics.json#heldout_l6.cells.whole/primary.L6"
+  },
+  {
+   "panel": "b",
+   "what": "persons with a fused L5 whose last free vertebra is drawn",
+   "value": 4,
+   "source": "results/figure2/figure2_transitional.json#fused_L5.last_free.n_persons"
+  },
+  {
+   "panel": "c",
+   "what": "silhouette L6|L5, validation split: mean, 95 % person-cluster interval, crops, people",
+   "value": [
+    0.3491,
+    [
+     0.3096,
+     0.3865
+    ],
+    98,
+    10
+   ],
+   "source": "results/figure2/figure2_metrics.json#silhouette.pairs.L6|L5"
+  },
+  {
+   "panel": "c",
+   "what": "L6|L5, never-seen patients (L6 by one labeller): two-cluster silhouette, one value per patient (patients not named); drawn as stars (their L6)",
+   "value": [
+    0.1645,
+    0.104,
+    0.1244
+   ],
+   "source": "results/figure2/figure2_metrics.json#heldout_l6.ladder_against_level_above.L6|L5.heldout_per_patient"
+  },
+  {
+   "panel": "c",
+   "what": "silhouette L5|L4, validation split: mean, 95 % person-cluster interval, crops, people",
+   "value": [
+    0.2272,
+    [
+     0.2052,
+     0.2485
+    ],
+    1012,
+    721
+   ],
+   "source": "results/figure2/figure2_metrics.json#silhouette.pairs.L5|L4"
+  },
+  {
+   "panel": "c",
+   "what": "L5|L4, never-seen patients (L6 by one labeller): two-cluster silhouette, one value per patient (patients not named); drawn as rings (their other vertebrae)",
+   "value": [
+    -0.0588,
+    -0.0872,
+    -0.0823
+   ],
+   "source": "results/figure2/figure2_metrics.json#heldout_l6.ladder_against_level_above.L5|L4.heldout_per_patient"
+  },
+  {
+   "panel": "c",
+   "what": "silhouette L4|L3, validation split: mean, 95 % person-cluster interval, crops, people",
+   "value": [
+    0.1698,
+    [
+     0.156,
+     0.1836
+    ],
+    1073,
+    733
+   ],
+   "source": "results/figure2/figure2_metrics.json#silhouette.pairs.L4|L3"
+  },
+  {
+   "panel": "c",
+   "what": "L4|L3, never-seen patients (L6 by one labeller): two-cluster silhouette, one value per patient (patients not named); drawn as rings (their other vertebrae)",
+   "value": [
+    -0.0521,
+    -0.0359,
+    -0.0144
+   ],
+   "source": "results/figure2/figure2_metrics.json#heldout_l6.ladder_against_level_above.L4|L3.heldout_per_patient"
+  },
+  {
+   "panel": "c",
+   "what": "silhouette L3|L2, validation split: mean, 95 % person-cluster interval, crops, people",
+   "value": [
+    0.1587,
+    [
+     0.1464,
+     0.1716
+    ],
+    1085,
+    733
+   ],
+   "source": "results/figure2/figure2_metrics.json#silhouette.pairs.L3|L2"
+  },
+  {
+   "panel": "c",
+   "what": "L3|L2, never-seen patients (L6 by one labeller): two-cluster silhouette, one value per patient (patients not named); drawn as rings (their other vertebrae)",
+   "value": [
+    -0.0842,
+    -0.0595,
+    -0.0569
+   ],
+   "source": "results/figure2/figure2_metrics.json#heldout_l6.ladder_against_level_above.L3|L2.heldout_per_patient"
+  },
+  {
+   "panel": "c",
+   "what": "silhouette L2|L1, validation split: mean, 95 % person-cluster interval, crops, people",
+   "value": [
+    0.194,
+    [
+     0.1773,
+     0.2107
+    ],
+    1036,
+    734
+   ],
+   "source": "results/figure2/figure2_metrics.json#silhouette.pairs.L2|L1"
+  },
+  {
+   "panel": "c",
+   "what": "silhouette L1|T12, validation split: mean, 95 % person-cluster interval, crops, people",
+   "value": [
+    0.3236,
+    [
+     0.2941,
+     0.3515
+    ],
+    1005,
+    743
+   ],
+   "source": "results/figure2/figure2_metrics.json#silhouette.pairs.L1|T12"
+  },
+  {
+   "panel": "c",
+   "what": "silhouette T12|T11, validation split: mean, 95 % person-cluster interval, crops, people",
+   "value": [
+    0.1437,
+    [
+     0.1175,
+     0.1653
+    ],
+    422,
+    196
+   ],
+   "source": "results/figure2/figure2_metrics.json#silhouette.pairs.T12|T11"
+  },
+  {
+   "panel": "c",
+   "what": "persons with a fused L5 in the validation split (the unit for the two rows below)",
+   "value": 4,
+   "source": "results/figure2/figure2_transitional.json#fused_L5.last_free.n_persons"
+  },
+  {
+   "panel": "c",
+   "what": "silhouette L4|L5, validation split without the fused-L5 persons (the dot): mean, 95 % person-cluster interval, crops, people",
+   "value": [
+    0.2377,
+    [
+     0.2259,
+     0.2496
+    ],
+    1066,
+    729
+   ],
+   "source": "results/figure2/figure2_transitional.json#fused_L5.last_free.reference_silhouette"
+  },
+  {
+   "panel": "c",
+   "what": "L4|L5, persons with a fused L5: two-cluster silhouette, each person's mean over their crops (persons numbered, not named), crops per person",
+   "value": [
+    [
+     -0.1324,
+     1
+    ],
+    [
+     0.1126,
+     4
+    ],
+    [
+     -0.1824,
+     1
+    ],
+    [
+     0.1607,
+     1
+    ]
+   ],
+   "source": "results/figure2/figure2_transitional.json#fused_L5.last_free.per_person (mean, n)"
+  },
+  {
+   "panel": "c",
+   "what": "L4|L5: the same two-cluster statistic for every other validation crop, own person left out: mean, 95 % interval, share below zero, crops, people (record only)",
+   "value": [
+    0.238,
+    [
+     0.2261,
+     0.2499
+    ],
+    0.0657,
+    1066,
+    729
+   ],
+   "source": "results/figure2/figure2_transitional.json#fused_L5.last_free.reference_two_cluster_leave_person_out"
+  },
+  {
+   "panel": "c",
+   "what": "silhouette L3|L4, validation split without the fused-L5 persons (the dot): mean, 95 % person-cluster interval, crops, people",
+   "value": [
+    0.1608,
+    [
+     0.1514,
+     0.1701
+    ],
+    1077,
+    729
+   ],
+   "source": "results/figure2/figure2_transitional.json#fused_L5.control_level_above.reference_silhouette"
+  },
+  {
+   "panel": "c",
+   "what": "L3|L4, persons with a fused L5: two-cluster silhouette, each person's mean over their crops (persons numbered, not named), crops per person",
+   "value": [
+    [
+     0.0068,
+     1
+    ],
+    [
+     0.1296,
+     5
+    ],
+    [
+     -0.2591,
+     1
+    ],
+    [
+     0.1676,
+     1
+    ]
+   ],
+   "source": "results/figure2/figure2_transitional.json#fused_L5.control_level_above.per_person (mean, n)"
+  },
+  {
+   "panel": "c",
+   "what": "L3|L4: the same two-cluster statistic for every other validation crop, own person left out: mean, 95 % interval, share below zero, crops, people (record only)",
+   "value": [
+    0.161,
+    [
+     0.1516,
+     0.1703
+    ],
+    0.0975,
+    1077,
+    729
+   ],
+   "source": "results/figure2/figure2_transitional.json#fused_L5.control_level_above.reference_two_cluster_leave_person_out"
+  },
+  {
+   "panel": "c",
+   "what": "T13 row empty: T13 crops training / validation; held-out T13 embedded",
+   "value": [
+    44,
+    0,
+    0
+   ],
+   "source": "results/figure2/figure2_transitional.json#T13"
+  },
+  {
+   "panel": "d",
+   "what": "L4: occlusion subjects (crops, distinct people, sources, named right)",
+   "value": [
+    10,
+    10,
+    [
+     "ctsp_drr"
+    ],
+    1.0
+   ],
+   "source": "results/figure2/occlusion_clean/gradcam_summary.json#sets.v9_val.per_level.L4"
+  },
+  {
+   "panel": "d",
+   "what": "L5: occlusion subjects (crops, distinct people, sources, named right)",
+   "value": [
+    10,
+    10,
+    [
+     "ctsp_drr"
+    ],
+    0.9
+   ],
+   "source": "results/figure2/occlusion_clean/gradcam_summary.json#sets.v9_val.per_level.L5"
+  },
+  {
+   "panel": "d",
+   "what": "L6: occlusion subjects (crops, distinct people, sources, named right)",
+   "value": [
+    10,
+    10,
+    [
+     "verse_drr"
+    ],
+    0.8
+   ],
+   "source": "results/figure2/occlusion_clean/gradcam_summary.json#sets.v9_val.per_level.L6"
+  },
+  {
+   "panel": "d",
+   "what": "sacrum: occlusion subjects (crops, distinct people, sources, named right)",
+   "value": [
+    10,
+    10,
+    [
+     "ctsp_drr"
+    ],
+    1.0
+   ],
+   "source": "results/figure2/occlusion_clean/gradcam_summary.json#sets.v9_val.per_level.sacrum"
+  },
+  {
+   "panel": "d",
+   "what": "L4 occlusion enrichment, above: mean, 95 % interval over the ten crops",
+   "value": [
+    0.618,
+    [
+     0.555,
+     0.695
+    ]
+   ],
+   "source": "results/figure2/zones_lateral_clean.json#sets.v9_val.L4.maps.occlusion (zone index 0)"
+  },
+  {
+   "panel": "d",
+   "what": "L4 occlusion enrichment, target: mean, 95 % interval over the ten crops",
+   "value": [
+    1.689,
+    [
+     1.445,
+     1.967
+    ]
+   ],
+   "source": "results/figure2/zones_lateral_clean.json#sets.v9_val.L4.maps.occlusion (zone index 1)"
+  },
+  {
+   "panel": "d",
+   "what": "L4 occlusion enrichment, below: mean, 95 % interval over the ten crops",
+   "value": [
+    1.291,
+    [
+     1.126,
+     1.44
+    ]
+   ],
+   "source": "results/figure2/zones_lateral_clean.json#sets.v9_val.L4.maps.occlusion (zone index 2)"
+  },
+  {
+   "panel": "d",
+   "what": "L5 occlusion enrichment, above: mean, 95 % interval over the ten crops",
+   "value": [
+    0.756,
+    [
+     0.642,
+     0.882
+    ]
+   ],
+   "source": "results/figure2/zones_lateral_clean.json#sets.v9_val.L5.maps.occlusion (zone index 0)"
+  },
+  {
+   "panel": "d",
+   "what": "L5 occlusion enrichment, target: mean, 95 % interval over the ten crops",
+   "value": [
+    1.391,
+    [
+     1.149,
+     1.626
+    ]
+   ],
+   "source": "results/figure2/zones_lateral_clean.json#sets.v9_val.L5.maps.occlusion (zone index 1)"
+  },
+  {
+   "panel": "d",
+   "what": "L5 occlusion enrichment, below: mean, 95 % interval over the ten crops",
+   "value": [
+    1.261,
+    [
+     1.09,
+     1.453
+    ]
+   ],
+   "source": "results/figure2/zones_lateral_clean.json#sets.v9_val.L5.maps.occlusion (zone index 2)"
+  },
+  {
+   "panel": "d",
+   "what": "L6 occlusion enrichment, above: mean, 95 % interval over the ten crops",
+   "value": [
+    0.748,
+    [
+     0.6,
+     0.899
+    ]
+   ],
+   "source": "results/figure2/zones_lateral_clean.json#sets.v9_val.L6.maps.occlusion (zone index 0)"
+  },
+  {
+   "panel": "d",
+   "what": "L6 occlusion enrichment, target: mean, 95 % interval over the ten crops",
+   "value": [
+    1.473,
+    [
+     1.191,
+     1.761
+    ]
+   ],
+   "source": "results/figure2/zones_lateral_clean.json#sets.v9_val.L6.maps.occlusion (zone index 1)"
+  },
+  {
+   "panel": "d",
+   "what": "L6 occlusion enrichment, below: mean, 95 % interval over the ten crops",
+   "value": [
+    1.082,
+    [
+     0.878,
+     1.27
+    ]
+   ],
+   "source": "results/figure2/zones_lateral_clean.json#sets.v9_val.L6.maps.occlusion (zone index 2)"
+  },
+  {
+   "panel": "d",
+   "what": "sacrum occlusion enrichment, above: mean, 95 % interval over the ten crops",
+   "value": [
+    1.048,
+    [
+     0.807,
+     1.297
+    ]
+   ],
+   "source": "results/figure2/zones_lateral_clean.json#sets.v9_val.sacrum.maps.occlusion (zone index 0)"
+  },
+  {
+   "panel": "d",
+   "what": "sacrum occlusion enrichment, target: mean, 95 % interval over the ten crops",
+   "value": [
+    4.513,
+    [
+     3.421,
+     5.788
+    ]
+   ],
+   "source": "results/figure2/zones_lateral_clean.json#sets.v9_val.sacrum.maps.occlusion (zone index 1)"
+  },
+  {
+   "panel": "d",
+   "what": "sacrum occlusion enrichment, below: mean, 95 % interval over the ten crops",
+   "value": [
+    0.315,
+    [
+     0.221,
+     0.404
+    ]
+   ],
+   "source": "results/figure2/zones_lateral_clean.json#sets.v9_val.sacrum.maps.occlusion (zone index 2)"
+  }
+ ],
+ "figure": "figure2",
+ "title": "The level encoder's embedding and the transitional vertebrae",
+ "tool": "SchwingNet/tools/figure2.py",
+ "analysis_tools": [
+  "SchwingNet/tools/figure2_analyse.py (map, silhouettes, never-seen patients)",
+  "SchwingNet/tools/figure2_transitional.py (fused L5 and T13, pre-specified before it was run)"
+ ],
+ "grid_tool": "tools/fig2_heldout_embed.py via slurm/fig2_heldout.sh (job 40426323, GPU; outputs /rs/rs_grp_oschome/go2432/data/or_ready/figure2/, pulled to SchwingNet/results/figure2/)",
+ "encoder": "/wsu/home/go/go24/go2432/allspine_v9_fov96_ctx/runs/model_rung_1_aug2.pt",
+ "encoder_sha256": "188f9fcbfa3c6de1cd070a5aa6308c78d29ea8fa5a17d566a9f0fc17210f6e52",
+ "held_out_rule": "NOT HELD OUT under eval_gate rule (selection split: best of 40 epochs kept on it); weights never trained on it",
+ "keys": {
+  "from": "SchwingNet/results/eval_gate/touched.json",
+  "file_mtime": "2026-09-23T19:55:48",
+  "file_sha256": "c6e204d5e8ee84faf726ad220bf2561b651058bf93f3c65923f6d13ac9ff99b8",
+  "sha": "188f9fcbfa3c6de1cd070a5aa6308c78d29ea8fa5a17d566a9f0fc17210f6e52",
+  "rule": "An evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain. Public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. A non-empty `unresolved` makes touched_keys a lower bound.",
+  "snapshot": "results/figure2/v9_keys_snapshot.json",
+  "n_train": 9592,
+  "n_val": 1776,
+  "both_sides": 164
+ },
+ "cleaning": {
+  "rule": "drop a validation crop whose resolved person key is in the encoder's train keys",
+  "n_val": 15898,
+  "dropped": 2889,
+  "dropped_of_which_implant_renders": 906,
+  "dropped_persons": 164,
+  "implant_keys_unresolved": [],
+  "n_val_kept": 13009,
+  "persons_val_kept": 1612,
+  "dropped_per_level": {
+   "T6": 9,
+   "T7": 23,
+   "T8": 42,
+   "T9": 63,
+   "T10": 142,
+   "T11": 200,
+   "T12": 258,
+   "L1": 313,
+   "L2": 373,
+   "L3": 441,
+   "L4": 483,
+   "L5": 417,
+   "L6": 52,
+   "sacrum": 73
+  },
+  "dropped_L6_persons": [
+   "sha256:f5b62632827b3c0a",
+   "sha256:043253ea3b4cf92e",
+   "sha256:a2dfb35ad6d76b74",
+   "sha256:81cb3f1579d66366",
+   "sha256:fe56e1bd96937d8b",
+   "sha256:142d07916828a78b"
+  ]
+ },
+ "never_seen": "the three C-ArmLSpine patients whose CBCT one labeller (SPINEPS/VERIDAH) reads with a sixth lumbar vertebra; CBCT renders under six device cards, in neither the train nor the val keys of the encoder. CONTESTED TRUTH: the second labeller (TotalSegmentator) reads the same five mobile bones as L1-L5 (Dice 0.928-0.954 against VERIDAH's L2-L6), VERIDAH's view holds no L1, and no lumbar level is agreed (results/spineps_ids/VERIFY.md, item 1a). Under that reading the starred crops are L5 and the ringed 'L3-L5' are L2-L4; the measurements in (c) are unchanged, only their names differ. Pre-specified primary cut: whole-vertebra box, AP and lateral views. The secondary cut (vertebral-body box) does NOT reproduce the L6 result: two-cluster silhouette of their L6 -0.067, called L6 0.07 (figure2_metrics.json heldout_l6.cells.body/primary.L6)",
+ "fused_L5": "four validation persons (VerSe, Castellvi IIIb or IV) whose fused L5 is unlabelled in the release mask, so the body is never a target; drawn is their LAST FREE vertebra (L4), which a count up from the sacrum would call L5. Statistic: two-cluster cosine silhouette against the validation L4 and L5 clusters (both without these persons), > 0 nearer L4 (its name); the within-person control is their L3 against L3 and L4. Person means, no interval (four persons). Last free: -0.132 (n 1), 0.113 (n 4), -0.182 (n 1), 0.161 (n 1); ordinary L4 0.238, 6.6 % of ordinary L4 crops below zero. Control: 0.007 (n 1), 0.130 (n 5), -0.259 (n 1), 0.168 (n 1); ordinary L3 0.161. 2 of 4 persons' last free vertebra sits nearer L5 than L4 (< 0). The same persons' L3 against L3/L4: 0.007, -0.259, against the ordinary L3 mean 0.161 (5th percentile -0.048): read together, the pull toward the level below is not shown to be confined to the last free vertebra, and four persons cannot separate a junction effect from a person-level shift.",
+ "c_stars_vs_dots": "the stars and diamonds are a two-cluster silhouette (a crop against the validation clusters of the two levels of its row, its own person out of both); computed the same way for the ordinary validation crops it gives L6|L5 0.338, L5|L4 0.227, L4|L3 0.170, L3|L2 0.159, L4|L5 0.238 and L3|L4 0.161, against the ordinary silhouettes drawn as dots",
+ "t13": "no held-out T13 embedded. The bank: verified T13 spines by side of the encoder's keys {'train': 7} (transitional_subtypes.csv), T13 crops {'train': 44, 'val': 0}. Held-out T13 renders DO now exist, but every T13 the encoder never saw is a G3 test person in a blinded stratum (45 persons, by source ['cobra']: the automatic screen's calls, unread; census below), and LEVELCHECK_MODEL.md s9 makes the first run of any SchwingNet model on such a person the unblinding of the confirmatory analysis. So none was embedded, deliberately, and no GPU job was submitted. The one other candidate is not a T13 by the registry's rule (census below). The T12/T13/L1 neighbourhood has nothing held out to show; (b) is the lumbosacral window only. After unblinding, the sealed T13 and L6 test persons can be embedded with this encoder by tools/fig2_heldout_embed.py and drawn here",
+ "unseen_transitional_census": {
+  "rule": "a transitional person the v9 encoder never saw may be embedded only if it is not a G3 test person (LEVELCHECK_MODEL.md s9; strata.json gate 'blinded')",
+  "frozen_strata": "results/fig6/frozen/v1/strata.json + split_final.json (sha256 ad50e00a7d1df2a5... of stratify.json at the freeze)",
+  "transitional_by_stratum_source_side_gate_v9": {
+   "L6|cobra|G3 test|blinded|v9_neither": 38,
+   "L6|ctsp|G3 test|blinded|v9_train": 7,
+   "L6|ctsp|G3 train|blinded|v9_train": 9,
+   "L6|ctsp|G3 val|blinded|v9_train": 2,
+   "L6|totalsegmentator|G3 test|blinded|v9_train": 2,
+   "L6|totalsegmentator|G3 train|blinded|v9_train": 1,
+   "L6|verse|G3 test|blinded|v9_train": 28,
+   "L6|verse|G3 test|blinded|v9_val": 6,
+   "L6|verse|G3 train|blinded|v9_train": 33,
+   "L6|verse|G3 train|blinded|v9_val": 10,
+   "L6|verse|G3 val|blinded|v9_train": 7,
+   "L6|verse|G3 val|blinded|v9_val": 2,
+   "T13|cobra|G3 test|blinded|v9_neither": 45,
+   "T13|totalsegmentator|G3 test|blinded|v9_train": 1,
+   "T13|verse|G3 test|blinded|v9_train": 2,
+   "T13|verse|G3 train|blinded|v9_train": 3,
+   "T13|verse|G3 val|blinded|v9_train": 1,
+   "carmlspine_three_L6|carmlspine_real|G3 test|blinded|v9_neither": 3,
+   "four_lumbar|cobra|G3 test|blinded|v9_neither": 8,
+   "sacralised_L5|ctsp|G3 test|blinded|v9_train": 4,
+   "sacralised_L5|ctsp|G3 train|blinded|v9_train": 4,
+   "sacralised_L5|ctsp|G3 val|blinded|v9_train": 1,
+   "sacralised_L5|verse|G3 test|blinded|v9_train": 1,
+   "sacralised_L5|verse|G3 train|blinded|v9_train": 1,
+   "sacralised_L5|verse|G3 val|blinded|v9_train": 1
+  },
+  "unseen_on_an_unsealed_side": 0,
+  "T13_unseen_all_sealed_test": {
+   "T13|cobra|G3 test|blinded|v9_neither": 45
+  },
+  "registry_streams_read": [
+   "cobra",
+   "ctsp",
+   "other_ct",
+   "totalsegmentator",
+   "verse"
+  ],
+  "T13_registry_candidates_not_in_frozen_strata": {
+   "other_ct|single-labeller|G3 unassigned|v9_neither": 4,
+   "totalsegmentator|two-labeller|G3 train|v9_train": 2,
+   "totalsegmentator|single-labeller|G3 train|v9_neither": 1
+  },
+  "T13_candidates_in_other_streams": {
+   "other_ct": {
+    "rows": 4,
+    "sources": {
+     "ribfrac": 4
+    },
+    "truth_tier": {
+     "single-labeller": 4
+    },
+    "labeller_b": {
+     "TL=unresolved;LS=no_count": 4
+    },
+    "real_frames": {
+     "False": 4
+    },
+    "v9": {
+     "v9_neither": 4
+    }
+   }
+  },
+  "T13_candidates_in_other_streams_not_embedded_why": "none of these rows is a verified T13 (every one is a single-labeller call with the second labeller unresolved, no real frames) and none has a render: the rare-class render roots on the grid (/rs/rs_grp_oschome/go2432/data/rare_class, checked 2026-09-24 from the login node) are carmlspine_cbct_drr, ctsp_drr, totalsegmentator_drr and verse_drr only, and data/ribfrac holds CT images and members.json, no DRR. A verified T13 person outside both key sets with a render is the condition (tools/figure2_transitional.py); nothing meets it, so no GPU job was submitted",
+  "T13_candidate_outside_keys_not_embedded_why": "the one registry T13 candidate outside the v9 keys and outside the frozen strata (TotalSegmentator, G3 train side) is a single-labeller call: labeller B gave no count (15 rib-bearing bodies, a segmentation defect until a human says otherwise), its rib is one-sided, and the registry notes that VerSe's 38 mm rule names the body an L1 with a rudimentary rib. It has no rare-class render (grid check 2026-09-24 08:20: none of rare_class/{carmlspine_cbct_drr,ctsp_drr,totalsegmentator_drr,verse_drr} holds it, those roots last written 2026-09-23 18:25, and it is not in fig6/bank_g3_v2); one render exists in the TotalSegmentator v3 bench (~/ts_drr_v3), whose boxes carry TotalSegmentator names, so drawing a T13 would first need a single-labeller renaming. Not embedded; not a T13 by the registry's own rule"
+ },
+ "gate_verdict": "results/eval_gate/EVAL_LEAKS.md (2026-09-24) item L5: every validation-split number here is LEAKED under the held-out rule (the split selected the checkpoint); the never-seen L6 rows are CLEAN. The figure and caption call the split the checkpoint-selection split and call nothing on it held out. The gate's remedy (redraw from the Figure 6 ImageNet encoder on G3 test persons) cannot be run for any transitional class before unblinding, for the reason under 't13'",
+ "never_seen_timing": "the v9 embedding of the three never-seen patients was written 2026-09-23 19:42:59 (heldout_l6.npz) and scored 20:11:28 (figure2_metrics.json), before the G3 split (20:18:48) made them the blinded stratum carmlspine_three_L6 and before the freeze (21:08:50). This build re-draws the stored numbers; it runs no model and scores nothing. LEVELCHECK_MODEL.md s8 lists these three as seen through COUPLING.md, not through this embedding",
+ "d_subjects": "ten lateral validation crops per level from people outside the encoder's train keys (grid job 40426994, tools/fig2_occlusion_clean.py). The earlier pass (results/learning/lateral, zones in results/figure2/zones_lateral.json) drew 7 of its 10 L4 and L5 subjects, 5 of 10 sacrum and 3 of 10 L6 from people the encoder trained on (implant renders under another key); on clean subjects the sacrum's 'body above' enrichment is 1.05 [0.81, 1.30] (was 1.19 [1.02, 1.35]) and T12's 'body below' 1.00 [0.74, 1.31] (was 1.27 [1.06, 1.52]); the target is the most concentrated zone at every level in both",
+ "map": {
+  "method": "t-SNE, perplexity 30, PCA-50 init (PCA fitted on the cleaned validation split), seed 0, learning rate auto",
+  "n": {
+   "carm_test": 228,
+   "cobra_test": 292,
+   "heldout_l6_patients": 756,
+   "validation": 13009
+  },
+  "seconds": 405.6,
+  "reused": "figure2_map.npz from the previous run (--skip-map)"
+ },
+ "page_in": [
+  7.0,
+  9.0
+ ],
+ "text": {
+  "texts": 64,
+  "smallest_pt": 12.0
+ },
+ "tif": {
+  "px": [
+   8400,
+   10800
+  ],
+  "dpi": 1200,
+  "mode": "RGB",
+  "bytes": 13359954
+ },
+ "caption_words": 60,
+ "components": {
+  "a": "t-SNE by level, transitional classes marked, nearest-neighbour result, T13 stated",
+  "b": "lumbosacral window of (a) at the map's aspect",
+  "c": "silhouette per pair: validation split, never-seen patients, fused-L5 persons and their control",
+  "d": "occlusion attribution and zone enrichment"
+ },
+ "fig_manifold": "not in the main text. The dataset/modality manifold is Supplementary Figure S2 in supplement.tex (label fig:manifold, file figures/figS1.pdf, restyled from fig_manifold by SchwingNet/tools/figS_supplement.py s1; the file name and the printed number differ because the supplement numbers by first citation, S1 being the flow of cases). figures/fig_manifold.* is retired. Checked 2026-09-24 in supplement.tex; not edited by this tool"
+}

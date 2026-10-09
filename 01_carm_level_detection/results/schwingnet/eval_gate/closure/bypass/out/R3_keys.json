@@ -1,0 +1,44 @@
+{
+ "K1 learning_embed route over the v9 val split": {
+  "val_cases": 2811,
+  "val_cases_the_map_sends_to_implant_keys": 194,
+  "persons_keyed_now": 1776,
+  "unkeyed_now": 0,
+  "unkeyed_examples": [],
+  "train_persons_seen_now": 164,
+  "train_persons_keying_names_only": 164,
+  "train_persons_the_old_route_saw": 73,
+  "map_values_that_name_no_person": 0,
+  "map_value_examples": []
+ },
+ "K2 implant:0001_v0 against model_scal_pt_render (trained on ctsp:0001)": {
+  "expect": "SeenInEvaluation",
+  "got": "SeenInEvaluation",
+  "ok": true,
+  "detail": "eval_gate: /wsu/home/go/go24/go2432/model_night/runs/model_scal_pt_render.pt on the evaluation set (closure K2): 1 of 1 evaluation patients were trained or SELECTED on by this checkpoint or an ancestor:"
+ },
+ "K3 {key: ts:s9999, case: TS_s0585} against dc_P_pooled (s0585 is a selection subject)": {
+  "expect": "SeenInEvaluation",
+  "got": "SeenInEvaluation",
+  "ok": true,
+  "detail": "eval_gate: /wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_P_pooled/weights/best.pt on the evaluation set (closure K3): 1 of 2 evaluation patients were trained or SELECTED on by this checkpoint or an ancestor:"
+ },
+ "K4 implant:zzz9_v0 (no record, no declared build fits): not a person": {
+  "expect": "UnkeyedEvalItem",
+  "got": "UnkeyedEvalItem",
+  "ok": true,
+  "detail": "eval_gate: /wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_P_pooled/weights/best.pt on the evaluation set (closure K4): 1 of 1 evaluation items match no keying rule, so their patients are unknown (e.g. [\"implant:zzz9_v0: implant:zzz9_v0: an implant key names a RENDER of a source CT, not a person, and that source cannot be read here (implant_zzz9_v0_ap_p0: an implant render with no make_i"
+ },
+ "K5 ts:bogus: a known corpus, not a person id": {
+  "expect": "UnkeyedEvalItem",
+  "got": "UnkeyedEvalItem",
+  "ok": true,
+  "detail": "eval_gate: /wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_P_pooled/weights/best.pt on the evaluation set (closure K5): 1 of 1 evaluation items match no keying rule, so their patients are unknown (e.g. [\"ts:bogus: ts:bogus: 'bogus' is not a ts person id (the corpus names its people s\\\\d{3,5})\"]). Add the rule to tools/patient_keys.py / tools/leak_check.RULES or declare --not-held-out \"<r"
+ },
+ "K6 control: carmlspine:case100 against rx_lodo_carmlspine_1024 is held out": {
+  "expect": "pass",
+  "got": "pass",
+  "ok": true,
+  "detail": true
+ }
+}

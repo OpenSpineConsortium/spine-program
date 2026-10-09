@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Scope_and_Priorities</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+--ink: #1a1a1a;
+--muted: #5a5a5a;
+--rule: #d8d8d8;
+--accent: #1f4e79;
+--accent-soft: #eef3f8;
+--bg: #ffffff;
+}
+html { font-size: 17px; }
+body {
+font-family: "Charter", "Georgia", "Cambria", serif;
+line-height: 1.6;
+color: var(--ink);
+background: var(--bg);
+max-width: 46em;
+margin: 0 auto;
+padding: 3.5em 2em 6em;
+text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 {
+font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+line-height: 1.25;
+color: var(--accent);
+margin-top: 2em;
+margin-bottom: 0.5em;
+}
+h1 {
+font-size: 2.1rem;
+margin-top: 0;
+letter-spacing: -0.01em;
+}
+h2 {
+font-size: 1.45rem;
+border-bottom: 2px solid var(--rule);
+padding-bottom: 0.25em;
+margin-top: 2.5em;
+}
+h3 {
+font-size: 1.15rem;
+color: var(--ink);
+border-left: 4px solid var(--accent);
+padding-left: 0.6em;
+}
+h4 { font-size: 1rem; color: var(--muted); }
+p { margin: 0.8em 0; }
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(31, 78, 121, 0.3); }
+a:hover { border-bottom-color: var(--accent); }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5em 0; }
+blockquote {
+border-left: 3px solid var(--rule);
+margin-left: 0;
+padding-left: 1.2em;
+color: var(--muted);
+font-style: italic;
+}
+ul, ol { padding-left: 1.4em; }
+li { margin: 0.35em 0; }
+li > ul, li > ol { margin: 0.3em 0; }
+code {
+font-family: "Cascadia Mono", Consolas, monospace;
+font-size: 0.88em;
+background: #f4f4f4;
+padding: 0.1em 0.35em;
+border-radius: 3px;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1.4em 0;
+font-size: 0.94rem;
+font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+thead th {
+background: var(--accent-soft);
+color: var(--accent);
+text-align: left;
+font-weight: 600;
+border-bottom: 2px solid var(--accent);
+}
+th, td {
+padding: 0.5em 0.7em;
+border-bottom: 1px solid var(--rule);
+vertical-align: top;
+}
+tbody tr:nth-child(even) { background: #fafafa; }
+
+h2#references + ol {
+font-size: 0.92rem;
+color: var(--ink);
+}
+h2#references + ol li { margin: 0.6em 0; }
+em { color: inherit; }
+strong { font-weight: 700; }
+@media print {
+html { font-size: 11pt; }
+body { max-width: none; padding: 0; }
+h2 { page-break-after: avoid; }
+h3 { page-break-after: avoid; }
+table, blockquote { page-break-inside: avoid; }
+a { color: var(--ink); border: 0; }
+}
+@media (max-width: 640px) {
+html { font-size: 16px; }
+body { padding: 2em 1.1em 4em; }
+table { font-size: 0.85rem; }
+}
+</style>
+</head>
+<body>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#scope-and-priorities" id="toc-scope-and-priorities">Scope
+and Priorities</a>
+<ul>
+<li><a href="#what-to-teach-what-to-mention-and-what-to-leave-out" id="toc-what-to-teach-what-to-mention-and-what-to-leave-out">What to
+teach, what to mention, and what to leave out</a></li>
+<li><a href="#why-this-document-exists" id="toc-why-this-document-exists">Why this document exists</a></li>
+</ul></li>
+<li><a href="#part-1-three-eras" id="toc-part-1-three-eras">PART 1 —
+THREE ERAS</a>
+<ul>
+<li><a href="#era-1-19722004-how-disabled-is-the-patient" id="toc-era-1-19722004-how-disabled-is-the-patient">Era 1 (1972–2004):
+<em>How disabled is the patient?</em></a></li>
+<li><a href="#era-2-20042013-can-we-describe-the-imaging-reliably" id="toc-era-2-20042013-can-we-describe-the-imaging-reliably">Era 2
+(2004–2013): <em>Can we describe the imaging reliably?</em></a></li>
+<li><a href="#era-3-2013present-what-actually-predicts-what-happens-to-this-patient" id="toc-era-3-2013present-what-actually-predicts-what-happens-to-this-patient">Era
+3 (2013–present): <em>What actually predicts what happens to this
+patient?</em></a></li>
+</ul></li>
+<li><a href="#part-2-the-timeline" id="toc-part-2-the-timeline">PART 2 —
+THE TIMELINE</a></li>
+<li><a href="#part-3-the-three-tiers" id="toc-part-3-the-three-tiers">PART 3 — THE THREE TIERS</a>
+<ul>
+<li><a href="#tier-1-learn-it-four-things" id="toc-tier-1-learn-it-four-things">🟢 TIER 1 — LEARN IT (four
+things)</a></li>
+<li><a href="#tier-2-recognize-it-say-the-name-dont-drill-it" id="toc-tier-2-recognize-it-say-the-name-dont-drill-it">🟡 TIER 2 —
+RECOGNIZE IT (say the name, don’t drill it)</a></li>
+<li><a href="#tier-3-skip-it" id="toc-tier-3-skip-it">🔴 TIER 3 — SKIP
+IT</a></li>
+</ul></li>
+<li><a href="#part-4-what-changed-recently-and-what-it-means" id="toc-part-4-what-changed-recently-and-what-it-means">PART 4 — WHAT
+CHANGED RECENTLY, AND WHAT IT MEANS</a></li>
+<li><a href="#part-5-the-fifty-minute-allocation" id="toc-part-5-the-fifty-minute-allocation">PART 5 — THE FIFTY-MINUTE
+ALLOCATION</a></li>
+<li><a href="#part-6-the-framing-to-open-and-close-with" id="toc-part-6-the-framing-to-open-and-close-with">PART 6 — THE FRAMING
+TO OPEN AND CLOSE WITH</a>
+<ul>
+<li><a href="#sourcing-note" id="toc-sourcing-note">Sourcing
+note</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="scope-and-priorities">Scope and Priorities</h1>
+<h2 id="what-to-teach-what-to-mention-and-what-to-leave-out">What to
+teach, what to mention, and what to leave out</h2>
+<h3 id="a-temporal-map-of-degenerative-spine-grading-systems-for-the-mans-2026-app-session">A
+temporal map of degenerative spine grading systems for the MANS 2026 APP
+session</h3>
+<hr />
+<h2 id="why-this-document-exists">Why this document exists</h2>
+<p>There are, by conservative count, <strong>eleven</strong> grading
+systems in play across the source material for this talk: mJOA, Nurick,
+Muhle, Kang, Schizas, Lee, Wildermuth, Pfirrmann, Torg–Pavlov,
+compression ratio, and the MCC/MSCC pair. Teaching all eleven to
+advanced practice providers in fifty minutes would produce a room full
+of people who remember none of them.</p>
+<p>Most of these systems are not competitors. They are
+<strong>sediment</strong> — layers deposited by successive eras of
+thinking about the same problem, each solving a limitation of the one
+before. Once you see the sequence, it becomes obvious which two or three
+actually earn a place in an APP’s working memory and which exist mainly
+so you can recognize the words in a radiology report.</p>
+<p>This document lays out that sequence, then converts it into a strict
+three-tier priority: <strong>Learn It</strong>, <strong>Recognize
+It</strong>, <strong>Skip It</strong>.</p>
+<hr />
+<h1 id="part-1-three-eras">PART 1 — THREE ERAS</h1>
+<h2 id="era-1-19722004-how-disabled-is-the-patient">Era 1 (1972–2004):
+<em>How disabled is the patient?</em></h2>
+<p>The founding question was clinical, not radiologic — MRI barely
+existed for most of it.</p>
+<p><strong>Nurick (1972)</strong> graded patients by walking ability and
+employability. Six grades, no imaging, entirely about gait. It was the
+first attempt to make “myelopathy” into a number.</p>
+<p><strong>mJOA (Benzel 1991)</strong> added upper extremity motor,
+sensation, and bladder to the lower-extremity focus, producing an
+18-point scale across four domains. It measured more of the disease than
+Nurick did.</p>
+<p><strong>Why this era still matters:</strong> every treatment
+recommendation written since 2017 is keyed to the mJOA. The clinical
+scale is not a historical artifact — it is the input variable.</p>
+<hr />
+<h2 id="era-2-20042013-can-we-describe-the-imaging-reliably">Era 2
+(2004–2013): <em>Can we describe the imaging reliably?</em></h2>
+<p>MRI became universal, and the field discovered its embarrassment:
+radiologists described the same scan differently, and none of the
+descriptions predicted anything.</p>
+<p>The response was a burst of <strong>morphologic grading
+systems</strong>, each built on the same insight — <em>stop measuring
+the container, start describing what is happening to the neural
+tissue.</em></p>
+<ul>
+<li><strong>Pfirrmann (2004)</strong> — lumbar nerve root compromise on
+axial T2: normal → contact → deviation → compression. Validated against
+surgical findings (r = 0.86).</li>
+<li><strong>Schizas (2010)</strong> — lumbar central stenosis on axial
+T2 by rootlet/CSF morphology (A1–A4, B, C, D). Explicitly designed to
+replace area measurement.</li>
+<li><strong>Lee (2010)</strong> — lumbar foraminal stenosis on sagittal
+T1 by perineural fat obliteration plus root deformity (0–3).</li>
+<li><strong>Karpova (2013)</strong> — tested whether the
+<em>quantitative</em> measures (TA, CR, MCC, MSCC) were even
+reproducible.</li>
+</ul>
+<p><strong>The defining finding of this era, and the one worth saying
+out loud:</strong> Karpova found that <strong>transverse area was the
+most reliable measure of all (ICC 0.92 intraobserver, 0.86
+interobserver) — and it did not correlate with the mJOA at all (r =
+−0.07, P = 0.80).</strong> The number you can measure most reproducibly
+is the number that tells you least about the patient.</p>
+<p>That single result is why Era 3 exists.</p>
+<hr />
+<h2 id="era-3-2013present-what-actually-predicts-what-happens-to-this-patient">Era
+3 (2013–present): <em>What actually predicts what happens to this
+patient?</em></h2>
+<p>The field gave up on morphology alone and moved to <strong>prognostic
+signal</strong> and <strong>guideline-anchored decisions</strong>,
+powered by the AOSpine CSM-North America and CSM-International
+prospective cohorts (757 patients, 26 sites).</p>
+<p>The signal-change story arrived in three installments:</p>
+<ul>
+<li><strong>Arvin (2013, n = 57)</strong> — first prospective blinded
+look. Low T1 signal, focal T2, and “segmentation” of T2 all predicted
+<em>worse baseline</em> function. But — counterintuitively — those same
+patients made the <em>largest gains</em> in gait and balance after
+surgery.</li>
+<li><strong>Nouri (2017, n = 419)</strong> — the definitive version.
+Stepwise severity from no signal change → T2-only → T2+T1. <strong>T2
+hyperintensity alone adds almost nothing.</strong> T1 hypointensity
+predicts reduced recovery (<em>p</em> = 0.03) and lower odds of an
+optimal outcome (<em>p</em> = 0.005). Multilevel T2 matters;
+single-level T2 does not.</li>
+<li><strong>Kato (2018, n = 167)</strong> — the postoperative sequel.
+Resolution of T2 predicts the best recovery (RR 72% vs. 47%); resolution
+of T1 predicts nothing (38% vs. 26%). And symptom duration tracked
+directly with irreversibility: 17.0 months (no signal change) → 24.7
+(T2) → 39.6 (T1), <em>P</em> = 0.003.</li>
+</ul>
+<p>Meanwhile the decision framework consolidated:</p>
+<ul>
+<li><strong>Fehlings 2017 AO Spine/CSRS guideline</strong> — four
+recommendation buckets by mJOA severity. The reference standard.</li>
+<li><strong>CSM-S / Ghogawala 2021 (JAMA)</strong> — the first RCT of
+ventral vs. dorsal. No difference.</li>
+<li><strong>Fehlings 2025 AO Spine recommendations</strong> — mild DCM
+shifts toward surgery; approach equipoise confirmed.</li>
+<li><strong>Crawford 2026</strong> — MRI overestimates stenosis vs. CT
+myelography in ~12% of levels.</li>
+</ul>
+<hr />
+<h1 id="part-2-the-timeline">PART 2 — THE TIMELINE</h1>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Year</th>
+<th>Contribution</th>
+<th>Still taught?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1972</td>
+<td><strong>Nurick</strong> grade — walking-based, 6 grades</td>
+<td>Recognize only</td>
+</tr>
+<tr>
+<td>1991</td>
+<td><strong>mJOA</strong> (Benzel) — 18 points, four domains</td>
+<td><strong>Learn</strong></td>
+</tr>
+<tr>
+<td>1998</td>
+<td><strong>Muhle</strong> — CSF effacement 0–3</td>
+<td>Recognize only</td>
+</tr>
+<tr>
+<td>1998</td>
+<td><strong>Wildermuth</strong> — foraminal fat, no root morphology</td>
+<td>Skip</td>
+</tr>
+<tr>
+<td>2004</td>
+<td><strong>Pfirrmann</strong> — nerve root:
+contact/deviation/compression</td>
+<td><strong>Learn (concept)</strong></td>
+</tr>
+<tr>
+<td>2010</td>
+<td><strong>Schizas</strong> — lumbar central, rootlet morphology</td>
+<td><strong>Learn</strong></td>
+</tr>
+<tr>
+<td>2010</td>
+<td><strong>Lee</strong> — foraminal, fat + root deformity</td>
+<td>Recognize</td>
+</tr>
+<tr>
+<td>2011</td>
+<td><strong>Kang</strong> — cord signal 0–2</td>
+<td>Recognize only</td>
+</tr>
+<tr>
+<td>2013</td>
+<td><strong>Karpova</strong> — reliability ≠ validity</td>
+<td>Concept only</td>
+</tr>
+<tr>
+<td>2013</td>
+<td><strong>Arvin</strong> — signal change predicts baseline
+<em>and</em> recovery</td>
+<td>Concept only</td>
+</tr>
+<tr>
+<td>2017</td>
+<td><strong>Tetreault</strong> — mJOA thresholds 15–17 / 12–14 / ≤
+11</td>
+<td><strong>Learn</strong></td>
+</tr>
+<tr>
+<td>2017</td>
+<td><strong>Nouri</strong> — T1 &gt; T2; multilevel &gt;
+single-level</td>
+<td><strong>Learn (concept)</strong></td>
+</tr>
+<tr>
+<td><strong>2017</strong></td>
+<td><strong>Fehlings AO Spine/CSRS CPG</strong> — the four buckets</td>
+<td><strong>Learn</strong></td>
+</tr>
+<tr>
+<td>2018</td>
+<td><strong>Kato</strong> — postoperative resolution; duration →
+irreversibility</td>
+<td>Concept only</td>
+</tr>
+<tr>
+<td>2021</td>
+<td><strong>CSM-S (Ghogawala)</strong> — ventral = dorsal</td>
+<td><strong>Learn (concept)</strong></td>
+</tr>
+<tr>
+<td>2025</td>
+<td><strong>Fehlings AO Spine recommendations</strong> — mild DCM;
+equipoise</td>
+<td><strong>Learn</strong></td>
+</tr>
+<tr>
+<td>2026</td>
+<td><strong>Crawford</strong> — MRI overcalls vs. CTM</td>
+<td>Recognize</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="part-3-the-three-tiers">PART 3 — THE THREE TIERS</h1>
+<h2 id="tier-1-learn-it-four-things">🟢 TIER 1 — LEARN IT (four
+things)</h2>
+<p>These are the only systems an APP should be able to <em>apply</em>
+from memory. Everything in the talk should be built to make these four
+stick.</p>
+<h3 id="mjoa-the-severity-bands">1. mJOA + the severity bands</h3>
+<p><strong>Why it wins:</strong> it is the input variable for every
+guideline recommendation written since 2017. Without it, imaging
+findings cannot be converted into a management category. - Four domains,
+18 points. Mild 15–17 · moderate 12–14 · severe ≤ 11. - <strong>Teach
+the MCID properly:</strong> it is severity-dependent — <strong>1 point
+in mild, 2 in moderate, 3 in severe.</strong> A flat “2 points”
+undercalls deterioration in exactly the patients being watched. -
+<strong>Teach the caveat:</strong> inter-rater reliability is limited,
+with <strong>disagreement between mild and moderate in over 10% of
+patients</strong> (Martin 2021) — and that is precisely the boundary
+between “surgery is recommended” and “surgery is offered.”</p>
+<h3 id="schizas-grading">2. Schizas grading</h3>
+<p><strong>Why it wins:</strong> highest-yield <em>imaging</em> skill
+that transfers. It is shape recognition, not measurement — no calipers,
+no software. It predicts something real (failure of conservative care,
+OR 29.8 for grades C/D or DSCA &lt; 75 mm²). - <strong>The whole system
+reduces to one question:</strong> <em>can you still count individual
+rootlets?</em> Yes → A or B. No → C or D. - <strong>Teach the honest
+reliability:</strong> interobserver κ was <strong>0.44
+(moderate)</strong> in the original paper — 0.67 among readers at the
+originating unit, with a demonstrated <strong>learning effect between
+readings</strong>. This is an argument for teaching it live and
+practicing it, not for claiming it is easy.</p>
+<h3 id="the-t1t2-distinction">3. The T1/T2 distinction</h3>
+<p><strong>Why it wins:</strong> it is the single finding that changes
+what you say to a patient, and APPs are usually the ones saying it. - T2
+hyperintensity alone ≈ adds little. Multilevel T2 and T1 hypointensity ≈
+reduced recovery potential. - <strong>The sentence to teach:</strong>
+<em>“This doesn’t mean don’t operate. It means the goal shifts from
+restoring what you’ve lost toward protecting what you still have.”</em>
+- <strong>Teach the caveat:</strong> T1 hypointensity has only
+<strong>fair inter-rater agreement (Fleiss κ = 0.31)</strong> and
+appears in <strong>under 20%</strong> of patients. It is the most
+prognostically important finding and one of the hardest to agree on. Say
+so.</p>
+<h3 id="the-2017-buckets-what-2025-changed">4. The 2017 buckets + what
+2025 changed</h3>
+<p><strong>Why it wins:</strong> it is the actual decision. -
+Moderate/severe (mJOA ≤ 14) → <strong>recommend</strong> surgery
+(strong). - Mild (15–17) → <strong>suggest</strong> surgery <em>or</em>
+structured rehab (weak) — and per 2025, surgery <strong>“should be
+offered as an option”</strong> (conditional, moderate quality). -
+Nonmyelopathic + compression, no radiculopathy → <strong>not</strong>
+prophylactic surgery; counsel and follow. - Nonmyelopathic +
+compression, <strong>with</strong> radiculopathy → different bucket,
+offer either. - <strong>Teach “recommend” vs. “suggest” as
+vocabulary.</strong> That distinction is the whole guideline.</p>
+<hr />
+<h2 id="tier-2-recognize-it-say-the-name-dont-drill-it">🟡 TIER 2 —
+RECOGNIZE IT (say the name, don’t drill it)</h2>
+<p>These appear in radiology reports and surgeon conversations. APPs
+need to know what the words mean and roughly what direction is bad. They
+do not need to apply them.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>System</th>
+<th>One-line meaning</th>
+<th>Where they’ll meet it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nurick 0–5</strong></td>
+<td>Walking-based disability, gait-weighted</td>
+<td>Older charts, surgeon shorthand</td>
+</tr>
+<tr>
+<td><strong>Muhle 0–3</strong></td>
+<td>CSF effacement → cord deformity</td>
+<td>Radiology reports</td>
+</tr>
+<tr>
+<td><strong>Kang 0–2</strong></td>
+<td>Cord signal: none → T2 → T2+T1</td>
+<td>Research papers</td>
+</tr>
+<tr>
+<td><strong>Lee 0–3</strong></td>
+<td>Foraminal fat obliteration + root deformity</td>
+<td>Lumbar reports</td>
+</tr>
+<tr>
+<td><strong>Torg–Pavlov &lt; 0.8</strong></td>
+<td>Congenitally narrow canal</td>
+<td>Cervical reports, sports med</td>
+</tr>
+<tr>
+<td><strong>AP canal &lt; 7 mm / cord:canal &gt; 0.8</strong></td>
+<td>Crawford surgical thresholds</td>
+<td>Preop planning</td>
+</tr>
+<tr>
+<td><strong>MCC / MSCC</strong></td>
+<td>Canal / cord compromise ratios</td>
+<td>Research, occasionally reports</td>
+</tr>
+<tr>
+<td><strong>K-line (+/−)</strong></td>
+<td>Whether posterior decompression can work in OPLL</td>
+<td>OPLL cases</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ The Nurick trap — worth 20 seconds of airtime.</strong> At
+least two numbering conventions circulate. The original Nurick (1972)
+runs <strong>0–5</strong> with grade 0 = root symptoms only. The
+Tetreault 2017 paper tabulates it as <strong>0–VI</strong>, shifting
+every grade by one. A “Nurick 4” means different things in the two
+systems. If you see a Nurick grade without a source, confirm the
+convention.</p>
+<hr />
+<h2 id="tier-3-skip-it">🔴 TIER 3 — SKIP IT</h2>
+<p>Leave these out entirely. Mentioning them costs attention and buys
+nothing.</p>
+<ul>
+<li><strong>Wildermuth foraminal grading</strong> — superseded by Lee,
+which adds root morphology.</li>
+<li><strong>Kunogi–Hasue classification</strong> — descriptive types
+without severity grades.</li>
+<li><strong>Matsuura ratio, laminar roof pitch angle</strong> — failed
+to predict myelopathy.</li>
+<li><strong>Compression ratio arithmetic</strong> — teach the
+<em>concept</em> (cord shape matters, flattened is worse) and drop the
+formula. Reliability is decent but it misrepresents deformation when
+both diameters shrink equally and fails in asymmetric compression.</li>
+<li><strong>MCC/MSCC formulas</strong> — name-recognition only; nobody
+is computing these in clinic.</li>
+<li><strong>Signal change ratios (SCR 1.46 / 1.689 cutoffs)</strong> —
+research territory.</li>
+<li><strong>Hamanishi calculated surface area</strong> —
+historical.</li>
+</ul>
+<hr />
+<h1 id="part-4-what-changed-recently-and-what-it-means">PART 4 — WHAT
+CHANGED RECENTLY, AND WHAT IT MEANS</h1>
+<p>If a member of your audience last read about DCM five years ago,
+these are the four things that are now different.</p>
+<h3 id="mild-dcm-moved-toward-surgery">1. Mild DCM moved toward
+surgery</h3>
+<p>2017 offered a choice with very-low-quality evidence. 2025 says
+surgery <strong>“should be offered as an option”</strong> on
+<em>moderate</em>-quality evidence, backed by Badhiwala’s 193-patient
+mild-DCM cohort and a cost-utility analysis showing <strong>+1.26
+QALY</strong> over a lifetime versus observation.</p>
+<p><strong>But teach both sides.</strong> In that same cohort the 30-day
+complication rate was <strong>30%</strong> — progression of myelopathy
+6.7%, worsening neck pain 6.2%, dysphagia 5.7%. And baseline quality of
+life in “mild” DCM was impaired to a degree <strong>comparable to asthma
+and congestive heart failure</strong>. “Mild” describes the mJOA, not
+the patient’s life.</p>
+<h3 id="the-approach-question-is-settled-and-its-a-shared-decision">2.
+The approach question is settled — and it’s a shared decision</h3>
+<p>CSM-S: no difference in SF-36 PCS at 1 year. What differs is the
+<strong>complication profile</strong>: ventral 48% vs. dorsal 24%
+overall, with dysphagia in 41% of ventral patients and half still
+affected at 6 months. Dorsal laminoplasty looked best in a
+non-randomized secondary analysis.</p>
+<p><strong>For APPs this is a counseling script, not a surgical
+decision:</strong> the approaches work equally well; they fail
+differently.</p>
+<h3 id="advanced-imaging-moved-from-future-to-conditional-recommendation">3.
+Advanced imaging moved from “future” to “conditional
+recommendation”</h3>
+<p>The 2025 document gives a <strong>conditional recommendation to use
+diffusion-weighted MR signal changes to evaluate prognosis.</strong>
+DTI/DWI is no longer purely aspirational. Soften any “not ready for
+clinical use” language — say “entering practice, not yet routine.”</p>
+<h3 id="mjoa-severity-is-no-longer-the-whole-picture">4. mJOA severity
+is no longer the whole picture</h3>
+<p>Machine-learning phenotyping (Pedro 2024, n = 1047) found four
+distinct DCM phenotypes — severe multimodal, minimal, motor dominant,
+pain dominant — and showed that <strong>neck pain and frailty, neither
+captured by the mJOA, drive quality-of-life outcomes.</strong> The
+“severe multimodal” group improved most on mJOA and had the worst
+quality of life at one year.</p>
+<p>The 2025 conditional recommendation follows: consider <strong>pain,
+frailty, and HRQoL</strong> when counseling. This is a natural APP
+role.</p>
+<hr />
+<h1 id="part-5-the-fifty-minute-allocation">PART 5 — THE FIFTY-MINUTE
+ALLOCATION</h1>
+<p>If Tier 1 is the goal, minutes should follow.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Content</th>
+<th>Minutes</th>
+<th>Tier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base rates + scope line</td>
+<td>6</td>
+<td>Framing</td>
+</tr>
+<tr>
+<td>Sequence orientation</td>
+<td>4</td>
+<td>Framing</td>
+</tr>
+<tr>
+<td><strong>The cervical read (live) + cord findings</strong></td>
+<td><strong>17</strong></td>
+<td><strong>Tier 1 (T1/T2)</strong></td>
+</tr>
+<tr>
+<td><strong>Schizas + live drill</strong></td>
+<td><strong>9</strong></td>
+<td><strong>Tier 1</strong></td>
+</tr>
+<tr>
+<td>Roots, denervation, conus</td>
+<td>5</td>
+<td>Tier 1 concept + Tier 2</td>
+</tr>
+<tr>
+<td><strong>mJOA</strong></td>
+<td><strong>3</strong></td>
+<td><strong>Tier 1</strong></td>
+</tr>
+<tr>
+<td><strong>Guideline decision grid</strong></td>
+<td><strong>6</strong></td>
+<td><strong>Tier 1</strong></td>
+</tr>
+<tr>
+<td>Tier 2 name-recognition slide</td>
+<td>2</td>
+<td>Tier 2</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>52</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tier 2 gets exactly one slide</strong> — a single table of
+names with one-line meanings, presented as <em>“you will see these
+words; here’s what they mean; you don’t need to apply them.”</em> Naming
+the systems you are deliberately not teaching is itself reassuring. It
+tells the audience the omission was a decision, not an oversight.</p>
+<hr />
+<h1 id="part-6-the-framing-to-open-and-close-with">PART 6 — THE FRAMING
+TO OPEN AND CLOSE WITH</h1>
+<p><strong>Open by naming the sediment problem.</strong> Something close
+to:</p>
+<blockquote>
+<p>“There are eleven grading systems in the literature behind this talk.
+I’m going to teach you four things and name the rest. The four are the
+ones that change what you do on Monday.”</p>
+</blockquote>
+<p>That single sentence prevents the most common failure of a talk like
+this, which is an audience quietly deciding halfway through that the
+material is not learnable.</p>
+<p><strong>Close on the through-line of all three eras:</strong></p>
+<blockquote>
+<p>Era 1 asked how disabled the patient is. Era 2 asked whether we can
+describe the image reliably. Era 3 asked what actually predicts
+recovery.</p>
+<p>The answer that survived all three: <strong>the image tells you what
+is possible, the patient tells you what is necessary, and the guideline
+tells you what is recommended.</strong> You need all three, and the one
+most often skipped is the second.</p>
+</blockquote>
+<hr />
+<h2 id="sourcing-note">Sourcing note</h2>
+<p>The temporal claims in this document rest on full-text review of
+Tetreault 2017, Schizas 2010, Nouri 2017, Arvin 2013, Karpova 2013, Kato
+2018, Pfirrmann 2004, Lee 2010, Crawford 2026, and Fehlings 2025.
+Reliability figures, <em>p</em> values, and recommendation wording are
+quoted from those papers directly.</p>
+<p>Claims attributed to Kwok &amp; Cheung 2020 (K-line thresholds),
+Bednarik 2008, Wilson 2013 (progression risk), and Aaen 2022 (NORDSTEN)
+have <strong>not</strong> been verified against full text and are
+carried forward from the original outline.</p>
+</body>
+</html>

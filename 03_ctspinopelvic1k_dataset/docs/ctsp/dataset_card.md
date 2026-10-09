@@ -1,0 +1,339 @@
+---
+license: cc-by-nc-sa-4.0
+task_categories:
+- image-segmentation
+tags:
+- medical
+- ct
+- lumbar-spine
+- pelvis
+- colonography
+- lstv
+- sacralization
+- lumbarization
+- castellvi
+- counting-anchor
+size_categories:
+- 1K<n<10K
+---
+
+# CTSpinoPelvic1K
+
+A fused **spine + pelvis** 3D CT segmentation dataset built for one job the
+common tools get wrong: **numbering the lumbar spine correctly in patients with
+a lumbosacral transitional vertebra (LSTV).** It pairs the radiologist vertebral
+ground truth of **CTSpine1K** with the pelvis (from **CTPelvic1K** where
+available, pseudolabelled otherwise) on **TCIA CT COLONOGRAPHY** volumes, and
+adds an explicit **counting anchor** — the last rib-bearing vertebra — that makes
+L1–L6 assignment deterministic across spine variants.
+
+---
+
+## Why this dataset exists (the design principles)
+
+Automated spine segmenters mislabel vertebrae in the 5–35% of people with an
+LSTV: they count up from the sacrum, assume five lumbar bodies, and shift every
+label by one when there are six (or four). In surgical planning that is
+indistinguishable from a wrong-level plan. Four decisions shape this dataset:
+
+1. **Vertebrae are radiologist ground truth, full stop.** We **never ship a
+   pseudolabelled spine.** Every vertebral label comes from CTSpine1K's
+   radiologists, including their adjudication of the transitional cases. This is
+   the single most important property: the L1–L6 / L6 / sacrum calls are not a
+   model's guess.
+2. **A built-in counting anchor.** Numbering is a *non-local counting* problem —
+   you cannot tell L5 from L6 by looking at one vertebra. The **last rib-bearing
+   vertebra (T12)** is the cranial anchor: the vertebra directly above
+   ground-truth L1. It is **not a separate class** — it is just the last thoracic
+   vertebra (T12 = class 19) in the native column, which CTSpine1K already segments
+   on 783/784 abdominopelvic studies; earlier exports simply discarded the thoracic
+   column. With a fixed cranial anchor in the field of view and the sacrum as the
+   caudal anchor, the lumbar count — and therefore L5-vs-L6 — becomes
+   deterministic, and the model learns rib-bearing-ness from the
+   thoracic-versus-lumbar distinction itself.
+3. **LSTV is captured from both ends, and graded.** Transitional status is read
+   *independently* from the vertebral count (CTSpine1K) **and** the pelvic/sacral
+   annotation (CTPelvic1K), then expert **Castellvi**-graded (see below).
+4. **Honest about the pelvis.** The pelvis is real radiologist GT where it was
+   co-annotated (**fused** cases) and a leak-safe model **pseudolabel** otherwise
+   (**spine_only** cases); its quality is reported as held-out Dice against real
+   CTPelvic1K GT (the held-out `pelvic_native` scans).
+
+---
+
+## Sources
+
+1. **TCIA CT COLONOGRAPHY** — DICOM CT volumes (prone + supine per patient)
+2. **CTSpine1K (COLONOG subset)** — VerSe-convention vertebral label masks (the
+   spine ground truth)
+3. **CTPelvic1K dataset2** — sacrum + bilateral hip label masks (the pelvis
+   ground truth)
+
+Annotations are placed onto the TCIA CT volume with the highest bone coverage
+(HU > 200), separately per anatomy. For **342 of the 693 patients** that both
+sources annotated, the two land on the same series (**fused** cases); for the
+rest the spine label targets one acquisition and the pelvis is pseudolabelled
+(**separate**, 351). A further 89 have a spine annotation only
+(**spine_only**) and 20 a pelvic one only (**pelvic_native**), 802 in all.
+
+That 342 of 693 is 49.4%, against the 50% two independent coin flips would
+give. Every COLONOG patient was scanned prone and supine, and CTSpine1K and
+CTPelvic1K each state that they chose one position per patient at random; the
+agreement rate says the two choices were made independently, so on half the
+patients the two annotations describe different acquisitions. Turning a patient
+between prone and supine changes the shape of the bone, so those outlines are
+not interchangeable and no rigid realignment makes them so. That is why each
+annotation is re-resolved here to the series its own bone agrees with, and why
+the pelvis is pseudolabelled rather than borrowed on the 351.
+
+---
+
+## Labels
+
+Annotators / consumers work in this **VerSe-native** scheme (the spine keeps its
+VerSe ids verbatim; non-VerSe structures get fixed ids above the VerSe range):
+
+| ID | Name                | Source                                              |
+|---:|---------------------|-----------------------------------------------------|
+| 0  | background          | —                                                   |
+| 1–7 | **C1–C7**          | CTSpine1K (VerSe 1–7), native                        |
+| 8–19 | **T1–T12**        | CTSpine1K (VerSe 8–19); **T12 = 19** is the counting anchor |
+| 20 | L1                  | CTSpine1K (VerSe 20)                                 |
+| 21 | L2                  | CTSpine1K (VerSe 21)                                 |
+| 22 | L3                  | CTSpine1K (VerSe 22)                                 |
+| 23 | L4                  | CTSpine1K (VerSe 23)                                 |
+| 24 | L5                  | CTSpine1K (VerSe 24)                                 |
+| 25 | L6 / LSTV           | CTSpine1K (VerSe 25) — lumbarized S1                 |
+| 26 | sacrum              | CTPelvic1K (dataset2 1 → 26); CTSpine1K VerSe 26 fallback |
+| 27 | coccyx              | CTSpine1K (VerSe 27)                                 |
+| 28 | T13                 | CTSpine1K (VerSe 28) — supernumerary thoracic        |
+| 29 | **S1** (carved from sacrum) | (GT sacrum) ∩ (TS `vertebrae_S1`)           |
+| 30 | left hip            | CTPelvic1K (dataset2 2 → 30)                         |
+| 31 | right hip           | CTPelvic1K (dataset2 3 → 31)                         |
+| 32 / 33 | femur_left / femur_right | TS                                       |
+| 34–45 | rib_left_1 … rib_left_12 | RibSeg (numbered off GT thoracic)            |
+| 46–57 | rib_right_1 … rib_right_12 | RibSeg (numbered off GT thoracic)           |
+| 255 | **ignore**         | partial-annotation only — un-traced region, NOT bg  |
+
+CTPelvic1K's sacrum takes priority over CTSpine1K's sacrum (VerSe 26) so the two
+labelling conventions don't collide at the lumbosacral junction.
+
+The vertebral column is **VerSe-native** (C1–C7 = 1–7, T1–T12 = 8–19, L1–L6 =
+20–25, sacrum = 26, coccyx = 27, T13 = 28); the rostral counting anchor is **not**
+a stored class but the last thoracic vertebra (T12 = 19). v3 adds bone structures
+above the VerSe range (29 S1 | 30/31 hips | 32/33 femurs | 34–57 rib_left/right
+*reserved*). In the released v3, ids 34–57 (ribs) are **deferred to v4** (reserved,
+unpopulated); the rest, incl. the S1 carve (id 29), is populated.
+
+---
+
+## Two counting anchors (T12 rostral, S1 caudal) — the point of the dataset
+
+You cannot number the spine from local appearance; you must **count from fixed
+landmarks**. The **last rib-bearing vertebra** is the rostral one: the vertebra
+directly below it is L1, and you count down to the sacrum. It is labelled
+**relationally** ("the vertebra above ground-truth L1"), never as an absolute
+thoracic number (T12 vs T13 is unknowable in a lumbosacral field of view and is
+not claimed). With the anchor at the top and the sacrum at the bottom, **5
+intervening bodies → L5, 6 → L6** — the LSTV question answers itself, in a single
+forward pass, on exactly the patients where the stakes are highest. See
+`docs/RIB_ANCHOR_RATIONALE.md`.
+
+v3 adds the **caudal** anchor explicitly: **S1** is segmented as its own class
+((GT sacrum) ∩ (TS `vertebrae_S1`)), bracketing the lumbar count from below and
+giving the sacral endplate for sacral slope / pelvic incidence. The carve only
+subdivides the GT sacrum in place — the sacrum's outer boundary stays radiologist GT.
+
+---
+
+## Versions
+
+`main` tracks the **latest** release — currently **v3** (bone-augmented). Every
+version is also pinned on its own branch; load a specific one with `revision=`:
+
+```python
+load_dataset("anonymous-mlhc/CTSpinoPelvic1K")                  # = main = v3 (latest)
+load_dataset("anonymous-mlhc/CTSpinoPelvic1K", revision="v2")  # a specific version
+```
+
+| branch | version | what it is |
+|---|---|---|
+| **main** | = v3 | the latest release (identical to the `v3` branch) |
+| **v1** | v1 | original partial-annotation release |
+| **v2** | v2 | model-completed dense spinopelvic labels |
+| **v3** | v3 | bone-augmented (femurs + thoracic + S1); also served as `main` |
+
+- **v1** — the **partial-annotation** artifact (all configs, `ignore` protocol):
+  **the input used to train the pseudolabeller**, now carrying the T12 anchor.
+  `pelvic_native` keeps `ignore` on the un-traced spine (an honest absence, never
+  a faked label). The only change from the original export is that the thoracic
+  column (incl. the T12 anchor) is no longer discarded.
+- **v2** — the **clean, densely-labelled** release: CTSpine1K spine ground truth +
+  pelvis (real where fused, pseudolabelled on `spine_only`), **fused + spine_only**
+  only. `pelvic_native` (real pelvis, *pseudo* spine) is dropped from the ship and
+  held back as the **pelvis-pseudolabel validation set**. No `ignore` voxels
+  remain on the shipped cases — this is the LSTV-segmenter training artifact.
+- **v3** — **bone-augmented** (TotalSegmentator): v2 + the GT thoracic column
+  (FOV-visible, ~T8 down) + both femurs + an **S1** carve of the sacrum, in the
+  VerSe-native scheme: `1-7 C1-C7 | 8-19 T1-T12 | 20-25 L1-L6 | 26 sacrum |
+  27 coccyx | 28 T13 | 29 S1 | 30/31 hips | 32/33 femurs | 34-57 rib_left/right
+  reserved | 255 ignore`. The thoracic column was always in the source GT, just
+  dropped from v2; bone coverage is the 802 spine-anchored + orphan cases. **Ribs
+  (34-57) are deferred to a future v4** — FOV-limited scans can't be rib-numbered
+  reliably — so those ids are reserved but unpopulated in the released v3.
+
+---
+
+## LSTV — status, sources, and per-case origin
+
+Each case carries two **complementary, independent** LSTV annotations:
+
+- **`lstv_vertebral`** — from CTSpine1K, by counting lumbar labels (4 →
+  sacralization, 5 → normal, 6 → lumbarization). This is the **vertebral**
+  ground truth.
+- **`lstv_pelvic`** — from CTPelvic1K sacral-mask filename qualifiers (a
+  "sacralization"/"semi" substring set by the pelvic annotators). This is the
+  **pelvic** ground truth.
+- **`lstv_agreement`** — `True`/`False`/`None` when the two sources agree /
+  disagree / one is uninformative.
+- **`lstv_class`** — 0 normal · 1 lumbarization · 2 semi-sacralization ·
+  3 sacralization.
+
+The vertebral calls were cross-validated against **CTSpine1K's published
+transitional cohort** for COLONOG (16 lumbarizations + 9 sacralizations) and
+match case-for-case. **8 further sacralization / semi-sacralization cases come
+from the CTPelvic1K pelvic annotations.** All **33 transitional cases carry an
+expert Castellvi grade**, sourced as follows:
+
+| token | category            | Castellvi | LSTV source                     |
+|------:|---------------------|:---------:|---------------------------------|
+| 4     | ambiguous           | IV        | CTSpine1K (vertebral count)     |
+| 6     | sacralization       | IV        | CTPelvic1K (pelvic annotation)  |
+| 15    | sacralization       | IV        | CTPelvic1K (pelvic annotation)  |
+| 22    | semi_sacralization  | IIIa      | CTPelvic1K (pelvic annotation)  |
+| 32    | sacralization       | IIIb      | CTPelvic1K (pelvic annotation)  |
+| 64    | sacralization_count | IIIb      | CTSpine1K (vertebral count)     |
+| 67    | ambiguous           | IIb       | CTSpine1K (vertebral count)     |
+| 104   | sacralization_count | IIIb      | CTSpine1K (vertebral count)     |
+| 107   | sacralization_count | IIIb      | CTSpine1K (vertebral count)     |
+| 110   | sacralization_count | IIIb      | CTSpine1K (vertebral count)     |
+| 120   | semi_sacralization  | IIa       | CTPelvic1K (pelvic annotation)  |
+| 123   | sacralization       | IIIb      | CTPelvic1K (pelvic annotation)  |
+| 125   | sacralization       | IIIb      | CTPelvic1K (pelvic annotation)  |
+| 140   | sacralization       | IIIa      | CTPelvic1K (pelvic annotation)  |
+| 149   | lumbarization       | IIIa      | CTSpine1K (vertebral count)     |
+| 167   | lumbarization       | IIIb      | CTSpine1K (vertebral count)     |
+| 175   | lumbarization       | Ib        | CTSpine1K (vertebral count)     |
+| 189   | lumbarization       | IIIb      | CTSpine1K (vertebral count)     |
+| 215   | lumbarization       | Ib        | CTSpine1K (vertebral count)     |
+| 261   | lumbarization       | IIb       | CTSpine1K (vertebral count)     |
+| 267   | lumbarization       | IV        | CTSpine1K (vertebral count)     |
+| 344   | lumbarization       | IIb       | CTSpine1K (vertebral count)     |
+| 401   | lumbarization       | IIa       | CTSpine1K (vertebral count)     |
+| 537   | sacralization_count | IIIb      | CTSpine1K (vertebral count)     |
+| 554   | sacralization_count | IIIb      | CTSpine1K (vertebral count)     |
+| 555   | sacralization_count | IIIb      | CTSpine1K (vertebral count)     |
+| 587   | lumbarization       | IIIb      | CTSpine1K (vertebral count)     |
+| 615   | sacralization_count | IIIb      | CTSpine1K (vertebral count)     |
+| 666   | lumbarization       | IIIb      | CTSpine1K (vertebral count)     |
+| 672   | lumbarization       | IIIb      | CTSpine1K (vertebral count)     |
+| 699   | lumbarization       | IIIb      | CTSpine1K (vertebral count)     |
+| 721   | sacralization_count | IIIb      | CTSpine1K (vertebral count)     |
+| 737   | lumbarization       | IIb       | CTSpine1K (vertebral count)     |
+
+**Totals: 25 from CTSpine1K (vertebral) + 8 from CTPelvic1K (pelvic) = 33
+Castellvi-graded.** The full sheet (with second reads and notes) is
+`_lstv_phenotypes.csv`. `category = sacralization_count` denotes a sacralization
+detected by the vertebral count; `sacralization` / `semi_sacralization` denote
+the pelvic-annotation source.
+
+---
+
+## The one-vs-two-class boundary convention
+
+When an L6 / last lumbar fuses with the sacrum, identity is decided by the
+**L5/L6–S1 disc at the vertebral body**, not by bony continuity (a fused
+transverse-process bridge still makes one connected bone but does not collapse a
+class — the bamboo-spine principle):
+
+- **Disc present** (even with a fused TP bridge, Castellvi III) → **two classes**
+  (last lumbar + sacrum).
+- **Disc obliterated** (complete sacralization) → **one class (sacrum)**; record
+  the transition as the Castellvi grade, not as voxels.
+
+Full conventions: `docs/LABELING_GUIDE.md`.
+
+---
+
+## Orientation
+
+All volumes are canonicalised to **PIR** (Posterior-Inferior-Right). The CT and
+its label map share exactly the same 4×4 affine; no resampling is needed before
+training.
+
+## Splits
+
+70 / 15 / 15 train / val / test, **patient-grouped** (prone+supine of one patient
+never split across folds) and **stratified by `(lstv_class × match_type)`** so
+each split contains the rare sacralization and lumbarization classes.
+
+## File format
+
+Each case is a single `.npz` file under `data/<split>/token_<N>.npz`:
+
+```python
+import numpy as np, json
+
+d = np.load("token_17.npz", allow_pickle=False)
+ct     = d["ct"]       # int16  (Z, Y, X)   HU
+label  = d["label"]    # uint8  (Z, Y, X)   0..9, 11 (anchor); 10=ignore; 12 reserved
+affine = d["affine"]   # float32 (4, 4)     RAS affine
+meta   = json.loads(str(d["meta"]))
+
+print(meta["match_type"], meta["lstv_class"], meta["has_anchor"])
+```
+
+## Quickstart — PyTorch
+
+```python
+from dataset_interface import CTSpinoPelvicDataset
+from torch.utils.data import DataLoader
+
+ds  = CTSpinoPelvicDataset(
+    root      = "anonymous-neurips-ED/CTSpinoPelvic1K",
+    split     = "train",
+    cache_dir = "~/.cache/ctspinopelvic1k",
+)
+dl  = DataLoader(ds, batch_size=1, shuffle=True)
+
+for batch in dl:
+    ct, label = batch["ct"], batch["label"]   # (B,1,Z,Y,X) / (B,Z,Y,X)
+    ...
+```
+
+## Citation
+
+Please cite the source datasets (CTSpine1K, CTPelvic1K, TCIA CT COLONOGRAPHY)
+alongside this derivative release. BibTeX entries are provided in `CITATION.cff`.
+
+## License
+
+- **The CT images** are redistributed unmodified from TCIA CT COLONOGRAPHY under
+  **CC BY 3.0** (DOI 10.7937/K9/TCIA.2015.NWTESAY1), which requires attribution and
+  imposes no further restriction.
+- **The vertebral labels derive from CTSpine1K, which is CC BY-NC-SA 4.0.** ShareAlike
+  is why this release is NC-SA and not NC: an adaptation of ShareAlike material must
+  carry the same terms, and dropping the SA would be a licence violation rather than a
+  choice. This is the most restrictive of the three obligations and therefore governs.
+- **The pelvic labels derive from CTPelvic1K**, Zenodo record 4588403, **CC BY 4.0**.
+- **Derived fused labels, splits and morphometrics: CC BY-NC-SA 4.0.** These are
+  adaptations of the source labels and inherit the terms above.
+- **The code is separate, and is Apache-2.0** (as declared in `CITATION.cff`). It is our
+  own work and derives nothing from the source *data*, so the ShareAlike obligation does
+  not reach it. Running this code on your own images produces output you own.
+
+Attribution for all three sources is required; see `CITATION.cff`. This is a reading of
+the three licences, not legal advice — confirm with your institution before relying on it
+commercially, and note that the NC term makes commercial use of this release impossible
+in any case.
+

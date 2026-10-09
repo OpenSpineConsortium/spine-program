@@ -1,0 +1,1235 @@
+{
+ "about": "CLAIM 2024 map for the SchwingNet manuscript (five figures, three tables since 2026-09-24 evening; the LevelCheck comparison is paper 2). response = Yes / No / NA as the journal's form asks; status READY, PENDING (a gate must land) or NEEDS-EDIT (the wrapped text lacks what the item asks and the edit phase must add it); anchors are resolved by packet_src/build_packet_src.py against the current tree to file:line and to the section and paragraph a reader sees (the submitted .docx has no page or line numbers); todo says what is still owed. Edit this file, never the build outputs.",
+ "written": "2026-09-23, against the wrap in progress (sections/*.tex 20:41-20:43, main.tex 20:43 EDT); updated 2026-09-24 (six-figure placement per item; items 14, 16, 18, 20, 24, 25, 26, 32, 37, 38, 42 brought to LEVELCHECK_MODEL.md s14 and results/eval_gate/); 2026-09-24 evening: the LevelCheck / surgeon comparison is paper 2 (PAPER1_SCOPE.md), so items 2, 6, 14, 16, 18, 20, 21, 24-26, 28, 34, 36-38 and 42 were re-pointed and fig:levelcheck / tab:levelcheck left every placement; items 8, 11, 31-33, 36 and 39 re-anchored to the revision-5 wording",
+ "items_file": "claim2024/items.json",
+ "items": [
+  {
+   "item": 1,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Title page, Title",
+     "Abstract"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "main.tex",
+     "find": [
+      "\\title{"
+     ]
+    },
+    {
+     "src": "main.tex",
+     "find": [
+      "recurrent head"
+     ]
+    }
+   ],
+   "note": "The title names the category (a convolutional-recurrent network); the abstract names a residual encoder and a recurrent head.",
+   "todo": ""
+  },
+  {
+   "item": 2,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Abstract"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "main.tex",
+     "find": [
+      "\\section*{Abstract}"
+     ]
+    }
+   ],
+   "note": "Structured abstract: Purpose, Materials and Methods, Results, Conclusion; retrospective design, public sources with counts, the unseen-device test, clustered intervals and Holm-adjusted exact tests.",
+   "todo": "The G6 LevelCheck result the abstract awaited moved to paper 2 (paper2_levelcheck/); the abstract closes at 248 of 250 words with no placeholder (age and sex print through \\RESULT keys from results/age_sex_by_source.json). The 2024 item also asks the abstract to say whether software, data and model are available; it does not (word budget)."
+  },
+  {
+   "item": 3,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Introduction",
+     "Discussion, final paragraph"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/introduction.tex",
+     "find": [
+      "A vertebral level is not marked"
+     ]
+    },
+    {
+     "src": "sections/introduction.tex",
+     "find": [
+      "Intraoperative level identification rests on registration"
+     ]
+    },
+    {
+     "src": "sections/discussion_limits.tex",
+     "find": [
+      "The clinical role is decision support"
+     ]
+    }
+   ],
+   "note": "Current practice (counting across exposures; registration-assisted labelling) and the intended role (decision support beside the surgeon's count, never replacing the check film).",
+   "todo": ""
+  },
+  {
+   "item": 4,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Introduction, final paragraph"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/introduction.tex",
+     "find": [
+      "We hypothesised"
+     ]
+    }
+   ],
+   "note": "Hypothesis and purpose, last paragraph of the Introduction.",
+   "todo": ""
+  },
+  {
+   "item": 5,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, first paragraph"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "This retrospective study"
+     ]
+    }
+   ],
+   "note": "Retrospective, stated in the first Methods paragraph.",
+   "todo": ""
+  },
+  {
+   "item": 6,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Introduction, final paragraph",
+     "Materials and Methods, Transitional sample size"
+    ],
+    "floats": [
+     "fig:power"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/introduction.tex",
+     "find": [
+      "The purpose was"
+     ]
+    },
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "Pre-stated Wilson targets"
+     ]
+    }
+   ],
+   "note": "Model creation with testing on a device absent from training, an explanatory analysis of the embedding, and a count of the transitional persons a test needs against pre-stated Wilson targets. The pre-specified superiority / non-inferiority comparison with a modelled LevelCheck moved to paper 2 (paper2_levelcheck/).",
+   "todo": ""
+  },
+  {
+   "item": 7,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, data sources"
+    ],
+    "floats": [
+     "tab:data",
+     "fig:flow"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "Rendered CT came from"
+     ]
+    },
+    {
+     "label": "tab:data"
+    },
+    {
+     "label": "fig:flow"
+    }
+   ],
+   "note": "Every source is a public release, cited with its DOI; Table 1 gives role, split unit and truth per source.",
+   "todo": ""
+  },
+  {
+   "item": 8,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "G0",
+   "expect": {
+    "where": [
+     "Materials and Methods, data sources",
+     "Results, Study population"
+    ],
+    "floats": [
+     "tab:data"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "of 467 Elekta cases"
+     ]
+    },
+    {
+     "label": "tab:data"
+    },
+    {
+     "src": "sections/results.tex",
+     "find": [
+      "Study population"
+     ]
+    }
+   ],
+   "note": "Public releases used whole except where Table 1 states a cut and its cause; COBRA2026 is 145 of 467 Elekta cases (seven of 152 downloaded failed a pre-export check), stated in Methods and Table 1.",
+   "todo": "G0: the full COBRA2026 release is on disk (692/692); when the corpus is rebuilt the cut disappears and this row's wording changes."
+  },
+  {
+   "item": 9,
+   "response": "Yes",
+   "status": "NEEDS-EDIT",
+   "gate": "edit",
+   "expect": {
+    "where": [
+     "Materials and Methods, The network",
+     "Supplement, Technical details"
+    ],
+    "floats": [
+     "tab:deviceterms"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "fixed-scale two-channel crop",
+      "two-channel crop"
+     ]
+    },
+    {
+     "label": "tab:deviceterms"
+    }
+   ],
+   "note": "The crop geometry is in Methods; the device image-formation terms in Table S1.",
+   "todo": "The wrapped Methods no longer state the display normalisation (stored value to attenuation, one window for every device mapping field percentiles to fixed grey levels), the 1,024-pixel 8-bit export or the box projection rule. Proposed supplement text: packet_src/supplement_technical.tex, section 1."
+  },
+  {
+   "item": 10,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, Reference standard",
+     "Materials and Methods, outcomes"
+    ],
+    "floats": [
+     "fig:exposure"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "scored only where both agree"
+     ]
+    },
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "naming with one or three bodies in view"
+     ]
+    },
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "target 96 of 320 pixels"
+     ]
+    }
+   ],
+   "note": "Subsets: agreed-level vertebrae only; limited fields of one and three bodies; fixed-scale crops.",
+   "todo": ""
+  },
+  {
+   "item": 11,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, first paragraph",
+     "Other information, Ethics"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "de-identified image collections"
+     ]
+    },
+    {
+     "src": "main.tex",
+     "find": [
+      "carries a residual name and identifier"
+     ]
+    }
+   ],
+   "note": "De-identified by the releasing groups; no key held; one directory carrying a residual identifier was exported without header data and checked to carry no identifier value (Other information, Ethics).",
+   "todo": ""
+  },
+  {
+   "item": 12,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, Reference standard",
+     "Results, Study population"
+    ],
+    "floats": [
+     "tab:data"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "withholding T11 and most of T12"
+     ]
+    },
+    {
+     "label": "tab:data"
+    },
+    {
+     "src": "sections/results.tex",
+     "find": [
+      "No age, sex or indication is released"
+     ]
+    }
+   ],
+   "note": "Missing labels are excluded, never imputed: unagreed vertebrae, the truncated CT record, sources without demographics (stated as absent).",
+   "todo": ""
+  },
+  {
+   "item": 13,
+   "response": "Yes",
+   "status": "NEEDS-EDIT",
+   "gate": "edit",
+   "expect": {
+    "where": [
+     "Supplement, Technical details"
+    ],
+    "floats": [
+     "tab:data",
+     "tab:deviceterms"
+    ]
+   },
+   "anchors": [
+    {
+     "label": "tab:data"
+    },
+    {
+     "label": "tab:deviceterms"
+    }
+   ],
+   "note": "Modality and device per source in Table 1; fitted image-formation terms per device in Table S1.",
+   "todo": "New in 2024. The acquisition parameters the releases carry (detector pitch and image size, tube voltage range, source-image and source-object distance for C-ArmLSpine) are nowhere in the manuscript; they are in atlas/dataset.json Imaging.Resolution with their sources. Proposed supplement table: packet_src/supplement_technical.tex, section 2."
+  },
+  {
+   "item": 14,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, Reference standard"
+    ],
+    "floats": [
+     "fig:phenotypes",
+     "tab:transitional"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "Reference standard."
+     ]
+    },
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "under a rib convention"
+     ]
+    }
+   ],
+   "note": "Reference standard for intraoperative naming (registered CBCT, two automatic labellers, agreed vertebrae); transitional typing rule (rib convention).",
+   "todo": "The automated reference standard (LEVELCHECK_MODEL.md s4 + s14) that Figure 6 would have used moved to paper 2 (paper2_levelcheck/); no result paper 1 prints rests on it (paper2_levelcheck/MOVED_FROM_PAPER1.md item 8)."
+  },
+  {
+   "item": 15,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, Reference standard",
+     "Discussion, limitations"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "so agreement is not independent"
+     ]
+    },
+    {
+     "src": "sections/discussion_limits.tex",
+     "find": [
+      "its truth is two automatic labellers"
+     ]
+    }
+   ],
+   "note": "Why two labellers, and what their agreement cannot establish (both count from the sacrum; three L6 cases measure agreement, not correctness).",
+   "todo": ""
+  },
+  {
+   "item": 16,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, Reference standard"
+    ],
+    "floats": [
+     "tab:transitional"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "No person read an intraoperative image"
+     ]
+    },
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "two radiology residents"
+     ]
+    }
+   ],
+   "note": "Sources of every reference label are cited: release annotations (VerSe published read; CTSpinoPelvic1K two radiology residents grading independently, six disagreements resolved by consensus, year of training not recorded), an independent rib count for TotalSegmentator, and two automatic labellers on the CBCT; no human annotator read an image for this study.",
+   "todo": "The s14 automated reference moved to paper 2 (paper2_levelcheck/)."
+  },
+  {
+   "item": 17,
+   "response": "Yes",
+   "status": "NEEDS-EDIT",
+   "gate": "G0",
+   "expect": {
+    "where": [
+     "Materials and Methods, Reference standard"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "Truth is the per-case cone-beam CT"
+     ]
+    }
+   ],
+   "note": "Test-set annotation: CBCT registered to each exposure, labelled by both tools, projected in the whole-vertebra convention.",
+   "todo": "The versions of TotalSegmentator and SPINEPS/VERIDAH run on the CBCTs are recorded nowhere (CLAIM_CHECKLIST.md, 2020 item 17); read them from the job logs and state them."
+  },
+  {
+   "item": 18,
+   "response": "No",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, Reference standard",
+     "Results"
+    ],
+    "floats": [
+     "tab:transitional"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "814 of"
+     ]
+    },
+    {
+     "label": "tab:transitional"
+    }
+   ],
+   "note": "Agreement of the two automatic labellers is reported (814 of 910) and disagreements are excluded, not resolved; the six reader disagreements on CTSpinoPelvic1K are stated; SPINEPS+VERIDAH's L6 call matched the CTSpinoPelvic1K readers in 10 of 24 (Table 2 note e). No human inter- or intrarater measurement exists, so the response is No.",
+   "todo": "The automated reference's calibration against human-read truth moved to paper 2 (paper2_levelcheck/)."
+  },
+  {
+   "item": 19,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, partitions"
+    ],
+    "floats": [
+     "tab:data",
+     "tab:transitional"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "case-grouped folds"
+     ]
+    },
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "50:10:40"
+     ]
+    },
+    {
+     "label": "tab:data"
+    }
+   ],
+   "note": "Case-grouped five-fold and day-grouped three-fold cross-validation; fixed split per source (Table 1 train / val / test); transitional split person-disjoint, subtype-stratified, 50:10:40.",
+   "todo": ""
+  },
+  {
+   "item": 20,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, partitions",
+     "Results"
+    ],
+    "floats": [
+     "tab:transitional",
+     "fig:power"
+    ]
+   },
+   "anchors": [
+    {
+     "label": "tab:data"
+    },
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "acquisition session rather than a proven person"
+     ]
+    },
+    {
+     "src": "sections/results.tex",
+     "find": [
+      "current encoder's training data"
+     ]
+    }
+   ],
+   "note": "Split unit per source in Table 1; the intraoperative case is an acquisition session, so day-grouped folds are reported beside case-grouped ones; the transitional test persons' overlap with the current encoder is disclosed, and no model reported here scores them (limitations).",
+   "todo": "The split-trained arm (encoder from ImageNet weights on the split's training persons) is scored in paper 2; paper 1 shows only its development learning curve (supplement). moved to paper 2 (paper2_levelcheck/)."
+  },
+  {
+   "item": 21,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, Transitional sample size"
+    ],
+    "floats": [
+     "fig:power"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "Transitional sample size"
+     ]
+    },
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "every available case"
+     ]
+    },
+    {
+     "label": "fig:power"
+    }
+   ],
+   "note": "Naming used every case; transitional test size from Wilson bounds against pre-stated targets (35 persons at 90 %, 22 carriers at 85 %). The exact binomial power against the frozen comparator moved to paper 2 (paper2_levelcheck/).",
+   "todo": ""
+  },
+  {
+   "item": 22,
+   "response": "Yes",
+   "status": "NEEDS-EDIT",
+   "gate": "edit",
+   "expect": {
+    "where": [
+     "Materials and Methods, The network"
+    ],
+    "floats": [
+     "fig:network"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "The network."
+     ]
+    },
+    {
+     "label": "fig:network"
+    },
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "ResNet-18"
+     ]
+    }
+   ],
+   "note": "Detectors, encoder (ResNet-18, cited), bidirectional GRU head, count and coupling.",
+   "todo": "The wrapped Methods now name the body detector (YOLO11m-pose keypoint detector trained on films, confidence 0.35) and the sacrum detector (YOLO11m, fine-tuned from a render-trained detector on COBRA2026 and DeepFluoro real frames); still owed: the body detector's training corpus by source and split (docs/MANIFEST_DATA_MODELS_RESULTS.md, detector_v5z_final; the G5 manifest, item 25)."
+  },
+  {
+   "item": 23,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, Statistical analysis"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "Python 3.11"
+     ]
+    }
+   ],
+   "note": "Python, PyTorch, Ultralytics, NumPy, SciPy with versions and makers.",
+   "todo": "Labeller versions: see item 17."
+  },
+  {
+   "item": 24,
+   "response": "No",
+   "status": "NEEDS-EDIT",
+   "gate": "edit",
+   "expect": {
+    "where": [
+     "Supplement, Technical details"
+    ]
+   },
+   "anchors": [],
+   "note": "Not stated in the wrapped Methods.",
+   "todo": "State initialisation (proposed text: packet_src/supplement_technical.tex, section 3): the sacrum detector from COCO-pretrained YOLO11m through the render-trained anchor_none_v2_17-1882 (not from COCO directly, as NUMBERS.md says; results/eval_gate/EVALUATORS.md); the body detector from detect_v3, itself from COCO-pretrained yolo11m-pose (results/eval_gate/LINEAGE.md); the C-ArmLSpine fold encoders from the registry model allspine_v2_r1; the embedding's encoder allspine_v9 (sha256 188f9fcb...) from ImageNet by the training script's default, which falls back to random weights when the torchvision file is not cached; the file was cached before v9 trained, but v9's log starts at epoch 25 and does not record the load (grid jobs 40429822, 40429828); the split-trained arm from ImageNet (paper 2's scored arm; its development learning curve is in paper 1's supplement) should pass --require-pretrained so the load is recorded and cannot fall back silently."
+  },
+  {
+   "item": 25,
+   "response": "Yes",
+   "status": "NEEDS-EDIT",
+   "gate": "G5",
+   "expect": {
+    "where": [
+     "Materials and Methods, The network",
+     "Supplement, Technical details"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "15 epochs"
+     ]
+    }
+   ],
+   "note": "Fold fine-tuning (15 epochs, learning rate 1e-4) is stated.",
+   "todo": "Detector and keypoint-detector recipes (epochs, image size, batch, seed, augmentation), head training on mixed run lengths, optimiser, loss and stopping are in packet_src/supplement_technical.tex section 3 with their sources; still owed: the body detector's training corpus by source and split (G5); the split-trained arm's recipe belongs to paper 2."
+  },
+  {
+   "item": 26,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, The network",
+     "Materials and Methods, Naming, counting and coupling on the intraoperative C-arm"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "excluding every test case"
+     ]
+    },
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "chosen on three other devices"
+     ]
+    }
+   ],
+   "note": "Checkpoints on validation folds without test cases; the sacrum detector's operating point (0.74) chosen on three other devices. Two selection facts are disclosed rather than hidden: the encoder was chosen on the plain-film split whose numbers Table 3 labels 'selection split', and the sacrum detector's best.pt was chosen on the COBRA2026 and DeepFluoro test splits, so only its C-ArmLSpine numbers are quoted (results/eval_gate/EVALUATORS.md items 1-2). The configuration fixed before unblinding is paper 2's (LEVELCHECK_MODEL.md).",
+   "todo": "Keep Table 3's 'selection split' label and note; state in the supplement's section 3 that the sacrum detector's checkpoint was selected on its training devices' test frames (the draft does)."
+  },
+  {
+   "item": 27,
+   "response": "NA",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Supplement, Technical details"
+    ]
+   },
+   "anchors": [],
+   "note": "No ensemble is used. Horizontal-flip test-time averaging is the only averaging in the pipeline (docs/MODEL_CARD.md 1.2); the wrapped Methods no longer say so.",
+   "todo": "Optional half-sentence in the supplement."
+  },
+  {
+   "item": 28,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, Naming, counting and coupling on the intraoperative C-arm",
+     "Introduction"
+    ],
+    "floats": [
+     "tab:naming"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "The primary outcome"
+     ]
+    },
+    {
+     "src": "sections/introduction.tex",
+     "find": [
+      "Registration-free naming on real C-arm images"
+     ]
+    }
+   ],
+   "note": "Exact level at full coverage (primary, designated after a first zero-shot run), the count, the coupled call and its stop signal, detection at IoU 0.5 (Table 3, Table S2); published registration-free models are named in the Introduction. The person-level endpoint of the LevelCheck comparison moved to paper 2 (paper2_levelcheck/).",
+   "todo": ""
+  },
+  {
+   "item": 29,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, Statistical analysis"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "Statistical analysis."
+     ]
+    }
+   ],
+   "note": "Clustered bootstrap (percentile with BCa beside), Wilson on design-effect-adjusted counts, exact sign tests with Holm, software versions.",
+   "todo": ""
+  },
+  {
+   "item": 30,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods",
+     "Results"
+    ],
+    "floats": [
+     "fig:exposure",
+     "tab:naming"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "three folds by"
+     ]
+    },
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "repeated per render source"
+     ]
+    },
+    {
+     "src": "sections/results.tex",
+     "find": [
+      "With three lateral bodies in view"
+     ]
+    }
+   ],
+   "note": "Day-grouped folds, field-size sweep, zero-shot versus fine-tuned, box convention, per-source embedding.",
+   "todo": ""
+  },
+  {
+   "item": 31,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods, The level encoder and what it learns",
+     "Results, The level encoder and what it learns"
+    ],
+    "floats": [
+     "fig:embedding",
+     "fig:manifold"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "The level encoder and what it learns."
+     ]
+    },
+    {
+     "label": "fig:embedding"
+    },
+    {
+     "src": "sections/results.tex",
+     "find": [
+      "The level encoder and what it learns."
+     ]
+    }
+   ],
+   "note": "t-SNE, cosine silhouette bootstrapped by person, occlusion enrichment; checked within render sources and on never-seen patients; the split chose the checkpoint (stated).",
+   "todo": ""
+  },
+  {
+   "item": 32,
+   "response": "Yes",
+   "status": "PENDING",
+   "gate": "G5",
+   "expect": {
+    "where": [
+     "Materials and Methods",
+     "Results"
+    ],
+    "floats": [
+     "tab:naming"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "case-grouped folds"
+     ]
+    },
+    {
+     "src": "sections/results.tex",
+     "find": [
+      "Fine-tuned by case-grouped folds"
+     ]
+    }
+   ],
+   "note": "Internal testing: C-ArmLSpine cross-validation, case- and day-grouped.",
+   "todo": "Training-partition performance (consistency with the internal test) is in no result file; the G5 results should carry train, validation and test rows. The plain-film rows are the encoder's selection split and do not answer this item as held-out results."
+  },
+  {
+   "item": 33,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Materials and Methods",
+     "Results"
+    ],
+    "floats": [
+     "fig:exposure",
+     "tab:naming",
+     "tab:detection"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/methods.tex",
+     "find": [
+      "scored zero-shot"
+     ]
+    },
+    {
+     "src": "sections/results.tex",
+     "find": [
+      "Never trained on C-ArmLSpine"
+     ]
+    }
+   ],
+   "note": "External testing on a C-arm and institution absent from every training set, for naming and detection.",
+   "todo": ""
+  },
+  {
+   "item": 34,
+   "response": "NA",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Other information, Registration"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "main.tex",
+     "find": [
+      "\\textbf{Registration.}"
+     ]
+    }
+   ],
+   "note": "Not a clinical trial; not registered (Other information). The frozen LevelCheck comparator, a dated repository commit rather than a registry, moved to paper 2 (paper2_levelcheck/).",
+   "todo": ""
+  },
+  {
+   "item": 35,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "G4",
+   "expect": {
+    "where": [
+     "Results, Study population"
+    ],
+    "floats": [
+     "tab:data",
+     "fig:flow"
+    ]
+   },
+   "anchors": [
+    {
+     "label": "tab:data"
+    },
+    {
+     "label": "fig:flow"
+    },
+    {
+     "src": "sections/results.tex",
+     "find": [
+      "Study population"
+     ]
+    }
+   ],
+   "note": "Counts included and excluded per source with causes (Table 1 footnotes); flow diagram in the supplement.",
+   "todo": "The G4 census regenerates the counts, not the item."
+  },
+  {
+   "item": 36,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Results, Study population",
+     "Supplement"
+    ],
+    "floats": [
+     "tab:data",
+     "tab:agesex"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/results.tex",
+     "find": [
+      "source median ages",
+      "No age, sex or indication is released"
+     ]
+    },
+    {
+     "label": "tab:agesex"
+    }
+   ],
+   "note": "Age and sex per image source from each release's own metadata (Results 'Study population' through \\RESULT keys; supplement Table S3 from results/age_sex_by_source.json): none for the intraoperative, cadaveric or phantom sets; COBRA2026 releases PatientAge on 115 and PatientSex on 75 of the 145 detector cases (the earlier note that the radiotherapy set releases none was false).",
+   "todo": "Per partition (train / validation / test) once the G5 results carry partition rows; today Table S3 is per source over the built split's persons."
+  },
+  {
+   "item": 37,
+   "response": "Yes",
+   "status": "PENDING",
+   "gate": "G5",
+   "expect": {
+    "where": [
+     "Results"
+    ],
+    "floats": [
+     "tab:naming"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/results.tex",
+     "find": [
+      "Naming, counting and coupling on the intraoperative C-arm"
+     ]
+    },
+    {
+     "label": "tab:naming"
+    }
+   ],
+   "note": "Test-partition performance with clustered intervals for every arm.",
+   "todo": "Training and validation partitions (G5). The transitional strata against the frozen comparator moved to paper 2 (paper2_levelcheck/)."
+  },
+  {
+   "item": 38,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Results"
+    ],
+    "floats": [
+     "tab:naming"
+    ]
+   },
+   "anchors": [
+    {
+     "label": "tab:naming"
+    },
+    {
+     "src": "sections/discussion_limits.tex",
+     "find": [
+      "the posterior is uncalibrated"
+     ]
+    }
+   ],
+   "note": "Accuracy with 95% intervals throughout; class imbalance addressed by the transitional sample-size analysis against pre-stated Wilson targets; calibration not assessed (stated as a limitation).",
+   "todo": "Variant sensitivity and specificity per subtype on held-out transitional persons moved to paper 2 (paper2_levelcheck/)."
+  },
+  {
+   "item": 39,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Results"
+    ],
+    "floats": [
+     "fig:exposure"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/results.tex",
+     "find": [
+      "The read stopped on"
+     ]
+    },
+    {
+     "src": "sections/discussion_limits.tex",
+     "find": [
+      "fine-tuning scored below zero-shot laterally"
+     ]
+    },
+    {
+     "label": "fig:exposure"
+    }
+   ],
+   "note": "Where errors fall (cases with an error are counted per cell in the result files), undetected vertebrae, the stop signal (23 of 233 anchored frames, five of six erring frames caught), the L6 calls with a stop. Confusions per key are in the result files; no matrix is printed.",
+   "todo": ""
+  },
+  {
+   "item": 40,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Discussion, limitations (second-to-last paragraph)"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/discussion_limits.tex",
+     "find": [
+      "This study has limitations"
+     ]
+    }
+   ],
+   "note": "Second-to-last Discussion paragraph.",
+   "todo": ""
+  },
+  {
+   "item": 41,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Discussion, final paragraph"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "sections/discussion_limits.tex",
+     "find": [
+      "The clinical role is decision support"
+     ]
+    }
+   ],
+   "note": "Final Discussion paragraph.",
+   "todo": ""
+  },
+  {
+   "item": 42,
+   "response": "No",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Other information, Data availability",
+     "Supplement"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "main.tex",
+     "find": [
+      "\\textbf{Data availability.}"
+     ]
+    }
+   ],
+   "note": "No separate study protocol exists for paper 1 (not a trial; nothing pre-registered). Technical details are in the supplement and every number's result file is named in the repository's NUMBERS.md, available to reviewers. The frozen comparator protocol LEVELCHECK_MODEL.md moved to paper 2 (paper2_levelcheck/) and is that paper's item 42.",
+   "todo": ""
+  },
+  {
+   "item": 43,
+   "response": "Yes",
+   "status": "PENDING",
+   "gate": "G7",
+   "expect": {
+    "where": [
+     "Other information, Data availability",
+     "Other information, Code and model availability"
+    ],
+    "front": [
+     "data sharing statement"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "main.tex",
+     "find": [
+      "\\textbf{Data availability.}"
+     ]
+    },
+    {
+     "src": "main.tex",
+     "find": [
+      "\\textbf{Code and model availability.}"
+     ]
+    }
+   ],
+   "note": "Sources public; code, parameters and weights on request to reviewers; public deposit with hashes at publication.",
+   "todo": "The release decision for code and weights (front_matter.json author_decisions 'release_code_weights'; two wordings in packet_src/statements.md) and the public deposit it implies."
+  },
+  {
+   "item": 44,
+   "response": "Yes",
+   "status": "READY",
+   "gate": "",
+   "expect": {
+    "where": [
+     "Other information, Funding and acknowledgments"
+    ],
+    "front": [
+     "funding"
+    ]
+   },
+   "anchors": [
+    {
+     "src": "main.tex",
+     "find": [
+      "\\textbf{Funding and acknowledgments.}"
+     ]
+    },
+    {
+     "front": "funding"
+    }
+   ],
+   "note": "Funding and the role of funders on the full title page.",
+   "todo": "Author confirms the funding sentence."
+  }
+ ],
+ "about_expect": "expect = where the item belongs in the six-figure paper, independent of today's wording: 'where' are '<section>, <paragraph>' strings (section = Title page, Abstract, Introduction, Materials and Methods, Results, Discussion, Other information, Supplement), 'floats' are figure/table labels (numbered from the tree at build time), 'front' are full-title-page fields. The five figures (since 2026-09-24 evening): fig:phenotypes (1), fig:embedding (2), fig:network (3), fig:exposure (4), fig:power (5); tables tab:data (1), tab:transitional (2), tab:naming (3); supplement fig:flow, fig:manifold, fig:formation, fig:contribution, fig:angle, tab:deviceterms, tab:detection, tab:agesex, tab:census. fig:levelcheck and tab:levelcheck are paper 2's (paper2_levelcheck/). When the wrap moves text, re-point the item's anchors (find strings) to text inside this placement; the builder lists anchors that fail (RE-ANCHOR) and anchors that land outside the placement.",
+ "reanchored": "2026-09-24 Packet phase: items 10, 20, 30 and 33 re-pointed to the six-figure wrap's wording (the old phrases no longer exist in sections/methods.tex or results.tex); item 10's note drops the five-body field, which the wrap cut from the manuscript."
+}

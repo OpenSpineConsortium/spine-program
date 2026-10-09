@@ -1,0 +1,45 @@
+Here are the action items, organized by what blocks what.
+
+**Immediate audit work (do first, blocks everything else):**
+
+1. Pull the 45 VerSe L6 cases and visually inspect a sample of 10. Confirm they're supernumerary/lumbarization (6 mobile lumbar, separate L5 and L6) rather than mixed with sacralization cases. Note any cases where the L5/L6 distinction is ambiguous.
+
+2. Audit CTSpinoPelvic1K's existing LSTV cases. For each case currently labeled with L6, determine whether it's supernumerary (extra mobile vertebra) or sacralization (L5 fused to sacrum). Build a simple CSV: `case_id, dataset_source, lstv_type, notes`. This is the foundation for both the NeurIPS paper subgroup analysis and the side project.
+
+3. Filter the 45 VerSe cases for hip-inclusive FOV. Log which ones have both femoral heads visible and which don't. Cases without hips are still usable for vertebra training but can't get pseudo-labeled hip masks.
+
+**NeurIPS paper integration (highest priority, time-bound):**
+
+4. Run your existing CTSpinoPelvic1K-trained model on the hip-inclusive subset of the 45 VerSe cases to generate pseudo-labels for sacrum and hips. Visually QA the pseudo-labels on every case — this is 45 cases max, it's tractable.
+
+5. Harmonize label IDs between VerSe and CTSpinoPelvic1K for the merge. Document the convention choice in one paragraph.
+
+6. Add the merged VerSe cases to your training and/or evaluation pool as appropriate. Decide whether they go in training (more LSTV signal) or held-out evaluation (cross-dataset generalization claim) — this is a real methodology choice with implications for what you can claim. Probably some of both.
+
+7. Re-run your sacr_count residual analysis on the expanded dataset and update the paper's subgroup numbers. Stratify results by lstv_type from step 2.
+
+8. Update the related work section to note that SPINEPS/VERIDAH/TotalSegmentator avoided grade-level Castellvi classification, framing your contribution as complementary rather than competing.
+
+**Dataset side project (CTSpinoPelvic1K-v2, scope after NeurIPS):**
+
+9. Audit the full CTSpinoPelvic1K for per-case annotation completeness. For each case, log which structures are present (vertebrae, sacrum, hips). This is the denominator for the fusion work.
+
+10. Run your best model to pseudo-label missing structures across the audit. Prioritize human QA on cases that already have partial annotations — fastest path to fully-annotated cases.
+
+11. Draft a written annotation protocol for the pseudoarticulation class before painting any masks. Define: what counts as a pseudoarticulation voxel, what counts as fusion, how to handle bilateral cases, how to handle ambiguous transverse-process morphology. Get one or two other people to apply the protocol to the same 5 cases and measure inter-rater agreement before scaling.
+
+12. Plan the release format up front: directory structure, license clarification with COLONOG's terms, HuggingFace dataset card draft, Castellvi metadata schema (case-level CSV with grade, laterality, transitional vertebra label, annotator notes).
+
+**Communication / collaboration:**
+
+13. Email [collaborator A]. Tell him you're working on Castellvi-spectrum detection in CT, you've noticed his datasets avoid grade-level classification, and you're planning to annotate pseudoarticulation voxels on VerSe L6 cases. Ask whether his group has any prior work on this, whether they'd want to collaborate, and whether there's an annotation convention they'd endorse. Worst case he says no; best case you avoid duplicate work and get a senior co-author.
+
+14. Loop in [collaborator B] on the pseudoarticulation annotation protocol when you have a draft. Neurosurgery perspective on what's clinically meaningful for the joint definition.
+
+**Decisions to defer (don't act on these now):**
+
+15. Multi-task / dual-head architecture, region-based nnU-Net training, full-spine model, cervical/thoracic limited-FOV handling, morphological-vs-positional disagreement detection. All interesting, all later. Park them in a notes file for the follow-up paper.
+
+The critical path: 1 → 2 → 3 → 4 → 5 → 6 → 7 for NeurIPS. Everything else can wait until that's submitted.
+
+What's your NeurIPS deadline?

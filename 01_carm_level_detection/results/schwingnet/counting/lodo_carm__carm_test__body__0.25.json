@@ -1,0 +1,8988 @@
+{
+ "arm": "lodo_carm",
+ "set": "carm_test",
+ "status": "DEVICE-HELD-OUT",
+ "conf": 0.25,
+ "convention": "body",
+ "iou": 0.5,
+ "n_boot": 2000,
+ "seed": 0,
+ "labels": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test",
+ "meta": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/meta",
+ "sources": [
+  {
+   "file": "/rs/rs_grp_oschome/go2432/data/or_ready/lodo/sweeps/lodo_carm__carm_test.json",
+   "frames": 56,
+   "weights": "/wsu/home/go/go24/go2432/spine-detector/runs/realxray/rx_lodo_carmlspine_1024/weights/best.pt",
+   "sweep_conf": 0.01
+  }
+ ],
+ "truth_check": {
+  "frames": 56,
+  "no_label_file": 0,
+  "count_disagrees": 0,
+  "boxes_mismatched": 0,
+  "no_meta_level": 0
+ },
+ "definition": "ordinal from the detected sacrum by rank along the spine axis; truth ordinal likewise from the truth sacrum; one-to-one greedy IoU>=0.5 matching in descending confidence (realxray_eval.sweep_matches); correct = ordinals equal",
+ "pooled": {
+  "frames": 56,
+  "cases": 28,
+  "frames_no_truth_sacrum": 0,
+  "frames_with_truth_sacrum": 56,
+  "frames_defined": 51,
+  "truth_bodies_all_frames": 287,
+  "truth_bodies_sacrum_frames": 287,
+  "truth_bodies_defined": 259,
+  "matched_bodies": 14,
+  "defined_share": {
+   "point": 0.9107142857142857,
+   "n_clusters": 28,
+   "num": 51,
+   "den": 56,
+   "percentile": [
+    0.8392857142857143,
+    0.9642857142857143
+   ],
+   "resamples_used": 2000,
+   "bca": [
+    0.8214285714285714,
+    0.9642857142857143
+   ],
+   "bca_note": "z0=-0.018 a=-0.0529 (ties split; p0=0.493)",
+   "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+  },
+  "anchor_correct_share": {
+   "point": 0.9215686274509803,
+   "n_clusters": 28,
+   "num": 47,
+   "den": 51,
+   "percentile": [
+    0.84,
+    0.9811320754716981
+   ],
+   "resamples_used": 2000,
+   "bca": [
+    0.8210046616226185,
+    0.9803921568627451
+   ],
+   "bca_note": "z0=-0.069 a=-0.0636 (ties split; p0=0.473)",
+   "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+  },
+  "matched_correct": {
+   "point": 0.7857142857142857,
+   "n_clusters": 28,
+   "num": 11,
+   "den": 14,
+   "percentile": [
+    0.4444444444444444,
+    1.0
+   ],
+   "resamples_used": 2000,
+   "bca": [
+    0.36363636363636365,
+    1.0
+   ],
+   "bca_note": "z0=-0.066 a=-0.0868 (ties split; p0=0.474)",
+   "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+  },
+  "matched_within_one": {
+   "point": 1.0,
+   "n_clusters": 28,
+   "num": 14,
+   "den": 14,
+   "percentile": [
+    1.0,
+    1.0
+   ],
+   "resamples_used": 2000,
+   "bca": null,
+   "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+   "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+  },
+  "frames_with_a_match": 9,
+  "frames_defined_with_bodies": 51,
+  "frame_all_matched_correct": {
+   "point": 0.7777777777777778,
+   "n_clusters": 28,
+   "num": 7,
+   "den": 9,
+   "percentile": [
+    0.4444444444444444,
+    1.0
+   ],
+   "resamples_used": 2000,
+   "bca": [
+    0.375,
+    1.0
+   ],
+   "bca_note": "z0=-0.056 a=-0.0742 (ties split; p0=0.478)",
+   "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+  },
+  "frame_exact": {
+   "point": 0.0,
+   "n_clusters": 28,
+   "num": 0,
+   "den": 51,
+   "percentile": [
+    0.0,
+    0.0
+   ],
+   "resamples_used": 2000,
+   "bca": null,
+   "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+   "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+  },
+  "truth_correct_defined": {
+   "point": 0.04247104247104247,
+   "n_clusters": 28,
+   "num": 11,
+   "den": 259,
+   "percentile": [
+    0.015503875968992248,
+    0.07392996108949416
+   ],
+   "resamples_used": 2000,
+   "bca": [
+    0.019157088122605363,
+    0.07975977927798607
+   ],
+   "bca_note": "z0=0.066 a=0.0456 (ties split; p0=0.526)",
+   "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+  },
+  "truth_one_off_defined": {
+   "point": 0.011583011583011582,
+   "n_clusters": 28,
+   "num": 3,
+   "den": 259,
+   "percentile": [
+    0.0,
+    0.0311284046692607
+   ],
+   "resamples_used": 2000,
+   "bca": [
+    0.0,
+    0.04279328087137396
+   ],
+   "bca_note": "z0=0.094 a=0.1212 (ties split; p0=0.537)",
+   "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+  },
+  "truth_off_more_defined": {
+   "point": 0.0,
+   "n_clusters": 28,
+   "num": 0,
+   "den": 259,
+   "percentile": [
+    0.0,
+    0.0
+   ],
+   "resamples_used": 2000,
+   "bca": null,
+   "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+   "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+  },
+  "truth_missed_defined": {
+   "point": 0.9459459459459459,
+   "n_clusters": 28,
+   "num": 245,
+   "den": 259,
+   "percentile": [
+    0.9108527131782945,
+    0.9748334431046711
+   ],
+   "resamples_used": 2000,
+   "bca": [
+    0.9092634250281135,
+    0.973724983549167
+   ],
+   "bca_note": "z0=0.003 a=-0.0327 (ties split; p0=0.501)",
+   "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+  },
+  "truth_recall_defined": {
+   "point": 0.05405405405405406,
+   "n_clusters": 28,
+   "num": 14,
+   "den": 259,
+   "percentile": [
+    0.025166556895328807,
+    0.08914728682170543
+   ],
+   "resamples_used": 2000,
+   "bca": [
+    0.026275016450833025,
+    0.09073657497188627
+   ],
+   "bca_note": "z0=-0.003 a=0.0327 (ties split; p0=0.499)",
+   "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+  },
+  "truth_correct_all_sacrum_frames": {
+   "point": 0.03832752613240418,
+   "n_clusters": 28,
+   "num": 11,
+   "den": 287,
+   "percentile": [
+    0.01384083044982699,
+    0.06761565836298933
+   ],
+   "resamples_used": 2000,
+   "bca": [
+    0.017303602213077335,
+    0.0727134054950476
+   ],
+   "bca_note": "z0=0.080 a=0.0478 (ties split; p0=0.532)",
+   "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+  },
+  "truth_within_one_all_sacrum_frames": {
+   "point": 0.04878048780487805,
+   "n_clusters": 28,
+   "num": 14,
+   "den": 287,
+   "percentile": [
+    0.023333333333333334,
+    0.08014637801223162
+   ],
+   "resamples_used": 2000,
+   "bca": [
+    0.02413793103448276,
+    0.08356313455540458
+   ],
+   "bca_note": "z0=0.008 a=0.0366 (ties split; p0=0.503)",
+   "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+  },
+  "by_truth_ordinal": {
+   "1": {
+    "n": 51,
+    "correct": 4,
+    "one_off": 2,
+    "off_more": 0,
+    "unranked": 0,
+    "missed": 45,
+    "correct_share": 0.0784313725490196
+   },
+   "2": {
+    "n": 51,
+    "correct": 6,
+    "one_off": 1,
+    "off_more": 0,
+    "unranked": 0,
+    "missed": 44,
+    "correct_share": 0.11764705882352941
+   },
+   "3": {
+    "n": 51,
+    "correct": 0,
+    "one_off": 0,
+    "off_more": 0,
+    "unranked": 0,
+    "missed": 51,
+    "correct_share": 0.0
+   },
+   "4": {
+    "n": 51,
+    "correct": 1,
+    "one_off": 0,
+    "off_more": 0,
+    "unranked": 0,
+    "missed": 50,
+    "correct_share": 0.0196078431372549
+   },
+   "5": {
+    "n": 46,
+    "correct": 0,
+    "one_off": 0,
+    "off_more": 0,
+    "unranked": 0,
+    "missed": 46,
+    "correct_share": 0.0
+   },
+   "6": {
+    "n": 9,
+    "correct": 0,
+    "one_off": 0,
+    "off_more": 0,
+    "unranked": 0,
+    "missed": 9,
+    "correct_share": 0.0
+   }
+  },
+  "by_view": {
+   "AP": {
+    "frames": 27,
+    "matched": 14,
+    "correct": 11,
+    "truth": 137,
+    "missed": 123,
+    "matched_correct": 0.7857142857142857,
+    "truth_correct": 0.08029197080291971
+   },
+   "LAT": {
+    "frames": 24,
+    "matched": 0,
+    "correct": 0,
+    "truth": 122,
+    "missed": 122,
+    "matched_correct": null,
+    "truth_correct": 0.0
+   }
+  },
+  "truth_order_name_check": {
+   "named_bodies": 258,
+   "agree": 254,
+   "share": 0.9844961240310077,
+   "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+  },
+  "truth_caudal_bodies": 0,
+  "det_caudal_ignored": 0,
+  "det_unmatched_in_defined_frames": 254
+ },
+ "frames": [
+  {
+   "stem": "case100_AP",
+   "case": "case100",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      393.2,
+      4.2,
+      570.7,
+      79.9
+     ],
+     "proj": 847.3
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      403.1,
+      117.3,
+      580.3,
+      250.4
+     ],
+     "proj": 705.2
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      416.9,
+      296.8,
+      605.0,
+      426.5
+     ],
+     "proj": 526.6
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      421.9,
+      480.5,
+      623.8,
+      605.5
+     ],
+     "proj": 344.9
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      411.0,
+      655.9,
+      638.5,
+      793.0
+     ],
+     "proj": 163.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8093,
+   "anchor_box": [
+    257.6,
+    768.2,
+    844.1,
+    1024.0
+   ],
+   "anchor_iou": 0.853,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8758,
+     "box": [
+      387.8,
+      455.1,
+      673.6,
+      662.5
+     ],
+     "proj": 337.9
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8551,
+     "box": [
+      364.1,
+      0.0,
+      619.6,
+      163.7
+     ],
+     "proj": 816.4
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8435,
+     "box": [
+      382.2,
+      283.4,
+      664.9,
+      507.6
+     ],
+     "proj": 501.3
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8182,
+     "box": [
+      371.8,
+      107.8,
+      646.5,
+      341.4
+     ],
+     "proj": 672.8
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.7809,
+     "box": [
+      353.6,
+      609.3,
+      705.6,
+      831.8
+     ],
+     "proj": 176.5
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case100_AP.txt"
+  },
+  {
+   "stem": "case100_LAT",
+   "case": "case100",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 0,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      423.7,
+      2.8,
+      571.4,
+      78.0
+     ],
+     "proj": 854.6
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      390.9,
+      114.5,
+      550.7,
+      247.1
+     ],
+     "proj": 719.8
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      369.2,
+      301.1,
+      527.7,
+      430.6
+     ],
+     "proj": 540.1
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      370.6,
+      489.1,
+      520.5,
+      621.2
+     ],
+     "proj": 353.3
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      402.6,
+      663.9,
+      547.8,
+      812.4
+     ],
+     "proj": 168.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": false,
+   "why": "sacrum not detected",
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case100_LAT.txt"
+  },
+  {
+   "stem": "case10_AP",
+   "case": "case10",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 6,
+   "n_det_sacrum": 2,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": null,
+     "box": [
+      400.6,
+      9.3,
+      588.7,
+      121.7
+     ],
+     "proj": 841.4
+    },
+    {
+     "ordinal": 6,
+     "level": "L1",
+     "box": [
+      400.2,
+      9.5,
+      587.3,
+      121.1
+     ],
+     "proj": 841.6
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      392.1,
+      170.3,
+      584.7,
+      289.7
+     ],
+     "proj": 676.9
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      375.5,
+      341.3,
+      572.3,
+      459.9
+     ],
+     "proj": 506.1
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      365.9,
+      520.7,
+      570.0,
+      637.8
+     ],
+     "proj": 327.4
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      362.9,
+      694.8,
+      585.3,
+      826.6
+     ],
+     "proj": 146.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 4
+   },
+   "defined": true,
+   "anchor_conf": 0.8648,
+   "anchor_box": [
+    229.4,
+    790.1,
+    766.3,
+    1024.0
+   ],
+   "anchor_iou": 0.837,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8765,
+     "box": [
+      321.2,
+      496.0,
+      613.0,
+      695.4
+     ],
+     "proj": 311.3
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.864,
+     "box": [
+      344.3,
+      324.3,
+      620.1,
+      552.5
+     ],
+     "proj": 468.6
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.843,
+     "box": [
+      299.3,
+      644.3,
+      653.2,
+      849.9
+     ],
+     "proj": 159.9
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8303,
+     "box": [
+      363.3,
+      151.1,
+      619.5,
+      388.8
+     ],
+     "proj": 637.1
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8096,
+     "box": [
+      364.5,
+      0.0,
+      612.7,
+      193.1
+     ],
+     "proj": 810.5
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 6,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case10_AP.txt"
+  },
+  {
+   "stem": "case10_LAT",
+   "case": "case10",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 6,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": null,
+     "box": [
+      553.0,
+      16.2,
+      703.3,
+      136.8
+     ],
+     "proj": 814.7
+    },
+    {
+     "ordinal": 6,
+     "level": "L1",
+     "box": [
+      553.5,
+      15.9,
+      702.5,
+      136.2
+     ],
+     "proj": 815.2
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      521.9,
+      167.2,
+      682.5,
+      295.0
+     ],
+     "proj": 661.3
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      478.8,
+      332.3,
+      644.6,
+      457.8
+     ],
+     "proj": 499.0
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      455.2,
+      514.6,
+      616.3,
+      634.6
+     ],
+     "proj": 320.6
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      473.6,
+      688.2,
+      628.2,
+      827.6
+     ],
+     "proj": 136.9
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 4
+   },
+   "defined": true,
+   "anchor_conf": 0.894,
+   "anchor_box": [
+    610.2,
+    750.6,
+    1014.7,
+    1024.0
+   ],
+   "anchor_iou": 0.552,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8514,
+     "box": [
+      462.6,
+      480.4,
+      816.9,
+      680.5
+     ],
+     "proj": 316.3
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8415,
+     "box": [
+      465.6,
+      310.5,
+      835.8,
+      536.8
+     ],
+     "proj": 472.2
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8286,
+     "box": [
+      509.4,
+      143.6,
+      868.1,
+      374.0
+     ],
+     "proj": 634.6
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8048,
+     "box": [
+      470.2,
+      624.5,
+      811.6,
+      830.5
+     ],
+     "proj": 169.5
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.782,
+     "box": [
+      542.8,
+      0.0,
+      899.5,
+      220.1
+     ],
+     "proj": 781.2
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 6,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case10_LAT.txt"
+  },
+  {
+   "stem": "case112_AP",
+   "case": "case112",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      404.9,
+      1.1,
+      589.4,
+      41.3
+     ],
+     "proj": 840.5
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      417.9,
+      88.3,
+      592.7,
+      216.7
+     ],
+     "proj": 709.1
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      431.5,
+      266.8,
+      617.6,
+      397.9
+     ],
+     "proj": 528.2
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      443.4,
+      441.3,
+      647.0,
+      580.8
+     ],
+     "proj": 348.3
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      448.7,
+      608.0,
+      670.6,
+      761.7
+     ],
+     "proj": 174.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8861,
+   "anchor_box": [
+    321.3,
+    706.5,
+    856.6,
+    1024.0
+   ],
+   "anchor_iou": 0.882,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 3,
+     "conf": 0.881,
+     "box": [
+      410.1,
+      231.9,
+      672.2,
+      439.0
+     ],
+     "proj": 531.9
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8748,
+     "box": [
+      415.0,
+      395.9,
+      694.8,
+      598.5
+     ],
+     "proj": 369.6,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.501
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8571,
+     "box": [
+      382.8,
+      63.9,
+      652.0,
+      287.2
+     ],
+     "proj": 693.4
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.798,
+     "box": [
+      384.3,
+      552.2,
+      749.4,
+      778.6
+     ],
+     "proj": 201.1
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.7586,
+     "box": [
+      390.3,
+      0.0,
+      631.0,
+      131.3
+     ],
+     "proj": 803.4
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 4,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "correct",
+    "missed"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 4,
+   "all_matched_correct": true,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case112_AP.txt"
+  },
+  {
+   "stem": "case112_LAT",
+   "case": "case112",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      530.1,
+      0.7,
+      694.7,
+      39.3
+     ],
+     "proj": 835.0
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      501.2,
+      79.4,
+      667.5,
+      209.3
+     ],
+     "proj": 718.7
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      488.7,
+      262.2,
+      647.4,
+      392.9
+     ],
+     "proj": 542.3
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      502.9,
+      437.6,
+      655.3,
+      578.8
+     ],
+     "proj": 363.1
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      550.4,
+      600.7,
+      705.3,
+      755.2
+     ],
+     "proj": 187.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.9011,
+   "anchor_box": [
+    667.1,
+    703.0,
+    1019.7,
+    1024.0
+   ],
+   "anchor_iou": 0.661,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.869,
+     "box": [
+      549.0,
+      548.5,
+      845.8,
+      762.2
+     ],
+     "proj": 227.1
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8395,
+     "box": [
+      502.9,
+      392.5,
+      865.2,
+      595.3
+     ],
+     "proj": 388.8
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8234,
+     "box": [
+      492.2,
+      231.6,
+      856.6,
+      457.7
+     ],
+     "proj": 537.8
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8217,
+     "box": [
+      544.0,
+      0.0,
+      871.9,
+      145.5
+     ],
+     "proj": 802.0
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8163,
+     "box": [
+      501.8,
+      65.4,
+      873.2,
+      302.8
+     ],
+     "proj": 694.8
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case112_LAT.txt"
+  },
+  {
+   "stem": "case114_AP",
+   "case": "case114",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 6,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      446.1,
+      0.5,
+      618.5,
+      23.6
+     ],
+     "proj": 876.3
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      463.2,
+      59.5,
+      638.4,
+      195.2
+     ],
+     "proj": 759.9
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      472.5,
+      247.3,
+      655.5,
+      378.4
+     ],
+     "proj": 573.9
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      468.6,
+      437.4,
+      664.1,
+      566.0
+     ],
+     "proj": 385.5
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      466.0,
+      619.7,
+      687.5,
+      757.0
+     ],
+     "proj": 198.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8573,
+   "anchor_box": [
+    318.6,
+    749.2,
+    928.8,
+    1024.0
+   ],
+   "anchor_iou": 0.816,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.867,
+     "box": [
+      412.7,
+      402.1,
+      716.2,
+      632.1
+     ],
+     "proj": 372.7
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8537,
+     "box": [
+      410.7,
+      582.4,
+      765.7,
+      787.6
+     ],
+     "proj": 203.6
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8037,
+     "box": [
+      425.4,
+      218.7,
+      696.1,
+      458.9
+     ],
+     "proj": 550.8
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.7254,
+     "box": [
+      429.4,
+      30.4,
+      675.6,
+      262.2
+     ],
+     "proj": 743.4
+    },
+    {
+     "ordinal": 6,
+     "conf": 0.3746,
+     "box": [
+      435.6,
+      0.0,
+      699.2,
+      67.3
+     ],
+     "proj": 854.8
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.3692,
+     "box": [
+      424.8,
+      38.1,
+      689.8,
+      430.2
+     ],
+     "proj": 655.5
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 6,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case114_AP.txt"
+  },
+  {
+   "stem": "case114_LAT",
+   "case": "case114",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      593.7,
+      1.8,
+      739.8,
+      36.6
+     ],
+     "proj": 856.9
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      570.8,
+      69.3,
+      720.1,
+      201.1
+     ],
+     "proj": 742.1
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      535.7,
+      249.9,
+      692.6,
+      378.4
+     ],
+     "proj": 564.9
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      510.9,
+      435.6,
+      664.1,
+      562.4
+     ],
+     "proj": 381.7
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      514.7,
+      616.7,
+      660.8,
+      753.5
+     ],
+     "proj": 195.8
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8997,
+   "anchor_box": [
+    597.1,
+    710.2,
+    992.5,
+    1024.0
+   ],
+   "anchor_iou": 0.602,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8638,
+     "box": [
+      491.9,
+      563.8,
+      794.6,
+      772.6
+     ],
+     "proj": 199.6
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8443,
+     "box": [
+      543.5,
+      42.5,
+      884.3,
+      272.3
+     ],
+     "proj": 710.1
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8424,
+     "box": [
+      473.7,
+      397.4,
+      827.5,
+      614.9
+     ],
+     "proj": 361.6
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8176,
+     "box": [
+      522.8,
+      219.1,
+      858.8,
+      455.2
+     ],
+     "proj": 530.4
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8154,
+     "box": [
+      582.3,
+      0.0,
+      919.6,
+      110.4
+     ],
+     "proj": 812.1
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case114_LAT.txt"
+  },
+  {
+   "stem": "case116_AP",
+   "case": "case116",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 7,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      498.5,
+      6.1,
+      683.6,
+      75.5
+     ],
+     "proj": 822.1
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      497.3,
+      121.4,
+      681.1,
+      241.1
+     ],
+     "proj": 681.8
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      484.1,
+      289.5,
+      675.9,
+      411.8
+     ],
+     "proj": 512.2
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      461.9,
+      452.9,
+      668.1,
+      585.6
+     ],
+     "proj": 343.0
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      440.6,
+      617.6,
+      660.9,
+      757.2
+     ],
+     "proj": 174.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8887,
+   "anchor_box": [
+    284.9,
+    708.1,
+    813.8,
+    1024.0
+   ],
+   "anchor_iou": 0.776,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8867,
+     "box": [
+      429.3,
+      420.0,
+      701.3,
+      611.9
+     ],
+     "proj": 350.4,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.524
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8836,
+     "box": [
+      443.0,
+      250.4,
+      727.0,
+      463.0
+     ],
+     "proj": 510.6
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8624,
+     "box": [
+      394.6,
+      556.5,
+      724.4,
+      771.7
+     ],
+     "proj": 202.2
+    },
+    {
+     "ordinal": 7,
+     "conf": 0.855,
+     "box": [
+      479.0,
+      0.0,
+      720.8,
+      131.8
+     ],
+     "proj": 801.7
+    },
+    {
+     "ordinal": 6,
+     "conf": 0.8485,
+     "box": [
+      466.2,
+      83.8,
+      726.3,
+      302.5
+     ],
+     "proj": 674.5
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.314,
+     "box": [
+      448.9,
+      90.3,
+      729.6,
+      465.6
+     ],
+     "proj": 589.5
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.2859,
+     "box": [
+      434.9,
+      254.7,
+      713.3,
+      618.1
+     ],
+     "proj": 430.3
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 6,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "correct",
+    "missed"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 4,
+   "all_matched_correct": true,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case116_AP.txt"
+  },
+  {
+   "stem": "case116_LAT",
+   "case": "case116",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      518.6,
+      15.1,
+      650.2,
+      98.6
+     ],
+     "proj": 804.2
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      493.0,
+      120.5,
+      632.2,
+      250.5
+     ],
+     "proj": 682.8
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      477.0,
+      283.7,
+      620.9,
+      413.6
+     ],
+     "proj": 526.0
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      483.7,
+      446.3,
+      625.4,
+      582.2
+     ],
+     "proj": 362.8
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      517.8,
+      609.2,
+      667.5,
+      748.9
+     ],
+     "proj": 193.7
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.894,
+   "anchor_box": [
+    616.3,
+    686.4,
+    1010.7,
+    1023.9
+   ],
+   "anchor_iou": 0.614,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8838,
+     "box": [
+      507.7,
+      556.7,
+      805.6,
+      760.2
+     ],
+     "proj": 217.6
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8647,
+     "box": [
+      472.9,
+      405.1,
+      802.7,
+      610.4
+     ],
+     "proj": 369.4
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8587,
+     "box": [
+      469.7,
+      249.6,
+      811.8,
+      465.4
+     ],
+     "proj": 517.6
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8559,
+     "box": [
+      508.0,
+      0.1,
+      838.4,
+      168.5
+     ],
+     "proj": 783.1
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8536,
+     "box": [
+      481.0,
+      93.8,
+      826.6,
+      314.5
+     ],
+     "proj": 667.4
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case116_LAT.txt"
+  },
+  {
+   "stem": "case118_AP",
+   "case": "case118",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 6,
+   "n_det_sacrum": 0,
+   "n_det_bodies": 7,
+   "truth": [
+    {
+     "ordinal": 6,
+     "level": "T12",
+     "box": [
+      325.3,
+      0.2,
+      550.6,
+      23.0
+     ],
+     "proj": 961.7
+    },
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      331.4,
+      47.9,
+      538.9,
+      185.8
+     ],
+     "proj": 856.5
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      317.8,
+      243.5,
+      532.8,
+      379.7
+     ],
+     "proj": 662.1
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      309.3,
+      427.0,
+      534.0,
+      569.9
+     ],
+     "proj": 475.4
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      307.0,
+      629.6,
+      542.3,
+      768.6
+     ],
+     "proj": 274.7
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      310.0,
+      828.7,
+      564.7,
+      969.6
+     ],
+     "proj": 74.4
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 6,
+    "agree": 6
+   },
+   "defined": false,
+   "why": "sacrum not detected",
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case118_AP.txt"
+  },
+  {
+   "stem": "case118_LAT",
+   "case": "case118",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 6,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 6,
+     "level": "T12",
+     "box": [
+      665.8,
+      0.2,
+      770.3,
+      14.4
+     ],
+     "proj": 939.1
+    },
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      580.0,
+      37.7,
+      749.7,
+      182.5
+     ],
+     "proj": 832.1
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      547.0,
+      235.8,
+      728.2,
+      376.8
+     ],
+     "proj": 634.3
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      511.5,
+      421.8,
+      698.7,
+      571.6
+     ],
+     "proj": 441.8
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      481.5,
+      626.0,
+      656.3,
+      782.9
+     ],
+     "proj": 231.7
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      486.6,
+      820.4,
+      643.8,
+      992.8
+     ],
+     "proj": 30.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 6,
+    "agree": 6
+   },
+   "defined": true,
+   "anchor_conf": 0.6324,
+   "anchor_box": [
+    50.9,
+    944.6,
+    525.1,
+    1023.8
+   ],
+   "anchor_iou": 0.0,
+   "anchor_correct": false,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8736,
+     "box": [
+      198.3,
+      800.4,
+      532.9,
+      1005.9
+     ],
+     "proj": 78.5
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8417,
+     "box": [
+      194.3,
+      599.8,
+      530.8,
+      854.5
+     ],
+     "proj": 254.5
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8381,
+     "box": [
+      179.2,
+      416.2,
+      509.8,
+      662.8
+     ],
+     "proj": 442.6
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8025,
+     "box": [
+      142.2,
+      232.8,
+      484.9,
+      483.3
+     ],
+     "proj": 625.0
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.7518,
+     "box": [
+      131.4,
+      50.2,
+      463.4,
+      306.4
+     ],
+     "proj": 805.2
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 6,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case118_LAT.txt"
+  },
+  {
+   "stem": "case11_AP",
+   "case": "case11",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      321.2,
+      0.7,
+      537.3,
+      23.0
+     ],
+     "proj": 868.0
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      327.9,
+      68.3,
+      535.3,
+      195.3
+     ],
+     "proj": 748.1
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      333.4,
+      256.0,
+      551.0,
+      383.3
+     ],
+     "proj": 560.0
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      331.1,
+      450.6,
+      563.0,
+      580.0
+     ],
+     "proj": 364.3
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      326.3,
+      630.1,
+      573.7,
+      774.2
+     ],
+     "proj": 177.4
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8477,
+   "anchor_box": [
+    164.2,
+    740.7,
+    779.2,
+    1024.0
+   ],
+   "anchor_iou": 0.8,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8571,
+     "box": [
+      280.9,
+      399.7,
+      622.3,
+      620.6
+     ],
+     "proj": 372.6
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8486,
+     "box": [
+      293.3,
+      217.9,
+      616.3,
+      457.3
+     ],
+     "proj": 545.0
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8401,
+     "box": [
+      295.4,
+      27.3,
+      586.2,
+      265.5
+     ],
+     "proj": 736.5
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8229,
+     "box": [
+      256.4,
+      570.9,
+      639.3,
+      792.6
+     ],
+     "proj": 201.2
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.4402,
+     "box": [
+      304.2,
+      0.0,
+      575.3,
+      73.8
+     ],
+     "proj": 846.0
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case11_AP.txt"
+  },
+  {
+   "stem": "case11_LAT",
+   "case": "case11",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 6,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      583.5,
+      0.4,
+      716.3,
+      29.9
+     ],
+     "proj": 851.5
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      531.5,
+      57.2,
+      699.0,
+      190.4
+     ],
+     "proj": 746.4
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      500.0,
+      243.3,
+      671.4,
+      374.1
+     ],
+     "proj": 564.9
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      484.1,
+      439.5,
+      645.5,
+      569.0
+     ],
+     "proj": 372.0
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      506.8,
+      620.1,
+      662.3,
+      765.6
+     ],
+     "proj": 182.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8992,
+   "anchor_box": [
+    638.3,
+    724.7,
+    1024.0,
+    1024.0
+   ],
+   "anchor_iou": 0.627,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8694,
+     "box": [
+      499.8,
+      564.4,
+      846.5,
+      781.0
+     ],
+     "proj": 210.8
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8381,
+     "box": [
+      475.8,
+      394.5,
+      845.7,
+      615.6
+     ],
+     "proj": 378.9
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8211,
+     "box": [
+      493.6,
+      216.6,
+      867.0,
+      445.3
+     ],
+     "proj": 551.5
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8123,
+     "box": [
+      542.3,
+      24.7,
+      898.2,
+      267.9
+     ],
+     "proj": 733.4
+    },
+    {
+     "ordinal": 6,
+     "conf": 0.6096,
+     "box": [
+      570.3,
+      0.0,
+      918.5,
+      82.3
+     ],
+     "proj": 836.9
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.3832,
+     "box": [
+      509.5,
+      38.9,
+      886.6,
+      432.6
+     ],
+     "proj": 645.5
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 6,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case11_LAT.txt"
+  },
+  {
+   "stem": "case122_AP",
+   "case": "case122",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 4,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 4,
+   "truth": [
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      406.9,
+      2.0,
+      624.1,
+      66.0
+     ],
+     "proj": 808.1
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      404.8,
+      124.2,
+      624.0,
+      265.0
+     ],
+     "proj": 647.5
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      402.4,
+      331.5,
+      637.1,
+      468.7
+     ],
+     "proj": 441.9
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      392.3,
+      533.7,
+      650.5,
+      678.0
+     ],
+     "proj": 236.2
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 4,
+    "agree": 4
+   },
+   "defined": true,
+   "anchor_conf": 0.8948,
+   "anchor_box": [
+    254.0,
+    659.9,
+    800.5,
+    1024.0
+   ],
+   "anchor_iou": 0.884,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 4,
+     "conf": 0.8857,
+     "box": [
+      403.6,
+      0.3,
+      640.4,
+      129.1
+     ],
+     "proj": 777.3
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8661,
+     "box": [
+      381.3,
+      309.9,
+      683.6,
+      504.7
+     ],
+     "proj": 434.6,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.547
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8324,
+     "box": [
+      360.4,
+      490.3,
+      710.9,
+      693.6
+     ],
+     "proj": 249.9,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.523
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.718,
+     "box": [
+      384.5,
+      104.2,
+      667.1,
+      343.5
+     ],
+     "proj": 618.1
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 2,
+   "per_truth": [
+    "missed",
+    "missed",
+    "correct",
+    "correct"
+   ],
+   "n_matched": 2,
+   "n_correct": 2,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 2,
+   "all_matched_correct": true,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case122_AP.txt"
+  },
+  {
+   "stem": "case122_LAT",
+   "case": "case122",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 4,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 9,
+   "truth": [
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      535.5,
+      3.6,
+      704.9,
+      81.9
+     ],
+     "proj": 780.3
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      509.7,
+      119.1,
+      685.1,
+      261.5
+     ],
+     "proj": 637.0
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      486.7,
+      324.2,
+      657.7,
+      458.7
+     ],
+     "proj": 440.9
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      490.1,
+      523.2,
+      654.5,
+      666.3
+     ],
+     "proj": 239.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 4,
+    "agree": 4
+   },
+   "defined": true,
+   "anchor_conf": 0.8394,
+   "anchor_box": [
+    580.4,
+    667.4,
+    979.0,
+    1021.0
+   ],
+   "anchor_iou": 0.625,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7797,
+     "box": [
+      489.4,
+      482.3,
+      817.0,
+      709.7
+     ],
+     "proj": 256.6
+    },
+    {
+     "ordinal": 8,
+     "conf": 0.7526,
+     "box": [
+      499.8,
+      10.6,
+      827.7,
+      326.1
+     ],
+     "proj": 682.4
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.7095,
+     "box": [
+      468.9,
+      297.7,
+      838.7,
+      536.9
+     ],
+     "proj": 434.8
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.7061,
+     "box": [
+      503.7,
+      120.3,
+      841.8,
+      352.4
+     ],
+     "proj": 614.0
+    },
+    {
+     "ordinal": 7,
+     "conf": 0.5939,
+     "box": [
+      548.3,
+      4.7,
+      909.9,
+      326.3
+     ],
+     "proj": 680.6
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.5191,
+     "box": [
+      490.6,
+      143.0,
+      806.6,
+      509.0
+     ],
+     "proj": 526.3
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.3965,
+     "box": [
+      480.1,
+      316.8,
+      792.5,
+      707.4
+     ],
+     "proj": 341.5
+    },
+    {
+     "ordinal": 9,
+     "conf": 0.3594,
+     "box": [
+      510.8,
+      0.0,
+      888.4,
+      200.3
+     ],
+     "proj": 747.9
+    },
+    {
+     "ordinal": 6,
+     "conf": 0.2608,
+     "box": [
+      489.3,
+      19.9,
+      747.4,
+      333.5
+     ],
+     "proj": 677.4
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 9,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 4,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case122_LAT.txt"
+  },
+  {
+   "stem": "case125_AP",
+   "case": "case125",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      351.9,
+      2.0,
+      550.3,
+      50.2
+     ],
+     "proj": 870.1
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      369.5,
+      97.4,
+      563.3,
+      235.3
+     ],
+     "proj": 729.0
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      384.1,
+      294.8,
+      584.7,
+      431.4
+     ],
+     "proj": 531.5
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      390.3,
+      489.6,
+      603.0,
+      634.5
+     ],
+     "proj": 332.3
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      401.6,
+      665.3,
+      630.7,
+      820.9
+     ],
+     "proj": 150.2
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8835,
+   "anchor_box": [
+    273.6,
+    756.1,
+    843.2,
+    1024.0
+   ],
+   "anchor_iou": 0.795,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8658,
+     "box": [
+      355.7,
+      447.6,
+      665.9,
+      666.7
+     ],
+     "proj": 336.1
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8605,
+     "box": [
+      349.1,
+      260.9,
+      646.5,
+      510.2
+     ],
+     "proj": 508.1
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8261,
+     "box": [
+      341.5,
+      65.5,
+      617.5,
+      316.0
+     ],
+     "proj": 703.7
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8195,
+     "box": [
+      340.2,
+      609.3,
+      714.2,
+      829.7
+     ],
+     "proj": 172.9
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8184,
+     "box": [
+      342.7,
+      0.0,
+      584.8,
+      120.7
+     ],
+     "proj": 835.1
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case125_AP.txt"
+  },
+  {
+   "stem": "case125_LAT",
+   "case": "case125",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      540.9,
+      1.6,
+      701.6,
+      46.7
+     ],
+     "proj": 861.0
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      517.9,
+      93.4,
+      680.5,
+      227.3
+     ],
+     "proj": 730.9
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      494.6,
+      290.6,
+      655.6,
+      424.1
+     ],
+     "proj": 541.2
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      498.6,
+      485.0,
+      654.8,
+      629.5
+     ],
+     "proj": 344.1
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      554.4,
+      658.4,
+      702.7,
+      813.1
+     ],
+     "proj": 159.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.9057,
+   "anchor_box": [
+    639.3,
+    728.4,
+    1024.0,
+    1024.0
+   ],
+   "anchor_iou": 0.594,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8637,
+     "box": [
+      486.6,
+      436.4,
+      826.9,
+      649.9
+     ],
+     "proj": 349.8
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8556,
+     "box": [
+      534.7,
+      592.7,
+      838.4,
+      814.8
+     ],
+     "proj": 187.0
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8209,
+     "box": [
+      545.9,
+      0.1,
+      880.2,
+      125.0
+     ],
+     "proj": 821.7
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8186,
+     "box": [
+      483.7,
+      252.0,
+      845.4,
+      503.0
+     ],
+     "proj": 513.7
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.7906,
+     "box": [
+      496.4,
+      62.7,
+      874.1,
+      316.9
+     ],
+     "proj": 698.1
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case125_LAT.txt"
+  },
+  {
+   "stem": "case132_AP",
+   "case": "case132",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 6,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 7,
+   "truth": [
+    {
+     "ordinal": 6,
+     "level": "T12",
+     "box": [
+      359.5,
+      5.9,
+      552.7,
+      32.7
+     ],
+     "proj": 908.4
+    },
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      363.0,
+      71.1,
+      546.7,
+      184.7
+     ],
+     "proj": 800.0
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      359.5,
+      237.4,
+      550.5,
+      356.2
+     ],
+     "proj": 631.4
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      359.4,
+      414.2,
+      561.0,
+      536.0
+     ],
+     "proj": 453.1
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      360.5,
+      590.5,
+      576.2,
+      726.5
+     ],
+     "proj": 269.5
+    },
+    {
+     "ordinal": 1,
+     "level": null,
+     "box": [
+      285.5,
+      721.3,
+      701.3,
+      908.7
+     ],
+     "proj": 111.9
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.7797,
+   "anchor_box": [
+    235.6,
+    842.2,
+    798.5,
+    1023.9
+   ],
+   "anchor_iou": 0.882,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 3,
+     "conf": 0.8804,
+     "box": [
+      329.9,
+      384.1,
+      611.0,
+      604.5
+     ],
+     "proj": 440.5
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8795,
+     "box": [
+      328.4,
+      551.4,
+      631.6,
+      748.6
+     ],
+     "proj": 284.5
+    },
+    {
+     "ordinal": 6,
+     "conf": 0.8604,
+     "box": [
+      343.4,
+      44.0,
+      592.8,
+      266.3
+     ],
+     "proj": 779.4
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8022,
+     "box": [
+      332.7,
+      209.7,
+      591.2,
+      441.2
+     ],
+     "proj": 609.6
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.7528,
+     "box": [
+      308.3,
+      686.1,
+      671.0,
+      909.5
+     ],
+     "proj": 136.4,
+     "truth_ordinal": 1,
+     "truth_level": null,
+     "iou": 0.747
+    },
+    {
+     "ordinal": 7,
+     "conf": 0.7154,
+     "box": [
+      343.3,
+      0.0,
+      599.5,
+      110.2
+     ],
+     "proj": 879.1
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.3421,
+     "box": [
+      333.1,
+      44.6,
+      591.7,
+      431.1
+     ],
+     "proj": 697.0
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 6,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": true,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case132_AP.txt"
+  },
+  {
+   "stem": "case132_LAT",
+   "case": "case132",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 6,
+   "n_det_sacrum": 0,
+   "n_det_bodies": 6,
+   "truth": [
+    {
+     "ordinal": 6,
+     "level": "T12",
+     "box": [
+      487.9,
+      0.5,
+      644.9,
+      35.8
+     ],
+     "proj": 906.0
+    },
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      456.8,
+      51.4,
+      616.1,
+      178.6
+     ],
+     "proj": 813.6
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      418.1,
+      217.4,
+      589.0,
+      344.9
+     ],
+     "proj": 652.7
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      392.6,
+      402.6,
+      564.0,
+      526.8
+     ],
+     "proj": 473.7
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      402.5,
+      583.6,
+      561.4,
+      724.1
+     ],
+     "proj": 285.5
+    },
+    {
+     "ordinal": 1,
+     "level": null,
+     "box": [
+      473.9,
+      713.4,
+      749.7,
+      906.4
+     ],
+     "proj": 114.7
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": false,
+   "why": "sacrum not detected",
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case132_LAT.txt"
+  },
+  {
+   "stem": "case133_AP",
+   "case": "case133",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 6,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 6,
+   "truth": [
+    {
+     "ordinal": 6,
+     "level": null,
+     "box": [
+      322.4,
+      35.2,
+      509.7,
+      162.5
+     ],
+     "proj": 766.6
+    },
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      324.4,
+      34.8,
+      509.6,
+      163.0
+     ],
+     "proj": 766.5
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      327.8,
+      201.9,
+      517.8,
+      333.3
+     ],
+     "proj": 597.9
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      334.6,
+      384.8,
+      530.1,
+      510.9
+     ],
+     "proj": 417.5
+    },
+    {
+     "ordinal": 1,
+     "level": "L4",
+     "box": [
+      351.1,
+      565.6,
+      551.7,
+      698.3
+     ],
+     "proj": 232.4
+    },
+    {
+     "ordinal": 2,
+     "level": null,
+     "box": [
+      350.5,
+      565.5,
+      550.9,
+      697.8
+     ],
+     "proj": 232.8
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 4,
+    "agree": 3
+   },
+   "defined": true,
+   "anchor_conf": 0.8513,
+   "anchor_box": [
+    237.8,
+    826.7,
+    747.1,
+    1024.0
+   ],
+   "anchor_iou": 0.564,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8867,
+     "box": [
+      325.8,
+      547.1,
+      575.9,
+      716.9
+     ],
+     "proj": 295.7,
+     "truth_ordinal": 1,
+     "truth_level": "L4",
+     "iou": 0.627
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8345,
+     "box": [
+      313.6,
+      388.1,
+      575.1,
+      569.5
+     ],
+     "proj": 448.9
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.7979,
+     "box": [
+      318.3,
+      695.5,
+      632.7,
+      878.0
+     ],
+     "proj": 139.5
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.7762,
+     "box": [
+      313.8,
+      207.2,
+      554.5,
+      413.3
+     ],
+     "proj": 617.8
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.646,
+     "box": [
+      316.6,
+      19.3,
+      549.6,
+      402.5
+     ],
+     "proj": 716.9
+    },
+    {
+     "ordinal": 6,
+     "conf": 0.2892,
+     "box": [
+      321.0,
+      110.7,
+      542.9,
+      253.3
+     ],
+     "proj": 745.8
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "one_off",
+    "missed"
+   ],
+   "n_matched": 1,
+   "n_correct": 0,
+   "n_one_off": 1,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case133_AP.txt"
+  },
+  {
+   "stem": "case133_LAT",
+   "case": "case133",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 6,
+   "n_det_sacrum": 0,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 6,
+     "level": null,
+     "box": [
+      427.0,
+      6.5,
+      590.6,
+      144.1
+     ],
+     "proj": 781.6
+    },
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      429.2,
+      7.2,
+      591.7,
+      144.1
+     ],
+     "proj": 781.2
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      370.7,
+      170.9,
+      540.7,
+      316.8
+     ],
+     "proj": 612.0
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      329.5,
+      367.2,
+      491.0,
+      498.8
+     ],
+     "proj": 421.9
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      323.3,
+      562.4,
+      470.8,
+      703.2
+     ],
+     "proj": 221.9
+    },
+    {
+     "ordinal": 1,
+     "level": null,
+     "box": [
+      323.1,
+      562.9,
+      470.1,
+      702.7
+     ],
+     "proj": 221.9
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 4,
+    "agree": 4
+   },
+   "defined": false,
+   "why": "sacrum not detected",
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case133_LAT.txt"
+  },
+  {
+   "stem": "case135_AP",
+   "case": "case135",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 6,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      455.9,
+      4.6,
+      664.5,
+      28.0
+     ],
+     "proj": 857.4
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      469.1,
+      69.6,
+      655.4,
+      192.4
+     ],
+     "proj": 742.8
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      475.1,
+      248.7,
+      669.6,
+      374.1
+     ],
+     "proj": 562.1
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      477.7,
+      431.9,
+      687.4,
+      570.4
+     ],
+     "proj": 372.0
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      467.4,
+      605.7,
+      705.3,
+      756.4
+     ],
+     "proj": 192.2
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.7326,
+   "anchor_box": [
+    316.5,
+    723.8,
+    921.6,
+    1024.0
+   ],
+   "anchor_iou": 0.867,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.866,
+     "box": [
+      442.3,
+      393.1,
+      750.5,
+      606.6
+     ],
+     "proj": 374.6
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8579,
+     "box": [
+      450.2,
+      38.5,
+      722.7,
+      253.7
+     ],
+     "proj": 728.5
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8403,
+     "box": [
+      452.6,
+      211.4,
+      732.3,
+      441.9
+     ],
+     "proj": 547.8
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8148,
+     "box": [
+      420.1,
+      551.6,
+      790.0,
+      779.9
+     ],
+     "proj": 208.5
+    },
+    {
+     "ordinal": 6,
+     "conf": 0.6051,
+     "box": [
+      460.4,
+      0.0,
+      736.9,
+      91.7
+     ],
+     "proj": 828.3
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.3274,
+     "box": [
+      451.1,
+      33.5,
+      723.7,
+      428.0
+     ],
+     "proj": 643.8
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 6,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case135_AP.txt"
+  },
+  {
+   "stem": "case135_LAT",
+   "case": "case135",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      507.2,
+      17.6,
+      634.8,
+      40.3
+     ],
+     "proj": 820.1
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      454.2,
+      73.1,
+      607.9,
+      193.6
+     ],
+     "proj": 722.7
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      427.7,
+      243.8,
+      583.4,
+      370.1
+     ],
+     "proj": 554.7
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      424.5,
+      422.1,
+      574.3,
+      559.0
+     ],
+     "proj": 374.0
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      454.9,
+      587.8,
+      609.3,
+      737.8
+     ],
+     "proj": 198.8
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8264,
+   "anchor_box": [
+    558.7,
+    696.6,
+    993.7,
+    1024.0
+   ],
+   "anchor_iou": 0.509,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8602,
+     "box": [
+      451.3,
+      534.4,
+      778.8,
+      761.9
+     ],
+     "proj": 230.6
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8381,
+     "box": [
+      414.0,
+      379.8,
+      784.7,
+      606.5
+     ],
+     "proj": 386.4
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8145,
+     "box": [
+      409.5,
+      201.6,
+      801.6,
+      447.9
+     ],
+     "proj": 552.7
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.7975,
+     "box": [
+      444.3,
+      33.4,
+      822.0,
+      286.2
+     ],
+     "proj": 712.9
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.2874,
+     "box": [
+      474.6,
+      0.1,
+      806.2,
+      114.1
+     ],
+     "proj": 813.9
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case135_LAT.txt"
+  },
+  {
+   "stem": "case136_AP",
+   "case": "case136",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 6,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 8,
+   "truth": [
+    {
+     "ordinal": 6,
+     "level": null,
+     "box": [
+      406.1,
+      18.7,
+      587.9,
+      143.7
+     ],
+     "proj": 832.8
+    },
+    {
+     "ordinal": 5,
+     "level": null,
+     "box": [
+      407.4,
+      19.1,
+      586.2,
+      144.9
+     ],
+     "proj": 832.1
+    },
+    {
+     "ordinal": 4,
+     "level": null,
+     "box": [
+      404.6,
+      200.2,
+      593.8,
+      322.1
+     ],
+     "proj": 652.9
+    },
+    {
+     "ordinal": 3,
+     "level": null,
+     "box": [
+      405.7,
+      382.0,
+      602.6,
+      503.7
+     ],
+     "proj": 471.2
+    },
+    {
+     "ordinal": 2,
+     "level": null,
+     "box": [
+      405.0,
+      558.1,
+      615.4,
+      692.7
+     ],
+     "proj": 288.5
+    },
+    {
+     "ordinal": 1,
+     "level": null,
+     "box": [
+      394.8,
+      717.2,
+      640.9,
+      865.3
+     ],
+     "proj": 122.5
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.8353,
+   "anchor_box": [
+    293.6,
+    806.5,
+    812.8,
+    1024.0
+   ],
+   "anchor_iou": 0.881,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8772,
+     "box": [
+      374.0,
+      519.2,
+      664.8,
+      714.2
+     ],
+     "proj": 299.8
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8725,
+     "box": [
+      372.6,
+      354.1,
+      660.2,
+      567.2
+     ],
+     "proj": 455.8
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8397,
+     "box": [
+      374.7,
+      178.5,
+      653.5,
+      404.4
+     ],
+     "proj": 624.9
+    },
+    {
+     "ordinal": 7,
+     "conf": 0.7845,
+     "box": [
+      387.7,
+      13.3,
+      636.1,
+      224.2
+     ],
+     "proj": 797.6
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.774,
+     "box": [
+      376.4,
+      667.8,
+      718.8,
+      886.5
+     ],
+     "proj": 138.2
+    },
+    {
+     "ordinal": 6,
+     "conf": 0.4905,
+     "box": [
+      383.0,
+      14.8,
+      643.6,
+      391.3
+     ],
+     "proj": 713.3
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.348,
+     "box": [
+      363.1,
+      186.6,
+      652.2,
+      562.2
+     ],
+     "proj": 542.4
+    },
+    {
+     "ordinal": 8,
+     "conf": 0.266,
+     "box": [
+      402.0,
+      0.0,
+      627.3,
+      75.3
+     ],
+     "proj": 878.4
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 8,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 6,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case136_AP.txt"
+  },
+  {
+   "stem": "case136_LAT",
+   "case": "case136",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 6,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 6,
+     "level": null,
+     "box": [
+      451.2,
+      23.6,
+      605.0,
+      149.5
+     ],
+     "proj": 818.8
+    },
+    {
+     "ordinal": 5,
+     "level": null,
+     "box": [
+      451.3,
+      23.9,
+      604.7,
+      150.3
+     ],
+     "proj": 818.3
+    },
+    {
+     "ordinal": 4,
+     "level": null,
+     "box": [
+      431.6,
+      204.4,
+      585.1,
+      326.0
+     ],
+     "proj": 646.9
+    },
+    {
+     "ordinal": 3,
+     "level": null,
+     "box": [
+      419.3,
+      384.1,
+      569.5,
+      508.4
+     ],
+     "proj": 471.5
+    },
+    {
+     "ordinal": 2,
+     "level": null,
+     "box": [
+      436.6,
+      556.0,
+      586.7,
+      699.5
+     ],
+     "proj": 289.9
+    },
+    {
+     "ordinal": 1,
+     "level": null,
+     "box": [
+      503.8,
+      704.9,
+      649.2,
+      858.0
+     ],
+     "proj": 126.9
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.79,
+   "anchor_box": [
+    570.7,
+    778.4,
+    1020.6,
+    1023.9
+   ],
+   "anchor_iou": 0.498,
+   "anchor_correct": false,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8763,
+     "box": [
+      428.7,
+      511.4,
+      769.7,
+      714.4
+     ],
+     "proj": 317.3
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8358,
+     "box": [
+      415.0,
+      346.1,
+      768.6,
+      562.3
+     ],
+     "proj": 475.0
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8268,
+     "box": [
+      499.4,
+      652.5,
+      774.4,
+      864.1
+     ],
+     "proj": 167.6
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8176,
+     "box": [
+      422.3,
+      171.6,
+      789.8,
+      403.5
+     ],
+     "proj": 636.8
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.733,
+     "box": [
+      446.2,
+      2.2,
+      809.6,
+      235.9
+     ],
+     "proj": 799.2
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 6,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case136_LAT.txt"
+  },
+  {
+   "stem": "case139_AP",
+   "case": "case139",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 7,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      418.9,
+      1.8,
+      599.5,
+      33.4
+     ],
+     "proj": 832.7
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      423.5,
+      71.3,
+      598.6,
+      189.2
+     ],
+     "proj": 720.1
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      432.3,
+      237.4,
+      607.9,
+      353.6
+     ],
+     "proj": 554.6
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      442.1,
+      407.9,
+      625.4,
+      533.2
+     ],
+     "proj": 379.1
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      446.6,
+      575.9,
+      645.4,
+      715.9
+     ],
+     "proj": 203.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8904,
+   "anchor_box": [
+    291.7,
+    734.1,
+    837.6,
+    1024.0
+   ],
+   "anchor_iou": 0.727,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 3,
+     "conf": 0.891,
+     "box": [
+      395.5,
+      381.3,
+      681.1,
+      579.2
+     ],
+     "proj": 399.6
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.878,
+     "box": [
+      395.9,
+      213.6,
+      672.3,
+      435.4
+     ],
+     "proj": 555.4
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8532,
+     "box": [
+      389.7,
+      522.2,
+      704.2,
+      723.7
+     ],
+     "proj": 256.6
+    },
+    {
+     "ordinal": 6,
+     "conf": 0.8433,
+     "box": [
+      396.3,
+      50.3,
+      653.8,
+      265.6
+     ],
+     "proj": 722.1
+    },
+    {
+     "ordinal": 7,
+     "conf": 0.8061,
+     "box": [
+      411.3,
+      0.0,
+      642.7,
+      108.9
+     ],
+     "proj": 825.5
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.7457,
+     "box": [
+      352.1,
+      643.1,
+      748.5,
+      881.4
+     ],
+     "proj": 117.3
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.3874,
+     "box": [
+      392.9,
+      44.3,
+      670.3,
+      424.7
+     ],
+     "proj": 645.4
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 7,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case139_AP.txt"
+  },
+  {
+   "stem": "case139_LAT",
+   "case": "case139",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      456.2,
+      1.1,
+      596.6,
+      41.8
+     ],
+     "proj": 835.9
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      434.4,
+      66.5,
+      570.7,
+      188.9
+     ],
+     "proj": 737.3
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      408.0,
+      237.4,
+      545.1,
+      355.9
+     ],
+     "proj": 577.9
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      403.8,
+      413.2,
+      539.5,
+      542.0
+     ],
+     "proj": 402.3
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      443.6,
+      579.9,
+      582.9,
+      725.5
+     ],
+     "proj": 222.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8529,
+   "anchor_box": [
+    604.6,
+    665.4,
+    1018.0,
+    1023.7
+   ],
+   "anchor_iou": 0.609,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8673,
+     "box": [
+      441.4,
+      513.9,
+      767.8,
+      719.5
+     ],
+     "proj": 264.9
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8494,
+     "box": [
+      401.7,
+      366.3,
+      756.3,
+      572.1
+     ],
+     "proj": 414.5
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.839,
+     "box": [
+      432.9,
+      45.2,
+      769.5,
+      279.3
+     ],
+     "proj": 710.7
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8357,
+     "box": [
+      408.8,
+      206.8,
+      761.3,
+      429.6
+     ],
+     "proj": 561.2
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.7986,
+     "box": [
+      469.1,
+      0.0,
+      783.5,
+      129.9
+     ],
+     "proj": 800.9
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case139_LAT.txt"
+  },
+  {
+   "stem": "case23_AP",
+   "case": "case23",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": null,
+     "box": [
+      370.4,
+      26.6,
+      548.2,
+      141.1
+     ],
+     "proj": 708.3
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      370.0,
+      26.7,
+      548.1,
+      142.2
+     ],
+     "proj": 707.7
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      378.1,
+      191.3,
+      564.9,
+      311.7
+     ],
+     "proj": 540.2
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      387.3,
+      356.7,
+      584.5,
+      485.6
+     ],
+     "proj": 369.9
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      391.6,
+      507.8,
+      613.0,
+      650.6
+     ],
+     "proj": 211.1
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 4,
+    "agree": 4
+   },
+   "defined": true,
+   "anchor_conf": 0.899,
+   "anchor_box": [
+    258.5,
+    586.1,
+    794.1,
+    1022.3
+   ],
+   "anchor_iou": 0.755,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 3,
+     "conf": 0.8849,
+     "box": [
+      350.8,
+      160.8,
+      621.4,
+      369.7
+     ],
+     "proj": 540.4
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8734,
+     "box": [
+      358.3,
+      314.4,
+      637.8,
+      512.6
+     ],
+     "proj": 391.7
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8383,
+     "box": [
+      350.0,
+      1.7,
+      603.4,
+      215.5
+     ],
+     "proj": 697.4
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8253,
+     "box": [
+      333.3,
+      449.1,
+      682.1,
+      656.5
+     ],
+     "proj": 252.1
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.3151,
+     "box": [
+      349.6,
+      0.0,
+      601.5,
+      56.6
+     ],
+     "proj": 777.6
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case23_AP.txt"
+  },
+  {
+   "stem": "case23_LAT",
+   "case": "case23",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 4,
+   "truth": [
+    {
+     "ordinal": 4,
+     "level": null,
+     "box": [
+      439.6,
+      8.4,
+      599.1,
+      126.8
+     ],
+     "proj": 741.3
+    },
+    {
+     "ordinal": 5,
+     "level": "L2",
+     "box": [
+      440.3,
+      8.3,
+      599.0,
+      126.4
+     ],
+     "proj": 741.4
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      417.6,
+      178.1,
+      571.7,
+      297.0
+     ],
+     "proj": 585.9
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      420.7,
+      349.7,
+      569.5,
+      477.4
+     ],
+     "proj": 417.4
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      470.7,
+      503.1,
+      610.1,
+      646.8
+     ],
+     "proj": 249.8
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 4,
+    "agree": 3
+   },
+   "defined": true,
+   "anchor_conf": 0.8204,
+   "anchor_box": [
+    579.9,
+    561.4,
+    999.5,
+    993.8
+   ],
+   "anchor_iou": 0.747,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8643,
+     "box": [
+      458.3,
+      436.6,
+      762.5,
+      648.4
+     ],
+     "proj": 274.4
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8617,
+     "box": [
+      410.3,
+      300.8,
+      757.6,
+      504.4
+     ],
+     "proj": 416.3
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8391,
+     "box": [
+      412.2,
+      142.1,
+      752.1,
+      373.2
+     ],
+     "proj": 556.5
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8366,
+     "box": [
+      435.5,
+      0.0,
+      774.2,
+      210.4
+     ],
+     "proj": 697.3
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 4,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case23_LAT.txt"
+  },
+  {
+   "stem": "case25_AP",
+   "case": "case25",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      488.0,
+      1.3,
+      706.3,
+      35.3
+     ],
+     "proj": 870.1
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      495.0,
+      88.7,
+      704.8,
+      211.5
+     ],
+     "proj": 738.3
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      489.0,
+      279.7,
+      704.5,
+      399.8
+     ],
+     "proj": 548.6
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      484.1,
+      469.7,
+      703.9,
+      597.1
+     ],
+     "proj": 355.0
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      473.5,
+      653.3,
+      712.8,
+      794.3
+     ],
+     "proj": 164.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8846,
+   "anchor_box": [
+    317.2,
+    737.3,
+    918.1,
+    1024.0
+   ],
+   "anchor_iou": 0.834,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.869,
+     "box": [
+      445.2,
+      424.2,
+      762.7,
+      645.5
+     ],
+     "proj": 345.9
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8608,
+     "box": [
+      456.0,
+      245.1,
+      742.3,
+      482.3
+     ],
+     "proj": 517.1
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8553,
+     "box": [
+      415.7,
+      589.1,
+      784.6,
+      810.1
+     ],
+     "proj": 181.3
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8142,
+     "box": [
+      460.3,
+      54.0,
+      749.3,
+      304.8
+     ],
+     "proj": 701.4
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.7578,
+     "box": [
+      466.5,
+      0.0,
+      736.3,
+      127.7
+     ],
+     "proj": 816.9
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case25_AP.txt"
+  },
+  {
+   "stem": "case25_LAT",
+   "case": "case25",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      519.0,
+      21.9,
+      667.6,
+      59.0
+     ],
+     "proj": 819.2
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      470.1,
+      96.3,
+      640.2,
+      218.8
+     ],
+     "proj": 704.9
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      431.8,
+      277.5,
+      604.7,
+      395.4
+     ],
+     "proj": 528.9
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      417.1,
+      459.9,
+      576.4,
+      585.9
+     ],
+     "proj": 344.3
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      438.9,
+      630.0,
+      590.8,
+      774.0
+     ],
+     "proj": 164.4
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.858,
+   "anchor_box": [
+    567.2,
+    737.3,
+    978.5,
+    1024.0
+   ],
+   "anchor_iou": 0.545,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8625,
+     "box": [
+      436.3,
+      583.2,
+      766.1,
+      790.9
+     ],
+     "proj": 200.5
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8377,
+     "box": [
+      522.1,
+      0.0,
+      871.3,
+      142.7
+     ],
+     "proj": 811.8
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8066,
+     "box": [
+      407.5,
+      425.9,
+      767.6,
+      618.5
+     ],
+     "proj": 365.8
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8061,
+     "box": [
+      468.3,
+      74.8,
+      857.8,
+      315.3
+     ],
+     "proj": 689.5
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8018,
+     "box": [
+      429.0,
+      252.2,
+      813.6,
+      475.3
+     ],
+     "proj": 522.7
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case25_LAT.txt"
+  },
+  {
+   "stem": "case32_AP",
+   "case": "case32",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      534.4,
+      0.3,
+      730.4,
+      14.9
+     ],
+     "proj": 844.2
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      548.3,
+      56.5,
+      734.7,
+      176.1
+     ],
+     "proj": 735.5
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      553.2,
+      232.6,
+      746.4,
+      348.6
+     ],
+     "proj": 561.3
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      547.2,
+      406.5,
+      747.3,
+      527.4
+     ],
+     "proj": 384.9
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      526.0,
+      572.0,
+      748.6,
+      706.7
+     ],
+     "proj": 212.5
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8986,
+   "anchor_box": [
+    369.1,
+    674.2,
+    894.8,
+    1021.5
+   ],
+   "anchor_iou": 0.764,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.877,
+     "box": [
+      501.7,
+      365.5,
+      806.2,
+      568.1
+     ],
+     "proj": 381.6
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8685,
+     "box": [
+      513.8,
+      197.3,
+      802.6,
+      415.8
+     ],
+     "proj": 541.9
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8633,
+     "box": [
+      520.1,
+      19.8,
+      800.1,
+      244.7
+     ],
+     "proj": 716.2
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8085,
+     "box": [
+      462.4,
+      512.9,
+      825.7,
+      738.0
+     ],
+     "proj": 222.7
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.3999,
+     "box": [
+      540.4,
+      0.0,
+      788.3,
+      69.1
+     ],
+     "proj": 813.9
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case32_AP.txt"
+  },
+  {
+   "stem": "case32_LAT",
+   "case": "case32",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      597.2,
+      8.3,
+      710.0,
+      45.7
+     ],
+     "proj": 810.2
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      535.7,
+      69.3,
+      680.9,
+      189.4
+     ],
+     "proj": 712.9
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      502.9,
+      238.6,
+      650.0,
+      355.0
+     ],
+     "proj": 549.4
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      494.7,
+      408.4,
+      634.9,
+      528.9
+     ],
+     "proj": 379.6
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      520.0,
+      571.8,
+      658.7,
+      704.9
+     ],
+     "proj": 208.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8821,
+   "anchor_box": [
+    614.1,
+    681.8,
+    989.7,
+    1020.7
+   ],
+   "anchor_iou": 0.635,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8737,
+     "box": [
+      515.5,
+      530.4,
+      771.4,
+      707.6
+     ],
+     "proj": 242.3
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.864,
+     "box": [
+      504.7,
+      215.5,
+      824.6,
+      414.7
+     ],
+     "proj": 544.1
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8582,
+     "box": [
+      491.7,
+      372.8,
+      808.1,
+      552.5
+     ],
+     "proj": 397.8
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.858,
+     "box": [
+      526.9,
+      58.0,
+      853.5,
+      259.0
+     ],
+     "proj": 698.6
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8233,
+     "box": [
+      562.0,
+      0.0,
+      882.0,
+      101.1
+     ],
+     "proj": 804.2
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case32_LAT.txt"
+  },
+  {
+   "stem": "case37_AP",
+   "case": "case37",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      417.5,
+      8.1,
+      612.5,
+      69.6
+     ],
+     "proj": 852.3
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      429.8,
+      108.5,
+      616.9,
+      243.5
+     ],
+     "proj": 715.0
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      438.8,
+      287.4,
+      633.7,
+      425.0
+     ],
+     "proj": 534.4
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      450.8,
+      475.7,
+      652.2,
+      608.6
+     ],
+     "proj": 347.8
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      460.7,
+      656.5,
+      675.5,
+      796.1
+     ],
+     "proj": 162.9
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8436,
+   "anchor_box": [
+    304.1,
+    758.4,
+    911.7,
+    1024.0
+   ],
+   "anchor_iou": 0.828,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8854,
+     "box": [
+      426.7,
+      448.9,
+      705.8,
+      661.1
+     ],
+     "proj": 338.5
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.853,
+     "box": [
+      406.3,
+      610.9,
+      740.7,
+      820.9
+     ],
+     "proj": 177.6
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8499,
+     "box": [
+      415.3,
+      271.7,
+      698.7,
+      509.0
+     ],
+     "proj": 503.4
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.7835,
+     "box": [
+      408.2,
+      0.0,
+      646.9,
+      160.5
+     ],
+     "proj": 814.8
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.692,
+     "box": [
+      412.9,
+      84.6,
+      686.6,
+      340.1
+     ],
+     "proj": 681.3
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case37_AP.txt"
+  },
+  {
+   "stem": "case37_LAT",
+   "case": "case37",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      465.7,
+      14.7,
+      621.1,
+      78.2
+     ],
+     "proj": 820.7
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      416.9,
+      104.1,
+      585.5,
+      247.6
+     ],
+     "proj": 692.7
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      361.6,
+      281.9,
+      528.2,
+      428.2
+     ],
+     "proj": 515.4
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      332.3,
+      469.5,
+      489.5,
+      615.5
+     ],
+     "proj": 329.2
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      345.4,
+      645.9,
+      494.9,
+      797.2
+     ],
+     "proj": 149.9
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8469,
+   "anchor_box": [
+    490.8,
+    661.1,
+    947.6,
+    1022.0
+   ],
+   "anchor_iou": 0.483,
+   "anchor_correct": false,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8472,
+     "box": [
+      335.6,
+      441.8,
+      686.8,
+      641.5
+     ],
+     "proj": 302.9
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8313,
+     "box": [
+      348.6,
+      592.5,
+      678.8,
+      815.1
+     ],
+     "proj": 140.8
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8003,
+     "box": [
+      404.6,
+      87.1,
+      788.8,
+      335.2
+     ],
+     "proj": 632.1
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.7924,
+     "box": [
+      356.1,
+      260.0,
+      727.6,
+      494.7
+     ],
+     "proj": 466.8
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.6868,
+     "box": [
+      462.1,
+      0.0,
+      829.4,
+      171.5
+     ],
+     "proj": 756.8
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case37_LAT.txt"
+  },
+  {
+   "stem": "case47_AP",
+   "case": "case47",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 4,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      340.7,
+      0.8,
+      553.7,
+      32.9
+     ],
+     "proj": 854.8
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      357.3,
+      77.3,
+      569.0,
+      209.4
+     ],
+     "proj": 727.4
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      375.4,
+      266.0,
+      591.6,
+      396.1
+     ],
+     "proj": 538.6
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      391.1,
+      443.3,
+      616.9,
+      578.5
+     ],
+     "proj": 357.6
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      405.2,
+      618.2,
+      646.6,
+      766.9
+     ],
+     "proj": 174.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8784,
+   "anchor_box": [
+    284.8,
+    727.8,
+    780.4,
+    1024.0
+   ],
+   "anchor_iou": 0.906,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.887,
+     "box": [
+      374.0,
+      429.4,
+      645.2,
+      606.3
+     ],
+     "proj": 358.7,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.636
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8646,
+     "box": [
+      355.9,
+      254.8,
+      633.1,
+      460.1
+     ],
+     "proj": 519.8
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8227,
+     "box": [
+      342.1,
+      575.3,
+      711.0,
+      777.3
+     ],
+     "proj": 199.4
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.7737,
+     "box": [
+      347.5,
+      65.5,
+      601.3,
+      280.6
+     ],
+     "proj": 705.3,
+     "truth_ordinal": 4,
+     "truth_level": "L2",
+     "iou": 0.512
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 2,
+   "per_truth": [
+    "missed",
+    "correct",
+    "missed",
+    "correct",
+    "missed"
+   ],
+   "n_matched": 2,
+   "n_correct": 2,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 3,
+   "all_matched_correct": true,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case47_AP.txt"
+  },
+  {
+   "stem": "case47_LAT",
+   "case": "case47",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 6,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      618.0,
+      0.2,
+      677.6,
+      16.6
+     ],
+     "proj": 832.8
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      453.1,
+      46.4,
+      640.8,
+      183.9
+     ],
+     "proj": 731.1
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      416.3,
+      241.7,
+      596.7,
+      375.0
+     ],
+     "proj": 540.1
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      406.9,
+      424.3,
+      578.6,
+      566.5
+     ],
+     "proj": 354.0
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      444.4,
+      598.5,
+      604.4,
+      755.7
+     ],
+     "proj": 170.9
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8651,
+   "anchor_box": [
+    565.2,
+    709.1,
+    940.3,
+    1024.0
+   ],
+   "anchor_iou": 0.641,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8491,
+     "box": [
+      445.3,
+      559.8,
+      744.8,
+      770.5
+     ],
+     "proj": 223.7
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.7612,
+     "box": [
+      414.9,
+      405.9,
+      745.6,
+      603.5
+     ],
+     "proj": 384.4
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.7374,
+     "box": [
+      419.8,
+      232.6,
+      766.8,
+      467.9
+     ],
+     "proj": 534.9
+    },
+    {
+     "ordinal": 6,
+     "conf": 0.7148,
+     "box": [
+      453.0,
+      54.7,
+      815.7,
+      297.3
+     ],
+     "proj": 700.6
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.5515,
+     "box": [
+      432.6,
+      71.7,
+      761.4,
+      458.4
+     ],
+     "proj": 618.5
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.3157,
+     "box": [
+      414.9,
+      243.4,
+      737.2,
+      616.3
+     ],
+     "proj": 459.0
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 6,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case47_LAT.txt"
+  },
+  {
+   "stem": "case49_AP",
+   "case": "case49",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      407.5,
+      4.5,
+      588.1,
+      58.2
+     ],
+     "proj": 841.2
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      417.0,
+      106.6,
+      589.0,
+      228.5
+     ],
+     "proj": 704.9
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      419.3,
+      283.8,
+      598.3,
+      403.3
+     ],
+     "proj": 528.8
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      418.2,
+      463.7,
+      606.0,
+      586.8
+     ],
+     "proj": 347.1
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      406.7,
+      628.7,
+      614.3,
+      772.3
+     ],
+     "proj": 172.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8672,
+   "anchor_box": [
+    257.4,
+    736.8,
+    820.6,
+    1024.0
+   ],
+   "anchor_iou": 0.847,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8853,
+     "box": [
+      379.0,
+      427.3,
+      652.7,
+      623.8
+     ],
+     "proj": 355.5
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.86,
+     "box": [
+      392.5,
+      0.0,
+      614.4,
+      141.9
+     ],
+     "proj": 810.2
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8585,
+     "box": [
+      357.9,
+      577.8,
+      686.3,
+      785.4
+     ],
+     "proj": 199.3
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8519,
+     "box": [
+      373.4,
+      255.7,
+      652.2,
+      482.1
+     ],
+     "proj": 512.1
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.7828,
+     "box": [
+      391.7,
+      80.4,
+      632.5,
+      314.6
+     ],
+     "proj": 683.4
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case49_AP.txt"
+  },
+  {
+   "stem": "case49_LAT",
+   "case": "case49",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 6,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      501.1,
+      2.0,
+      645.8,
+      60.1
+     ],
+     "proj": 842.4
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      473.7,
+      96.1,
+      628.9,
+      222.9
+     ],
+     "proj": 718.5
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      445.9,
+      273.8,
+      608.3,
+      395.3
+     ],
+     "proj": 548.7
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      441.1,
+      458.2,
+      594.2,
+      583.9
+     ],
+     "proj": 365.5
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      466.3,
+      625.2,
+      619.4,
+      773.3
+     ],
+     "proj": 185.5
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8486,
+   "anchor_box": [
+    592.7,
+    707.5,
+    1021.8,
+    1024.0
+   ],
+   "anchor_iou": 0.613,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8653,
+     "box": [
+      464.1,
+      558.2,
+      796.9,
+      776.9
+     ],
+     "proj": 219.8
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8299,
+     "box": [
+      439.9,
+      407.8,
+      804.0,
+      628.1
+     ],
+     "proj": 369.2
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.7884,
+     "box": [
+      424.8,
+      235.6,
+      830.3,
+      487.8
+     ],
+     "proj": 523.4
+    },
+    {
+     "ordinal": 6,
+     "conf": 0.7883,
+     "box": [
+      505.9,
+      0.0,
+      845.2,
+      169.8
+     ],
+     "proj": 791.4
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.7683,
+     "box": [
+      453.5,
+      66.6,
+      837.1,
+      330.3
+     ],
+     "proj": 682.8
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.2695,
+     "box": [
+      447.3,
+      81.4,
+      821.2,
+      463.2
+     ],
+     "proj": 611.1
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 6,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case49_LAT.txt"
+  },
+  {
+   "stem": "case56_AP",
+   "case": "case56",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 2,
+   "n_det_bodies": 6,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      414.7,
+      7.5,
+      589.7,
+      56.4
+     ],
+     "proj": 820.2
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      428.7,
+      90.8,
+      597.3,
+      204.7
+     ],
+     "proj": 703.9
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      437.5,
+      250.5,
+      613.2,
+      369.7
+     ],
+     "proj": 541.2
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      446.4,
+      424.1,
+      631.7,
+      542.9
+     ],
+     "proj": 367.3
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      456.1,
+      589.9,
+      658.2,
+      723.1
+     ],
+     "proj": 193.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8907,
+   "anchor_box": [
+    326.1,
+    688.3,
+    854.5,
+    1023.2
+   ],
+   "anchor_iou": 0.812,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8745,
+     "box": [
+      412.2,
+      396.0,
+      684.1,
+      597.7
+     ],
+     "proj": 361.2
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8584,
+     "box": [
+      422.8,
+      545.9,
+      716.7,
+      743.6
+     ],
+     "proj": 212.0
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8161,
+     "box": [
+      411.2,
+      225.8,
+      675.8,
+      466.3
+     ],
+     "proj": 511.8
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.7398,
+     "box": [
+      408.5,
+      64.5,
+      671.2,
+      314.7
+     ],
+     "proj": 668.0
+    },
+    {
+     "ordinal": 6,
+     "conf": 0.7075,
+     "box": [
+      384.1,
+      0.1,
+      639.9,
+      133.9
+     ],
+     "proj": 792.5
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.2719,
+     "box": [
+      402.0,
+      74.1,
+      695.7,
+      447.9
+     ],
+     "proj": 596.1
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 6,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case56_AP.txt"
+  },
+  {
+   "stem": "case56_LAT",
+   "case": "case56",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      482.3,
+      2.4,
+      629.7,
+      52.4
+     ],
+     "proj": 809.4
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      448.8,
+      79.5,
+      603.8,
+      198.3
+     ],
+     "proj": 700.8
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      406.3,
+      239.8,
+      566.3,
+      359.8
+     ],
+     "proj": 543.7
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      380.6,
+      420.2,
+      533.7,
+      537.4
+     ],
+     "proj": 367.7
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      394.9,
+      588.7,
+      543.0,
+      726.4
+     ],
+     "proj": 188.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8485,
+   "anchor_box": [
+    530.0,
+    677.1,
+    971.0,
+    1022.2
+   ],
+   "anchor_iou": 0.581,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8623,
+     "box": [
+      390.0,
+      531.2,
+      720.4,
+      735.6
+     ],
+     "proj": 233.8
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8468,
+     "box": [
+      382.2,
+      379.9,
+      730.7,
+      591.6
+     ],
+     "proj": 380.7
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8359,
+     "box": [
+      479.3,
+      0.0,
+      799.3,
+      158.4
+     ],
+     "proj": 777.5
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8223,
+     "box": [
+      386.8,
+      213.8,
+      760.5,
+      460.2
+     ],
+     "proj": 527.1
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8031,
+     "box": [
+      437.6,
+      61.1,
+      787.1,
+      295.0
+     ],
+     "proj": 681.7
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case56_LAT.txt"
+  },
+  {
+   "stem": "case5_AP",
+   "case": "case5",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 6,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 6,
+     "level": null,
+     "box": [
+      435.8,
+      2.4,
+      651.7,
+      120.8
+     ],
+     "proj": 874.8
+    },
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      437.5,
+      2.2,
+      652.4,
+      121.6
+     ],
+     "proj": 874.6
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      431.8,
+      171.7,
+      644.7,
+      300.7
+     ],
+     "proj": 700.1
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      420.4,
+      351.9,
+      639.9,
+      483.0
+     ],
+     "proj": 518.7
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      410.3,
+      539.8,
+      641.3,
+      668.7
+     ],
+     "proj": 331.9
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      390.7,
+      728.3,
+      636.2,
+      861.6
+     ],
+     "proj": 140.8
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.7351,
+   "anchor_box": [
+    242.8,
+    860.4,
+    805.8,
+    1024.0
+   ],
+   "anchor_iou": 0.87,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8718,
+     "box": [
+      366.9,
+      537.7,
+      672.8,
+      742.5
+     ],
+     "proj": 301.7
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8325,
+     "box": [
+      330.9,
+      706.7,
+      694.4,
+      891.0
+     ],
+     "proj": 142.8
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.801,
+     "box": [
+      379.1,
+      346.2,
+      670.9,
+      571.9
+     ],
+     "proj": 482.9
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.7806,
+     "box": [
+      419.2,
+      0.7,
+      687.8,
+      197.9
+     ],
+     "proj": 843.4
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.7791,
+     "box": [
+      398.3,
+      163.2,
+      667.6,
+      401.9
+     ],
+     "proj": 659.5
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 6,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case5_AP.txt"
+  },
+  {
+   "stem": "case5_LAT",
+   "case": "case5",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 6,
+   "n_det_sacrum": 2,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 6,
+     "level": null,
+     "box": [
+      564.7,
+      18.6,
+      725.0,
+      140.8
+     ],
+     "proj": 828.0
+    },
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      563.1,
+      19.2,
+      724.9,
+      141.1
+     ],
+     "proj": 827.6
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      532.3,
+      179.0,
+      701.0,
+      305.9
+     ],
+     "proj": 665.1
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      496.7,
+      353.5,
+      668.8,
+      477.5
+     ],
+     "proj": 491.8
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      481.0,
+      534.7,
+      640.1,
+      662.9
+     ],
+     "proj": 308.4
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      490.8,
+      713.3,
+      647.0,
+      855.0
+     ],
+     "proj": 123.1
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8191,
+   "anchor_box": [
+    589.2,
+    835.4,
+    996.5,
+    1024.0
+   ],
+   "anchor_iou": 0.47,
+   "anchor_correct": false,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8776,
+     "box": [
+      486.4,
+      680.2,
+      813.7,
+      874.1
+     ],
+     "proj": 155.5
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8346,
+     "box": [
+      474.1,
+      512.0,
+      825.3,
+      720.7
+     ],
+     "proj": 316.3
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.7718,
+     "box": [
+      521.5,
+      167.2,
+      884.4,
+      394.0
+     ],
+     "proj": 650.9
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.7392,
+     "box": [
+      478.2,
+      334.9,
+      846.8,
+      564.5
+     ],
+     "proj": 482.7
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.7286,
+     "box": [
+      549.6,
+      0.0,
+      914.2,
+      236.0
+     ],
+     "proj": 812.8
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 6,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case5_LAT.txt"
+  },
+  {
+   "stem": "case60_AP",
+   "case": "case60",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 3,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": null,
+     "box": [
+      524.8,
+      0.5,
+      681.8,
+      52.1
+     ],
+     "proj": 830.0
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      494.5,
+      33.2,
+      687.9,
+      159.6
+     ],
+     "proj": 759.3
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      479.0,
+      212.4,
+      682.5,
+      341.0
+     ],
+     "proj": 578.7
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      458.2,
+      393.8,
+      673.7,
+      529.1
+     ],
+     "proj": 393.4
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      437.2,
+      570.4,
+      673.1,
+      720.2
+     ],
+     "proj": 209.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 4,
+    "agree": 4
+   },
+   "defined": true,
+   "anchor_conf": 0.842,
+   "anchor_box": [
+    308.1,
+    692.7,
+    830.7,
+    1023.7
+   ],
+   "anchor_iou": 0.868,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 3,
+     "conf": 0.8851,
+     "box": [
+      429.4,
+      367.0,
+      717.0,
+      564.9
+     ],
+     "proj": 392.0,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.512
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8615,
+     "box": [
+      395.1,
+      529.7,
+      733.0,
+      724.6
+     ],
+     "proj": 230.5,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.537
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8556,
+     "box": [
+      451.6,
+      190.9,
+      715.5,
+      412.0
+     ],
+     "proj": 556.8
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8433,
+     "box": [
+      462.3,
+      14.7,
+      712.2,
+      228.3
+     ],
+     "proj": 736.7
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.319,
+     "box": [
+      354.8,
+      663.9,
+      714.3,
+      894.3
+     ],
+     "proj": 77.3
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 3,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "one_off",
+    "one_off"
+   ],
+   "n_matched": 2,
+   "n_correct": 0,
+   "n_one_off": 2,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 3,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case60_AP.txt"
+  },
+  {
+   "stem": "case60_LAT",
+   "case": "case60",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": null,
+     "box": [
+      626.8,
+      16.1,
+      808.4,
+      83.8
+     ],
+     "proj": 772.0
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      490.3,
+      39.2,
+      645.7,
+      168.1
+     ],
+     "proj": 726.4
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      468.0,
+      212.7,
+      631.1,
+      339.7
+     ],
+     "proj": 555.1
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      463.1,
+      388.8,
+      621.5,
+      521.8
+     ],
+     "proj": 376.6
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      488.3,
+      558.7,
+      644.0,
+      707.8
+     ],
+     "proj": 197.7
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 4,
+    "agree": 4
+   },
+   "defined": true,
+   "anchor_conf": 0.3455,
+   "anchor_box": [
+    609.0,
+    667.3,
+    993.1,
+    1021.7
+   ],
+   "anchor_iou": 0.576,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8715,
+     "box": [
+      483.1,
+      517.2,
+      821.2,
+      721.7
+     ],
+     "proj": 241.2
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8347,
+     "box": [
+      450.3,
+      358.2,
+      819.2,
+      569.7
+     ],
+     "proj": 397.7
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8187,
+     "box": [
+      481.2,
+      15.6,
+      838.5,
+      249.9
+     ],
+     "proj": 723.5
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8163,
+     "box": [
+      465.1,
+      181.6,
+      837.7,
+      421.5
+     ],
+     "proj": 556.9
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.4823,
+     "box": [
+      510.2,
+      0.0,
+      844.7,
+      78.8
+     ],
+     "proj": 814.1
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case60_LAT.txt"
+  },
+  {
+   "stem": "case6_AP",
+   "case": "case6",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 4,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      448.7,
+      1.5,
+      659.9,
+      37.0
+     ],
+     "proj": 841.1
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      448.9,
+      79.6,
+      648.8,
+      200.1
+     ],
+     "proj": 720.6
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      440.6,
+      251.9,
+      648.3,
+      373.8
+     ],
+     "proj": 547.6
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      434.7,
+      426.9,
+      653.6,
+      554.0
+     ],
+     "proj": 370.0
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      426.4,
+      591.9,
+      671.7,
+      737.2
+     ],
+     "proj": 195.9
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8805,
+   "anchor_box": [
+    316.8,
+    719.8,
+    818.7,
+    1024.0
+   ],
+   "anchor_iou": 0.864,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8614,
+     "box": [
+      415.7,
+      404.0,
+      703.7,
+      591.0
+     ],
+     "proj": 374.5,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.517
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.858,
+     "box": [
+      421.6,
+      232.4,
+      686.8,
+      441.1
+     ],
+     "proj": 535.3
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8355,
+     "box": [
+      382.1,
+      568.7,
+      730.6,
+      743.8
+     ],
+     "proj": 215.8,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.584
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8274,
+     "box": [
+      433.4,
+      62.3,
+      688.8,
+      277.9
+     ],
+     "proj": 701.8
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 2,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "correct",
+    "correct"
+   ],
+   "n_matched": 2,
+   "n_correct": 2,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 3,
+   "all_matched_correct": true,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case6_AP.txt"
+  },
+  {
+   "stem": "case6_LAT",
+   "case": "case6",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 4,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      489.2,
+      2.0,
+      646.0,
+      60.3
+     ],
+     "proj": 823.9
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      459.7,
+      71.1,
+      619.0,
+      205.2
+     ],
+     "proj": 720.9
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      427.2,
+      241.4,
+      593.0,
+      370.3
+     ],
+     "proj": 557.9
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      415.5,
+      419.6,
+      575.5,
+      548.9
+     ],
+     "proj": 382.4
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      439.4,
+      587.6,
+      595.0,
+      734.3
+     ],
+     "proj": 204.4
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8205,
+   "anchor_box": [
+    565.8,
+    696.7,
+    937.7,
+    1022.8
+   ],
+   "anchor_iou": 0.665,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.873,
+     "box": [
+      444.9,
+      551.9,
+      755.8,
+      727.6
+     ],
+     "proj": 239.8
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8464,
+     "box": [
+      422.7,
+      399.2,
+      753.3,
+      574.0
+     ],
+     "proj": 393.1
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8294,
+     "box": [
+      437.7,
+      233.6,
+      774.8,
+      444.8
+     ],
+     "proj": 536.2
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.815,
+     "box": [
+      477.1,
+      67.8,
+      808.9,
+      281.5
+     ],
+     "proj": 693.6
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 4,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case6_LAT.txt"
+  },
+  {
+   "stem": "case78_AP",
+   "case": "case78",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 2,
+   "n_det_bodies": 7,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": null,
+     "box": [
+      449.7,
+      28.3,
+      636.4,
+      165.9
+     ],
+     "proj": 778.8
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      447.1,
+      28.6,
+      637.5,
+      165.9
+     ],
+     "proj": 778.7
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      462.4,
+      223.5,
+      648.9,
+      353.5
+     ],
+     "proj": 587.0
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      462.5,
+      414.0,
+      656.0,
+      552.9
+     ],
+     "proj": 392.1
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      457.5,
+      605.0,
+      676.2,
+      756.0
+     ],
+     "proj": 195.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 4,
+    "agree": 4
+   },
+   "defined": true,
+   "anchor_conf": 0.503,
+   "anchor_box": [
+    285.4,
+    853.1,
+    885.1,
+    1024.0
+   ],
+   "anchor_iou": 0.503,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8254,
+     "box": [
+      426.7,
+      549.5,
+      744.7,
+      773.7
+     ],
+     "proj": 276.6
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8254,
+     "box": [
+      424.9,
+      375.9,
+      738.2,
+      601.0
+     ],
+     "proj": 449.8
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.6683,
+     "box": [
+      424.0,
+      170.6,
+      679.5,
+      427.8
+     ],
+     "proj": 640.2
+    },
+    {
+     "ordinal": 7,
+     "conf": 0.6615,
+     "box": [
+      421.1,
+      17.1,
+      669.1,
+      234.6
+     ],
+     "proj": 813.7
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.6317,
+     "box": [
+      396.9,
+      719.1,
+      751.9,
+      955.5
+     ],
+     "proj": 101.7
+    },
+    {
+     "ordinal": 6,
+     "conf": 0.4971,
+     "box": [
+      397.6,
+      14.1,
+      703.0,
+      393.0
+     ],
+     "proj": 735.8
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.4128,
+     "box": [
+      419.1,
+      197.4,
+      712.5,
+      575.7
+     ],
+     "proj": 552.3
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 7,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case78_AP.txt"
+  },
+  {
+   "stem": "case78_LAT",
+   "case": "case78",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 0,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": null,
+     "box": [
+      458.4,
+      34.9,
+      626.1,
+      165.8
+     ],
+     "proj": 751.3
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      457.9,
+      35.3,
+      625.9,
+      165.6
+     ],
+     "proj": 751.3
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      442.3,
+      221.7,
+      615.0,
+      347.8
+     ],
+     "proj": 571.5
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      441.3,
+      405.0,
+      608.8,
+      542.4
+     ],
+     "proj": 385.5
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      468.4,
+      584.9,
+      632.4,
+      738.4
+     ],
+     "proj": 195.9
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 4,
+    "agree": 4
+   },
+   "defined": false,
+   "why": "sacrum not detected",
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case78_LAT.txt"
+  },
+  {
+   "stem": "case82_AP",
+   "case": "case82",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 4,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 4,
+   "truth": [
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      354.3,
+      1.8,
+      571.1,
+      110.7
+     ],
+     "proj": 793.9
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      361.2,
+      165.7,
+      582.0,
+      311.8
+     ],
+     "proj": 611.3
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      370.0,
+      366.0,
+      606.0,
+      512.2
+     ],
+     "proj": 410.3
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      375.7,
+      563.9,
+      630.0,
+      713.5
+     ],
+     "proj": 210.1
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 4,
+    "agree": 4
+   },
+   "defined": true,
+   "anchor_conf": 0.9033,
+   "anchor_box": [
+    247.8,
+    678.0,
+    801.2,
+    1020.7
+   ],
+   "anchor_iou": 0.893,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8773,
+     "box": [
+      354.2,
+      366.7,
+      637.9,
+      539.5
+     ],
+     "proj": 397.3,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.698
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8603,
+     "box": [
+      344.3,
+      174.4,
+      633.7,
+      399.3
+     ],
+     "proj": 563.6
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.8284,
+     "box": [
+      326.3,
+      528.7,
+      695.6,
+      722.8
+     ],
+     "proj": 224.0,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.531
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8059,
+     "box": [
+      346.2,
+      0.4,
+      610.0,
+      207.8
+     ],
+     "proj": 746.7
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 2,
+   "per_truth": [
+    "missed",
+    "missed",
+    "correct",
+    "correct"
+   ],
+   "n_matched": 2,
+   "n_correct": 2,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 2,
+   "all_matched_correct": true,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case82_AP.txt"
+  },
+  {
+   "stem": "case82_LAT",
+   "case": "case82",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 4,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": null,
+     "box": [
+      552.6,
+      17.2,
+      719.1,
+      139.7
+     ],
+     "proj": 730.6
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      552.9,
+      17.7,
+      720.5,
+      139.9
+     ],
+     "proj": 730.1
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      524.5,
+      189.8,
+      690.6,
+      319.7
+     ],
+     "proj": 558.9
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      510.2,
+      371.4,
+      665.2,
+      505.1
+     ],
+     "proj": 379.1
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      526.2,
+      547.8,
+      672.8,
+      690.0
+     ],
+     "proj": 198.4
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 4,
+    "agree": 4
+   },
+   "defined": true,
+   "anchor_conf": 0.8912,
+   "anchor_box": [
+    606.9,
+    658.2,
+    998.9,
+    1023.3
+   ],
+   "anchor_iou": 0.624,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8832,
+     "box": [
+      518.5,
+      519.4,
+      827.4,
+      709.0
+     ],
+     "proj": 239.0
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8467,
+     "box": [
+      515.4,
+      176.3,
+      854.4,
+      396.1
+     ],
+     "proj": 563.9
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.843,
+     "box": [
+      500.2,
+      349.5,
+      834.0,
+      543.2
+     ],
+     "proj": 406.5
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8166,
+     "box": [
+      543.0,
+      0.0,
+      887.3,
+      226.8
+     ],
+     "proj": 732.5
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 4,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case82_LAT.txt"
+  },
+  {
+   "stem": "case86_AP",
+   "case": "case86",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 4,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 4,
+   "truth": [
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      496.0,
+      7.7,
+      735.7,
+      92.4
+     ],
+     "proj": 811.3
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      488.7,
+      149.6,
+      745.0,
+      290.6
+     ],
+     "proj": 641.3
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      478.3,
+      359.8,
+      744.1,
+      502.1
+     ],
+     "proj": 430.4
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      459.9,
+      559.9,
+      743.1,
+      722.2
+     ],
+     "proj": 220.1
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 4,
+    "agree": 4
+   },
+   "defined": true,
+   "anchor_conf": 0.8701,
+   "anchor_box": [
+    297.1,
+    696.0,
+    931.2,
+    1023.5
+   ],
+   "anchor_iou": 0.837,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 4,
+     "conf": 0.8577,
+     "box": [
+      482.9,
+      0.0,
+      768.2,
+      166.4
+     ],
+     "proj": 776.6
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8532,
+     "box": [
+      450.1,
+      309.5,
+      787.1,
+      540.7
+     ],
+     "proj": 434.6
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8263,
+     "box": [
+      460.8,
+      103.3,
+      782.2,
+      349.5
+     ],
+     "proj": 633.4
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.7917,
+     "box": [
+      390.2,
+      502.6,
+      805.3,
+      753.8
+     ],
+     "proj": 231.1
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 4,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 4,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case86_AP.txt"
+  },
+  {
+   "stem": "case86_LAT",
+   "case": "case86",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 4,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 4,
+   "truth": [
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      463.8,
+      9.7,
+      654.6,
+      105.9
+     ],
+     "proj": 805.4
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      452.1,
+      155.0,
+      650.9,
+      297.9
+     ],
+     "proj": 641.5
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      443.5,
+      358.3,
+      638.8,
+      501.0
+     ],
+     "proj": 444.2
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      466.7,
+      555.4,
+      649.7,
+      718.4
+     ],
+     "proj": 237.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 4,
+    "agree": 4
+   },
+   "defined": true,
+   "anchor_conf": 0.8537,
+   "anchor_box": [
+    571.8,
+    678.8,
+    1018.8,
+    1023.5
+   ],
+   "anchor_iou": 0.63,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8309,
+     "box": [
+      459.2,
+      494.6,
+      842.4,
+      733.6
+     ],
+     "proj": 256.4
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8102,
+     "box": [
+      454.4,
+      309.4,
+      843.5,
+      557.5
+     ],
+     "proj": 435.2
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.7915,
+     "box": [
+      470.8,
+      119.3,
+      858.7,
+      367.5
+     ],
+     "proj": 620.6
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.7906,
+     "box": [
+      451.3,
+      0.0,
+      857.5,
+      185.1
+     ],
+     "proj": 771.2
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 4,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 4,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case86_LAT.txt"
+  },
+  {
+   "stem": "case96_AP",
+   "case": "case96",
+   "view": "AP",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      486.3,
+      1.8,
+      663.9,
+      79.5
+     ],
+     "proj": 861.2
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      480.6,
+      132.4,
+      659.0,
+      254.9
+     ],
+     "proj": 708.1
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      469.6,
+      306.7,
+      647.6,
+      431.1
+     ],
+     "proj": 532.5
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      445.4,
+      485.3,
+      636.8,
+      602.4
+     ],
+     "proj": 356.9
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      424.4,
+      661.0,
+      633.8,
+      776.3
+     ],
+     "proj": 181.7
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.8695,
+   "anchor_box": [
+    270.2,
+    775.0,
+    823.2,
+    1024.0
+   ],
+   "anchor_iou": 0.84,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8847,
+     "box": [
+      373.1,
+      637.2,
+      701.4,
+      825.4
+     ],
+     "proj": 167.6
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8777,
+     "box": [
+      410.6,
+      469.7,
+      675.9,
+      687.8
+     ],
+     "proj": 320.2
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8144,
+     "box": [
+      421.3,
+      290.6,
+      687.3,
+      523.6
+     ],
+     "proj": 492.2
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.7764,
+     "box": [
+      440.4,
+      112.3,
+      690.5,
+      337.0
+     ],
+     "proj": 675.0
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.775,
+     "box": [
+      461.1,
+      0.0,
+      701.5,
+      163.5
+     ],
+     "proj": 818.5
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "AP",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case96_AP.txt"
+  },
+  {
+   "stem": "case96_LAT",
+   "case": "case96",
+   "view": "LAT",
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 5,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 5,
+   "truth": [
+    {
+     "ordinal": 5,
+     "level": "L1",
+     "box": [
+      570.9,
+      7.2,
+      712.5,
+      104.5
+     ],
+     "proj": 827.2
+    },
+    {
+     "ordinal": 4,
+     "level": "L2",
+     "box": [
+      551.9,
+      140.1,
+      704.9,
+      265.6
+     ],
+     "proj": 681.1
+    },
+    {
+     "ordinal": 3,
+     "level": "L3",
+     "box": [
+      522.0,
+      307.7,
+      681.8,
+      433.6
+     ],
+     "proj": 514.8
+    },
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      495.6,
+      481.7,
+      651.3,
+      602.2
+     ],
+     "proj": 345.1
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      495.6,
+      655.0,
+      637.3,
+      780.4
+     ],
+     "proj": 169.9
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 5,
+    "agree": 5
+   },
+   "defined": true,
+   "anchor_conf": 0.9015,
+   "anchor_box": [
+    599.9,
+    742.5,
+    1004.4,
+    1023.4
+   ],
+   "anchor_iou": 0.555,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8841,
+     "box": [
+      499.1,
+      617.0,
+      803.9,
+      797.8
+     ],
+     "proj": 177.3
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.8524,
+     "box": [
+      500.6,
+      455.5,
+      822.1,
+      662.0
+     ],
+     "proj": 325.8
+    },
+    {
+     "ordinal": 5,
+     "conf": 0.8513,
+     "box": [
+      579.3,
+      0.0,
+      902.5,
+      179.2
+     ],
+     "proj": 794.0
+    },
+    {
+     "ordinal": 4,
+     "conf": 0.8331,
+     "box": [
+      561.3,
+      117.3,
+      891.5,
+      337.4
+     ],
+     "proj": 656.5
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.8231,
+     "box": [
+      524.6,
+      288.6,
+      865.8,
+      505.4
+     ],
+     "proj": 487.2
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 5,
+   "per_truth": [
+    "missed",
+    "missed",
+    "missed",
+    "missed",
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 5,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "LAT",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine/labels/test/case96_LAT.txt"
+  }
+ ]
+}

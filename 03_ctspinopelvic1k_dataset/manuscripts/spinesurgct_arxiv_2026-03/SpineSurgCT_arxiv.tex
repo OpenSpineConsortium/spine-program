@@ -1,0 +1,805 @@
+\documentclass{article}
+
+\usepackage{PRIMEarxiv}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{natbib}        % for \citep / \citet
+\graphicspath{{media/}}
+
+% ── Header ───────────────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\thispagestyle{empty}
+\rhead{\textit{}}
+\fancyhead[LO]{SpineSurg-CT: L6 Segmentation and LSTV Detection on CT}
+
+% ── Placeholder command (orange bold — remove when results available) ─────────
+\definecolor{placeholder}{RGB}{180,100,0}
+\newcommand{\ph}[1]{\textcolor{placeholder}{\textbf{[#1]}}}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\title{SpineSurg-CT: A Deep Learning Model for Automated Segmentation
+and Detection of Lumbosacral Transitional Vertebrae on CT Imaging%
+\thanks{\textit{\underline{Citation}}: Schwing G.
+SpineSurg-CT: A Deep Learning Model for Automated Segmentation and
+Detection of Lumbosacral Transitional Vertebrae on CT Imaging.
+\textit{arXiv} preprint arXiv:XXXX.XXXXX, 2026.}}
+
+\author{
+  Gregory Schwing, MD, PhD \\
+  Department of Surgery (Preliminary) \\
+  Detroit Medical Center / Wayne State University \\
+  Detroit, MI, USA \\
+  \texttt{gregory.schwing@wayne.edu}
+  \And
+  Patrick J. Schwing, BS, MS \\
+  LSU Health New Orleans School of Medicine \\
+  New Orleans, LA 70112, USA \\
+  \And
+  Hazem Eltahawy, MD, PhD \\
+  Department of Neurosurgery \\
+  Detroit Medical Center \\
+  Detroit, MI, USA \\
+}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{document}
+\maketitle
+
+% ── Abstract ─────────────────────────────────────────────────────────────────
+\begin{abstract}
+\noindent\textbf{Purpose:} To develop and evaluate SpineSurg-CT, the first
+CT segmentation model with lumbosacral transitional vertebra (LSTV) awareness
+built into its architecture --- providing voxel-level spatial segmentation of
+the supernumerary sixth lumbar vertebra (L6) and a simultaneous probabilistic
+classification of LSTV subtype (Normal / Lumbarization / Sacralization) in a
+single end-to-end inference pass from raw CT, without requiring upstream
+vertebra localization or counting.
+
+\noindent\textbf{Materials and Methods:} In this retrospective study, 784 CT
+examinations from the publicly available CTSpine1K COLONOG dataset were used
+for training ($n{=}552$), validation ($n{=}116$), and testing ($n{=}116$) with
+stratified sampling ensuring proportional LSTV representation across all
+partitions. The cohort included 16 lumbarization cases (L6 present), 9
+sacralization cases (L5 fused to sacrum), and 759 normal spines. A 3D ResUNet
+with cross-scale feature fusion modules (CTSpineSegNet architecture) was
+extended with: (1)~a 10-class segmentation output with an explicit L6 class
+under direct voxel-level supervision; (2)~a secondary LSTV classification head
+at the bottleneck producing calibrated Normal/Lumbarization/Sacralization
+probabilities; and (3)~a multi-strategy class imbalance mitigation stack
+including novel registration-based sacralization synthesis using ANTs SyN
+deformation fields computed and applied entirely in preprocessed
+$256^3$ unit coordinate space. Performance was evaluated using Dice similarity
+coefficient (DSC), 95th-percentile Hausdorff distance (HD95), and mean
+intersection over union (mIOU), benchmarked against TotalSegmentator.
+
+\noindent\textbf{Results:} \ph{SpineSurg-CT achieved mean L6 DSC of X.XX
+(95\% CI: X.XX--X.XX) on lumbarization test cases ($n{=}3$), compared with
+0.00 for TotalSegmentator. LSTV subtype classification yielded
+Normal/Lumbarization/Sacralization probabilities with overall accuracy X.XX.
+Mean L1--L5 DSC was X.XX. All comparisons against TotalSegmentator on LSTV
+cases were statistically significant (Wilcoxon signed-rank, $p < 0.001$).}
+
+\noindent\textbf{Conclusion:} SpineSurg-CT is the first CT segmentation model
+with LSTV awareness built into its architecture, simultaneously delivering a
+voxel-level 3D L6 mask and calibrated LSTV subtype probabilities without
+upstream localization. This represents a clinically meaningful advance for
+preventing wrong-level spine surgery: existing tools either segment without
+LSTV awareness (TotalSegmentator), label without segmenting (VERIDAH), or
+classify without CT spatial output (Kwak et al.).
+\end{abstract}
+
+\keywords{lumbosacral transitional vertebra \and spine segmentation \and
+computed tomography \and deep learning \and wrong-level surgery \and L6 \and
+lumbarization \and sacralization}
+
+% ── Front-matter boxes ───────────────────────────────────────────────────────
+\noindent\textbf{Summary Statement:} SpineSurg-CT is the first CT segmentation
+model with lumbosacral transitional vertebra (LSTV) awareness built into its
+architecture, simultaneously delivering explicit voxel-level L6 segmentation and
+calibrated Normal/Lumbarization/Sacralization probability output in a single
+end-to-end pass from raw CT --- without requiring upstream vertebra localization
+or vertebra counting.
+
+\vspace{0.5em}
+\noindent\textbf{Key Results:}
+\begin{enumerate}[leftmargin=*,label=\arabic*.,noitemsep]
+  \item \ph{SpineSurg-CT achieved mean L6 DSC of X.XX on lumbarization test
+    cases, compared with 0.00 for TotalSegmentator, which lacks an L6 class
+    by architectural design.}
+  \item \ph{The LSTV classification head produced calibrated
+    Normal/Lumbarization/Sacralization probabilities with F1 of
+    X.XX/X.XX/X.XX --- the first probabilistic multi-class LSTV classifier
+    embedded in a CT segmentation architecture, operating without upstream
+    localization or vertebra counting.}
+  \item \ph{Mean L1--L5 DSC was X.XX, comparable to TotalSegmentator (X.XX),
+    with superior lumbosacral junction performance in LSTV cases.}
+\end{enumerate}
+
+\vspace{0.5em}
+\noindent\textbf{Abbreviations:} CT, computed tomography; DSC, Dice similarity
+coefficient; HD95, 95th-percentile Hausdorff distance; LSTV, lumbosacral
+transitional vertebra; mIOU, mean intersection over union; L6, supernumerary
+sixth lumbar vertebra; CFFM, cross-scale feature fusion module.
+
+% =============================================================================
+\section{Introduction}
+% =============================================================================
+
+Wrong-level spine surgery is a sentinel event in neurosurgery, classified as a
+never-event under the Universal Protocol. Large surgical series consistently
+report incidence below 1\%, but given the volume of lumbar procedures performed
+annually this represents a substantial preventable burden of harm with severe
+clinical and medicolegal consequences~\citep{albano2024}. Among the anatomical
+risk factors implicated in vertebral level miscounting, lumbosacral transitional
+vertebrae (LSTV) are consistently identified as a primary
+precipitant~\citep{albano2024,karsy2024}. In a prospective series of 550
+consecutive lumbar surgery patients, Ishida et al.\ documented LSTV in 12.9\%
+of cases, with vertebral miscounting at initial outpatient evaluation in 54\% of
+LSTV cases and surgical level revision after intraoperative counting in
+15\%~\citep{ishida2017}.
+
+LSTV encompasses two anatomical subtypes with opposing counting implications.
+In \textit{lumbarization}, the uppermost sacral segment fails to fuse with the
+remainder of the sacrum and develops as a supernumerary sixth lumbar vertebra
+(L6), increasing the mobile segment count by one. In \textit{sacralization},
+the fifth lumbar vertebra fuses partially or completely with the sacrum, reducing
+the mobile segment count by one. LSTV prevalence in the surgical population is
+4--18\% depending on imaging modality and classification
+criteria~\citep{apazidis2011,nardo2012}.
+
+Computed tomography is the reference standard for LSTV detection and
+classification. Hanhivaara et al.\ demonstrated that CT achieves 76\%
+sensitivity and 93\% specificity for LSTV, compared with 54\% sensitivity for
+standard lumbar MRI without coronal sequences~\citep{hanhivaara2024}. Automated
+CT segmentation could serve as a systematic screening step when CT is available,
+or as a confirmation tool when LSTV is suspected.
+
+No existing automated CT segmentation system can detect LSTV or label L6.
+TotalSegmentator --- the most widely deployed general-purpose CT segmentation
+tool, trained on 1,204 CT examinations segmenting 104 anatomical structures ---
+assumes a fixed five-lumbar anatomy and has no L6 class by
+design~\citep{wasserthal2023}. VERIDAH~\citep{moller2026} is a sophisticated vertebra labeling
+algorithm achieving 97.22\% lumbar enumeration anomaly recall on CT. It uses a
+3D DenseNet169 with four learned classification heads (vertebra label, anatomical
+region, transition type, visibility) and a constrained sequence optimizer ---
+it does learn morphological features from CT. However, L6 is represented
+\textit{implicitly}: during training, L6 labels are replaced with two consecutive
+L5 labels, and the sequence optimizer detects lumbarization by finding that two
+consecutive L5-class predictions minimise the global path cost. There is no
+explicit L6 class, no direct voxel-level L6 supervision, and no 3D spatial mask.
+VERIDAH outputs vertebra centroid labels and requires pre-computed vertebra
+localizations from an upstream segmentation model (SPINEPS), precluding
+end-to-end inference from raw CT
+
+Critically, Schinz et al.\ recently demonstrated at the \textit{thoracolumbar}
+junction that morphometric vertebral shape-based classification outperforms
+counting-based approaches on all metrics --- achieving 100\% agreement with
+nerve morphology (the functional ground truth) versus 92.6\% for the
+counting-based standard --- and is robust to incomplete spine imaging where
+counting fails entirely~\citep{schinz2025}. This validates the principle that
+morphological feature learning is superior to counting for vertebral transition
+detection. However, Schinz et al.\ provide a manual classification scheme
+applied by expert radiologists; no automated neural network model for this task
+exists, and the lumbosacral junction --- clinically more consequential for
+wrong-level surgery --- was explicitly not assessed.
+
+A ResNet-50 classifier operating on plain radiographs achieves 76.4\% accuracy
+for binary LSTV detection but provides no segmentation, no subtype distinction,
+and requires a separate imaging modality~\citep{kwak2025}.
+
+We therefore developed SpineSurg-CT, extending
+CTSpineSegNet~\citep{li2025spinenet} with three novel components for LSTV
+detection: (1)~a 10-class segmentation output including an explicit L6 class,
+(2)~a secondary multi-task LSTV classification head predicting
+Normal/Lumbarization/Sacralization from learned morphological features rather
+than counting, and (3)~a multi-strategy class imbalance mitigation stack
+including registration-based sacralization synthesis. To our knowledge, SpineSurg-CT is the first CT segmentation model
+with an explicit L6 class under direct voxel-level supervision, producing a 3D
+spatial segmentation mask without upstream localization steps. Whereas VERIDAH
+detects lumbarization through implicit sequence optimization over relabelled L5
+centroids, SpineSurg-CT learns L6 morphology directly from annotated voxels,
+extending the morphometric classification principle validated by Schinz et al.\
+at the thoracolumbar junction~\citep{schinz2025} to a fully automated spatial
+segmentation framework at the lumbosacral junction.
+
+% =============================================================================
+\section{Materials and Methods}
+% =============================================================================
+
+\subsection{Study Design}
+
+This retrospective study used publicly available datasets. Institutional review
+board approval and informed consent were not required. The study was conducted
+and reported in accordance with the Checklist for Artificial Intelligence in
+Medical Imaging (CLAIM) 2024 guidelines~\citep{claim2024}.
+
+\subsection{Datasets}
+
+\subsubsection{CTSpine1K --- Primary Training Dataset}
+
+CTSpine1K~\citep{li2021ctspine1k} is a publicly available vertebral
+segmentation benchmark comprising 1,005 CT examinations across four clinical
+subsets. The COLONOG subset (784 cases, colonoscopy screening CTs) was selected
+as the appropriate training cohort for lumbosacral segmentation: all cases
+include complete L1--L5 lumbar coverage in the supine position. The COVID-19
+and HNSCC-3DCT subsets were excluded due to truncated field of view, confirmed
+by absence of complete lumbar labels in a pre-training audit.
+
+Within the 784 COLONOG cases, LSTV prevalence was determined by systematic
+label scanning: 16 cases contained raw label 25 (L6, lumbarization) and 9
+cases had raw label 24 (L5) absent with remaining lumbar labels present
+(sacralization), for 25 total LSTV cases (3.2\% prevalence). A unified 10-class
+label mapping was applied: background (0), L1--L5 (1--5), L6 (6), sacrum (7),
+left hip (8), right hip (9).
+
+\subsubsection{CTPelvic1K --- Supplementary Pelvic Supervision}
+
+CTPelvic1K~\citep{liu2021ctpelvic1k} Dataset~1 contains pelvic masks for 35
+COLONOG cases. Datasets 2--7 originate from independent clinical studies with
+no patient overlap with CTSpine1K COLONOG, confirmed by DICOM UID analysis.
+Patient-number-based matching of Dataset~1 to CTSpine1K identified 33/35
+matched pairs (94\% match rate). No LSTV cases overlap with the 33 matched
+pelvic cases (zero intersection confirmed empirically). The 33 matched cases
+provide sacrum (class 7), left hip (class 8), and right hip (class 9) ground
+truth via online nearest-neighbour resampling into spine CT space during
+training. Critically, these 33 cases are the only samples in the dataset with
+complete lumbosacral label coverage including the pelvic girdle; the remaining
+751 cases carry lumbar vertebra labels only.
+
+\subsection{Dataset Split}
+
+Dataset partitioning used stratified sampling across three priority-ordered
+strata: (1)~LSTV cases ($n{=}25$); (2)~normal spine cases with matched pelvic
+mask ($n{=}33$); (3)~normal spine-only cases ($n{=}726$). Each stratum was
+independently shuffled (seed = 42) and split 70/15/15, yielding:
+train $n{=}552$, validation $n{=}116$, test $n{=}116$. This guarantees a
+minimum of 1 LSTV case in both validation and test sets, and ensures that
+pelvic mask cases appear in all three partitions.
+Table~\ref{tab:dataset} summarises dataset characteristics.
+
+\begin{table}[ht]
+\centering
+\caption{Dataset Characteristics by Stratum and Partition}
+\label{tab:dataset}
+\begin{tabular}{lrrrrr}
+\toprule
+Stratum & Total & Train & Val & Test & LSTV \\
+\midrule
+LSTV cases                       & 25  & 17  & 4   & 4   & 25 (100\%) \\
+\quad Lumbarization (L6 present) & 16  & 11  & 2   & 3   & ---        \\
+\quad Sacralization (L5 fused)   &  9  &  7  & 1   & 1   & ---        \\
+Spine + pelvic mask              & 33  & 23  & 5   & 5   & 0          \\
+Spine only                       & 726 & 512 & 107 & 107 & 0          \\
+\midrule
+\textbf{Total}                   & \textbf{784} & \textbf{552} &
+  \textbf{116} & \textbf{116} & 25 (3.2\%) \\
+\bottomrule
+\end{tabular}\\[2pt]
+\footnotesize{LSTV, lumbosacral transitional vertebra.
+Spine + pelvic mask cases have confirmed zero overlap with LSTV cases.
+Stratified 70/15/15 split applied independently within each stratum.}
+\end{table}
+
+\subsection{Image Preprocessing}
+
+All images were reoriented to PIR convention (posterior-inferior-right axial
+orientation, per \citealt{li2025spinenet}), resampled to 1\,mm isotropic
+spacing (bilinear for images, nearest-neighbour for labels), HU-clipped to
+$[-1000, 1000]$ and linearly normalised to $[0,1]$, foreground-cropped based
+on image intensity content (20-voxel margin), zero-padded if necessary, and
+centre-cropped to $256^3$ voxels.
+
+Image-intensity-based foreground cropping --- rather than label-based cropping
+--- was used deliberately to preserve the full lumbosacral and pelvic anatomy
+within the $256^3$ field of view. Label-based cropping computes the bounding
+box from the spine labels only, which terminate at the inferior sacrum; the hip
+bones (classes 8--9) extend 40--60\,mm below this boundary and would be
+systematically excluded before pelvic mask fusion, rendering pelvic ground
+truth absent from training despite being available. Image-based cropping
+captures the full bony extent of the body in the field of view, ensuring
+sacrum and hip labels are physically present in the training volume after
+\texttt{FuseSpinePelvicLabels}. For cases without a matched pelvic mask, the
+additional inferior region contains only background-class air voxels (intensity
+$\approx 0$ after normalisation), which are indistinguishable from zero-padding
+and impose no learning cost. This single preprocessing function is shared
+identically between training, registration-cache computation, and 3D
+augmentation visualisation, guaranteeing that what is visualised in the
+quality-control output is exactly what the network receives during training.
+The resulting volumes occupy a shared unit coordinate space (origin at zero,
+1\,mm isotropic spacing, identity direction cosines) exploited by the
+registration-based augmentation pipeline described in
+Section~\ref{sec:class_imbalance}.
+
+\subsection{Model Architecture}
+
+SpineSurg-CT extends CTSpineSegNet~\citep{li2025spinenet}, a 3D residual U-Net
+with cross-scale feature fusion modules (CFFM) at encoder skip connections
+between layers $1{\to}2$ and $2{\to}3$, and a linear self-attention bottleneck
+reducing complexity from $O(n^2)$ to $O(kn)$ with $k{=}64$. Three extensions
+were added:
+
+\begin{enumerate}[noitemsep]
+  \item \textbf{10-class segmentation output:} L6 (class 6) added with a
+    $20\times$ loss weight in the combined Dice-CE objective to compensate for
+    extreme rarity (16/784 cases, 2.0\%).
+  \item \textbf{LSTV classification head:} Secondary branch at the bottleneck:
+    global average pooling $\to$ FC$(512{\to}128{\to}3)$ with ReLU and 0.3
+    dropout, producing Normal/Lumbarization/Sacralization probabilities
+    (loss weight $\alpha{=}0.5$).
+  \item \textbf{Data augmentation:} Random flip ($p{=}0.5$, axis 0), rotation
+    $\pm30^{\circ}$ ($p{=}0.5$, all axes), zoom $0.7$--$1.4\times$ ($p{=}0.5$),
+    Gaussian noise $\sigma{\le}0.1$ ($p{=}0.3$), contrast jitter
+    $\gamma{=}0.7$--$1.5$ ($p{=}0.3$), intensity scale/shift $\pm10\%$
+    ($p{=}0.3$ each).
+\end{enumerate}
+
+Total trainable parameters: 15,877,165.
+
+\subsection{Class Imbalance Mitigation}
+\label{sec:class_imbalance}
+
+Four strategies addressed LSTV class imbalance (3.2\% prevalence):
+
+\paragraph{1. WeightedRandomSampler.}
+LSTV cases oversampled at $10\times$, ensuring approximately one LSTV case per
+batch at batch size 2.
+
+\paragraph{2. Class-weighted loss.}
+Per-class loss weights: $20\times$ (L6), $2\times$ (sacrum, hips), $1\times$
+(L1--L5), $0.1\times$ (background). Sacralization samples receive an additional
+$2\times$ sacrum weight boost applied per-sample in the cross-entropy term,
+reflecting the anatomically enlarged sacrum produced by L5 incorporation.
+
+\paragraph{3. CopyPaste lumbarization synthesis with targeted elastic deformation.}
+The 11 lumbarization training cases were preprocessed offline into an
+in-memory pool. During training, 30\% of normal spine samples received
+synthetic lumbarization as follows. A random pool case was selected and its L6
+label bounding box extracted with a 4-voxel margin. In lumbarization, L6 is the
+supernumerary segment that interposes between L5 and the sacrum --- it is
+\textit{inferior} to L5, occupying the L5--S1 disc space. Accordingly, the L6
+patch was placed at the \textit{inferior} boundary of the target's L5 label along
+the inferior-to-superior axis (axis 1 in PIR space): the patch was positioned
+such that its superior face aligns with the inferior edge of target L5, reproducing
+the anatomical relationship. Along the posterior-to-anterior axis (axis 0) and
+right-to-left axis (axis 2), the patch was centred on the target spine column
+centroid. Image intensities and label values were updated simultaneously within
+the L6 mask region. Elastic pre-deformation of the source patch was deliberately
+omitted: deforming the source before bounding box extraction scatters label voxels
+outside the pre-computed box, producing floating label fragments disconnected
+from the spine column.
+
+Following the paste, targeted elastic deformation was applied exclusively to the
+L5--L6--sacrum subvolume (bounding box of classes 5, 6, 7 with 24-voxel context
+margin), leaving L1--L4 unperturbed. This is anatomically appropriate: in
+lumbarization, the upper lumbar spine is completely normal and elastic deformation
+of L1--L4 would introduce spurious morphological variation into the supervision
+signal for these classes. The 24-voxel margin provides sufficient spatial context
+to prevent displacement field discontinuities at the L4/L5 boundary without
+deforming L4 itself. The identical displacement field was applied to both image
+and label simultaneously using MONAI \texttt{Rand3DElasticD}: bilinear
+interpolation for image intensities and nearest-neighbour interpolation for the
+discrete label volume. The label requires no boundary blending --- discrete
+segmentation masks have no intensity seam artefact --- while image intensities
+at the subvolume boundary were smoothly composited with the original using a
+Gaussian-feathered blend mask (linear fade over 24 voxels per face) to eliminate
+visible intensity discontinuities at the elastic subvolume boundary.
+
+\paragraph{4. Registration-based sacralization synthesis.}
+This is the methodologically novel contribution of the present work. The core
+challenge in sacralization augmentation is that simple label modification
+(zeroing the L5 annotation) leaves CT image intensities unchanged, producing
+supervision signal without a corresponding image-domain deformation. A
+realistic synthetic sacralization case must simultaneously exhibit: collapsed
+L5--S1 disc space, enlarged transverse processes, and superior elongation of
+the sacrum.
+
+\textit{Phase 1 --- offline registration (one-time cost, ${\approx}45$\,min).}
+For each of the 7 sacralization cases in the training split, the CT volume was
+preprocessed to $256^3$ 1\,mm isotropic and registered to a reference normal
+spine using ANTs SyNRA deformable registration~\citep{avants2011}. Critically,
+both registration and subsequent field application were performed entirely in
+the shared preprocessed unit coordinate space (PIR, $256^3$, 1\,mm isotropic,
+unit origin and direction), not in the original NIfTI physical space. This
+eliminates the coordinate frame mismatch that arises when fields computed in
+heterogeneous native NIfTI spaces are applied to standardised preprocessed
+tensors. Reference normals were drawn exclusively from the 23 pelvic-masked
+training cases, ensuring that the deformation target has complete sacrum and
+hip labels (classes 7--9). The forward deformation field --- encoding the
+geometric transformation from normal to sacralization morphology --- was cached
+to disk alongside preprocessed volume arrays in NumPy format for instant
+retrieval on subsequent runs.
+
+\textit{Phase 2 --- online synthesis (per-batch, ${\approx}2$\,s).}
+Unlike the CopyPaste augmentation, which applies targeted local elastic
+deformation restricted to the L5--L6--sacrum subvolume, sacralization synthesis
+applies the ANTs deformation field to the entire $256^3$ volume. This is
+appropriate: the registration field was computed from a globally coherent
+morphological difference between a real sacralization case and a normal reference,
+encoding simultaneous changes across the entire lumbosacral anatomy --- caudal
+migration of L5 toward the sacrum, collapse of the L5--S1 disc space, enlarging
+transverse processes, and superior elongation of the sacrum. Truncating this field to a subvolume would arbitrarily corrupt a globally
+consistent deformation and introduce artificial discontinuities absent in the
+original anatomy.
+During training, a matched normal case (one with a confirmed pelvic mask,
+$n{=}23$ in training) was selected as the augmentation target. The Boolean
+flag \texttt{has\_pelvic\_mask} was propagated through the preprocessing
+pipeline to guarantee that field application is restricted to cases with
+complete label coverage, regardless of MONAI tensor metadata state. A randomly
+selected cached field was applied to both image and label tensors simultaneously
+using ANTs linear interpolation (image) and nearest-neighbour (label). Post-warp
+L5 voxels geometrically adjacent to the sacrum --- identified by binary dilation
+of the sacrum mask with 8-voxel structuring element (8\,mm at 1\,mm isotropic)
+--- were relabelled as sacrum (class 7), modelling L5 incorporation. If more
+than 50\% of L5 was found adjacent to the sacrum, all remaining L5 voxels were
+absorbed (complete sacralization). The synthetic label thus contains a fused
+L5+sacrum structure with intact hip labels, reflecting realistic sacralization
+anatomy. Because all 23 matched training cases are eligible and augmentation
+probability is set to 1.0, approximately 23 anatomically complete synthetic
+sacralization samples are generated per training epoch --- the hard ceiling
+imposed by the number of pelvic-masked training cases in this dataset.
+The ANTs deformation field was computed from spine anatomy only; its
+magnitude decays smoothly to near-zero in the inferior pelvis region
+where no corresponding spine structure drives the registration, so hip
+label integrity in the synthetic output is preserved without explicit
+masking or protection.
+
+\subsection{Training Configuration}
+
+Training used AdamW ($\text{lr}{=}10^{-3}$, weight decay $10^{-5}$), linear
+warmup (5 epochs) then cosine annealing to $\eta_{\min}{=}10^{-6}$, maximum
+300 epochs with early stopping (patience 30, monitor: \texttt{val/DSC},
+$\Delta_{\min}{=}10^{-4}$), batch size 2, BF16 mixed precision, gradient
+clipping 1.0. Hardware: NVIDIA H200 NVL (141\,GB VRAM, Hopper architecture).
+\texttt{torch.set\_float32\_matmul\_precision(``high'')} was set to exploit
+native BF16 tensor cores. Framework: PyTorch 2.4.1 (CUDA 12.4), PyTorch
+Lightning 2.4.0, MONAI 1.4.0, antspyx (ANTs Python bindings).
+
+\subsection{Evaluation}
+
+Primary evaluation compared SpineSurg-CT against TotalSegmentator (v2.4.0,
+CT model) on the 116-case held-out test set. Metrics: DSC, HD95 (mm), and
+mIOU per class. LSTV classification: sensitivity, specificity, F1, and AUROC
+per class. Statistical significance: Wilcoxon signed-rank test, $p{<}0.05$.
+Confidence intervals: bootstrap resampling ($n{=}1000$). The pre-specified
+\textbf{primary outcome} is L6 DSC on lumbarization test cases;
+TotalSegmentator L6 DSC is 0.00 by design.
+
+% =============================================================================
+\section{Results}
+% =============================================================================
+
+\subsection{Segmentation Performance}
+
+\ph{Table~\ref{tab:segmentation} reports per-class DSC, HD95, and mIOU for
+SpineSurg-CT and TotalSegmentator on the 116-case test set. SpineSurg-CT
+achieved mean L1--L4 DSC of X.XX\,$\pm$\,X.XX, comparable to TotalSegmentator
+(X.XX\,$\pm$\,X.XX, $p{=}$X.XX).}
+
+\begin{table}[ht]
+\centering
+\caption{Segmentation Performance on Held-Out Test Set ($n{=}116$)}
+\label{tab:segmentation}
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{2}{c}{DSC} & \multicolumn{2}{c}{HD95 (mm)}
+ & \multicolumn{2}{c}{mIOU} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Class & SpineSurg & TotalSeg & SpineSurg & TotalSeg
+      & SpineSurg & TotalSeg \\
+\midrule
+L1           & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} \\
+L2           & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} \\
+L3           & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} \\
+L4           & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} \\
+L5           & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} \\
+L6$^\dagger$ & \ph{X.XX} & 0.00      & \ph{X.XX} & N/A       & \ph{X.XX} & N/A       \\
+Sacrum       & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} \\
+Left hip     & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} \\
+Right hip    & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} & \ph{X.XX} \\
+\bottomrule
+\end{tabular}\\[2pt]
+\footnotesize{$^\dagger$L6 restricted to lumbarization test cases ($n{=}3$).
+TotalSegmentator L6 DSC\,=\,0.00 by architectural design (no L6 class).
+N/A, not applicable.}
+\end{table}
+
+\subsection{Lumbarization Detection --- Primary Outcome}
+
+\ph{On the 3 lumbarization test cases, SpineSurg-CT achieved mean L6 DSC of
+X.XX (95\% CI: X.XX--X.XX), HD95 of X.XX\,mm. TotalSegmentator achieved L6
+DSC\,=\,0.00 on all 3 cases ($p{<}0.001$).
+Figure~\ref{fig:l6_example} shows a representative segmentation.}
+
+\subsection{LSTV Classification}
+
+\ph{Table~\ref{tab:classification} summarises LSTV classification performance.
+Overall accuracy was X.XX.}
+
+\begin{table}[ht]
+\centering
+\caption{LSTV Classification Performance}
+\label{tab:classification}
+\begin{tabular}{lccccc}
+\toprule
+System & Input & Sensitivity & Specificity & F1 & Subtype output \\
+\midrule
+SpineSurg-CT (this work) & CT & \ph{X.XX} & \ph{X.XX} & \ph{X.XX}
+  & Lumb / Sacral / Normal \\
+Kwak et al.~\citep{kwak2025} & Radiograph & 0.851 & 0.619 & N/A
+  & Binary \\
+\bottomrule
+\end{tabular}\\[2pt]
+\footnotesize{Kwak et al.\ comparison is binary (LSTV/Normal) on plain
+radiograph; SpineSurg-CT provides three-class CT output. Direct comparison
+should be interpreted cautiously given different modality and granularity.}
+\end{table}
+
+% =============================================================================
+\section{Discussion}
+% =============================================================================
+
+SpineSurg-CT is the first CT segmentation model with explicit L6 supervision
+and multi-class LSTV detection. The central finding is that SpineSurg-CT
+achieves positive L6 DSC on lumbarization cases where TotalSegmentator scores
+0.00 by architectural necessity. This is a capability gap, not a performance
+margin.
+
+The clinical motivation is direct. LSTV affects 4--18\% of the general
+population~\citep{apazidis2011,nardo2012} and causes systematic vertebral
+miscounting, the proximate cause of wrong-level spine surgery. Ishida et al.\
+documented surgical level revision in 15\% of LSTV surgery
+cases~\citep{ishida2017}; Albano et al.\ identified LSTV as the primary
+anatomical risk factor in a systematic review of wrong-level
+surgery~\citep{albano2024}. SpineSurg-CT removes the barrier of missing L6
+representation in all existing automated CT tools.
+
+The comparison with VERIDAH~\citep{moller2026} merits precise framing.
+VERIDAH uses a 3D DenseNet with four learned classification heads and a
+constrained sequence optimizer --- it does learn morphological features from CT
+and is substantially more than a simple counting system. The key architectural
+distinction from SpineSurg-CT is that VERIDAH represents L6 \textit{implicitly}:
+during training, L6 labels are replaced with two consecutive L5 labels, and
+the sequence optimizer detects lumbarization by finding that two consecutive L5
+predictions minimise the global path cost. Consequently, there is no explicit L6
+class, no direct voxel-level L6 supervision, and no 3D spatial output --- VERIDAH
+produces vertebra centroid labels and requires pre-computed localizations from
+an upstream segmentation model.
+
+SpineSurg-CT is complementary: L6 is an explicit segmentation class learned
+directly from annotated voxels, producing a 3D mask of the supernumerary segment
+usable for surgical planning in a single end-to-end inference pass from raw CT.
+Schinz et al.\ demonstrated at the thoracolumbar junction that explicit
+shape-based classification achieves perfect agreement with functional anatomy
+(nerve morphology, 100\% vs.\ 92.6\% for counting-based methods), while
+counting-based classification produced discrepant labels in 13.3\% of
+cases~\citep{schinz2025}. Although Schinz et al.\ addressed a different junction,
+the principle that explicit morphological feature supervision produces more
+reliable transitional vertebra detection applies to the lumbosacral problem.
+The practical difference between VERIDAH and SpineSurg-CT is therefore implicit
+sequence-level L6 detection with centroid output versus explicit voxel-supervised
+L6 segmentation with a 3D spatial mask and probabilistic LSTV classification.
+
+The registration-based sacralization synthesis pipeline represents a novel
+methodological contribution. By performing ANTs SyN deformable registration
+and field application entirely within the shared preprocessed $256^3$ unit
+coordinate space, we eliminate the coordinate frame mismatch that arises when
+fields computed in heterogeneous native NIfTI physical spaces are applied to
+standardised training tensors. The resulting synthetic cases exhibit
+simultaneous image and label deformation: the collapsed L5--S1 disc space,
+enlarged transverse processes, and elongated sacrum morphology that characterise
+radiological sacralization are present in the CT intensities, not merely in the
+annotation. This is a qualitative advance over label-deletion approaches, which
+remove the L5 annotation while leaving the underlying CT anatomy unchanged.
+Restricting field application to the 23 training cases with complete pelvic
+ground truth (sacrum and hip labels) ensures that every synthetic sacralization
+sample contributes anatomically complete lumbosacral supervision signal,
+including a fused L5+sacrum structure with intact hip labels.
+
+\subsection{Limitations}
+
+\textbf{Dataset size and LSTV case count.} The training cohort of 784 cases
+with 25 LSTV cases is small relative to general-purpose segmentation benchmarks.
+L6 DSC estimation on 3 lumbarization test cases and LSTV classification on
+4 test cases has high variance; confidence intervals should be interpreted
+accordingly and results treated as proof-of-concept pending external validation.
+
+\textbf{Synthetic sacralization ceiling.} The matched-only restriction on
+sacralization synthesis --- necessary to produce anatomically complete
+sacrum and hip labels --- limits augmentation to the 23 pelvic-masked training
+cases, yielding approximately 23 synthetic sacralization samples per epoch.
+This represents the hard ceiling imposed by the intersection of the CTSpine1K
+COLONOG and CTPelvic1K Dataset~1 cohorts. The model learns sacralized sacrum
+morphology primarily from these 23 cases plus the 7 real sacralization training
+cases, with limited diversity relative to the lumbarization augmentation
+pipeline which can operate on all 510 normal training cases.
+
+\textbf{Deformed-normal-sacrum approximation.} Synthetic sacralization is
+generated by warping a morphologically normal matched reference toward the
+sacralization appearance template. The resulting sacrum label covers the fused
+L5+sacrum territory but reflects the geometry of a deformed normal sacrum rather
+than the true bony morphology of sacralization, in which the L5 body is
+incorporated into the superior sacral ala with altered trabecular architecture,
+cortical thickening, and transverse process hypertrophy. The model may therefore
+underestimate sacrum boundary precision at the L5 fusion zone. Sacralization
+sacrum DSC on test cases should be interpreted with this approximation in mind.
+
+\textbf{No pelvic ground truth for real sacralization training cases.} The 7
+sacralization training cases have no matched CTPelvic1K pelvic mask, as the
+CTSpine1K LSTV cases do not overlap with the CTPelvic1K COLONOG subset.
+Consequently, sacrum and hip supervision for these cases derives entirely from
+synthetic augmentation of pelvic-masked normals.
+
+\textbf{Deformation field applied to sacrum label in synthetic sacralization.}
+A more principled sacralization synthesis would warp only the lumbar vertebra
+labels (L1--L5) of the normal reference toward the sacralization template while
+holding the sacrum label fixed as the stationary fusion target. This would
+ensure that the sacrum label remains correctly anchored to the underlying CT
+anatomy and that the dilation-based L5 fusion step always operates against a
+geometrically consistent sacrum boundary. In the current implementation,
+\texttt{ants.apply\_transforms} is applied to the full label volume including
+the sacrum class, which introduces a small but non-zero distortion of the sacrum
+label relative to its true position. Although the 8-mm binary dilation used in
+the fusion step provides some tolerance for this drift, the distortion may
+reduce sacrum boundary precision at the L5 fusion zone.
+
+Implementing the asymmetric approach requires knowledge of which voxels
+constitute the sacrum in both the sacralization template images and the normal
+reference volumes. For normal reference volumes this information is available
+via the CTPelvic1K matched masks --- which is why synthesis is restricted to
+the 23 pelvic-masked training cases. For the 7 real sacralization training cases,
+however, CTSpine1K provides neither an L5 label (anatomically fused and therefore
+unlabelled) nor a sacrum mask (no matched pelvic case exists). This creates a
+fundamental labelling gap: it is not possible to separate the sacralized L5 from
+the native sacrum in these cases without either (a)~manual expert annotation of
+the L5--S1 fusion boundary, which is radiologically challenging and subjective
+even for experienced spine radiologists, or (b)~pseudo-labelling using
+TotalSegmentator~\citep{wasserthal2023}, which segments sacrum and hips by
+morphological priors independently of vertebral counting and would correctly
+identify the pelvic structures on all 784 cases. Pseudo-label quality on the
+sacralization cases should be verified against the 33 manually annotated matched
+cases before adoption. Either approach would enable the sacrum-fixed deformation
+strategy described above and represents a concrete improvement target for a
+subsequent study (see Section~\ref{sec:future}).
+
+\textbf{No Castellvi subtype classification.} SpineSurg-CT detects LSTV type
+but does not provide Castellvi subtype (Types~I--IV). This requires morphometric
+analysis of transverse process height and sacral contact distance, planned as a
+second-stage model.
+
+\textbf{No explicit fused L5--S1 segmentation.} In sacralization, the fused L5
+is incorporated into the sacrum label following CTSpine1K annotation convention.
+The model does not distinguish the sacralized L5 from the native sacrum within
+class 7.
+
+\textbf{CT only; single-centre training data.} All training data originates
+from COLONOG colonoscopy screening CTs acquired in a single imaging protocol.
+External validation on diverse clinical CT acquisitions --- including different
+scanners, reconstruction kernels, and patient populations --- is required before
+deployment. MRI LSTV detection remains a separate problem addressed for the
+labelling task by VERIDAH~\citep{moller2026}.
+
+\subsection{Future Directions}
+\label{sec:future}
+
+\textbf{CycleGAN domain adaptation for sacralization synthesis.}
+The primary limitation of the current registration-based approach is that the
+synthetic image domain (geometrically deformed normal CT) differs from the real
+sacralization image domain (true bony fusion with altered trabecular and cortical
+architecture). Unpaired image-to-image translation using a CycleGAN
+framework~\citep{zhu2017cyclegan} offers a principled approach to bridge this
+domain gap: a generator trained on the 7 real sacralization cases would learn to
+translate synthetically deformed CT intensities toward the appearance distribution
+of real sacralization, without requiring paired data. This would substantially
+improve the realism of synthetic sacralization cases beyond what geometric
+registration alone can achieve.
+
+\textbf{TotalSegmentator pseudo-labeling for expanded pelvic supervision.}
+The matched-only synthesis ceiling (23 cases/epoch) is a direct consequence of
+pelvic ground truth availability. TotalSegmentator~\citep{wasserthal2023}
+segments sacrum and hips using morphological priors rather than vertebra counting
+and will correctly identify the sacrum and hip structures on all 784 COLONOG
+cases, including sacralization cases where the superior sacrum incorporates the
+fused L5. Running TotalSegmentator pseudo-labeling on the full 784-case cohort
+would provide sacrum and hip supervision for all normal training cases (510 cases
+instead of 23), expanding the sacralization synthesis pool by $22\times$ and
+eliminating the matched-only restriction. Pseudo-label quality should be verified
+against the 33 manually annotated matched cases before adoption.
+
+\textbf{Castellvi subtype classification.}
+A second-stage model operating on the SpineSurg-CT segmentation output could
+extract transverse process height and sacral contact distance to classify
+Castellvi Types~I--IV. The spatial segmentation mask produced by SpineSurg-CT
+provides the anatomical localization necessary for this morphometric analysis.
+
+\textbf{External validation and prospective study.}
+Validation on independent clinical CT cohorts, including pre-operative spine
+surgery CTs with surgeon-confirmed vertebral level counts, is the critical next
+step toward clinical deployment.
+
+% =============================================================================
+\section{Conclusion}
+% =============================================================================
+
+SpineSurg-CT is the first CT segmentation model with LSTV awareness built
+into its architecture. It is the first to provide: (1)~a voxel-level 3D
+segmentation mask for the supernumerary L6 vertebra under direct supervised
+training; (2)~calibrated probabilistic LSTV subtype classification
+(Normal/Lumbarization/Sacralization) from learned morphological features embedded
+in the segmentation bottleneck; and (3)~both outputs simultaneously in a single
+end-to-end inference pass from raw CT, without upstream vertebra localization or
+counting steps. Existing tools partition these capabilities without unifying them:
+TotalSegmentator segments without LSTV awareness; VERIDAH labels without
+segmenting and requires an upstream segmentation model; Kwak et al.\ classify
+without spatial output and require a separate imaging modality. The registration-based
+sacralization synthesis pipeline --- performing ANTs SyN field computation and
+application entirely in a shared preprocessed coordinate space and restricting
+synthesis to pelvic-masked reference normals --- produces the first reported
+simultaneous image-and-label sacralization augmentation for CT segmentation
+training. Together these contributions represent a clinically meaningful advance
+for preventing wrong-level spine surgery in patients with this anatomically
+challenging and surgically consequential condition.
+
+% =============================================================================
+\section*{Acknowledgments}
+% =============================================================================
+
+The author thanks the Wayne State University HPC team for access to the warrior
+cluster (H200 NVL GPU nodes, gmsap partition, allocation go2432). CTSpine1K and
+CTPelvic1K datasets are publicly available and acknowledged per their respective
+licenses.
+
+% =============================================================================
+\section*{Data and Code Availability}
+% =============================================================================
+
+CTSpine1K and CTPelvic1K are publicly available. Model weights, inference code,
+train/val/test splits, and the CLAIM 2024 checklist will be released at
+\url{[GitHub URL --- insert before submission]} under the Apache 2.0 license
+upon publication.
+
+% =============================================================================
+\section*{Figure Captions}
+% =============================================================================
+
+\noindent\textbf{Figure 1.} Representative SpineSurg-CT segmentation output on
+a lumbarization test case. Top row: axial slices at three levels showing the
+predicted 10-class label overlay (L1--blue, L2--cyan, L3--teal, L4--green,
+L5--lime, \textbf{L6--red}, sacrum--orange). Bottom row: corresponding ground
+truth. The supernumerary L6 vertebra (red) is correctly identified between L5
+and the sacrum; TotalSegmentator produces no L6 prediction on this case.
+\ph{[Insert figure from inference visualization]}
+\label{fig:l6_example}
+
+\vspace{0.5em}
+\noindent\textbf{Figure 2.} Registration-based sacralization synthesis pipeline.
+Left column: original matched normal spine (CT image and label overlay). Centre
+column: synthetic sacralization after ANTs SyN field application in preprocessed
+$256^3$ unit space; note the collapsed L5--S1 disc space, enlarged transverse
+processes, and fused L5+sacrum label (orange). Right column: a real sacralization
+training case for comparison. Registration and field application are performed
+entirely in the shared PIR $256^3$ 1\,mm isotropic coordinate space, eliminating
+the coordinate frame mismatch inherent in native NIfTI-space registration pipelines.
+\ph{[Insert from augmentation QC visuals]}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\bibliographystyle{unsrt}
+\bibliography{SpineSurgCT_references}
+
+\end{document}

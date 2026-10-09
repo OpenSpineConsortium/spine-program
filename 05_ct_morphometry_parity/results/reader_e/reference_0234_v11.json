@@ -1,0 +1,23 @@
+{
+ "what": "CTSP 0234 v11 (ct 0234_ct.nii.gz, mask 0234_label.nii.gz): the release's own rows on the same mask, for the J2 canal fix",
+ "source": "VBHa / VBHp / EPDu / EPDl: CTSpinoPelvic1K-1/morphometrics/ostk_level_morphometry.csv rows case=0234 (pre-1b7005c body cut). SCD: CTSpinoPelvic1K-1/morphometrics/surgical_morphometrics.csv canal_ap_mm_<level> case 0234 (extract_surgical_morphometrics.py _canal_column + _canal_ap: closed-ring column, pedicle slab, +-1.5 mm midsagittal strip, median; the recipe that took the release's count under 11 mm from 473 to 12, LEVEL_MORPHOMETRY.md section 1). J1 (schema v2, ostk canal_dimensions on canal_mask's solid) read SCD 12.0 / 10.1 / 12.1 mm at L2 / L3 / L4 here against 18.8 / 18.0 / 18.0 -- the pocket sections in the slab.",
+ "tol_mm": 1.0,
+ "tol_mm_by_key": {"SCD": 2.0},
+ "keys": ["VBHa", "VBHp", "EPDu", "EPDl", "SCD"],
+ "expected": {
+  "T12": {"VBHa": 24.7, "VBHp": 23.4, "EPDu": 31.59, "EPDl": 35.59, "SCD": 18.0, "source": "ostk_level_morphometry.csv 0234,T12; surgical_morphometrics.csv canal_ap_mm_T12"},
+  "L1": {"VBHa": 23.98, "VBHp": 24.32, "EPDu": 30.24, "EPDl": 36.25, "SCD": 18.8, "source": "ostk_level_morphometry.csv 0234,L1; canal_ap_mm_L1"},
+  "L2": {"VBHa": 28.28, "VBHp": 28.65, "EPDu": 27.51, "EPDl": 39.86, "SCD": 18.8, "source": "ostk_level_morphometry.csv 0234,L2; canal_ap_mm_L2"},
+  "L3": {"VBHa": 28.47, "VBHp": 30.05, "EPDu": 30.9, "EPDl": 37.49, "SCD": 18.0, "source": "ostk_level_morphometry.csv 0234,L3; canal_ap_mm_L3"},
+  "L4": {"VBHa": 31.16, "VBHp": 30.06, "EPDu": 28.03, "EPDl": 35.66, "SCD": 18.0, "source": "ostk_level_morphometry.csv 0234,L4; canal_ap_mm_L4"}
+ },
+ "not_asserted": {
+  "T11": {"SCD": 18.8, "source": "canal_ap_mm_T11 (no ostk row)"},
+  "L5": {"VBHa": 32.56, "VBHp": 23.85, "EPDu": 34.72, "EPDl": 32.91, "SCD": 18.0, "source": "second-lowest presacral on this L6 spine"},
+  "L6": {"VBHa": 32.77, "VBHp": 23.95, "EPDu": 33.79, "EPDl": 27.34, "SCD": 16.4, "source": "lowest presacral; reader E's plate fit may differ on the transitional body"}
+ },
+ "j1_schema_v2_values_for_contrast": {
+  "L2": {"SCD": 11.968, "n_column": 4}, "L3": {"SCD": 10.146, "n_column": 4}, "L4": {"SCD": 12.101, "n_column": 4}, "L1": {"SCD": 17.08, "n_column": 6}, "T12": {"SCD": 17.61, "n_column": 10},
+  "note": "features_j1.csv rows case 0234 family v11 (J1 40438897)"
+ }
+}

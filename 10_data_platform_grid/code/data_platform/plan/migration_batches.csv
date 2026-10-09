@@ -1,0 +1,16 @@
+batch,order,title,items,est_gb_sized,items_unsized,deletion_candidate_gb,depends_on
+B00,0,"pilot: DeepFluoro H5 (small, one source, hashed root)",1,6.2,0,0.0,
+B01,1,TCIA CT COLONOGRAPHY raw DICOM and reference NIfTI,5,1057.0,0,336.0,B00
+B02,2,CTSpinoPelvic1K release working copy + build tree (one hard-link group),30,291.1,4,64.1,B00
+B03,3,HOME copies of CTSpine1K and CTPelvic1K,2,226.0,0,226.0,B02
+B04,4,plain-film raw corpora and the spine-detector datasets,13,302.2,6,159.0,B00
+B05,5,"XRSpinoPelvic1K data (BUU-LSPINE 2000, xrsp1k DRRs)",3,4.7,2,4.7,B04
+B06,6,VerSe / VerSeFusion data and VerSe render banks,14,383.1,11,187.0,B00
+B07,7,TotalSegmentator v2.0.1 and v3.0.0 and their banks,5,210.8,2,100.0,B00
+B08,8,"RSNA 2022 cervical, RibFrac zips (spondy_landmark, identified 2026-10-08, moves in B14)",2,203.3,1,203.3,B00
+B09,9,FluoroCap and FluoroGen,7,316.0,6,181.0,B00
+B10,10,"single-source derived banks (CT renders, film banks, C-arm banks)",64,79.7,61,0.0,B02 B04 B06 B07
+B11,11,"banks of several sources, review packs, identity tables",64,176.2,59,129.2,B10
+B12,12,"(dropped 2026-10-08: nnunet/raw stays on HOME, its containers bind no Ceph path)",0,0.0,0,0.0,
+B13,13,"OPTIONAL, not imaging: nnU-Net results, ablations, bench (Greg decides)",3,627.4,0,0.0,B11
+B14,14,identified 2026-10-08: moved or left (3 entries still to inspect),12,0.3,5,0.0,B02 B04 B05

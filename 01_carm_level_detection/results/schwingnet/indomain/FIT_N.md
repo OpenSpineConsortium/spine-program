@@ -1,0 +1,69 @@
+# FIT_N: the N-only inverse power law per curve, with intervals
+
+Generated 2026-09-24 15:48 by `tools/indomain_fit_N.py` from `fit.json` (written 2026-09-24 11:59, `tools/indomain_fit.py --boot 2000`, seed 0). Nothing was trained, re-scored or re-fitted for this file except the check in the last column: the point fit of every curve is re-derived from its own points by the same fitter. INDOMAIN.md of 10:43 prints the 10-resample run and says 'no interval' throughout; this file is the interval-bearing extract of the curves Figure 5 draws. **Figure 5 is not drawn here**; it waits for the coverage axis.
+
+## Method
+
+- Model: acc(N) = A - B * N^(-C); A = asymptote; fitted on N > 0 by weighted NLS with Figueroa's rank weights j/m; multi-start; bounds A in [0,1], B in [0,100], C in [0,6] (Figueroa RL et al., BMC Med Inform Decis Mak 2012;12:8, doi:10.1186/1472-6947-12-8; their Y = 1 - a - b x^c).
+- Interval: case-clustered percentile bootstrap over the whole fit: resample test patients with replacement (shared draw across curves and seeds, hits and truth summed over seeds within a patient), recompute every point, refit; 2.5/97.5 percentiles over the finite replicates; 'not reached' counted; n_boot 2000, seed 0. 'not reached' = the fitted asymptote is at or below the target; the share of resamples in which that happens is printed when it exceeds 2.5 %.
+- An asymptote counts as identified when A is inside (0, 1) in the point fit and in at least 75 % of resamples with dof >= 2. Where it is NOT identified, the fitted curve is still rising at the largest N measured and every N to a target is an extrapolation of unknown reliability.
+- N = 0 is outside the model (as in the paper); the N = 0 cell is printed as the floor. Detection x = frames (2 per patient); naming x = training persons of the protocol, N = all is the fold mean.
+- Held out: detection 45 cells, naming 245 cells, every one held out by tools/eval_gate.py (overlap 0, unresolved 0) and by the list intersections in det_fill.json / name_fill.json.
+
+## Detection on the same device (Figure 5 a)
+
+x = real C-ArmLSpine frames added to the stage-2 background (2 frames per patient). Test set: released 28-patient C-ArmLSpine test split, repaired truth; LAT 27 patients / 138 vertebrae, AP 28 / 143 per seed.
+
+| curve | points (N: accuracy, k/n pooled over seeds) | asymptote and N to target, 95 % case-clustered bootstrap |
+|---|---|---|
+| `det_carm_LAT_body074` (body rule, conf 0.74 (reported)) | N=0: 0.2 % (1/414); N=4: 71.7 % (297/414); N=10: 73.7 % (305/414); N=24: 84.1 % (348/414); N=50: 81.4 % (337/414); N=100: 80.4 % (222/276); N=200: 81.2 % (224/276) | A = 81.7 % [76.7, 86.6]; identified; N to 95 % of A: 10.0 [5.1, 23.5]; N to 97 % of A: 15.8 [7.2, 44.9]; N to 90 %: not reached (not reached in 100 % of resamples); N to 95 %: not reached (not reached in 100 % of resamples); rmse 2.4 pp; dof 3; refit check ok |
+| `det_carm_AP_body074` (body rule, conf 0.74 (reported)) | N=0: 15.2 % (65/429); N=4: 74.4 % (319/429); N=10: 78.6 % (337/429); N=24: 84.6 % (363/429); N=50: 84.1 % (361/429); N=100: 85.0 % (243/286); N=200: 84.6 % (242/286) | A = 85.3 % [81.0, 90.7]; identified; N to 95 % of A: 11.9 [6.7, 33.5]; N to 97 % of A: 20.7 [9.7, 83.1]; N to 90 %: not reached [31.7, 647,801] (not reached in 96 % of resamples); N to 95 %: not reached (not reached in 100 % of resamples); rmse 1.0 pp; dof 3; refit check ok |
+| `det_carm_LAT_centre074` (centre rule, conf 0.74) | N=0: 74.6 % (309/414); N=4: 75.1 % (311/414); N=10: 76.1 % (315/414); N=24: 85.5 % (354/414); N=50: 82.4 % (341/414); N=100: 82.6 % (228/276); N=200: 81.2 % (224/276) | A = 82.5 % [78.1, 87.1]; identified; N to 95 % of A: 7.1 [3.4, 18.0]; N to 97 % of A: 10.6 [4.6, 33.3]; N to 90 %: not reached (not reached in 100 % of resamples); N to 95 %: not reached (not reached in 100 % of resamples); rmse 2.3 pp; dof 3; refit check ok |
+| `det_carm_AP_centre074` (centre rule, conf 0.74) | N=0: 66.9 % (287/429); N=4: 75.3 % (323/429); N=10: 78.6 % (337/429); N=24: 84.6 % (363/429); N=50: 84.1 % (361/429); N=100: 85.0 % (243/286); N=200: 84.6 % (242/286) | A = 85.4 % [81.0, 90.8]; identified; N to 95 % of A: 11.8 [6.3, 38.3]; N to 97 % of A: 21.3 [9.5, 107]; N to 90 %: not reached [34.6, 50,236] (not reached in 96 % of resamples); N to 95 %: not reached (not reached in 100 % of resamples); rmse 1.1 pp; dof 3; refit check ok |
+| `det_carm_LAT_body025` (body rule, conf 0.25) | N=0: 0.7 % (3/414); N=4: 80.7 % (334/414); N=10: 81.9 % (339/414); N=24: 88.4 % (366/414); N=50: 87.9 % (364/414); N=100: 86.6 % (239/276); N=200: 90.2 % (249/276) | A = 91.3 % [86.6, 100.0]; identified; N to 95 % of A: 31.1 [6.3, 8.5 million]; N to 97 % of A: 98.9 [12.7, > 1e9]; N to 90 %: 516 [14.8, 43,656] (not reached in 24 % of resamples); N to 95 %: not reached [565, 483.6 million] (not reached in 70 % of resamples); rmse 1.5 pp; dof 3; refit check ok |
+| `det_carm_AP_body025` (body rule, conf 0.25) | N=0: 16.3 % (70/429); N=4: 84.6 % (363/429); N=10: 88.8 % (381/429); N=24: 91.1 % (391/429); N=50: 91.8 % (394/429); N=100: 94.1 % (269/286); N=200: 92.7 % (265/286) | A = 93.8 % [89.6, 99.6]; identified; N to 95 % of A: 10.6 [5.1, 101]; N to 97 % of A: 21.6 [7.8, 543]; N to 90 %: 14.0 [5.7, 102] (not reached in 4 % of resamples); N to 95 %: not reached [20.0, 36,136] (not reached in 65 % of resamples); rmse 0.6 pp; dof 3; refit check ok |
+| `det_carm_LAT_centre025` (centre rule, conf 0.25) | N=0: 87.7 % (363/414); N=4: 86.0 % (356/414); N=10: 87.2 % (361/414); N=24: 90.3 % (374/414); N=50: 89.9 % (372/414); N=100: 90.6 % (250/276); N=200: 91.3 % (252/276) | A = 92.3 % [88.0, 100.0]; identified; N to 95 % of A: 8.6 [2.3, 295,168]; N to 97 % of A: 26.2 [4.0, 66.5 million]; N to 90 %: 40.5 [2.9, 2,030] (not reached in 12 % of resamples); N to 95 %: not reached [47.6, 524.1 million] (not reached in 69 % of resamples); rmse 0.5 pp; dof 3; refit check ok |
+| `det_carm_AP_centre025` (centre rule, conf 0.25) | N=0: 91.6 % (393/429); N=4: 86.9 % (373/429); N=10: 90.0 % (386/429); N=24: 91.1 % (391/429); N=50: 92.1 % (395/429); N=100: 94.1 % (269/286); N=200: 92.7 % (265/286) | A = 93.9 % [89.6, 100.0]; identified; N to 95 % of A: 7.7 [3.6, 317]; N to 97 % of A: 17.6 [5.8, 3,875]; N to 90 %: 10.5 [3.7, 96.8] (not reached in 4 % of resamples); N to 95 %: not reached [16.9, 106,577] (not reached in 63 % of resamples); rmse 0.6 pp; dof 3; refit check ok |
+
+## Naming, lateral protocol (Figure 5 b)
+
+x = C-ArmLSpine training persons of the lateral protocol (both views of each case kept); N = all is the fold mean. Test set: the five case-grouped test folds pooled (148 lateral cases).
+
+| curve | points (N: accuracy, k/n pooled over seeds) | asymptote and N to target, 95 % case-clustered bootstrap |
+|---|---|---|
+| `name_id_LAT_kfull` (whole frame) | N=0: 93.7 % (1752/1869); N=5: 96.7 % (1807/1869); N=10: 96.5 % (1803/1869); N=25: 97.5 % (1822/1869); N=50: 98.1 % (611/623); N=all: 98.1 % (611/623) | A = 100.0 % [96.5, 100.0]; NOT identified (A at 1.0 in 68 % of resamples); N to 95 % of A: 1.5 [0.0, 14.1]; N to 97 % of A: 12.1 [0.0, 4,386]; N to 97 %: 12.1 [0.0, 7,580] (not reached in 5 % of resamples); N to 99 %: 1,064 [10.8, > 1e9] (not reached in 22 % of resamples); rmse 0.3 pp; dof 2; refit check ok |
+| `name_id_LAT_k3` (3 vertebrae in view) | N=0: 83.6 % (2916/3486); N=5: 89.8 % (3130/3486); N=10: 90.9 % (3168/3486); N=25: 91.8 % (3201/3486); N=50: 93.5 % (1086/1162); N=all: 93.1 % (1082/1162) | A = 95.3 % [91.0, 100.0]; NOT identified (A at 1.0 in 33 % of resamples); N to 95 % of A: 8.0 [1.7, 7,424]; N to 97 % of A: 32.1 [3.3, 1.4 million]; N to 97 %: not reached [229, 563.5 million] (not reached in 58 % of resamples); N to 99 %: not reached [6,009, > 1e9] (not reached in 65 % of resamples); rmse 0.3 pp; dof 2; refit check ok |
+| `name_id_LAT_k1` (1 vertebra in view) | N=0: 63.9 % (1163/1821); N=5: 69.2 % (1261/1821); N=10: 70.0 % (1275/1821); N=25: 72.2 % (1314/1821); N=50: 75.1 % (456/607); N=all: 77.1 % (468/607) | A = 100.0 % [89.7, 100.0]; NOT identified (A at 1.0 in 96 % of resamples); N to 95 % of A: 78.5 million [119,989, > 1e9]; N to 97 % of A: > 1e9 [2.6 million, > 1e9]; N to 97 %: > 1e9 [36.7 million, > 1e9] (not reached in 4 % of resamples); N to 99 %: > 1e9 [> 1e9, > 1e9] (not reached in 4 % of resamples); rmse 0.8 pp; dof 2; refit check ok |
+
+Zero-shot reference (v9 level model, no C-arm image): `name_zeroshot_LAT_kfull` 96.3 % (600/623); `name_zeroshot_LAT_k3` 82.2 % (955/1162); `name_zeroshot_LAT_k1` 63.3 % (384/607)
+
+## Naming, anteroposterior protocol (Figure 5 b)
+
+x = C-ArmLSpine training persons of the anteroposterior protocol; N = all is the fold mean. Test set: the five case-grouped test folds pooled (149 anteroposterior cases).
+
+| curve | points (N: accuracy, k/n pooled over seeds) | asymptote and N to target, 95 % case-clustered bootstrap |
+|---|---|---|
+| `name_id_AP_kfull` (whole frame) | N=0: 33.8 % (642/1899); N=5: 90.8 % (1724/1899); N=10: 94.7 % (1798/1899); N=25: 95.4 % (1811/1899); N=50: 95.4 % (604/633); N=all: 98.1 % (621/633) | A = 100.0 % [95.5, 100.0]; NOT identified (A at 1.0 in 69 % of resamples); N to 95 % of A: 18.7 [4.8, 69.5]; N to 97 % of A: 67.6 [6.1, 513]; N to 97 %: 67.6 [11.6, 669] (not reached in 11 % of resamples); N to 99 %: 1,071 [86.9, 74,458] (not reached in 28 % of resamples); rmse 0.9 pp; dof 2; refit check ok |
+| `name_id_AP_k3` (3 vertebrae in view) | N=0: 28.5 % (1010/3549); N=5: 69.4 % (2464/3549); N=10: 75.1 % (2666/3549); N=25: 81.4 % (2889/3549); N=50: 83.7 % (990/1183); N=all: 87.6 % (1036/1183) | A = 100.0 % [89.9, 100.0]; NOT identified (A at 1.0 in 70 % of resamples); N to 95 % of A: 2,110 [77.7, 8,863]; N to 97 % of A: 11,584 [193, 69,158]; N to 97 %: 11,584 [2,474, 457,279] (not reached in 21 % of resamples); N to 99 %: 451,160 [46,931, 14.2 million] (not reached in 27 % of resamples); rmse 0.5 pp; dof 2; refit check ok |
+| `name_id_AP_k1` (1 vertebra in view) | N=0: 15.7 % (277/1761); N=5: 52.8 % (929/1761); N=10: 59.5 % (1047/1761); N=25: 64.8 % (1142/1761); N=50: 70.0 % (411/587); N=all: 74.6 % (438/587) | A = 100.0 % [91.5, 100.0]; NOT identified (A at 1.0 in 94 % of resamples); N to 95 % of A: 237,061 [12,944, 2.1 million]; N to 97 % of A: 2.7 million [94,845, 37.5 million]; N to 97 %: 2.7 million [351,293, 42.5 million] (not reached in 5 % of resamples); N to 99 %: 515.7 million [29.6 million, > 1e9] (not reached in 5 % of resamples); rmse 0.8 pp; dof 2; refit check ok |
+
+Zero-shot reference (v9 level model, no C-arm image): `name_zeroshot_AP_kfull` 43.9 % (278/633); `name_zeroshot_AP_k3` 32.0 % (378/1183); `name_zeroshot_AP_k1` 19.9 % (117/587)
+
+## Reading
+
+- **Detection, same device.** Under the pre-stated convention (body rule, conf 0.74) the asymptote is 81.7 % [76.7, 86.6] lateral and 85.3 % [81.0, 90.7] AP, both identified; 95 % of it is reached at 10.0 [5.1, 23.5] lateral and 11.9 [6.7, 33.5] AP frames, 97 % at 15.8 [7.2, 44.9] and 20.7 [9.7, 83.1]. The 90 % target is not reached (not reached in 100 % of resamples) on the lateral view and not reached [31.7, 647,801] (not reached in 96 % of resamples) on the AP; 95 % is not reached on either. So more frames of the same two spot protocols do not carry confident detection to 90 % on this device; the curve is flat from about 24 frames (12 patients).
+
+- **Naming, lateral.** Whole frame: floor 93.7 % at N = 0 (zero-shot already names the lateral view), asymptote 100.0 % [96.5, 100.0], NOT identified (A at 1.0 in 68 % of resamples); N to 97 % 12.1 [0.0, 7,580] (not reached in 5 % of resamples) persons, to 99 % 1,064 [10.8, > 1e9] (not reached in 22 % of resamples). With 3 vertebrae in view the asymptote is 95.3 % [91.0, 100.0] and 97 % is not reached [229, 563.5 million] (not reached in 58 % of resamples); with 1 vertebra 100.0 % [89.7, 100.0], 97 % > 1e9 [36.7 million, > 1e9] (not reached in 4 % of resamples). The lateral whole-frame curve gains about a point over the zero-shot floor; the collimated fields are still rising at the largest N measured and their N to 97 % is an extrapolation.
+
+- **Naming, AP.** Whole frame: floor 33.8 % at N = 0, asymptote 100.0 % [95.5, 100.0] (NOT identified, A at 1.0 in 69 % of resamples); N to 97 % 67.6 [11.6, 669] (not reached in 11 % of resamples) persons (inside the measured range of 88), to 99 % 1,071 [86.9, 74,458] (not reached in 28 % of resamples). With 3 vertebrae: asymptote 100.0 % [89.9, 100.0], 97 % at 11,584 [2,474, 457,279] (not reached in 21 % of resamples); with 1 vertebra: 100.0 % [91.5, 100.0], 97 % at 2.7 million [351,293, 42.5 million] (not reached in 5 % of resamples). The AP view is where same-device persons buy the most (from a third of vertebrae named to 95 % by 25 persons); the narrow fields have not flattened by 88 persons.
+
+## What this file does not do
+
+- It does not separate N from acquisition-space coverage: along every curve here the background is fixed and the added frames are AP and lateral spot views, so N and coverage move together by construction. The matched-N low- against high-coverage arms (INDOMAIN.md section 7) are pending, and Figure 5 waits for them.
+- N to 99 % on a curve whose asymptote is not identified is printed for completeness and is not a recommendation.
+- The Hessian interval on the asymptote (`asymptote.hessian_ci`) is Figueroa's own; it is unreliable at 2-3 degrees of freedom and the bootstrap is the one to quote.
+
+## Files
+
+- `fit_N.json`: the extract, per curve: points, parameters, asymptote (bootstrap and Hessian intervals, identifiability), N to 95/97 % of the asymptote and to the absolute targets with intervals, fitted accuracy at every measured N with intervals, and the refit check.
+- Source of every number: `fit.json` (`tools/indomain_fit.py --boot 2000`, 11:59). Reproduce: `python tools/indomain_fit_N.py`.

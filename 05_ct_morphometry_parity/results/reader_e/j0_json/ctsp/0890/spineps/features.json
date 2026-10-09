@@ -1,0 +1,1572 @@
+{
+ "schema": "reader_e_features_v1",
+ "person_key": "ctsp:0890",
+ "corpus": "ctsp",
+ "case": "0890",
+ "family": "spineps",
+ "ct": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct/0890_ct.nii.gz",
+ "mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0890_seg-vert_msk.nii.gz",
+ "ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0890_ctd.json",
+ "class_map": null,
+ "code_path": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/SchwingNet/tools/reader_e_features.py",
+ "code_sha256": "8c9b81a5051a1cfc6eed052b472177eade0c7798d692005f75c2f0ce50e0475b",
+ "generated_utc": "2026-09-25T03:49:33Z",
+ "hostname": "hao1",
+ "python": "3.11.16",
+ "numpy": "2.2.6",
+ "nibabel": "5.4.2",
+ "notes": [
+  "family carries no rib label: reader C's whole-rib gate has no labelled-rib HU reference and refuses the count (its rule); per-instance rib_*_trace_chord_mm carries the CT trace",
+  "reader C's thoracic count from a rib-free C7 is TS-only; refused here by design (see adapter)"
+ ],
+ "reader_c_class_map": "/wsu/home/go/go24/go2432/bench/totalsegmentator/class_map.json",
+ "reader_c_class_map_sha256": "253e91856c15f6a787578f693382a620190b795f8013d54c441f261c860ceeb7",
+ "modules": {
+  "rib_count_reader": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/tools/rib_count_reader.py",
+  "tp_morphology": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/tools/tp_morphology.py",
+  "extract_transition_morphometrics": "/wsu/home/go/go24/go2432/CTSpinoPelvic1K/scripts/extract_transition_morphometrics.py",
+  "ostk": "/wsu/home/go/go24/go2432/OpenSpineToolkit/ostk/__init__.py"
+ },
+ "grid": {
+  "shape": [
+   512,
+   512,
+   468
+  ],
+  "zooms_mm": [
+   0.781,
+   0.781,
+   0.8
+  ],
+  "axcodes_native_ct": "PIR",
+  "axcodes_native_mask": "PIR",
+  "mask_shape_native": [
+   512,
+   468,
+   512
+  ],
+  "mask_on_ct_grid": "same grid",
+  "fov_z_mm": [
+   -474.2,
+   -100.6
+  ],
+  "fov_lr_mm": 400.0,
+  "fov_ap_mm": 400.0
+ },
+ "loader": "tools.spineps_ids.assert_verse_monotonic(image, ctd=<ctd>, allow_skipped_names=True)",
+ "guard": {
+  "verdict": "verse_ok",
+  "raised": false,
+  "reasons": [],
+  "ctd_agree": 8,
+  "ctd_disagree": 0,
+  "veridah_skipped_names": [],
+  "spine_axis_cos_S": 1.0
+ },
+ "self_check": {},
+ "warnings": [],
+ "sacrum_source": "spineps_26",
+ "sacrum_present": true,
+ "sacrum_ml": 173.02,
+ "hips_present": false,
+ "hip_ml": null,
+ "ribs_labelled_present": false,
+ "hardware_present": false,
+ "loader_extra": {
+  "ids_ge_100_ignored": [
+   118,
+   119,
+   120,
+   121,
+   122,
+   123,
+   124,
+   126
+  ]
+ },
+ "n_instances": 7,
+ "spacing": {
+  "case_median_ml": 47.39,
+  "case_median_si_extent_mm": 46.0,
+  "n_whole": 6,
+  "gaps": [],
+  "doubled_candidates": [],
+  "fragments": [],
+  "halves": [],
+  "spacing_mm": [
+   28.3,
+   30.4,
+   31.7,
+   30.1,
+   28.4,
+   28.4
+  ]
+ },
+ "sequence": {
+  "pos_from_plateau_valid": true,
+  "last_rib_inst_k": 1,
+  "last_rib_source": "ct_trace",
+  "n_instances": 7,
+  "n_below_last_rib": 5
+ },
+ "crest": {
+  "has_crest": false
+ },
+ "junction": {
+  "has_sacrum": true,
+  "has_hips": false,
+  "tp_height_left_mm": 17.6,
+  "tp_height_slab_left_mm": 17.6,
+  "tp_tip_components_left": 1,
+  "tp_tip_ml_left": 1.17,
+  "tp_gap_left_mm": 3.8,
+  "tp_gap_edt_left_mm": 2.86,
+  "tp_contact_left_mm2": 0.0,
+  "tp_height_right_mm": 17.6,
+  "tp_height_slab_right_mm": 17.6,
+  "tp_tip_components_right": 1,
+  "tp_tip_ml_right": 1.18,
+  "tp_gap_right_mm": 6.2,
+  "tp_gap_edt_right_mm": 3.29,
+  "tp_contact_right_mm2": 0.0,
+  "tp_height_max_mm": 17.6,
+  "tp_height_asym_mm": 0.0,
+  "tp_gap_min_mm": 2.86,
+  "tp_gap_asym_mm": 0.4,
+  "tp_contact_max_mm2": 0.0,
+  "tp_contact_asym_mm2": 0.0,
+  "has_tp_ala_contact": true,
+  "above": {
+   "tp_height_left_mm": 12.8,
+   "tp_height_slab_left_mm": 16.8,
+   "tp_gap_edt_left_mm": 23.75,
+   "tp_contact_left_mm2": 0.0,
+   "tp_height_right_mm": 13.6,
+   "tp_height_slab_right_mm": 28.0,
+   "tp_gap_edt_right_mm": 27.32,
+   "tp_contact_right_mm2": 0.0,
+   "tp_height_max_mm": 13.6,
+   "tp_height_asym_mm": 0.8
+  },
+  "ala_rise_left_mm": 8.0,
+  "ala_rise_right_mm": 1.6,
+  "ala_rise_max_mm": 8.0,
+  "ala_rise_asym_mm": 6.4,
+  "ala_rise_wholedepth_max_mm": 8.0,
+  "sacrum_crop_voxels": 354346,
+  "has_ala_rise": true,
+  "has_foramina": true,
+  "foramina_left": 2,
+  "foramina_right": 2,
+  "foramina_median_area_mm2": 40.0,
+  "foramina_slab_offset_mm": 9.4,
+  "has_disc_low": true,
+  "has_disc_above": true,
+  "disc_low_mm": 14.4,
+  "disc_above_mm": 8.8,
+  "disc_ratio": 1.636
+ },
+ "immaturity": {
+  "has_sacral_profile": false,
+  "sacral_gap_below_45mm": null,
+  "iliac_apophysis_open": null,
+  "age_years": null
+ },
+ "fov": {
+  "junction_tl_in_fov": false,
+  "junction_ls_in_fov": true,
+  "partial_top": true,
+  "partial_bottom": false,
+  "lateral_fov_ok_at_lowest": true,
+  "sacrum_in_field": true,
+  "n_partial_instances": 1
+ },
+ "unusual_spine": {
+  "any": false,
+  "flags": []
+ },
+ "reader_c": {
+  "refusals": [
+   "tl_no_rib: no rib-bearing body in the field",
+   "thoracic: t1_no_rib: no rib-bearing body"
+  ],
+  "thoracic_refusals": [
+   "t1_no_rib: no rib-bearing body"
+  ],
+  "notes": [],
+  "n_seeds": 9,
+  "junction_tests": [],
+  "fused_evidence": [],
+  "rib_hu_reference": null,
+  "rib_cage_levels": [],
+  "rib_levels_outside_cage": {
+   "above": [],
+   "below": []
+  },
+  "runs": [
+   {
+    "k": 0,
+    "len_mm": 21.0,
+    "s": [
+     9,
+     29
+    ],
+    "z": -110.7,
+    "ts": {
+     "T1": 1.0
+    },
+    "hu": 173.0,
+    "cut": [
+     true,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": []
+   },
+   {
+    "k": 1,
+    "len_mm": 23.0,
+    "s": [
+     37,
+     59
+    ],
+    "z": -138.6,
+    "ts": {
+     "T2": 1.0
+    },
+    "hu": 183.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": []
+   },
+   {
+    "k": 2,
+    "len_mm": 26.0,
+    "s": [
+     67,
+     92
+    ],
+    "z": -168.9,
+    "ts": {
+     "T3": 1.0
+    },
+    "hu": 184.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": []
+   },
+   {
+    "k": 3,
+    "len_mm": 27.0,
+    "s": [
+     100,
+     126
+    ],
+    "z": -202.0,
+    "ts": {
+     "T4": 1.0
+    },
+    "hu": 194.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": []
+   },
+   {
+    "k": 4,
+    "len_mm": 25.0,
+    "s": [
+     133,
+     157
+    ],
+    "z": -233.9,
+    "ts": {
+     "T5": 1.0
+    },
+    "hu": 184.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": []
+   },
+   {
+    "k": 5,
+    "len_mm": 26.0,
+    "s": [
+     163,
+     188
+    ],
+    "z": -263.8,
+    "ts": {
+     "T6": 1.0
+    },
+    "hu": 177.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": []
+   },
+   {
+    "k": 6,
+    "len_mm": 23.0,
+    "s": [
+     197,
+     219
+    ],
+    "z": -290.1,
+    "ts": {
+     "T7": 1.0
+    },
+    "hu": 203.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": []
+   },
+   {
+    "k": 7,
+    "len_mm": 53.0,
+    "s": [
+     227,
+     279
+    ],
+    "z": -325.0,
+    "ts": {
+     "sacrum": 1.0
+    },
+    "hu": 242.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": true,
+    "ribs": []
+   }
+  ],
+  "junction_tl": false,
+  "junction_ls": true,
+  "n_rib_free": null,
+  "n_rib_free_is_lower_bound": false,
+  "stump_levels": [],
+  "n_rib_bearing": null,
+  "sacrum_fused_evidence": false,
+  "subtype_call": "no_count",
+  "sacrum_run_mm": 53.0,
+  "ts_s1_mm_on_column": 0.0,
+  "seconds_core": 5.0,
+  "seconds": 5.0,
+  "anchors": {
+   "muscle_median": null,
+   "vertebra_median": 284.0,
+   "fill": null
+  },
+  "adapter": {
+   "instances": {
+    "0": 43,
+    "1": 42,
+    "2": 41,
+    "3": 40,
+    "4": 39,
+    "5": 38,
+    "6": 37
+   },
+   "note": "instances -> TS T1..L5 ids in top-to-bottom order (cycling); no instance is cervical to reader C, so its C7-anchored thoracic count is refused by design",
+   "sacrum_to": 25,
+   "ribs_to": null,
+   "seeds_after_cleaning": [
+    [
+     43,
+     [
+      -16.5,
+      -53.8,
+      -112.1
+     ],
+     29.31
+    ],
+    [
+     42,
+     [
+      -18.2,
+      -46.4,
+      -139.4
+     ],
+     34.8
+    ],
+    [
+     41,
+     [
+      -19.1,
+      -39.6,
+      -169.9
+     ],
+     41.43
+    ],
+    [
+     40,
+     [
+      -20.7,
+      -32.3,
+      -202.8
+     ],
+     45.73
+    ],
+    [
+     39,
+     [
+      -19.9,
+      -29.1,
+      -234.2
+     ],
+     50.02
+    ],
+    [
+     38,
+     [
+      -19.0,
+      -28.4,
+      -264.3
+     ],
+     49.05
+    ],
+    [
+     25,
+     [
+      -20.5,
+      -62.4,
+      -306.8
+     ],
+     null
+    ],
+    [
+     25,
+     [
+      -20.1,
+      -56.3,
+      -319.4
+     ],
+     null
+    ],
+    [
+     25,
+     [
+      -20.4,
+      -81.1,
+      -330.7
+     ],
+     null
+    ]
+   ],
+   "vertebral_seeds_dropped": 1,
+   "sacral_top_for_seed_cleaning_mm": {
+    "global": -284.6,
+    "under_column": -291.8
+   }
+  },
+  "ribs": [
+   {
+    "vox": 15147,
+    "ml": 7.4,
+    "medial_mm": 22.0,
+    "medial_dy": -13.6,
+    "hu_mean": 569.0,
+    "hu_p90": 939.0,
+    "medial_xyz": [
+     -33.2,
+     -70.3,
+     -101.4
+    ],
+    "lateral_mm": 117.0,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -33.3,
+     -72.1,
+     -108.6
+    ],
+    "chord_mm": 130.2,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "not TS rib, and TotalSegmentator labels no rib in this field to compare it with",
+    "level": null
+   },
+   {
+    "vox": 3218,
+    "ml": 1.57,
+    "medial_mm": 23.9,
+    "medial_dy": -16.3,
+    "hu_mean": 512.0,
+    "hu_p90": 841.0,
+    "medial_xyz": [
+     -35.5,
+     -63.3,
+     -137.4
+    ],
+    "lateral_mm": 70.7,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -34.6,
+     -63.6,
+     -136.3
+    ],
+    "chord_mm": 60.7,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "not TS rib, and TotalSegmentator labels no rib in this field to compare it with",
+    "level": null
+   },
+   {
+    "vox": 2309,
+    "ml": 1.13,
+    "medial_mm": 0.4,
+    "medial_dy": -0.1,
+    "hu_mean": 256.0,
+    "hu_p90": 322.0,
+    "medial_xyz": [
+     -20.7,
+     -58.6,
+     -302.2
+    ],
+    "lateral_mm": 28.6,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -20.0,
+     -52.1,
+     -302.2
+    ],
+    "chord_mm": 29.9,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "level": null
+   },
+   {
+    "vox": 215,
+    "ml": 0.1,
+    "medial_mm": 13.7,
+    "medial_dy": -0.5,
+    "hu_mean": 249.0,
+    "hu_p90": 312.0,
+    "medial_xyz": [
+     -33.2,
+     -40.6,
+     -279.0
+    ],
+    "lateral_mm": 27.0,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -38.4,
+     -36.9,
+     -277.9
+    ],
+    "chord_mm": 8.8,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "level": null
+   },
+   {
+    "vox": 171,
+    "ml": 0.08,
+    "medial_mm": 17.7,
+    "medial_dy": -17.3,
+    "hu_mean": 256.0,
+    "hu_p90": 323.0,
+    "medial_xyz": [
+     -23.0,
+     -46.1,
+     -247.0
+    ],
+    "lateral_mm": 24.7,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -31.9,
+     -47.9,
+     -250.3
+    ],
+    "chord_mm": 12.2,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "stump: a nubbin (< 0.5 ml or < 20 mm) that TS does not call rib",
+    "level": null
+   },
+   {
+    "vox": 340,
+    "ml": 0.17,
+    "medial_mm": 10.1,
+    "medial_dy": 0.6,
+    "hu_mean": 250.0,
+    "hu_p90": 307.0,
+    "medial_xyz": [
+     -30.0,
+     -35.2,
+     -187.0
+    ],
+    "lateral_mm": 24.2,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -34.4,
+     -32.1,
+     -182.5
+    ],
+    "chord_mm": 18.8,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "stump: a nubbin (< 0.5 ml or < 20 mm) that TS does not call rib",
+    "level": null
+   },
+   {
+    "vox": 231,
+    "ml": 0.11,
+    "medial_mm": 33.8,
+    "medial_dy": 30.3,
+    "hu_mean": 481.0,
+    "hu_p90": 837.0,
+    "medial_xyz": [
+     -34.7,
+     -18.8,
+     -290.2
+    ],
+    "lateral_mm": 19.4,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "skipped",
+    "chord_mm": 10.4,
+    "is_rib": false,
+    "rib_like": false,
+    "level": null
+   },
+   {
+    "vox": 3881,
+    "ml": 1.9,
+    "medial_mm": 30.0,
+    "medial_dy": -29.2,
+    "hu_mean": 609.0,
+    "hu_p90": 1097.0,
+    "medial_xyz": [
+     -8.9,
+     -85.9,
+     -101.4
+    ],
+    "lateral_mm": 18.1,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -14.4,
+     -85.2,
+     -103.9
+    ],
+    "chord_mm": 23.1,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": true,
+    "level": null,
+    "curve_i": 4
+   },
+   {
+    "vox": 314,
+    "ml": 0.15,
+    "medial_mm": 3.0,
+    "medial_dy": -1.3,
+    "hu_mean": 250.0,
+    "hu_p90": 308.0,
+    "medial_xyz": [
+     -16.8,
+     -41.4,
+     -279.0
+    ],
+    "lateral_mm": 15.1,
+    "side": "right",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -14.0,
+     -46.8,
+     -278.4
+    ],
+    "chord_mm": 12.4,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "level": null
+   },
+   {
+    "vox": 252,
+    "ml": 0.12,
+    "medial_mm": 17.4,
+    "medial_dy": -17.4,
+    "hu_mean": 253.0,
+    "hu_p90": 323.0,
+    "medial_xyz": [
+     -19.1,
+     -46.1,
+     -247.8
+    ],
+    "lateral_mm": 16.7,
+    "side": "right",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -12.3,
+     -47.0,
+     -248.2
+    ],
+    "chord_mm": 13.3,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "stump: a nubbin (< 0.5 ml or < 20 mm) that TS does not call rib",
+    "level": null
+   },
+   {
+    "vox": 249,
+    "ml": 0.12,
+    "medial_mm": 10.8,
+    "medial_dy": 9.0,
+    "hu_mean": 246.0,
+    "hu_p90": 302.0,
+    "medial_xyz": [
+     -13.6,
+     -30.5,
+     -278.2
+    ],
+    "lateral_mm": 27.8,
+    "side": "right",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -7.2,
+     -32.3,
+     -281.7
+    ],
+    "chord_mm": 18.7,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "level": null
+   },
+   {
+    "vox": 12928,
+    "ml": 6.31,
+    "medial_mm": 21.7,
+    "medial_dy": -14.2,
+    "hu_mean": 598.0,
+    "hu_p90": 983.0,
+    "medial_xyz": [
+     0.4,
+     -70.3,
+     -103.8
+    ],
+    "lateral_mm": 120.1,
+    "side": "right",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -0.5,
+     -72.5,
+     -111.9
+    ],
+    "chord_mm": 122.5,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "not TS rib, and TotalSegmentator labels no rib in this field to compare it with",
+    "level": null
+   },
+   {
+    "vox": 5431,
+    "ml": 2.65,
+    "medial_mm": 22.2,
+    "medial_dy": -12.4,
+    "hu_mean": 544.0,
+    "hu_p90": 931.0,
+    "medial_xyz": [
+     0.4,
+     -59.4,
+     -137.4
+    ],
+    "lateral_mm": 76.0,
+    "side": "right",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -0.9,
+     -63.5,
+     -135.2
+    ],
+    "chord_mm": 73.7,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "not TS rib, and TotalSegmentator labels no rib in this field to compare it with",
+    "level": null
+   }
+  ]
+ },
+ "instances": [
+  {
+   "source_label_for_audit": "18:T11",
+   "vox": 60028,
+   "ml": 29.31,
+   "centroid_xyz": [
+    -16.8,
+    -66.7,
+    -114.6
+   ],
+   "zmin": -140.6,
+   "zmax": -100.6,
+   "si_extent_mm": 40.0,
+   "lr_extent_mm": 50.0,
+   "ap_extent_mm": 63.3,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": true,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 0,
+   "run_k": 0,
+   "run_match": "inside",
+   "rib_left_n": 1,
+   "rib_left_trace_chord_mm": 130.2,
+   "rib_left_lateral_mm": 117.0,
+   "rib_left_hu": 569.0,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [
+    "not TS rib, and TotalSegmentator labels no rib in this field to compare it with"
+   ],
+   "rib_right_n": 1,
+   "rib_right_trace_chord_mm": 122.5,
+   "rib_right_lateral_mm": 120.1,
+   "rib_right_hu": 598.0,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [
+    "not TS rib, and TotalSegmentator labels no rib in this field to compare it with"
+   ],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": true,
+   "run_len_mm": 21.0,
+   "run_cut_top": true,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 7,
+   "pos_from_last_rib_run": null,
+   "ml_ratio_case_median": 0.618,
+   "si_extent_ratio_case_median": 0.87,
+   "spacing_above_mm": null,
+   "spacing_below_mm": 28.3,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 6,
+   "pos_from_last_rib_inst": -1,
+   "morph_selected": true,
+   "tp": {
+    "body_half_mm": 16.41,
+    "left_reach_mm": 7.03,
+    "left_thickness_mm": 18.07,
+    "left_slenderness": 0.389,
+    "left_ap_spread_mm": 46.88,
+    "left_si_spread_mm": 20.8,
+    "right_reach_mm": 5.47,
+    "right_thickness_mm": 19.94,
+    "right_slenderness": 0.274,
+    "right_ap_spread_mm": 44.53,
+    "right_si_spread_mm": 23.2
+   },
+   "has_tp": true,
+   "morph": {
+    "VBHa": 19.56,
+    "VBHp": 29.367,
+    "EPDu": 33.488,
+    "EPWu": 37.746,
+    "EPDl": 44.271,
+    "EPWl": 39.212,
+    "SCW": 22.008,
+    "SCD": 15.716,
+    "plate_rms_mm": 0.88,
+    "plate_ok": true,
+    "wedge_ratio": 0.666,
+    "body_ml": 19.74
+   },
+   "has_morph": true
+  },
+  {
+   "source_label_for_audit": "19:T12",
+   "vox": 71268,
+   "ml": 34.8,
+   "centroid_xyz": [
+    -18.2,
+    -60.3,
+    -142.9
+   ],
+   "zmin": -170.2,
+   "zmax": -124.6,
+   "si_extent_mm": 45.6,
+   "lr_extent_mm": 43.8,
+   "ap_extent_mm": 68.8,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 1,
+   "run_k": 1,
+   "run_match": "inside",
+   "rib_left_n": 1,
+   "rib_left_trace_chord_mm": 60.7,
+   "rib_left_lateral_mm": 70.7,
+   "rib_left_hu": 512.0,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [
+    "not TS rib, and TotalSegmentator labels no rib in this field to compare it with"
+   ],
+   "rib_right_n": 1,
+   "rib_right_trace_chord_mm": 73.7,
+   "rib_right_lateral_mm": 76.0,
+   "rib_right_hu": 544.0,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [
+    "not TS rib, and TotalSegmentator labels no rib in this field to compare it with"
+   ],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": true,
+   "run_len_mm": 23.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 6,
+   "pos_from_last_rib_run": null,
+   "ml_ratio_case_median": 0.734,
+   "si_extent_ratio_case_median": 0.991,
+   "spacing_above_mm": 28.3,
+   "spacing_below_mm": 30.4,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 5,
+   "pos_from_last_rib_inst": 0,
+   "morph_selected": true,
+   "tp": {
+    "body_half_mm": 17.19,
+    "left_reach_mm": 2.34,
+    "left_thickness_mm": 23.63,
+    "left_slenderness": 0.099,
+    "left_ap_spread_mm": 51.56,
+    "left_si_spread_mm": 25.6,
+    "right_reach_mm": 2.34,
+    "right_thickness_mm": 25.76,
+    "right_slenderness": 0.091,
+    "right_ap_spread_mm": 50.78,
+    "right_si_spread_mm": 25.6
+   },
+   "has_tp": true,
+   "morph": {
+    "VBHa": 24.645,
+    "VBHp": 26.851,
+    "EPDu": 30.792,
+    "EPWu": 38.726,
+    "EPDl": 30.72,
+    "EPWl": 40.646,
+    "SCW": 23.588,
+    "SCD": 8.31,
+    "plate_rms_mm": 0.57,
+    "plate_ok": true,
+    "wedge_ratio": 0.918,
+    "body_ml": 22.71
+   },
+   "has_morph": true
+  },
+  {
+   "source_label_for_audit": "20:L1",
+   "vox": 84855,
+   "ml": 41.43,
+   "centroid_xyz": [
+    -19.5,
+    -55.0,
+    -173.3
+   ],
+   "zmin": -201.4,
+   "zmax": -155.0,
+   "si_extent_mm": 46.4,
+   "lr_extent_mm": 68.0,
+   "ap_extent_mm": 75.0,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 2,
+   "run_k": 2,
+   "run_match": "inside",
+   "rib_left_n": 0,
+   "rib_left_trace_chord_mm": null,
+   "rib_left_lateral_mm": null,
+   "rib_left_hu": null,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 0,
+   "rib_right_trace_chord_mm": null,
+   "rib_right_lateral_mm": null,
+   "rib_right_hu": null,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 26.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 5,
+   "pos_from_last_rib_run": null,
+   "ml_ratio_case_median": 0.874,
+   "si_extent_ratio_case_median": 1.009,
+   "spacing_above_mm": 30.4,
+   "spacing_below_mm": 31.7,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 4,
+   "pos_from_last_rib_inst": 1,
+   "morph_selected": true,
+   "tp": {
+    "body_half_mm": 17.97,
+    "left_reach_mm": 13.28,
+    "left_thickness_mm": 15.51,
+    "left_slenderness": 0.857,
+    "left_ap_spread_mm": 53.91,
+    "left_si_spread_mm": 25.6,
+    "right_reach_mm": 10.16,
+    "right_thickness_mm": 15.32,
+    "right_slenderness": 0.663,
+    "right_ap_spread_mm": 52.34,
+    "right_si_spread_mm": 24.8
+   },
+   "has_tp": true,
+   "morph": {
+    "VBHa": 26.835,
+    "VBHp": 29.501,
+    "EPDu": 30.127,
+    "EPWu": 39.486,
+    "EPDl": 31.569,
+    "EPWl": 41.724,
+    "SCW": 23.54,
+    "SCD": 16.745,
+    "plate_rms_mm": 0.44,
+    "plate_ok": true,
+    "wedge_ratio": 0.91,
+    "body_ml": 25.65
+   },
+   "has_morph": true
+  },
+  {
+   "source_label_for_audit": "21:L2",
+   "vox": 93663,
+   "ml": 45.73,
+   "centroid_xyz": [
+    -20.8,
+    -48.5,
+    -205.0
+   ],
+   "zmin": -233.4,
+   "zmax": -187.0,
+   "si_extent_mm": 46.4,
+   "lr_extent_mm": 70.3,
+   "ap_extent_mm": 83.6,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 3,
+   "run_k": 3,
+   "run_match": "inside",
+   "rib_left_n": 1,
+   "rib_left_trace_chord_mm": 18.8,
+   "rib_left_lateral_mm": 24.2,
+   "rib_left_hu": 250.0,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [
+    "stump: a nubbin (< 0.5 ml or < 20 mm) that TS does not call rib"
+   ],
+   "rib_right_n": 0,
+   "rib_right_trace_chord_mm": null,
+   "rib_right_lateral_mm": null,
+   "rib_right_hu": null,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 27.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 4,
+   "pos_from_last_rib_run": null,
+   "ml_ratio_case_median": 0.965,
+   "si_extent_ratio_case_median": 1.009,
+   "spacing_above_mm": 31.7,
+   "spacing_below_mm": 30.1,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 3,
+   "pos_from_last_rib_inst": 2,
+   "morph_selected": true,
+   "tp": {
+    "body_half_mm": 19.53,
+    "left_reach_mm": 14.06,
+    "left_thickness_mm": 12.8,
+    "left_slenderness": 1.098,
+    "left_ap_spread_mm": 57.81,
+    "left_si_spread_mm": 24.0,
+    "right_reach_mm": 10.16,
+    "right_thickness_mm": 15.02,
+    "right_slenderness": 0.676,
+    "right_ap_spread_mm": 57.81,
+    "right_si_spread_mm": 24.0
+   },
+   "has_tp": true,
+   "morph": {
+    "VBHa": 28.872,
+    "VBHp": 32.151,
+    "EPDu": 28.896,
+    "EPWu": 40.056,
+    "EPDl": 36.719,
+    "EPWl": 48.063,
+    "SCW": 23.453,
+    "SCD": 15.972,
+    "plate_rms_mm": 0.54,
+    "plate_ok": true,
+    "wedge_ratio": 0.898,
+    "body_ml": 29.13
+   },
+   "has_morph": true
+  },
+  {
+   "source_label_for_audit": "22:L3",
+   "vox": 102444,
+   "ml": 50.02,
+   "centroid_xyz": [
+    -19.8,
+    -45.5,
+    -235.1
+   ],
+   "zmin": -260.6,
+   "zmax": -215.8,
+   "si_extent_mm": 44.8,
+   "lr_extent_mm": 78.9,
+   "ap_extent_mm": 85.2,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 4,
+   "run_k": 4,
+   "run_match": "inside",
+   "rib_left_n": 0,
+   "rib_left_trace_chord_mm": null,
+   "rib_left_lateral_mm": null,
+   "rib_left_hu": null,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 0,
+   "rib_right_trace_chord_mm": null,
+   "rib_right_lateral_mm": null,
+   "rib_right_hu": null,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 25.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 3,
+   "pos_from_last_rib_run": null,
+   "ml_ratio_case_median": 1.055,
+   "si_extent_ratio_case_median": 0.974,
+   "spacing_above_mm": 30.1,
+   "spacing_below_mm": 28.4,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 2,
+   "pos_from_last_rib_inst": 3,
+   "morph_selected": true,
+   "tp": {
+    "body_half_mm": 21.09,
+    "left_reach_mm": 15.62,
+    "left_thickness_mm": 12.38,
+    "left_slenderness": 1.262,
+    "left_ap_spread_mm": 55.47,
+    "left_si_spread_mm": 28.0,
+    "right_reach_mm": 14.84,
+    "right_thickness_mm": 13.2,
+    "right_slenderness": 1.125,
+    "right_ap_spread_mm": 53.91,
+    "right_si_spread_mm": 24.8
+   },
+   "has_tp": true,
+   "morph": {
+    "VBHa": 28.178,
+    "VBHp": 27.901,
+    "EPDu": 35.225,
+    "EPWu": 44.957,
+    "EPDl": 31.387,
+    "EPWl": 50.786,
+    "SCW": 24.75,
+    "SCD": 14.999,
+    "plate_rms_mm": 0.65,
+    "plate_ok": true,
+    "wedge_ratio": 1.01,
+    "body_ml": 30.74
+   },
+   "has_morph": true
+  },
+  {
+   "source_label_for_audit": "23:L4",
+   "vox": 100461,
+   "ml": 49.05,
+   "centroid_xyz": [
+    -18.2,
+    -43.7,
+    -263.5
+   ],
+   "zmin": -284.6,
+   "zmax": -242.2,
+   "si_extent_mm": 42.4,
+   "lr_extent_mm": 73.4,
+   "ap_extent_mm": 81.2,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 5,
+   "run_k": 5,
+   "run_match": "inside",
+   "rib_left_n": 1,
+   "rib_left_trace_chord_mm": 12.2,
+   "rib_left_lateral_mm": 24.7,
+   "rib_left_hu": 256.0,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [
+    "stump: a nubbin (< 0.5 ml or < 20 mm) that TS does not call rib"
+   ],
+   "rib_right_n": 1,
+   "rib_right_trace_chord_mm": 13.3,
+   "rib_right_lateral_mm": 16.7,
+   "rib_right_hu": 253.0,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [
+    "stump: a nubbin (< 0.5 ml or < 20 mm) that TS does not call rib"
+   ],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 26.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 2,
+   "pos_from_last_rib_run": null,
+   "ml_ratio_case_median": 1.035,
+   "si_extent_ratio_case_median": 0.922,
+   "spacing_above_mm": 28.4,
+   "spacing_below_mm": 28.4,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 1,
+   "pos_from_last_rib_inst": 4,
+   "morph_selected": true,
+   "tp": {
+    "body_half_mm": 21.09,
+    "left_reach_mm": 9.38,
+    "left_thickness_mm": 13.97,
+    "left_slenderness": 0.671,
+    "left_ap_spread_mm": 46.88,
+    "left_si_spread_mm": 33.6,
+    "right_reach_mm": 10.16,
+    "right_thickness_mm": 19.66,
+    "right_slenderness": 0.517,
+    "right_ap_spread_mm": 53.91,
+    "right_si_spread_mm": 32.8
+   },
+   "has_tp": true,
+   "morph": {
+    "VBHa": 28.151,
+    "VBHp": 24.704,
+    "EPDu": 33.782,
+    "EPWu": 48.494,
+    "EPDl": 30.4,
+    "EPWl": 49.712,
+    "SCW": 26.498,
+    "SCD": 15.015,
+    "plate_rms_mm": 0.7,
+    "plate_ok": true,
+    "wedge_ratio": 1.14,
+    "body_ml": 31.3
+   },
+   "has_morph": true
+  },
+  {
+   "source_label_for_audit": "24:L5",
+   "vox": 106513,
+   "ml": 52.01,
+   "centroid_xyz": [
+    -19.5,
+    -48.6,
+    -291.9
+   ],
+   "zmin": -315.0,
+   "zmax": -267.0,
+   "si_extent_mm": 48.0,
+   "lr_extent_mm": 87.5,
+   "ap_extent_mm": 74.2,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 6,
+   "run_k": 6,
+   "run_match": "inside",
+   "rib_left_n": 2,
+   "rib_left_trace_chord_mm": 29.9,
+   "rib_left_lateral_mm": 28.6,
+   "rib_left_hu": 256.0,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 2,
+   "rib_right_trace_chord_mm": 18.7,
+   "rib_right_lateral_mm": 27.8,
+   "rib_right_hu": 246.0,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 23.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 1,
+   "pos_from_last_rib_run": null,
+   "ml_ratio_case_median": 1.097,
+   "si_extent_ratio_case_median": 1.043,
+   "spacing_above_mm": 28.4,
+   "spacing_below_mm": null,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 0,
+   "pos_from_last_rib_inst": 5,
+   "morph_selected": true,
+   "tp": {
+    "body_half_mm": 21.88,
+    "left_reach_mm": 17.97,
+    "left_thickness_mm": 19.76,
+    "left_slenderness": 0.91,
+    "left_ap_spread_mm": 53.91,
+    "left_si_spread_mm": 40.0,
+    "right_reach_mm": 20.31,
+    "right_thickness_mm": 19.23,
+    "right_slenderness": 1.056,
+    "right_ap_spread_mm": 47.66,
+    "right_si_spread_mm": 41.6
+   },
+   "has_tp": true,
+   "morph": {
+    "VBHa": 26.622,
+    "VBHp": 22.988,
+    "EPDu": 31.68,
+    "EPWu": 53.631,
+    "EPDl": 24.309,
+    "EPWl": 48.941,
+    "SCW": 34.326,
+    "SCD": 14.818,
+    "plate_rms_mm": 0.86,
+    "plate_ok": true,
+    "wedge_ratio": 1.158,
+    "body_ml": 30.83
+   },
+   "has_morph": true,
+   "morph_epw_withheld": true
+  }
+ ],
+ "render": {
+  "sag": "/rs/rs_grp_oschome/go2432/data/or_ready/auto_reference/readerE/j0/ctsp/0890/spineps/render_sag.png",
+  "cor": "/rs/rs_grp_oschome/go2432/data/or_ready/auto_reference/readerE/j0/ctsp/0890/spineps/render_cor.png"
+ },
+ "failures": {},
+ "n_failures": 0,
+ "stage_seconds": {
+  "load": 6.79,
+  "loader": 2.83,
+  "instance_table": 0.65,
+  "reader_c": 5.64,
+  "rib_features": 0.0,
+  "spacing": 0.0,
+  "sequence": 0.0,
+  "crest": 0.0,
+  "tp_ala": 1.54,
+  "ala_rise": 1.16,
+  "foramina": 1.34,
+  "discs": 0.15,
+  "tp_metrics": 0.06,
+  "ostk_morphometry": 5.12,
+  "immaturity": 0.0,
+  "fov": 0.0,
+  "render": 3.83
+ },
+ "seconds_total": 29.69
+}

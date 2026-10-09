@@ -1,0 +1,3518 @@
+{
+ "what": "N-only inverse power law (Figueroa 2012) per curve for Figure 5: detection same device, naming lateral, naming AP; asymptote and N to target with case-clustered bootstrap intervals",
+ "generated": "2026-09-24 15:48",
+ "tool": "tools/indomain_fit_N.py",
+ "source": {
+  "file": "SchwingNet/results/indomain/fit.json",
+  "generated": "2026-09-24 11:59",
+  "n_boot": 2000,
+  "seed": 0,
+  "fitter": "tools/indomain_fit.py"
+ },
+ "citation": {
+  "authors": "Figueroa RL, Zeng-Treitler Q, Kandula S, Ngo LH",
+  "title": "Predicting sample size required for classification performance",
+  "journal": "BMC Med Inform Decis Mak",
+  "year": 2012,
+  "volume": 12,
+  "article": 8,
+  "doi": "10.1186/1472-6947-12-8",
+  "pmid": "22336388",
+  "pmcid": "PMC3307431",
+  "verified": "2026-09-24 against the PMC full text (PMC3307431): Y = 1 - a - b x^c, c in [-1, 0]; weighted nonlinear least squares (nl2sol), weight j/m for the j-th smallest sample size; confidence intervals from the Hessian"
+ },
+ "model": "acc(N) = A - B * N^(-C); A = asymptote; fitted on N > 0 by weighted NLS with Figueroa's rank weights j/m; multi-start; bounds A in [0,1], B in [0,100], C in [0,6]",
+ "intervals": {
+  "primary": "case-clustered percentile bootstrap over the whole fit: resample test patients with replacement (shared draw across curves and seeds, hits and truth summed over seeds within a patient), recompute every point, refit; 2.5/97.5 percentiles over the finite replicates; 'not reached' counted",
+  "secondary": "Figueroa's Hessian (asymptotic) interval on the asymptote, from the Jacobian covariance scaled by the reduced chi-square; unreliable at dof 1-3, reported for the record",
+  "n_boot": 2000,
+  "seed": 0
+ },
+ "held_out": {
+  "detection": {
+   "cells": 45,
+   "all_held_out": true,
+   "overlap_total": 0,
+   "unresolved_total": 0,
+   "source": "tools/eval_gate.py verdict stamped in every dump (detfill/grid/percase.json) + the list intersection of tools/lcurve_fill.py heldout in det_fill.json"
+  },
+  "naming": {
+   "cells": 245,
+   "all_held_out": true,
+   "overlap_total": 0,
+   "unresolved_total": 0,
+   "source": "tools/eval_gate.py verdict stamped in every det_score_k*.json (fit/name_percase.json) + heldout_lists per cell in name_fill.json"
+  },
+  "note": "this tool fits numbers already scored; it trains nothing and touches no test image. Every curve point is a held-out cell by both checks."
+ },
+ "figure5": "NOT drawn: the coverage axis (matched-N low- against high-coverage arms) is pending; results/coverage/coverage.json of 11:08 is the acquisition-space census of the corpora and training sets, not that experiment",
+ "families": {
+  "detection_same_device": {
+   "task": "detection",
+   "x_unit": "real C-ArmLSpine frames added to the stage-2 background (2 frames per patient)",
+   "test_set": "released 28-patient C-ArmLSpine test split, repaired truth; LAT 27 patients / 138 vertebrae, AP 28 / 143 per seed",
+   "targets": [
+    "0.9",
+    "0.95"
+   ],
+   "reported": {
+    "det_carm_LAT_body074": {
+     "curve": "det_carm_LAT_body074",
+     "points": [
+      {
+       "N": 0,
+       "x": 0.0,
+       "acc": 0.0024154589371980675,
+       "k": 1.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 4,
+       "x": 4.0,
+       "acc": 0.717391304347826,
+       "k": 297.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 10,
+       "x": 10.0,
+       "acc": 0.7367149758454107,
+       "k": 305.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 24,
+       "x": 24.0,
+       "acc": 0.8405797101449275,
+       "k": 348.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 50,
+       "x": 50.0,
+       "acc": 0.8140096618357487,
+       "k": 337.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 100,
+       "x": 100.0,
+       "acc": 0.8043478260869565,
+       "k": 222.0,
+       "n": 276,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 2
+      },
+      {
+       "N": 200,
+       "x": 200.0,
+       "acc": 0.8115942028985508,
+       "k": 224.0,
+       "n": 276,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 2
+      }
+     ],
+     "n_fit_points": 6,
+     "dof": 3,
+     "fit_rmse_pp": 2.3709378620554618,
+     "max_measured_x": 200.0,
+     "params": {
+      "A": 0.8167487096805286,
+      "B": 0.5223290869410062,
+      "C": 1.1087038568069094
+     },
+     "asymptote": {
+      "point": 0.8167487096805286,
+      "boot_ci": [
+       0.7672391858992147,
+       0.8657137260004226
+      ],
+      "boot_median": 0.818309111046029,
+      "hessian_ci": [
+       0.7765443131499526,
+       0.8569531062111045
+      ],
+      "at_upper_bound_share": 0.0,
+      "identified": true,
+      "note": "asymptote identified: A inside (0, 1) in the point fit and in >= 75 % of resamples, dof >= 2"
+     },
+     "n_to_fraction_of_asymptote": {
+      "0.95": {
+       "point": 9.962312274337677,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         5.098963818171299,
+         23.517943550561196
+        ],
+        "median": 9.734133220302727
+       }
+      },
+      "0.97": {
+       "point": 15.792742062588847,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         7.150152144650559,
+         44.87832053015979
+        ],
+        "median": 15.327231030912952
+       }
+      }
+     },
+     "n_to_target": {
+      "0.9": {
+       "point": "not reached",
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 1.0,
+        "ci": [
+         null,
+         null
+        ],
+        "median": null,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      },
+      "0.95": {
+       "point": "not reached",
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 1.0,
+        "ci": [
+         null,
+         null
+        ],
+        "median": null,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      }
+     },
+     "fitted_acc_at_measured_N": {
+      "4": {
+       "point": 0.7044336540245473,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.6287233304385877,
+         0.7707624299329155
+        ],
+        "median": 0.7071115907156054
+       }
+      },
+      "10": {
+       "point": 0.7760818764956691,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7241631280961122,
+         0.8273255047942636
+        ],
+        "median": 0.7769871227518206
+       }
+      },
+      "24": {
+       "point": 0.8013423978411757,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7523705870326494,
+         0.8478420209576264
+        ],
+        "median": 0.801627796185404
+       }
+      },
+      "50": {
+       "point": 0.8099207709613673,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.761824586015909,
+         0.8558883123291452
+        ],
+        "median": 0.8106087673605502
+       }
+      },
+      "100": {
+       "point": 0.8135825231467276,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7649285516771229,
+         0.8604411851876194
+        ],
+        "median": 0.8142367222682799
+       }
+      },
+      "200": {
+       "point": 0.8152805158991916,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7665490711249748,
+         0.8621086689503737
+        ],
+        "median": 0.8162337734395748
+       }
+      }
+     },
+     "n_boot": 2000,
+     "point_fit_check": {
+      "refit_A": 0.8167487096805286,
+      "refit_B": 0.5223290869410062,
+      "refit_C": 1.1087038568069094,
+      "max_abs_diff": 0.0,
+      "reproduced": true
+     },
+     "fit_including_N0_on_Nplus1": {
+      "A": 0.8166007225125171,
+      "B": 0.8139883023043358,
+      "C": 1.2375932846263347
+     }
+    },
+    "det_carm_AP_body074": {
+     "curve": "det_carm_AP_body074",
+     "points": [
+      {
+       "N": 0,
+       "x": 0.0,
+       "acc": 0.15151515151515152,
+       "k": 65.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 4,
+       "x": 4.0,
+       "acc": 0.7435897435897436,
+       "k": 319.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 10,
+       "x": 10.0,
+       "acc": 0.7855477855477856,
+       "k": 337.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 24,
+       "x": 24.0,
+       "acc": 0.8461538461538461,
+       "k": 363.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 50,
+       "x": 50.0,
+       "acc": 0.8414918414918415,
+       "k": 361.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 100,
+       "x": 100.0,
+       "acc": 0.8496503496503497,
+       "k": 243.0,
+       "n": 286,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 2
+      },
+      {
+       "N": 200,
+       "x": 200.0,
+       "acc": 0.8461538461538461,
+       "k": 242.0,
+       "n": 286,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 2
+      }
+     ],
+     "n_fit_points": 6,
+     "dof": 3,
+     "fit_rmse_pp": 1.0111044560698434,
+     "max_measured_x": 200.0,
+     "params": {
+      "A": 0.8534443971945544,
+      "B": 0.42072797810500967,
+      "C": 0.9240643674434085
+     },
+     "asymptote": {
+      "point": 0.8534443971945544,
+      "boot_ci": [
+       0.8099319277248861,
+       0.9071702569604768
+      ],
+      "boot_median": 0.854190844249019,
+      "hessian_ci": [
+       0.832456458093909,
+       0.8744323362951999
+      ],
+      "at_upper_bound_share": 0.0,
+      "identified": true,
+      "note": "asymptote identified: A inside (0, 1) in the point fit and in >= 75 % of resamples, dof >= 2"
+     },
+     "n_to_fraction_of_asymptote": {
+      "0.95": {
+       "point": 11.899452472790953,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         6.67813033639774,
+         33.533103920935645
+        ],
+        "median": 11.843323905038417
+       }
+      },
+      "0.97": {
+       "point": 20.682655765205062,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         9.731507649378845,
+         83.11356271411621
+        ],
+        "median": 20.743686424952017
+       }
+      }
+     },
+     "n_to_target": {
+      "0.9": {
+       "point": "not reached",
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.959,
+        "ci": [
+         31.725319239234103,
+         647800.5028592837
+        ],
+        "median": 244.2878959336254,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      },
+      "0.95": {
+       "point": "not reached",
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 1.0,
+        "ci": [
+         null,
+         null
+        ],
+        "median": null,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      }
+     },
+     "fitted_acc_at_measured_N": {
+      "4": {
+       "point": 0.7365861929617695,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.6902446530621553,
+         0.7841392813270178
+        ],
+        "median": 0.7361750825561673
+       }
+      },
+      "10": {
+       "point": 0.8033329406927816,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7683240303167186,
+         0.8398960962323272
+        ],
+        "median": 0.8023009864991144
+       }
+      },
+      "24": {
+       "point": 0.8311293728364102,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7946187143866166,
+         0.8694409988088684
+        ],
+        "median": 0.8298002490603558
+       }
+      },
+      "50": {
+       "point": 0.8421192527231297,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8035768760093823,
+         0.8825827950587021
+        ],
+        "median": 0.8411387718319243
+       }
+      },
+      "100": {
+       "point": 0.8474757946689047,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8068069079253035,
+         0.8905306912620452
+        ],
+        "median": 0.8466938335711665
+       }
+      },
+      "200": {
+       "point": 0.8502988111758437,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8083588434423774,
+         0.896352875166755
+        ],
+        "median": 0.8500256060427218
+       }
+      }
+     },
+     "n_boot": 2000,
+     "point_fit_check": {
+      "refit_A": 0.8534443971945544,
+      "refit_B": 0.42072797810500967,
+      "refit_C": 0.9240643674434085,
+      "max_abs_diff": 0.0,
+      "reproduced": true
+     },
+     "fit_including_N0_on_Nplus1": {
+      "A": 0.8514586687110155,
+      "B": 0.6995379147064725,
+      "C": 1.1173028374446758
+     }
+    }
+   },
+   "secondary": {
+    "det_carm_LAT_centre074": {
+     "curve": "det_carm_LAT_centre074",
+     "points": [
+      {
+       "N": 0,
+       "x": 0.0,
+       "acc": 0.7463768115942029,
+       "k": 309.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 4,
+       "x": 4.0,
+       "acc": 0.751207729468599,
+       "k": 311.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 10,
+       "x": 10.0,
+       "acc": 0.7608695652173914,
+       "k": 315.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 24,
+       "x": 24.0,
+       "acc": 0.855072463768116,
+       "k": 354.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 50,
+       "x": 50.0,
+       "acc": 0.8236714975845411,
+       "k": 341.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 100,
+       "x": 100.0,
+       "acc": 0.8260869565217391,
+       "k": 228.0,
+       "n": 276,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 2
+      },
+      {
+       "N": 200,
+       "x": 200.0,
+       "acc": 0.8115942028985508,
+       "k": 224.0,
+       "n": 276,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 2
+      }
+     ],
+     "n_fit_points": 6,
+     "dof": 3,
+     "fit_rmse_pp": 2.3137667416702015,
+     "max_measured_x": 200.0,
+     "params": {
+      "A": 0.8249153590091065,
+      "B": 0.4859862009010473,
+      "C": 1.2586922695356968
+     },
+     "asymptote": {
+      "point": 0.8249153590091065,
+      "boot_ci": [
+       0.7805813555456032,
+       0.8712257944899134
+      ],
+      "boot_median": 0.8266654678900757,
+      "hessian_ci": [
+       0.7892952634297058,
+       0.8605354545885072
+      ],
+      "at_upper_bound_share": 0.0,
+      "identified": true,
+      "note": "asymptote identified: A inside (0, 1) in the point fit and in >= 75 % of resamples, dof >= 2"
+     },
+     "n_to_fraction_of_asymptote": {
+      "0.95": {
+       "point": 7.097042400109136,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         3.4049326813423577,
+         17.975762416681004
+        ],
+        "median": 6.9483639225493405
+       }
+      },
+      "0.97": {
+       "point": 10.649537965382958,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         4.603783408918889,
+         33.30349652561145
+        ],
+        "median": 10.436356267523689
+       }
+      }
+     },
+     "n_to_target": {
+      "0.9": {
+       "point": "not reached",
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 1.0,
+        "ci": [
+         null,
+         null
+        ],
+        "median": null,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      },
+      "0.95": {
+       "point": "not reached",
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 1.0,
+        "ci": [
+         null,
+         null
+        ],
+        "median": null,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      }
+     },
+     "fitted_acc_at_measured_N": {
+      "4": {
+       "point": 0.7400333439050076,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.6675649729609372,
+         0.804971031968498
+        ],
+        "median": 0.7426498766756355
+       }
+      },
+      "10": {
+       "point": 0.7981278908061115,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7487850459470594,
+         0.8457743773275589
+        ],
+        "median": 0.7980248319907284
+       }
+      },
+      "24": {
+       "point": 0.8160159182219309,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7706238891946043,
+         0.8592878862553405
+        ],
+        "median": 0.815414240381392
+       }
+      },
+      "50": {
+       "point": 0.8213823599038935,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7767570174484613,
+         0.8650528871452242
+        ],
+        "median": 0.8217273788988388
+       }
+      },
+      "100": {
+       "point": 0.82343883878817,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.778718285552259,
+         0.8683543493541749
+        ],
+        "median": 0.8242011804968143
+       }
+      },
+      "200": {
+       "point": 0.8242982878189051,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7795889769756899,
+         0.8702205499488894
+        ],
+        "median": 0.8254342435853962
+       }
+      }
+     },
+     "n_boot": 2000,
+     "point_fit_check": {
+      "refit_A": 0.8249153590091065,
+      "refit_B": 0.4859862009010473,
+      "refit_C": 1.2586922695356968,
+      "max_abs_diff": 0.0,
+      "reproduced": true
+     },
+     "fit_including_N0_on_Nplus1": {
+      "A": 0.8397856499858215,
+      "B": 0.11424849503614293,
+      "C": 0.4033976191161488
+     }
+    },
+    "det_carm_AP_centre074": {
+     "curve": "det_carm_AP_centre074",
+     "points": [
+      {
+       "N": 0,
+       "x": 0.0,
+       "acc": 0.668997668997669,
+       "k": 287.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 4,
+       "x": 4.0,
+       "acc": 0.752913752913753,
+       "k": 323.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 10,
+       "x": 10.0,
+       "acc": 0.7855477855477856,
+       "k": 337.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 24,
+       "x": 24.0,
+       "acc": 0.8461538461538461,
+       "k": 363.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 50,
+       "x": 50.0,
+       "acc": 0.8414918414918415,
+       "k": 361.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 100,
+       "x": 100.0,
+       "acc": 0.8496503496503497,
+       "k": 243.0,
+       "n": 286,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 2
+      },
+      {
+       "N": 200,
+       "x": 200.0,
+       "acc": 0.8461538461538461,
+       "k": 242.0,
+       "n": 286,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 2
+      }
+     ],
+     "n_fit_points": 6,
+     "dof": 3,
+     "fit_rmse_pp": 1.0685603796779093,
+     "max_measured_x": 200.0,
+     "params": {
+      "A": 0.8540922507000877,
+      "B": 0.36214801941967745,
+      "C": 0.8652499357267289
+     },
+     "asymptote": {
+      "point": 0.8540922507000877,
+      "boot_ci": [
+       0.810352485750413,
+       0.9084912327754691
+      ],
+      "boot_median": 0.8549185531843893,
+      "hessian_ci": [
+       0.8300677340353089,
+       0.8781167673648664
+      ],
+      "at_upper_bound_share": 0.0,
+      "identified": true,
+      "note": "asymptote identified: A inside (0, 1) in the point fit and in >= 75 % of resamples, dof >= 2"
+     },
+     "n_to_fraction_of_asymptote": {
+      "0.95": {
+       "point": 11.83035723714905,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         6.250296039487238,
+         38.325611712557766
+        ],
+        "median": 11.77333002086913
+       }
+      },
+      "0.97": {
+       "point": 21.3499232150156,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         9.457106040659287,
+         106.57343005919044
+        ],
+        "median": 21.491504698200792
+       }
+      }
+     },
+     "n_to_target": {
+      "0.9": {
+       "point": "not reached",
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.955,
+        "ci": [
+         34.571235695283725,
+         50236.26958340996
+        ],
+        "median": 273.96712941788326,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      },
+      "0.95": {
+       "point": "not reached",
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 1.0,
+        "ci": [
+         null,
+         null
+        ],
+        "median": null,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      }
+     },
+     "fitted_acc_at_measured_N": {
+      "4": {
+       "point": 0.7449598407890994,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.6967466495011536,
+         0.7910912250275506
+        ],
+        "median": 0.7446662508100399
+       }
+      },
+      "10": {
+       "point": 0.804702574529243,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.769242823288735,
+         0.8414305055600295
+        ],
+        "median": 0.8037077163992441
+       }
+      },
+      "24": {
+       "point": 0.8309365234063522,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.79461900129652,
+         0.8692120231137452
+        ],
+        "median": 0.8296634307032139
+       }
+      },
+      "50": {
+       "point": 0.8418220285013187,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8033565941307117,
+         0.8822505995327736
+        ],
+        "median": 0.8408906152437772
+       }
+      },
+      "100": {
+       "point": 0.8473564963083619,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.806728506042472,
+         0.890276146030689
+        ],
+        "median": 0.8466086274624085
+       }
+      },
+      "200": {
+       "point": 0.8503946495897993,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.808397930753185,
+         0.8967548354564401
+        ],
+        "median": 0.8501284435469717
+       }
+      }
+     },
+     "n_boot": 2000,
+     "point_fit_check": {
+      "refit_A": 0.8540922507000877,
+      "refit_B": 0.36214801941967745,
+      "refit_C": 0.8652499357267289,
+      "max_abs_diff": 0.0,
+      "reproduced": true
+     },
+     "fit_including_N0_on_Nplus1": {
+      "A": 0.8745116634326002,
+      "B": 0.21569953779802706,
+      "C": 0.44746393399971407
+     }
+    },
+    "det_carm_LAT_body025": {
+     "curve": "det_carm_LAT_body025",
+     "points": [
+      {
+       "N": 0,
+       "x": 0.0,
+       "acc": 0.007246376811594203,
+       "k": 3.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 4,
+       "x": 4.0,
+       "acc": 0.8067632850241546,
+       "k": 334.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 10,
+       "x": 10.0,
+       "acc": 0.8188405797101449,
+       "k": 339.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 24,
+       "x": 24.0,
+       "acc": 0.8840579710144928,
+       "k": 366.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 50,
+       "x": 50.0,
+       "acc": 0.8792270531400966,
+       "k": 364.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 100,
+       "x": 100.0,
+       "acc": 0.8659420289855072,
+       "k": 239.0,
+       "n": 276,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 2
+      },
+      {
+       "N": 200,
+       "x": 200.0,
+       "acc": 0.9021739130434783,
+       "k": 249.0,
+       "n": 276,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 2
+      }
+     ],
+     "n_fit_points": 6,
+     "dof": 3,
+     "fit_rmse_pp": 1.5165399776836086,
+     "max_measured_x": 200.0,
+     "params": {
+      "A": 0.913231880784694,
+      "B": 0.20768053298007366,
+      "C": 0.4408790568729299
+     },
+     "asymptote": {
+      "point": 0.913231880784694,
+      "boot_ci": [
+       0.866499309526386,
+       0.9999999999999999
+      ],
+      "boot_median": 0.9234824044953774,
+      "hessian_ci": [
+       0.7832302016623287,
+       1.0
+      ],
+      "at_upper_bound_share": 0.2,
+      "identified": true,
+      "note": "asymptote identified: A inside (0, 1) in the point fit and in >= 75 % of resamples, dof >= 2"
+     },
+     "n_to_fraction_of_asymptote": {
+      "0.95": {
+       "point": 31.05421789761505,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         6.269866328906047,
+         8540960.740273904
+        ],
+        "median": 37.217988034308995
+       }
+      },
+      "0.97": {
+       "point": 98.92748891144593,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         12.718320923522437,
+         2428048784.503727
+        ],
+        "median": 112.50498084807266
+       }
+      }
+     },
+     "n_to_target": {
+      "0.9": {
+       "point": 515.5252879266615,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.2385,
+        "ci": [
+         14.76645553810542,
+         43656.38362733562
+        ],
+        "median": 207.37121365237982,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      },
+      "0.95": {
+       "point": "not reached",
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.7015,
+        "ci": [
+         565.4329015405652,
+         483565975.96154517
+        ],
+        "median": 84190.77878188252,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      }
+     },
+     "fitted_acc_at_measured_N": {
+      "4": {
+       "point": 0.8005224780185147,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7259272230600232,
+         0.8643931542279197
+        ],
+        "median": 0.8028527175208324
+       }
+      },
+      "10": {
+       "point": 0.8379801084707815,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7893211750486142,
+         0.8892475199595458
+        ],
+        "median": 0.8387035187198513
+       }
+      },
+      "24": {
+       "point": 0.8620767076186507,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8202998809235198,
+         0.9081365691671978
+        ],
+        "median": 0.8621473097762968
+       }
+      },
+      "50": {
+       "point": 0.8762187777225791,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8354252009694275,
+         0.9186670379419101
+        ],
+        "median": 0.8759975047943755
+       }
+      },
+      "100": {
+       "point": 0.8859648608328131,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8460920038814274,
+         0.9277104135993074
+        ],
+        "median": 0.885809286306708
+       }
+      },
+      "200": {
+       "point": 0.8931446598940663,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8531521726771683,
+         0.9347011127025231
+        ],
+        "median": 0.8928986554314222
+       }
+      }
+     },
+     "n_boot": 2000,
+     "point_fit_check": {
+      "refit_A": 0.913231880784694,
+      "refit_B": 0.20768053298007366,
+      "refit_C": 0.4408790568729299,
+      "max_abs_diff": 0.0,
+      "reproduced": true
+     },
+     "fit_including_N0_on_Nplus1": {
+      "A": 0.8850501048528624,
+      "B": 0.8762900043422828,
+      "C": 1.350558783773352
+     }
+    },
+    "det_carm_AP_body025": {
+     "curve": "det_carm_AP_body025",
+     "points": [
+      {
+       "N": 0,
+       "x": 0.0,
+       "acc": 0.16317016317016317,
+       "k": 70.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 4,
+       "x": 4.0,
+       "acc": 0.8461538461538461,
+       "k": 363.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 10,
+       "x": 10.0,
+       "acc": 0.8881118881118881,
+       "k": 381.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 24,
+       "x": 24.0,
+       "acc": 0.9114219114219114,
+       "k": 391.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 50,
+       "x": 50.0,
+       "acc": 0.9184149184149184,
+       "k": 394.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 100,
+       "x": 100.0,
+       "acc": 0.9405594405594405,
+       "k": 269.0,
+       "n": 286,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 2
+      },
+      {
+       "N": 200,
+       "x": 200.0,
+       "acc": 0.9265734265734266,
+       "k": 265.0,
+       "n": 286,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 2
+      }
+     ],
+     "n_fit_points": 6,
+     "dof": 3,
+     "fit_rmse_pp": 0.5730015231397,
+     "max_measured_x": 200.0,
+     "params": {
+      "A": 0.9383988900469268,
+      "B": 0.2519511956861042,
+      "C": 0.7127408496933385
+     },
+     "asymptote": {
+      "point": 0.9383988900469268,
+      "boot_ci": [
+       0.8957876473939155,
+       0.995958996904757
+      ],
+      "boot_median": 0.9409043240284927,
+      "hessian_ci": [
+       0.9132852293521005,
+       0.963512550741753
+      ],
+      "at_upper_bound_share": 0.023,
+      "identified": true,
+      "note": "asymptote identified: A inside (0, 1) in the point fit and in >= 75 % of resamples, dof >= 2"
+     },
+     "n_to_fraction_of_asymptote": {
+      "0.95": {
+       "point": 10.572010023777104,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         5.066113086958438,
+         101.17219085071837
+        ],
+        "median": 10.695576879501292
+       }
+      },
+      "0.97": {
+       "point": 21.64806160772707,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         7.762738351040167,
+         543.4835144134635
+        ],
+        "median": 21.392138580737395
+       }
+      }
+     },
+     "n_to_target": {
+      "0.9": {
+       "point": 14.004771642012926,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.039,
+        "ci": [
+         5.663605800543025,
+         102.15534824365483
+        ],
+        "median": 13.528041446068753,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      },
+      "0.95": {
+       "point": "not reached",
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.6545,
+        "ci": [
+         20.040995701218115,
+         36136.41075837667
+        ],
+        "median": 143.85583906017422,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      }
+     },
+     "fitted_acc_at_measured_N": {
+      "4": {
+       "point": 0.8445987095791895,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8079225593120192,
+         0.8802492995865502
+        ],
+        "median": 0.8442439224948286
+       }
+      },
+      "10": {
+       "point": 0.8895813856514584,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8553361373290295,
+         0.924688450456998
+        ],
+        "median": 0.8897980640091927
+       }
+      },
+      "24": {
+       "point": 0.9122421575710908,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8761681121083786,
+         0.947026058897785
+        ],
+        "median": 0.912109620175941
+       }
+      },
+      "50": {
+       "point": 0.922896769873794,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8856019595108151,
+         0.957151725762627
+        ],
+        "median": 0.922698770897601
+       }
+      },
+      "100": {
+       "point": 0.9289401187602422,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.890741665900232,
+         0.9638508833829358
+        ],
+        "median": 0.9290890279173836
+       }
+      },
+      "200": {
+       "point": 0.9326275275974942,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8936257273011013,
+         0.969097147036309
+        ],
+        "median": 0.9330070956816796
+       }
+      }
+     },
+     "n_boot": 2000,
+     "point_fit_check": {
+      "refit_A": 0.9383988900469268,
+      "refit_B": 0.2519511956861042,
+      "refit_C": 0.7127408496933385,
+      "max_abs_diff": 0.0,
+      "reproduced": true
+     },
+     "fit_including_N0_on_Nplus1": {
+      "A": 0.9292568211769291,
+      "B": 0.7652277524454933,
+      "C": 1.3116674068492347
+     }
+    },
+    "det_carm_LAT_centre025": {
+     "curve": "det_carm_LAT_centre025",
+     "points": [
+      {
+       "N": 0,
+       "x": 0.0,
+       "acc": 0.8768115942028986,
+       "k": 363.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 4,
+       "x": 4.0,
+       "acc": 0.8599033816425121,
+       "k": 356.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 10,
+       "x": 10.0,
+       "acc": 0.8719806763285024,
+       "k": 361.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 24,
+       "x": 24.0,
+       "acc": 0.9033816425120773,
+       "k": 374.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 50,
+       "x": 50.0,
+       "acc": 0.8985507246376812,
+       "k": 372.0,
+       "n": 414,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 100,
+       "x": 100.0,
+       "acc": 0.9057971014492754,
+       "k": 250.0,
+       "n": 276,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 2
+      },
+      {
+       "N": 200,
+       "x": 200.0,
+       "acc": 0.9130434782608695,
+       "k": 252.0,
+       "n": 276,
+       "clusters": 27,
+       "seeds": null,
+       "n_cells": 2
+      }
+     ],
+     "n_fit_points": 6,
+     "dof": 3,
+     "fit_rmse_pp": 0.5394275243286839,
+     "max_measured_x": 200.0,
+     "params": {
+      "A": 0.9226863313732445,
+      "B": 0.12391114791915141,
+      "C": 0.45877090801827874
+     },
+     "asymptote": {
+      "point": 0.9226863313732445,
+      "boot_ci": [
+       0.8796737403192593,
+       0.9999999999999999
+      ],
+      "boot_median": 0.9301229991112987,
+      "hessian_ci": [
+       0.8845848868320829,
+       0.9607877759144061
+      ],
+      "at_upper_bound_share": 0.1705,
+      "identified": true,
+      "note": "asymptote identified: A inside (0, 1) in the point fit and in >= 75 % of resamples, dof >= 2"
+     },
+     "n_to_fraction_of_asymptote": {
+      "0.95": {
+       "point": 8.615794512939134,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         2.267784672453093,
+         295167.94489678036
+        ],
+        "median": 9.202044270455499
+       }
+      },
+      "0.97": {
+       "point": 26.234168145019044,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         3.9999558207809605,
+         66478878.82649111
+        ],
+        "median": 26.13755426466797
+       }
+      }
+     },
+     "n_to_target": {
+      "0.9": {
+       "point": 40.47815597829308,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.1235,
+        "ci": [
+         2.916767441897533,
+         2029.801694501758
+        ],
+        "median": 29.71580031491312,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      },
+      "0.95": {
+       "point": "not reached",
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.6935,
+        "ci": [
+         47.62461097197597,
+         524077688.58837664
+        ],
+        "median": 9996.634209158829,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      }
+     },
+     "fitted_acc_at_measured_N": {
+      "4": {
+       "point": 0.8570864926873601,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8016663477161826,
+         0.9075476472098291
+        ],
+        "median": 0.8576793164383032
+       }
+      },
+      "10": {
+       "point": 0.8796000044585517,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8350281522796179,
+         0.9266514191842851
+        ],
+        "median": 0.8802489773957647
+       }
+      },
+      "24": {
+       "point": 0.8938520178925436,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8537365618936853,
+         0.9367455169247166
+        ],
+        "median": 0.8938907358298966
+       }
+      },
+      "50": {
+       "point": 0.902095571746907,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8637926507796815,
+         0.9428516598230181
+        ],
+        "median": 0.902163570395955
+       }
+      },
+      "100": {
+       "point": 0.9077043737513923,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.869884454078143,
+         0.9465710128223577
+        ],
+        "median": 0.9082276014824122
+       }
+      },
+      "200": {
+       "point": 0.9117853710271352,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8741334722483296,
+         0.9494479410574677
+        ],
+        "median": 0.9127418145332635
+       }
+      }
+     },
+     "n_boot": 2000,
+     "point_fit_check": {
+      "refit_A": 0.9226863313732445,
+      "refit_B": 0.12391114791915141,
+      "refit_C": 0.45877090801827874,
+      "max_abs_diff": 0.0,
+      "reproduced": true
+     },
+     "fit_including_N0_on_Nplus1": {
+      "A": 0.9999999999999999,
+      "B": 0.1455788770426455,
+      "C": 0.09464897273709232
+     }
+    },
+    "det_carm_AP_centre025": {
+     "curve": "det_carm_AP_centre025",
+     "points": [
+      {
+       "N": 0,
+       "x": 0.0,
+       "acc": 0.916083916083916,
+       "k": 393.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 4,
+       "x": 4.0,
+       "acc": 0.8694638694638694,
+       "k": 373.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 10,
+       "x": 10.0,
+       "acc": 0.8997668997668997,
+       "k": 386.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 24,
+       "x": 24.0,
+       "acc": 0.9114219114219114,
+       "k": 391.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 50,
+       "x": 50.0,
+       "acc": 0.9207459207459208,
+       "k": 395.0,
+       "n": 429,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 3
+      },
+      {
+       "N": 100,
+       "x": 100.0,
+       "acc": 0.9405594405594405,
+       "k": 269.0,
+       "n": 286,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 2
+      },
+      {
+       "N": 200,
+       "x": 200.0,
+       "acc": 0.9265734265734266,
+       "k": 265.0,
+       "n": 286,
+       "clusters": 28,
+       "seeds": null,
+       "n_cells": 2
+      }
+     ],
+     "n_fit_points": 6,
+     "dof": 3,
+     "fit_rmse_pp": 0.5691905696375807,
+     "max_measured_x": 200.0,
+     "params": {
+      "A": 0.9387663753904356,
+      "B": 0.16485567312507732,
+      "C": 0.615658702949911
+     },
+     "asymptote": {
+      "point": 0.9387663753904356,
+      "boot_ci": [
+       0.8960277415291305,
+       0.9999999999999999
+      ],
+      "boot_median": 0.9419322770074272,
+      "hessian_ci": [
+       0.9070715799180384,
+       0.9704611708628328
+      ],
+      "at_upper_bound_share": 0.0575,
+      "identified": true,
+      "note": "asymptote identified: A inside (0, 1) in the point fit and in >= 75 % of resamples, dof >= 2"
+     },
+     "n_to_fraction_of_asymptote": {
+      "0.95": {
+       "point": 7.694260827525056,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         3.5609094075273555,
+         316.7272073973409
+        ],
+        "median": 7.714852820862692
+       }
+      },
+      "0.97": {
+       "point": 17.640489342037135,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         5.791402717138062,
+         3874.8414965786187
+        ],
+        "median": 17.321490841234997
+       }
+      }
+     },
+     "n_to_target": {
+      "0.9": {
+       "point": 10.497825461621174,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0415,
+        "ci": [
+         3.702353682790812,
+         96.79488940839471
+        ],
+        "median": 9.95433191265753,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      },
+      "0.95": {
+       "point": "not reached",
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.6265,
+        "ci": [
+         16.92090566986398,
+         106576.99152885993
+        ],
+        "median": 181.79776688922396,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      }
+     },
+     "fitted_acc_at_measured_N": {
+      "4": {
+       "point": 0.8685496739836159,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8316681014117808,
+         0.9028825515764951
+        ],
+        "median": 0.8677277874231412
+       }
+      },
+      "10": {
+       "point": 0.8988229602540176,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8648308239261377,
+         0.9332675907347929
+        ],
+        "median": 0.899358346452984
+       }
+      },
+      "24": {
+       "point": 0.915465897196868,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8794163913597951,
+         0.9500046855721124
+        ],
+        "median": 0.9154790803040851
+       }
+      },
+      "50": {
+       "point": 0.9239371581386244,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8863170029217875,
+         0.9579939718201194
+        ],
+        "median": 0.9238792448716283
+       }
+      },
+      "100": {
+       "point": 0.9290883559294388,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8913412329888418,
+         0.9637958267919859
+        ],
+        "median": 0.9290273873246009
+       }
+      },
+      "200": {
+       "point": 0.9324501916636113,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8929976843694891,
+         0.9687166532167955
+        ],
+        "median": 0.9326624409545785
+       }
+      }
+     },
+     "n_boot": 2000,
+     "point_fit_check": {
+      "refit_A": 0.9387663753904356,
+      "refit_B": 0.16485567312507732,
+      "refit_C": 0.615658702949911,
+      "max_abs_diff": 0.0,
+      "reproduced": true
+     },
+     "fit_including_N0_on_Nplus1": {
+      "A": 0.9999999999999999,
+      "B": 0.12157659622966954,
+      "C": 0.10833108877522887
+     }
+    }
+   }
+  },
+  "naming_lateral": {
+   "task": "naming",
+   "x_unit": "C-ArmLSpine training persons of the lateral protocol (both views of each case kept); N = all is the fold mean",
+   "test_set": "the five case-grouped test folds pooled (148 lateral cases)",
+   "targets": [
+    "0.97",
+    "0.99"
+   ],
+   "reported": {
+    "name_id_LAT_kfull": {
+     "curve": "name_id_LAT_kfull",
+     "points": [
+      {
+       "N": "0",
+       "x": 0.0,
+       "acc": 0.9373996789727127,
+       "k": 1752.0,
+       "n": 1869,
+       "clusters": 148,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "5",
+       "x": 5.0,
+       "acc": 0.9668271803103263,
+       "k": 1807.0,
+       "n": 1869,
+       "clusters": 148,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "10",
+       "x": 10.0,
+       "acc": 0.9646869983948636,
+       "k": 1803.0,
+       "n": 1869,
+       "clusters": 148,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "25",
+       "x": 25.0,
+       "acc": 0.9748528624933119,
+       "k": 1822.0,
+       "n": 1869,
+       "clusters": 148,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "50",
+       "x": 50.0,
+       "acc": 0.9807383627608347,
+       "k": 611.0,
+       "n": 623,
+       "clusters": 148,
+       "seeds": [
+        0
+       ],
+       "n_cells": 5
+      },
+      {
+       "N": "all",
+       "x": 87.0,
+       "acc": 0.9807383627608347,
+       "k": 611.0,
+       "n": 623,
+       "clusters": 148,
+       "seeds": [
+        0
+       ],
+       "n_cells": 5
+      }
+     ],
+     "n_fit_points": 5,
+     "dof": 2,
+     "fit_rmse_pp": 0.2687932331330882,
+     "max_measured_x": 87.0,
+     "params": {
+      "A": 0.9999999999999999,
+      "B": 0.05535402106037475,
+      "C": 0.24550625025151382
+     },
+     "asymptote": {
+      "point": 0.9999999999999999,
+      "boot_ci": [
+       0.9647836296512612,
+       0.9999999999999999
+      ],
+      "boot_median": 0.9999999999999967,
+      "hessian_ci": [
+       0.8728903195257953,
+       1.0
+      ],
+      "at_upper_bound_share": 0.682,
+      "identified": false,
+      "note": "asymptote NOT identified by the measured range: A at the upper bound in the point fit (True) or in 68 % of resamples, dof 2; the curve is still rising (or has too few points) and N to any target is an extrapolation of unknown reliability"
+     },
+     "n_to_fraction_of_asymptote": {
+      "0.95": {
+       "point": 1.513391553520485,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.0,
+         14.12980109402205
+        ],
+        "median": 1.9237744181922305
+       }
+      },
+      "0.97": {
+       "point": 12.122416305351164,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.0,
+         4386.437019812784
+        ],
+        "median": 6.911153006707263
+       }
+      }
+     },
+     "n_to_target": {
+      "0.97": {
+       "point": 12.122416305351342,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.048,
+        "ci": [
+         0.0,
+         7579.718612884744
+        ],
+        "median": 9.829393504092724,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      },
+      "0.99": {
+       "point": 1064.1605355024988,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.215,
+        "ci": [
+         10.803385055084934,
+         8.792471405792712e+20
+        ],
+        "median": 481.3995890028497,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      }
+     },
+     "fitted_acc_at_measured_N": {
+      "5": {
+       "point": 0.9627138390571599,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.9349413873712193,
+         0.9837490020848596
+        ],
+        "median": 0.9622453587377755
+       }
+      },
+      "10": {
+       "point": 0.9685483869136902,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.9457373156221507,
+         0.9882434211246613
+        ],
+        "median": 0.9693844219049155
+       }
+      },
+      "25": {
+       "point": 0.9748842492158065,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.952949958068804,
+         0.9935279212666971
+        ],
+        "median": 0.975774428423934
+       }
+      },
+      "50": {
+       "point": 0.9788143682250472,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.9551333033436761,
+         0.996214746702997
+        ],
+        "median": 0.9793249222392129
+       }
+      },
+      "87": {
+       "point": 0.9815079492931064,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.9559566071713841,
+         0.9977158246567746
+        ],
+        "median": 0.9815695823389603
+       }
+      }
+     },
+     "n_boot": 2000,
+     "point_fit_check": {
+      "refit_A": 0.9999999999999999,
+      "refit_B": 0.05535402106037475,
+      "refit_C": 0.24550625025151382,
+      "max_abs_diff": 0.0,
+      "reproduced": true
+     },
+     "fit_including_N0_on_Nplus1": {
+      "A": 0.9956798938485414,
+      "B": 0.05774801079878972,
+      "C": 0.3143914575763775
+     }
+    },
+    "name_id_LAT_k3": {
+     "curve": "name_id_LAT_k3",
+     "points": [
+      {
+       "N": "0",
+       "x": 0.0,
+       "acc": 0.8364888123924269,
+       "k": 2916.0,
+       "n": 3486,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "5",
+       "x": 5.0,
+       "acc": 0.897877223178428,
+       "k": 3130.0,
+       "n": 3486,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "10",
+       "x": 10.0,
+       "acc": 0.9087779690189329,
+       "k": 3168.0,
+       "n": 3486,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "25",
+       "x": 25.0,
+       "acc": 0.9182444061962134,
+       "k": 3201.0,
+       "n": 3486,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "50",
+       "x": 50.0,
+       "acc": 0.9345955249569707,
+       "k": 1086.0,
+       "n": 1162,
+       "clusters": 149,
+       "seeds": [
+        0
+       ],
+       "n_cells": 5
+      },
+      {
+       "N": "all",
+       "x": 87.0,
+       "acc": 0.9311531841652324,
+       "k": 1082.0,
+       "n": 1162,
+       "clusters": 149,
+       "seeds": [
+        0
+       ],
+       "n_cells": 5
+      }
+     ],
+     "n_fit_points": 5,
+     "dof": 2,
+     "fit_rmse_pp": 0.32415417367384486,
+     "max_measured_x": 87.0,
+     "params": {
+      "A": 0.9532800830013537,
+      "B": 0.10294187609368473,
+      "C": 0.36929293615754727
+     },
+     "asymptote": {
+      "point": 0.9532800830013537,
+      "boot_ci": [
+       0.9097321389297406,
+       0.9999999999999999
+      ],
+      "boot_median": 0.9591243179979654,
+      "hessian_ci": [
+       0.8554063770225419,
+       1.0
+      ],
+      "at_upper_bound_share": 0.332,
+      "identified": false,
+      "note": "asymptote NOT identified by the measured range: A at the upper bound in the point fit (False) or in 33 % of resamples, dof 2; the curve is still rising (or has too few points) and N to any target is an extrapolation of unknown reliability"
+     },
+     "n_to_fraction_of_asymptote": {
+      "0.95": {
+       "point": 8.044858647667363,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         1.684454082334179,
+         7424.398850087871
+        ],
+        "median": 9.763399442422243
+       }
+      },
+      "0.97": {
+       "point": 32.08171936815952,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         3.2601503551622595,
+         1424770.8244837753
+        ],
+        "median": 35.27391537381312
+       }
+      }
+     },
+     "n_to_target": {
+      "0.97": {
+       "point": "not reached",
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.5815,
+        "ci": [
+         229.40204325086674,
+         563475554.7405642
+        ],
+        "median": 4887.185470423712,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      },
+      "0.99": {
+       "point": "not reached",
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.65,
+        "ci": [
+         6009.29431306321,
+         1.9750107693404004e+16
+        ],
+        "median": 1829142.7450695406,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      }
+     },
+     "fitted_acc_at_measured_N": {
+      "5": {
+       "point": 0.8964645096464301,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8662690607314054,
+         0.9236647103811648
+        ],
+        "median": 0.8958806357958441
+       }
+      },
+      "10": {
+       "point": 0.9092956353294994,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.882918604106888,
+         0.9337892732630054
+        ],
+        "median": 0.9099389937925042
+       }
+      },
+      "25": {
+       "point": 0.9219224907547253,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8968732737828625,
+         0.9441553879703781
+        ],
+        "median": 0.922379766899837
+       }
+      },
+      "50": {
+       "point": 0.9290042323174031,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.9033552441494503,
+         0.9518085080762184
+        ],
+        "median": 0.9293760542102025
+       }
+      },
+      "87": {
+       "point": 0.9334948431544224,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.9055071057698163,
+         0.9580422208597996
+        ],
+        "median": 0.9339673301320253
+       }
+      }
+     },
+     "n_boot": 2000,
+     "point_fit_check": {
+      "refit_A": 0.9532800830013537,
+      "refit_B": 0.10294187609368473,
+      "refit_C": 0.36929293615754727,
+      "max_abs_diff": 0.0,
+      "reproduced": true
+     },
+     "fit_including_N0_on_Nplus1": {
+      "A": 0.9511882690927004,
+      "B": 0.11469219027672953,
+      "C": 0.418121964512006
+     }
+    },
+    "name_id_LAT_k1": {
+     "curve": "name_id_LAT_k1",
+     "points": [
+      {
+       "N": "0",
+       "x": 0.0,
+       "acc": 0.6386600768808347,
+       "k": 1163.0,
+       "n": 1821,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "5",
+       "x": 5.0,
+       "acc": 0.6924766611751785,
+       "k": 1261.0,
+       "n": 1821,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "10",
+       "x": 10.0,
+       "acc": 0.700164744645799,
+       "k": 1275.0,
+       "n": 1821,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "25",
+       "x": 25.0,
+       "acc": 0.7215815485996705,
+       "k": 1314.0,
+       "n": 1821,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "50",
+       "x": 50.0,
+       "acc": 0.7512355848434926,
+       "k": 456.0,
+       "n": 607,
+       "clusters": 149,
+       "seeds": [
+        0
+       ],
+       "n_cells": 5
+      },
+      {
+       "N": "all",
+       "x": 87.0,
+       "acc": 0.771004942339374,
+       "k": 468.0,
+       "n": 607,
+       "clusters": 149,
+       "seeds": [
+        0
+       ],
+       "n_cells": 5
+      }
+     ],
+     "n_fit_points": 5,
+     "dof": 2,
+     "fit_rmse_pp": 0.8053636831450044,
+     "max_measured_x": 87.0,
+     "params": {
+      "A": 0.9999999999999999,
+      "B": 0.3854833470890025,
+      "C": 0.11235629113179728
+     },
+     "asymptote": {
+      "point": 0.9999999999999999,
+      "boot_ci": [
+       0.8966684549789287,
+       0.9999999999999999
+      ],
+      "boot_median": 0.9999999999999999,
+      "hessian_ci": [
+       0.0,
+       1.0
+      ],
+      "at_upper_bound_share": 0.9595,
+      "identified": false,
+      "note": "asymptote NOT identified by the measured range: A at the upper bound in the point fit (True) or in 96 % of resamples, dof 2; the curve is still rising (or has too few points) and N to any target is an extrapolation of unknown reliability"
+     },
+     "n_to_fraction_of_asymptote": {
+      "0.95": {
+       "point": 78495726.15535165,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         119988.74743113342,
+         463215939116.26117
+        ],
+        "median": 78964949.70594105
+       }
+      },
+      "0.97": {
+       "point": 7402137726.603862,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         2645704.4963237233,
+         465065697821539.2
+        ],
+        "median": 7295064643.734049
+       }
+      }
+     },
+     "n_to_target": {
+      "0.97": {
+       "point": 7402137726.604108,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0375,
+        "ci": [
+         36654318.934158124,
+         545793227056952.06
+        ],
+        "median": 8966372105.273735,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      },
+      "0.99": {
+       "point": 130574843786974.36,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.039,
+        "ci": [
+         59248832286.391136,
+         2.6718478732888957e+21
+        ],
+        "median": 169104943005293.8,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      }
+     },
+     "fitted_acc_at_measured_N": {
+      "5": {
+       "point": 0.6782845306949603,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.6450517079192312,
+         0.7118316473393782
+        ],
+        "median": 0.6794658235351746
+       }
+      },
+      "10": {
+       "point": 0.7023887594849785,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.6712866174056086,
+         0.7322286650750489
+        ],
+        "median": 0.7031952633139914
+       }
+      },
+      "25": {
+       "point": 0.731503723904667,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7002701391845592,
+         0.7598666198510149
+        ],
+        "median": 0.7321108706407448
+       }
+      },
+      "50": {
+       "point": 0.7516205547249262,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7193722855130483,
+         0.780429292911993
+        ],
+        "median": 0.7514866743377642
+       }
+      },
+      "87": {
+       "point": 0.7666066748509961,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7328416857242189,
+         0.7966975414440725
+        ],
+        "median": 0.7660001809594685
+       }
+      }
+     },
+     "n_boot": 2000,
+     "point_fit_check": {
+      "refit_A": 0.9999999999999999,
+      "refit_B": 0.3854833470890025,
+      "refit_C": 0.11235629113179728,
+      "max_abs_diff": 0.0,
+      "reproduced": true
+     },
+     "fit_including_N0_on_Nplus1": {
+      "A": 0.9999999999999802,
+      "B": 0.37399838775013206,
+      "C": 0.10275251095789599
+     }
+    }
+   },
+   "secondary": {},
+   "zero_shot_reference": {
+    "name_zeroshot_LAT_kfull": {
+     "acc": 0.9630818619582665,
+     "k": 600.0,
+     "n": 623,
+     "clusters": 148,
+     "cells": [
+      "cv0_zs",
+      "cv1_zs",
+      "cv2_zs",
+      "cv3_zs",
+      "cv4_zs"
+     ]
+    },
+    "name_zeroshot_LAT_k3": {
+     "acc": 0.8218588640275387,
+     "k": 955.0,
+     "n": 1162,
+     "clusters": 149,
+     "cells": [
+      "cv0_zs",
+      "cv1_zs",
+      "cv2_zs",
+      "cv3_zs",
+      "cv4_zs"
+     ]
+    },
+    "name_zeroshot_LAT_k1": {
+     "acc": 0.6326194398682042,
+     "k": 384.0,
+     "n": 607,
+     "clusters": 149,
+     "cells": [
+      "cv0_zs",
+      "cv1_zs",
+      "cv2_zs",
+      "cv3_zs",
+      "cv4_zs"
+     ]
+    }
+   }
+  },
+  "naming_AP": {
+   "task": "naming",
+   "x_unit": "C-ArmLSpine training persons of the anteroposterior protocol; N = all is the fold mean",
+   "test_set": "the five case-grouped test folds pooled (149 anteroposterior cases)",
+   "targets": [
+    "0.97",
+    "0.99"
+   ],
+   "reported": {
+    "name_id_AP_kfull": {
+     "curve": "name_id_AP_kfull",
+     "points": [
+      {
+       "N": "0",
+       "x": 0.0,
+       "acc": 0.3380726698262243,
+       "k": 642.0,
+       "n": 1899,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "5",
+       "x": 5.0,
+       "acc": 0.9078462348604529,
+       "k": 1724.0,
+       "n": 1899,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "10",
+       "x": 10.0,
+       "acc": 0.94681411269089,
+       "k": 1798.0,
+       "n": 1899,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "25",
+       "x": 25.0,
+       "acc": 0.9536598209583992,
+       "k": 1811.0,
+       "n": 1899,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "50",
+       "x": 50.0,
+       "acc": 0.9541864139020537,
+       "k": 604.0,
+       "n": 633,
+       "clusters": 149,
+       "seeds": [
+        0
+       ],
+       "n_cells": 5
+      },
+      {
+       "N": "all",
+       "x": 87.6,
+       "acc": 0.981042654028436,
+       "k": 621.0,
+       "n": 633,
+       "clusters": 149,
+       "seeds": [
+        0
+       ],
+       "n_cells": 5
+      }
+     ],
+     "n_fit_points": 5,
+     "dof": 2,
+     "fit_rmse_pp": 0.8845331269414741,
+     "max_measured_x": 87.6,
+     "params": {
+      "A": 0.9999999999999999,
+      "B": 0.1603038595147102,
+      "C": 0.3977052337063697
+     },
+     "asymptote": {
+      "point": 0.9999999999999999,
+      "boot_ci": [
+       0.9547986249626838,
+       0.9999999999999999
+      ],
+      "boot_median": 0.9999999999999998,
+      "hessian_ci": [
+       0.7909372966306222,
+       1.0
+      ],
+      "at_upper_bound_share": 0.6855,
+      "identified": false,
+      "note": "asymptote NOT identified by the measured range: A at the upper bound in the point fit (True) or in 69 % of resamples, dof 2; the curve is still rising (or has too few points) and N to any target is an extrapolation of unknown reliability"
+     },
+     "n_to_fraction_of_asymptote": {
+      "0.95": {
+       "point": 18.716887628179915,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         4.753034705054395,
+         69.51913217241157
+        ],
+        "median": 13.606959905743286
+       }
+      },
+      "0.97": {
+       "point": 67.61696680993875,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         6.1048382585442065,
+         513.2011019622993
+        ],
+        "median": 42.22127875509494
+       }
+      }
+     },
+     "n_to_target": {
+      "0.97": {
+       "point": 67.61696680993937,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.1125,
+        "ci": [
+         11.576364029669735,
+         668.672475516788
+        ],
+        "median": 56.47177103453895,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      },
+      "0.99": {
+       "point": 1070.881256624889,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.276,
+        "ci": [
+         86.85111996753784,
+         74458.19945130494
+        ],
+        "median": 991.2240182705116,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      }
+     },
+     "fitted_acc_at_measured_N": {
+      "5": {
+       "point": 0.9154799102143385,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8748567838109951,
+         0.9452363978308614
+        ],
+        "median": 0.912122104520642
+       }
+      },
+      "10": {
+       "point": 0.9358437834002896,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.9083818079241172,
+         0.9670210903892579
+        ],
+        "median": 0.9384597317805236
+       }
+      },
+      "25": {
+       "point": 0.9554368460060642,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.931965259878225,
+         0.9801007144451219
+        ],
+        "median": 0.9576201386567027
+       }
+      },
+      "50": {
+       "point": 0.9661736828811768,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.9422759554015643,
+         0.9859729871457821
+        ],
+        "median": 0.9671761654349387
+       }
+      },
+      "87.6": {
+       "point": 0.9729355049254633,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.9482780262940785,
+         0.989230878812037
+        ],
+        "median": 0.9723726096990135
+       }
+      }
+     },
+     "n_boot": 2000,
+     "point_fit_check": {
+      "refit_A": 0.9999999999999999,
+      "refit_B": 0.1603038595147102,
+      "refit_C": 0.3977052337063697,
+      "max_abs_diff": 0.0,
+      "reproduced": true
+     },
+     "fit_including_N0_on_Nplus1": {
+      "A": 0.9706380970829659,
+      "B": 0.6323247760879991,
+      "C": 1.2837053115507133
+     }
+    },
+    "name_id_AP_k3": {
+     "curve": "name_id_AP_k3",
+     "points": [
+      {
+       "N": "0",
+       "x": 0.0,
+       "acc": 0.28458720766413076,
+       "k": 1010.0,
+       "n": 3549,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "5",
+       "x": 5.0,
+       "acc": 0.6942800788954635,
+       "k": 2464.0,
+       "n": 3549,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "10",
+       "x": 10.0,
+       "acc": 0.7511975204282897,
+       "k": 2666.0,
+       "n": 3549,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "25",
+       "x": 25.0,
+       "acc": 0.8140321217244294,
+       "k": 2889.0,
+       "n": 3549,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "50",
+       "x": 50.0,
+       "acc": 0.8368554522400676,
+       "k": 990.0,
+       "n": 1183,
+       "clusters": 149,
+       "seeds": [
+        0
+       ],
+       "n_cells": 5
+      },
+      {
+       "N": "all",
+       "x": 87.6,
+       "acc": 0.8757396449704142,
+       "k": 1036.0,
+       "n": 1183,
+       "clusters": 149,
+       "seeds": [
+        0
+       ],
+       "n_cells": 5
+      }
+     ],
+     "n_fit_points": 5,
+     "dof": 2,
+     "fit_rmse_pp": 0.5147554614466172,
+     "max_measured_x": 87.6,
+     "params": {
+      "A": 0.9999999999999988,
+      "B": 0.4968462234225454,
+      "C": 0.29998634821247216
+     },
+     "asymptote": {
+      "point": 0.9999999999999988,
+      "boot_ci": [
+       0.8992919276558377,
+       0.9999999999999999
+      ],
+      "boot_median": 0.9999999999999999,
+      "hessian_ci": [
+       0.753323708505222,
+       1.0
+      ],
+      "at_upper_bound_share": 0.701,
+      "identified": false,
+      "note": "asymptote NOT identified by the measured range: A at the upper bound in the point fit (True) or in 70 % of resamples, dof 2; the curve is still rising (or has too few points) and N to any target is an extrapolation of unknown reliability"
+     },
+     "n_to_fraction_of_asymptote": {
+      "0.95": {
+       "point": 2110.2046334624297,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         77.71504190811447,
+         8863.114624821752
+        ],
+        "median": 1504.9354960953679
+       }
+      },
+      "0.97": {
+       "point": 11583.880198164126,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         192.75036983261737,
+         69157.81238153703
+        ],
+        "median": 7504.08390359564
+       }
+      }
+     },
+     "n_to_target": {
+      "0.97": {
+       "point": 11583.880198165702,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.208,
+        "ci": [
+         2474.162774863286,
+         457279.48283787933
+        ],
+        "median": 11594.198910977817,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      },
+      "0.99": {
+       "point": 451160.02901127876,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.271,
+        "ci": [
+         46930.88077861895,
+         14150200.312899692
+        ],
+        "median": 416123.54199714994,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      }
+     },
+     "fitted_acc_at_measured_N": {
+      "5": {
+       "point": 0.6934223196235623,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.6577014713873588,
+         0.7238964867086717
+        ],
+        "median": 0.6921015141139403
+       }
+      },
+      "10": {
+       "point": 0.7509791880473033,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.719679905924692,
+         0.7809651319476583
+        ],
+        "median": 0.7512899235160789
+       }
+      },
+      "25": {
+       "point": 0.8108270332467378,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.7803402209607497,
+         0.8405656654948045
+        ],
+        "median": 0.8117013165048321
+       }
+      },
+      "50": {
+       "point": 0.8463423504197848,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8155306544364657,
+         0.8746274348364288
+        ],
+        "median": 0.8462781016179186
+       }
+      },
+      "87.6": {
+       "point": 0.8701334570208992,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.8374224582620869,
+         0.8970552054826926
+        ],
+        "median": 0.8693765530355679
+       }
+      }
+     },
+     "n_boot": 2000,
+     "point_fit_check": {
+      "refit_A": 0.9999999999999988,
+      "refit_B": 0.4968462234225454,
+      "refit_C": 0.29998634821247216,
+      "max_abs_diff": 0.0,
+      "reproduced": true
+     },
+     "fit_including_N0_on_Nplus1": {
+      "A": 0.9197925701886929,
+      "B": 0.6327734316284147,
+      "C": 0.554283891842636
+     }
+    },
+    "name_id_AP_k1": {
+     "curve": "name_id_AP_k1",
+     "points": [
+      {
+       "N": "0",
+       "x": 0.0,
+       "acc": 0.1572969903463941,
+       "k": 277.0,
+       "n": 1761,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "5",
+       "x": 5.0,
+       "acc": 0.5275411697898921,
+       "k": 929.0,
+       "n": 1761,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "10",
+       "x": 10.0,
+       "acc": 0.5945485519591142,
+       "k": 1047.0,
+       "n": 1761,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "25",
+       "x": 25.0,
+       "acc": 0.6484951731970471,
+       "k": 1142.0,
+       "n": 1761,
+       "clusters": 149,
+       "seeds": [
+        0,
+        1,
+        2
+       ],
+       "n_cells": 15
+      },
+      {
+       "N": "50",
+       "x": 50.0,
+       "acc": 0.7001703577512777,
+       "k": 411.0,
+       "n": 587,
+       "clusters": 149,
+       "seeds": [
+        0
+       ],
+       "n_cells": 5
+      },
+      {
+       "N": "all",
+       "x": 87.6,
+       "acc": 0.7461669505962522,
+       "k": 438.0,
+       "n": 587,
+       "clusters": 149,
+       "seeds": [
+        0
+       ],
+       "n_cells": 5
+      }
+     ],
+     "n_fit_points": 5,
+     "dof": 2,
+     "fit_rmse_pp": 0.7518011000324795,
+     "max_measured_x": 87.6,
+     "params": {
+      "A": 0.9999999999999999,
+      "B": 0.6677612639872935,
+      "C": 0.20942895703153974
+     },
+     "asymptote": {
+      "point": 0.9999999999999999,
+      "boot_ci": [
+       0.914824178910442,
+       0.9999999999999999
+      ],
+      "boot_median": 0.9999999999999999,
+      "hessian_ci": [
+       0.34391631590635086,
+       1.0
+      ],
+      "at_upper_bound_share": 0.941,
+      "identified": false,
+      "note": "asymptote NOT identified by the measured range: A at the upper bound in the point fit (True) or in 94 % of resamples, dof 2; the curve is still rising (or has too few points) and N to any target is an extrapolation of unknown reliability"
+     },
+     "n_to_fraction_of_asymptote": {
+      "0.95": {
+       "point": 237060.66315679543,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         12944.014760222844,
+         2054296.3315773606
+        ],
+        "median": 219028.35154497804
+       }
+      },
+      "0.97": {
+       "point": 2717456.6488740025,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         94844.99273904371,
+         37538611.80915163
+        ],
+        "median": 2461082.9807375055
+       }
+      }
+     },
+     "n_to_target": {
+      "0.97": {
+       "point": 2717456.64887405,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0485,
+        "ci": [
+         351293.1595875092,
+         42526910.74369879
+        ],
+        "median": 2683464.5185816116,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      },
+      "0.99": {
+       "point": 515660187.9074147,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0535,
+        "ci": [
+         29622482.51204981,
+         25347200847.259007
+        ],
+        "median": 498212414.40782267,
+        "ci_upper_note": "upper bound not reached: more than 2.5 % of resamples never reach the target"
+       }
+      }
+     },
+     "fitted_acc_at_measured_N": {
+      "5": {
+       "point": 0.5233093171065308,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.4909869902866893,
+         0.5549121839266336
+        ],
+        "median": 0.522563159411813
+       }
+      },
+      "10": {
+       "point": 0.5877200017535891,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.56058047368211,
+         0.6152133166535347
+        ],
+        "median": 0.5872448498602271
+       }
+      },
+      "25": {
+       "point": 0.6597077138008923,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.631767831454717,
+         0.686830229936824
+        ],
+        "median": 0.6595612590830994
+       }
+      },
+      "50": {
+       "point": 0.7056881785357055,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.6763681509484837,
+         0.7344434230188256
+        ],
+        "median": 0.7053086272440715
+       }
+      },
+      "87.6": {
+       "point": 0.7382994631345505,
+       "boot": {
+        "n_boot": 2000,
+        "not_reached_share": 0.0,
+        "ci": [
+         0.707629385178261,
+         0.7682240884649134
+        ],
+        "median": 0.7379002335164557
+       }
+      }
+     },
+     "n_boot": 2000,
+     "point_fit_check": {
+      "refit_A": 0.9999999999999999,
+      "refit_B": 0.6677612639872935,
+      "refit_C": 0.20942895703153974,
+      "max_abs_diff": 0.0,
+      "reproduced": true
+     },
+     "fit_including_N0_on_Nplus1": {
+      "A": 0.8504107092106495,
+      "B": 0.6873988043019735,
+      "C": 0.40038774527075627
+     }
+    }
+   },
+   "secondary": {},
+   "zero_shot_reference": {
+    "name_zeroshot_AP_kfull": {
+     "acc": 0.4391785150078989,
+     "k": 278.0,
+     "n": 633,
+     "clusters": 149,
+     "cells": [
+      "cv0_zs",
+      "cv1_zs",
+      "cv2_zs",
+      "cv3_zs",
+      "cv4_zs"
+     ]
+    },
+    "name_zeroshot_AP_k3": {
+     "acc": 0.31952662721893493,
+     "k": 378.0,
+     "n": 1183,
+     "clusters": 149,
+     "cells": [
+      "cv0_zs",
+      "cv1_zs",
+      "cv2_zs",
+      "cv3_zs",
+      "cv4_zs"
+     ]
+    },
+    "name_zeroshot_AP_k1": {
+     "acc": 0.19931856899488926,
+     "k": 117.0,
+     "n": 587,
+     "clusters": 149,
+     "cells": [
+      "cv0_zs",
+      "cv1_zs",
+      "cv2_zs",
+      "cv3_zs",
+      "cv4_zs"
+     ]
+    }
+   }
+  }
+ }
+}

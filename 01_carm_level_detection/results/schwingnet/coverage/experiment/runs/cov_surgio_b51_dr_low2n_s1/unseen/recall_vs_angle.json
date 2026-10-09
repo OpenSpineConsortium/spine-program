@@ -1,0 +1,4286 @@
+{
+ "eval_gate": {
+  "gate_version": "eval_gate/2",
+  "held_out": true,
+  "not_held_out_reason": null,
+  "n_checks": 1,
+  "overlap": 0,
+  "unresolved": 0,
+  "checks": [
+   {
+    "gate": "tools/eval_gate.py",
+    "gate_version": "eval_gate/2",
+    "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+    "where": "tools/arc_recall_eval.py [cov_surgio_b51_dr_low2n_s1]",
+    "checked_at": "2026-09-25T05:41:41",
+    "host": "voh5",
+    "checkpoint": "/wsu/home/go/go24/go2432/spine-detector/runs/coverage/cov_surgio_b51_dr_low2n_s1/weights/best.pt",
+    "checkpoint_sha256": "d3336db70d2938c24b92888d82de434122a139e0119d2b4a91736ebf1b114c58",
+    "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+    "lineage_match": "path + sha256 verified",
+    "ancestors": [],
+    "public_roots": [
+     "public:ultralytics/yolo11m.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco.yaml')"
+    ],
+    "eval_set": "/rs/rs_grp_oschome/go2432/data/devcorpus_arc/anglesweep_unseen/SET_INFO.json#subjects (the 40 scored)",
+    "n_items": 40,
+    "n_keys": 40,
+    "keys_by_corpus": {
+     "ts": 40
+    },
+    "n_unkeyed": 0,
+    "unkeyed": [],
+    "overlap": 0,
+    "overlap_keys": [],
+    "overlap_detail": [],
+    "unresolved": 0,
+    "unresolved_rows": [],
+    "unresolved_decided": [],
+    "pose_donor_overlap": 0,
+    "pose_donor_keys": [],
+    "also_seen": {},
+    "held_out": true,
+    "not_held_out_reason": null,
+    "eval_digest": "sha256:8fc4950ce2eef1a77d85ba6a8766b9157de030dbb906403d7d33b05040ec097b",
+    "eval_keys": [
+     "ts:s0086",
+     "ts:s0139",
+     "ts:s0178",
+     "ts:s0236",
+     "ts:s0243",
+     "ts:s0244",
+     "ts:s0355",
+     "ts:s0370",
+     "ts:s0550",
+     "ts:s0586",
+     "ts:s0657",
+     "ts:s0667",
+     "ts:s0669",
+     "ts:s0733",
+     "ts:s0830",
+     "ts:s0859",
+     "ts:s0869",
+     "ts:s0913",
+     "ts:s0979",
+     "ts:s0983",
+     "ts:s1111",
+     "ts:s1230",
+     "ts:s1294",
+     "ts:s1347",
+     "ts:s1364",
+     "ts:s1395",
+     "ts:s1404",
+     "ts:s1487",
+     "ts:s1540",
+     "ts:s1547",
+     "ts:s1574",
+     "ts:s1741",
+     "ts:s1807",
+     "ts:s1815",
+     "ts:s1868",
+     "ts:s1935",
+     "ts:s1949",
+     "ts:s1973",
+     "ts:s2021",
+     "ts:s2106"
+    ],
+    "also_seen_digest": {},
+    "checkpoint_sha256_from": "the lineage store row",
+    "overlap_by": {},
+    "problems": [],
+    "role": "cov_surgio_b51_dr_low2n_s1"
+   }
+  ]
+ },
+ "weights_sha256": {
+  "cov_surgio_b51_dr_low2n_s1": "d3336db70d2938c24b92888d82de434122a139e0119d2b4a91736ebf1b114c58"
+ },
+ "set_root": "/rs/rs_grp_oschome/go2432/data/devcorpus_arc/anglesweep_unseen",
+ "set_info": {
+  "eval_gate": {
+   "gate_version": "eval_gate/1",
+   "held_out": true,
+   "not_held_out_reason": null,
+   "n_checks": 4,
+   "overlap": 0,
+   "unresolved": 0,
+   "checks": [
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/arc_angle_set.py (before rendering) [pooled]",
+     "checked_at": "2026-09-24T04:26:16",
+     "host": "voh7",
+     "checkpoint": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_P_pooled/weights/best.pt",
+     "checkpoint_sha256": "13f17d8c50491f3b8961060d7e91b58f722983483efeab44f33b3fec63dc3551",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "public_roots": [
+      "public:ultralytics/yolo11m.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco.yaml')"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/devcorpus_arc/anglesweep_unseen/SET_INFO.json#subjects",
+     "n_items": 40,
+     "n_keys": 40,
+     "keys_by_corpus": {
+      "ts": 40
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "pooled"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/arc_angle_set.py (before rendering) [lodoA]",
+     "checked_at": "2026-09-24T04:26:17",
+     "host": "voh7",
+     "checkpoint": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_surgio_b51_dr/weights/best.pt",
+     "checkpoint_sha256": "bfa05c731e9949ebd1fbcfced5c55d06818db6d41eaabb36c3e23277a0955467",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "public_roots": [
+      "public:ultralytics/yolo11m.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco.yaml')"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/devcorpus_arc/anglesweep_unseen/SET_INFO.json#subjects",
+     "n_items": 40,
+     "n_keys": 40,
+     "keys_by_corpus": {
+      "ts": 40
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "lodoA"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/arc_angle_set.py (before rendering) [lodoB]",
+     "checked_at": "2026-09-24T04:26:17",
+     "host": "voh7",
+     "checkpoint": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_surgio_b51_dr_s1/weights/best.pt",
+     "checkpoint_sha256": "9f7f2ff55ededd4e98adab4069383fa31016bdd7937ccbb6349fd36bde0dcfd3",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "public_roots": [
+      "public:ultralytics/yolo11m.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco.yaml')"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/devcorpus_arc/anglesweep_unseen/SET_INFO.json#subjects",
+     "n_items": 40,
+     "n_keys": 40,
+     "keys_by_corpus": {
+      "ts": 40
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "lodoB"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/arc_angle_set.py (before rendering) [real_lodo]",
+     "checked_at": "2026-09-24T04:26:18",
+     "host": "voh7",
+     "checkpoint": "/wsu/home/go/go24/go2432/spine-detector/runs/realxray/rx_lodo_carmlspine_1024/weights/best.pt",
+     "checkpoint_sha256": "f6fe6b9775a4d25a7c432337be71f73d0fbedfb525c33e76883b197281e5fcf8",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "/wsu/home/go/go24/go2432/spine-detector/runs/pose/anchor_none_v2_17-1882/weights/best.pt"
+     ],
+     "public_roots": [
+      "public:ultralytics/yolo11m.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco.yaml')"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/devcorpus_arc/anglesweep_unseen/SET_INFO.json#subjects",
+     "n_items": 40,
+     "n_keys": 40,
+     "keys_by_corpus": {
+      "ts": 40
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "real_lodo"
+    }
+   ]
+  },
+  "pool": "/rs/rs_grp_oschome/go2432/data/devcorpus/poses/surgio_b51_dr.json",
+  "anchor_tag": "case29/AP",
+  "anchor_angles": {
+   "lat_deg": -0.18320270200893612,
+   "tilt_deg": -0.2846822933261115,
+   "roll_deg": -0.2170166952034846
+  },
+  "cards": [
+   "surgio_b51_dr",
+   "elekta_xvi"
+  ],
+  "lats": [
+   -90.0,
+   -80.0,
+   -70.0,
+   -60.0,
+   -50.0,
+   -40.0,
+   -30.0,
+   -20.0,
+   -10.0,
+   0.0,
+   10.0,
+   20.0,
+   30.0,
+   40.0,
+   50.0,
+   60.0,
+   70.0,
+   80.0,
+   90.0
+  ],
+  "tilts": [
+   -15.0,
+   0.0,
+   15.0
+  ],
+  "roll_deg": 0.0,
+  "down": 2,
+  "seed": 0,
+  "out_px": 1024,
+  "subjects": [
+   "s0086",
+   "s0139",
+   "s0178",
+   "s0236",
+   "s0243",
+   "s0244",
+   "s0355",
+   "s0370",
+   "s0550",
+   "s0586",
+   "s0657",
+   "s0667",
+   "s0669",
+   "s0733",
+   "s0830",
+   "s0859",
+   "s0869",
+   "s0913",
+   "s0979",
+   "s0983",
+   "s1111",
+   "s1230",
+   "s1294",
+   "s1347",
+   "s1364",
+   "s1395",
+   "s1404",
+   "s1487",
+   "s1540",
+   "s1547",
+   "s1574",
+   "s1741",
+   "s1807",
+   "s1815",
+   "s1868",
+   "s1935",
+   "s1949",
+   "s1973",
+   "s2021",
+   "s2106"
+  ],
+  "excluded": [],
+  "targets": {
+   "s0086": "vertebrae_L3",
+   "s0236": "vertebrae_L3",
+   "s0355": "vertebrae_L3",
+   "s0586": "vertebrae_L3",
+   "s0669": "vertebrae_L3",
+   "s0859": "vertebrae_L3",
+   "s0979": "vertebrae_L3",
+   "s1230": "vertebrae_L3",
+   "s1364": "vertebrae_L3",
+   "s1487": "vertebrae_L3",
+   "s1574": "vertebrae_L3",
+   "s1815": "vertebrae_L3",
+   "s1949": "vertebrae_L3",
+   "s2106": "vertebrae_L3",
+   "s0139": "vertebrae_L3",
+   "s0243": "vertebrae_L3",
+   "s0370": "vertebrae_L3",
+   "s0657": "vertebrae_L3",
+   "s0733": "vertebrae_L3",
+   "s0869": "vertebrae_L3",
+   "s0983": "vertebrae_L3",
+   "s1294": "vertebrae_L3",
+   "s1395": "vertebrae_L3",
+   "s1540": "vertebrae_L3",
+   "s1741": "vertebrae_L3",
+   "s1868": "vertebrae_L3",
+   "s1973": "vertebrae_L3",
+   "s0178": "vertebrae_L3",
+   "s0244": "vertebrae_L3",
+   "s0550": "vertebrae_L3",
+   "s0667": "vertebrae_L3",
+   "s0830": "vertebrae_L3",
+   "s0913": "vertebrae_L3",
+   "s1111": "vertebrae_L3",
+   "s1347": "vertebrae_L3",
+   "s1404": "vertebrae_L3",
+   "s1547": "vertebrae_L3",
+   "s1807": "vertebrae_L3",
+   "s1935": "vertebrae_L3",
+   "s2021": "vertebrae_L3"
+  },
+  "frames_per_card": 2280,
+  "convention": "pose_arc.py: lat 0 = source posterior (AP), +90 = source patient-left (RAO family), -90 = source patient-right (the real Surgio lateral); tilt + = beam cranial; no jitter, no wander",
+  "subjects_source": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/arc_unseen/subjects.txt",
+  "preview_subject": "s0086",
+  "shards": [
+   {
+    "file": "SET_INFO.shard0of3.json",
+    "subjects": [
+     "s0086",
+     "s0236",
+     "s0355",
+     "s0586",
+     "s0669",
+     "s0859",
+     "s0979",
+     "s1230",
+     "s1364",
+     "s1487",
+     "s1574",
+     "s1815",
+     "s1949",
+     "s2106"
+    ],
+    "frames_per_card": 798
+   },
+   {
+    "file": "SET_INFO.shard1of3.json",
+    "subjects": [
+     "s0139",
+     "s0243",
+     "s0370",
+     "s0657",
+     "s0733",
+     "s0869",
+     "s0983",
+     "s1294",
+     "s1395",
+     "s1540",
+     "s1741",
+     "s1868",
+     "s1973"
+    ],
+    "frames_per_card": 741
+   },
+   {
+    "file": "SET_INFO.shard2of3.json",
+    "subjects": [
+     "s0178",
+     "s0244",
+     "s0550",
+     "s0667",
+     "s0830",
+     "s0913",
+     "s1111",
+     "s1347",
+     "s1404",
+     "s1547",
+     "s1807",
+     "s1935",
+     "s2021"
+    ],
+    "frames_per_card": 741
+   }
+  ],
+  "files_checked": 9120
+ },
+ "weights": {
+  "cov_surgio_b51_dr_low2n_s1": "/wsu/home/go/go24/go2432/spine-detector/runs/coverage/cov_surgio_b51_dr_low2n_s1/weights/best.pt"
+ },
+ "confs": [
+  0.25,
+  0.74
+ ],
+ "min_inside": 0.25,
+ "exposure_by_lat": {
+  "elekta_xvi": [
+   {
+    "lat": -90.0,
+    "n": 120,
+    "exposed_mean": 0.681,
+    "thickness_cm_mean": 30.4,
+    "trunc_frac_mean": 0.009
+   },
+   {
+    "lat": -80.0,
+    "n": 120,
+    "exposed_mean": 0.691,
+    "thickness_cm_mean": 30.1,
+    "trunc_frac_mean": 0.008
+   },
+   {
+    "lat": -70.0,
+    "n": 120,
+    "exposed_mean": 0.695,
+    "thickness_cm_mean": 29.4,
+    "trunc_frac_mean": 0.006
+   },
+   {
+    "lat": -60.0,
+    "n": 120,
+    "exposed_mean": 0.698,
+    "thickness_cm_mean": 28.1,
+    "trunc_frac_mean": 0.001
+   },
+   {
+    "lat": -50.0,
+    "n": 120,
+    "exposed_mean": 0.707,
+    "thickness_cm_mean": 26.6,
+    "trunc_frac_mean": 0.001
+   },
+   {
+    "lat": -40.0,
+    "n": 120,
+    "exposed_mean": 0.68,
+    "thickness_cm_mean": 25.3,
+    "trunc_frac_mean": 0.005
+   },
+   {
+    "lat": -30.0,
+    "n": 120,
+    "exposed_mean": 0.692,
+    "thickness_cm_mean": 24.0,
+    "trunc_frac_mean": 0.01
+   },
+   {
+    "lat": -20.0,
+    "n": 120,
+    "exposed_mean": 0.709,
+    "thickness_cm_mean": 23.0,
+    "trunc_frac_mean": 0.013
+   },
+   {
+    "lat": -10.0,
+    "n": 120,
+    "exposed_mean": 0.689,
+    "thickness_cm_mean": 22.2,
+    "trunc_frac_mean": 0.015
+   },
+   {
+    "lat": 0.0,
+    "n": 120,
+    "exposed_mean": 0.684,
+    "thickness_cm_mean": 21.9,
+    "trunc_frac_mean": 0.015
+   },
+   {
+    "lat": 10.0,
+    "n": 120,
+    "exposed_mean": 0.68,
+    "thickness_cm_mean": 22.3,
+    "trunc_frac_mean": 0.015
+   },
+   {
+    "lat": 20.0,
+    "n": 120,
+    "exposed_mean": 0.681,
+    "thickness_cm_mean": 23.0,
+    "trunc_frac_mean": 0.013
+   },
+   {
+    "lat": 30.0,
+    "n": 120,
+    "exposed_mean": 0.672,
+    "thickness_cm_mean": 23.9,
+    "trunc_frac_mean": 0.009
+   },
+   {
+    "lat": 40.0,
+    "n": 120,
+    "exposed_mean": 0.698,
+    "thickness_cm_mean": 25.2,
+    "trunc_frac_mean": 0.005
+   },
+   {
+    "lat": 50.0,
+    "n": 120,
+    "exposed_mean": 0.686,
+    "thickness_cm_mean": 26.6,
+    "trunc_frac_mean": 0.005
+   },
+   {
+    "lat": 60.0,
+    "n": 120,
+    "exposed_mean": 0.691,
+    "thickness_cm_mean": 28.1,
+    "trunc_frac_mean": 0.01
+   },
+   {
+    "lat": 70.0,
+    "n": 120,
+    "exposed_mean": 0.675,
+    "thickness_cm_mean": 29.4,
+    "trunc_frac_mean": 0.012
+   },
+   {
+    "lat": 80.0,
+    "n": 120,
+    "exposed_mean": 0.685,
+    "thickness_cm_mean": 30.4,
+    "trunc_frac_mean": 0.012
+   },
+   {
+    "lat": 90.0,
+    "n": 120,
+    "exposed_mean": 0.697,
+    "thickness_cm_mean": 30.6,
+    "trunc_frac_mean": 0.012
+   }
+  ],
+  "surgio_b51_dr": [
+   {
+    "lat": -90.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 30.4,
+    "trunc_frac_mean": 0.009
+   },
+   {
+    "lat": -80.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 30.1,
+    "trunc_frac_mean": 0.008
+   },
+   {
+    "lat": -70.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 29.4,
+    "trunc_frac_mean": 0.006
+   },
+   {
+    "lat": -60.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 28.1,
+    "trunc_frac_mean": 0.001
+   },
+   {
+    "lat": -50.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 26.6,
+    "trunc_frac_mean": 0.001
+   },
+   {
+    "lat": -40.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 25.3,
+    "trunc_frac_mean": 0.005
+   },
+   {
+    "lat": -30.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 24.0,
+    "trunc_frac_mean": 0.01
+   },
+   {
+    "lat": -20.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 23.0,
+    "trunc_frac_mean": 0.013
+   },
+   {
+    "lat": -10.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 22.2,
+    "trunc_frac_mean": 0.015
+   },
+   {
+    "lat": 0.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 21.9,
+    "trunc_frac_mean": 0.015
+   },
+   {
+    "lat": 10.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 22.3,
+    "trunc_frac_mean": 0.015
+   },
+   {
+    "lat": 20.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 23.0,
+    "trunc_frac_mean": 0.013
+   },
+   {
+    "lat": 30.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 23.9,
+    "trunc_frac_mean": 0.009
+   },
+   {
+    "lat": 40.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 25.2,
+    "trunc_frac_mean": 0.005
+   },
+   {
+    "lat": 50.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 26.6,
+    "trunc_frac_mean": 0.005
+   },
+   {
+    "lat": 60.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 28.1,
+    "trunc_frac_mean": 0.01
+   },
+   {
+    "lat": 70.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 29.4,
+    "trunc_frac_mean": 0.012
+   },
+   {
+    "lat": 80.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 30.4,
+    "trunc_frac_mean": 0.012
+   },
+   {
+    "lat": 90.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 30.6,
+    "trunc_frac_mean": 0.012
+   }
+  ]
+ },
+ "imgsz": 1024,
+ "boot": 1000,
+ "seed": 0,
+ "subjects": [
+  "s0086",
+  "s0139",
+  "s0178",
+  "s0236",
+  "s0243",
+  "s0244",
+  "s0355",
+  "s0370",
+  "s0550",
+  "s0586",
+  "s0657",
+  "s0667",
+  "s0669",
+  "s0733",
+  "s0830",
+  "s0859",
+  "s0869",
+  "s0913",
+  "s0979",
+  "s0983",
+  "s1111",
+  "s1230",
+  "s1294",
+  "s1347",
+  "s1364",
+  "s1395",
+  "s1404",
+  "s1487",
+  "s1540",
+  "s1547",
+  "s1574",
+  "s1741",
+  "s1807",
+  "s1815",
+  "s1868",
+  "s1935",
+  "s1949",
+  "s1973",
+  "s2021",
+  "s2106"
+ ],
+ "n_subjects": 40,
+ "frames_per_card": {
+  "elekta_xvi": 2280,
+  "surgio_b51_dr": 2280
+ },
+ "iou": 0.5,
+ "denominator": "per (lat, tilt) cell: projected boxes with inside >= 0.25 pooled over 40 subjects; boxes below are ignored (not FPs), matching greedy descending-confidence at IoU >= 0.5 (realxray_eval conventions)",
+ "interval": "subject-clustered bootstrap, 1000 resamples, percentile 2.5-97.5",
+ "falloff_rule": "smallest |lat| where recall first drops below 0.9 x recall(lat 0), per curve",
+ "curves": {
+  "cov_surgio_b51_dr_low2n_s1": {
+   "elekta_xvi": {
+    "0.25": {
+     "body": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.13991769547325103,
+        "lo": 0.06722689075630252,
+        "hi": 0.22135720092128433
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.17695473251028807,
+        "lo": 0.0875,
+        "hi": 0.27849323626881073
+       },
+       {
+        "lat": -70.0,
+        "n": 243,
+        "recall": 0.20164609053497942,
+        "lo": 0.10743801652892562,
+        "hi": 0.3068035856573705
+       },
+       {
+        "lat": -60.0,
+        "n": 243,
+        "recall": 0.1646090534979424,
+        "lo": 0.07982358215252627,
+        "hi": 0.25611804685240525
+       },
+       {
+        "lat": -50.0,
+        "n": 244,
+        "recall": 0.14344262295081966,
+        "lo": 0.07112229776847978,
+        "hi": 0.22267927464430892
+       },
+       {
+        "lat": -40.0,
+        "n": 245,
+        "recall": 0.024489795918367346,
+        "lo": 0.0,
+        "hi": 0.058091286307053944
+       },
+       {
+        "lat": -30.0,
+        "n": 246,
+        "recall": 0.07317073170731707,
+        "lo": 0.024587654734024758,
+        "hi": 0.1322314049586777
+       },
+       {
+        "lat": -20.0,
+        "n": 246,
+        "recall": 0.10975609756097561,
+        "lo": 0.04938271604938271,
+        "hi": 0.18627894736842102
+       },
+       {
+        "lat": -10.0,
+        "n": 247,
+        "recall": 0.11336032388663968,
+        "lo": 0.04897959183673469,
+        "hi": 0.18930580446037434
+       },
+       {
+        "lat": 0.0,
+        "n": 247,
+        "recall": 0.06072874493927125,
+        "lo": 0.024188709677419356,
+        "hi": 0.10976810063376223
+       },
+       {
+        "lat": 10.0,
+        "n": 246,
+        "recall": 0.04065040650406504,
+        "lo": 0.016260162601626018,
+        "hi": 0.06939486450317832
+       },
+       {
+        "lat": 20.0,
+        "n": 246,
+        "recall": 0.032520325203252036,
+        "lo": 0.008064516129032258,
+        "hi": 0.06504065040650407
+       },
+       {
+        "lat": 30.0,
+        "n": 246,
+        "recall": 0.028455284552845527,
+        "lo": 0.00819672131147541,
+        "hi": 0.05179800796812749
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.02032520325203252,
+        "lo": 0.004,
+        "hi": 0.04065040650406504
+       },
+       {
+        "lat": 50.0,
+        "n": 245,
+        "recall": 0.0653061224489796,
+        "lo": 0.024193548387096774,
+        "hi": 0.11618965488510057
+       },
+       {
+        "lat": 60.0,
+        "n": 244,
+        "recall": 0.14344262295081966,
+        "lo": 0.0775353218210361,
+        "hi": 0.21902086272928842
+       },
+       {
+        "lat": 70.0,
+        "n": 244,
+        "recall": 0.12295081967213115,
+        "lo": 0.057595603733815115,
+        "hi": 0.1984316340644141
+       },
+       {
+        "lat": 80.0,
+        "n": 243,
+        "recall": 0.24279835390946503,
+        "lo": 0.14459889458451022,
+        "hi": 0.3453851993339211
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.2139917695473251,
+        "lo": 0.12233727027170171,
+        "hi": 0.3180377924211881
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.20987654320987653,
+        "lo": 0.09920552931916568,
+        "hi": 0.327870271938548
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.2139917695473251,
+        "lo": 0.125,
+        "hi": 0.3143123888559573
+       },
+       {
+        "lat": -70.0,
+        "n": 241,
+        "recall": 0.08713692946058091,
+        "lo": 0.0299113475177305,
+        "hi": 0.15190126582278482
+       },
+       {
+        "lat": -60.0,
+        "n": 241,
+        "recall": 0.11618257261410789,
+        "lo": 0.053497942386831275,
+        "hi": 0.1844374225099876
+       },
+       {
+        "lat": -50.0,
+        "n": 241,
+        "recall": 0.14107883817427386,
+        "lo": 0.0759493670886076,
+        "hi": 0.21138801740714502
+       },
+       {
+        "lat": -40.0,
+        "n": 241,
+        "recall": 0.058091286307053944,
+        "lo": 0.016324871411979427,
+        "hi": 0.1125
+       },
+       {
+        "lat": -30.0,
+        "n": 240,
+        "recall": 0.09166666666666666,
+        "lo": 0.041666666666666664,
+        "hi": 0.14876939248948817
+       },
+       {
+        "lat": -20.0,
+        "n": 240,
+        "recall": 0.1875,
+        "lo": 0.11615866673496918,
+        "hi": 0.27007080025745545
+       },
+       {
+        "lat": -10.0,
+        "n": 240,
+        "recall": 0.10416666666666667,
+        "lo": 0.05061190188560324,
+        "hi": 0.16597552371192903
+       },
+       {
+        "lat": 0.0,
+        "n": 240,
+        "recall": 0.12083333333333333,
+        "lo": 0.0555379746835443,
+        "hi": 0.1983676828640993
+       },
+       {
+        "lat": 10.0,
+        "n": 240,
+        "recall": 0.125,
+        "lo": 0.0655604424896708,
+        "hi": 0.19574689716312058
+       },
+       {
+        "lat": 20.0,
+        "n": 240,
+        "recall": 0.0625,
+        "lo": 0.01723952937694243,
+        "hi": 0.1157144816707246
+       },
+       {
+        "lat": 30.0,
+        "n": 240,
+        "recall": 0.041666666666666664,
+        "lo": 0.012446846815952813,
+        "hi": 0.08334205020920502
+       },
+       {
+        "lat": 40.0,
+        "n": 241,
+        "recall": 0.012448132780082987,
+        "lo": 0.0,
+        "hi": 0.03305785123966942
+       },
+       {
+        "lat": 50.0,
+        "n": 242,
+        "recall": 0.028925619834710745,
+        "lo": 0.0,
+        "hi": 0.06334151382071812
+       },
+       {
+        "lat": 60.0,
+        "n": 242,
+        "recall": 0.049586776859504134,
+        "lo": 0.015856997541747905,
+        "hi": 0.09388716962194713
+       },
+       {
+        "lat": 70.0,
+        "n": 242,
+        "recall": 0.05785123966942149,
+        "lo": 0.020829028925619834,
+        "hi": 0.10613332218133154
+       },
+       {
+        "lat": 80.0,
+        "n": 242,
+        "recall": 0.12396694214876033,
+        "lo": 0.06094058121432278,
+        "hi": 0.19183673469387755
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.18106995884773663,
+        "lo": 0.08859828741623231,
+        "hi": 0.2793522267206478
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 251,
+        "recall": 0.24701195219123506,
+        "lo": 0.13491300366300366,
+        "hi": 0.3684474741069541
+       },
+       {
+        "lat": -80.0,
+        "n": 250,
+        "recall": 0.188,
+        "lo": 0.1,
+        "hi": 0.28803140495867763
+       },
+       {
+        "lat": -70.0,
+        "n": 249,
+        "recall": 0.0963855421686747,
+        "lo": 0.04081632653061224,
+        "hi": 0.16407858455882351
+       },
+       {
+        "lat": -60.0,
+        "n": 249,
+        "recall": 0.04417670682730924,
+        "lo": 0.015996825396825398,
+        "hi": 0.0769467213114754
+       },
+       {
+        "lat": -50.0,
+        "n": 247,
+        "recall": 0.03643724696356275,
+        "lo": 0.012144524617996604,
+        "hi": 0.0653061224489796
+       },
+       {
+        "lat": -40.0,
+        "n": 247,
+        "recall": 0.04048582995951417,
+        "lo": 0.008162435705989714,
+        "hi": 0.08502024291497975
+       },
+       {
+        "lat": -30.0,
+        "n": 245,
+        "recall": 0.09387755102040816,
+        "lo": 0.04877065302911094,
+        "hi": 0.14814814814814814
+       },
+       {
+        "lat": -20.0,
+        "n": 245,
+        "recall": 0.09387755102040816,
+        "lo": 0.04435483870967742,
+        "hi": 0.15261749477247835
+       },
+       {
+        "lat": -10.0,
+        "n": 244,
+        "recall": 0.13114754098360656,
+        "lo": 0.08016035528135305,
+        "hi": 0.191675
+       },
+       {
+        "lat": 0.0,
+        "n": 244,
+        "recall": 0.13934426229508196,
+        "lo": 0.0775122896577803,
+        "hi": 0.20816751700680272
+       },
+       {
+        "lat": 10.0,
+        "n": 244,
+        "recall": 0.07377049180327869,
+        "lo": 0.032388663967611336,
+        "hi": 0.1269988242210464
+       },
+       {
+        "lat": 20.0,
+        "n": 245,
+        "recall": 0.09795918367346938,
+        "lo": 0.05240369168487341,
+        "hi": 0.1522633744855967
+       },
+       {
+        "lat": 30.0,
+        "n": 245,
+        "recall": 0.044897959183673466,
+        "lo": 0.008130081300813009,
+        "hi": 0.092
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.028455284552845527,
+        "lo": 0.007903588312795473,
+        "hi": 0.0569163763066202
+       },
+       {
+        "lat": 50.0,
+        "n": 247,
+        "recall": 0.024291497975708502,
+        "lo": 0.0,
+        "hi": 0.06050238643844633
+       },
+       {
+        "lat": 60.0,
+        "n": 249,
+        "recall": 0.04417670682730924,
+        "lo": 0.01652892561983471,
+        "hi": 0.07569721115537849
+       },
+       {
+        "lat": 70.0,
+        "n": 250,
+        "recall": 0.036,
+        "lo": 0.012048192771084338,
+        "hi": 0.06402601626016258
+       },
+       {
+        "lat": 80.0,
+        "n": 251,
+        "recall": 0.1394422310756972,
+        "lo": 0.06825949215187443,
+        "hi": 0.22621300512236767
+       },
+       {
+        "lat": 90.0,
+        "n": 252,
+        "recall": 0.16666666666666666,
+        "lo": 0.08333333333333333,
+        "hi": 0.2674631310266591
+       }
+      ]
+     },
+     "sacrum": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 34,
+        "recall": 0.20588235294117646,
+        "lo": 0.08108108108108109,
+        "hi": 0.35294117647058826
+       },
+       {
+        "lat": -80.0,
+        "n": 34,
+        "recall": 0.23529411764705882,
+        "lo": 0.0967741935483871,
+        "hi": 0.3870967741935484
+       },
+       {
+        "lat": -70.0,
+        "n": 34,
+        "recall": 0.11764705882352941,
+        "lo": 0.027777777777777776,
+        "hi": 0.23533281733746125
+       },
+       {
+        "lat": -60.0,
+        "n": 34,
+        "recall": 0.058823529411764705,
+        "lo": 0.0,
+        "hi": 0.16129032258064516
+       },
+       {
+        "lat": -50.0,
+        "n": 34,
+        "recall": 0.029411764705882353,
+        "lo": 0.0,
+        "hi": 0.09375
+       },
+       {
+        "lat": -40.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 31,
+        "recall": 0.06451612903225806,
+        "lo": 0.0,
+        "hi": 0.16678571428571418
+       },
+       {
+        "lat": 0.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 30,
+        "recall": 0.06666666666666667,
+        "lo": 0.0,
+        "hi": 0.16666666666666666
+       },
+       {
+        "lat": 70.0,
+        "n": 32,
+        "recall": 0.15625,
+        "lo": 0.03842592592592593,
+        "hi": 0.29411764705882354
+       },
+       {
+        "lat": 80.0,
+        "n": 32,
+        "recall": 0.21875,
+        "lo": 0.08565476190476191,
+        "hi": 0.352988614800759
+       },
+       {
+        "lat": 90.0,
+        "n": 33,
+        "recall": 0.21212121212121213,
+        "lo": 0.08565476190476191,
+        "hi": 0.3611111111111111
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.2608695652173913,
+        "lo": 0.0908102766798419,
+        "hi": 0.45841346153846146
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.21739130434782608,
+        "lo": 0.05,
+        "hi": 0.38894927536231877
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.043478260869565216,
+        "lo": 0.0,
+        "hi": 0.14285714285714285
+       },
+       {
+        "lat": -60.0,
+        "n": 22,
+        "recall": 0.045454545454545456,
+        "lo": 0.0,
+        "hi": 0.15009615384615374
+       },
+       {
+        "lat": -50.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 21,
+        "recall": 0.047619047619047616,
+        "lo": 0.0,
+        "hi": 0.1601666666666665
+       },
+       {
+        "lat": -30.0,
+        "n": 21,
+        "recall": 0.047619047619047616,
+        "lo": 0.0,
+        "hi": 0.15789473684210525
+       },
+       {
+        "lat": -20.0,
+        "n": 21,
+        "recall": 0.047619047619047616,
+        "lo": 0.0,
+        "hi": 0.15009615384615374
+       },
+       {
+        "lat": -10.0,
+        "n": 21,
+        "recall": 0.047619047619047616,
+        "lo": 0.0,
+        "hi": 0.16666666666666666
+       },
+       {
+        "lat": 0.0,
+        "n": 21,
+        "recall": 0.047619047619047616,
+        "lo": 0.0,
+        "hi": 0.15789473684210525
+       },
+       {
+        "lat": 10.0,
+        "n": 21,
+        "recall": 0.047619047619047616,
+        "lo": 0.0,
+        "hi": 0.15009615384615374
+       },
+       {
+        "lat": 20.0,
+        "n": 21,
+        "recall": 0.047619047619047616,
+        "lo": 0.0,
+        "hi": 0.15019736842105244
+       },
+       {
+        "lat": 30.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 21,
+        "recall": 0.047619047619047616,
+        "lo": 0.0,
+        "hi": 0.16
+       },
+       {
+        "lat": 60.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 22,
+        "recall": 0.22727272727272727,
+        "lo": 0.062408088235294125,
+        "hi": 0.42105263157894735
+       },
+       {
+        "lat": 80.0,
+        "n": 22,
+        "recall": 0.22727272727272727,
+        "lo": 0.047619047619047616,
+        "hi": 0.4117647058823529
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.30434782608695654,
+        "lo": 0.125,
+        "hi": 0.5
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.13043478260869565,
+        "lo": 0.0,
+        "hi": 0.2857142857142857
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.13043478260869565,
+        "lo": 0.0,
+        "hi": 0.2778333333333333
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.08695652173913043,
+        "lo": 0.0,
+        "hi": 0.2222222222222222
+       },
+       {
+        "lat": -60.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 24,
+        "recall": 0.125,
+        "lo": 0.0,
+        "hi": 0.2778333333333333
+       },
+       {
+        "lat": -40.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 24,
+        "recall": 0.041666666666666664,
+        "lo": 0.0,
+        "hi": 0.13640282131661438
+       },
+       {
+        "lat": -20.0,
+        "n": 25,
+        "recall": 0.04,
+        "lo": 0.0,
+        "hi": 0.13636363636363635
+       },
+       {
+        "lat": -10.0,
+        "n": 25,
+        "recall": 0.04,
+        "lo": 0.0,
+        "hi": 0.13043478260869565
+       },
+       {
+        "lat": 0.0,
+        "n": 25,
+        "recall": 0.04,
+        "lo": 0.0,
+        "hi": 0.13043478260869565
+       },
+       {
+        "lat": 10.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 25,
+        "recall": 0.04,
+        "lo": 0.0,
+        "hi": 0.13043478260869565
+       },
+       {
+        "lat": 30.0,
+        "n": 25,
+        "recall": 0.04,
+        "lo": 0.0,
+        "hi": 0.13640282131661438
+       },
+       {
+        "lat": 40.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 24,
+        "recall": 0.041666666666666664,
+        "lo": 0.0,
+        "hi": 0.14285714285714285
+       },
+       {
+        "lat": 80.0,
+        "n": 24,
+        "recall": 0.08333333333333333,
+        "lo": 0.0,
+        "hi": 0.2083881578947368
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.08695652173913043,
+        "lo": 0.0,
+        "hi": 0.21739130434782608
+       }
+      ]
+     }
+    },
+    "0.74": {
+     "body": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.00411522633744856,
+        "lo": 0.0,
+        "hi": 0.012606371662589086
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.053497942386831275,
+        "lo": 0.012395418834812775,
+        "hi": 0.10504201680672269
+       },
+       {
+        "lat": -70.0,
+        "n": 243,
+        "recall": 0.037037037037037035,
+        "lo": 0.007936810533272335,
+        "hi": 0.08001612903225805
+       },
+       {
+        "lat": -60.0,
+        "n": 243,
+        "recall": 0.024691358024691357,
+        "lo": 0.0040650406504065045,
+        "hi": 0.05159761904761904
+       },
+       {
+        "lat": -50.0,
+        "n": 244,
+        "recall": 0.01639344262295082,
+        "lo": 0.0,
+        "hi": 0.04016469102215312
+       },
+       {
+        "lat": -40.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 246,
+        "recall": 0.008130081300813009,
+        "lo": 0.0,
+        "hi": 0.0205761316872428
+       },
+       {
+        "lat": -10.0,
+        "n": 247,
+        "recall": 0.008097165991902834,
+        "lo": 0.0,
+        "hi": 0.020242914979757085
+       },
+       {
+        "lat": 0.0,
+        "n": 247,
+        "recall": 0.004048582995951417,
+        "lo": 0.0,
+        "hi": 0.012345679012345678
+       },
+       {
+        "lat": 10.0,
+        "n": 246,
+        "recall": 0.0040650406504065045,
+        "lo": 0.0,
+        "hi": 0.0125
+       },
+       {
+        "lat": 20.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 244,
+        "recall": 0.004098360655737705,
+        "lo": 0.0,
+        "hi": 0.012605042016806723
+       },
+       {
+        "lat": 70.0,
+        "n": 244,
+        "recall": 0.012295081967213115,
+        "lo": 0.0,
+        "hi": 0.03279365939574583
+       },
+       {
+        "lat": 80.0,
+        "n": 243,
+        "recall": 0.05761316872427984,
+        "lo": 0.011916450216450221,
+        "hi": 0.12049071285140561
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.024691358024691357,
+        "lo": 0.0,
+        "hi": 0.06584362139917696
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.07407407407407407,
+        "lo": 0.019390812523600785,
+        "hi": 0.1392431002282631
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.04526748971193416,
+        "lo": 0.00823045267489712,
+        "hi": 0.09240717973936559
+       },
+       {
+        "lat": -70.0,
+        "n": 241,
+        "recall": 0.02074688796680498,
+        "lo": 0.004132231404958678,
+        "hi": 0.04564315352697095
+       },
+       {
+        "lat": -60.0,
+        "n": 241,
+        "recall": 0.012448132780082987,
+        "lo": 0.0,
+        "hi": 0.0329252117130905
+       },
+       {
+        "lat": -50.0,
+        "n": 241,
+        "recall": 0.02074688796680498,
+        "lo": 0.0,
+        "hi": 0.04602510460251046
+       },
+       {
+        "lat": -40.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 240,
+        "recall": 0.004166666666666667,
+        "lo": 0.0,
+        "hi": 0.012711864406779662
+       },
+       {
+        "lat": -10.0,
+        "n": 240,
+        "recall": 0.008333333333333333,
+        "lo": 0.0,
+        "hi": 0.02119096769520498
+       },
+       {
+        "lat": 0.0,
+        "n": 240,
+        "recall": 0.029166666666666667,
+        "lo": 0.0,
+        "hi": 0.07851239669421488
+       },
+       {
+        "lat": 10.0,
+        "n": 240,
+        "recall": 0.008333333333333333,
+        "lo": 0.0,
+        "hi": 0.020922699623782563
+       },
+       {
+        "lat": 20.0,
+        "n": 240,
+        "recall": 0.004166666666666667,
+        "lo": 0.0,
+        "hi": 0.012711864406779662
+       },
+       {
+        "lat": 30.0,
+        "n": 240,
+        "recall": 0.004166666666666667,
+        "lo": 0.0,
+        "hi": 0.016599239280774548
+       },
+       {
+        "lat": 40.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 242,
+        "recall": 0.008264462809917356,
+        "lo": 0.0,
+        "hi": 0.025
+       },
+       {
+        "lat": 70.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 242,
+        "recall": 0.02066115702479339,
+        "lo": 0.0,
+        "hi": 0.04490255938440949
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.03292181069958848,
+        "lo": 0.00809634974533107,
+        "hi": 0.06827309236947791
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 251,
+        "recall": 0.07569721115537849,
+        "lo": 0.03238539898132428,
+        "hi": 0.12501265182186233
+       },
+       {
+        "lat": -80.0,
+        "n": 250,
+        "recall": 0.048,
+        "lo": 0.01625851683618051,
+        "hi": 0.08800883534136544
+       },
+       {
+        "lat": -70.0,
+        "n": 249,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 249,
+        "recall": 0.004016064257028112,
+        "lo": 0.0,
+        "hi": 0.012295081967213115
+       },
+       {
+        "lat": -50.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 245,
+        "recall": 0.00816326530612245,
+        "lo": 0.0,
+        "hi": 0.02074688796680498
+       },
+       {
+        "lat": -20.0,
+        "n": 245,
+        "recall": 0.004081632653061225,
+        "lo": 0.0,
+        "hi": 0.012552301255230125
+       },
+       {
+        "lat": -10.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 244,
+        "recall": 0.004098360655737705,
+        "lo": 0.0,
+        "hi": 0.012605042016806723
+       },
+       {
+        "lat": 20.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 245,
+        "recall": 0.004081632653061225,
+        "lo": 0.0,
+        "hi": 0.012552301255230125
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.008130081300813009,
+        "lo": 0.0,
+        "hi": 0.02459016393442623
+       },
+       {
+        "lat": 50.0,
+        "n": 247,
+        "recall": 0.004048582995951417,
+        "lo": 0.0,
+        "hi": 0.012448132780082987
+       },
+       {
+        "lat": 60.0,
+        "n": 249,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 250,
+        "recall": 0.008,
+        "lo": 0.0,
+        "hi": 0.02459016393442623
+       },
+       {
+        "lat": 80.0,
+        "n": 251,
+        "recall": 0.00796812749003984,
+        "lo": 0.0,
+        "hi": 0.020163330939010054
+       },
+       {
+        "lat": 90.0,
+        "n": 252,
+        "recall": 0.027777777777777776,
+        "lo": 0.0,
+        "hi": 0.07114624505928854
+       }
+      ]
+     },
+     "sacrum": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 34,
+        "recall": 0.058823529411764705,
+        "lo": 0.0,
+        "hi": 0.14705882352941177
+       },
+       {
+        "lat": -80.0,
+        "n": 34,
+        "recall": 0.058823529411764705,
+        "lo": 0.0,
+        "hi": 0.14705882352941177
+       },
+       {
+        "lat": -70.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 34,
+        "recall": 0.029411764705882353,
+        "lo": 0.0,
+        "hi": 0.0967741935483871
+       },
+       {
+        "lat": -50.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 32,
+        "recall": 0.03125,
+        "lo": 0.0,
+        "hi": 0.1
+       },
+       {
+        "lat": 90.0,
+        "n": 33,
+        "recall": 0.09090909090909091,
+        "lo": 0.0,
+        "hi": 0.19444444444444445
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.043478260869565216,
+        "lo": 0.0,
+        "hi": 0.14285714285714285
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 21,
+        "recall": 0.047619047619047616,
+        "lo": 0.0,
+        "hi": 0.15009615384615374
+       },
+       {
+        "lat": -10.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 22,
+        "recall": 0.09090909090909091,
+        "lo": 0.0,
+        "hi": 0.23529411764705882
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.08695652173913043,
+        "lo": 0.0,
+        "hi": 0.21739130434782608
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.043478260869565216,
+        "lo": 0.0,
+        "hi": 0.15
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 25,
+        "recall": 0.04,
+        "lo": 0.0,
+        "hi": 0.13043478260869565
+       },
+       {
+        "lat": 0.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 24,
+        "recall": 0.041666666666666664,
+        "lo": 0.0,
+        "hi": 0.14285714285714285
+       },
+       {
+        "lat": 80.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.08695652173913043,
+        "lo": 0.0,
+        "hi": 0.21739130434782608
+       }
+      ]
+     }
+    }
+   },
+   "surgio_b51_dr": {
+    "0.25": {
+     "body": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.9259259259259259,
+        "lo": 0.8846074380165289,
+        "hi": 0.9661088164079191
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.9300411522633745,
+        "lo": 0.8791262755102041,
+        "hi": 0.9743589743589743
+       },
+       {
+        "lat": -70.0,
+        "n": 243,
+        "recall": 0.8806584362139918,
+        "lo": 0.8145044654758732,
+        "hi": 0.9416787190082644
+       },
+       {
+        "lat": -60.0,
+        "n": 243,
+        "recall": 0.7119341563786008,
+        "lo": 0.6178861788617886,
+        "hi": 0.8107382212144116
+       },
+       {
+        "lat": -50.0,
+        "n": 244,
+        "recall": 0.569672131147541,
+        "lo": 0.452265426315085,
+        "hi": 0.6818181818181818
+       },
+       {
+        "lat": -40.0,
+        "n": 245,
+        "recall": 0.37142857142857144,
+        "lo": 0.26717954159592533,
+        "hi": 0.49382842025699164
+       },
+       {
+        "lat": -30.0,
+        "n": 246,
+        "recall": 0.5447154471544715,
+        "lo": 0.4331847475832438,
+        "hi": 0.6653236914600551
+       },
+       {
+        "lat": -20.0,
+        "n": 246,
+        "recall": 0.7560975609756098,
+        "lo": 0.6569682211727667,
+        "hi": 0.8524590163934426
+       },
+       {
+        "lat": -10.0,
+        "n": 247,
+        "recall": 0.8340080971659919,
+        "lo": 0.7418910337820676,
+        "hi": 0.9196867469879518
+       },
+       {
+        "lat": 0.0,
+        "n": 247,
+        "recall": 0.902834008097166,
+        "lo": 0.8483130566670969,
+        "hi": 0.9539844441743781
+       },
+       {
+        "lat": 10.0,
+        "n": 246,
+        "recall": 0.8414634146341463,
+        "lo": 0.7391215616681455,
+        "hi": 0.9336303652812734
+       },
+       {
+        "lat": 20.0,
+        "n": 246,
+        "recall": 0.6910569105691057,
+        "lo": 0.5912698412698413,
+        "hi": 0.7892561983471075
+       },
+       {
+        "lat": 30.0,
+        "n": 246,
+        "recall": 0.4024390243902439,
+        "lo": 0.2924778656126482,
+        "hi": 0.5142857142857142
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.34146341463414637,
+        "lo": 0.24497991967871485,
+        "hi": 0.44583333333333336
+       },
+       {
+        "lat": 50.0,
+        "n": 245,
+        "recall": 0.4530612244897959,
+        "lo": 0.35626842105263157,
+        "hi": 0.5465682062298604
+       },
+       {
+        "lat": 60.0,
+        "n": 244,
+        "recall": 0.7008196721311475,
+        "lo": 0.6115702479338843,
+        "hi": 0.7881852898095836
+       },
+       {
+        "lat": 70.0,
+        "n": 244,
+        "recall": 0.8114754098360656,
+        "lo": 0.7291578389830509,
+        "hi": 0.8865664885200942
+       },
+       {
+        "lat": 80.0,
+        "n": 243,
+        "recall": 0.9259259259259259,
+        "lo": 0.8647261549925485,
+        "hi": 0.9747951680672269
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.934156378600823,
+        "lo": 0.890754601435716,
+        "hi": 0.9710743801652892
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.9794238683127572,
+        "lo": 0.9504132231404959,
+        "hi": 1.0
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.9670781893004116,
+        "lo": 0.933007385699524,
+        "hi": 0.9920609160781054
+       },
+       {
+        "lat": -70.0,
+        "n": 241,
+        "recall": 0.8755186721991701,
+        "lo": 0.8106651496128897,
+        "hi": 0.9309198235599377
+       },
+       {
+        "lat": -60.0,
+        "n": 241,
+        "recall": 0.5062240663900415,
+        "lo": 0.3957922717842324,
+        "hi": 0.6132160752104964
+       },
+       {
+        "lat": -50.0,
+        "n": 241,
+        "recall": 0.3817427385892116,
+        "lo": 0.2804756097560976,
+        "hi": 0.49164577848306695
+       },
+       {
+        "lat": -40.0,
+        "n": 241,
+        "recall": 0.3941908713692946,
+        "lo": 0.29953204140057255,
+        "hi": 0.4937739155312377
+       },
+       {
+        "lat": -30.0,
+        "n": 240,
+        "recall": 0.5416666666666666,
+        "lo": 0.43094648124013996,
+        "hi": 0.6529122392758757
+       },
+       {
+        "lat": -20.0,
+        "n": 240,
+        "recall": 0.8,
+        "lo": 0.7058764231499052,
+        "hi": 0.880182433620538
+       },
+       {
+        "lat": -10.0,
+        "n": 240,
+        "recall": 0.8583333333333333,
+        "lo": 0.7804776844448943,
+        "hi": 0.9291740145228216
+       },
+       {
+        "lat": 0.0,
+        "n": 240,
+        "recall": 0.8666666666666667,
+        "lo": 0.7885899390243902,
+        "hi": 0.9324965429209658
+       },
+       {
+        "lat": 10.0,
+        "n": 240,
+        "recall": 0.8625,
+        "lo": 0.7877399393492337,
+        "hi": 0.9327940304752607
+       },
+       {
+        "lat": 20.0,
+        "n": 240,
+        "recall": 0.7291666666666666,
+        "lo": 0.632867296119527,
+        "hi": 0.8227913215606606
+       },
+       {
+        "lat": 30.0,
+        "n": 240,
+        "recall": 0.43333333333333335,
+        "lo": 0.3400466893039049,
+        "hi": 0.5358726097495287
+       },
+       {
+        "lat": 40.0,
+        "n": 241,
+        "recall": 0.33195020746887965,
+        "lo": 0.2357545428043922,
+        "hi": 0.4188034188034188
+       },
+       {
+        "lat": 50.0,
+        "n": 242,
+        "recall": 0.38016528925619836,
+        "lo": 0.2761218619246862,
+        "hi": 0.48511261461764443
+       },
+       {
+        "lat": 60.0,
+        "n": 242,
+        "recall": 0.5454545454545454,
+        "lo": 0.44353691319171257,
+        "hi": 0.6504599007854485
+       },
+       {
+        "lat": 70.0,
+        "n": 242,
+        "recall": 0.8099173553719008,
+        "lo": 0.7294996584699454,
+        "hi": 0.8833333333333333
+       },
+       {
+        "lat": 80.0,
+        "n": 242,
+        "recall": 0.9297520661157025,
+        "lo": 0.8655402160864346,
+        "hi": 0.9836082301773168
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.9547325102880658,
+        "lo": 0.921161825726141,
+        "hi": 0.9833350622406638
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 251,
+        "recall": 0.952191235059761,
+        "lo": 0.9176389532190828,
+        "hi": 0.9836767743534661
+       },
+       {
+        "lat": -80.0,
+        "n": 250,
+        "recall": 0.956,
+        "lo": 0.9236870870579091,
+        "hi": 0.984
+       },
+       {
+        "lat": -70.0,
+        "n": 249,
+        "recall": 0.7349397590361446,
+        "lo": 0.6558671268334771,
+        "hi": 0.816
+       },
+       {
+        "lat": -60.0,
+        "n": 249,
+        "recall": 0.3855421686746988,
+        "lo": 0.29999027237354087,
+        "hi": 0.47521669018343077
+       },
+       {
+        "lat": -50.0,
+        "n": 247,
+        "recall": 0.26720647773279355,
+        "lo": 0.17576918886952192,
+        "hi": 0.3633223289315726
+       },
+       {
+        "lat": -40.0,
+        "n": 247,
+        "recall": 0.3319838056680162,
+        "lo": 0.2420395727460945,
+        "hi": 0.4303291658020336
+       },
+       {
+        "lat": -30.0,
+        "n": 245,
+        "recall": 0.49387755102040815,
+        "lo": 0.38519150072480357,
+        "hi": 0.5983475396797953
+       },
+       {
+        "lat": -20.0,
+        "n": 245,
+        "recall": 0.746938775510204,
+        "lo": 0.648,
+        "hi": 0.8368370815899581
+       },
+       {
+        "lat": -10.0,
+        "n": 244,
+        "recall": 0.8073770491803278,
+        "lo": 0.7199878048780488,
+        "hi": 0.8791792012448133
+       },
+       {
+        "lat": 0.0,
+        "n": 244,
+        "recall": 0.860655737704918,
+        "lo": 0.8007373667385792,
+        "hi": 0.9163439261385248
+       },
+       {
+        "lat": 10.0,
+        "n": 244,
+        "recall": 0.8524590163934426,
+        "lo": 0.7848528649629125,
+        "hi": 0.9166753112033195
+       },
+       {
+        "lat": 20.0,
+        "n": 245,
+        "recall": 0.6448979591836734,
+        "lo": 0.5406422108575925,
+        "hi": 0.7439241249107051
+       },
+       {
+        "lat": 30.0,
+        "n": 245,
+        "recall": 0.47346938775510206,
+        "lo": 0.3646967624259006,
+        "hi": 0.5774174326085465
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.4065040650406504,
+        "lo": 0.30314058725727017,
+        "hi": 0.516670168067227
+       },
+       {
+        "lat": 50.0,
+        "n": 247,
+        "recall": 0.39271255060728744,
+        "lo": 0.2914394419784401,
+        "hi": 0.5020746887966805
+       },
+       {
+        "lat": 60.0,
+        "n": 249,
+        "recall": 0.4538152610441767,
+        "lo": 0.3729790137398833,
+        "hi": 0.5421858864027538
+       },
+       {
+        "lat": 70.0,
+        "n": 250,
+        "recall": 0.684,
+        "lo": 0.5783132530120482,
+        "hi": 0.7827868852459017
+       },
+       {
+        "lat": 80.0,
+        "n": 251,
+        "recall": 0.8764940239043825,
+        "lo": 0.8055361885790173,
+        "hi": 0.9387817322050772
+       },
+       {
+        "lat": 90.0,
+        "n": 252,
+        "recall": 0.9365079365079365,
+        "lo": 0.8730032251944603,
+        "hi": 0.9878073367427223
+       }
+      ]
+     },
+     "sacrum": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 34,
+        "recall": 0.7058823529411765,
+        "lo": 0.5312040441176471,
+        "hi": 0.8529411764705882
+       },
+       {
+        "lat": -80.0,
+        "n": 34,
+        "recall": 0.7352941176470589,
+        "lo": 0.5882352941176471,
+        "hi": 0.8710685483870967
+       },
+       {
+        "lat": -70.0,
+        "n": 34,
+        "recall": 0.7352941176470589,
+        "lo": 0.5757575757575758,
+        "hi": 0.8709677419354839
+       },
+       {
+        "lat": -60.0,
+        "n": 34,
+        "recall": 0.23529411764705882,
+        "lo": 0.09669858870967742,
+        "hi": 0.3870967741935484
+       },
+       {
+        "lat": -50.0,
+        "n": 34,
+        "recall": 0.08823529411764706,
+        "lo": 0.0,
+        "hi": 0.1935483870967742
+       },
+       {
+        "lat": -40.0,
+        "n": 34,
+        "recall": 0.14705882352941177,
+        "lo": 0.03225806451612903,
+        "hi": 0.2857142857142857
+       },
+       {
+        "lat": -30.0,
+        "n": 32,
+        "recall": 0.375,
+        "lo": 0.21212121212121213,
+        "hi": 0.5483870967741935
+       },
+       {
+        "lat": -20.0,
+        "n": 31,
+        "recall": 0.5806451612903226,
+        "lo": 0.40625,
+        "hi": 0.7575757575757576
+       },
+       {
+        "lat": -10.0,
+        "n": 31,
+        "recall": 0.7741935483870968,
+        "lo": 0.6127592165898618,
+        "hi": 0.9132173913043476
+       },
+       {
+        "lat": 0.0,
+        "n": 31,
+        "recall": 0.8387096774193549,
+        "lo": 0.7,
+        "hi": 0.9666935483870968
+       },
+       {
+        "lat": 10.0,
+        "n": 31,
+        "recall": 0.8064516129032258,
+        "lo": 0.6551724137931034,
+        "hi": 0.9375
+       },
+       {
+        "lat": 20.0,
+        "n": 31,
+        "recall": 0.7419354838709677,
+        "lo": 0.5714285714285714,
+        "hi": 0.8823529411764706
+       },
+       {
+        "lat": 30.0,
+        "n": 31,
+        "recall": 0.45161290322580644,
+        "lo": 0.2857142857142857,
+        "hi": 0.6333333333333333
+       },
+       {
+        "lat": 40.0,
+        "n": 30,
+        "recall": 0.2,
+        "lo": 0.06666666666666667,
+        "hi": 0.35714285714285715
+       },
+       {
+        "lat": 50.0,
+        "n": 30,
+        "recall": 0.03333333333333333,
+        "lo": 0.0,
+        "hi": 0.10714285714285714
+       },
+       {
+        "lat": 60.0,
+        "n": 30,
+        "recall": 0.36666666666666664,
+        "lo": 0.18518518518518517,
+        "hi": 0.5517241379310345
+       },
+       {
+        "lat": 70.0,
+        "n": 32,
+        "recall": 0.6875,
+        "lo": 0.5184865900383141,
+        "hi": 0.84375
+       },
+       {
+        "lat": 80.0,
+        "n": 32,
+        "recall": 0.59375,
+        "lo": 0.40625,
+        "hi": 0.7575757575757576
+       },
+       {
+        "lat": 90.0,
+        "n": 33,
+        "recall": 0.8181818181818182,
+        "lo": 0.6840695488721805,
+        "hi": 0.9411764705882353
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.8260869565217391,
+        "lo": 0.6521739130434783,
+        "hi": 0.958375
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.8695652173913043,
+        "lo": 0.7142857142857143,
+        "hi": 1.0
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.6521739130434783,
+        "lo": 0.4443333333333333,
+        "hi": 0.84
+       },
+       {
+        "lat": -60.0,
+        "n": 22,
+        "recall": 0.22727272727272727,
+        "lo": 0.05263157894736842,
+        "hi": 0.42105263157894735
+       },
+       {
+        "lat": -50.0,
+        "n": 21,
+        "recall": 0.047619047619047616,
+        "lo": 0.0,
+        "hi": 0.16
+       },
+       {
+        "lat": -40.0,
+        "n": 21,
+        "recall": 0.23809523809523808,
+        "lo": 0.0625,
+        "hi": 0.4444444444444444
+       },
+       {
+        "lat": -30.0,
+        "n": 21,
+        "recall": 0.42857142857142855,
+        "lo": 0.21052631578947367,
+        "hi": 0.6521739130434783
+       },
+       {
+        "lat": -20.0,
+        "n": 21,
+        "recall": 0.7619047619047619,
+        "lo": 0.5555555555555556,
+        "hi": 0.9444444444444444
+       },
+       {
+        "lat": -10.0,
+        "n": 21,
+        "recall": 0.7619047619047619,
+        "lo": 0.5714285714285714,
+        "hi": 0.9444444444444444
+       },
+       {
+        "lat": 0.0,
+        "n": 21,
+        "recall": 0.9523809523809523,
+        "lo": 0.8333333333333334,
+        "hi": 1.0
+       },
+       {
+        "lat": 10.0,
+        "n": 21,
+        "recall": 0.8095238095238095,
+        "lo": 0.6314144736842106,
+        "hi": 0.9545454545454546
+       },
+       {
+        "lat": 20.0,
+        "n": 21,
+        "recall": 0.7619047619047619,
+        "lo": 0.5625,
+        "hi": 0.9375919117647058
+       },
+       {
+        "lat": 30.0,
+        "n": 21,
+        "recall": 0.42857142857142855,
+        "lo": 0.2173136645962733,
+        "hi": 0.6521739130434783
+       },
+       {
+        "lat": 40.0,
+        "n": 21,
+        "recall": 0.14285714285714285,
+        "lo": 0.0,
+        "hi": 0.30455163043478245
+       },
+       {
+        "lat": 50.0,
+        "n": 21,
+        "recall": 0.14285714285714285,
+        "lo": 0.0,
+        "hi": 0.3125
+       },
+       {
+        "lat": 60.0,
+        "n": 21,
+        "recall": 0.14285714285714285,
+        "lo": 0.0,
+        "hi": 0.3044314381270902
+       },
+       {
+        "lat": 70.0,
+        "n": 22,
+        "recall": 0.45454545454545453,
+        "lo": 0.23809523809523808,
+        "hi": 0.6666666666666666
+       },
+       {
+        "lat": 80.0,
+        "n": 22,
+        "recall": 0.8181818181818182,
+        "lo": 0.631578947368421,
+        "hi": 0.9583333333333334
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.782608695652174,
+        "lo": 0.5881845841784991,
+        "hi": 0.9376736111111109
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.7391304347826086,
+        "lo": 0.5383333333333333,
+        "hi": 0.9090909090909091
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.6956521739130435,
+        "lo": 0.5,
+        "hi": 0.8697010869565216
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.5217391304347826,
+        "lo": 0.318122009569378,
+        "hi": 0.7142857142857143
+       },
+       {
+        "lat": -60.0,
+        "n": 23,
+        "recall": 0.13043478260869565,
+        "lo": 0.0,
+        "hi": 0.2916666666666667
+       },
+       {
+        "lat": -50.0,
+        "n": 24,
+        "recall": 0.041666666666666664,
+        "lo": 0.0,
+        "hi": 0.13805418719211812
+       },
+       {
+        "lat": -40.0,
+        "n": 24,
+        "recall": 0.125,
+        "lo": 0.0,
+        "hi": 0.280142857142857
+       },
+       {
+        "lat": -30.0,
+        "n": 24,
+        "recall": 0.4166666666666667,
+        "lo": 0.22702569169960474,
+        "hi": 0.608756038647343
+       },
+       {
+        "lat": -20.0,
+        "n": 25,
+        "recall": 0.88,
+        "lo": 0.7407004830917874,
+        "hi": 1.0
+       },
+       {
+        "lat": -10.0,
+        "n": 25,
+        "recall": 0.76,
+        "lo": 0.5925925925925926,
+        "hi": 0.909189723320158
+       },
+       {
+        "lat": 0.0,
+        "n": 25,
+        "recall": 0.88,
+        "lo": 0.7391304347826086,
+        "hi": 1.0
+       },
+       {
+        "lat": 10.0,
+        "n": 25,
+        "recall": 0.76,
+        "lo": 0.5769230769230769,
+        "hi": 0.9130434782608695
+       },
+       {
+        "lat": 20.0,
+        "n": 25,
+        "recall": 0.68,
+        "lo": 0.47619047619047616,
+        "hi": 0.8461538461538461
+       },
+       {
+        "lat": 30.0,
+        "n": 25,
+        "recall": 0.72,
+        "lo": 0.5384615384615384,
+        "hi": 0.8888888888888888
+       },
+       {
+        "lat": 40.0,
+        "n": 25,
+        "recall": 0.32,
+        "lo": 0.1332608695652174,
+        "hi": 0.5
+       },
+       {
+        "lat": 50.0,
+        "n": 25,
+        "recall": 0.2,
+        "lo": 0.047619047619047616,
+        "hi": 0.38104395604395597
+       },
+       {
+        "lat": 60.0,
+        "n": 24,
+        "recall": 0.125,
+        "lo": 0.0,
+        "hi": 0.2609267734553775
+       },
+       {
+        "lat": 70.0,
+        "n": 24,
+        "recall": 0.2916666666666667,
+        "lo": 0.1111111111111111,
+        "hi": 0.480037037037037
+       },
+       {
+        "lat": 80.0,
+        "n": 24,
+        "recall": 0.6666666666666666,
+        "lo": 0.4782608695652174,
+        "hi": 0.8422064777327933
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.782608695652174,
+        "lo": 0.6,
+        "hi": 0.9261648745519712
+       }
+      ]
+     }
+    },
+    "0.74": {
+     "body": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.6255144032921811,
+        "lo": 0.5458053861788618,
+        "hi": 0.7066417542427643
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.6995884773662552,
+        "lo": 0.6047054775887727,
+        "hi": 0.7949982195317368
+       },
+       {
+        "lat": -70.0,
+        "n": 243,
+        "recall": 0.5473251028806584,
+        "lo": 0.44624641592174064,
+        "hi": 0.6610540254237288
+       },
+       {
+        "lat": -60.0,
+        "n": 243,
+        "recall": 0.27983539094650206,
+        "lo": 0.19757940063719634,
+        "hi": 0.37297664267626285
+       },
+       {
+        "lat": -50.0,
+        "n": 244,
+        "recall": 0.13934426229508196,
+        "lo": 0.07883002983436782,
+        "hi": 0.20408375850340135
+       },
+       {
+        "lat": -40.0,
+        "n": 245,
+        "recall": 0.05714285714285714,
+        "lo": 0.02040816326530612,
+        "hi": 0.10527385537013263
+       },
+       {
+        "lat": -30.0,
+        "n": 246,
+        "recall": 0.10975609756097561,
+        "lo": 0.0495816753392511,
+        "hi": 0.1748092993878146
+       },
+       {
+        "lat": -20.0,
+        "n": 246,
+        "recall": 0.26422764227642276,
+        "lo": 0.17957674898753276,
+        "hi": 0.349824892920131
+       },
+       {
+        "lat": -10.0,
+        "n": 247,
+        "recall": 0.2834008097165992,
+        "lo": 0.19607442977190875,
+        "hi": 0.3776633308925229
+       },
+       {
+        "lat": 0.0,
+        "n": 247,
+        "recall": 0.4331983805668016,
+        "lo": 0.34249082945957054,
+        "hi": 0.5303705692803438
+       },
+       {
+        "lat": 10.0,
+        "n": 246,
+        "recall": 0.34146341463414637,
+        "lo": 0.25396825396825395,
+        "hi": 0.43089600979691806
+       },
+       {
+        "lat": 20.0,
+        "n": 246,
+        "recall": 0.18699186991869918,
+        "lo": 0.11740890688259109,
+        "hi": 0.2720089430894309
+       },
+       {
+        "lat": 30.0,
+        "n": 246,
+        "recall": 0.10975609756097561,
+        "lo": 0.048582995951417005,
+        "hi": 0.17408906882591094
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.032520325203252036,
+        "lo": 0.003999601593625498,
+        "hi": 0.06995884773662552
+       },
+       {
+        "lat": 50.0,
+        "n": 245,
+        "recall": 0.10204081632653061,
+        "lo": 0.04918032786885246,
+        "hi": 0.16736401673640167
+       },
+       {
+        "lat": 60.0,
+        "n": 244,
+        "recall": 0.22540983606557377,
+        "lo": 0.1405461351579156,
+        "hi": 0.30864197530864196
+       },
+       {
+        "lat": 70.0,
+        "n": 244,
+        "recall": 0.44672131147540983,
+        "lo": 0.35222105263157893,
+        "hi": 0.5469484336944654
+       },
+       {
+        "lat": 80.0,
+        "n": 243,
+        "recall": 0.6090534979423868,
+        "lo": 0.4979757085020243,
+        "hi": 0.7160506905210294
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.6707818930041153,
+        "lo": 0.5916107723577236,
+        "hi": 0.7521152692615303
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.8600823045267489,
+        "lo": 0.7975315789473684,
+        "hi": 0.9190313549832027
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.7777777777777778,
+        "lo": 0.6913504968383016,
+        "hi": 0.8638297872340426
+       },
+       {
+        "lat": -70.0,
+        "n": 241,
+        "recall": 0.5020746887966805,
+        "lo": 0.41078289984144656,
+        "hi": 0.5892249175444196
+       },
+       {
+        "lat": -60.0,
+        "n": 241,
+        "recall": 0.17012448132780084,
+        "lo": 0.08859828741623231,
+        "hi": 0.25925925925925924
+       },
+       {
+        "lat": -50.0,
+        "n": 241,
+        "recall": 0.11203319502074689,
+        "lo": 0.05416666666666667,
+        "hi": 0.17647058823529413
+       },
+       {
+        "lat": -40.0,
+        "n": 241,
+        "recall": 0.058091286307053944,
+        "lo": 0.024896265560165973,
+        "hi": 0.09583333333333334
+       },
+       {
+        "lat": -30.0,
+        "n": 240,
+        "recall": 0.07916666666666666,
+        "lo": 0.03734054044785844,
+        "hi": 0.12448132780082988
+       },
+       {
+        "lat": -20.0,
+        "n": 240,
+        "recall": 0.3125,
+        "lo": 0.23109201848069907,
+        "hi": 0.40006355932203386
+       },
+       {
+        "lat": -10.0,
+        "n": 240,
+        "recall": 0.39166666666666666,
+        "lo": 0.2892561983471074,
+        "hi": 0.49583419421487607
+       },
+       {
+        "lat": 0.0,
+        "n": 240,
+        "recall": 0.5041666666666667,
+        "lo": 0.39675946063505874,
+        "hi": 0.6120797413793103
+       },
+       {
+        "lat": 10.0,
+        "n": 240,
+        "recall": 0.45,
+        "lo": 0.3531687675070028,
+        "hi": 0.5579710081457475
+       },
+       {
+        "lat": 20.0,
+        "n": 240,
+        "recall": 0.22916666666666666,
+        "lo": 0.15480408353834826,
+        "hi": 0.3103662898841036
+       },
+       {
+        "lat": 30.0,
+        "n": 240,
+        "recall": 0.12916666666666668,
+        "lo": 0.07691532258064517,
+        "hi": 0.18674144190871367
+       },
+       {
+        "lat": 40.0,
+        "n": 241,
+        "recall": 0.04149377593360996,
+        "lo": 0.00833246887966805,
+        "hi": 0.08860759493670886
+       },
+       {
+        "lat": 50.0,
+        "n": 242,
+        "recall": 0.12396694214876033,
+        "lo": 0.0609694381356769,
+        "hi": 0.19583545918367345
+       },
+       {
+        "lat": 60.0,
+        "n": 242,
+        "recall": 0.17355371900826447,
+        "lo": 0.10160637425701988,
+        "hi": 0.24793472418195256
+       },
+       {
+        "lat": 70.0,
+        "n": 242,
+        "recall": 0.44214876033057854,
+        "lo": 0.3305761054421769,
+        "hi": 0.5574689716312057
+       },
+       {
+        "lat": 80.0,
+        "n": 242,
+        "recall": 0.7148760330578512,
+        "lo": 0.6178861788617886,
+        "hi": 0.8081675170068028
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.7736625514403292,
+        "lo": 0.6913504968383016,
+        "hi": 0.8529565591927147
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 251,
+        "recall": 0.6693227091633466,
+        "lo": 0.581605158314112,
+        "hi": 0.757085020242915
+       },
+       {
+        "lat": -80.0,
+        "n": 250,
+        "recall": 0.596,
+        "lo": 0.5061187901455403,
+        "hi": 0.6947791164658634
+       },
+       {
+        "lat": -70.0,
+        "n": 249,
+        "recall": 0.2891566265060241,
+        "lo": 0.2081591836734694,
+        "hi": 0.3796307293409167
+       },
+       {
+        "lat": -60.0,
+        "n": 249,
+        "recall": 0.07228915662650602,
+        "lo": 0.03687774890043982,
+        "hi": 0.11200082987551867
+       },
+       {
+        "lat": -50.0,
+        "n": 247,
+        "recall": 0.04048582995951417,
+        "lo": 0.012195121951219513,
+        "hi": 0.0743801652892562
+       },
+       {
+        "lat": -40.0,
+        "n": 247,
+        "recall": 0.08906882591093117,
+        "lo": 0.047426161650742274,
+        "hi": 0.1380928187174451
+       },
+       {
+        "lat": -30.0,
+        "n": 245,
+        "recall": 0.11428571428571428,
+        "lo": 0.06147540983606557,
+        "hi": 0.17005776636713735
+       },
+       {
+        "lat": -20.0,
+        "n": 245,
+        "recall": 0.15510204081632653,
+        "lo": 0.09582793824701195,
+        "hi": 0.21491229549671106
+       },
+       {
+        "lat": -10.0,
+        "n": 244,
+        "recall": 0.27459016393442626,
+        "lo": 0.1983267013570044,
+        "hi": 0.3529474342928661
+       },
+       {
+        "lat": 0.0,
+        "n": 244,
+        "recall": 0.4139344262295082,
+        "lo": 0.3224842565222979,
+        "hi": 0.5208377100840337
+       },
+       {
+        "lat": 10.0,
+        "n": 244,
+        "recall": 0.3729508196721312,
+        "lo": 0.28811843820764427,
+        "hi": 0.4615625
+       },
+       {
+        "lat": 20.0,
+        "n": 245,
+        "recall": 0.16326530612244897,
+        "lo": 0.102880658436214,
+        "hi": 0.22407697518841563
+       },
+       {
+        "lat": 30.0,
+        "n": 245,
+        "recall": 0.09387755102040816,
+        "lo": 0.0472184543108582,
+        "hi": 0.15637860082304528
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.12195121951219512,
+        "lo": 0.07194911067193677,
+        "hi": 0.17722029399755002
+       },
+       {
+        "lat": 50.0,
+        "n": 247,
+        "recall": 0.12550607287449392,
+        "lo": 0.07142857142857142,
+        "hi": 0.18410041841004185
+       },
+       {
+        "lat": 60.0,
+        "n": 249,
+        "recall": 0.12449799196787148,
+        "lo": 0.0700369089366063,
+        "hi": 0.192
+       },
+       {
+        "lat": 70.0,
+        "n": 250,
+        "recall": 0.236,
+        "lo": 0.15707882998799108,
+        "hi": 0.32000395256916997
+       },
+       {
+        "lat": 80.0,
+        "n": 251,
+        "recall": 0.47410358565737054,
+        "lo": 0.3710320925245098,
+        "hi": 0.5866426964486582
+       },
+       {
+        "lat": 90.0,
+        "n": 252,
+        "recall": 0.6190476190476191,
+        "lo": 0.5296442687747036,
+        "hi": 0.718297619047619
+       }
+      ]
+     },
+     "sacrum": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 34,
+        "recall": 0.3235294117647059,
+        "lo": 0.17142857142857143,
+        "hi": 0.47058823529411764
+       },
+       {
+        "lat": -80.0,
+        "n": 34,
+        "recall": 0.3235294117647059,
+        "lo": 0.17142857142857143,
+        "hi": 0.48487012987012984
+       },
+       {
+        "lat": -70.0,
+        "n": 34,
+        "recall": 0.058823529411764705,
+        "lo": 0.0,
+        "hi": 0.14705882352941177
+       },
+       {
+        "lat": -60.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 31,
+        "recall": 0.0967741935483871,
+        "lo": 0.0,
+        "hi": 0.20702716823406467
+       },
+       {
+        "lat": -10.0,
+        "n": 31,
+        "recall": 0.16129032258064516,
+        "lo": 0.04,
+        "hi": 0.30303030303030304
+       },
+       {
+        "lat": 0.0,
+        "n": 31,
+        "recall": 0.25806451612903225,
+        "lo": 0.11527777777777778,
+        "hi": 0.43756249999999997
+       },
+       {
+        "lat": 10.0,
+        "n": 31,
+        "recall": 0.1935483870967742,
+        "lo": 0.06451612903225806,
+        "hi": 0.3333333333333333
+       },
+       {
+        "lat": 20.0,
+        "n": 31,
+        "recall": 0.0967741935483871,
+        "lo": 0.0,
+        "hi": 0.21428571428571427
+       },
+       {
+        "lat": 30.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 30,
+        "recall": 0.03333333333333333,
+        "lo": 0.0,
+        "hi": 0.11538461538461539
+       },
+       {
+        "lat": 50.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 32,
+        "recall": 0.0625,
+        "lo": 0.0,
+        "hi": 0.15625
+       },
+       {
+        "lat": 80.0,
+        "n": 32,
+        "recall": 0.28125,
+        "lo": 0.12112299465240643,
+        "hi": 0.4411764705882353
+       },
+       {
+        "lat": 90.0,
+        "n": 33,
+        "recall": 0.2727272727272727,
+        "lo": 0.12903225806451613,
+        "hi": 0.42857142857142855
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.391304347826087,
+        "lo": 0.18181818181818182,
+        "hi": 0.5909090909090909
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.5217391304347826,
+        "lo": 0.3157894736842105,
+        "hi": 0.7084821428571427
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.17391304347826086,
+        "lo": 0.041666666666666664,
+        "hi": 0.3333333333333333
+       },
+       {
+        "lat": -60.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 21,
+        "recall": 0.09523809523809523,
+        "lo": 0.0,
+        "hi": 0.23809523809523808
+       },
+       {
+        "lat": -20.0,
+        "n": 21,
+        "recall": 0.19047619047619047,
+        "lo": 0.045454545454545456,
+        "hi": 0.375
+       },
+       {
+        "lat": -10.0,
+        "n": 21,
+        "recall": 0.3333333333333333,
+        "lo": 0.1426948051948052,
+        "hi": 0.55
+       },
+       {
+        "lat": 0.0,
+        "n": 21,
+        "recall": 0.23809523809523808,
+        "lo": 0.062408088235294125,
+        "hi": 0.42857142857142855
+       },
+       {
+        "lat": 10.0,
+        "n": 21,
+        "recall": 0.23809523809523808,
+        "lo": 0.058823529411764705,
+        "hi": 0.42857142857142855
+       },
+       {
+        "lat": 20.0,
+        "n": 21,
+        "recall": 0.09523809523809523,
+        "lo": 0.0,
+        "hi": 0.23536414565826325
+       },
+       {
+        "lat": 30.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 22,
+        "recall": 0.09090909090909091,
+        "lo": 0.0,
+        "hi": 0.22736013986013978
+       },
+       {
+        "lat": 80.0,
+        "n": 22,
+        "recall": 0.36363636363636365,
+        "lo": 0.15779352226720647,
+        "hi": 0.5833333333333334
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.4782608695652174,
+        "lo": 0.27263986013986014,
+        "hi": 0.6875538793103447
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.34782608695652173,
+        "lo": 0.16,
+        "hi": 0.5501388888888888
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.2608695652173913,
+        "lo": 0.1,
+        "hi": 0.45
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 24,
+        "recall": 0.08333333333333333,
+        "lo": 0.0,
+        "hi": 0.20833333333333334
+       },
+       {
+        "lat": -20.0,
+        "n": 25,
+        "recall": 0.24,
+        "lo": 0.08333333333333333,
+        "hi": 0.4166666666666667
+       },
+       {
+        "lat": -10.0,
+        "n": 25,
+        "recall": 0.08,
+        "lo": 0.0,
+        "hi": 0.20833333333333334
+       },
+       {
+        "lat": 0.0,
+        "n": 25,
+        "recall": 0.28,
+        "lo": 0.12,
+        "hi": 0.46153846153846156
+       },
+       {
+        "lat": 10.0,
+        "n": 25,
+        "recall": 0.2,
+        "lo": 0.041625,
+        "hi": 0.360090909090909
+       },
+       {
+        "lat": 20.0,
+        "n": 25,
+        "recall": 0.04,
+        "lo": 0.0,
+        "hi": 0.13636363636363635
+       },
+       {
+        "lat": 30.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 24,
+        "recall": 0.041666666666666664,
+        "lo": 0.0,
+        "hi": 0.13636363636363635
+       },
+       {
+        "lat": 80.0,
+        "n": 24,
+        "recall": 0.125,
+        "lo": 0.0,
+        "hi": 0.27285353535353524
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.34782608695652173,
+        "lo": 0.14801587301587302,
+        "hi": 0.56
+       }
+      ]
+     }
+    }
+   }
+  }
+ },
+ "falloff": {
+  "cov_surgio_b51_dr_low2n_s1": {
+   "elekta_xvi": {
+    "0.25": {
+     "body": {
+      "-15.0": {
+       "r0": 0.0607,
+       "threshold": 0.0547,
+       "first_below_pos": 10.0,
+       "first_below_neg": -40.0,
+       "min_recall": 0.0203,
+       "min_at": 40.0
+      },
+      "0.0": {
+       "r0": 0.1208,
+       "threshold": 0.1087,
+       "first_below_pos": 20.0,
+       "first_below_neg": -10.0,
+       "min_recall": 0.0124,
+       "min_at": 40.0
+      },
+      "15.0": {
+       "r0": 0.1393,
+       "threshold": 0.1254,
+       "first_below_pos": 10.0,
+       "first_below_neg": -20.0,
+       "min_recall": 0.0243,
+       "min_at": 50.0
+      }
+     },
+     "sacrum": {
+      "-15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -40.0
+      },
+      "0.0": {
+       "r0": 0.0476,
+       "threshold": 0.0429,
+       "first_below_pos": 30.0,
+       "first_below_neg": -50.0,
+       "min_recall": 0.0,
+       "min_at": -50.0
+      },
+      "15.0": {
+       "r0": 0.04,
+       "threshold": 0.036,
+       "first_below_pos": 10.0,
+       "first_below_neg": -40.0,
+       "min_recall": 0.0,
+       "min_at": -60.0
+      }
+     }
+    },
+    "0.74": {
+     "body": {
+      "-15.0": {
+       "r0": 0.004,
+       "threshold": 0.0036,
+       "first_below_pos": 20.0,
+       "first_below_neg": -30.0,
+       "min_recall": 0.0,
+       "min_at": -40.0
+      },
+      "0.0": {
+       "r0": 0.0292,
+       "threshold": 0.0263,
+       "first_below_pos": 10.0,
+       "first_below_neg": -10.0,
+       "min_recall": 0.0,
+       "min_at": -40.0
+      },
+      "15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -70.0
+      }
+     },
+     "sacrum": {
+      "-15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -70.0
+      },
+      "0.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -80.0
+      },
+      "15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -80.0
+      }
+     }
+    }
+   },
+   "surgio_b51_dr": {
+    "0.25": {
+     "body": {
+      "-15.0": {
+       "r0": 0.9028,
+       "threshold": 0.8126,
+       "first_below_pos": 20.0,
+       "first_below_neg": -20.0,
+       "min_recall": 0.3415,
+       "min_at": 40.0
+      },
+      "0.0": {
+       "r0": 0.8667,
+       "threshold": 0.78,
+       "first_below_pos": 20.0,
+       "first_below_neg": -30.0,
+       "min_recall": 0.332,
+       "min_at": 40.0
+      },
+      "15.0": {
+       "r0": 0.8607,
+       "threshold": 0.7746,
+       "first_below_pos": 20.0,
+       "first_below_neg": -20.0,
+       "min_recall": 0.2672,
+       "min_at": -50.0
+      }
+     },
+     "sacrum": {
+      "-15.0": {
+       "r0": 0.8387,
+       "threshold": 0.7548,
+       "first_below_pos": 20.0,
+       "first_below_neg": -20.0,
+       "min_recall": 0.0333,
+       "min_at": 50.0
+      },
+      "0.0": {
+       "r0": 0.9524,
+       "threshold": 0.8571,
+       "first_below_pos": 10.0,
+       "first_below_neg": -10.0,
+       "min_recall": 0.0476,
+       "min_at": -50.0
+      },
+      "15.0": {
+       "r0": 0.88,
+       "threshold": 0.792,
+       "first_below_pos": 10.0,
+       "first_below_neg": -10.0,
+       "min_recall": 0.0417,
+       "min_at": -50.0
+      }
+     }
+    },
+    "0.74": {
+     "body": {
+      "-15.0": {
+       "r0": 0.4332,
+       "threshold": 0.3899,
+       "first_below_pos": 10.0,
+       "first_below_neg": -10.0,
+       "min_recall": 0.0325,
+       "min_at": 40.0
+      },
+      "0.0": {
+       "r0": 0.5042,
+       "threshold": 0.4537,
+       "first_below_pos": 10.0,
+       "first_below_neg": -10.0,
+       "min_recall": 0.0415,
+       "min_at": 40.0
+      },
+      "15.0": {
+       "r0": 0.4139,
+       "threshold": 0.3725,
+       "first_below_pos": 20.0,
+       "first_below_neg": -10.0,
+       "min_recall": 0.0405,
+       "min_at": -50.0
+      }
+     },
+     "sacrum": {
+      "-15.0": {
+       "r0": 0.2581,
+       "threshold": 0.2323,
+       "first_below_pos": 10.0,
+       "first_below_neg": -10.0,
+       "min_recall": 0.0,
+       "min_at": -60.0
+      },
+      "0.0": {
+       "r0": 0.2381,
+       "threshold": 0.2143,
+       "first_below_pos": 20.0,
+       "first_below_neg": -20.0,
+       "min_recall": 0.0,
+       "min_at": -60.0
+      },
+      "15.0": {
+       "r0": 0.28,
+       "threshold": 0.252,
+       "first_below_pos": 10.0,
+       "first_below_neg": -10.0,
+       "min_recall": 0.0,
+       "min_at": -70.0
+      }
+     }
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,3521 @@
+{
+ "eval_gate": {
+  "gate_version": "eval_gate/1",
+  "held_out": true,
+  "not_held_out_reason": null,
+  "n_checks": 5,
+  "overlap": 0,
+  "unresolved": 0,
+  "checks": [
+   {
+    "gate": "tools/eval_gate.py",
+    "gate_version": "eval_gate/1",
+    "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+    "where": "tools/level_prototype.py [detector]",
+    "checked_at": "2026-09-24T08:45:01",
+    "host": "voh6",
+    "checkpoint": "/wsu/home/go/go24/go2432/model_registry/797de71a9e0e42f7/detect_v5z_final_best.pt",
+    "checkpoint_sha256": "797de71a9e0e42f75ab81af8d1983a4c19045e47cfda771bf4dadd5559076d65",
+    "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+    "lineage_match": "path + sha256 verified",
+    "ancestors": [
+     "/wsu/home/go/go24/go2432/spine-detector/runs/pose/runs/pose/runs/detect_v3/weights/best.pt"
+    ],
+    "public_roots": [
+     "public:ultralytics/yolo11m-pose.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m-pose.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco-pose.yaml')"
+    ],
+    "eval_set": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine_cv_prerepair/fold2/kfull/images",
+    "n_items": 56,
+    "n_keys": 28,
+    "keys_by_corpus": {
+     "carmlspine": 28
+    },
+    "n_unkeyed": 0,
+    "unkeyed": [],
+    "overlap": 0,
+    "overlap_keys": [],
+    "overlap_detail": [],
+    "unresolved": 0,
+    "unresolved_rows": [],
+    "unresolved_decided": [],
+    "pose_donor_overlap": 0,
+    "pose_donor_keys": [],
+    "also_seen": {},
+    "held_out": true,
+    "not_held_out_reason": null,
+    "overlap_by": {},
+    "problems": [],
+    "role": "detector"
+   },
+   {
+    "gate": "tools/eval_gate.py",
+    "gate_version": "eval_gate/1",
+    "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+    "where": "tools/level_prototype.py [level_model]",
+    "checked_at": "2026-09-24T08:45:01",
+    "host": "voh6",
+    "checkpoint": "/wsu/home/go/go24/go2432/carm_cvmix2_fov96_ctx/runs/model_rung_1_ft_cv2_v9init_aug2.pt",
+    "checkpoint_sha256": "a7cb4dac22ed5aab6e59b48967f40fe7bf80d055a2f93bef9069ff90c1e4db02",
+    "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+    "lineage_match": "path + sha256 verified",
+    "ancestors": [
+     "/wsu/home/go/go24/go2432/allspine_v9_fov96_ctx/runs/model_rung_1_aug2.pt"
+    ],
+    "public_roots": [
+     "public:torchvision/resnet18/IMAGENET1K_V1 (used when cached on the node; random init otherwise)"
+    ],
+    "eval_set": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine_cv_prerepair/fold2/kfull/images",
+    "n_items": 56,
+    "n_keys": 28,
+    "keys_by_corpus": {
+     "carmlspine": 28
+    },
+    "n_unkeyed": 0,
+    "unkeyed": [],
+    "overlap": 0,
+    "overlap_keys": [],
+    "overlap_detail": [],
+    "unresolved": 0,
+    "unresolved_rows": [],
+    "unresolved_decided": [],
+    "pose_donor_overlap": 0,
+    "pose_donor_keys": [],
+    "also_seen": {},
+    "held_out": true,
+    "not_held_out_reason": null,
+    "overlap_by": {},
+    "problems": [],
+    "role": "level_model"
+   },
+   {
+    "gate": "tools/eval_gate.py",
+    "gate_version": "eval_gate/1",
+    "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+    "where": "tools/level_prototype.py [head]",
+    "checked_at": "2026-09-24T08:45:02",
+    "host": "voh6",
+    "checkpoint": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cv2_v9init.pt",
+    "checkpoint_sha256": "2be978ccfa81742275e2b173d7d7d66735b9e51964ec88b91dda7ffc11492c34",
+    "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+    "lineage_match": "path + sha256 verified",
+    "ancestors": [
+     "/wsu/home/go/go24/go2432/carm_cvmix2_fov96_ctx/runs/model_rung_1_ft_cv2_v9init_aug2.pt",
+     "/wsu/home/go/go24/go2432/allspine_v9_fov96_ctx/runs/model_rung_1_aug2.pt"
+    ],
+    "public_roots": [
+     "public:torchvision/resnet18/IMAGENET1K_V1 (used when cached on the node; random init otherwise)"
+    ],
+    "eval_set": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine_cv_prerepair/fold2/kfull/images",
+    "n_items": 56,
+    "n_keys": 28,
+    "keys_by_corpus": {
+     "carmlspine": 28
+    },
+    "n_unkeyed": 0,
+    "unkeyed": [],
+    "overlap": 0,
+    "overlap_keys": [],
+    "overlap_detail": [],
+    "unresolved": 0,
+    "unresolved_rows": [],
+    "unresolved_decided": [],
+    "pose_donor_overlap": 0,
+    "pose_donor_keys": [],
+    "also_seen": {},
+    "held_out": true,
+    "not_held_out_reason": null,
+    "overlap_by": {},
+    "problems": [],
+    "role": "head"
+   },
+   {
+    "gate": "tools/eval_gate.py",
+    "gate_version": "eval_gate/1",
+    "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+    "where": "tools/level_prototype.py [flag:LSTV]",
+    "checked_at": "2026-09-24T08:45:02",
+    "host": "voh6",
+    "checkpoint": "/wsu/home/go/go24/go2432/lstv_flag/models/lstv_flag_v2.pt",
+    "checkpoint_sha256": "1c6c63ec3b3a59b0f652a4df156418655a1cf7589a0ca43ca61b3504e46548b3",
+    "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+    "lineage_match": "path + sha256 verified",
+    "ancestors": [],
+    "public_roots": [
+     "public:torchvision/resnet18/IMAGENET1K_V1 (used when cached on the node; random init otherwise)"
+    ],
+    "eval_set": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine_cv_prerepair/fold2/kfull/images",
+    "n_items": 56,
+    "n_keys": 28,
+    "keys_by_corpus": {
+     "carmlspine": 28
+    },
+    "n_unkeyed": 0,
+    "unkeyed": [],
+    "overlap": 0,
+    "overlap_keys": [],
+    "overlap_detail": [],
+    "unresolved": 0,
+    "unresolved_rows": [],
+    "unresolved_decided": [],
+    "pose_donor_overlap": 0,
+    "pose_donor_keys": [],
+    "also_seen": {},
+    "held_out": true,
+    "not_held_out_reason": null,
+    "overlap_by": {},
+    "problems": [],
+    "role": "flag:LSTV"
+   },
+   {
+    "gate": "tools/eval_gate.py",
+    "gate_version": "eval_gate/1",
+    "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+    "where": "tools/level_prototype.py [flag:TLTV]",
+    "checked_at": "2026-09-24T08:45:02",
+    "host": "voh6",
+    "checkpoint": "/wsu/home/go/go24/go2432/lstv_flag/models/tltv_flag_v2.pt",
+    "checkpoint_sha256": "4bbf4036ed612f805e24b8c804af96083c3b3c3718c7544632d6e0da94b27b3f",
+    "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+    "lineage_match": "path + sha256 verified",
+    "ancestors": [],
+    "public_roots": [
+     "public:torchvision/resnet18/IMAGENET1K_V1 (used when cached on the node; random init otherwise)"
+    ],
+    "eval_set": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine_cv_prerepair/fold2/kfull/images",
+    "n_items": 56,
+    "n_keys": 28,
+    "keys_by_corpus": {
+     "carmlspine": 28
+    },
+    "n_unkeyed": 0,
+    "unkeyed": [],
+    "overlap": 0,
+    "overlap_keys": [],
+    "overlap_detail": [],
+    "unresolved": 0,
+    "unresolved_rows": [],
+    "unresolved_decided": [],
+    "pose_donor_overlap": 0,
+    "pose_donor_keys": [],
+    "also_seen": {},
+    "held_out": true,
+    "not_held_out_reason": null,
+    "overlap_by": {},
+    "problems": [],
+    "role": "flag:TLTV"
+   }
+  ],
+  "carried_from": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto_v9init_prerepair/cv_fold2/det/kfull/prototype_meta.json"
+ },
+ "tag": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto_v9init_prerepair/cv_fold2 det k=full",
+ "pred": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto_v9init_prerepair/cv_fold2/det/kfull",
+ "meta": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine_cv_prerepair/fold2/kfull/meta",
+ "overall": {
+  "frames": 56,
+  "truth_named": 256,
+  "recall_named": 0.8789,
+  "scored": 225,
+  "exact": 0.9644,
+  "single_crop_exact": 0.8667,
+  "within1": 1.0,
+  "region": 1.0,
+  "answered": 0.8178,
+  "exact_answered": 0.9891,
+  "frame_exact": 0.9623,
+  "false_calls": 5
+ },
+ "AP": {
+  "frames": 28,
+  "truth_named": 127,
+  "recall_named": 0.8583,
+  "scored": 109,
+  "exact": 0.9633,
+  "single_crop_exact": 0.8624,
+  "within1": 1.0,
+  "region": 1.0,
+  "answered": 0.7982,
+  "exact_answered": 1.0,
+  "frame_exact": 0.9615,
+  "false_calls": 3
+ },
+ "LAT": {
+  "frames": 28,
+  "truth_named": 129,
+  "recall_named": 0.8992,
+  "scored": 116,
+  "exact": 0.9655,
+  "single_crop_exact": 0.8707,
+  "within1": 1.0,
+  "region": 1.0,
+  "answered": 0.8362,
+  "exact_answered": 0.9794,
+  "frame_exact": 0.963,
+  "false_calls": 2
+ },
+ "per_level": {
+  "L1": {
+   "n": 24,
+   "exact": 0.9583
+  },
+  "L2": {
+   "n": 44,
+   "exact": 0.9545
+  },
+  "L3": {
+   "n": 53,
+   "exact": 0.9623
+  },
+  "L4": {
+   "n": 53,
+   "exact": 0.9623
+  },
+  "L5": {
+   "n": 51,
+   "exact": 0.9804
+  }
+ },
+ "confusions": [
+  {
+   "truth": "L5",
+   "call": "L4",
+   "n": 1
+  },
+  {
+   "truth": "L4",
+   "call": "L3",
+   "n": 1
+  },
+  {
+   "truth": "L2",
+   "call": "L1",
+   "n": 1
+  },
+  {
+   "truth": "L3",
+   "call": "L2",
+   "n": 1
+  },
+  {
+   "truth": "L4",
+   "call": "L5",
+   "n": 1
+  },
+  {
+   "truth": "L3",
+   "call": "L4",
+   "n": 1
+  },
+  {
+   "truth": "L2",
+   "call": "L3",
+   "n": 1
+  },
+  {
+   "truth": "L1",
+   "call": "L2",
+   "n": 1
+  }
+ ],
+ "frames": [
+  {
+   "stem": "case102_AP",
+   "case": "case102",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 4,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L1",
+     "prob": 0.549,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.996,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.942,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.953,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case102_LAT",
+   "case": "case102",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 4,
+   "n_calls": 5,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.908,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.998,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.75,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.929,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case103_AP",
+   "case": "case103",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.957,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.679,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.917,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case103_LAT",
+   "case": "case103",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.991,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.924,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.991,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case104_AP",
+   "case": "case104",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.964,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.879,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.995,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 1.0,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.976,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case104_LAT",
+   "case": "case104",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.926,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.855,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.986,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.496,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case106_AP",
+   "case": "case106",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 4,
+   "n_calls": 5,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L5",
+     "call": "L4",
+     "single": "L5",
+     "prob": 0.325,
+     "abstain": true,
+     "exact": false,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.499,
+     "abstain": true,
+     "exact": false,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L2",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.25,
+     "abstain": true,
+     "exact": false,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L3",
+     "call": "L2",
+     "single": "L3",
+     "prob": 0.171,
+     "abstain": true,
+     "exact": false,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case106_LAT",
+   "case": "case106",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 4,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.914,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.987,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.959,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 3
+  },
+  {
+   "stem": "case107_AP",
+   "case": "case107",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L3",
+     "prob": 0.232,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.995,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.988,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.991,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case107_LAT",
+   "case": "case107",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 1.0,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.941,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L3",
+     "prob": 0.25,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L2",
+     "prob": 0.106,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.997,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case109_AP",
+   "case": "case109",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 4,
+   "n_truth_named": 4,
+   "n_calls": 5,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.967,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.987,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.923,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case109_LAT",
+   "case": "case109",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.987,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.992,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.971,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.902,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case113_AP",
+   "case": "case113",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.984,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.707,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.414,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.796,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.957,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case113_LAT",
+   "case": "case113",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.985,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.945,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "T12",
+     "prob": 0.487,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L1",
+     "prob": 0.411,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.599,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case123_AP",
+   "case": "case123",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 6,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L2",
+     "prob": 0.243,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.991,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.99,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.998,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.595,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case123_LAT",
+   "case": "case123",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 6,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.988,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.995,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.907,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.916,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case126_AP",
+   "case": "case126",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.998,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.91,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.997,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case126_LAT",
+   "case": "case126",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.904,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.985,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L3",
+     "prob": 0.277,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.983,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case129_AP",
+   "case": "case129",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 5,
+   "n_calls": 3,
+   "matched": 3,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.968,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.774,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L3",
+     "prob": 0.544,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    }
+   ],
+   "matched_named": 3
+  },
+  {
+   "stem": "case129_LAT",
+   "case": "case129",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.957,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L4",
+     "prob": 0.417,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.891,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "T13",
+     "prob": 0.2,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L2",
+     "prob": 0.136,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case140_AP",
+   "case": "case140",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 4,
+   "n_truth_named": 4,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.973,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.87,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.998,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L1",
+     "prob": 0.01,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case140_LAT",
+   "case": "case140",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 4,
+   "n_truth_named": 4,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.908,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.935,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "T2",
+     "prob": 0.009,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.993,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case141_AP",
+   "case": "case141",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 4,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.826,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 3
+  },
+  {
+   "stem": "case141_LAT",
+   "case": "case141",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 4,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.941,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.983,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.815,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 3
+  },
+  {
+   "stem": "case142_AP",
+   "case": "case142",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.925,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L3",
+     "prob": 0.241,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L3",
+     "prob": 0.099,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.148,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case142_LAT",
+   "case": "case142",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.991,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.993,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.997,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case149_AP",
+   "case": "case149",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L3",
+     "prob": 0.058,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.908,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.989,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L2",
+     "prob": 0.35,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case149_LAT",
+   "case": "case149",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.781,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.775,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.575,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.529,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.695,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case18_AP",
+   "case": "case18",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L1",
+     "prob": 0.471,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.842,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.994,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.998,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case18_LAT",
+   "case": "case18",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 1.0,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.99,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "T11",
+     "prob": 0.049,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.978,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.923,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case19_AP",
+   "case": "case19",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 7,
+   "n_truth_named": 5,
+   "n_calls": 0,
+   "matched": 0,
+   "items": [],
+   "matched_named": 0
+  },
+  {
+   "stem": "case19_LAT",
+   "case": "case19",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L5",
+     "single": "L4",
+     "prob": 0.283,
+     "abstain": true,
+     "exact": false,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.912,
+     "abstain": false,
+     "exact": false,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L2",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.755,
+     "abstain": false,
+     "exact": false,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L1",
+     "call": "L2",
+     "single": "L1",
+     "prob": 0.439,
+     "abstain": true,
+     "exact": false,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case22_AP",
+   "case": "case22",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.959,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.993,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.283,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.968,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.987,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case22_LAT",
+   "case": "case22",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.996,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.979,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.695,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.7,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.934,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case28_AP",
+   "case": "case28",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.974,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "T10",
+     "prob": 0.295,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.839,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.944,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.866,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case28_LAT",
+   "case": "case28",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.978,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.914,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.407,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.997,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case39_AP",
+   "case": "case39",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 4,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 1.0,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.806,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.982,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 3
+  },
+  {
+   "stem": "case39_LAT",
+   "case": "case39",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 4,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.998,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.735,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.998,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 3
+  },
+  {
+   "stem": "case3_AP",
+   "case": "case3",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 4,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L2",
+     "prob": 0.626,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.997,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 3
+  },
+  {
+   "stem": "case3_LAT",
+   "case": "case3",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 4,
+   "n_calls": 3,
+   "matched": 3,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.998,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.991,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.995,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 3
+  },
+  {
+   "stem": "case42_AP",
+   "case": "case42",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 0,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [],
+   "matched_named": 0
+  },
+  {
+   "stem": "case42_LAT",
+   "case": "case42",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 0,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [],
+   "matched_named": 0
+  },
+  {
+   "stem": "case4_AP",
+   "case": "case4",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 4,
+   "n_truth_named": 4,
+   "n_calls": 5,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.993,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.855,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.967,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case4_LAT",
+   "case": "case4",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 1.0,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.378,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.461,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case50_AP",
+   "case": "case50",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.498,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.917,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.993,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.981,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 4
+  },
+  {
+   "stem": "case50_LAT",
+   "case": "case50",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.586,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.952,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.938,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L1",
+     "prob": 0.432,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "T2",
+     "prob": 0.025,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case58_AP",
+   "case": "case58",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.935,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "C1",
+     "prob": 0.255,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.966,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.605,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.56,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case58_LAT",
+   "case": "case58",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.989,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.992,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.721,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.827,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.996,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case70_AP",
+   "case": "case70",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.996,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.291,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.944,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.965,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.619,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case70_LAT",
+   "case": "case70",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 6,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.976,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.892,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.722,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.972,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.75,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case72_AP",
+   "case": "case72",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 4,
+   "n_truth_named": 4,
+   "n_calls": 3,
+   "matched": 3,
+   "items": [
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.992,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.986,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.948,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 3
+  },
+  {
+   "stem": "case72_LAT",
+   "case": "case72",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 4,
+   "n_calls": 4,
+   "matched": 4,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.994,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.995,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.995,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 3
+  },
+  {
+   "stem": "case95_AP",
+   "case": "case95",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.959,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.888,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.821,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.998,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.934,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case95_LAT",
+   "case": "case95",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.791,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.963,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.52,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L3",
+     "prob": 0.191,
+     "abstain": true,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": false
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.698,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case98_AP",
+   "case": "case98",
+   "view": "AP",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.674,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.916,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.96,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.987,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  },
+  {
+   "stem": "case98_LAT",
+   "case": "case98",
+   "view": "LAT",
+   "k": "full",
+   "n_truth": 5,
+   "n_truth_named": 5,
+   "n_calls": 5,
+   "matched": 5,
+   "items": [
+    {
+     "truth": "L3",
+     "call": "L3",
+     "single": "L3",
+     "prob": 0.828,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L4",
+     "call": "L4",
+     "single": "L4",
+     "prob": 0.999,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L2",
+     "call": "L2",
+     "single": "L2",
+     "prob": 0.776,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L5",
+     "call": "L5",
+     "single": "L5",
+     "prob": 0.996,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    },
+    {
+     "truth": "L1",
+     "call": "L1",
+     "single": "L1",
+     "prob": 0.576,
+     "abstain": false,
+     "exact": true,
+     "within1": true,
+     "region": true,
+     "single_exact": true
+    }
+   ],
+   "matched_named": 5
+  }
+ ]
+}

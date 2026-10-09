@@ -1,0 +1,268 @@
+{
+ "question": "For a medical X-ray model trained with abundant SIMULATED images (DRRs / physics-based projections from CT) and a SMALL REAL in-domain set, what does the published evidence say about HOW to combine them: (a) pretrain on synthetic then fine-tune on real (sequential), (b) train on a MIXTURE of synthetic and real from the start (joint training, with what ratio or sampling schedule), or (c) fine-tune on real while replaying synthetic data (rehearsal) to avoid forgetting? Find MATCHED comparisons of these strategies evaluated on REAL test images, with numbers, citations (DOI/PMID/arXiv), in: X-ray/fluoroscopy detection and landmark localisation (SyntheX Gao et al. Nat Mach Intell 2023 and follow-ups, DeepDRR line, Pelphix, surgical X-ray), vertebra identification/labelling, and general sim-to-real object detection (Tremblay 2018 domain randomization, 'Driving in the Matrix', synthetic-plus-real detection studies) and medical imaging in general. Specific sub-questions: 1) Is there a measured crossover in real-set size where fine-tuning beats mixing or vice versa? 2) What synthetic:real mixing ratios or per-batch sampling schedules were found best, and does upweighting real data matter? 3) When the real set covers only SOME classes (here: real intraoperative C-arm frames show only T11-S1, while the model must name every vertebra C1-S1 including rare variants L6/T13), what does the continual-learning / class-incremental literature say about catastrophic forgetting of the unseen classes during fine-tuning, and which remedies (rehearsal/replay of synthetic, freezing layers, LwF, low learning rate, EWC) were measured to work? 4) Any evidence specific to fine-tuning a detector vs a classifier on a small real set (tens to ~150 subjects, ~300 frames). CONTEXT to engage with: in this project, on real lateral radiographs, pretrain-on-renders-then-fine-tune LOST to real-only training (91.8 -> 89.1% ordinary vertebrae, 66.0 -> 40.4% anomalous), while raising the render fraction in a MIXED bank from 0 to 0.5 moved anomalous accuracy 34.0 -> 53.2% at a 2-point cost on ordinary. Does the literature agree or disagree with that pattern, and why might sequential fine-tuning lose here? Return a structured report: ranked recommendations with the evidence strength for each, exact figures tied to sources, and what is NOT known.",
+ "summary": "The verified evidence favours training on a mixture over pretraining on renders and then fine-tuning, for this project's specific setup. The reason is that the real C-arm frames cover only T11-S1. Two NeurIPS papers show the same collapse when a model is fine-tuned on a subset of its classes: unseen-class accuracy fell from 65.65% to 22.36% on Office-Home (Tu 2023) and from 23.8% to 3.5% on ImageNet-R/S (Mai 2024). No after-the-fact fix matched a model that kept the absent classes in training. Pretrain-then-fine-tune does beat naive mixing in several studies: chest X-ray, +6.5% vs +2.7% relative AUROC over real-only (Moroianu 2025); image classification, 69 of 81 configurations (Wachter 2025); and driving detection recall (Nowruzi 2019). But every one of those studies had a real set covering all classes, and none used DRRs. In segmentation, joint 1:1 training matched or beat sequential training in all four matched pairs (FreeMask 2023). Ranked recommendations: (1) keep mixed training as the default, with renders supplying the levels the real frames lack. (2) If you fine-tune on real frames anyway, keep renders of every level in each batch, freeze the naming head, and distil the source model's logits for the absent classes. (3) Before choosing a remedy, test whether the loss sits in the features or in the logits. (4) Give real data a larger share of each batch than its natural share and sweep the ratio. (5) Split by patient or procedure, never by frame. The X-ray line itself (SyntheX, DeepDRR, Pelphix) has no fine-tune, mixture or replay arm, so no matched X-ray comparison exists. Nothing verified tells us at what real-set size one strategy overtakes the other.",
+ "findings": [
+  {
+   "claim": "RECOMMENDATION 1 (strongest). For a model whose real frames cover only T11-S1 but must name C1-S1, including L6 and T13, train on a mixture of renders and real frames rather than pretraining on renders and fine-tuning on real. Evidence strength: moderate but indirect. No study tested this in X-ray, and every study behind it is natural-image classification or segmentation.",
+   "confidence": "medium",
+   "sources": [
+    "https://arxiv.org/abs/2311.01420",
+    "https://arxiv.org/abs/2409.16223",
+    "https://arxiv.org/html/2310.15160",
+    "https://arxiv.org/abs/2202.00632"
+   ],
+   "evidence": "Evidence for:\n- Fine-tuning on part of the classes collapses the rest. Tu 2023, Office-Home, 30 seen and 35 unseen classes: unseen accuracy 65.65% -> 22.36%. Mai 2024: 23.8 -> 3.5 on ImageNet-R/S, 57.4 -> 39.1 on VTAB, 65.5 -> 22.4 on Office-Home.\n- Training with the absent classes present beats any correction applied afterwards. Mai's oracle scored 71.1 / 80.6 / 82.1 overall. Logit-calibrated fine-tuning scored 57.1 / 57.4 / 72.2, and even a test-tuned gamma stayed below, at 60.8 / 69.3 / 72.7.\n- In segmentation, joint training was at least as good as sequential in all four matched pairs (FreeMask).\n- Synthetic data saved the most real data on the class the real set under-represents (Burdorf 2022). This matches the project, where raising the render fraction from 0 to 0.5 moved anomalous accuracy 34.0 -> 53.2%.\n\nEvidence against: when every class appears in the real set, sequential training beats naive mixing (see the full-coverage finding below).",
+   "vote": "3-0 (Tu), 2-1/3-0 (Mai), 3-0 (FreeMask), 3-0/2-1 (Burdorf)"
+  },
+  {
+   "claim": "RECOMMENDATION 2. If you add a fine-tune on real frames anyway, protect the absent classes. Three measured steps, from one paper, each raised unseen-class accuracy: freeze the classification head, distil the source model's logits on the absent classes (LwF-style), and add a rank regulariser on the features. Replaying synthetic renders of the absent levels in each batch was not measured in any verified source. It is inferred from Mai's oracle, which used real absent-class data.",
+   "confidence": "medium",
+   "sources": [
+    "https://arxiv.org/abs/2311.01420",
+    "https://arxiv.org/abs/2409.16223",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7903142/"
+   ],
+   "evidence": "Tu 2023, Table 3: ResNet-50, Office-Home, averaged over six domain pairs, all arms trained with SGD at lr 1e-4 for 20 epochs. Overall / unseen accuracy:\n- Source model: 63.90 / 65.65\n- Naive fine-tune: 53.50 / 22.36\n- Frozen head: 64.34 / 43.44\n- Frozen head + distillation: 69.63 / 57.41\n- Frozen head + rank regulariser: 69.30 / 55.64\n- LOLSGD: 68.58 / 53.98\n- LOLSGD + distillation + rank: 72.01 / 66.54\n- Oracle: 84.13 / 84.51\n\nThe full method beats the source model on unseen classes by only +0.89 points, which may be within seed noise. Mai 2024 finds calibrated full fine-tuning beats a frozen classifier (AUSUC 0.439 vs 0.356). Mai also reports noticeable degradation with Adam under poorly chosen hyperparameters, while the benign result held under SGD.\n\nGherardini 2020 fine-tuned only the deepest seven layers of a U-Net on fluoroscopy but ran no full-fine-tune comparison.\n\nNot measured in any verified source: EWC, learning rate varied as a variable, and replay of synthetic data.",
+   "vote": "3-0, 3-0"
+  },
+  {
+   "claim": "RECOMMENDATION 3. Before picking a remedy, find out whether fine-tuning damaged the features or only the logits. Run a nearest-class-mean probe and a single logit-bias calibration. In Mai 2024, absent-class features improved during partial-class fine-tuning. The accuracy loss came from logit scales biased toward the fine-tuned classes.",
+   "confidence": "medium",
+   "sources": [
+    "https://arxiv.org/abs/2409.16223"
+   ],
+   "evidence": "Features improved during fine-tuning:\n- Mai Table 3, nearest-class-mean absent-class accuracy: 32.5 -> 50.5 on ImageNet variants, 73.7 -> 75.8 on Office-Home.\n- Table 6, accuracy among absent classes only: 40.3 -> 61.9, 83.7 -> 87.2 and 80.1 -> 81.5.\n\nAdding one bias gamma, chosen by pseudo cross-validation, to the absent-class logits recovered part of the loss:\n- Absent-class accuracy: 3.5 -> 54.0, 39.1 -> 67.8, 22.4 -> 63.1.\n- The cost can be large. On VTAB, fine-tuned-class accuracy fell 86.4 -> 47.1, and overall accuracy of 57.4 ended below the pretrained model's 58.3.\n\nLimits:\n- Mai's probe used held-out data from the fine-tuning domain. A probe on rendered C1-T10, L6 and T13 is the source domain, which Mai did not measure.\n- This contradicts Tu 2023's feature-collapse explanation, from the same group.\n- Classifier only; detectors and sequence heads were not tested.",
+   "vote": "3-0 (probe), 3-0 (calibration)"
+  },
+  {
+   "claim": "RECOMMENDATION 4. Give real data a larger share of each batch than its natural share, and sweep the ratio. Published optima come from natural-image work: 1:1 real-to-synthetic per batch with the real set oversampled (FreeMask), or 5-20% real by dataset composition (Burdorf). No medical or X-ray study swept the ratio, and no study isolated whether upweighting real data itself matters. The project's render fraction of 0.5 equals FreeMask's 1:1.",
+   "confidence": "low",
+   "sources": [
+    "https://arxiv.org/html/2310.15160",
+    "https://arxiv.org/abs/2202.00632",
+    "https://arxiv.org/abs/2508.16783"
+   ],
+   "evidence": "FreeMask (ADE20K):\n- Batches were half real and half synthetic, real images were oversampled, and iterations were doubled. The natural real share would have been about 5%.\n- No other ratio was tested.\n- The schedule alone did not help. With unfiltered synthetic images, joint training scored 48.2 against 48.5 for real-only. The gain (to 50.6) needed filtering plus hardness-aware resampling.\n\nBurdorf 2022 (YOLOv3; 25k Synscapes + 2,727 Cityscapes; 5 seeds; power-law fits over 0-100% real):\n- The best real share is 5-20%. At 10% real, 7,783 total images holding 778 real ones matched the all-real model, using 28.5% of the real data.\n- These are points read off a fitted curve, not trained models. 'Best' means the fewest real images needed to match baseline, not the highest accuracy.\n- Mixing was by composition only, with no per-batch upweighting.\n\nMoroianu 2025: a naive mix at about 8.5:1 synthetic:real, with gains flattening near 5x synthetic.",
+   "vote": "3-0, 2-1, 3-0"
+  },
+  {
+   "claim": "RECOMMENDATION 5. Split by patient or procedure, never by frame. On real fluoroscopy, fine-tuning on frames drawn at random from the test sequences roughly doubled Dice compared with holding whole procedures out.",
+   "confidence": "medium",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7903142/",
+    "doi:10.1016/j.cmpb.2020.105420",
+    "PMID 32171151"
+   ],
+   "evidence": "Gherardini 2020: a light U-Net for catheter segmentation, pretrained on 9,000 synthetic images (catheters overlaid on real backgrounds, not DRRs), then fine-tuned on its deepest seven layers.\n- Random 240 frames drawn from all six sequences (S1): Dice 0.55.\n- Whole procedures held out: S2 (714 frames) 0.25, S3 (579 frames) 0.17. Synthetic-pretrain arm alone: 0.26 and 0.15.\n- Same test sequences compared across splits: T2/T3/T5 averaged about 0.60 under S1 against 0.26 held out.\n- A real-only leave-one-procedure-out baseline (921-1,064 frames, no pretraining) averaged about 0.10. That baseline is weak and not matched.\n\nThe design cannot separate within-sequence leakage from adaptation to each setup.",
+   "vote": "2-1, 2-1"
+  },
+  {
+   "claim": "When the real set covers every class and the synthetic images sit close to the real domain, pretraining on synthetic data and then fine-tuning on real data usually beats naive mixing. Three studies agree. None uses DRRs, none has a real set that lacks classes, and none upweighted real data in its mixture.",
+   "confidence": "medium",
+   "sources": [
+    "https://arxiv.org/abs/2508.16783",
+    "https://arxiv.org/abs/2506.24093",
+    "https://arxiv.org/abs/1907.07061"
+   ],
+   "evidence": "Moroianu 2025 (preprint):\n- DenseNet121, 14 CheXpert labels, 565k RoentGen-v2 diffusion images, 66,760 real MIMIC images.\n- Mean relative AUROC gain over real-only: +6.5% sequential vs +2.7% mixed. In absolute terms, 0.699 -> 0.744 vs 0.718.\n- Per test set, real-only / mix / sequential: MIMIC .772/.770/.798, CheXpert .700/.730/.732, NIH .661/.696/.726, PadChest .721/.753/.781, VinDr .641/.641/.683.\n- Confounds: the sequential arm was trained from scratch, the others from ImageNet weights. Single runs with bootstrap CIs. The generator was trained on the same MIMIC data.\n\nWachter 2025 (KI 2025):\n- MLP, CNN and ViT on CIFAKE, LegoBricks and DomainNet, 11 proportions at a fixed total size, tested on real images only.\n- Fine-tuning beat simple mixing in 69/81 averaged configurations (635/810 runs). The paper's conclusion says '89', but 69/81 = 85%.\n- The fine-tuning gain grew with the synthetic share. CNN on DomainNet did better with mixing.\n- Synthetic images replaced real ones rather than adding to them.\n\nNowruzi 2019 (workshop): SSD-MobileNet trained from scratch on car and person, using 2.5-10% of a 13k real set (about 325-1,300 images). Fine-tuning won most cells, mainly on recall.",
+   "vote": "3-0 (x3), 3-0, 2-1"
+  },
+  {
+   "claim": "Joint training on real plus synthetic images matched or beat sequential pretrain-then-fine-tune in every matched segmentation pair. The margins were small, 0-0.9 mIoU.",
+   "confidence": "medium",
+   "sources": [
+    "https://arxiv.org/html/2310.15160"
+   ],
+   "evidence": "FreeMask (NeurIPS 2023), ADE20K, joint vs sequential from the same real-only baseline:\n- SegFormer MiT-B2: 47.9 vs 47.0 (baseline 45.6)\n- MiT-B4: 50.6 vs 50.6 (48.5)\n- Segmenter ViT-S: 47.9 vs 47.2 (46.2)\n- Segmenter ViT-B: 51.1 vs 50.6 (49.6)\n\nTraining real-only for twice as long did not close the gap (Table 8: 49.2, 48.6, 46.7). The authors conjecture that joint training better preserves what was learned from the larger synthetic set, but did not test it. Single runs, diffusion-generated natural images, and a large real set covering every class.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "For detectors, sequential fine-tuning won mainly on recall, and mixing often won on precision. No verified evidence covers detector fine-tuning at tens to about 150 subjects, or detector forgetting of classes absent from the fine-tuning set. All the partial-class evidence is for classifiers.",
+   "confidence": "low",
+   "sources": [
+    "https://arxiv.org/abs/1907.07061"
+   ],
+   "evidence": "Nowruzi 2019, at 10% real, mixed vs fine-tuned:\n- 7D + BDD: car recall 0.320 vs 0.435 (all real: 0.422); person recall 0.087 vs 0.139.\n- P4B + KC: person precision 0.425 vs 0.351.\n- CARLA + KC: person precision 0.426 vs 0.339.\n\nAcross all 27 cells, fine-tuning won car recall 26 times and person recall 23 times, while mixing won person precision 19 times.\n\nThe arms used different learning-rate schedules, and fine-tuning got extra steps. One run per cell, no confidence intervals, one light detector.",
+   "vote": "3-0, 2-1"
+  },
+  {
+   "claim": "Synthetic data saves the most real data on classes the real set under-represents. This fits the project's finding that renders mainly lift anomalous accuracy. The cause was not tested.",
+   "confidence": "low",
+   "sources": [
+    "https://arxiv.org/abs/2202.00632"
+   ],
+   "evidence": "Burdorf 2022:\n- Person, at 4.95 per image in Cityscapes vs 28.38 in Synscapes, needed about 20% of the real data (538 images at 5% real).\n- Car still needed about 64% (1,744 images). That figure is extrapolated beyond the trained range. Within it, at 10% real, car needed 68% and person 29%.\n- Most per-class gains were not significant.\n- Person started from a lower AP50 (0.35-0.38 vs 0.63), so it had more room to improve.\n- 'Under-represented' is relative: person is the second most common class, not a rare one, and never absent from the real set.",
+   "vote": "2-1"
+  },
+  {
+   "claim": "The X-ray simulation papers never compare sequential, mixed or replay training, so they cannot settle this question. SyntheX does show that DRR-only training with strong domain randomisation matched real-only training at a real-set size close to this project's.",
+   "confidence": "high",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10959504/",
+    "doi:10.1038/s42256-023-00629-1",
+    "PMID 38523605",
+    "https://arxiv.org/pdf/1803.08606",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11016332/",
+    "doi:10.1007/978-3-031-43996-4_13"
+   ],
+   "evidence": "SyntheX (Gao, Nat Mach Intell 2023):\n- Models were trained from scratch on synthetic-only, real-only, CycleGAN or ADDA data. There is no sequential or mixed arm. Pretraining appears only as an untested remark ('strong candidate for pre-training').\n- Hip, leave-one-specimen-out, 366 real frames from 6 specimens: DeepDRR with strong domain randomisation scored 6.44 ± 7.05 mm, Dice 0.80. Real-only with strong domain randomisation scored 6.46 ± 8.21 mm, Dice 0.79.\n- No significance test. Cite the NMI version; the arXiv 2206.06127 numbers differ.\n\nDeepDRR (arXiv 1803.08606): trained twice on synthetic data only and evaluated qualitatively.\n\nPelphix (MICCAI 2023):\n- Trained on 279,709 simulated images from 327 CTs and tested zero-shot on 257 images from one cadaver: 99.2% on simulation vs 71.7% on the cadaver.\n- Pretraining followed by fine-tuning on real data is suggested but not tested.",
+   "vote": "3-0 (x4)"
+  },
+  {
+   "claim": "The literature agrees with the project's pattern on anomalous vertebrae. It disagrees on ordinary vertebrae, where published sequential arms usually beat real-only while the project's lost 91.8 -> 89.1. Neither explanation has been tested in this setting.",
+   "confidence": "low",
+   "sources": [
+    "https://arxiv.org/abs/2311.01420",
+    "https://arxiv.org/abs/2409.16223",
+    "https://arxiv.org/abs/2508.16783",
+    "https://arxiv.org/html/2310.15160",
+    "https://arxiv.org/abs/2202.00632",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7903142/"
+   ],
+   "evidence": "Where the literature agrees:\n- The project's anomalous drop under sequential training (66.0 -> 40.4) matches the partial-class collapse in the same direction (Tu: 65.65 -> 22.36 unseen). That fits if anomalous spines are rare or absent in the real fine-tuning films.\n- The mixture's gain concentrated on anomalous cases fits Burdorf's under-represented-class result and Mai's oracle.\n- Mixing's roughly 2-point cost on ordinary vertebrae fits two results where mixing gave nothing in distribution: Moroianu MIMIC .772 -> .770 (p = 0.67) and FreeMask with unfiltered synthetic data, 48.5 -> 48.2.\n\nWhere it disagrees:\n- Published sequential arms beat real-only in Moroianu (every test set, p < 0.05) and Gherardini. The project's lost on ordinary vertebrae.\n- The partial-class mechanism cannot explain that loss, because ordinary levels are in the real set.\n\nCandidate reasons for the ordinary loss, none verified:\n- A larger render-to-film gap than diffusion-to-chest-X-ray. A claim that domain gap moderates the fine-tuning advantage failed verification 0-3.\n- The initialisation difference.\n- The optimiser. Mai saw degradation with Adam.\n- A small real set.\n- Logit bias toward the majority levels.",
+   "vote": "synthesis of 3-0/2-1 claims"
+  }
+ ],
+ "caveats": "- **No matched X-ray comparison.** No verified source compares sequential, mixed and replay training on real X-ray or fluoroscopy with DRRs. Every comparison of the three strategies comes from natural images, driving scenes, or diffusion-generated chest X-rays.\n- **Partial-class evidence is narrow.** It comes from natural-image classifiers only (ResNet-50, CLIP ViT-B/32), and both papers are from one research group (Tu 2023, Mai 2024). Those two papers also disagree on the mechanism: feature collapse (Tu) versus logit bias (Mai).\n- **Replay remedies are unmeasured.** Replaying synthetic renders for the absent classes, EWC, and learning rate as a controlled variable were not measured in any verified source.\n- **Crossover in real-set size is not established.** Verifier notes on Moroianu say sequential training beat the all-data mix only with at least 30k real images. The claim stating that crossover failed verification (1-2), so treat it as unconfirmed. Moroianu is a preprint, reports relative AUROC gains, and confounds the arms (ImageNet versus from-scratch initialisation).\n- **Three claims failed verification.** Burdorf's finding of no significant difference between fine-tuning and mixing (0.3706 vs 0.3841 mAP50) failed 1-2. Wachter's domain-gap moderator failed 0-3. The Moroianu crossover failed 1-2. So 'DRRs are too far from film for sequential training to work' remains a hypothesis.\n- **Some corroboration is unverified.** Vanherle, BMVC 2022 (arXiv:2211.16066; fine-tuning 82.05-83.7 AP vs 80.13 mixed) and Beery, WACV 2020 (arXiv:1904.05916; synthetic data helps rare classes) appear only in verifier notes and were not checked separately.\n- **Requested areas returned nothing verified.** No verified claims came from Tremblay 2018, Driving in the Matrix, or the vertebra-identification literature.\n- **Many figures are single runs.** Nowruzi, FreeMask and Moroianu report no seed variance. Several of Burdorf's numbers are read off fitted curves.\n- **The project's two results do not form one matched design.** Real-only anomalous accuracy is 66.0% in the sequential experiment but 34.0% at render fraction 0 in the mixing experiment, so the baselines differ. 'Sequential lost, mixing won' compares across two experiments; the arms have not been run head to head on the same bank, split and seeds.\n- **Recency.** The sources run through 2025, and the area moves fast.",
+ "openQuestions": [
+  "On the same bank, split and seeds, how do these arms rank on real films and C-arm frames, reported separately for ordinary, anomalous and never-seen levels: real-only, render-pretrain then fine-tune, mixed training at several render fractions, and fine-tune with render replay plus a frozen head and distillation?",
+  "In the project's sequential arm, is the anomalous loss in the features or in the logits? This can be tested with a nearest-class-mean probe and a single logit-bias calibration on held-out real anomalous films rather than renders.",
+  "Why did sequential training lose on ordinary vertebrae (91.8 -> 89.1) when the published full-coverage studies say it should win? Candidates are the render-to-film gap, initialisation, optimiser and learning rate, and real-set size. A curve over real-set size could locate a crossover, if one exists.",
+  "Can replaying renders of the absent levels (C1-T10, L6, T13) during a real fine-tune match Mai's oracle, which used real data for the absent classes, and at what replay ratio? Does the answer hold for a detector as well as for a naming head?"
+ ],
+ "refuted": [
+  {
+   "claim": "The paper reports a real-set-size crossover for sequential versus mixed training, and the comparison is not matched. The synthetic-pretrained model beat the mix model only once it was fine-tuned on at least 30k real images. The mix model used all 66k real images plus 565k synthetic. With under 10k real images, sequential training matched the real-only baseline trained on all 66k. The smallest real subset tested was 3k images. This is 1-2 orders of magnitude above the project's ~300 real frames. The evidence says the sequential advantage over mixing depends on a large real fine-tuning set. It does not show sequential training winning in the tens-to-hundreds regime.",
+   "vote": "1-2",
+   "source": "https://arxiv.org/html/2508.16783"
+  },
+  {
+   "claim": "FT's advantage over mixing depends on how close the synthetic domain is to the real one. When the synthetic source deliberately imitated the real domain (GenAI CIFAKE, CAD LEGO renders), FT won consistently. When the gap was large (DomainNet hand-drawn sketches), FT did not clearly win, and the CNN did better with simple mixing in every DomainNet setup. This is a possible reading of the project's result that sequential lost and mixing won, if DRRs sit far from real films, but the paper does not test it.",
+   "vote": "0-3",
+   "source": "https://arxiv.org/abs/2506.24093"
+  },
+  {
+   "claim": "In a matched comparison (COCO-pretrained YOLOv3, 25,000 Synscapes synthetic + 2,727 Cityscapes real images, about 10% real, 5 seeds, tested on 500 real Cityscapes images), pretraining on synthetic data and then fine-tuning on real did not differ significantly from mixed joint training. mAP50 was 0.3706 ± 0.0082 for pretrain + fine-tune and 0.3841 ± 0.0132 for mixed. Person AP50 was 0.3518 ± 0.0128 vs 0.3778 ± 0.0058, and car AP50 was 0.6356 ± 0.0065 vs 0.6346 ± 0.0059. Mixed training was numerically ahead, most of all on the synthetic-enriched person class. This contradicts Nowruzi et al. 2019, who reported that pretrain + fine-tune beats mixing but gave no confidence intervals.",
+   "vote": "1-2",
+   "source": "https://arxiv.org/abs/2202.00632"
+  }
+ ],
+ "unverified": [],
+ "sources": [
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10959504/",
+   "quality": "primary",
+   "angle": "X-ray sim-to-real primary (SyntheX / DeepDRR line)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/html/2508.16783",
+   "quality": "primary",
+   "angle": "X-ray sim-to-real primary (SyntheX / DeepDRR line)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/html/2310.15160",
+   "quality": "primary",
+   "angle": "X-ray sim-to-real primary (SyntheX / DeepDRR line)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7903142/",
+   "quality": "primary",
+   "angle": "X-ray sim-to-real primary (SyntheX / DeepDRR line)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11016332/",
+   "quality": "primary",
+   "angle": "X-ray sim-to-real primary (SyntheX / DeepDRR line)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/pdf/1803.08606",
+   "quality": "primary",
+   "angle": "X-ray sim-to-real primary (SyntheX / DeepDRR line)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/2506.24093",
+   "quality": "primary",
+   "angle": "General sim-to-real detection: mixing ratio vs sequential fine-tuning",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/2202.00632",
+   "quality": "primary",
+   "angle": "General sim-to-real detection: mixing ratio vs sequential fine-tuning",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/1907.07061",
+   "quality": "primary",
+   "angle": "General sim-to-real detection: mixing ratio vs sequential fine-tuning",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/2409.16223",
+   "quality": "primary",
+   "angle": "General sim-to-real detection: mixing ratio vs sequential fine-tuning",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/2508.16783",
+   "quality": "primary",
+   "angle": "Crossover by real-set size / scaling",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/2311.01420",
+   "quality": "primary",
+   "angle": "Forgetting of classes absent from the real set (continual learning)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/2001.05922",
+   "quality": "primary",
+   "angle": "Forgetting of classes absent from the real set (continual learning)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/2202.10054",
+   "quality": "primary",
+   "angle": "Forgetting of classes absent from the real set (continual learning)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/1902.10486",
+   "quality": "primary",
+   "angle": "Forgetting of classes absent from the real set (continual learning)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/2307.12427",
+   "quality": "primary",
+   "angle": "Forgetting of classes absent from the real set (continual learning)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/2308.13320",
+   "quality": "primary",
+   "angle": "Forgetting of classes absent from the real set (continual learning)",
+   "claimCount": 5
+  }
+ ],
+ "stats": {
+  "angles": 5,
+  "sourcesFetched": 17,
+  "claimsExtracted": 85,
+  "claimsVerified": 25,
+  "confirmed": 22,
+  "killed": 3,
+  "unverified": 0,
+  "afterSynthesis": 11,
+  "urlDupes": 6,
+  "budgetDropped": 7,
+  "agentCalls": 99
+ }
+}

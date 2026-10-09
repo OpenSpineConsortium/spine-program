@@ -1,0 +1,91 @@
+{
+ "host": "voh4",
+ "cpu": "x86_64",
+ "torch": "2.6.0+cu124",
+ "gpu": "Tesla V100-SXM2-16GB",
+ "level_model": "/wsu/home/go/go24/go2432/films_ann_fov96_ctx/runs/model_rung_0.pt",
+ "detector": "/wsu/home/go/go24/go2432/spine-detector/runs/pose/runs/pose/runs/detect_v3/weights/best.pt",
+ "params": {
+  "level_model": 11187227,
+  "recurrent_head": 2117403
+ },
+ "macs": {
+  "level_model_per_crop": 3620877824,
+  "recurrent_head_per_run_of_9": 15459840
+ },
+ "latency": {
+  "cuda": {
+   "level_model_bs1": {
+    "median_ms": 2.2867443040013313,
+    "p90_ms": 2.307063154876232
+   },
+   "level_model_bs16": {
+    "median_ms": 7.79111310839653,
+    "p90_ms": 7.809557020664215
+   },
+   "recurrent_head_run9": {
+    "median_ms": 0.6797518581151962,
+    "p90_ms": 0.6882498040795326
+   },
+   "level_model_bs1_fp16": {
+    "median_ms": 2.6118792593479156,
+    "p90_ms": 2.626841515302658
+   },
+   "level_model_bs16_fp16": {
+    "median_ms": 4.433454945683479,
+    "p90_ms": 4.4877199456095695
+   },
+   "detector_1024": {
+    "median_ms": 22.937930189073086,
+    "p90_ms": 24.615726806223392
+   }
+  },
+  "cpu_1thr": {
+   "level_model_bs1": {
+    "median_ms": 94.20649241656065,
+    "p90_ms": 95.25586552917957
+   },
+   "level_model_bs16": {
+    "median_ms": 1723.5134150832891,
+    "p90_ms": 1741.6820311918855
+   },
+   "recurrent_head_run9": {
+    "median_ms": 3.5673221573233604,
+    "p90_ms": 3.576197475194931
+   }
+  },
+  "cpu_4thr": {
+   "level_model_bs1": {
+    "median_ms": 29.92978412657976,
+    "p90_ms": 30.160543508827686
+   },
+   "level_model_bs16": {
+    "median_ms": 488.6340135708451,
+    "p90_ms": 492.19050724059343
+   },
+   "recurrent_head_run9": {
+    "median_ms": 2.4428749457001686,
+    "p90_ms": 2.466874197125435
+   }
+  },
+  "cpu_8thr": {
+   "level_model_bs1": {
+    "median_ms": 18.29805225133896,
+    "p90_ms": 18.340102024376392
+   },
+   "level_model_bs16": {
+    "median_ms": 276.5544541180134,
+    "p90_ms": 277.4345025420189
+   },
+   "recurrent_head_run9": {
+    "median_ms": 2.530725672841072,
+    "p90_ms": 2.5820810347795486
+   },
+   "detector_1024": {
+    "median_ms": 330.57831414043903,
+    "p90_ms": 334.3630772083998
+   }
+  }
+ },
+ "detector_info": "None"
+}

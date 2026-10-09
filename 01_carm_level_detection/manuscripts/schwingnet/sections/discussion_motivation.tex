@@ -1,0 +1,57 @@
+% Discussion, first part: the problem and the primary results, what the encoder learned, what the real-frame
+% transitional evidence here is (and that the powered comparison is a separate study), and relation to other
+% studies. Every comparator is a row of CLAIMS_LEDGER.md; no table or figure is cited in the Discussion; no claim of
+% priority (journal rule; REVIEW_RSNA.md Fix 6).
+% Revision 5 (2026-09-24, REVISION_LOG3.md section 8): paragraph 3 (LevelCheck's published accuracies, the frozen
+% comparator, the 152 persons) moved verbatim to paper2_levelcheck/MOVED_FROM_PAPER1.md item 6 and is replaced by
+% the plain statement of what the transitional evidence on real exposures rests on; paragraph 4's "comparison arm"
+% is named for what it is (a level model trained from ImageNet weights on the split's training persons).
+% Revision 2 (2026-09-24, REVISION_LOG2.md): only held-out numbers here (EVAL_LEAKS.md): the zero-shot v9 run
+% (96.4 %) and the count from the sacrum (97.0 %, no level encoder); no fine-tuned number is credited to the network
+% that never saw the device (DRIVE_CHECK D2; REVIEW2_RSNA Fix 3; REVIEW2_STATS N2), and the fine-tuned fold results
+% are PENDING G5, so none is quoted here (the journal: no results of incomplete investigations in the Discussion).
+% REVIEW2_RSNA S1 (paragraph 2), CUT1 (paragraph 3), A1d (paragraph 4, without its fine-tuned numbers).
+% Revision 3 (2026-09-24, collect-and-submit-1; REVISION_LOG3.md): two clause-level trims in paragraph 4 for room
+% ("the render arc pools span it"; "paired with its cone-beam CT" dropped); no number or claim changed.
+% Revision 4 (2026-09-24, REVISION_LOG3.md section 7): the diffpose2024 future-work clause at the end of paragraph 4
+% dropped (its slot and ten words went to the Introduction's thoracic sentence); zheng2018pda's number unchanged.
+% Film N-curve ablation (2026-09-26, REVISION_LOG3.md section 13; jobs 40451157 imagenet / 40451158 filmonly): the
+% clause "A level model trained from ImageNet weights saturated likewise in development (supplement)" is replaced by
+% the measured ablation, which IS that comparison done properly - the ImageNet arm on the same merged bank, plus a
+% film-only arm with every render row removed. Both directions are stated: renders help where film is scarce
+% (7 of 9 pre-stated cells separated on every seed) and one corpus ends 1.6 points the other way once every person is
+% used. All five numbers are \RESULT{} keys into results/coverage/film_ncurve/ablation/ablation_read.json; none typed.
+% Room came from the last sentence of Methods "Naming, counting and coupling", compressed to its supplement pointer.
+% Acquisition-space pass (2026-09-25 afternoon, REVISION_LOG3.md section 10): paragraph 4 now states what Figure 5b-d
+% show (the plateau from 24 frames is the same pooled or separated by view; frames of one view buy that view; on
+% renders accuracy sits where the training poses sit) and the reading "accuracy followed where the frames sat in
+% acquisition space, not how many there were"; the pooled fit's clause kept, its "held-out-angle effect" sentence
+% replaced by the one-view and per-angle evidence. No figure cited (journal rule).
+
+Levels are counted across partial exposures, and a transitional vertebra makes the count and an imported label
+disagree; \netname{} names a level from one C-arm exposure by the shapes of the bodies in view. Never trained on the intraoperative C-arm, it named 96.4\,\% of
+detected lateral vertebrae exactly, and counting from the detected sacrum was exact on 97.0\,\% of anchored
+bodies; the anteroposterior view did not survive the unseen device until fine-tuned on it (96.4\,\%); the lateral
+did not measurably change.
+
+The encoder set a sixth lumbar vertebra apart from the fifth as far as the rib boundary sets L1 apart from T12,
+and per unit area drew most on the target body, as local identity predicts. The evidence is thin: ten persons on a
+selection split, an order reversed in one render source, a contested L6 in three never-seen patients holding
+under one box convention only, and in two of four fused-L5 persons the name a count gives.
+
+On real exposures the transitional evidence here rests on three C-ArmLSpine patients whose sixth lumbar vertebra
+one labeller reads and the other does not, scored in cross-validation and agreeing with that read on one of five
+bodies; that is a description, not a test of transitional naming. The powered comparison with registration carrying
+a planning read, on verified at-risk persons against a comparator fixed before scoring, is a separate study. No
+accuracy here is a wrong-level surgery rate.
+
+Detection, not naming, lost most to the unseen device; same-device frames restored it by 24 frames to a plateau
+set by truth boxes cut at the edge of the field, not by the detector. Separating those frames by view neither raised
+nor moved the plateau; frames of one view bought that view alone. On renders the same held along the angle:
+detectors trained at two poses found bodies there and not between, and the same count spread over the arc held at
+every angle. Accuracy followed where the frames sat in acquisition space, not how
+many there were. Rendered CT made a few films enough: at five to twenty-five persons per corpus the render-pretrained
+encoder named ordinary levels \RESULT{abl_gap_min_pts} to \RESULT{abl_gap_max_pts} points above film alone, separated
+on every seed in \RESULT{abl_cells_separated} of \RESULT{abl_cells_total} cells; with every person the arms met, one
+corpus \RESULT{abl_worst_delta_abs_pts} points the other way (supplement). Styled renders stayed separable from real frames (supplement); paired domain adaptation
+\citep{zheng2018pda} is untried here.

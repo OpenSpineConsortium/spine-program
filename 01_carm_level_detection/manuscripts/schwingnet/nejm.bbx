@@ -1,0 +1,63 @@
+% nejm.bbx -- biblatex bibliography style after the cai4cai/RSNATemplate "nejm" style (Vancouver-like numeric
+% references: surname then initials, up to six authors then "et al", article title without quotes, journal
+% abbreviation, year;volume(issue):pages). Written as a working minimal equivalent of the template's file; the
+% original was not copied verbatim (see TEMPLATE_NOTES.md).
+\ProvidesFile{nejm.bbx}[2026/09/22 v0.1 NEJM/Vancouver-like numeric bibliography style]
+\RequireBibliographyStyle{numeric-comp}
+
+\ExecuteBibliographyOptions{
+  giveninits=true,
+  terseinits=true,
+  maxbibnames=6,
+  minbibnames=3,
+  isbn=false,
+  url=false,
+  doi=true,
+  eprint=false,
+  labelnumber=true,
+  abbreviate=true,
+  date=year
+}
+
+% surname then initials for every author; no comma between surname and initials
+\DeclareNameAlias{sortname}{family-given}
+\DeclareNameAlias{default}{family-given}
+\renewcommand*{\revsdnamepunct}{}
+\renewcommand*{\finalnamedelim}{\addcomma\space}
+\renewcommand*{\multinamedelim}{\addcomma\space}
+\renewbibmacro*{name:andothers}{%
+  \ifboolexpr{test {\ifnumequal{\value{listcount}}{\value{liststop}}} and test \ifmorenames}
+    {\ifnumgreater{\value{liststop}}{1}{\finalandcomma}{}\addspace et al}{}}
+
+% "1." labels without brackets; no "In:" before the journal
+\DeclareFieldFormat{labelnumberwidth}{#1}
+\renewbibmacro*{in:}{}
+
+% titles in plain type, no quotes, no italics for article titles
+\DeclareFieldFormat[article,inproceedings,incollection,misc,online,unpublished]{title}{#1\isdot}
+\DeclareFieldFormat{journaltitle}{#1\isdot}
+\DeclareFieldFormat[article]{volume}{#1}
+\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+\DeclareFieldFormat[article]{pages}{#1}
+\DeclareFieldFormat{doi}{doi:\space\href{https://doi.org/#1}{\nolinkurl{#1}}}
+
+% journal: year;volume(number):pages
+\renewbibmacro*{volume+number+eid}{%
+  \printfield{volume}%
+  \printfield{number}%
+  \setunit{\addcolon}%
+  \printfield{eid}}
+\renewbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addspace}%
+  \usebibmacro{date}%
+  \setunit*{\addsemicolon}%
+  \usebibmacro{volume+number+eid}%
+  \newunit}
+\renewbibmacro*{note+pages}{%
+  \setunit{\addcolon}%
+  \printfield{pages}%
+  \newunit}
+\renewbibmacro*{issue+date}{}
+
+\endinput

@@ -1,0 +1,6310 @@
+{
+ "arm": "dc_B_held_cios_fusion",
+ "set": "df_test",
+ "status": "DEVICE-HELD-OUT",
+ "conf": 0.25,
+ "convention": "body",
+ "iou": 0.5,
+ "n_boot": 2000,
+ "seed": 0,
+ "labels": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels",
+ "meta": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/meta",
+ "sources": [
+  {
+   "file": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_cios_fusion/eval_deepfluoro_test.json",
+   "frames": 104,
+   "weights": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_cios_fusion/weights/best.pt",
+   "sweep_conf": 0.25
+  }
+ ],
+ "truth_check": {
+  "frames": 104,
+  "no_label_file": 0,
+  "count_disagrees": 0,
+  "boxes_mismatched": 0,
+  "no_meta_level": 0
+ },
+ "definition": "ordinal from the detected sacrum by rank along the spine axis; truth ordinal likewise from the truth sacrum; one-to-one greedy IoU>=0.5 matching in descending confidence (realxray_eval.sweep_matches); correct = ordinals equal",
+ "pooled": {
+  "frames": 104,
+  "cases": 1,
+  "frames_no_truth_sacrum": 14,
+  "frames_with_truth_sacrum": 90,
+  "frames_defined": 90,
+  "truth_bodies_all_frames": 83,
+  "truth_bodies_sacrum_frames": 71,
+  "truth_bodies_defined": 71,
+  "matched_bodies": 67,
+  "defined_share": {
+   "point": 1.0,
+   "n_clusters": 1,
+   "num": 90,
+   "den": 90,
+   "percentile": null,
+   "bca": null,
+   "interval": "no interval: one cluster"
+  },
+  "anchor_correct_share": {
+   "point": 1.0,
+   "n_clusters": 1,
+   "num": 90,
+   "den": 90,
+   "percentile": null,
+   "bca": null,
+   "interval": "no interval: one cluster"
+  },
+  "matched_correct": {
+   "point": 0.8805970149253731,
+   "n_clusters": 1,
+   "num": 59,
+   "den": 67,
+   "percentile": null,
+   "bca": null,
+   "interval": "no interval: one cluster"
+  },
+  "matched_within_one": {
+   "point": 1.0,
+   "n_clusters": 1,
+   "num": 67,
+   "den": 67,
+   "percentile": null,
+   "bca": null,
+   "interval": "no interval: one cluster"
+  },
+  "frames_with_a_match": 59,
+  "frames_defined_with_bodies": 63,
+  "frame_all_matched_correct": {
+   "point": 0.864406779661017,
+   "n_clusters": 1,
+   "num": 51,
+   "den": 59,
+   "percentile": null,
+   "bca": null,
+   "interval": "no interval: one cluster"
+  },
+  "frame_exact": {
+   "point": 0.8095238095238095,
+   "n_clusters": 1,
+   "num": 51,
+   "den": 63,
+   "percentile": null,
+   "bca": null,
+   "interval": "no interval: one cluster"
+  },
+  "truth_correct_defined": {
+   "point": 0.8309859154929577,
+   "n_clusters": 1,
+   "num": 59,
+   "den": 71,
+   "percentile": null,
+   "bca": null,
+   "interval": "no interval: one cluster"
+  },
+  "truth_one_off_defined": {
+   "point": 0.11267605633802817,
+   "n_clusters": 1,
+   "num": 8,
+   "den": 71,
+   "percentile": null,
+   "bca": null,
+   "interval": "no interval: one cluster"
+  },
+  "truth_off_more_defined": {
+   "point": 0.0,
+   "n_clusters": 1,
+   "num": 0,
+   "den": 71,
+   "percentile": null,
+   "bca": null,
+   "interval": "no interval: one cluster"
+  },
+  "truth_missed_defined": {
+   "point": 0.056338028169014086,
+   "n_clusters": 1,
+   "num": 4,
+   "den": 71,
+   "percentile": null,
+   "bca": null,
+   "interval": "no interval: one cluster"
+  },
+  "truth_recall_defined": {
+   "point": 0.9436619718309859,
+   "n_clusters": 1,
+   "num": 67,
+   "den": 71,
+   "percentile": null,
+   "bca": null,
+   "interval": "no interval: one cluster"
+  },
+  "truth_correct_all_sacrum_frames": {
+   "point": 0.8309859154929577,
+   "n_clusters": 1,
+   "num": 59,
+   "den": 71,
+   "percentile": null,
+   "bca": null,
+   "interval": "no interval: one cluster"
+  },
+  "truth_within_one_all_sacrum_frames": {
+   "point": 0.9436619718309859,
+   "n_clusters": 1,
+   "num": 67,
+   "den": 71,
+   "percentile": null,
+   "bca": null,
+   "interval": "no interval: one cluster"
+  },
+  "by_truth_ordinal": {
+   "1": {
+    "n": 63,
+    "correct": 51,
+    "one_off": 8,
+    "off_more": 0,
+    "unranked": 0,
+    "missed": 4,
+    "correct_share": 0.8095238095238095
+   },
+   "2": {
+    "n": 8,
+    "correct": 8,
+    "one_off": 0,
+    "off_more": 0,
+    "unranked": 0,
+    "missed": 0,
+    "correct_share": 1.0
+   }
+  },
+  "by_view": {
+   "0-30": {
+    "frames": 81,
+    "matched": 64,
+    "correct": 57,
+    "truth": 68,
+    "missed": 4,
+    "matched_correct": 0.890625,
+    "truth_correct": 0.8382352941176471
+   },
+   "30-60": {
+    "frames": 9,
+    "matched": 3,
+    "correct": 2,
+    "truth": 3,
+    "missed": 0,
+    "matched_correct": 0.6666666666666666,
+    "truth_correct": 0.6666666666666666
+   }
+  },
+  "truth_order_name_check": {
+   "named_bodies": 71,
+   "agree": 71,
+   "share": 1.0,
+   "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+  },
+  "truth_caudal_bodies": 0,
+  "det_caudal_ignored": 0,
+  "det_unmatched_in_defined_frames": 38
+ },
+ "frames": [
+  {
+   "stem": "18-1109_000",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 2,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      307.3,
+      21.5,
+      384.0,
+      102.8
+     ],
+     "proj": 164.8
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      280.4,
+      71.3,
+      384.0,
+      162.9
+     ],
+     "proj": 108.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 2,
+    "agree": 2
+   },
+   "defined": true,
+   "anchor_conf": 0.7643,
+   "anchor_box": [
+    233.1,
+    125.4,
+    384.0,
+    332.0
+   ],
+   "anchor_iou": 0.883,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8413,
+     "box": [
+      290.3,
+      65.9,
+      384.0,
+      151.1
+     ],
+     "proj": 123.5,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.748
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.6939,
+     "box": [
+      303.6,
+      16.4,
+      383.9,
+      105.9
+     ],
+     "proj": 171.2,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.866
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct",
+    "correct"
+   ],
+   "n_matched": 2,
+   "n_correct": 2,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_000.txt"
+  },
+  {
+   "stem": "18-1109_001",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 2,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      308.0,
+      21.5,
+      384.0,
+      103.1
+     ],
+     "proj": 164.9
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      281.0,
+      71.4,
+      384.0,
+      163.3
+     ],
+     "proj": 108.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 2,
+    "agree": 2
+   },
+   "defined": true,
+   "anchor_conf": 0.7687,
+   "anchor_box": [
+    232.9,
+    125.2,
+    384.0,
+    330.5
+   ],
+   "anchor_iou": 0.885,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8478,
+     "box": [
+      290.1,
+      66.6,
+      384.0,
+      150.7
+     ],
+     "proj": 122.6,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.751
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.7029,
+     "box": [
+      303.5,
+      16.7,
+      383.9,
+      105.4
+     ],
+     "proj": 170.5,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.868
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct",
+    "correct"
+   ],
+   "n_matched": 2,
+   "n_correct": 2,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_001.txt"
+  },
+  {
+   "stem": "18-1109_002",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      280.1,
+      0.0,
+      384.0,
+      88.4
+     ],
+     "proj": 99.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7949,
+   "anchor_box": [
+    232.5,
+    46.9,
+    384.0,
+    257.6
+   ],
+   "anchor_iou": 0.837,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8192,
+     "box": [
+      291.0,
+      0.2,
+      384.0,
+      71.7
+     ],
+     "proj": 119.9,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.725
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_002.txt"
+  },
+  {
+   "stem": "18-1109_003",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      231.2,
+      -0.0,
+      368.7,
+      80.1
+     ],
+     "proj": 93.1
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8013,
+   "anchor_box": [
+    191.6,
+    36.8,
+    378.0,
+    235.9
+   ],
+   "anchor_iou": 0.881,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7876,
+     "box": [
+      243.2,
+      0.0,
+      358.4,
+      62.0
+     ],
+     "proj": 106.6,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.648
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_003.txt"
+  },
+  {
+   "stem": "18-1109_004",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      246.7,
+      0.0,
+      384.0,
+      74.1
+     ],
+     "proj": 90.1
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8042,
+   "anchor_box": [
+    206.0,
+    33.0,
+    384.0,
+    239.9
+   ],
+   "anchor_iou": 0.873,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7826,
+     "box": [
+      260.1,
+      0.0,
+      374.4,
+      57.2
+     ],
+     "proj": 110.1,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.643
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_004.txt"
+  },
+  {
+   "stem": "18-1109_005",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      232.0,
+      0.0,
+      369.7,
+      74.8
+     ],
+     "proj": 90.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8022,
+   "anchor_box": [
+    191.4,
+    32.6,
+    379.6,
+    233.5
+   ],
+   "anchor_iou": 0.882,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7919,
+     "box": [
+      245.6,
+      0.0,
+      357.6,
+      55.6
+     ],
+     "proj": 106.5,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.605
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_005.txt"
+  },
+  {
+   "stem": "18-1109_006",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      231.8,
+      0.0,
+      369.3,
+      76.2
+     ],
+     "proj": 90.5
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8062,
+   "anchor_box": [
+    192.8,
+    35.3,
+    380.5,
+    235.7
+   ],
+   "anchor_iou": 0.881,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8309,
+     "box": [
+      248.6,
+      0.0,
+      357.4,
+      56.3
+     ],
+     "proj": 108.6,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.585
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_006.txt"
+  },
+  {
+   "stem": "18-1109_007",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      233.2,
+      -0.0,
+      370.7,
+      70.8
+     ],
+     "proj": 87.5
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7603,
+   "anchor_box": [
+    194.1,
+    26.4,
+    379.8,
+    224.8
+   ],
+   "anchor_iou": 0.884,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.4796,
+     "box": [
+      243.9,
+      0.0,
+      360.0,
+      53.6
+     ],
+     "proj": 99.9,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.639
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.2521,
+     "box": [
+      234.3,
+      14.0,
+      361.9,
+      91.3
+     ],
+     "proj": 73.8
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [
+    "one_off"
+   ],
+   "n_matched": 1,
+   "n_correct": 0,
+   "n_one_off": 1,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_007.txt"
+  },
+  {
+   "stem": "18-1109_008",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 3,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      234.6,
+      -0.0,
+      372.5,
+      91.5
+     ],
+     "proj": 100.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7883,
+   "anchor_box": [
+    197.4,
+    49.1,
+    382.7,
+    246.6
+   ],
+   "anchor_iou": 0.906,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8102,
+     "box": [
+      247.9,
+      0.9,
+      363.9,
+      74.2
+     ],
+     "proj": 111.4,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.674
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.3395,
+     "box": [
+      253.8,
+      0.0,
+      359.4,
+      31.7
+     ],
+     "proj": 133.0
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.2852,
+     "box": [
+      254.5,
+      0.0,
+      357.4,
+      21.4
+     ],
+     "proj": 138.1
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 2,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_008.txt"
+  },
+  {
+   "stem": "18-1109_009",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7303,
+   "anchor_box": [
+    223.5,
+    0.0,
+    382.8,
+    178.8
+   ],
+   "anchor_iou": 0.889,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.3043,
+     "box": [
+      243.6,
+      0.2,
+      377.7,
+      43.8
+     ],
+     "proj": 67.8
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_009.txt"
+  },
+  {
+   "stem": "18-1109_010",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 2,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      314.1,
+      5.9,
+      384.0,
+      88.7
+     ],
+     "proj": 163.4
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      288.2,
+      55.8,
+      384.0,
+      148.5
+     ],
+     "proj": 107.1
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 2,
+    "agree": 2
+   },
+   "defined": true,
+   "anchor_conf": 0.7172,
+   "anchor_box": [
+    244.4,
+    108.3,
+    384.0,
+    312.7
+   ],
+   "anchor_iou": 0.896,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8079,
+     "box": [
+      298.3,
+      54.8,
+      383.9,
+      137.6
+     ],
+     "proj": 117.4,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.781
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.7457,
+     "box": [
+      312.9,
+      8.2,
+      383.9,
+      89.5
+     ],
+     "proj": 165.2,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.945
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct",
+    "correct"
+   ],
+   "n_matched": 2,
+   "n_correct": 2,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_010.txt"
+  },
+  {
+   "stem": "18-1109_011",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 0,
+   "n_truth_bodies": 2,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "defined": false,
+   "why": "no truth sacrum in the frame",
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_011.txt"
+  },
+  {
+   "stem": "18-1109_012",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 0,
+   "n_truth_bodies": 2,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "defined": false,
+   "why": "no truth sacrum in the frame",
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_012.txt"
+  },
+  {
+   "stem": "18-1109_013",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 0,
+   "n_truth_bodies": 2,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "defined": false,
+   "why": "no truth sacrum in the frame",
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_013.txt"
+  },
+  {
+   "stem": "18-1109_014",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 0,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "defined": false,
+   "why": "no truth sacrum in the frame",
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_014.txt"
+  },
+  {
+   "stem": "18-1109_015",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 0,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 3,
+   "defined": false,
+   "why": "no truth sacrum in the frame",
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_015.txt"
+  },
+  {
+   "stem": "18-1109_016",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 0,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "defined": false,
+   "why": "no truth sacrum in the frame",
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_016.txt"
+  },
+  {
+   "stem": "18-1109_017",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 0,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "defined": false,
+   "why": "no truth sacrum in the frame",
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_017.txt"
+  },
+  {
+   "stem": "18-1109_018",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 0,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "defined": false,
+   "why": "no truth sacrum in the frame",
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_018.txt"
+  },
+  {
+   "stem": "18-1109_019",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7666,
+   "anchor_box": [
+    223.4,
+    0.0,
+    382.9,
+    174.5
+   ],
+   "anchor_iou": 0.907,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.307,
+     "box": [
+      242.8,
+      0.2,
+      375.9,
+      43.8
+     ],
+     "proj": 65.5
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_019.txt"
+  },
+  {
+   "stem": "18-1109_020",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 0,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "defined": false,
+   "why": "no truth sacrum in the frame",
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_020.txt"
+  },
+  {
+   "stem": "18-1109_021",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 0,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "defined": false,
+   "why": "no truth sacrum in the frame",
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_021.txt"
+  },
+  {
+   "stem": "18-1109_022",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 0,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "defined": false,
+   "why": "no truth sacrum in the frame",
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_022.txt"
+  },
+  {
+   "stem": "18-1109_023",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 0,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "defined": false,
+   "why": "no truth sacrum in the frame",
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_023.txt"
+  },
+  {
+   "stem": "18-1109_024",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      0.0,
+      109.4,
+      72.7
+     ],
+     "proj": 90.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8213,
+   "anchor_box": [
+    0.0,
+    22.2,
+    159.0,
+    210.8
+   ],
+   "anchor_iou": 0.831,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7276,
+     "box": [
+      0.2,
+      0.1,
+      111.6,
+      48.9
+     ],
+     "proj": 95.0,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.662
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_024.txt"
+  },
+  {
+   "stem": "18-1109_025",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 2,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 3,
+   "truth": [
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      1.7,
+      -0.0,
+      97.6,
+      42.0
+     ],
+     "proj": 137.0
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      6.7,
+      112.4,
+      100.6
+     ],
+     "proj": 103.7
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 2,
+    "agree": 2
+   },
+   "defined": true,
+   "anchor_conf": 0.8084,
+   "anchor_box": [
+    0.0,
+    57.2,
+    157.7,
+    239.2
+   ],
+   "anchor_iou": 0.855,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8006,
+     "box": [
+      0.0,
+      9.2,
+      111.3,
+      84.5
+     ],
+     "proj": 103.9,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.795
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.6629,
+     "box": [
+      0.0,
+      0.0,
+      104.0,
+      49.4
+     ],
+     "proj": 126.4,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.784
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.363,
+     "box": [
+      0.1,
+      0.0,
+      105.4,
+      28.6
+     ],
+     "proj": 136.4
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [
+    "correct",
+    "correct"
+   ],
+   "n_matched": 2,
+   "n_correct": 2,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_025.txt"
+  },
+  {
+   "stem": "18-1109_026",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 2,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      4.8,
+      -0.0,
+      100.5,
+      48.0
+     ],
+     "proj": 140.7
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      13.2,
+      115.1,
+      106.8
+     ],
+     "proj": 104.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 2,
+    "agree": 2
+   },
+   "defined": true,
+   "anchor_conf": 0.8105,
+   "anchor_box": [
+    0.0,
+    63.1,
+    159.3,
+    246.7
+   ],
+   "anchor_iou": 0.857,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7711,
+     "box": [
+      0.0,
+      15.2,
+      114.5,
+      95.2
+     ],
+     "proj": 102.2,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.85
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.7083,
+     "box": [
+      0.0,
+      0.1,
+      105.5,
+      55.3
+     ],
+     "proj": 130.0,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.785
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct",
+    "correct"
+   ],
+   "n_matched": 2,
+   "n_correct": 2,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_026.txt"
+  },
+  {
+   "stem": "18-1109_027",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      -0.0,
+      112.3,
+      66.8
+     ],
+     "proj": 86.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7892,
+   "anchor_box": [
+    0.0,
+    13.8,
+    161.9,
+    216.6
+   ],
+   "anchor_iou": 0.825,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.5793,
+     "box": [
+      0.0,
+      0.0,
+      110.3,
+      38.2
+     ],
+     "proj": 99.5,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.562
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_027.txt"
+  },
+  {
+   "stem": "18-1109_028",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 0,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7199,
+   "anchor_box": [
+    0.0,
+    0.7,
+    156.3,
+    188.1
+   ],
+   "anchor_iou": 0.866,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_028.txt"
+  },
+  {
+   "stem": "18-1109_029",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 0,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7588,
+   "anchor_box": [
+    221.3,
+    0.0,
+    382.9,
+    182.6
+   ],
+   "anchor_iou": 0.867,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_029.txt"
+  },
+  {
+   "stem": "18-1109_030",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 0,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "defined": false,
+   "why": "no truth sacrum in the frame",
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_030.txt"
+  },
+  {
+   "stem": "18-1109_031",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 0,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "defined": false,
+   "why": "no truth sacrum in the frame",
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_031.txt"
+  },
+  {
+   "stem": "18-1109_032",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.758,
+   "anchor_box": [
+    226.7,
+    0.0,
+    382.5,
+    181.3
+   ],
+   "anchor_iou": 0.855,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.3065,
+     "box": [
+      241.5,
+      0.0,
+      379.3,
+      34.3
+     ],
+     "proj": 73.7
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_032.txt"
+  },
+  {
+   "stem": "18-1109_033",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7529,
+   "anchor_box": [
+    226.3,
+    0.0,
+    383.0,
+    182.3
+   ],
+   "anchor_iou": 0.85,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.333,
+     "box": [
+      242.3,
+      0.0,
+      380.9,
+      33.9
+     ],
+     "proj": 74.5
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_033.txt"
+  },
+  {
+   "stem": "18-1109_034",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 2,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      302.8,
+      22.7,
+      384.0,
+      103.2
+     ],
+     "proj": 163.5
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      276.2,
+      72.2,
+      384.0,
+      162.9
+     ],
+     "proj": 107.4
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 2,
+    "agree": 2
+   },
+   "defined": true,
+   "anchor_conf": 0.7762,
+   "anchor_box": [
+    229.2,
+    124.2,
+    384.0,
+    336.5
+   ],
+   "anchor_iou": 0.851,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.815,
+     "box": [
+      284.6,
+      65.8,
+      384.0,
+      152.4
+     ],
+     "proj": 124.3,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.765
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.6437,
+     "box": [
+      296.5,
+      15.4,
+      384.0,
+      106.2
+     ],
+     "proj": 172.9,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.823
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct",
+    "correct"
+   ],
+   "n_matched": 2,
+   "n_correct": 2,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_034.txt"
+  },
+  {
+   "stem": "18-1109_035",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 2,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      303.1,
+      21.7,
+      384.0,
+      103.2
+     ],
+     "proj": 164.2
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      276.3,
+      71.6,
+      384.0,
+      163.1
+     ],
+     "proj": 107.8
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 2,
+    "agree": 2
+   },
+   "defined": true,
+   "anchor_conf": 0.7828,
+   "anchor_box": [
+    229.2,
+    125.0,
+    384.0,
+    334.2
+   ],
+   "anchor_iou": 0.871,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7996,
+     "box": [
+      284.3,
+      65.7,
+      384.0,
+      152.9
+     ],
+     "proj": 123.4,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.776
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.7133,
+     "box": [
+      295.8,
+      15.7,
+      384.0,
+      106.0
+     ],
+     "proj": 172.0,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.828
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct",
+    "correct"
+   ],
+   "n_matched": 2,
+   "n_correct": 2,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_035.txt"
+  },
+  {
+   "stem": "18-1109_036",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      26.7,
+      -0.0,
+      151.6,
+      74.7
+     ],
+     "proj": 85.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7891,
+   "anchor_box": [
+    4.6,
+    32.3,
+    193.0,
+    217.2
+   ],
+   "anchor_iou": 0.861,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7934,
+     "box": [
+      41.5,
+      0.1,
+      153.2,
+      59.7
+     ],
+     "proj": 94.9,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.696
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_036.txt"
+  },
+  {
+   "stem": "18-1109_037",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      -0.0,
+      122.1,
+      73.9
+     ],
+     "proj": 86.8
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.784,
+   "anchor_box": [
+    0.6,
+    33.6,
+    164.3,
+    209.8
+   ],
+   "anchor_iou": 0.907,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7863,
+     "box": [
+      15.9,
+      0.0,
+      120.7,
+      61.5
+     ],
+     "proj": 92.0,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.715
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_037.txt"
+  },
+  {
+   "stem": "18-1109_038",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      0.0,
+      91.5,
+      75.6
+     ],
+     "proj": 87.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7927,
+   "anchor_box": [
+    0.3,
+    36.7,
+    135.0,
+    202.1
+   ],
+   "anchor_iou": 0.906,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8272,
+     "box": [
+      0.2,
+      0.0,
+      93.6,
+      63.2
+     ],
+     "proj": 90.2,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.818
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_038.txt"
+  },
+  {
+   "stem": "18-1109_039",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      27.0,
+      0.0,
+      149.0,
+      70.4
+     ],
+     "proj": 84.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8016,
+   "anchor_box": [
+    5.8,
+    29.9,
+    182.5,
+    209.9
+   ],
+   "anchor_iou": 0.913,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7581,
+     "box": [
+      39.3,
+      0.0,
+      148.4,
+      53.4
+     ],
+     "proj": 93.2,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.678
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_039.txt"
+  },
+  {
+   "stem": "18-1109_040",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      0.0,
+      124.1,
+      72.6
+     ],
+     "proj": 86.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8013,
+   "anchor_box": [
+    1.0,
+    32.7,
+    165.4,
+    208.3
+   ],
+   "anchor_iou": 0.913,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8248,
+     "box": [
+      17.0,
+      0.0,
+      122.7,
+      60.5
+     ],
+     "proj": 91.2,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.71
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_040.txt"
+  },
+  {
+   "stem": "18-1109_041",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      -0.0,
+      0.0,
+      109.3,
+      74.0
+     ],
+     "proj": 86.8
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7724,
+   "anchor_box": [
+    0.4,
+    31.8,
+    154.5,
+    206.9
+   ],
+   "anchor_iou": 0.89,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7788,
+     "box": [
+      1.1,
+      0.1,
+      113.6,
+      61.3
+     ],
+     "proj": 90.9,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.793
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_041.txt"
+  },
+  {
+   "stem": "18-1109_042",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      -0.0,
+      93.3,
+      74.9
+     ],
+     "proj": 86.9
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8072,
+   "anchor_box": [
+    0.2,
+    36.5,
+    139.1,
+    203.0
+   ],
+   "anchor_iou": 0.9,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8468,
+     "box": [
+      0.0,
+      0.0,
+      91.8,
+      63.5
+     ],
+     "proj": 91.1,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.834
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_042.txt"
+  },
+  {
+   "stem": "18-1109_043",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      -0.0,
+      0.0,
+      75.8,
+      76.3
+     ],
+     "proj": 87.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.755,
+   "anchor_box": [
+    0.0,
+    38.2,
+    122.5,
+    204.7
+   ],
+   "anchor_iou": 0.909,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7857,
+     "box": [
+      0.0,
+      0.1,
+      72.5,
+      68.3
+     ],
+     "proj": 90.8,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.856
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_043.txt"
+  },
+  {
+   "stem": "18-1109_044",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.6807,
+   "anchor_box": [
+    0.1,
+    37.4,
+    108.1,
+    203.3
+   ],
+   "anchor_iou": 0.874,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.5762,
+     "box": [
+      0.0,
+      0.0,
+      52.3,
+      64.5
+     ],
+     "proj": 92.4
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_044.txt"
+  },
+  {
+   "stem": "18-1109_045",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.5268,
+   "anchor_box": [
+    0.1,
+    37.0,
+    91.3,
+    194.2
+   ],
+   "anchor_iou": 0.81,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.5788,
+     "box": [
+      0.0,
+      0.3,
+      33.9,
+      64.4
+     ],
+     "proj": 88.1
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "30-60",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_045.txt"
+  },
+  {
+   "stem": "18-1109_046",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 0,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      0.0,
+      121.5,
+      43.6
+     ],
+     "proj": 96.5
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8191,
+   "anchor_box": [
+    0.0,
+    0.0,
+    162.2,
+    192.8
+   ],
+   "anchor_iou": 0.782,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 1,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_046.txt"
+  },
+  {
+   "stem": "18-1109_047",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      0.0,
+      84.2,
+      47.9
+     ],
+     "proj": 96.9
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7516,
+   "anchor_box": [
+    0.0,
+    15.8,
+    126.3,
+    199.6
+   ],
+   "anchor_iou": 0.846,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.3612,
+     "box": [
+      0.1,
+      0.0,
+      88.4,
+      53.1
+     ],
+     "proj": 83.3,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.858
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_047.txt"
+  },
+  {
+   "stem": "18-1109_048",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 0,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      -0.0,
+      0.0,
+      99.1,
+      45.9
+     ],
+     "proj": 96.4
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8029,
+   "anchor_box": [
+    0.2,
+    14.3,
+    140.4,
+    190.8
+   ],
+   "anchor_iou": 0.814,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 1,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_048.txt"
+  },
+  {
+   "stem": "18-1109_049",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      0.0,
+      123.8,
+      72.9
+     ],
+     "proj": 86.4
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7964,
+   "anchor_box": [
+    0.8,
+    33.3,
+    165.0,
+    209.4
+   ],
+   "anchor_iou": 0.911,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.82,
+     "box": [
+      17.0,
+      0.0,
+      121.9,
+      61.1
+     ],
+     "proj": 91.8,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.71
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_049.txt"
+  },
+  {
+   "stem": "18-1109_050",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 0,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      -0.0,
+      0.0,
+      111.6,
+      44.9
+     ],
+     "proj": 96.7
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.833,
+   "anchor_box": [
+    0.0,
+    7.4,
+    150.7,
+    192.4
+   ],
+   "anchor_iou": 0.808,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 1,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_050.txt"
+  },
+  {
+   "stem": "18-1109_051",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 0,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      0.0,
+      123.6,
+      42.9
+     ],
+     "proj": 96.2
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.786,
+   "anchor_box": [
+    0.8,
+    0.0,
+    165.4,
+    187.5
+   ],
+   "anchor_iou": 0.755,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "missed"
+   ],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 1,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_051.txt"
+  },
+  {
+   "stem": "18-1109_052",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 0,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.8086,
+   "anchor_box": [
+    0.3,
+    0.4,
+    169.3,
+    210.2
+   ],
+   "anchor_iou": 0.89,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_052.txt"
+  },
+  {
+   "stem": "18-1109_053",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.8036,
+   "anchor_box": [
+    0.9,
+    3.8,
+    175.6,
+    202.9
+   ],
+   "anchor_iou": 0.887,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.3868,
+     "box": [
+      19.5,
+      0.0,
+      141.7,
+      47.0
+     ],
+     "proj": 80.2
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.2839,
+     "box": [
+      21.0,
+      0.0,
+      147.3,
+      31.9
+     ],
+     "proj": 87.5
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 2,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_053.txt"
+  },
+  {
+   "stem": "18-1109_054",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.8016,
+   "anchor_box": [
+    5.3,
+    5.0,
+    185.7,
+    212.7
+   ],
+   "anchor_iou": 0.89,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.5948,
+     "box": [
+      32.7,
+      0.0,
+      150.0,
+      44.6
+     ],
+     "proj": 86.6
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.5778,
+     "box": [
+      33.9,
+      0.0,
+      149.8,
+      27.0
+     ],
+     "proj": 95.4
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 2,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_054.txt"
+  },
+  {
+   "stem": "18-1109_055",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7762,
+   "anchor_box": [
+    3.1,
+    5.2,
+    190.2,
+    215.9
+   ],
+   "anchor_iou": 0.924,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7369,
+     "box": [
+      33.1,
+      0.1,
+      161.2,
+      41.4
+     ],
+     "proj": 89.8
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_055.txt"
+  },
+  {
+   "stem": "18-1109_056",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 2,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 2,
+     "level": "L4",
+     "box": [
+      83.7,
+      0.0,
+      173.4,
+      58.5
+     ],
+     "proj": 136.7
+    },
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      62.0,
+      25.7,
+      186.6,
+      113.8
+     ],
+     "proj": 96.1
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 2,
+    "agree": 2
+   },
+   "defined": true,
+   "anchor_conf": 0.7951,
+   "anchor_box": [
+    20.4,
+    72.8,
+    226.1,
+    264.8
+   ],
+   "anchor_iou": 0.874,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7796,
+     "box": [
+      64.8,
+      20.4,
+      189.6,
+      105.2
+     ],
+     "proj": 106.1,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.815
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.5976,
+     "box": [
+      83.2,
+      0.0,
+      176.1,
+      62.9
+     ],
+     "proj": 137.5,
+     "truth_ordinal": 2,
+     "truth_level": "L4",
+     "iou": 0.899
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct",
+    "correct"
+   ],
+   "n_matched": 2,
+   "n_correct": 2,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_056.txt"
+  },
+  {
+   "stem": "18-1109_057",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      62.2,
+      0.0,
+      186.7,
+      53.0
+     ],
+     "proj": 72.5
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7805,
+   "anchor_box": [
+    19.6,
+    3.0,
+    227.7,
+    194.2
+   ],
+   "anchor_iou": 0.84,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.2713,
+     "box": [
+      56.1,
+      0.0,
+      188.2,
+      33.7
+     ],
+     "proj": 81.8,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.612
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_057.txt"
+  },
+  {
+   "stem": "18-1109_058",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      0.0,
+      92.6,
+      75.3
+     ],
+     "proj": 87.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8041,
+   "anchor_box": [
+    0.0,
+    36.8,
+    134.7,
+    200.5
+   ],
+   "anchor_iou": 0.911,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8408,
+     "box": [
+      0.3,
+      0.0,
+      94.8,
+      62.1
+     ],
+     "proj": 89.8,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.807
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_058.txt"
+  },
+  {
+   "stem": "18-1109_059",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      45.3,
+      0.0,
+      170.0,
+      75.6
+     ],
+     "proj": 85.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7921,
+   "anchor_box": [
+    9.7,
+    31.7,
+    213.2,
+    222.7
+   ],
+   "anchor_iou": 0.839,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7918,
+     "box": [
+      52.1,
+      0.0,
+      171.5,
+      60.5
+     ],
+     "proj": 97.0,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.749
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_059.txt"
+  },
+  {
+   "stem": "18-1109_060",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 3,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7922,
+   "anchor_box": [
+    0.7,
+    46.0,
+    110.8,
+    200.5
+   ],
+   "anchor_iou": 0.891,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.7236,
+     "box": [
+      0.0,
+      0.3,
+      49.0,
+      70.5
+     ],
+     "proj": 93.2
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.7091,
+     "box": [
+      0.0,
+      31.5,
+      67.6,
+      101.0
+     ],
+     "proj": 61.1
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.2667,
+     "box": [
+      0.0,
+      0.1,
+      44.3,
+      53.1
+     ],
+     "proj": 102.3
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 3,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "30-60",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_060.txt"
+  },
+  {
+   "stem": "18-1109_061",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      -0.0,
+      -0.0,
+      77.8,
+      81.3
+     ],
+     "proj": 89.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8073,
+   "anchor_box": [
+    0.0,
+    46.2,
+    127.2,
+    201.3
+   ],
+   "anchor_iou": 0.924,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.7923,
+     "box": [
+      0.1,
+      0.0,
+      70.7,
+      72.2
+     ],
+     "proj": 92.1,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.806
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.6408,
+     "box": [
+      0.1,
+      31.2,
+      87.3,
+      98.9
+     ],
+     "proj": 62.0
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [
+    "one_off"
+   ],
+   "n_matched": 1,
+   "n_correct": 0,
+   "n_one_off": 1,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "30-60",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_061.txt"
+  },
+  {
+   "stem": "18-1109_062",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 3,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      -0.0,
+      97.8,
+      79.5
+     ],
+     "proj": 88.4
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8027,
+   "anchor_box": [
+    0.3,
+    43.7,
+    143.5,
+    192.8
+   ],
+   "anchor_iou": 0.885,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.7565,
+     "box": [
+      0.3,
+      0.1,
+      96.4,
+      73.6
+     ],
+     "proj": 84.7,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.908
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.3956,
+     "box": [
+      0.3,
+      0.0,
+      90.6,
+      32.2
+     ],
+     "proj": 105.5
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.3165,
+     "box": [
+      11.2,
+      23.8,
+      102.1,
+      93.4
+     ],
+     "proj": 61.6
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 2,
+   "per_truth": [
+    "one_off"
+   ],
+   "n_matched": 1,
+   "n_correct": 0,
+   "n_one_off": 1,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_062.txt"
+  },
+  {
+   "stem": "18-1109_063",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      0.0,
+      0.0,
+      117.0,
+      80.0
+     ],
+     "proj": 88.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7926,
+   "anchor_box": [
+    0.4,
+    42.3,
+    162.1,
+    205.2
+   ],
+   "anchor_iou": 0.939,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7654,
+     "box": [
+      14.5,
+      0.0,
+      114.1,
+      68.8
+     ],
+     "proj": 90.9,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.732
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_063.txt"
+  },
+  {
+   "stem": "18-1109_064",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      10.8,
+      0.0,
+      135.1,
+      78.4
+     ],
+     "proj": 86.9
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8128,
+   "anchor_box": [
+    5.6,
+    40.5,
+    176.8,
+    209.8
+   ],
+   "anchor_iou": 0.921,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8118,
+     "box": [
+      26.3,
+      0.0,
+      129.2,
+      65.1
+     ],
+     "proj": 93.6,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.687
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_064.txt"
+  },
+  {
+   "stem": "18-1109_065",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      29.0,
+      0.0,
+      153.8,
+      77.4
+     ],
+     "proj": 85.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7726,
+   "anchor_box": [
+    4.8,
+    37.5,
+    196.7,
+    222.1
+   ],
+   "anchor_iou": 0.848,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7929,
+     "box": [
+      40.5,
+      0.0,
+      151.3,
+      64.2
+     ],
+     "proj": 97.8,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.736
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_065.txt"
+  },
+  {
+   "stem": "18-1109_066",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      44.6,
+      0.0,
+      169.3,
+      75.8
+     ],
+     "proj": 85.4
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.788,
+   "anchor_box": [
+    8.6,
+    30.6,
+    211.3,
+    220.3
+   ],
+   "anchor_iou": 0.85,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7891,
+     "box": [
+      52.2,
+      0.0,
+      172.1,
+      65.2
+     ],
+     "proj": 92.9,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.793
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_066.txt"
+  },
+  {
+   "stem": "18-1109_067",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      59.4,
+      -0.0,
+      184.1,
+      73.7
+     ],
+     "proj": 85.1
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8035,
+   "anchor_box": [
+    21.5,
+    27.2,
+    224.7,
+    213.5
+   ],
+   "anchor_iou": 0.876,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7887,
+     "box": [
+      61.4,
+      0.0,
+      185.9,
+      58.1
+     ],
+     "proj": 91.3,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.767
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_067.txt"
+  },
+  {
+   "stem": "18-1109_068",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      27.5,
+      0.0,
+      149.3,
+      70.2
+     ],
+     "proj": 84.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7915,
+   "anchor_box": [
+    5.2,
+    27.2,
+    185.8,
+    219.3
+   ],
+   "anchor_iou": 0.846,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7776,
+     "box": [
+      39.4,
+      0.0,
+      149.6,
+      53.6
+     ],
+     "proj": 96.5,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.688
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_068.txt"
+  },
+  {
+   "stem": "18-1109_069",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      51.5,
+      0.0,
+      169.8,
+      67.9
+     ],
+     "proj": 84.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.813,
+   "anchor_box": [
+    2.1,
+    23.8,
+    197.8,
+    213.5
+   ],
+   "anchor_iou": 0.913,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.7916,
+     "box": [
+      57.2,
+      0.0,
+      173.0,
+      54.7
+     ],
+     "proj": 92.5,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.75
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.5949,
+     "box": [
+      39.6,
+      8.1,
+      173.7,
+      87.1
+     ],
+     "proj": 71.3
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [
+    "one_off"
+   ],
+   "n_matched": 1,
+   "n_correct": 0,
+   "n_one_off": 1,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_069.txt"
+  },
+  {
+   "stem": "18-1109_070",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      40.5,
+      -0.0,
+      160.2,
+      68.6
+     ],
+     "proj": 84.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.787,
+   "anchor_box": [
+    1.0,
+    25.5,
+    199.5,
+    232.9
+   ],
+   "anchor_iou": 0.796,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7949,
+     "box": [
+      50.3,
+      0.0,
+      159.1,
+      57.0
+     ],
+     "proj": 100.8,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.755
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_070.txt"
+  },
+  {
+   "stem": "18-1109_071",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      28.5,
+      0.0,
+      150.3,
+      70.2
+     ],
+     "proj": 84.2
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7972,
+   "anchor_box": [
+    4.0,
+    26.4,
+    187.4,
+    221.4
+   ],
+   "anchor_iou": 0.838,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.7438,
+     "box": [
+      39.4,
+      0.0,
+      149.8,
+      54.2
+     ],
+     "proj": 96.8,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.7
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_071.txt"
+  },
+  {
+   "stem": "18-1109_072",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      15.3,
+      -0.0,
+      139.0,
+      71.5
+     ],
+     "proj": 84.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.79,
+   "anchor_box": [
+    4.8,
+    27.7,
+    178.2,
+    223.6
+   ],
+   "anchor_iou": 0.812,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8018,
+     "box": [
+      26.6,
+      0.1,
+      138.9,
+      57.6
+     ],
+     "proj": 97.2,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.73
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_072.txt"
+  },
+  {
+   "stem": "18-1109_073",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 0,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.8055,
+   "anchor_box": [
+    189.4,
+    4.2,
+    378.4,
+    195.1
+   ],
+   "anchor_iou": 0.911,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_073.txt"
+  },
+  {
+   "stem": "18-1109_074",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7996,
+   "anchor_box": [
+    199.7,
+    7.3,
+    382.3,
+    207.3
+   ],
+   "anchor_iou": 0.883,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.3671,
+     "box": [
+      241.8,
+      0.0,
+      354.3,
+      29.5
+     ],
+     "proj": 92.8
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_074.txt"
+  },
+  {
+   "stem": "18-1109_075",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      254.9,
+      0.0,
+      382.6,
+      47.1
+     ],
+     "proj": 80.5
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7882,
+   "anchor_box": [
+    207.5,
+    10.7,
+    384.0,
+    216.1
+   ],
+   "anchor_iou": 0.824,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.4265,
+     "box": [
+      255.4,
+      0.0,
+      369.7,
+      32.1
+     ],
+     "proj": 98.8,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.61
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_075.txt"
+  },
+  {
+   "stem": "18-1109_076",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      270.6,
+      -0.0,
+      384.0,
+      48.9
+     ],
+     "proj": 81.4
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8193,
+   "anchor_box": [
+    221.9,
+    12.2,
+    384.0,
+    206.6
+   ],
+   "anchor_iou": 0.857,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.6068,
+     "box": [
+      269.1,
+      0.0,
+      384.0,
+      53.4
+     ],
+     "proj": 86.0,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.903
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.405,
+     "box": [
+      259.5,
+      4.8,
+      372.1,
+      77.3
+     ],
+     "proj": 69.4
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [
+    "one_off"
+   ],
+   "n_matched": 1,
+   "n_correct": 0,
+   "n_one_off": 1,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_076.txt"
+  },
+  {
+   "stem": "18-1109_077",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      288.1,
+      0.0,
+      384.0,
+      49.7
+     ],
+     "proj": 82.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8101,
+   "anchor_box": [
+    238.3,
+    17.0,
+    384.0,
+    187.9
+   ],
+   "anchor_iou": 0.94,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.69,
+     "box": [
+      283.0,
+      0.0,
+      383.7,
+      50.4
+     ],
+     "proj": 80.4,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.932
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.5564,
+     "box": [
+      274.5,
+      5.7,
+      384.0,
+      76.5
+     ],
+     "proj": 64.0
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [
+    "one_off"
+   ],
+   "n_matched": 1,
+   "n_correct": 0,
+   "n_one_off": 1,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_077.txt"
+  },
+  {
+   "stem": "18-1109_078",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7835,
+   "anchor_box": [
+    254.8,
+    20.4,
+    384.0,
+    189.6
+   ],
+   "anchor_iou": 0.947,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.7884,
+     "box": [
+      303.3,
+      0.0,
+      383.9,
+      48.8
+     ],
+     "proj": 84.2
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.4105,
+     "box": [
+      295.0,
+      6.9,
+      384.0,
+      77.7
+     ],
+     "proj": 65.8
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 2,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_078.txt"
+  },
+  {
+   "stem": "18-1109_079",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.6811,
+   "anchor_box": [
+    271.3,
+    19.7,
+    384.0,
+    186.6
+   ],
+   "anchor_iou": 0.917,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.5549,
+     "box": [
+      324.1,
+      0.1,
+      383.9,
+      46.4
+     ],
+     "proj": 84.1
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_079.txt"
+  },
+  {
+   "stem": "18-1109_080",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      187.3,
+      0.0,
+      319.9,
+      69.3
+     ],
+     "proj": 97.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7774,
+   "anchor_box": [
+    150.1,
+    27.3,
+    384.0,
+    246.2
+   ],
+   "anchor_iou": 0.833,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8043,
+     "box": [
+      194.7,
+      1.6,
+      322.1,
+      65.2
+     ],
+     "proj": 103.7,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.853
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "30-60",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_080.txt"
+  },
+  {
+   "stem": "18-1109_081",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      191.4,
+      0.0,
+      324.5,
+      71.4
+     ],
+     "proj": 97.1
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7338,
+   "anchor_box": [
+    138.3,
+    27.1,
+    369.8,
+    271.1
+   ],
+   "anchor_iou": 0.71,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8098,
+     "box": [
+      205.9,
+      0.0,
+      323.0,
+      67.4
+     ],
+     "proj": 115.9,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.831
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "30-60",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_081.txt"
+  },
+  {
+   "stem": "18-1109_082",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.8002,
+   "anchor_box": [
+    199.4,
+    7.5,
+    382.6,
+    206.5
+   ],
+   "anchor_iou": 0.886,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.4874,
+     "box": [
+      242.3,
+      0.0,
+      356.1,
+      31.9
+     ],
+     "proj": 91.4
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_082.txt"
+  },
+  {
+   "stem": "18-1109_083",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      196.9,
+      0.0,
+      330.1,
+      73.4
+     ],
+     "proj": 97.2
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7751,
+   "anchor_box": [
+    157.8,
+    35.4,
+    373.5,
+    226.4
+   ],
+   "anchor_iou": 0.941,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.8366,
+     "box": [
+      211.8,
+      0.0,
+      326.4,
+      70.0
+     ],
+     "proj": 95.8,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.821
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.5188,
+     "box": [
+      226.1,
+      19.8,
+      343.7,
+      103.0
+     ],
+     "proj": 70.9
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [
+    "one_off"
+   ],
+   "n_matched": 1,
+   "n_correct": 0,
+   "n_one_off": 1,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_083.txt"
+  },
+  {
+   "stem": "18-1109_084",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      205.1,
+      0.0,
+      338.1,
+      74.9
+     ],
+     "proj": 97.1
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7628,
+   "anchor_box": [
+    163.8,
+    35.8,
+    380.1,
+    236.4
+   ],
+   "anchor_iou": 0.906,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8321,
+     "box": [
+      221.0,
+      0.0,
+      338.0,
+      69.2
+     ],
+     "proj": 101.7,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.813
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.2818,
+     "box": [
+      223.5,
+      0.0,
+      326.5,
+      20.3
+     ],
+     "proj": 126.0
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_084.txt"
+  },
+  {
+   "stem": "18-1109_085",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      214.5,
+      0.0,
+      347.0,
+      76.7
+     ],
+     "proj": 97.4
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7808,
+   "anchor_box": [
+    177.9,
+    38.5,
+    371.3,
+    229.2
+   ],
+   "anchor_iou": 0.912,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8318,
+     "box": [
+      231.4,
+      0.0,
+      343.5,
+      67.7
+     ],
+     "proj": 100.8,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.747
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_085.txt"
+  },
+  {
+   "stem": "18-1109_086",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      226.4,
+      0.0,
+      358.0,
+      78.1
+     ],
+     "proj": 97.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8076,
+   "anchor_box": [
+    192.3,
+    42.1,
+    377.6,
+    223.4
+   ],
+   "anchor_iou": 0.909,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8381,
+     "box": [
+      242.4,
+      0.0,
+      352.4,
+      67.7
+     ],
+     "proj": 99.7,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.725
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.2533,
+     "box": [
+      247.2,
+      0.0,
+      347.9,
+      22.8
+     ],
+     "proj": 122.0
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_086.txt"
+  },
+  {
+   "stem": "18-1109_087",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      240.1,
+      0.0,
+      369.8,
+      79.7
+     ],
+     "proj": 98.5
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8049,
+   "anchor_box": [
+    200.1,
+    46.3,
+    384.0,
+    239.9
+   ],
+   "anchor_iou": 0.929,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8676,
+     "box": [
+      254.3,
+      2.0,
+      363.7,
+      67.8
+     ],
+     "proj": 109.5,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.696
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.3449,
+     "box": [
+      261.6,
+      0.0,
+      355.1,
+      20.9
+     ],
+     "proj": 133.6
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_087.txt"
+  },
+  {
+   "stem": "18-1109_088",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      255.0,
+      0.0,
+      382.5,
+      80.6
+     ],
+     "proj": 99.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.792,
+   "anchor_box": [
+    210.2,
+    46.7,
+    384.0,
+    245.4
+   ],
+   "anchor_iou": 0.874,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8483,
+     "box": [
+      267.7,
+      1.7,
+      374.8,
+      69.2
+     ],
+     "proj": 113.2,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.703
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_088.txt"
+  },
+  {
+   "stem": "18-1109_089",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      271.3,
+      0.0,
+      384.0,
+      82.0
+     ],
+     "proj": 100.1
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8273,
+   "anchor_box": [
+    219.8,
+    47.0,
+    384.0,
+    236.0
+   ],
+   "anchor_iou": 0.878,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8524,
+     "box": [
+      279.9,
+      2.4,
+      383.3,
+      74.9
+     ],
+     "proj": 107.1,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.812
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_089.txt"
+  },
+  {
+   "stem": "18-1109_090",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 3,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      288.3,
+      0.0,
+      384.0,
+      82.7
+     ],
+     "proj": 98.8
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7982,
+   "anchor_box": [
+    238.5,
+    53.3,
+    384.0,
+    216.3
+   ],
+   "anchor_iou": 0.901,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 2,
+     "conf": 0.7829,
+     "box": [
+      292.7,
+      2.6,
+      383.7,
+      76.4
+     ],
+     "proj": 99.0,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.848
+    },
+    {
+     "ordinal": 1,
+     "conf": 0.5635,
+     "box": [
+      277.8,
+      35.4,
+      384.0,
+      109.2
+     ],
+     "proj": 65.5
+    },
+    {
+     "ordinal": 3,
+     "conf": 0.2704,
+     "box": [
+      319.0,
+      0.0,
+      383.8,
+      14.9
+     ],
+     "proj": 133.5
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 2,
+   "per_truth": [
+    "one_off"
+   ],
+   "n_matched": 1,
+   "n_correct": 0,
+   "n_one_off": 1,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_090.txt"
+  },
+  {
+   "stem": "18-1109_091",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      306.1,
+      0.8,
+      384.0,
+      84.2
+     ],
+     "proj": 100.0
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8071,
+   "anchor_box": [
+    253.1,
+    53.8,
+    384.0,
+    222.3
+   ],
+   "anchor_iou": 0.921,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8013,
+     "box": [
+      312.3,
+      2.6,
+      384.0,
+      83.6
+     ],
+     "proj": 99.5,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.893
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_091.txt"
+  },
+  {
+   "stem": "18-1109_092",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.652,
+   "anchor_box": [
+    268.6,
+    52.9,
+    384.0,
+    228.6
+   ],
+   "anchor_iou": 0.891,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.6941,
+     "box": [
+      333.7,
+      1.8,
+      384.0,
+      78.2
+     ],
+     "proj": 105.9
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_092.txt"
+  },
+  {
+   "stem": "18-1109_093",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 0,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.8279,
+   "anchor_box": [
+    200.4,
+    0.0,
+    384.0,
+    203.6
+   ],
+   "anchor_iou": 0.95,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_093.txt"
+  },
+  {
+   "stem": "18-1109_094",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 2,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      240.6,
+      0.0,
+      370.1,
+      79.8
+     ],
+     "proj": 98.3
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8009,
+   "anchor_box": [
+    200.3,
+    46.6,
+    384.0,
+    237.3
+   ],
+   "anchor_iou": 0.939,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8672,
+     "box": [
+      255.3,
+      1.7,
+      364.1,
+      67.5
+     ],
+     "proj": 108.7,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.693
+    },
+    {
+     "ordinal": 2,
+     "conf": 0.32,
+     "box": [
+      261.1,
+      0.0,
+      355.8,
+      20.3
+     ],
+     "proj": 132.8
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_094.txt"
+  },
+  {
+   "stem": "18-1109_095",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      270.8,
+      -0.0,
+      384.0,
+      82.3
+     ],
+     "proj": 100.1
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.8312,
+   "anchor_box": [
+    220.7,
+    47.1,
+    384.0,
+    236.6
+   ],
+   "anchor_iou": 0.881,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.8376,
+     "box": [
+      278.6,
+      2.0,
+      383.0,
+      73.6
+     ],
+     "proj": 107.9,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.802
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_095.txt"
+  },
+  {
+   "stem": "18-1109_096",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 1,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [
+    {
+     "ordinal": 1,
+     "level": "L5",
+     "box": [
+      215.2,
+      0.0,
+      347.6,
+      76.9
+     ],
+     "proj": 97.6
+    }
+   ],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 1,
+    "agree": 1
+   },
+   "defined": true,
+   "anchor_conf": 0.7743,
+   "anchor_box": [
+    178.2,
+    39.4,
+    373.4,
+    229.9
+   ],
+   "anchor_iou": 0.923,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.826,
+     "box": [
+      230.4,
+      0.0,
+      343.4,
+      67.5
+     ],
+     "proj": 101.5,
+     "truth_ordinal": 1,
+     "truth_level": "L5",
+     "iou": 0.749
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [
+    "correct"
+   ],
+   "n_matched": 1,
+   "n_correct": 1,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": true,
+   "exact": true,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_096.txt"
+  },
+  {
+   "stem": "18-1109_097",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 1,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7294,
+   "anchor_box": [
+    155.1,
+    0.0,
+    378.5,
+    185.3
+   ],
+   "anchor_iou": 0.955,
+   "anchor_correct": true,
+   "det": [
+    {
+     "ordinal": 1,
+     "conf": 0.2663,
+     "box": [
+      196.3,
+      0.2,
+      335.9,
+      53.4
+     ],
+     "proj": 65.9
+    }
+   ],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 1,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "30-60",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_097.txt"
+  },
+  {
+   "stem": "18-1109_098",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 2,
+   "n_det_bodies": 0,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.721,
+   "anchor_box": [
+    155.0,
+    0.0,
+    378.1,
+    187.7
+   ],
+   "anchor_iou": 0.978,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "30-60",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_098.txt"
+  },
+  {
+   "stem": "18-1109_099",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 0,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7323,
+   "anchor_box": [
+    154.1,
+    0.0,
+    378.5,
+    191.3
+   ],
+   "anchor_iou": 0.952,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "30-60",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_099.txt"
+  },
+  {
+   "stem": "18-1109_100",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 0,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7549,
+   "anchor_box": [
+    147.9,
+    0.0,
+    367.9,
+    199.3
+   ],
+   "anchor_iou": 0.875,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "30-60",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_100.txt"
+  },
+  {
+   "stem": "18-1109_101",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 0,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7596,
+   "anchor_box": [
+    152.9,
+    0.0,
+    384.0,
+    202.3
+   ],
+   "anchor_iou": 0.851,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_101.txt"
+  },
+  {
+   "stem": "18-1109_102",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 0,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7643,
+   "anchor_box": [
+    163.3,
+    0.0,
+    379.4,
+    204.3
+   ],
+   "anchor_iou": 0.877,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_102.txt"
+  },
+  {
+   "stem": "18-1109_103",
+   "case": "18-1109",
+   "view": null,
+   "n_truth_sacrum": 1,
+   "n_truth_bodies": 0,
+   "n_det_sacrum": 1,
+   "n_det_bodies": 0,
+   "truth": [],
+   "truth_caudal_bodies": 0,
+   "name_check": {
+    "named": 0,
+    "agree": 0
+   },
+   "defined": true,
+   "anchor_conf": 0.7752,
+   "anchor_box": [
+    185.2,
+    0.2,
+    374.8,
+    179.4
+   ],
+   "anchor_iou": 0.841,
+   "anchor_correct": true,
+   "det": [],
+   "det_caudal_ignored": 0,
+   "det_unmatched": 0,
+   "per_truth": [],
+   "n_matched": 0,
+   "n_correct": 0,
+   "n_one_off": 0,
+   "n_off_more": 0,
+   "n_unranked": 0,
+   "n_missed": 0,
+   "all_matched_correct": false,
+   "exact": false,
+   "view_bin": "0-30",
+   "label_file": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro/labels/test/18-1109_103.txt"
+  }
+ ]
+}

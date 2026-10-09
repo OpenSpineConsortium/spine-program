@@ -1,0 +1,117 @@
+{
+ "old": "/rs/rs_grp_oschome/go2432/data/or_ready/lodo/sweeps/lodo_carm__carm_test.json",
+ "new": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/closure/bypass/out/C_rx.json",
+ "old_weights": "/wsu/home/go/go24/go2432/spine-detector/runs/realxray/rx_lodo_carmlspine_1024/weights/best.pt",
+ "new_weights": "/wsu/home/go/go24/go2432/spine-detector/runs/realxray/rx_lodo_carmlspine_1024/weights/best.pt",
+ "new_weights_sha256": "f6fe6b9775a4d25a7c432337be71f73d0fbedfb525c33e76883b197281e5fcf8",
+ "frames_old": 56,
+ "frames_new": 56,
+ "frames_raw_identical": 54,
+ "frames_det_identical": 1,
+ "pooled_identical": false,
+ "old_params": {
+  "conf": 0.01,
+  "min_vis": null,
+  "data": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine",
+  "split": "test"
+ },
+ "new_params": {
+  "conf": 0.25,
+  "min_vis": 0.0,
+  "data": "/rs/rs_grp_oschome/go2432/data/realxray/carmlspine",
+  "split": "test"
+ },
+ "examples_of_difference": [
+  {
+   "stem": "case100_LAT",
+   "old_n": 12,
+   "new_n": 12,
+   "old_first": [
+    0,
+    [
+     360.0,
+     431.1,
+     727.0,
+     660.0
+    ],
+    0.8127
+   ],
+   "new_first": [
+    0,
+    [
+     360.0,
+     431.1,
+     727.0,
+     660.0
+    ],
+    0.8127
+   ]
+  },
+  {
+   "stem": "case118_LAT",
+   "why": "frame in one dump only"
+  },
+  {
+   "stem": "case118_OBL",
+   "why": "frame in one dump only"
+  }
+ ],
+ "read_locally_2026_09_24": {
+  "case100_LAT": [
+   {
+    "i": 6,
+    "old": [
+     1,
+     [
+      510.8,
+      767.5,
+      808.0,
+      1021.1
+     ],
+     0.1827
+    ],
+    "new": [
+     1,
+     [
+      510.8,
+      767.5,
+      808.0,
+      1021.1
+     ],
+     0.1826
+    ]
+   },
+   {
+    "i": 10,
+    "old": [
+     1,
+     [
+      504.0,
+      775.0,
+      933.5,
+      1024.0
+     ],
+     0.0139
+    ],
+    "new": [
+     1,
+     [
+      504.0,
+      775.0,
+      933.6,
+      1024.0
+     ],
+     0.0139
+    ]
+   }
+  ],
+  "case118": {
+   "old_stem": "case118_LAT",
+   "new_stem": "case118_OBL",
+   "raw_identical": true,
+   "note": "the test export renamed case118's oblique from LAT to OBL on 2026-09-23; the renamed frame's predictions are identical"
+  },
+  "det_field": "differs by construction: the old dump was run at conf 0.01, the new at 0.25",
+  "verdict": "55 of 56 frames' raw predictions identical to 4 decimals; case100_LAT differs by 1e-4 in one score and 0.1 px in one box coordinate (float nondeterminism across nodes). The pre-gate dump was made by weights that predict as the file now at its path, sha256 f6fe6b97."
+ }
+}

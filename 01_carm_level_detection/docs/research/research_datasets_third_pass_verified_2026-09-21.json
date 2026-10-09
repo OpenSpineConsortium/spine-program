@@ -1,0 +1,310 @@
+{
+ "question": "Third pass: find datasets a spine/pelvis fluoroscopy project has NOT yet found, concentrating on the search angles the two earlier passes left unverified. Return hard, verified facts only: name, year, institution, anatomy, subject type (living patient / cadaver / animal / phantom), device make and model and detector type (image intensifier vs flat panel), number of images and volumes, labels or pose ground truth and how obtained, stored-intensity form if known, licence, and the exact access route (URL/DOI, request contact, DUA). Mark anything unverifiable.\n\nTHE PROJECT: level counting under intraoperative C-arm fluoroscopy. Current plan: (1) train, test and release a detector of the pelvis/sacrum (the counting anchor) on REAL X-ray and fluoroscopy frames, including LATERAL views, robust across different C-arm machines and settings; (2) measure per-machine image and noise statistics; (3) calibrate a CT-to-fluoroscopy physics renderer on paired CT + real projections; (4) later, the full spine.\n\nALREADY KNOWN — do NOT re-report; report only newer versions, sub-sets, or siblings: DeepFluoro (+ vendor DICOMs doi:10.7281/T1/C304HZ); Ljubljana spine and cerebral gold standards; Veriserum; CAMS-Knee; CM Spine; LevelCheck/JHU clinical; Pelphix; SyntheX; COBRA2026; SPARE; TCIA 4D-Lung; Balgrist lumbar cadaver set (Jecklin 2024/2025); D'Isidoro 2021 hip gold standard (Yareta); Flepp 2025 femur; Charters 2024 UCLA kV setup radiographs; Huashan/Fudan 140 intraoperative lumbar films (Shao 2024); JHU Huang 2022 long films, Otake 2012/2013, Ketcha 2017; Jaganathan/FAU 55 CBCT sweeps; SheepSpineX; DVAP-Reg; Xinqiao minipig; LUMOS (Zenodo 18173664); TCIA COVID-19-NY-SBU; Goswami 2020 pig limb; Liu 2019 MV portal; Sun 2021 CrossModalNet; KCL cardiac sheath phantom; MSKCC phantom CBCT; plain-film spine sets BUU-LSPINE, NHANES II, VinDr-SpineXR, AASCE/SpineWeb; CT sets VerSe, CTSpine1K, TotalSegmentator, CTPelvic1K.\n\nANGLES TO COVER EXPLICITLY (each produced no verified claim before):\n1. TUM CAMP / Navab / Fotouhi / Unberath-era C-arm datasets (Siemens Arcadis Orbic, Cios Spin): X-ray + CT spine or pelvis phantoms, C-arm pose estimation sets, \"X-ray to CT\" registration data releases.\n2. Bern ISTB/ARTORG (Zheng Guoyan earlier work), Erlangen/FAU (CONRAD, Maier lab), Imperial Hamlyn, KCL, Leuven, Mannheim: raw C-arm or Artis zeego projection data, O-arm or Airo intraoperative CBCT with raw projections.\n3. Labelled real INTRAOPERATIVE fluoroscopy of the PELVIS or HIP (hip fracture fixation, periacetabular osteotomy, total hip arthroplasty cup placement, pelvic ring/acetabular fracture fixation, sacroiliac screw placement): datasets with landmarks, boxes or segmentation, on Kaggle, HuggingFace, Zenodo, Figshare, Mendeley, IEEE DataPort, PhysioNet, GitHub, or on request. Include inlet/outlet and lateral sacral views if any exist. Report the C-arm models and the number of devices.\n4. Labelled real intraoperative SPINE fluoroscopy (vertebra boxes, landmarks, level names, pedicle screws) on the same repositories, 2018-2026, and papers that offered their data on request.\n5. Challenge and benchmark sites: grand-challenge.org, MICCAI/IPCAI/SPIE/ISBI challenges involving fluoroscopy or C-arm X-ray (with or without CT), and their access terms.\n6. Same-patient CT + radiograph collections of the torso: MIDRC, BIMCV, MIMIC, Stanford AIMI, RSNA challenges, NIH, TCIA (beyond COVID-19-NY-SBU): count patients with BOTH a lumbar/pelvic radiograph and a CT covering it.\n7. Multi-device fluoroscopy image-quality or dose datasets (phantom images across many C-arm models, e.g., from medical physics QA studies) that would let per-machine noise/scatter/display statistics be measured.\n\nThen give: (a) one ranked table of NEW candidates by fit to plan items 1-4; (b) the single best NEW open dataset and the single best NEW on-request dataset, with exactly how to get each; (c) a plain statement on whether any public, labelled, multi-device intraoperative pelvis or spine fluoroscopy set exists.",
+ "summary": "LUMOS (Zenodo 18173664; Zhejiang University; ACM MM 2025) is an open osteoporosis dataset under CC BY-NC 4.0. It has 803 living patients, 1,620 diagnostic lumbar AP and lateral radiographs from a Philips DigitalDiagnost, and 280 lumbar CTs. Its only labels are DXA values and vertebral dimensions. It has no pose, and nothing documents which CT goes with which radiograph. It is radiography, not fluoroscopy. This pass found one new open dataset that fits the project better: C-ArmLSpine (Zenodo 22768651, Southern Medical University, CC BY 4.0, published 2026-09-17). It has 149 intraoperative spine cases, each with a real AP frame, a real lateral frame and a CBCT volume from the same FIRST Surgio-B51 mobile C-arm. That is one device model, and the record states no labels, no pose and no vertebral levels. The labelled real sets found are all unreleased: a one-cadaver full-torso Brainlab Loop-X set with navigated pose (FluoroSAM, JHU), 336 landmarked intraoperative AP hip-replacement frames (Vanderbilt), and 10 intraoperative spine cases with CT plus AP and lateral frames (RadGS-Reg, Nanjing). No public, labelled, multi-device intraoperative pelvis or spine fluoroscopy set was found. The two multi-device C-arm studies found released only a phantom's print files, or nothing.",
+ "findings": [
+  {
+   "claim": "WHAT LUMOS IS (from the previous verified pass, not re-checked in this one). LUMOS is an open lumbar osteoporosis dataset from Zhejiang University and the Second Affiliated Hospital of Zhejiang University School of Medicine (Shi, Shen, Ye, Jiang, Bu, Wang; ACM MM 2025, doi:10.1145/3746027.3758282). It is on Zenodo as record 18173664, CC BY-NC 4.0, published 2025-10-27, 46.4 GB. Commercial use needs written permission from the host ethics committee. Contents: 803 living patients; 1,620 lumbar AP or lateral diagnostic radiographs (modality CR, Philips DigitalDiagnost, SID about 1,100 mm, 0.142-0.144 mm pixels); 280 non-contrast lumbar CTs (Philips Brilliance 64 and Ingenuity Flex, 512x512, 0.39-0.49 mm pixels, 1-4 mm slices), as DICOM plus NPY. Labels are DXA BMD/BMC, T and Z scores, and vertebral height and width in a 52-column spreadsheet. There are no vertebra boxes, no landmarks and no pose. The paper says 280 patients have a CT within 6 months of the radiographs, but the release does not document which CT goes with which radiograph. Ids 1-280 are probably the pairs, but that is unproven. For this project it is diagnostic radiography from one DR system: usable for renderer calibration only after 2D/3D registration, and not C-arm fluoroscopy.",
+   "confidence": "high",
+   "sources": [
+    "https://zenodo.org/records/18173664",
+    "https://keyueshi.github.io/LUMOS",
+    "https://doi.org/10.1145/3746027.3758282",
+    "spinesurg-ct-nnunet:docs\\research_datasets_missed_verified_2026-09-21.json",
+    "spinesurg-ct-nnunet:docs\\HANDOFF_2026-09-21_PM.md"
+   ],
+   "evidence": "The earlier pass checked the Zenodo API record, the README, the clinical xlsx, the paper PDF, and DICOM headers read from the zips with range requests. The core facts passed 3-0. The CT-to-radiograph pairing claim passed 2-1. The evidence for pairing is file layout only: lumos_npy.zip holds 280 CT ids (1-280) and 803 X-ray ids, and one X-ray zip is named lumos_x_001_280. PatientID is blank and StudyDate is set to 19700101. The radiographs mix MONOCHROME1 and MONOCHROME2 and have no PixelIntensityRelationship tag, so they are probably vendor-processed display images (an inference). A 512-pixel CT at 0.39-0.49 mm spans only 200-250 mm, so renders may lose lateral soft tissue (an inference).",
+   "vote": "3-0 in prior pass (pairing 2-1)"
+  },
+  {
+   "claim": "NEW OPEN: C-ArmLSpine. Zenodo record 22768651 (DOI 10.5281/zenodo.22768651, v1, published 2026-09-17), deposited by Feng Qianjin (ORCID 0000-0002-3830-5120). Open access, CC BY 4.0. One file, C-ArmLSpine.zip, 15,581,614,253 bytes, MD5 6bccd47979a2a1c9b200dc427fefeb54. It has 149 cases from routine intraoperative imaging. Each case has a real AP and a real LATERAL C-arm X-ray plus a CBCT volume from the same mobile C-arm, the Surgio-B51 by FIRST (Jiangsu First-Imaging Medical Equipment). It is the formerly in-house set of PRSCS-Net (Zhang, Zhao, Gou, Gong, Zhou, Feng; School of Biomedical Engineering, Southern Medical University, Guangzhou; Medical Image Analysis 97:103283, 2024, doi:10.1016/j.media.2024.103283). Code and README are at github.com/ZWC-SMU/C-ArmLSpine. The README links to zenodo.org/uploads/22768651, which is the owner's edit URL; the public page is zenodo.org/records/22768651.",
+   "confidence": "high",
+   "sources": [
+    "https://zenodo.org/records/22768651",
+    "https://zenodo.org/api/records/22768651",
+    "https://github.com/ZWC-SMU/C-ArmLSpine",
+    "https://pubmed.ncbi.nlm.nih.gov/39094463/"
+   ],
+   "evidence": "Three claims agreed 3-0, checked against the Zenodo API JSON, the GitHub README and release, and the Europe PMC record. The PRSCS-Net abstract calls C-ArmLSpine an in-house dataset used alongside CTSpine1K. The zip preview shows case folders (case1, case10, case100). Each holds C-arm/0001.dcm and 0002.dcm (about 8.4 MB each) and CBCT/ with 394 DICOM slices. The preview is truncated, so not all 149 folders were seen. 8.4 MB is consistent with a 2048x2048 16-bit frame (an inference). The record never uses the word patient; living surgical patients is inferred from 'routine intraoperative imaging procedures' and the paper's 'spinal surgery'.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "What C-ArmLSpine does NOT establish. (1) Single device model: every image comes from one Surgio-B51 model, so the set cannot show how C-arms differ (plan item 2). Whether one or several physical units were used is not stated. (2) Detector type is not in the record. The manufacturer's Surgio-B series page advertises an IGZO flat-panel detector but does not name the B51, so flat panel is likely but not verified. (3) Unverified until the zip is opened: per-image pose or projection geometry, and whether the AP and lateral frames share a coordinate frame with the CBCT; any vertebra, level, sacrum or pelvis labels; which levels are covered and whether the sacrum is in the field ('LSpine' implies lumbar, but no page says so); stored-intensity form (raw, log or processed); patients versus cases; ethics terms. Because the licence is CC BY 4.0, no DUA is needed.",
+   "confidence": "medium",
+   "sources": [
+    "https://zenodo.org/records/22768651",
+    "https://github.com/ZWC-SMU/C-ArmLSpine",
+    "http://first-imaging.com/en/?product/17"
+   ],
+   "evidence": "The Zenodo record and the README both name only the Surgio-B51. The manufacturer page (first-imaging.com/en/?product/17) lists the Surgio-B as a 'Portable 3D C-arm System' with an 'IGZO FD', and MedicalExpo lists the Surgio-B 'with flat panel detector'. The PRSCS-Net full text (ScienceDirect) returned 403, so levels, labels and geometry could not be read from the paper.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "PENGWIN Task 2 is open but entirely SYNTHETIC. Zenodo 10.5281/zenodo.10913196 (concept 10913195), v1.0.0, 2024-04-03, CC BY 4.0. It was released for the MICCAI 2024 PENGWIN pelvic fracture segmentation challenge (pengwin.grand-challenge.org). Contact is Benjamin Killeen (JHU); authors include Armand and Unberath (JHU), Wang Yu (Beihang), and Wu Xinbao and Zhao Chunpeng (Beijing Jishuitan Hospital). Files: train.zip (35.0 GB), pengwin_utils.py, requirements.txt. It holds 50,000 DeepDRR renders (500 per CT) from 100 of 150 CTs of patients scheduled for pelvic reduction surgery. C-arm poses were randomly sampled, half the images carry simulated K-wires or screws, and uint32 fragment masks cover the sacrum and the left and right ilium. There are no real X-ray or fluoroscopy frames, so it cannot serve as real-C-arm training or test data or as a source of per-machine statistics. At most it is sacrum and pelvis pretraining data, a JHU sibling of SyntheX.",
+   "confidence": "high",
+   "sources": [
+    "https://zenodo.org/records/10913196",
+    "https://pengwin.grand-challenge.org"
+   ],
+   "evidence": "Two claims agreed 3-0. The versions API marks the record as the latest version. The challenge /data/ page links Task 2 to the concept DOI. The challenge page says the X-rays were 'generated using the DeepDRR method' and mentions no real frames in either test phase. The separate PENGWIN 2026 challenge (pengwin2026.grand-challenge.org) was not checked.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "ON REQUEST, unverified route: the FluoroSAM real Loop-X cadaver set (Killeen, Wang, Iñígo, Zhang, Armand, Taylor, Osgood, Unberath; JHU and University of Arkansas; MICCAI 2025, LNCS 15966:248-258, doi:10.1007/978-3-032-04981-0_24, PMC12822567). It is one full-torso cadaver, mid-femur to T2 without the arms (60-year-old female, 157 cm, 50 kg), imaged on one Brainlab Loop-X. The anatomy therefore includes pelvis, sacrum and lumbar spine. Frames were navigated against a fixed patient array, so pose is known. Ground truth is automatic, not manual: four navigated Loop-X CBCTs acquired right after the study were stitched, segmented with TotalSegmentator and projected onto each frame. After spurious masks were removed (keeping masks of at least 2.5% of the image), 1,741 masks remained. The MICCAI version gives no image count or detector type. arXiv v1 reported 464 lower-torso images at -30 to 30 degrees cranial/caudal and -90 to 90 degrees orbital, a range that includes laterals. The real images are not released. Only code is public (github.com/arcadelab/fluorosam). The HuggingFace set benjamindkilleen/fluoroseg holds about 3M synthetic images only, and the MICCAI page lists 'Link to the Dataset(s): N/A'. It fits plan items 1 and 3 (real pelvis frames with pose plus a CBCT), but it is one cadaver and one device.",
+   "confidence": "high",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12822567/",
+    "https://arxiv.org/html/2403.08059v1",
+    "https://github.com/arcadelab/fluorosam"
+   ],
+   "evidence": "Three claims agreed 3-0 on the PMC author manuscript. Its only availability sentence is 'Code is available at https://github.com/arcadelab/fluorosam'. The FluoroSAM README, the FluoroSeg HF file list (1,626 synthetic scene zips) and Killeen's HF profile contain no real, Loop-X or cadaver data. Whether arXiv v1's 'specimens' (plural, lower torso) are the same collection as the MICCAI single-donor set is unresolved. The CBCTs were taken after the X-rays, not at the same moment, and the specimen had been thawed for six days.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "NO ROUTE: the Vanderbilt intraoperative THA fluoroscopy set (Chan, Baker, Suh, Moyer, Martin; Vanderbilt Orthopaedic Surgery and Computer Science; J Arthroplasty 2025;40(8):2092-2100, doi:10.1016/j.arth.2025.01.032, PMID 39880053). It comes from 161 anterior-approach primary THAs in 146 living patients, with preoperative and postoperative AP pelvis radiographs and intraoperative fluoroscopy. The fluoroscopy frames carry 8 bony landmarks: midline L5/S1, the most inferior point of each sacroiliac joint, the superior pubic symphysis, both teardrops and both ischia. They also carry 5 cup landmarks (apex plus four ellipse-axis ends). There are 336 labelled bony-landmark frames (229 train, 57 validation, 50 test) and 84 cup frames (67 train, 17 validation, no test set), all padded and resized to 512x512, with one annotator plus secondary confirmation. Views are AP only, with no lateral, inlet or outlet. The C-arm model, detector and number of devices are not reported. There is no data-availability or on-request statement: the GitHub repo vine-lab-vu/Label-Augmentation holds code only. It is the closest labelled pelvis-anchor analogue found (L5/S1 and SI joints on real intraoperative frames), but it is single-centre, AP-only and unreleased.",
+   "confidence": "high",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/39880053/",
+    "https://www.arthroplastyjournal.org/article/S0883-5403(25)00060-9/fulltext",
+    "https://github.com/vine-lab-vu/Label-Augmentation"
+   ],
+   "evidence": "Three claims agreed 3-0 on the CC BY 4.0 full text and the GitHub API, checked 2026-09-21. 'data availab', 'request', 'sharing' and 'share' each occur 0 times in the text. The supplementary files are five conflict-of-interest statements. The branches main and with_wandb and the successor repo yehyunsuh/Anatomical-Landmark-Detector-Training are all code only. The paper says IRB approval was not needed.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "NO ROUTE: the RadGS-Reg real set (arXiv 2508.21154; MICCAI 2025, LNCS 15968:456-466, doi:10.1007/978-3-032-05114-1_44). It is a proprietary in-house set of 10 intraoperative spine cases from an unnamed 'medical institution'. Each case has a preoperative CT (512x512x401 voxels, 0.3x0.3x0.625 mm) and paired AP and lateral X-rays (976x976, 1,124 mm focal length), and 30 vertebra-level samples were drawn from them. The paper says only that GT poses (CT-to-C-arm transformation) were 'recorded during C-arm circular acquisitions'. It names no C-arm make or model, detector, subject type or spinal region. Author affiliations include the Third Affiliated Hospital of Nanjing Medical University (Changzhou) and Tuodao Medical Technology (Nanjing). There is no data-availability statement, request route or licence; the only release is code at github.com/shenao1995/RadGS_Reg. The only leads are the corresponding authors (Junfeng Jiang, [e-mail withheld]; S. Kevin Zhou, [e-mail withheld]), and the paper does not invite requests.",
+   "confidence": "high",
+   "sources": [
+    "https://arxiv.org/pdf/2508.21154",
+    "https://papers.miccai.org/miccai-2025/0743-Paper2299.html",
+    "https://github.com/shenao1995/RadGS_Reg"
+   ],
+   "evidence": "Two claims agreed 3-0 on arXiv v1 and the MICCAI camera-ready. The MICCAI page's dataset field lists only VerSe'20. In the rebuttal the authors say they are 'actively collecting larger real-world datasets'. The supplementary zip holds one MP4 video. A separate claim that the poses came from the system rather than manual registration was refuted 0-3, so how the pose was obtained is unknown.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "SAME-PATIENT CT PLUS RADIOGRAPH (angle 6), sources with some value. (1) TCIA CT COLONOGRAPHY (doi:10.7937/K9/TCIA.2015.NWTESAY1, CC BY 3.0, open). The landing page never mentions topograms, but TCIA's API shows 1,611 of 3,451 series have only 1-2 images, spanning 754 of 825 patients. In sampled small series, 82/87 and 45/45 images carry DICOM ImageType LOCALIZER. So CT localizer radiographs sit beside abdominopelvic CTs for up to 754 patients (an upper bound). These are fan-beam slot-scan scouts, not C-arm frames, and they have no bone labels. (2) Sina University Hospital, Tehran University of Medical Sciences: 300 living trauma patients (244 men, 56 women, aged 13-92), each with a supine AP pelvic radiograph and an abdominopelvic CT (Philips Ingenuity Flex 16), emergency room, September 2018 to September 2020. Pelvic ring, acetabular and proximal-femur fractures and prior pelvic surgery were excluded. It is AP only, diagnostic, not fluoroscopy. The arXiv preprint (2111.07369) has no availability statement. The peer-reviewed version (Frontiers in Surgery 2024, doi:10.3389/fsurg.2024.1329085, PMC11518832) says the raw data 'will be made available by the authors, without undue reservation', which makes it on request.",
+   "confidence": "high",
+   "sources": [
+    "https://doi.org/10.7937/K9/TCIA.2015.NWTESAY1",
+    "https://services.cancerimagingarchive.net/nbia-api",
+    "https://arxiv.org/abs/2111.07369",
+    "https://doi.org/10.3389/fsurg.2024.1329085"
+   ],
+   "evidence": "TCIA: all four counts were reproduced by a verifier from getSeries. The series descriptions are SCOUT, Topogram 0.6/1.0 T20s, Topo supine/prone, SURVIEW and similar. The quoted header from CTC-4720202687 reads ORIGINAL\\PRIMARY\\LOCALIZER\\CT_SOM5 TOP. A further claim giving the view mix (73 frontal, 9 lateral), the scanner makes and lumbar/pelvis coverage was REFUTED 0-3, so view orientation and anatomical coverage remain unknown. Sina: the preprint and the journal version agree on every cohort number. They differ on retrospective versus prospective registry and on slice thickness (1.5 vs 2 mm). A claim that no request route exists was refuted 0-3 because of the Frontiers statement.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "SAME-PATIENT CT PLUS RADIOGRAPH (angle 6), sources that add nothing. (1) Merlin Abdominal CT Dataset (Stanford AIMI): 25,494 abdominal and pelvic CTs from 18,317 Stanford ED patients (2012-2018), as NIfTI, each paired with its radiology REPORT, not a radiograph. The file types are gz, ini and xlsx (25,491 files, about 2.97 TB). Licence: Open Use of Data Agreement v1.0, login required. (2) MIDRC: the FAQ says it has grown beyond chest to RF and XA and to pelvis and spine. But the public Gen3 aggregation API gives only RF 71 and XA 15 of 202,222 studies. Of those 86, body part is ABDOMEN 4, HIP 1, EXTREMITY 1, unknown 80, none tagged pelvis or spine. By description they are mostly bronchoscopy and swallow studies; about 17 are C-arm studies (9 'FL C-ARM (PAIN MANAGMENT ONLY)', 8 C-arm by the hour) of unknown anatomy and unlabelled. MIDRC publishes no count of patients with both a lumbar or pelvic radiograph and a CT, so that count is unverified. Its pelvis and spine content is CR, DX, CT and MR, not fluoroscopy.",
+   "confidence": "high",
+   "sources": [
+    "https://stanfordaimi.azurewebsites.net/categories/datasets?domain=BODY",
+    "https://aimistanford-web-api.azurewebsites.net/datasets/60b9c7ff-877b-48ce-96c3-0194c8205c40",
+    "https://www.midrc.org/faqs",
+    "https://data.midrc.org/guppy/graphql"
+   ],
+   "evidence": "Merlin: the AIMI API record (published 2025-02-16, modified 2025-10-06) shows isDownloadAllowed false when anonymous, consistent with the Nature paper (PMID 41781626). MIDRC: FAQ last updated 2025-03-24. midrc-by-the-numbers (2026-09-17) gives only totals (575,347 studies ingested, 207,129 released). The API counts were read by a verifier on 2026-09-21. A claim that BIMCV COVID-19+ is chest-only was REFUTED 0-3, so BIMCV's lumbar or pelvic content is unresolved.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "MULTI-DEVICE C-ARM IMAGE-QUALITY STUDIES (angle 7): two found, neither shares images. (1) Marques TGS and Pina DR, J Appl Clin Med Phys 2026 (doi:10.1002/acm2.70650, PMC13238637). A 3D-printed low-contrast fluoroscopy phantom was imaged on four units: two GE OEC One mobile, one Siemens COMPACT SIREMOBIL mobile, and one fixed Siemens Artis Zee, with uncompressed DICOM exported. Only the phantom's STL files are public (Zenodo 10.5281/zenodo.18827666, CC BY 4.0: FOV_4_5, FOV_6_0 and FOV_9_0.stl). The article has no data-availability section, and the DICOMs are not shared. The phantom could be printed and imaged on the project's own C-arms to measure per-machine statistics. (2) Jensen et al., Loma Linda University Health Urology, J Endourol 2024;38(3):228-233 (doi:10.1089/end.2023.0537). Three flat-panel C-arms (GE OEC Elite CFD, Philips Zenition 70, Ziehm Vision RFD) were compared on one prone human cadaver simulating percutaneous nephrolithotomy (flank and kidney, not pelvis or spine), measuring dose with OSLDs and image ratings from 10 blinded urologists. There is no release, so it is at most a request lead.",
+   "confidence": "high",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13238637/",
+    "https://zenodo.org/records/18827666",
+    "https://doi.org/10.1089/end.2023.0537"
+   ],
+   "evidence": "Marques and Pina: the verifier downloaded every supplementary file. S001.zip holds only the three STLs, and S002.docx points to Zenodo. A Zenodo search for other records by either author found nothing relevant. The Wiley page returned 403, so a deposit elsewhere could not be ruled out. Jensen: the abstract was verified via Europe PMC (PMID 38185836). The full text is paywalled (Sage 403), so the exact field of view is unknown.",
+   "vote": "3-0"
+  },
+  {
+   "claim": "(a) RANKED NEW CANDIDATES by fit to plan items 1-4. The key for each line is: access, subject, what it gives, and which plan items it serves.\n1. C-ArmLSpine: OPEN, CC BY 4.0. Living, intraoperative. Real AP and LATERAL frames plus a CBCT from the same C-arm, 149 cases, one device model (FIRST Surgio-B51, probably flat panel). Labels, pose and sacrum coverage are unverified. Items 3 and 4 strongly if geometry can be recovered; item 1 if labels can be projected from the CBCT; item 2 for one machine only.\n2. FluoroSAM Loop-X torso: REQUEST, no route. One cadaver, Brainlab Loop-X. Navigated pose, stitched CBCT, projected TotalSegmentator masks including pelvis and sacrum, orbital range up to 90 degrees. Items 1 and 3.\n3. RadGS-Reg Nanjing: REQUEST, no route. 10 intraoperative spine cases with preoperative CT, AP and lateral frames, and recorded GT pose. Items 3 and 4, but tiny.\n4. Vanderbilt THA: NO ROUTE. 146 living patients, 336 AP intraoperative frames with L5/S1, SI-joint, symphysis, teardrop and ischium landmarks. Item 1 (AP pelvis anchor only).\n5. Sina Tehran trauma: REQUEST ('without undue reservation'). 300 living patients with AP pelvic radiograph plus CT. Item 3 using diagnostic radiographs.\n6. TCIA CT Colonography scouts: OPEN, CC BY 3.0. Up to 754 patients with a CT localizer plus abdominopelvic CT. Fan-beam scout, unlabelled, views unknown. Weak for item 3.\n7. PENGWIN Task 2: OPEN, CC BY 4.0. 50,000 synthetic DRRs with sacrum and ilium masks. Item 1 pretraining only.\n8. Marques and Pina phantom STLs: OPEN, CC BY 4.0. Print the phantom to measure item 2 on one's own machines.\n9. Jensen three-flat-panel cadaver: request lead only. Item 2, flank anatomy.\nExcluded as of no use: MIDRC RF/XA (about 17 unlabelled C-arm studies of unknown anatomy) and Merlin (no radiographs).",
+   "confidence": "medium",
+   "sources": [
+    "https://zenodo.org/records/22768651",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12822567/",
+    "https://arxiv.org/pdf/2508.21154",
+    "https://pubmed.ncbi.nlm.nih.gov/39880053/",
+    "https://doi.org/10.3389/fsurg.2024.1329085",
+    "https://doi.org/10.7937/K9/TCIA.2015.NWTESAY1",
+    "https://zenodo.org/records/10913196",
+    "https://zenodo.org/records/18827666",
+    "https://doi.org/10.1089/end.2023.0537"
+   ],
+   "evidence": "The ranking is a judgment built on the verified facts above. C-ArmLSpine ranks first because it is the only open set of real intraoperative frames with lateral views and a same-device 3-D volume. Its position depends on what the zip actually contains. Licence matters for later commercial use: C-ArmLSpine, PENGWIN and the phantom are CC BY 4.0, while LUMOS and DeepFluoro are non-commercial.",
+   "vote": "synthesis"
+  },
+  {
+   "claim": "(b) BEST NEW OPEN dataset: C-ArmLSpine. Get it from https://zenodo.org/records/22768651, not the README's /uploads/ URL. Download the single file C-ArmLSpine.zip (15.6 GB) and check MD5 6bccd47979a2a1c9b200dc427fefeb54. It is CC BY 4.0 with no DUA; cite Zhang et al., MedIA 97:103283 (2024) and the Zenodo DOI. On the grid, fetch it as an sbatch job (compute nodes have internet), onto /rs/rs_grp_oschome/go2432/data/. Before building anything on it, read the headers of a few cases: detector and manufacturer tags, PixelIntensityRelationship, pixel spacing, any geometry or registration tags linking the two frames to the CBCT, and whether the sacrum is in the lateral field.\nBEST NEW ON-REQUEST dataset: the FluoroSAM Brainlab Loop-X full-torso cadaver set. It is real frames with navigated pose, CBCT ground truth, and pelvis, sacrum and lumbar spine in one specimen. No request route is published: write to the JHU ARCADE lab (Benjamin Killeen, Mathias Unberath; corresponding-author addresses on the MICCAI paper, not verified here). Ask for the raw frames with their navigated poses, the four CBCTs, the frame count, and the detector and stored-intensity form. The only new candidate with a WRITTEN request statement is the Sina Tehran 300-patient AP pelvis plus CT cohort (Frontiers in Surgery 2024). It is diagnostic radiography, so it fits less well.",
+   "confidence": "medium",
+   "sources": [
+    "https://zenodo.org/records/22768651",
+    "https://github.com/ZWC-SMU/C-ArmLSpine",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12822567/",
+    "https://doi.org/10.3389/fsurg.2024.1329085"
+   ],
+   "evidence": "The access facts for C-ArmLSpine (licence, size, MD5, URLs) were verified 3-0. That compute nodes can reach Zenodo comes from this session's earlier grid test, not from this research pass. For FluoroSAM, no data statement exists, so a request may be refused. The ARCADE lab has released DeepFluoro-adjacent data (SyntheX, Pelphix, FluoroSeg) before, which makes a request plausible but not assured.",
+   "vote": "synthesis"
+  },
+  {
+   "claim": "(c) PLAIN STATEMENT: no public, labelled, multi-device set of intraoperative pelvis or spine fluoroscopy was found in this pass or the two before it. The closest public set, C-ArmLSpine, is intraoperative spine with lateral views, but it comes from one C-arm model and states no labels. Every labelled real intraoperative set found (Vanderbilt THA, the FluoroSAM Loop-X cadaver, RadGS-Reg) is single-site, single-device and unreleased. The only multi-device C-arm image sets found (four units in Marques and Pina; three flat panels in Jensen) are unreleased and show a phantom or the flank, not the pelvis or spine. Per-machine statistics will have to be measured on machines the project can image itself, for example with the printable Marques and Pina phantom.",
+   "confidence": "medium",
+   "sources": [
+    "https://zenodo.org/records/22768651",
+    "https://pubmed.ncbi.nlm.nih.gov/39880053/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12822567/",
+    "https://arxiv.org/pdf/2508.21154",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13238637/",
+    "https://doi.org/10.1089/end.2023.0537"
+   ],
+   "evidence": "This rests on absence of evidence. Several angles returned no surviving claim and were not shown to be empty: TUM CAMP/Navab/Fotouhi C-arm sets; Bern ISTB/ARTORG, FAU/CONRAD, Imperial, KCL, Leuven and Mannheim raw projections; O-arm and Airo raw projections; and challenge sites other than PENGWIN.",
+   "vote": "synthesis"
+  }
+ ],
+ "caveats": "- **LUMOS facts come from the previous verified pass.** They are recorded in spinesurg-ct-nnunet/docs/research_datasets_missed_verified_2026-09-21.json and were not re-checked here. Its CT-to-radiograph pairing passed only 2-1.\n- **C-ArmLSpine has not been opened.** The record is four days old (published 2026-09-17), and a v2 could appear. Its labels, pose or geometry, level range, sacrum coverage, stored-intensity form, patients versus cases, and ethics terms are unknown. So is the detector type: flat panel rests on a manufacturer page that does not name the B51. That the subjects were living is inferred, not stated. The zip preview was truncated, so not every one of the 149 folders was seen.\n- **CBCT is not diagnostic CT.** C-ArmLSpine and FluoroSAM both give CBCT as the 3-D reference, and its intensity calibration and field of view differ from diagnostic CT. This matters when calibrating the renderer (plan item 3). This is an inference.\n- **Coverage is uneven.** Angles 1 and 2 (TUM CAMP and Navab-era C-arm sets; Bern, FAU/CONRAD, Imperial, KCL, Leuven, Mannheim; raw O-arm and Airo projections) produced no surviving claim. So did most of angle 5 beyond PENGWIN. These are unsearched ground, not negative results. PENGWIN 2026 was not checked.\n- **Four claims were refuted 0-3, so these points are open:**\n  - the view mix, scanner makes and lumbar or pelvic coverage of the TCIA CT Colonography scouts;\n  - how RadGS-Reg obtained its ground-truth pose;\n  - whether the Sina cohort has a request route (the Frontiers version does state one);\n  - whether BIMCV holds any lumbar or pelvic radiographs.\n- **No on-request route has a DUA or licence.** FluoroSAM, Vanderbilt and RadGS-Reg state no route at all. An industry co-author (Tuodao Medical) may restrict sharing.\n- **Everything was checked on 2026-09-21.** MIDRC and TCIA counts come from live APIs on that date and can change.",
+ "openQuestions": [
+  "What does C-ArmLSpine actually contain? Specifically: projection geometry that ties the AP and lateral frames to the CBCT, any labels, the vertebral levels, whether the sacrum is in the lateral field, the detector type, and PixelIntensityRelationship. Reading the headers of a few cases in a grid batch job would settle all of these.",
+  "Will the JHU ARCADE lab share the FluoroSAM Loop-X torso frames with their navigated poses and the four CBCTs? How many frames are there (arXiv v1 reported 464), and is the arXiv v1 multi-specimen collection the same set?",
+  "Do the TCIA CT Colonography localizers include lateral views, and do they cover L5-S1 and the sacrum? Counting ImageOrientationPatient across all 1,611 small series would answer the view question.",
+  "Does any public multi-device C-arm image set exist in the angles that went unsearched (TUM CAMP, FAU/CONRAD, raw O-arm or Airo projections, grand-challenge)? If none does, is printing the Marques and Pina phantom and imaging it on accessible C-arms the practical route to plan item 2?"
+ ],
+ "refuted": [
+  {
+   "claim": "The localizers come in both frontal and lateral views, from several scanner makes. In the sample of 87 localizer images, 73 were frontal (AP/PA) and 9 lateral by ImageOrientationPatient. Scanners were Siemens Sensation 16 and 64, GE LightSpeed16 and LightSpeed VCT, and Philips Brilliance 40 and 64; some Siemens files have Manufacturer blanked. Nearly all were 120 kVp (3 at 80). Siemens topograms are 512x512 at 1 or 2 mm pixels; GE scouts run 888 columns by 916-1191 rows at about 0.55x0.60 mm. Stored as 12-bit MONOCHROME2 with RescaleIntercept -1024. Eight rendered samples show the lumbar spine, and most show the pelvis. These are CT slot-scan scouts from a fan beam, not C-arm cone-beam fluoroscopy, and they carry no bone labels. The lateral share across the whole collection is unverified.",
+   "vote": "0-3",
+   "source": "https://doi.org/10.7937/K9/TCIA.2015.NWTESAY1"
+  },
+  {
+   "claim": "The ground-truth CT-to-C-arm poses were recorded by the system during C-arm circular acquisitions, not by manual registration. The paper does not say whether a tracker, fiducials or the intraoperative CBCT itself supplied the pose.",
+   "vote": "0-3",
+   "source": "https://arxiv.org/pdf/2508.21154"
+  },
+  {
+   "claim": "The paper gives no data availability statement: the data are not public and no request route is described. The only statements are a conflict-of-interest declaration and author contacts (corresponding authors [e-mail withheld] and [e-mail withheld]). Access is UNVERIFIED and would have to be a cold request to the authors.",
+   "vote": "0-3",
+   "source": "https://arxiv.org/abs/2111.07369"
+  },
+  {
+   "claim": "BIMCV COVID-19+ is a chest-only collection: its radiographs are chest X-rays (CR and DX) and its findings cover thoracic entities. It contains no lumbar or pelvic radiographs, so it cannot supply same-patient CT plus lumbar/pelvic radiograph pairs for angle 6. At most, a CT extending caudally might include the upper lumbar spine, and the abstract does not verify that.",
+   "vote": "0-3",
+   "source": "https://arxiv.org/abs/2006.01174"
+  }
+ ],
+ "unverified": [],
+ "sources": [
+  {
+   "url": "https://zenodo.org/records/22768651",
+   "quality": "primary",
+   "angle": "Lab and challenge C-arm X-ray + CT registration releases (angles 1, 2, 5)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39094463/",
+   "quality": "primary",
+   "angle": "Lab and challenge C-arm X-ray + CT registration releases (angles 1, 2, 5)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://zenodo.org/records/10913196",
+   "quality": "primary",
+   "angle": "Lab and challenge C-arm X-ray + CT registration releases (angles 1, 2, 5)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12822567/",
+   "quality": "primary",
+   "angle": "Labelled intraoperative pelvis/hip fluoroscopy (angle 3)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39880053/",
+   "quality": "primary",
+   "angle": "Labelled intraoperative pelvis/hip fluoroscopy (angle 3)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://doi.org/10.7937/K9/TCIA.2015.NWTESAY1",
+   "quality": "primary",
+   "angle": "Same-patient CT + lumbar/pelvic radiograph collections (angle 6)",
+   "claimCount": 4
+  },
+  {
+   "url": "https://www.midrc.org/faqs",
+   "quality": "primary",
+   "angle": "Same-patient CT + lumbar/pelvic radiograph collections (angle 6)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/pdf/2508.21154",
+   "quality": "primary",
+   "angle": "Same-patient CT + lumbar/pelvic radiograph collections (angle 6)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/2111.07369",
+   "quality": "primary",
+   "angle": "Same-patient CT + lumbar/pelvic radiograph collections (angle 6)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/2006.01174",
+   "quality": "primary",
+   "angle": "Same-patient CT + lumbar/pelvic radiograph collections (angle 6)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://stanfordaimi.azurewebsites.net/categories/datasets?domain=BODY",
+   "quality": "primary",
+   "angle": "Same-patient CT + lumbar/pelvic radiograph collections (angle 6)",
+   "claimCount": 4
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13514627/",
+   "quality": "unreliable",
+   "angle": "Multi-device fluoroscopy image-quality phantom data (angle 7)",
+   "claimCount": 0
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13238637/",
+   "quality": "primary",
+   "angle": "Multi-device fluoroscopy image-quality phantom data (angle 7)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://doi.org/10.1089/end.2023.0537",
+   "quality": "primary",
+   "angle": "Multi-device fluoroscopy image-quality phantom data (angle 7)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://aapm.onlinelibrary.wiley.com/doi/10.1002/mp.13244",
+   "quality": "primary",
+   "angle": "Multi-device fluoroscopy image-quality phantom data (angle 7)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11548279/",
+   "quality": "primary",
+   "angle": "Multi-device fluoroscopy image-quality phantom data (angle 7)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://zenodo.org/records/18401318",
+   "quality": "primary",
+   "angle": "Multi-device fluoroscopy image-quality phantom data (angle 7)",
+   "claimCount": 5
+  }
+ ],
+ "stats": {
+  "angles": 5,
+  "sourcesFetched": 17,
+  "claimsExtracted": 78,
+  "claimsVerified": 25,
+  "confirmed": 21,
+  "killed": 4,
+  "unverified": 0,
+  "afterSynthesis": 13,
+  "urlDupes": 2,
+  "budgetDropped": 10,
+  "agentCalls": 99
+ }
+}

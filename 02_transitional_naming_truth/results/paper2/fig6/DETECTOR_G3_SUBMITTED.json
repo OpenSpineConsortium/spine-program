@@ -1,0 +1,39 @@
+{
+ "what": "State of the LEVELCHECK_MODEL.md s15 primary detector (det_g3_primary_s0) at 2026-09-24 15:40 EDT. The task brief said nothing was trained; that was stale. Training had already COMPLETED at 13:25 EDT; only the post stage (registry / lineage / gate / validation recall) had failed, on a JSON key-type bug. Nothing was retrained.",
+ "written": "2026-09-24T15:40:00 EDT",
+ "design": "one YOLO11m, 1024 px, classes vertebra + sacrum, vertebral-BODY truth (A28), G3 TRAIN side of every device (C-ArmLSpine, COBRA Elekta v1 + v3 body-window export, DeepFluoro, styled renders of TRAIN persons under TRAIN pose donors), G3 VAL side real frames for checkpoint selection, dc_P_pooled recipe (tools/devcorpus_train.py: 60 epochs, batch 8, patience 15, degrees 10, translate 0.1, scale 0.3, fliplr 0.5, mosaic 0.5, hsv_v 0.2), init = COCO yolo11m.pt (verified release)",
+ "tool": "tools/g3_detector.py (stages truth-real, truth-render, lists, train, post, overlay) driven by slurm/g3_detector.sh; tools/g3_leak_intersect.py is the independent list check",
+ "out_root": "/rs/rs_grp_oschome/go2432/data/fig6/detector_g3",
+ "run_dir": "~/spine-detector/runs/g3/det_g3_primary_s0",
+ "lists_proof": "SchwingNet/results/fig6/detector_g3_lists_check.json (PASS by two derivations + checkpoint gate)",
+ "completed_already_do_not_repeat": [
+  {"stage": "truth-real", "job": "40436857", "state": "COMPLETED", "start": "10:32", "end": "10:43", "elapsed": "00:11:24", "partition": "reqp", "output": "<out>/data/realxray/{carmlspine,cobra_elekta,cobra_elekta_v3,deepfluoro}_g3body + <out>/truth_build/real.json"},
+  {"stage": "truth-render", "job": "40436858", "state": "COMPLETED", "start": "10:32", "end": "10:36", "elapsed": "00:04:10", "partition": "reqp", "output": "<out>/data/styled/{5 geometry__card roots} + <out>/truth_build/render.json"},
+  {"stage": "lists", "job": "40436859", "state": "COMPLETED", "elapsed": "00:00:07", "output": "<out>/lists/{train.txt,val.txt,data.yaml,LEAK_PROOF.json PASS,LIST_INFO.json}"},
+  {"stage": "overlay", "job": "40436860", "state": "COMPLETED", "elapsed": "00:00:06", "output": "<out>/overlays/ (8 rendered truth overlays)"},
+  {"stage": "leak intersect (independent)", "job": "login-node python, no model", "output": "<out>/lists/INTERSECT.json PASS, written 10:47:12"},
+  {"stage": "train", "job": "40436991", "state": "COMPLETED", "submitted": "10:46:11", "start": "10:47:53", "end": "13:25:49", "elapsed": "02:37:56", "queue_wait": "00:01:42", "partition": "galhp (NVIDIA L40S 45 GB)", "epochs_run": 50, "epochs_requested": 60, "stopped_by": "patience 15 after best epoch 36", "best_epoch": 36, "best_epoch_wall_s": 6720, "seconds_per_epoch": 190, "final_val_all_341_frames": {"P": 0.921, "R": 0.921, "mAP50": 0.945, "mAP50_95": 0.690}, "output": "<run_dir>/weights/best.pt (sha256 fe00a1732032e81a3f892e91a3bf51105e4822d0cf624ac71fedd15a8652f92f), results.csv (50 rows), curves"},
+  {"stage": "post (first attempt)", "job": "40436992", "state": "FAILED", "elapsed": "00:03:22", "what_finished_before_the_failure": "registry entry det_g3_primary_s0 -> ~/model_registry/fe00a1732032e81a/best.pt, parents [public:ultralytics/yolo11m.pt], train_list/val_list = the lists; lineage resolved (0 unresolved); eval_gate on all 2887 G3 test+hold persons overlap 0 and on Figure 6 T1/T2/T3 HELD OUT; carmlspine val c0.25 scored (vertebra recall 0.87, sacrum 0.90, 20 frames)", "why_it_failed": "cmd_post read realxray_eval's --dump-raw frames back from JSON and indexed det[0]; JSON had turned the int class keys into \"0\"/\"1\" (KeyError: 0 at tools/g3_detector.py:1090)", "fix": "tools/g3_detector.py cmd_post now casts det keys back to int after loading (local sha256 0c196a01..., copied to the grid, CRLF stripped)"}
+ ],
+ "pending": [
+  {
+   "job_id": "40437708",
+   "name": "g3det_post (STAGE=post ARGS='--name det_g3_primary_s0 --epochs 60')",
+   "submitted": "2026-09-24T15:35:39 EDT",
+   "partition": "gmsap,gvohp,galhp --qos=gpu --gres=gpu:1, 8 cpu, 64 GB, --time 2:00:00",
+   "state_at_write": "PENDING (Resources): the GPU partitions are full of the acq_* harvest arrays",
+   "eta_compute": "about 8 min: registry + lineage + gate ~2 min (measured 40436992), then 8 realxray_eval calls (4 val roots x conf 0.25/0.74 = 1,114 frames at 5.4 ms/img inference + ~30 s model load and gate per call)",
+   "eta_queue": "2 min (the train job's wait at 10:46) to ~30 min (GPU partitions saturated by acq_* arrays at 15:35)",
+   "eta": "2026-09-24 15:50 to 16:15 EDT",
+   "output": "/rs/rs_grp_oschome/go2432/data/fig6/detector_g3/post/det_g3_primary_s0/{POST.json (with validation_recall), val_<root>_c{0.25,0.74}.json}; log ~/model_night/logs/g3det_40437708.out ending G3DET_POST_OK / G3DET_RC=0",
+   "collected_by": "the coordinator's Figure 6 evaluation resubmission (next step below); check with: sacct -j 40437708 -X --format=JobID,State,Elapsed and tail -30 ~/model_night/logs/g3det_40437708.out"
+  }
+ ],
+ "next_step_after_post": {
+  "what": "resubmit the Figure 6 evaluation on det_g3_primary_s0 best.pt: SchwingNet/slurm/fig6_eval.sh (the command the held f6eval jobs run) pointed at ~/spine-detector/runs/g3/det_g3_primary_s0/weights/best.pt over sets_v2 T1/T2/T3, every evaluator through tools/eval_gate.py (assert_unseen; the chain resolves to COCO yolo11m only, so the gate passes without exemption)",
+  "held_jobs": "f6eval 40431765 and 40431766 are JobHeldUser and were NOT touched; they stay held (they carry the pre-G3 detector). Whether they are released, requeued with the new weights, or cancelled and resubmitted is the coordinator's call after unblinding rules are settled; unblinding has NOT happened",
+  "gate_condition": "do not evaluate until post's POST.json shows validation_recall for all four val roots and eval_gate_test_persons.held_out == true (already true in the partial POST.json from 40436992)"
+ },
+ "wall_time_note": "The brief asked for an estimate from dc_P_pooled's log scaled by frames; the run is already done, so the measured number replaces it: 11,264 train entries at 1024 px, batch 8, 190 s/epoch on an L40S, 2 h 38 min to early stop at epoch 50 (best 36). A second seed would cost the same.",
+ "not_done_here": "no second seed, no detector-g3 evaluation on any test set, no change to LEVELCHECK_MODEL.md sections 1-15, no commit"
+}

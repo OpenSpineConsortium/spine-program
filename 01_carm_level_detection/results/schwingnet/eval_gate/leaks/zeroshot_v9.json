@@ -1,0 +1,1113 @@
+{
+ "zeroshot2": {
+  "error": "UnresolvedLineage: eval_gate: /wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt on /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/kfull (tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/kfull; gated at scoring) [level_model]): the initialisation chain has 1 unresolved link(s), so what it saw is a lower bound and cannot certify a held-out result:\n    /wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt: training bank -- /wsu/home/go/go24/go2432/allspine_v2_fov96_ctx is not on disk (deleted or never here); what this model trained on cannot be read. Its build lines (/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/slurm/allspine_v2_chain.sh:17, /wsu/home/go/go24\n  Resolve the lineage (tools/checkpoint_lineage.py) or declare --not-held-out \"<reason>\"."
+ },
+ "zeroshot_v9": {
+  "eval_gate": {
+   "gate_version": "eval_gate/1",
+   "held_out": true,
+   "not_held_out_reason": null,
+   "n_checks": 9,
+   "overlap": 0,
+   "unresolved": 0,
+   "checks": [
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_test/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_test/kfull; gated at scoring) [detector]",
+     "checked_at": "2026-09-24T05:51:33",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/model_registry/797de71a9e0e42f7/detect_v5z_final_best.pt",
+     "checkpoint_sha256": "797de71a9e0e42f75ab81af8d1983a4c19045e47cfda771bf4dadd5559076d65",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "/wsu/home/go/go24/go2432/spine-detector/runs/pose/runs/pose/runs/detect_v3/weights/best.pt"
+     ],
+     "public_roots": [
+      "public:ultralytics/yolo11m-pose.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m-pose.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco-pose.yaml')"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_test/kfull",
+     "n_items": 56,
+     "n_keys": 28,
+     "keys_by_corpus": {
+      "carmlspine": 28
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "detector"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_test/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_test/kfull; gated at scoring) [level_model]",
+     "checked_at": "2026-09-24T05:51:33",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/allspine_v9_fov96_ctx/runs/model_rung_1_aug2.pt",
+     "checkpoint_sha256": "188f9fcbfa3c6de1cd070a5aa6308c78d29ea8fa5a17d566a9f0fc17210f6e52",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "public_roots": [
+      "public:torchvision/resnet18/IMAGENET1K_V1 (used when cached on the node; random init otherwise)"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_test/kfull",
+     "n_items": 56,
+     "n_keys": 28,
+     "keys_by_corpus": {
+      "carmlspine": 28
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "level_model"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_test/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_test/kfull; gated at scoring) [head]",
+     "checked_at": "2026-09-24T05:51:33",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/model_night/heads_mixed/head_allspine_v9_mixed_kmax4_seed0.pt",
+     "checkpoint_sha256": "6419af17e98a4482a9e629e7adbac48cc9541ae63e1af988e7e5cba9addfac4f",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "/wsu/home/go/go24/go2432/allspine_v9_fov96_ctx/runs/model_rung_1_aug2.pt"
+     ],
+     "public_roots": [
+      "public:torchvision/resnet18/IMAGENET1K_V1 (used when cached on the node; random init otherwise)"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_test/kfull",
+     "n_items": 56,
+     "n_keys": 28,
+     "keys_by_corpus": {
+      "carmlspine": 28
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "head"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_train/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_train/kfull; gated at scoring) [detector]",
+     "checked_at": "2026-09-24T05:51:33",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/model_registry/797de71a9e0e42f7/detect_v5z_final_best.pt",
+     "checkpoint_sha256": "797de71a9e0e42f75ab81af8d1983a4c19045e47cfda771bf4dadd5559076d65",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "/wsu/home/go/go24/go2432/spine-detector/runs/pose/runs/pose/runs/detect_v3/weights/best.pt"
+     ],
+     "public_roots": [
+      "public:ultralytics/yolo11m-pose.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m-pose.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco-pose.yaml')"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_train/kfull",
+     "n_items": 210,
+     "n_keys": 105,
+     "keys_by_corpus": {
+      "carmlspine": 105
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "detector"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_train/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_train/kfull; gated at scoring) [level_model]",
+     "checked_at": "2026-09-24T05:51:33",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/allspine_v9_fov96_ctx/runs/model_rung_1_aug2.pt",
+     "checkpoint_sha256": "188f9fcbfa3c6de1cd070a5aa6308c78d29ea8fa5a17d566a9f0fc17210f6e52",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "public_roots": [
+      "public:torchvision/resnet18/IMAGENET1K_V1 (used when cached on the node; random init otherwise)"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_train/kfull",
+     "n_items": 210,
+     "n_keys": 105,
+     "keys_by_corpus": {
+      "carmlspine": 105
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "level_model"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_train/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_train/kfull; gated at scoring) [head]",
+     "checked_at": "2026-09-24T05:51:33",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/model_night/heads_mixed/head_allspine_v9_mixed_kmax4_seed0.pt",
+     "checkpoint_sha256": "6419af17e98a4482a9e629e7adbac48cc9541ae63e1af988e7e5cba9addfac4f",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "/wsu/home/go/go24/go2432/allspine_v9_fov96_ctx/runs/model_rung_1_aug2.pt"
+     ],
+     "public_roots": [
+      "public:torchvision/resnet18/IMAGENET1K_V1 (used when cached on the node; random init otherwise)"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_train/kfull",
+     "n_items": 210,
+     "n_keys": 105,
+     "keys_by_corpus": {
+      "carmlspine": 105
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "head"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_val/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_val/kfull; gated at scoring) [detector]",
+     "checked_at": "2026-09-24T05:51:33",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/model_registry/797de71a9e0e42f7/detect_v5z_final_best.pt",
+     "checkpoint_sha256": "797de71a9e0e42f75ab81af8d1983a4c19045e47cfda771bf4dadd5559076d65",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "/wsu/home/go/go24/go2432/spine-detector/runs/pose/runs/pose/runs/detect_v3/weights/best.pt"
+     ],
+     "public_roots": [
+      "public:ultralytics/yolo11m-pose.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m-pose.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco-pose.yaml')"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_val/kfull",
+     "n_items": 30,
+     "n_keys": 15,
+     "keys_by_corpus": {
+      "carmlspine": 15
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "detector"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_val/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_val/kfull; gated at scoring) [level_model]",
+     "checked_at": "2026-09-24T05:51:33",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/allspine_v9_fov96_ctx/runs/model_rung_1_aug2.pt",
+     "checkpoint_sha256": "188f9fcbfa3c6de1cd070a5aa6308c78d29ea8fa5a17d566a9f0fc17210f6e52",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "public_roots": [
+      "public:torchvision/resnet18/IMAGENET1K_V1 (used when cached on the node; random init otherwise)"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_val/kfull",
+     "n_items": 30,
+     "n_keys": 15,
+     "keys_by_corpus": {
+      "carmlspine": 15
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "level_model"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_val/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_val/kfull; gated at scoring) [head]",
+     "checked_at": "2026-09-24T05:51:33",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/model_night/heads_mixed/head_allspine_v9_mixed_kmax4_seed0.pt",
+     "checkpoint_sha256": "6419af17e98a4482a9e629e7adbac48cc9541ae63e1af988e7e5cba9addfac4f",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "/wsu/home/go/go24/go2432/allspine_v9_fov96_ctx/runs/model_rung_1_aug2.pt"
+     ],
+     "public_roots": [
+      "public:torchvision/resnet18/IMAGENET1K_V1 (used when cached on the node; random init otherwise)"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_val/kfull",
+     "n_items": 30,
+     "n_keys": 15,
+     "keys_by_corpus": {
+      "carmlspine": 15
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "head"
+    }
+   ]
+  },
+  "zeroshot_v9/det/LAT/kfull": {
+   "files": [
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_test/score_kfull.json",
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_train/score_kfull.json",
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_val/score_kfull.json"
+   ],
+   "vertebrae": 617,
+   "cases": 141,
+   "exact_full_coverage": {
+    "k": 595,
+    "n": 617,
+    "clusters": 141,
+    "point": 0.9643435980551054,
+    "clusters_with_error": 6,
+    "clusters_all_wrong": 6,
+    "wilson_naive": [
+     0.9466039872355295,
+     0.9763369534169032
+    ],
+    "percentile": [
+     0.9331130916205524,
+     0.9888539462092291
+    ],
+    "bca": [
+     0.9252644158153306,
+     0.9870340356564019
+    ],
+    "bca_note": "z0=-0.077 a=-0.0650",
+    "design_effect": 3.841454176717027,
+    "n_effective": 160.61625926442753,
+    "wilson_effective_n": [
+     0.9231523032118436,
+     0.9838423042944275
+    ],
+    "ceiling_regime": true,
+    "cluster": "case"
+   },
+   "answered": {
+    "k": 512,
+    "n": 617,
+    "clusters": 141,
+    "point": 0.8298217179902755,
+    "clusters_with_error": 75,
+    "clusters_all_wrong": 1,
+    "wilson_naive": [
+     0.7981507341398038,
+     0.8574111556429886
+    ],
+    "percentile": [
+     0.7973790954081313,
+     0.8596774193548387
+    ],
+    "bca": [
+     0.7977056471519299,
+     0.8596774193548387
+    ],
+    "bca_note": "z0=0.036 a=-0.0137",
+    "design_effect": 1.0976212419605809,
+    "n_effective": 562.1246896588017,
+    "wilson_effective_n": [
+     0.7965425019255101,
+     0.8586236466722739
+    ],
+    "ceiling_regime": false,
+    "cluster": "case"
+   },
+   "exact_on_answered": {
+    "k": 500,
+    "n": 512,
+    "clusters": 140,
+    "point": 0.9765625,
+    "clusters_with_error": 5,
+    "clusters_all_wrong": 5,
+    "wilson_naive": [
+     0.9594842199324425,
+     0.986542881331685
+    ],
+    "percentile": [
+     0.9513547290351565,
+     0.9960480132321766
+    ],
+    "bca": [
+     0.9382470119521913,
+     0.9922568474035941
+    ],
+    "bca_note": "z0=-0.121 a=-0.0864",
+    "design_effect": 2.985531582727525,
+    "n_effective": 171.49374770045023,
+    "wilson_effective_n": [
+     0.9414135045625645,
+     0.9908292635621585
+    ],
+    "ceiling_regime": true,
+    "cluster": "case"
+   }
+  },
+  "zeroshot_v9/det/AP/kfull": {
+   "files": [
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_test/score_kfull.json",
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_train/score_kfull.json",
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot_v9_det_val/score_kfull.json"
+   ],
+   "vertebrae": 631,
+   "cases": 142,
+   "exact_full_coverage": {
+    "k": 276,
+    "n": 631,
+    "clusters": 142,
+    "point": 0.43740095087163233,
+    "clusters_with_error": 83,
+    "clusters_all_wrong": 82,
+    "wilson_naive": [
+     0.39918965629319975,
+     0.47636982568084557
+    ],
+    "percentile": [
+     0.3487176392027943,
+     0.5192962924994874
+    ],
+    "bca": [
+     0.348063257002187,
+     0.5182167885593653
+    ],
+    "bca_note": "z0=-0.019 a=0.0045",
+    "design_effect": 4.761247565761424,
+    "n_effective": 132.52829038707836,
+    "wilson_effective_n": [
+     0.3558871884964875,
+     0.5224414729693436
+    ],
+    "ceiling_regime": false,
+    "cluster": "case"
+   },
+   "answered": {
+    "k": 132,
+    "n": 631,
+    "clusters": 142,
+    "point": 0.2091917591125198,
+    "clusters_with_error": 142,
+    "clusters_all_wrong": 50,
+    "wilson_naive": [
+     0.17926351514724254,
+     0.24263939478281576
+    ],
+    "percentile": [
+     0.17980364638962715,
+     0.23957174340196682
+    ],
+    "bca": [
+     0.17807508022503743,
+     0.23875363135332534
+    ],
+    "bca_note": "z0=-0.049 a=0.0055",
+    "design_effect": 0.9005488399606323,
+    "n_effective": 700.6838185784397,
+    "wilson_effective_n": [
+     0.18070195693692323,
+     0.24085285383907148
+    ],
+    "ceiling_regime": false,
+    "cluster": "case"
+   },
+   "exact_on_answered": {
+    "k": 62,
+    "n": 132,
+    "clusters": 92,
+    "point": 0.4696969696969697,
+    "clusters_with_error": 48,
+    "clusters_all_wrong": 48,
+    "wilson_naive": [
+     0.3866223103753847,
+     0.5544855070063491
+    ],
+    "percentile": [
+     0.36432346723044395,
+     0.5763952250608272
+    ],
+    "bca": [
+     0.3597122302158273,
+     0.5743059840334274
+    ],
+    "bca_note": "z0=-0.026 a=0.0005",
+    "design_effect": 1.6110666412596424,
+    "n_effective": 81.93329600369191,
+    "wilson_effective_n": [
+     0.3654270584485462,
+     0.576681149107154
+    ],
+    "ceiling_regime": false,
+    "cluster": "case"
+   }
+  },
+  "lateral_vs_ap_cases": {
+   "cases_with_both": 140,
+   "lateral_better": 79,
+   "ap_better": 1
+  },
+  "lateral_minus_ap_paired": {
+   "n_items": 593,
+   "n_clusters": 140,
+   "cluster": "case",
+   "p_a": 0.96964586846543,
+   "p_b": 0.4266441821247892,
+   "diff": 0.5430016863406408,
+   "diff_pp": 54.300168634064086,
+   "discordant_a_only": 326,
+   "discordant_b_only": 4,
+   "mcnemar_exact_p": 4.491383639145703e-91,
+   "mcnemar_floor": 9.1438991302582e-100,
+   "clusters_favouring_a": 79,
+   "clusters_favouring_b": 1,
+   "cluster_sign_test_p": 1.3400325923359048e-22,
+   "cluster_sign_floor": 1.6543612251060553e-24,
+   "percentile": [
+    0.45625316613194217,
+    0.6294447141911278
+   ],
+   "percentile_pp": [
+    45.625316613194215,
+    62.94447141911278
+   ],
+   "bca": [
+    0.45585100839078485,
+    0.6288890581330184
+   ],
+   "bca_note": "z0=0.000 a=-0.0047",
+   "bca_pp": [
+    45.585100839078486,
+    62.88890581330185
+   ],
+   "p_boot": 0.0005,
+   "excludes_zero": true,
+   "bootstrap_zero_mass": 3.0426364153781584e-52,
+   "excludes_zero_fragile": false,
+   "matched_vertebrae": 593
+  }
+ },
+ "zeroshot2_declared": {
+  "eval_gate": {
+   "gate_version": "eval_gate/1",
+   "held_out": false,
+   "not_held_out_reason": "EVAL_LEAKS reproduction of the quoted zero-shot cells: the strict gate refused them (UnresolvedLineage: eval_gate: /wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt on /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/kfull (tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/score_kfull.json (legacy)",
+   "n_checks": 6,
+   "overlap": 0,
+   "unresolved": 3,
+   "checks": [
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/kfull; gated at scoring) [detector]",
+     "checked_at": "2026-09-24T05:51:33",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/model_registry/797de71a9e0e42f7/detect_v5z_final_best.pt",
+     "checkpoint_sha256": "797de71a9e0e42f75ab81af8d1983a4c19045e47cfda771bf4dadd5559076d65",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "/wsu/home/go/go24/go2432/spine-detector/runs/pose/runs/pose/runs/detect_v3/weights/best.pt"
+     ],
+     "public_roots": [
+      "public:ultralytics/yolo11m-pose.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m-pose.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco-pose.yaml')"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/kfull",
+     "n_items": 56,
+     "n_keys": 28,
+     "keys_by_corpus": {
+      "carmlspine": 28
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": false,
+     "not_held_out_reason": "EVAL_LEAKS reproduction of the quoted zero-shot cells: the strict gate refused them (UnresolvedLineage: eval_gate: /wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt on /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/kfull (tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/score_kfull.json (legacy)",
+     "overlap_by": {},
+     "problems": [],
+     "role": "detector"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/kfull; gated at scoring) [level_model]",
+     "checked_at": "2026-09-24T05:51:33",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt",
+     "checkpoint_sha256": "00e84a90afa7ec5206343d0cce1bac4fddb4ef2a7f9acfa39f76f878542eb0c2",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "public_roots": [
+      "public:torchvision/resnet18/IMAGENET1K_V1 (used when cached on the node; random init otherwise)"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/kfull",
+     "n_items": 56,
+     "n_keys": 28,
+     "keys_by_corpus": {
+      "carmlspine": 28
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 1,
+     "unresolved_rows": [
+      {
+       "at": "/wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt",
+       "what": "training bank",
+       "why": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx is not on disk (deleted or never here); what this model trained on cannot be read. Its build lines (/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/slurm/allspine_v2_chain.sh:17, /wsu/home/go/go24/go2432/spinesurg-ct-nnunet/slurm/reproduce_all.sh:131) drew it from 6 roots, which key today to 11205 patients in buu 3600, csxa 4963, ctsp 802, nhanes 364, ts 1121, verse 355; roots changed after the fit (cases may have left them): ['/wsu/home/go/go24/go2432/ctsp_drr', '/wsu/home/go/go24/go2432/physics_drr', '/wsu/home/go/go24/go2432/verse_drr']. That uppe"
+      }
+     ],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": false,
+     "not_held_out_reason": "EVAL_LEAKS reproduction of the quoted zero-shot cells: the strict gate refused them (UnresolvedLineage: eval_gate: /wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt on /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/kfull (tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/score_kfull.json (legacy)",
+     "overlap_by": {},
+     "problems": [
+      "1 unresolved lineage link(s)"
+     ],
+     "role": "level_model"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_train/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_train/kfull; gated at scoring) [detector]",
+     "checked_at": "2026-09-24T05:51:33",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/model_registry/797de71a9e0e42f7/detect_v5z_final_best.pt",
+     "checkpoint_sha256": "797de71a9e0e42f75ab81af8d1983a4c19045e47cfda771bf4dadd5559076d65",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "/wsu/home/go/go24/go2432/spine-detector/runs/pose/runs/pose/runs/detect_v3/weights/best.pt"
+     ],
+     "public_roots": [
+      "public:ultralytics/yolo11m-pose.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m-pose.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco-pose.yaml')"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_train/kfull",
+     "n_items": 210,
+     "n_keys": 105,
+     "keys_by_corpus": {
+      "carmlspine": 105
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": false,
+     "not_held_out_reason": "EVAL_LEAKS reproduction of the quoted zero-shot cells: the strict gate refused them (UnresolvedLineage: eval_gate: /wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt on /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/kfull (tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/score_kfull.json (legacy)",
+     "overlap_by": {},
+     "problems": [],
+     "role": "detector"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_train/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_train/kfull; gated at scoring) [level_model]",
+     "checked_at": "2026-09-24T05:51:33",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt",
+     "checkpoint_sha256": "00e84a90afa7ec5206343d0cce1bac4fddb4ef2a7f9acfa39f76f878542eb0c2",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "public_roots": [
+      "public:torchvision/resnet18/IMAGENET1K_V1 (used when cached on the node; random init otherwise)"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_train/kfull",
+     "n_items": 210,
+     "n_keys": 105,
+     "keys_by_corpus": {
+      "carmlspine": 105
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 1,
+     "unresolved_rows": [
+      {
+       "at": "/wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt",
+       "what": "training bank",
+       "why": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx is not on disk (deleted or never here); what this model trained on cannot be read. Its build lines (/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/slurm/allspine_v2_chain.sh:17, /wsu/home/go/go24/go2432/spinesurg-ct-nnunet/slurm/reproduce_all.sh:131) drew it from 6 roots, which key today to 11205 patients in buu 3600, csxa 4963, ctsp 802, nhanes 364, ts 1121, verse 355; roots changed after the fit (cases may have left them): ['/wsu/home/go/go24/go2432/ctsp_drr', '/wsu/home/go/go24/go2432/physics_drr', '/wsu/home/go/go24/go2432/verse_drr']. That uppe"
+      }
+     ],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": false,
+     "not_held_out_reason": "EVAL_LEAKS reproduction of the quoted zero-shot cells: the strict gate refused them (UnresolvedLineage: eval_gate: /wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt on /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/kfull (tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/score_kfull.json (legacy)",
+     "overlap_by": {},
+     "problems": [
+      "1 unresolved lineage link(s)"
+     ],
+     "role": "level_model"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_val/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_val/kfull; gated at scoring) [detector]",
+     "checked_at": "2026-09-24T05:51:34",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/model_registry/797de71a9e0e42f7/detect_v5z_final_best.pt",
+     "checkpoint_sha256": "797de71a9e0e42f75ab81af8d1983a4c19045e47cfda771bf4dadd5559076d65",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "/wsu/home/go/go24/go2432/spine-detector/runs/pose/runs/pose/runs/detect_v3/weights/best.pt"
+     ],
+     "public_roots": [
+      "public:ultralytics/yolo11m-pose.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m-pose.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco-pose.yaml')"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_val/kfull",
+     "n_items": 30,
+     "n_keys": 15,
+     "keys_by_corpus": {
+      "carmlspine": 15
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": false,
+     "not_held_out_reason": "EVAL_LEAKS reproduction of the quoted zero-shot cells: the strict gate refused them (UnresolvedLineage: eval_gate: /wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt on /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/kfull (tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/score_kfull.json (legacy)",
+     "overlap_by": {},
+     "problems": [],
+     "role": "detector"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_val/score_kfull.json (legacy prototype output /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_val/kfull; gated at scoring) [level_model]",
+     "checked_at": "2026-09-24T05:51:34",
+     "host": "alh2",
+     "checkpoint": "/wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt",
+     "checkpoint_sha256": "00e84a90afa7ec5206343d0cce1bac4fddb4ef2a7f9acfa39f76f878542eb0c2",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "public_roots": [
+      "public:torchvision/resnet18/IMAGENET1K_V1 (used when cached on the node; random init otherwise)"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_val/kfull",
+     "n_items": 30,
+     "n_keys": 15,
+     "keys_by_corpus": {
+      "carmlspine": 15
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 1,
+     "unresolved_rows": [
+      {
+       "at": "/wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt",
+       "what": "training bank",
+       "why": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx is not on disk (deleted or never here); what this model trained on cannot be read. Its build lines (/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/slurm/allspine_v2_chain.sh:17, /wsu/home/go/go24/go2432/spinesurg-ct-nnunet/slurm/reproduce_all.sh:131) drew it from 6 roots, which key today to 11205 patients in buu 3600, csxa 4963, ctsp 802, nhanes 364, ts 1121, verse 355; roots changed after the fit (cases may have left them): ['/wsu/home/go/go24/go2432/ctsp_drr', '/wsu/home/go/go24/go2432/physics_drr', '/wsu/home/go/go24/go2432/verse_drr']. That uppe"
+      }
+     ],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": false,
+     "not_held_out_reason": "EVAL_LEAKS reproduction of the quoted zero-shot cells: the strict gate refused them (UnresolvedLineage: eval_gate: /wsu/home/go/go24/go2432/model_registry/00e84a90afa7ec52/model_rung_1_aug2.pt on /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/kfull (tools/rigor_fixes.py <- /rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/score_kfull.json (legacy)",
+     "overlap_by": {},
+     "problems": [
+      "1 unresolved lineage link(s)"
+     ],
+     "role": "level_model"
+    }
+   ]
+  },
+  "zeroshot2/det/LAT/kfull": {
+   "files": [
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/score_kfull.json",
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_train/score_kfull.json",
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_val/score_kfull.json"
+   ],
+   "vertebrae": 617,
+   "cases": 141,
+   "exact_full_coverage": {
+    "k": 594,
+    "n": 617,
+    "clusters": 141,
+    "point": 0.9627228525121556,
+    "clusters_with_error": 6,
+    "clusters_all_wrong": 6,
+    "wilson_naive": [
+     0.9446857042868556,
+     0.9750338020177501
+    ],
+    "percentile": [
+     0.9305745673861296,
+     0.9873015873015873
+    ],
+    "bca": [
+     0.9231853450315899,
+     0.9853780358308423
+    ],
+    "bca_note": "z0=-0.040 a=-0.0667",
+    "design_effect": 4.008020818453113,
+    "n_effective": 153.9413161626565,
+    "wilson_effective_n": [
+     0.9198240811625301,
+     0.9830902571329715
+    ],
+    "ceiling_regime": true,
+    "cluster": "case"
+   },
+   "answered": {
+    "k": 513,
+    "n": 617,
+    "clusters": 141,
+    "point": 0.8314424635332253,
+    "clusters_with_error": 70,
+    "clusters_all_wrong": 1,
+    "wilson_naive": [
+     0.799872871104962,
+     0.8589104530256574
+    ],
+    "percentile": [
+     0.7960773595331829,
+     0.8631294950059804
+    ],
+    "bca": [
+     0.7976018314627076,
+     0.864297253634895
+    ],
+    "bca_note": "z0=0.069 a=-0.0146",
+    "design_effect": 1.2825229705704735,
+    "n_effective": 481.0830013637533,
+    "wilson_effective_n": [
+     0.7953938521972831,
+     0.8622398546085602
+    ],
+    "ceiling_regime": false,
+    "cluster": "case"
+   },
+   "exact_on_answered": {
+    "k": 500,
+    "n": 513,
+    "clusters": 140,
+    "point": 0.9746588693957114,
+    "clusters_with_error": 5,
+    "clusters_all_wrong": 5,
+    "wilson_naive": [
+     0.9571301148859365,
+     0.9851317561164691
+    ],
+    "percentile": [
+     0.9479768786127167,
+     0.9960478198624382
+    ],
+    "bca": [
+     0.9348014395003572,
+     0.9920066162426442
+    ],
+    "bca_note": "z0=-0.111 a=-0.0877",
+    "design_effect": 3.1501813283135327,
+    "n_effective": 162.84776859960547,
+    "wilson_effective_n": [
+     0.9374738976580094,
+     0.9899662125802106
+    ],
+    "ceiling_regime": true,
+    "cluster": "case"
+   }
+  },
+  "zeroshot2/det/AP/kfull": {
+   "files": [
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/score_kfull.json",
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_train/score_kfull.json",
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_val/score_kfull.json"
+   ],
+   "vertebrae": 631,
+   "cases": 142,
+   "exact_full_coverage": {
+    "k": 239,
+    "n": 631,
+    "clusters": 142,
+    "point": 0.3787638668779715,
+    "clusters_with_error": 91,
+    "clusters_all_wrong": 90,
+    "wilson_naive": [
+     0.3417567568658483,
+     0.4172381892357837
+    ],
+    "percentile": [
+     0.29570025140836403,
+     0.4586170115503001
+    ],
+    "bca": [
+     0.3014039908463817,
+     0.4635387367263429
+    ],
+    "bca_note": "z0=0.043 a=0.0080",
+    "design_effect": 4.722100186036277,
+    "n_effective": 133.62698272813654,
+    "wilson_effective_n": [
+     0.3009924945373342,
+     0.4633109559972562
+    ],
+    "ceiling_regime": false,
+    "cluster": "case"
+   },
+   "answered": {
+    "k": 110,
+    "n": 631,
+    "clusters": 142,
+    "point": 0.17432646592709986,
+    "clusters_with_error": 142,
+    "clusters_all_wrong": 53,
+    "wilson_naive": [
+     0.1467192309793552,
+     0.2058750359995385
+    ],
+    "percentile": [
+     0.14896399626873158,
+     0.20062245544868304
+    ],
+    "bca": [
+     0.14806091481120015,
+     0.19881340011682858
+    ],
+    "bca_note": "z0=-0.051 a=0.0087",
+    "design_effect": 0.7587998995882534,
+    "n_effective": 831.5762829467935,
+    "wilson_effective_n": [
+     0.15005386379691193,
+     0.2015941240815568
+    ],
+    "ceiling_regime": false,
+    "cluster": "case"
+   },
+   "exact_on_answered": {
+    "k": 40,
+    "n": 110,
+    "clusters": 89,
+    "point": 0.36363636363636365,
+    "clusters_with_error": 56,
+    "clusters_all_wrong": 56,
+    "wilson_naive": [
+     0.27975228932289864,
+     0.45672332939478255
+    ],
+    "percentile": [
+     0.2616822429906542,
+     0.47575083930677786
+    ],
+    "bca": [
+     0.2643675450446339,
+     0.4778731924206764
+    ],
+    "bca_note": "z0=0.011 a=0.0127",
+    "design_effect": 1.4327574878875242,
+    "n_effective": 76.7750306174881,
+    "wilson_effective_n": [
+     0.26492535780542753,
+     0.4753431051382931
+    ],
+    "ceiling_regime": false,
+    "cluster": "case"
+   }
+  },
+  "lateral_vs_ap_cases": {
+   "cases_with_both": 140,
+   "lateral_better": 86,
+   "ap_better": 2
+  },
+  "lateral_minus_ap_paired": {
+   "n_items": 593,
+   "n_clusters": 140,
+   "cluster": "case",
+   "p_a": 0.9612141652613828,
+   "p_b": 0.3844856661045531,
+   "diff": 0.5767284991568298,
+   "diff_pp": 57.672849915682974,
+   "discordant_a_only": 350,
+   "discordant_b_only": 8,
+   "mcnemar_exact_p": 2.1558147017142786e-92,
+   "mcnemar_floor": 3.4063678720065206e-108,
+   "clusters_favouring_a": 86,
+   "clusters_favouring_b": 2,
+   "cluster_sign_test_p": 2.531301921382976e-23,
+   "cluster_sign_floor": 6.462348535570529e-27,
+   "percentile": [
+    0.4885563725490196,
+    0.6643487194758786
+   ],
+   "percentile_pp": [
+    48.855637254901964,
+    66.43487194758787
+   ],
+   "bca": [
+    0.4880546075085324,
+    0.6616098273605466
+   ],
+   "bca_note": "z0=0.001 a=-0.0094",
+   "bca_pp": [
+    48.80546075085324,
+    66.16098273605466
+   ],
+   "p_boot": 0.0005,
+   "excludes_zero": true,
+   "bootstrap_zero_mass": 6.060983670262884e-61,
+   "excludes_zero_fragile": false,
+   "matched_vertebrae": 593
+  }
+ }
+}

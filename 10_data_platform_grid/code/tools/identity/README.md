@@ -1,0 +1,3 @@
+# tools/identity/ is empty in spinesurg-ct-nnunet at 097933a
+
+The metadata-first keyer of `docs/PATIENT_IDENTITY_SPEC.md` was to be re-keyed into this folder (HANDOFF/OPEN_QUESTIONS.md F14; HANDOFF/LEAKAGE.md section 7 item 4). On 2026-10-08 the folder held no file. The frozen tables it should hold (`ctsp_token_map.json`, `ts_alias.json`, `verse_series_to_patient.json`, `vindr_image_to_study.json`, `fluorocap_doc_keys.json`, `deepfluoro_h5_alias.json`) and the bank registry `banks.json` are not in the repository; the VinDr map was exported on the grid by job 40416449 (LEAKAGE.md section 7). This placeholder records that state.

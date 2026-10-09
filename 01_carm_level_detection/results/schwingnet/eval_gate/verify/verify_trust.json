@@ -1,0 +1,49 @@
+{
+ "T1 forged block (held_out true, zero checks) on the leaked arc dump": {
+  "raised": null,
+  "result": {
+   "held_out": true
+  }
+ },
+ "T2 genuine block of another checkpoint on a dump whose weights are dc_P_pooled": {
+  "raised": null,
+  "result": {
+   "held_out": true,
+   "block_checkpoint": "/wsu/home/go/go24/go2432/FluoroCap/detect_v5z_final_best.pt",
+   "dump_weights": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_P_pooled/weights/best.pt"
+  }
+ },
+ "T3 pre-gate dump (weights dc_P_pooled, 17 arc subjects, no block)": {
+  "raised": "SeenInEvaluation",
+  "message": "eval_gate: /wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_P_pooled/weights/best.pt on /rs/rs_grp_oschome/go2432/data/devcorpus_arc/anglesweep# (verify T3 (input (in memory) carries no eval_gate block; gated at scoring)): 17 of 17 evaluation patients were trained or SELECTED on by this che"
+ },
+ "T3b pre-gate dump (weights rx_lodo_carmlspine_1024, s0970 = its parent's train subject, no block)": {
+  "raised": "SeenInEvaluation",
+  "message": "eval_gate: /wsu/home/go/go24/go2432/spine-detector/runs/realxray/rx_lodo_carmlspine_1024/weights/best.pt on /x# (verify T3b (input (in memory) carries no eval_gate block; gated at scoring)): 1 of 1 evaluation patients were trained or SELECTED on by this checkpoint or an ancestor:"
+ },
+ "T4 key vs case": {
+  "key_and_case": [
+   "ts:s9999"
+  ],
+  "case_and_stem": [
+   "ts:s0585",
+   "ts:s9999"
+  ]
+ },
+ "T4b a keys map that re-keys a leaked subject (the learning_embed --keys route)": {
+  "raised": null,
+  "result": true
+ },
+ "T5a bv_pulsera fold gate (one phantom, six position groups)": {
+  "raised": "SeenInEvaluation",
+  "message": "eval_gate: None on bv_pulsera group p01 (tools/device_fit.py fit bv_pulsera fold held=p01): 1 of 1 evaluation patients were trained or SELECTED on by this checkpoint or an ancestor:"
+ },
+ "T5b cios_fusion fold gate (six specimens, one per group)": {
+  "raised": null,
+  "result": true
+ },
+ "T5c cios_fusion with 18-1109 also filed under a second group": {
+  "raised": "SeenInEvaluation",
+  "message": "eval_gate: None on cios_fusion group 18-1109 (tools/device_fit.py fit cios_fusion fold held=18-1109): 1 of 1 evaluation patients were trained or SELECTED on by this checkpoint or an ancestor:"
+ }
+}

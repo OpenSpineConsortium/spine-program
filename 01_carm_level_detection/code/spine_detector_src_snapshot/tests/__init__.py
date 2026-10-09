@@ -1,0 +1,1 @@
+# Copied 2026-10-08 from a local snapshot of the private repository OpenSpineConsortium/spine-detector: tests/__init__.py [commit unknown: the snapshot has no .git; files dated 2026-09-01 to 2026-09-12; the live tree is grid HOME/spine-detector]

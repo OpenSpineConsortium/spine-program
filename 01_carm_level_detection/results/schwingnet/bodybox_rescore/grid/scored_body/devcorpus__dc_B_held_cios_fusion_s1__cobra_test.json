@@ -1,0 +1,938 @@
+{
+ "dump": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_cios_fusion_s1/eval_cobra_elekta_test.json",
+ "weights": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_cios_fusion_s1/weights/best.pt",
+ "data": "/rs/rs_grp_oschome/go2432/data/realxray/cobra_elekta",
+ "split": "test",
+ "frames": 648,
+ "missing_meta": 0,
+ "cases": 27,
+ "case_ids": [
+  "A053",
+  "A169",
+  "A268",
+  "A280",
+  "A294",
+  "B005",
+  "B008",
+  "B053",
+  "B080",
+  "B082",
+  "B103",
+  "B131",
+  "B135",
+  "B140",
+  "C000",
+  "C042",
+  "C048",
+  "C122",
+  "C149",
+  "C176",
+  "C180",
+  "C183",
+  "D152",
+  "D235",
+  "D322",
+  "D336",
+  "D425"
+ ],
+ "truth_vertebrae": 855,
+ "truth_sacra": 609,
+ "frames_with_sacrum": 609,
+ "has_outline_truth": true,
+ "operating_points": {
+  "0.74": "cross-device threshold pre-stated in SchwingNet/results/a1.json",
+  "0.25": "YOLO default"
+ },
+ "matching": "greedy one-to-one in descending confidence; IoU >= 0.5 (body / outline) or mutual centre containment (centre)",
+ "bootstrap": {
+  "cluster": "case",
+  "n_boot": 2000,
+  "seed": 0,
+  "alpha": 0.05,
+  "intervals": [
+   "percentile",
+   "bca"
+  ]
+ },
+ "conventions": {
+  "body": {
+   "at": {
+    "0.74": {
+     "vertebra_recall": {
+      "k": 246,
+      "n": 855,
+      "clusters": 27,
+      "point": 0.28771929824561404,
+      "clusters_with_error": 22,
+      "clusters_all_wrong": 4,
+      "wilson_naive": [
+       0.25837768883007933,
+       0.3189599020933395
+      ],
+      "percentile": [
+       0.2332246700224228,
+       0.3514937322862172
+      ],
+      "bca": [
+       0.23203950476817115,
+       0.34814031052131783
+      ],
+      "bca_note": "z0=-0.004 a=-0.0155",
+      "design_effect": 4.067910743471775,
+      "n_effective": 210.18160277290076,
+      "wilson_effective_n": [
+       0.23076032523159218,
+       0.35229864233689867
+      ],
+      "ceiling_regime": false,
+      "cluster": "case"
+     },
+     "sacrum_found": {
+      "k": 565,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.9277504105090312,
+      "clusters_with_error": 11,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.9043967314840544,
+       0.9457415750896769
+      ],
+      "percentile": [
+       0.8788862271907255,
+       0.9696497724852358
+      ],
+      "bca": [
+       0.8670163586237501,
+       0.9647601106669742
+      ],
+      "bca_note": "z0=-0.033 a=-0.0583",
+      "design_effect": 4.911419987802579,
+      "n_effective": 123.9967263057202,
+      "wilson_effective_n": [
+       0.8682125815177872,
+       0.9615809661080477
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "sacrum_box_recall": {
+      "k": 565,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.9277504105090312,
+      "clusters_with_error": 11,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.9043967314840544,
+       0.9457415750896769
+      ],
+      "percentile": [
+       0.8788862271907255,
+       0.9696497724852358
+      ],
+      "bca": [
+       0.8670163586237501,
+       0.9647601106669742
+      ],
+      "bca_note": "z0=-0.033 a=-0.0583",
+      "design_effect": 4.911419987802579,
+      "n_effective": 123.9967263057202,
+      "wilson_effective_n": [
+       0.8682125815177872,
+       0.9615809661080477
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "vertebra_prf": {
+      "tp": 246,
+      "predictions": 857,
+      "precision": 0.2870478413068845,
+      "recall": 0.28771929824561404,
+      "f1": 0.2873831775700935
+     },
+     "sacrum_prf": {
+      "tp": 565,
+      "predictions": 578,
+      "precision": 0.9775086505190311,
+      "recall": 0.9277504105090312,
+      "f1": 0.9519797809604044
+     }
+    },
+    "0.25": {
+     "vertebra_recall": {
+      "k": 251,
+      "n": 855,
+      "clusters": 27,
+      "point": 0.2935672514619883,
+      "clusters_with_error": 22,
+      "clusters_all_wrong": 4,
+      "wilson_naive": [
+       0.2640200416981112,
+       0.32496114176185253
+      ],
+      "percentile": [
+       0.24097350544159268,
+       0.3556322025645186
+      ],
+      "bca": [
+       0.23908616852315703,
+       0.353603270655913
+      ],
+      "bca_note": "z0=-0.010 a=-0.0051",
+      "design_effect": 3.751673267966663,
+      "n_effective": 227.89831068188784,
+      "wilson_effective_n": [
+       0.238257120821355,
+       0.3557212907200645
+      ],
+      "ceiling_regime": false,
+      "cluster": "case"
+     },
+     "sacrum_found": {
+      "k": 599,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.9835796387520526,
+      "clusters_with_error": 4,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.9700400761023845,
+       0.9910567810414309
+      ],
+      "percentile": [
+       0.9651609377355647,
+       0.9983390079426195
+      ],
+      "bca": [
+       0.9579169124960776,
+       0.9951456310679612
+      ],
+      "bca_note": "z0=-0.098 a=-0.0866",
+      "design_effect": 2.6426278407076107,
+      "n_effective": 230.45242717072466,
+      "wilson_effective_n": [
+       0.9575492468126929,
+       0.9937525851508984
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "sacrum_box_recall": {
+      "k": 599,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.9835796387520526,
+      "clusters_with_error": 4,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.9700400761023845,
+       0.9910567810414309
+      ],
+      "percentile": [
+       0.9651609377355647,
+       0.9983390079426195
+      ],
+      "bca": [
+       0.9579169124960776,
+       0.9951456310679612
+      ],
+      "bca_note": "z0=-0.098 a=-0.0866",
+      "design_effect": 2.6426278407076107,
+      "n_effective": 230.45242717072466,
+      "wilson_effective_n": [
+       0.9575492468126929,
+       0.9937525851508984
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "vertebra_prf": {
+      "tp": 251,
+      "predictions": 1150,
+      "precision": 0.2182608695652174,
+      "recall": 0.2935672514619883,
+      "f1": 0.25037406483790525
+     },
+     "sacrum_prf": {
+      "tp": 599,
+      "predictions": 649,
+      "precision": 0.9229583975346687,
+      "recall": 0.9835796387520526,
+      "f1": 0.9523052464228935
+     }
+    }
+   },
+   "curve": {
+    "0.01": {
+     "vertebra_recall": 0.295906432748538,
+     "sacrum_found": 0.9950738916256158
+    },
+    "0.02": {
+     "vertebra_recall": 0.2935672514619883,
+     "sacrum_found": 0.993431855500821
+    },
+    "0.03": {
+     "vertebra_recall": 0.2935672514619883,
+     "sacrum_found": 0.993431855500821
+    },
+    "0.05": {
+     "vertebra_recall": 0.2935672514619883,
+     "sacrum_found": 0.993431855500821
+    },
+    "0.08": {
+     "vertebra_recall": 0.2935672514619883,
+     "sacrum_found": 0.9917898193760263
+    },
+    "0.10": {
+     "vertebra_recall": 0.2935672514619883,
+     "sacrum_found": 0.9901477832512315
+    },
+    "0.15": {
+     "vertebra_recall": 0.2935672514619883,
+     "sacrum_found": 0.986863711001642
+    },
+    "0.20": {
+     "vertebra_recall": 0.2935672514619883,
+     "sacrum_found": 0.986863711001642
+    },
+    "0.25": {
+     "vertebra_recall": 0.2935672514619883,
+     "sacrum_found": 0.9835796387520526
+    },
+    "0.30": {
+     "vertebra_recall": 0.2935672514619883,
+     "sacrum_found": 0.9835796387520526
+    },
+    "0.40": {
+     "vertebra_recall": 0.2935672514619883,
+     "sacrum_found": 0.9802955665024631
+    },
+    "0.50": {
+     "vertebra_recall": 0.2935672514619883,
+     "sacrum_found": 0.9770114942528736
+    },
+    "0.60": {
+     "vertebra_recall": 0.2935672514619883,
+     "sacrum_found": 0.9753694581280788
+    },
+    "0.70": {
+     "vertebra_recall": 0.29005847953216374,
+     "sacrum_found": 0.9507389162561576
+    },
+    "0.74": {
+     "vertebra_recall": 0.28771929824561404,
+     "sacrum_found": 0.9277504105090312
+    },
+    "0.80": {
+     "vertebra_recall": 0.2736842105263158,
+     "sacrum_found": 0.819376026272578
+    },
+    "0.90": {
+     "vertebra_recall": 0.008187134502923977,
+     "sacrum_found": 0.019704433497536946
+    }
+   },
+   "vertebra": {
+    "pr_auc": 0.12375101778584996,
+    "ap50_interp": 0.12699394438080316,
+    "n_predictions": 2542,
+    "max_recall": 0.295906432748538
+   },
+   "sacrum": {
+    "pr_auc": 0.98930116836689,
+    "ap50_interp": 0.9878050174491351,
+    "n_predictions": 844,
+    "max_recall": 0.9950738916256158
+   }
+  },
+  "outline": {
+   "at": {
+    "0.74": {
+     "vertebra_recall": {
+      "k": 785,
+      "n": 855,
+      "clusters": 27,
+      "point": 0.9181286549707602,
+      "clusters_with_error": 13,
+      "clusters_all_wrong": 4,
+      "wilson_naive": [
+       0.8978271027996307,
+       0.9346897635633324
+      ],
+      "percentile": [
+       0.8447965728588749,
+       0.9657209231868656
+      ],
+      "bca": [
+       0.8188284135290625,
+       0.9593367673475724
+      ],
+      "bca_note": "z0=-0.075 a=-0.1031",
+      "design_effect": 11.366562641375024,
+      "n_effective": 75.22062975201884,
+      "wilson_effective_n": [
+       0.834055215854703,
+       0.9615701290370915
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "sacrum_found": {
+      "k": 565,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.9277504105090312,
+      "clusters_with_error": 11,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.9043967314840544,
+       0.9457415750896769
+      ],
+      "percentile": [
+       0.8788862271907255,
+       0.9696497724852358
+      ],
+      "bca": [
+       0.8670163586237501,
+       0.9647601106669742
+      ],
+      "bca_note": "z0=-0.033 a=-0.0583",
+      "design_effect": 4.911419987802579,
+      "n_effective": 123.9967263057202,
+      "wilson_effective_n": [
+       0.8682125815177872,
+       0.9615809661080477
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "sacrum_box_recall": {
+      "k": 565,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.9277504105090312,
+      "clusters_with_error": 11,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.9043967314840544,
+       0.9457415750896769
+      ],
+      "percentile": [
+       0.8788862271907255,
+       0.9696497724852358
+      ],
+      "bca": [
+       0.8670163586237501,
+       0.9647601106669742
+      ],
+      "bca_note": "z0=-0.033 a=-0.0583",
+      "design_effect": 4.911419987802579,
+      "n_effective": 123.9967263057202,
+      "wilson_effective_n": [
+       0.8682125815177872,
+       0.9615809661080477
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "vertebra_prf": {
+      "tp": 785,
+      "predictions": 857,
+      "precision": 0.9159859976662778,
+      "recall": 0.9181286549707602,
+      "f1": 0.9170560747663551
+     },
+     "sacrum_prf": {
+      "tp": 565,
+      "predictions": 578,
+      "precision": 0.9775086505190311,
+      "recall": 0.9277504105090312,
+      "f1": 0.9519797809604044
+     }
+    },
+    "0.25": {
+     "vertebra_recall": {
+      "k": 835,
+      "n": 855,
+      "clusters": 27,
+      "point": 0.9766081871345029,
+      "clusters_with_error": 6,
+      "clusters_all_wrong": 4,
+      "wilson_naive": [
+       0.9641456218038177,
+       0.9848071699245947
+      ],
+      "percentile": [
+       0.9388538949275362,
+       0.9964634982448443
+      ],
+      "bca": [
+       0.9192459349009023,
+       0.9948519948519948
+      ],
+      "bca_note": "z0=-0.108 a=-0.1397",
+      "design_effect": 9.76201105570665,
+      "n_effective": 87.58441217910591,
+      "wilson_effective_n": [
+       0.9196920983679597,
+       0.9934727958448839
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "sacrum_found": {
+      "k": 599,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.9835796387520526,
+      "clusters_with_error": 4,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.9700400761023845,
+       0.9910567810414309
+      ],
+      "percentile": [
+       0.9651609377355647,
+       0.9983390079426195
+      ],
+      "bca": [
+       0.9579169124960776,
+       0.9951456310679612
+      ],
+      "bca_note": "z0=-0.098 a=-0.0866",
+      "design_effect": 2.6426278407076107,
+      "n_effective": 230.45242717072466,
+      "wilson_effective_n": [
+       0.9575492468126929,
+       0.9937525851508984
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "sacrum_box_recall": {
+      "k": 599,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.9835796387520526,
+      "clusters_with_error": 4,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.9700400761023845,
+       0.9910567810414309
+      ],
+      "percentile": [
+       0.9651609377355647,
+       0.9983390079426195
+      ],
+      "bca": [
+       0.9579169124960776,
+       0.9951456310679612
+      ],
+      "bca_note": "z0=-0.098 a=-0.0866",
+      "design_effect": 2.6426278407076107,
+      "n_effective": 230.45242717072466,
+      "wilson_effective_n": [
+       0.9575492468126929,
+       0.9937525851508984
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "vertebra_prf": {
+      "tp": 835,
+      "predictions": 1150,
+      "precision": 0.7260869565217392,
+      "recall": 0.9766081871345029,
+      "f1": 0.8329177057356608
+     },
+     "sacrum_prf": {
+      "tp": 599,
+      "predictions": 649,
+      "precision": 0.9229583975346687,
+      "recall": 0.9835796387520526,
+      "f1": 0.9523052464228935
+     }
+    }
+   },
+   "curve": {
+    "0.01": {
+     "vertebra_recall": 0.9883040935672515,
+     "sacrum_found": 0.9950738916256158
+    },
+    "0.02": {
+     "vertebra_recall": 0.9883040935672515,
+     "sacrum_found": 0.993431855500821
+    },
+    "0.03": {
+     "vertebra_recall": 0.9859649122807017,
+     "sacrum_found": 0.993431855500821
+    },
+    "0.05": {
+     "vertebra_recall": 0.9836257309941521,
+     "sacrum_found": 0.993431855500821
+    },
+    "0.08": {
+     "vertebra_recall": 0.9824561403508771,
+     "sacrum_found": 0.9917898193760263
+    },
+    "0.10": {
+     "vertebra_recall": 0.9824561403508771,
+     "sacrum_found": 0.9901477832512315
+    },
+    "0.15": {
+     "vertebra_recall": 0.9812865497076023,
+     "sacrum_found": 0.986863711001642
+    },
+    "0.20": {
+     "vertebra_recall": 0.9789473684210527,
+     "sacrum_found": 0.986863711001642
+    },
+    "0.25": {
+     "vertebra_recall": 0.9766081871345029,
+     "sacrum_found": 0.9835796387520526
+    },
+    "0.30": {
+     "vertebra_recall": 0.9707602339181286,
+     "sacrum_found": 0.9835796387520526
+    },
+    "0.40": {
+     "vertebra_recall": 0.9660818713450292,
+     "sacrum_found": 0.9802955665024631
+    },
+    "0.50": {
+     "vertebra_recall": 0.9590643274853801,
+     "sacrum_found": 0.9770114942528736
+    },
+    "0.60": {
+     "vertebra_recall": 0.9497076023391813,
+     "sacrum_found": 0.9753694581280788
+    },
+    "0.70": {
+     "vertebra_recall": 0.9321637426900585,
+     "sacrum_found": 0.9507389162561576
+    },
+    "0.74": {
+     "vertebra_recall": 0.9181286549707602,
+     "sacrum_found": 0.9277504105090312
+    },
+    "0.80": {
+     "vertebra_recall": 0.8315789473684211,
+     "sacrum_found": 0.819376026272578
+    },
+    "0.90": {
+     "vertebra_recall": 0.017543859649122806,
+     "sacrum_found": 0.019704433497536946
+    }
+   },
+   "vertebra": {
+    "pr_auc": 0.9580725714473979,
+    "ap50_interp": 0.9572213868228765,
+    "n_predictions": 2542,
+    "max_recall": 0.9883040935672515
+   },
+   "sacrum": {
+    "pr_auc": 0.98930116836689,
+    "ap50_interp": 0.9878050174491351,
+    "n_predictions": 844,
+    "max_recall": 0.9950738916256158
+   }
+  },
+  "centre": {
+   "at": {
+    "0.74": {
+     "vertebra_recall": {
+      "k": 785,
+      "n": 855,
+      "clusters": 27,
+      "point": 0.9181286549707602,
+      "clusters_with_error": 13,
+      "clusters_all_wrong": 4,
+      "wilson_naive": [
+       0.8978271027996307,
+       0.9346897635633324
+      ],
+      "percentile": [
+       0.8447965728588749,
+       0.9657209231868656
+      ],
+      "bca": [
+       0.8188284135290625,
+       0.9593367673475724
+      ],
+      "bca_note": "z0=-0.075 a=-0.1031",
+      "design_effect": 11.366562641375024,
+      "n_effective": 75.22062975201884,
+      "wilson_effective_n": [
+       0.834055215854703,
+       0.9615701290370915
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "sacrum_found": {
+      "k": 565,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.9277504105090312,
+      "clusters_with_error": 11,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.9043967314840544,
+       0.9457415750896769
+      ],
+      "percentile": [
+       0.8788862271907255,
+       0.9696497724852358
+      ],
+      "bca": [
+       0.8670163586237501,
+       0.9647601106669742
+      ],
+      "bca_note": "z0=-0.033 a=-0.0583",
+      "design_effect": 4.911419987802579,
+      "n_effective": 123.9967263057202,
+      "wilson_effective_n": [
+       0.8682125815177872,
+       0.9615809661080477
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "sacrum_box_recall": {
+      "k": 565,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.9277504105090312,
+      "clusters_with_error": 11,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.9043967314840544,
+       0.9457415750896769
+      ],
+      "percentile": [
+       0.8788862271907255,
+       0.9696497724852358
+      ],
+      "bca": [
+       0.8670163586237501,
+       0.9647601106669742
+      ],
+      "bca_note": "z0=-0.033 a=-0.0583",
+      "design_effect": 4.911419987802579,
+      "n_effective": 123.9967263057202,
+      "wilson_effective_n": [
+       0.8682125815177872,
+       0.9615809661080477
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "vertebra_prf": {
+      "tp": 785,
+      "predictions": 857,
+      "precision": 0.9159859976662778,
+      "recall": 0.9181286549707602,
+      "f1": 0.9170560747663551
+     },
+     "sacrum_prf": {
+      "tp": 565,
+      "predictions": 578,
+      "precision": 0.9775086505190311,
+      "recall": 0.9277504105090312,
+      "f1": 0.9519797809604044
+     }
+    },
+    "0.25": {
+     "vertebra_recall": {
+      "k": 837,
+      "n": 855,
+      "clusters": 27,
+      "point": 0.9789473684210527,
+      "clusters_with_error": 6,
+      "clusters_all_wrong": 4,
+      "wilson_naive": [
+       0.96696784624213,
+       0.9866423825009006
+      ],
+      "percentile": [
+       0.9465136330498177,
+       0.9964634982448443
+      ],
+      "bca": [
+       0.9293947255520649,
+       0.9948443136076922
+      ],
+      "bca_note": "z0=-0.116 a=-0.1362",
+      "design_effect": 8.009239061657134,
+      "n_effective": 106.75171429120735,
+      "wilson_effective_n": [
+       0.930805012991931,
+       0.9938172072689264
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "sacrum_found": {
+      "k": 599,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.9835796387520526,
+      "clusters_with_error": 4,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.9700400761023845,
+       0.9910567810414309
+      ],
+      "percentile": [
+       0.9651609377355647,
+       0.9983390079426195
+      ],
+      "bca": [
+       0.9579169124960776,
+       0.9951456310679612
+      ],
+      "bca_note": "z0=-0.098 a=-0.0866",
+      "design_effect": 2.6426278407076107,
+      "n_effective": 230.45242717072466,
+      "wilson_effective_n": [
+       0.9575492468126929,
+       0.9937525851508984
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "sacrum_box_recall": {
+      "k": 599,
+      "n": 609,
+      "clusters": 27,
+      "point": 0.9835796387520526,
+      "clusters_with_error": 4,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.9700400761023845,
+       0.9910567810414309
+      ],
+      "percentile": [
+       0.9651609377355647,
+       0.9983390079426195
+      ],
+      "bca": [
+       0.9579169124960776,
+       0.9951456310679612
+      ],
+      "bca_note": "z0=-0.098 a=-0.0866",
+      "design_effect": 2.6426278407076107,
+      "n_effective": 230.45242717072466,
+      "wilson_effective_n": [
+       0.9575492468126929,
+       0.9937525851508984
+      ],
+      "ceiling_regime": true,
+      "cluster": "case"
+     },
+     "vertebra_prf": {
+      "tp": 837,
+      "predictions": 1150,
+      "precision": 0.7278260869565217,
+      "recall": 0.9789473684210527,
+      "f1": 0.8349127182044888
+     },
+     "sacrum_prf": {
+      "tp": 599,
+      "predictions": 649,
+      "precision": 0.9229583975346687,
+      "recall": 0.9835796387520526,
+      "f1": 0.9523052464228935
+     }
+    }
+   },
+   "curve": {
+    "0.01": {
+     "vertebra_recall": 0.9906432748538012,
+     "sacrum_found": 0.9950738916256158
+    },
+    "0.02": {
+     "vertebra_recall": 0.9906432748538012,
+     "sacrum_found": 0.993431855500821
+    },
+    "0.03": {
+     "vertebra_recall": 0.9883040935672515,
+     "sacrum_found": 0.993431855500821
+    },
+    "0.05": {
+     "vertebra_recall": 0.9859649122807017,
+     "sacrum_found": 0.993431855500821
+    },
+    "0.08": {
+     "vertebra_recall": 0.9847953216374269,
+     "sacrum_found": 0.9917898193760263
+    },
+    "0.10": {
+     "vertebra_recall": 0.9847953216374269,
+     "sacrum_found": 0.9901477832512315
+    },
+    "0.15": {
+     "vertebra_recall": 0.9836257309941521,
+     "sacrum_found": 0.986863711001642
+    },
+    "0.20": {
+     "vertebra_recall": 0.9812865497076023,
+     "sacrum_found": 0.986863711001642
+    },
+    "0.25": {
+     "vertebra_recall": 0.9789473684210527,
+     "sacrum_found": 0.9835796387520526
+    },
+    "0.30": {
+     "vertebra_recall": 0.9730994152046784,
+     "sacrum_found": 0.9835796387520526
+    },
+    "0.40": {
+     "vertebra_recall": 0.968421052631579,
+     "sacrum_found": 0.9802955665024631
+    },
+    "0.50": {
+     "vertebra_recall": 0.960233918128655,
+     "sacrum_found": 0.9770114942528736
+    },
+    "0.60": {
+     "vertebra_recall": 0.9508771929824561,
+     "sacrum_found": 0.9753694581280788
+    },
+    "0.70": {
+     "vertebra_recall": 0.9321637426900585,
+     "sacrum_found": 0.9507389162561576
+    },
+    "0.74": {
+     "vertebra_recall": 0.9181286549707602,
+     "sacrum_found": 0.9277504105090312
+    },
+    "0.80": {
+     "vertebra_recall": 0.8315789473684211,
+     "sacrum_found": 0.819376026272578
+    },
+    "0.90": {
+     "vertebra_recall": 0.017543859649122806,
+     "sacrum_found": 0.019704433497536946
+    }
+   },
+   "vertebra": {
+    "pr_auc": 0.9601180148442439,
+    "ap50_interp": 0.9592669978771908,
+    "n_predictions": 2542,
+    "max_recall": 0.9906432748538012
+   },
+   "sacrum": {
+    "pr_auc": 0.98930116836689,
+    "ap50_interp": 0.9878050174491351,
+    "n_predictions": 844,
+    "max_recall": 0.9950738916256158
+   }
+  }
+ },
+ "meta_dir_pinned": "/rs/rs_grp_oschome/go2432/data/or_ready/bodybox_rescore/truth/cobra_elekta/meta",
+ "rescore_name": "devcorpus__dc_B_held_cios_fusion_s1__cobra_test",
+ "truth_mode": "body"
+}

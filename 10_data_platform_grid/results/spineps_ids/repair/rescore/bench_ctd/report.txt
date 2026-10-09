@@ -1,0 +1,45 @@
+cases 796 (transitional 39)
+
+rib-free count exact-match rate:
+  all           n= 796  exact  93.7%  errors {'-2': 1, '-1': 38, '0': 746, '1': 11}
+  typical       n= 757  exact  96.2%  errors {'-1': 18, '0': 728, '1': 11}
+  transitional  n=  39  exact  46.2%  errors {'-2': 1, '-1': 20, '0': 18}
+
+where the ground-truth rib voxels went (percent of GT voxels of that class):
+  rib12_left         background 99.95%, T12 0.05%, L1 0.0%, T13 0.0%, T11 0.0%
+  rib12_right        background 99.99%, T12 0.01%, T11 0.0%, L1 0.0%, T13 0.0%
+  lumbar_rib_left    background 99.92%, T13 0.05%, T12 0.03%
+  lumbar_rib_right   background 99.87%, T13 0.1%, T12 0.03%
+
+rare classes:
+  rib12_left         GT in 781 cases, emitted on   0 of them, emitted where absent in   0
+  rib12_right        GT in 782 cases, emitted on   0 of them, emitted where absent in   0
+  rib13_left         GT in   0 cases, emitted on   0 of them, emitted where absent in   0
+  rib13_right        GT in   0 cases, emitted on   0 of them, emitted where absent in   0
+  lumbar_rib_left    GT in  13 cases, emitted on   0 of them, emitted where absent in   0
+  lumbar_rib_right   GT in  16 cases, emitted on   0 of them, emitted where absent in   0
+  T13                GT in   0 cases, emitted on   0 of them, emitted where absent in  52
+
+mean Dice, typical vs transitional:
+  T10                 0.782   0.484
+  T11                 0.823   0.489
+  T12                 0.821   0.479
+  T13                              
+  L1                  0.903   0.411
+  L2                  0.902   0.413
+  L3                  0.903   0.416
+  L4                  0.904   0.427
+  L5                  0.903   0.397
+  L6                  0.886   0.488
+  sacrum              0.000   0.000
+  rib_left            0.000   0.000
+  rib_right           0.000   0.000
+  rib12_left          0.000   0.000
+  rib12_right         0.000   0.000
+  rib13_left                       
+  rib13_right                      
+  lumbar_rib_left             0.000
+  lumbar_rib_right            0.000
+  left_hip            0.000   0.000
+  right_hip           0.000   0.000
+  femur               0.000   0.000

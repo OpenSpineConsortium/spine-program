@@ -1,0 +1,947 @@
+{
+ "cells": {
+  "case_grouped_LAT_whole_frame": {
+   "k": 601,
+   "n": 617,
+   "pct": 97.41,
+   "cases": 141,
+   "cases_with_error": 4,
+   "frames": 148
+  },
+  "case_grouped_AP_whole_frame": {
+   "k": 608,
+   "n": 631,
+   "pct": 96.35,
+   "cases": 142,
+   "cases_with_error": 7,
+   "frames": 148
+  },
+  "day_grouped_LAT_whole_frame": {
+   "k": 568,
+   "n": 617,
+   "pct": 92.06,
+   "cases": 141,
+   "cases_with_error": 12,
+   "frames": 148
+  },
+  "day_grouped_AP_whole_frame": {
+   "k": 598,
+   "n": 631,
+   "pct": 94.77,
+   "cases": 142,
+   "cases_with_error": 9,
+   "frames": 148
+  },
+  "coupled_det74_anchored": {
+   "frames": 234,
+   "cases": 132,
+   "counted_bodies": 1029,
+   "coupled": 996,
+   "count": 979,
+   "classifier": 994,
+   "coupled_pct": 96.79,
+   "count_pct": 95.14,
+   "classifier_pct": 96.6
+  },
+  "coupled_det74_counted_bodies_coupler_rule": {
+   "frames_labellers_agree": 290,
+   "cases": 145,
+   "frames_anchored": 233,
+   "cases_anchored": 132,
+   "bodies_scored": 1248,
+   "bodies_counted": 1009,
+   "cases_counted": 130,
+   "coupled_exact_counted": 991,
+   "classifier_exact_counted": 986,
+   "count_exact_counted": 979,
+   "truth_sources_all_frames": {
+    "variant_alphabet:L6": 6,
+    "labellers_agree": 290
+   },
+   "rule": "tools/coupling_report.py cell(): truth_source == labellers_agree; anchored = call not in (no anchor, no alphabet); counted = a truth-matched body with an ordinal",
+   "coupled_pct": 98.22,
+   "classifier_pct": 97.72,
+   "count_pct": 97.03
+  }
+ },
+ "gate": {
+  "cv_fold0": {
+   "gate_version": "eval_gate/1",
+   "held_out": true,
+   "not_held_out_reason": null,
+   "n_checks": 5,
+   "overlap": 0,
+   "unresolved": 0,
+   "carried_from": "kfull",
+   "level_model_sha_equals_check_sha": true,
+   "bound": {
+    "level_model": "model_rung_1_ft_cv0_v9init_aug2.pt",
+    "level_model_sha256_12": "071a7b8cb319",
+    "head": "head_cv0_v9init.pt",
+    "detector_sha256_12": "797de71a9e0e"
+   },
+   "checks": [
+    {
+     "checkpoint": "detect_v5z_final_best.pt",
+     "sha256_12": "797de71a9e0e",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "best.pt"
+     ],
+     "n_items": 70,
+     "n_keys": 35,
+     "keys_by_corpus": {
+      "carmlspine": 35
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "model_rung_1_ft_cv0_v9init_aug2.pt",
+     "sha256_12": "071a7b8cb319",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 70,
+     "n_keys": 35,
+     "keys_by_corpus": {
+      "carmlspine": 35
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "head_cv0_v9init.pt",
+     "sha256_12": "74c9f28793d6",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_ft_cv0_v9init_aug2.pt",
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 70,
+     "n_keys": 35,
+     "keys_by_corpus": {
+      "carmlspine": 35
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "lstv_flag_v2.pt",
+     "sha256_12": "1c6c63ec3b3a",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 70,
+     "n_keys": 35,
+     "keys_by_corpus": {
+      "carmlspine": 35
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "tltv_flag_v2.pt",
+     "sha256_12": "4bbf4036ed61",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 70,
+     "n_keys": 35,
+     "keys_by_corpus": {
+      "carmlspine": 35
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    }
+   ],
+   "n_cases_scored": 35,
+   "n_keys_in_checks": [
+    35
+   ]
+  },
+  "cv_fold1": {
+   "gate_version": "eval_gate/1",
+   "held_out": true,
+   "not_held_out_reason": null,
+   "n_checks": 5,
+   "overlap": 0,
+   "unresolved": 0,
+   "carried_from": "kfull",
+   "level_model_sha_equals_check_sha": true,
+   "bound": {
+    "level_model": "model_rung_1_ft_cv1_v9init_aug2.pt",
+    "level_model_sha256_12": "be4eb8af04b0",
+    "head": "head_cv1_v9init.pt",
+    "detector_sha256_12": "797de71a9e0e"
+   },
+   "checks": [
+    {
+     "checkpoint": "detect_v5z_final_best.pt",
+     "sha256_12": "797de71a9e0e",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "best.pt"
+     ],
+     "n_items": 50,
+     "n_keys": 25,
+     "keys_by_corpus": {
+      "carmlspine": 25
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "model_rung_1_ft_cv1_v9init_aug2.pt",
+     "sha256_12": "be4eb8af04b0",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 50,
+     "n_keys": 25,
+     "keys_by_corpus": {
+      "carmlspine": 25
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "head_cv1_v9init.pt",
+     "sha256_12": "c99e00a75428",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_ft_cv1_v9init_aug2.pt",
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 50,
+     "n_keys": 25,
+     "keys_by_corpus": {
+      "carmlspine": 25
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "lstv_flag_v2.pt",
+     "sha256_12": "1c6c63ec3b3a",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 50,
+     "n_keys": 25,
+     "keys_by_corpus": {
+      "carmlspine": 25
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "tltv_flag_v2.pt",
+     "sha256_12": "4bbf4036ed61",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 50,
+     "n_keys": 25,
+     "keys_by_corpus": {
+      "carmlspine": 25
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    }
+   ],
+   "n_cases_scored": 25,
+   "n_keys_in_checks": [
+    25
+   ]
+  },
+  "cv_fold2": {
+   "gate_version": "eval_gate/1",
+   "held_out": true,
+   "not_held_out_reason": null,
+   "n_checks": 5,
+   "overlap": 0,
+   "unresolved": 0,
+   "carried_from": "kfull",
+   "level_model_sha_equals_check_sha": true,
+   "bound": {
+    "level_model": "model_rung_1_ft_cv2_v9init_aug2.pt",
+    "level_model_sha256_12": "a7cb4dac22ed",
+    "head": "head_cv2_v9init.pt",
+    "detector_sha256_12": "797de71a9e0e"
+   },
+   "checks": [
+    {
+     "checkpoint": "detect_v5z_final_best.pt",
+     "sha256_12": "797de71a9e0e",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "best.pt"
+     ],
+     "n_items": 56,
+     "n_keys": 28,
+     "keys_by_corpus": {
+      "carmlspine": 28
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "model_rung_1_ft_cv2_v9init_aug2.pt",
+     "sha256_12": "a7cb4dac22ed",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 56,
+     "n_keys": 28,
+     "keys_by_corpus": {
+      "carmlspine": 28
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "head_cv2_v9init.pt",
+     "sha256_12": "2be978ccfa81",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_ft_cv2_v9init_aug2.pt",
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 56,
+     "n_keys": 28,
+     "keys_by_corpus": {
+      "carmlspine": 28
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "lstv_flag_v2.pt",
+     "sha256_12": "1c6c63ec3b3a",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 56,
+     "n_keys": 28,
+     "keys_by_corpus": {
+      "carmlspine": 28
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "tltv_flag_v2.pt",
+     "sha256_12": "4bbf4036ed61",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 56,
+     "n_keys": 28,
+     "keys_by_corpus": {
+      "carmlspine": 28
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    }
+   ],
+   "n_cases_scored": 28,
+   "n_keys_in_checks": [
+    28
+   ]
+  },
+  "cv_fold3": {
+   "gate_version": "eval_gate/1",
+   "held_out": true,
+   "not_held_out_reason": null,
+   "n_checks": 5,
+   "overlap": 0,
+   "unresolved": 0,
+   "carried_from": "kfull",
+   "level_model_sha_equals_check_sha": true,
+   "bound": {
+    "level_model": "model_rung_1_ft_cv3_v9init_aug2.pt",
+    "level_model_sha256_12": "af14c41705e5",
+    "head": "head_cv3_v9init.pt",
+    "detector_sha256_12": "797de71a9e0e"
+   },
+   "checks": [
+    {
+     "checkpoint": "detect_v5z_final_best.pt",
+     "sha256_12": "797de71a9e0e",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "best.pt"
+     ],
+     "n_items": 72,
+     "n_keys": 36,
+     "keys_by_corpus": {
+      "carmlspine": 36
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "model_rung_1_ft_cv3_v9init_aug2.pt",
+     "sha256_12": "af14c41705e5",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 72,
+     "n_keys": 36,
+     "keys_by_corpus": {
+      "carmlspine": 36
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "head_cv3_v9init.pt",
+     "sha256_12": "b3e3bbca3edd",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_ft_cv3_v9init_aug2.pt",
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 72,
+     "n_keys": 36,
+     "keys_by_corpus": {
+      "carmlspine": 36
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "lstv_flag_v2.pt",
+     "sha256_12": "1c6c63ec3b3a",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 72,
+     "n_keys": 36,
+     "keys_by_corpus": {
+      "carmlspine": 36
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "tltv_flag_v2.pt",
+     "sha256_12": "4bbf4036ed61",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 72,
+     "n_keys": 36,
+     "keys_by_corpus": {
+      "carmlspine": 36
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    }
+   ],
+   "n_cases_scored": 36,
+   "n_keys_in_checks": [
+    36
+   ]
+  },
+  "cv_fold4": {
+   "gate_version": "eval_gate/1",
+   "held_out": true,
+   "not_held_out_reason": null,
+   "n_checks": 5,
+   "overlap": 0,
+   "unresolved": 0,
+   "carried_from": "kfull",
+   "level_model_sha_equals_check_sha": true,
+   "bound": {
+    "level_model": "model_rung_1_ft_cv4_v9init_aug2.pt",
+    "level_model_sha256_12": "a143ae31381a",
+    "head": "head_cv4_v9init.pt",
+    "detector_sha256_12": "797de71a9e0e"
+   },
+   "checks": [
+    {
+     "checkpoint": "detect_v5z_final_best.pt",
+     "sha256_12": "797de71a9e0e",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "best.pt"
+     ],
+     "n_items": 48,
+     "n_keys": 24,
+     "keys_by_corpus": {
+      "carmlspine": 24
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "model_rung_1_ft_cv4_v9init_aug2.pt",
+     "sha256_12": "a143ae31381a",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 48,
+     "n_keys": 24,
+     "keys_by_corpus": {
+      "carmlspine": 24
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "head_cv4_v9init.pt",
+     "sha256_12": "f25da8301af1",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_ft_cv4_v9init_aug2.pt",
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 48,
+     "n_keys": 24,
+     "keys_by_corpus": {
+      "carmlspine": 24
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "lstv_flag_v2.pt",
+     "sha256_12": "1c6c63ec3b3a",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 48,
+     "n_keys": 24,
+     "keys_by_corpus": {
+      "carmlspine": 24
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "tltv_flag_v2.pt",
+     "sha256_12": "4bbf4036ed61",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 48,
+     "n_keys": 24,
+     "keys_by_corpus": {
+      "carmlspine": 24
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    }
+   ],
+   "n_cases_scored": 24,
+   "n_keys_in_checks": [
+    24
+   ]
+  },
+  "cvday_fold0": {
+   "gate_version": "eval_gate/1",
+   "held_out": true,
+   "not_held_out_reason": null,
+   "n_checks": 5,
+   "overlap": 0,
+   "unresolved": 0,
+   "carried_from": "kfull",
+   "level_model_sha_equals_check_sha": true,
+   "bound": {
+    "level_model": "model_rung_1_ft_cvday0_v9init_aug2.pt",
+    "level_model_sha256_12": "cb33045f44fe",
+    "head": "head_cvday0_v9init.pt",
+    "detector_sha256_12": "797de71a9e0e"
+   },
+   "checks": [
+    {
+     "checkpoint": "detect_v5z_final_best.pt",
+     "sha256_12": "797de71a9e0e",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "best.pt"
+     ],
+     "n_items": 132,
+     "n_keys": 66,
+     "keys_by_corpus": {
+      "carmlspine": 66
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "model_rung_1_ft_cvday0_v9init_aug2.pt",
+     "sha256_12": "cb33045f44fe",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 132,
+     "n_keys": 66,
+     "keys_by_corpus": {
+      "carmlspine": 66
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "head_cvday0_v9init.pt",
+     "sha256_12": "d1900dcf7ba5",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_ft_cvday0_v9init_aug2.pt",
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 132,
+     "n_keys": 66,
+     "keys_by_corpus": {
+      "carmlspine": 66
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "lstv_flag_v2.pt",
+     "sha256_12": "1c6c63ec3b3a",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 132,
+     "n_keys": 66,
+     "keys_by_corpus": {
+      "carmlspine": 66
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "tltv_flag_v2.pt",
+     "sha256_12": "4bbf4036ed61",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 132,
+     "n_keys": 66,
+     "keys_by_corpus": {
+      "carmlspine": 66
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    }
+   ],
+   "n_cases_scored": 66,
+   "n_keys_in_checks": [
+    66
+   ]
+  },
+  "cvday_fold1": {
+   "gate_version": "eval_gate/1",
+   "held_out": true,
+   "not_held_out_reason": null,
+   "n_checks": 5,
+   "overlap": 0,
+   "unresolved": 0,
+   "carried_from": "kfull",
+   "level_model_sha_equals_check_sha": true,
+   "bound": {
+    "level_model": "model_rung_1_ft_cvday1_v9init_aug2.pt",
+    "level_model_sha256_12": "07dc5ff60afd",
+    "head": "head_cvday1_v9init.pt",
+    "detector_sha256_12": "797de71a9e0e"
+   },
+   "checks": [
+    {
+     "checkpoint": "detect_v5z_final_best.pt",
+     "sha256_12": "797de71a9e0e",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "best.pt"
+     ],
+     "n_items": 86,
+     "n_keys": 43,
+     "keys_by_corpus": {
+      "carmlspine": 43
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "model_rung_1_ft_cvday1_v9init_aug2.pt",
+     "sha256_12": "07dc5ff60afd",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 86,
+     "n_keys": 43,
+     "keys_by_corpus": {
+      "carmlspine": 43
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "head_cvday1_v9init.pt",
+     "sha256_12": "9dca735ffb46",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_ft_cvday1_v9init_aug2.pt",
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 86,
+     "n_keys": 43,
+     "keys_by_corpus": {
+      "carmlspine": 43
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "lstv_flag_v2.pt",
+     "sha256_12": "1c6c63ec3b3a",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 86,
+     "n_keys": 43,
+     "keys_by_corpus": {
+      "carmlspine": 43
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "tltv_flag_v2.pt",
+     "sha256_12": "4bbf4036ed61",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 86,
+     "n_keys": 43,
+     "keys_by_corpus": {
+      "carmlspine": 43
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    }
+   ],
+   "n_cases_scored": 43,
+   "n_keys_in_checks": [
+    43
+   ]
+  },
+  "cvday_fold2": {
+   "gate_version": "eval_gate/1",
+   "held_out": true,
+   "not_held_out_reason": null,
+   "n_checks": 5,
+   "overlap": 0,
+   "unresolved": 0,
+   "carried_from": "kfull",
+   "level_model_sha_equals_check_sha": true,
+   "bound": {
+    "level_model": "model_rung_1_ft_cvday2_v9init_aug2.pt",
+    "level_model_sha256_12": "c57be84489bf",
+    "head": "head_cvday2_v9init.pt",
+    "detector_sha256_12": "797de71a9e0e"
+   },
+   "checks": [
+    {
+     "checkpoint": "detect_v5z_final_best.pt",
+     "sha256_12": "797de71a9e0e",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "best.pt"
+     ],
+     "n_items": 78,
+     "n_keys": 39,
+     "keys_by_corpus": {
+      "carmlspine": 39
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "model_rung_1_ft_cvday2_v9init_aug2.pt",
+     "sha256_12": "c57be84489bf",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 78,
+     "n_keys": 39,
+     "keys_by_corpus": {
+      "carmlspine": 39
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "head_cvday2_v9init.pt",
+     "sha256_12": "f4de2c88c226",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "model_rung_1_ft_cvday2_v9init_aug2.pt",
+      "model_rung_1_aug2.pt"
+     ],
+     "n_items": 78,
+     "n_keys": 39,
+     "keys_by_corpus": {
+      "carmlspine": 39
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "lstv_flag_v2.pt",
+     "sha256_12": "1c6c63ec3b3a",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 78,
+     "n_keys": 39,
+     "keys_by_corpus": {
+      "carmlspine": 39
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    },
+    {
+     "checkpoint": "tltv_flag_v2.pt",
+     "sha256_12": "4bbf4036ed61",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "n_items": 78,
+     "n_keys": 39,
+     "keys_by_corpus": {
+      "carmlspine": 39
+     },
+     "n_unkeyed": 0,
+     "overlap": 0,
+     "unresolved": 0,
+     "pose_donor_overlap": 0
+    }
+   ],
+   "n_cases_scored": 39,
+   "n_keys_in_checks": [
+    39
+   ]
+  }
+ },
+ "keys": {
+  "case_folds_sizes": [
+   35,
+   25,
+   28,
+   36,
+   24
+  ],
+  "case_folds_disjoint": true,
+  "case_folds_union": 148,
+  "day_folds_sizes": [
+   66,
+   43,
+   39
+  ],
+  "day_folds_disjoint": true,
+  "day_folds_union": 148,
+  "union_equal": true
+ },
+ "gate_summary": {
+  "shared_checkpoints_one_sha_each": {
+   "detect_v5z_final_best.pt": true,
+   "model_rung_1_ft_cv0_v9init_aug2.pt": true,
+   "head_cv0_v9init.pt": true,
+   "lstv_flag_v2.pt": true,
+   "tltv_flag_v2.pt": true,
+   "model_rung_1_ft_cv1_v9init_aug2.pt": true,
+   "head_cv1_v9init.pt": true,
+   "model_rung_1_ft_cv2_v9init_aug2.pt": true,
+   "head_cv2_v9init.pt": true,
+   "model_rung_1_ft_cv3_v9init_aug2.pt": true,
+   "head_cv3_v9init.pt": true,
+   "model_rung_1_ft_cv4_v9init_aug2.pt": true,
+   "head_cv4_v9init.pt": true,
+   "model_rung_1_ft_cvday0_v9init_aug2.pt": true,
+   "head_cvday0_v9init.pt": true,
+   "model_rung_1_ft_cvday1_v9init_aug2.pt": true,
+   "head_cvday1_v9init.pt": true,
+   "model_rung_1_ft_cvday2_v9init_aug2.pt": true,
+   "head_cvday2_v9init.pt": true
+  },
+  "encoder_ancestor_is_v9_everywhere": true,
+  "head_ancestors_are_encoder_then_v9": true,
+  "all_held_out": true,
+  "all_bound": true
+ }
+}

@@ -1,0 +1,78 @@
+{
+ "_about": "D1, the dual-loss arm of SchwingNet/LEVELCHECK_MODEL.md s12 (a pre-specified SECONDARY model; it never replaces the primary configuration of s4), and its learning-curve arm. Written 2026-09-24 10:55 EDT after resuming from the 08:40 checkpoint: the three D1 heads had finished on the grid at 08:14-08:58 but had not been collected. Nothing here touches a G3 test person: the bank carries train and val crops only, and head_dual.py refuses a bank with a test split.",
+ "governing": "SchwingNet/LEVELCHECK_MODEL.md s4, s5, s9, s12 (commit 1897772, before unblinding); not edited",
+ "same_as_the_primary": {
+  "frozen_snapshot": "results/fig6/frozen/v1 (grid /rs/rs_grp_oschome/go2432/data/fig6/frozen_v1); strata.json sha256 c7199d2d0b8e8bf94063fb6da33a49a07da88817bc21d6f8da4f403dd4d13e50 checked against SHA256SUMS.json by every job before training; split_final.json 65a57eb0c7a6e202207a9eb63307da37c6bac88f3e7f956e14543413af2bca71",
+  "bank": "/rs/rs_grp_oschome/go2432/data/fig6/bank_g3_v2 (READY, BANK_CHECK PASS; 134,975 crops: 116,706 train / 18,269 val; 8,950 / 1,079 persons); meta.json f78dd1ee061ca9e3e949db78f67635948ec32f191eb485a0c72d9f7dc44f20dd",
+  "encoder": "/rs/rs_grp_oschome/go2432/data/fig6/bank_g3_v2/runs/model_rung_1_g3clean_aug2.pt, sha256 629f0e058649ca1d247bc08ea1e20747d83ecaa1abfc61d1f35dee3e731186d3 (registry 629f0e058649ca1d; ImageNet root only)",
+  "recipe": "mixed band lengths, kmax 4, 30 epochs, lr 1e-3 cosine, batch 256, fresh initialisation, alphabet term lambda 1.0; with the same seed D1 draws the same windows and batches as the primary lambda-1.0 head (head_fig6_g3clean_lam1.0_seed{0,1,2}), so the spine term is the only difference",
+  "spine_term": "w = 1.0, windows >= 4 bodies, inverse subtype frequency weights {ordinary 0.2818, sacralised_L5_fused 9.0519, castellvi_I_II 28.4114, lumbar_rib 114.3062, L6 0.5091, T13 3.0081}; training persons by subtype {ordinary 8856, L6 53, castellvi_I_II 16, sacralised_L5_fused 14, lumbar_rib 7, T13 3, unassigned 1}"
+ },
+ "jobs": {
+  "40430077": "d1_selftest.sh: head_dual.py 33/33 and score_m1_f1.py 94/94 on the grid (build)",
+  "40430433": "d1_selftest.sh re-run after the frame-probs fix",
+  "40431454": "census on bank_g3_v2 (label columns): tau rests on 15 transitional validation persons (k = 15 at both 0.95 and 0.97)",
+  "40430499_0-2": "FAILED before training: the on-node self-test hit KeyError 'T2__open_f0' (head_dual.py md5 7b2bd990); nothing trained, nothing written",
+  "40436434_0-2": "D1 seeds 0-2 on msa1 (H200), head_dual.py md5 f865bd02: rc 0 at 12:58:27Z / 12:14:42Z / 12:20:58Z; heads, spine layers, tau95/tau97 with .sha256, val_spine and dual json written",
+  "40436887_0-11": "the learning-curve arm (slurm/d1_lcurve.sh, head_dual.py md5 882bc5b7): fractions 1/16, 1/8, 1/4, 1/2 of the training persons x seeds 0-2, all rc 0 between 14:41Z and 14:46Z (V100 / L40S); task 0 also wrote the coverage census",
+  "40436997": "coverage census re-written (reqp, head_dual.py md5 c03bb701) after the one-body-film fix; 3 one-body training films now excluded and reported"
+ },
+ "module_versions": {
+  "f865bd02e6645b3dbf2eea711c4194d2": "tools/head_dual.py that trained the three D1 heads",
+  "882bc5b735c1a4ad7fd3be6cad7a50a4": "+ --train-fraction / --fraction-seed, acq_bins, per_view and per_acquisition_cell in score_levels, the coverage subcommand, self-test 6 (49 checks): trained the 12 learning-curve heads",
+  "c03bb701d48b818e39883decbbc893b8": "coverage_report excludes films with fewer than two bodies (neither training nor the validation curve reads them) and reports their count; one more self-test check (50). No training path changed between 882bc5b7 and c03bb701.",
+  "head_mixed_length.py": "f8161a8a9dc1ae61f8baad7bcf8a5977, untouched throughout"
+ },
+ "d1_heads": {
+  "grid": "/rs/rs_grp_oschome/go2432/data/or_ready/dual_loss/g3clean_v2/{heads,tau,meta}",
+  "local": "SchwingNet/results/dual_loss/g3clean_v2/ (everything but the .pt weights, which live in the registry)",
+  "registry": {"head_fig6_g3clean_dual_seed0": "05ca6d6aebd3d2d6", "head_fig6_g3clean_dual_seed1": "4207521f0af5d1d1", "head_fig6_g3clean_dual_seed2": "b2dedecaee01d360",
+               "_lineage": "every head: stage recurrent_head_dual, parents = the clean encoder, train_list = bank_g3_v2/rung_1.npz#train, val_list = #val"},
+  "tau": {"rule": "s12: the largest tau giving >= 95 % validation sensitivity on the s4-drawn validation persons; 15 transitional persons, so k = 15 at 0.95 and at 0.97 and tau95 == tau97 = the smallest transitional probability",
+          "seed0": {"tau": 0.012667, "val_sensitivity": "15/15", "val_specificity": "904/1042 (0.8676)"},
+          "seed1": {"tau": 0.016108, "val_sensitivity": "15/15", "val_specificity": "890/1042 (0.8541)"},
+          "seed2": {"tau": 0.003549, "val_sensitivity": "15/15", "val_specificity": "846/1042 (0.8119)"},
+          "files": "g3clean_v2/tau/tau{95,97}_fig6_g3clean_dual_seed{0,1,2}.json + .sha256, written once at the end of each training job, before any test person is scored"},
+  "validation_development_numbers": {
+   "_rule": "the bank's VAL side selected the clean encoder's epoch (eval_gate: DECLARED NOT HELD OUT); per crop, not per person; not for the manuscript as held-out results",
+   "random_window_2_9_exact": {"seed0": 0.7459, "seed1": 0.7374, "seed2": 0.7360},
+   "random_window_real_film_exact": {"seed0": 0.9877, "seed1": 0.9861, "seed2": 0.9868},
+   "band3_exact": {"seed0": 0.7007, "seed1": 0.6998, "seed2": 0.6977},
+   "band9_exact": {"seed0": 0.7750, "seed1": 0.7711, "seed2": 0.7701},
+   "spine_auroc_drawn_persons": {"seed0": 0.9721, "seed1": 0.9583, "seed2": 0.9676},
+   "primary_lam1.0_seed0_band3_for_comparison": "results/fig6/heads_v2/mixed_fig6_g3clean_lam1.0_seed0.json (RUN_v2.json: L6 band-3 range of the lambda-1.0 heads 0.6572-0.6945; D1 band-3 L6 0.7063 mean over seeds)"
+  }
+ },
+ "learning_curve_arm": {
+  "why": "the uploaded paper (Advanced Computational Frameworks for Vertebral Body Detection and 2D/3D Registration in Intraoperative Fluoroscopy, section 2): a ~90 % plateau in fluoroscopy is sampling-density saturation of the acquisition space, not model capacity; accuracy should be read against sample count and against acquisition-space coverage (bins per dimension, normalised entropy H* = -sum p log p / log K), and the lever is the sparse bins, not more of the same data. The paper says nothing about the optimiser's learning rate.",
+  "what": "the D1 recipe, unchanged, fitted on nested, person-grouped, subtype-stratified fractions of the training persons (permutation prefix at --fraction-seed = seed), seeds 0-2; the three D1 heads are the top of the curve. NOT D1: no tau written, registry stage recurrent_head_dual_lcurve, train_list recorded as the whole #train (a superset, conservative for the leak gate) with the kept persons and their sha256 in each dual json and in the registry params",
+  "grid": "/rs/rs_grp_oschome/go2432/data/or_ready/dual_loss/g3clean_v2/lcurve/{heads,meta,coverage_bank_g3_v2.json}",
+  "local": "SchwingNet/results/dual_loss/g3clean_v2/lcurve/ (no .pt); SchwingNet/results/dual_loss/saturation.json, saturation_curve.csv, saturation_epochs.csv (SchwingNet/tools/d1_saturation.py)",
+  "training_persons": {"0.0625": 563, "0.125": 1121, "0.25": 2240, "0.5": 4477, "1.0": 8950},
+  "random_window_2_9_mean_over_seeds": {
+   "overall": {"0.0625": 0.6888, "0.125": 0.7093, "0.25": 0.7190, "0.5": 0.7337, "1.0": 0.7398, "last_doubling_points": 0.61, "seed_spread_at_1.0_points": 0.99},
+   "real_film": {"0.0625": 0.9815, "0.125": 0.9844, "0.25": 0.9850, "0.5": 0.9859, "1.0": 0.9869, "last_doubling_points": 0.10, "seed_spread_at_1.0_points": 0.16},
+   "renders": {"0.0625": 0.5962, "0.125": 0.6223, "0.25": 0.6349, "0.5": 0.6539, "1.0": 0.6616, "last_doubling_points": 0.77, "seed_spread_at_1.0_points": 1.27},
+   "L6": {"0.0625": 0.5181, "0.125": 0.6004, "0.25": 0.6116, "0.5": 0.6252, "1.0": 0.6418, "last_doubling_points": 1.66, "seed_spread_at_1.0_points": 3.37},
+   "T13": {"note": "0.00 at 1.0 on every seed (79 crops of the one T13 validation person); the small fractions name a few by chance"},
+   "spine_auroc": {"0.0625": 0.9063, "0.125": 0.9474, "0.25": 0.9420, "0.5": 0.9638, "1.0": 0.9660, "last_doubling_points": 0.22, "seed_spread_at_1.0_points": 1.38}
+  },
+  "band9_renders_mean": {"0.0625": 0.6194, "0.125": 0.6493, "0.25": 0.6639, "0.5": 0.6909, "1.0": 0.7018, "last_doubling_points": 1.09, "seed_spread_at_1.0_points": 0.65},
+  "per_view_random_window_fraction_0.5_seed0": {"film": 0.9845, "ap": 0.6602, "lat": 0.6129, "unstated": 0.6911},
+  "reading": "real-film naming is saturated in sample count (98.2 -> 98.7 % over a 16-fold increase in training persons; the last doubling gained 0.10 points, inside the 0.16-point seed spread). Render naming, the fluoro-like poses, climbs about one point per doubling and has not stopped (band 9: +1.09 points on the last doubling against a 0.65-point spread); at that rate another 16-fold of the same data would buy about four points, not the 30-point gap to the films. The saturation rule here is a description (last doubling's gain <= the seed spread at 1.0), not a test.",
+  "coverage_census_train_side_films": {"source": {"H*": 0.8256, "bins": "10/10"}, "view": {"H*": 0.9202, "bins": "4/4 (ap 5141, lat 3851, film 7352, unstated 1699)"}, "pose_index": {"H*": 0.4596, "bins": "96/96"}, "bodies_per_film": {"H*": 0.7434, "bins": "5/5"}, "subtype": {"H*": 0.3944, "bins": "7/7"}, "joint_source_view_pose": "319 of 3840 cells", "val_cells_absent_from_train": 5, "totalsegmentator_drr": "400 training films, no validation film (its accuracy cannot be read on this bank's val side)",
+                                      "limit": "the bank states no projection angle, SID or magnification; a render's view and pose index come from its name, a real film is one bin"}
+ },
+ "epoch_curve_d1_fraction_1.0": {
+  "level_acc": "flat from epoch 12 / 10 / 8 (within 0.5 pt of the final 0.7416 / 0.7337 / 0.7336; last-five range <= 0.003)",
+  "spine_auroc": "flat from epoch 18 / 2 / 19 (final 0.9721 / 0.9583 / 0.9676)",
+  "L6_recall_validation_windows": "peaks in the first epochs (0.8009 at ep 0 / 0.6805 at ep 5 / 0.7686 at ep 6) and drifts to 0.5708 / 0.5667 / 0.5611 at epoch 29 while the training loss keeps falling; 563 crops of 11 persons, so noisy",
+  "action": "none: s12 fixes 30 epochs and keeps the last epoch; selecting an epoch on validation L6 recall would change the pre-specified D1 and needs a new commit to LEVELCHECK_MODEL.md, which this arm may not edit"
+ },
+ "open_decisions_for_greg": [
+  "Whether the learning-curve arm and the coverage census go into the manuscript (Discussion or supplement) as the paper's saturation argument applied to this bank: films saturated, renders on a slow climb, T13 unlearnable on this bank (three training persons).",
+  "The early-epoch L6 peak of D1's validation curve: leave the pre-specified last epoch (current), or pre-specify an epoch rule in a new LEVELCHECK_MODEL.md commit before unblinding.",
+  "The uploaded paper has no learning-rate content; if 'learning rate' meant the optimiser's, the D1 recipe's lr 1e-3 cosine is the primary's and was not swept."
+ ],
+ "not_done": "M1/F1 scoring of D1 on test persons (tools/score_m1_f1.py) waits on the Figure 6 evaluation (held jobs 40431765/40431766, superseded per RUN_v2.json by the s15 detector); nothing here is committed."
+}

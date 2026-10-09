@@ -1,0 +1,65 @@
+# Alternative: Build from GitHub (if you can't build locally)
+# This version clones your repo and applies the torch constraints
+# CAVEAT: You must push your updated pyproject.toml to GitHub first!
+
+# ================================================================
+# STAGE 1: Builder
+# ================================================================
+FROM pytorch/pytorch:2.1.0-cuda12.1-cudnn8-runtime AS builder
+
+WORKDIR /build
+
+# 1. Create constraint file with strict version pinning
+RUN echo "numpy<2.0" > /tmp/constraints.txt && \
+    echo "torch==2.1.0" >> /tmp/constraints.txt && \
+    echo "torchvision==0.16.0" >> /tmp/constraints.txt
+
+ENV PIP_CONSTRAINT=/tmp/constraints.txt
+
+# 2. Install git
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# 3. Clone your repo (with updated pyproject.toml)
+RUN git clone https://github.com/Gregory-Schwing-MD-PhD/spineps.git /build/spineps_source && \
+    cd /build/spineps_source && \
+    git checkout 39d716575c53deebef44dce6ade08981fd0c553c
+
+# 4. Install with user flag
+WORKDIR /build/spineps_source
+RUN pip install --no-cache-dir --user .
+
+# ================================================================
+# STAGE 2: Runtime (Minimal)
+# ================================================================
+FROM pytorch/pytorch:2.1.0-cuda12.1-cudnn8-runtime
+
+LABEL maintainer="[e-mail withheld]"
+LABEL description="SPINEPS LSTV screening container - GitHub Build"
+LABEL version="1.3-github"
+
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    dcm2niix \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Copy installed packages from builder
+COPY --from=builder /root/.local /root/.local
+
+# Setup environment
+ENV PATH=/root/.local/bin:$PATH \
+    SPINEPS_SEGMENTOR_MODELS=/app/models \
+    SPINEPS_ENVIRONMENT_DIR=/app/models \
+    PYTHONUNBUFFERED=1 \
+    PYTHONWARNINGS="ignore"
+
+# Create directories
+RUN mkdir -p /app/models /app/data /app/output
+
+CMD ["/bin/bash"]

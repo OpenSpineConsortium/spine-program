@@ -1,0 +1,132 @@
+{
+ "written": "2026-09-24T15:58:00-04:00",
+ "rule": "Greg 2026-09-24: submit, estimate, record, stop. On 'check again': sacct -j <ids>; collect only COMPLETED; resubmit only what is missing (every step is idempotent and skips DONE cells).",
+ "grid": "go2432@grid.wayne.edu; logs under ~/model_night/logs/<name>_<jobid>[_<task>].out",
+ "chains": {
+  "film_ncurve": {
+   "what": "naming accuracy vs N training persons on NHANES II / BUU-LSPINE / CSXA (tools/film_ncurve.py; N_VS_COVERAGE_PLAN.md part i)",
+   "jobs": [
+    {
+     "id": 40437808,
+     "name": "fnprep",
+     "script": "SchwingNet/slurm/film_ncurve_prep.sh",
+     "submitted": "2026-09-24T15:56 EDT",
+     "partition": "reqp",
+     "eta_done": "2026-09-24T17:00 EDT (25-40 min run after a 5-25 min reqp wait)",
+     "output": "/rs/rs_grp_oschome/go2432/data/or_ready/film_ncurve/{cells.json,manifest.txt,render_bank/,test_ctx/,pool_*/,base_cache/,base_val/,PREP_DONE}",
+     "collects": "nothing to copy; cells.json is copied with the collect step"
+    },
+    {
+     "id": 40437809,
+     "name": "fnenc",
+     "script": "SchwingNet/slurm/film_ncurve_encoder.sh",
+     "depends": "afterany:40437808",
+     "submitted": "2026-09-24T15:56 EDT",
+     "partition": "gmsap,gvohp,galhp",
+     "eta_done": "2026-09-24T19:15 EDT (45-75 min run; GPU queue held 26 pending at submission)",
+     "output": "/rs/rs_grp_oschome/go2432/data/or_ready/film_ncurve/render_bank/runs/model_rung_1_renderonly_aug2.pt (+ result_rung_1_renderonly_aug2.json), ENCODER_DONE",
+     "collects": "the encoder's result json travels in film_ncurve.json#encoder"
+    },
+    {
+     "id": 40437810,
+     "name": "fncell",
+     "script": "SchwingNet/slurm/film_ncurve.sh",
+     "array": "0-47%16 (48 cells: 3 corpora x [N 0,5,10,25 x 3 seeds + N 50,100,200,all x 1]; a task past the manifest exits 1 harmlessly)",
+     "depends": "afterany:40437809",
+     "submitted": "2026-09-24T15:56 EDT",
+     "partition": "gmsap,gvohp,galhp",
+     "eta_done": "2026-09-24T20:30 EDT (10-15 min per cell, 16 concurrent, 3 waves; plus GPU queue)",
+     "output": "/rs/rs_grp_oschome/go2432/data/or_ready/film_ncurve/cells/<cell>/{bank/,head/,score/a5_rows.csv,score/a5_rows_meta.json,DONE}",
+     "collects": "fncoll below; a cell without DONE is resubmitted with the same array command"
+    },
+    {
+     "id": 40437811,
+     "name": "fncoll",
+     "script": "SchwingNet/slurm/film_ncurve_collect.sh",
+     "depends": "afterany:40437810",
+     "submitted": "2026-09-24T15:56 EDT",
+     "partition": "reqp",
+     "eta_done": "2026-09-24T20:40 EDT",
+     "output": "/rs/rs_grp_oschome/go2432/data/or_ready/film_ncurve/{film_ncurve.json,FILM_NCURVE.md}",
+     "collects": "scp film_ncurve.json FILM_NCURVE.md cells.json -> SchwingNet/results/coverage/film_ncurve/; then N_VS_COVERAGE_PLAN.md step 5 (the pooled fit)"
+    }
+   ]
+  },
+  "coverage_arms": {
+   "what": "matched-N low vs high vs 2N-low coverage render-only detector arms, Surgio-B51 and Elekta XVI, seeds 0-1 (tools/coverage_arms.py; N_VS_COVERAGE_PLAN.md part ii)",
+   "jobs": [
+    {
+     "id": 40437812,
+     "name": "covrender",
+     "script": "SchwingNet/slurm/coverage_arms_render.sh",
+     "array": "0-3 (surgio arc, surgio low2, elekta arc, elekta low2)",
+     "submitted": "2026-09-24T15:56 EDT",
+     "partition": "reqp (16 cpus)",
+     "eta_done": "2026-09-24T19:00 EDT (1.3-2.5 h per task from the devcorpus render times; 5-30 min reqp wait)",
+     "output": "/rs/rs_grp_oschome/go2432/data/devcorpus/{poses/<dev>_arc.json,poses/<dev>_low2.json,render/<dev>_arc/,render/<dev>_low2/,styled/<dev>_arc__<dev>/,styled/<dev>_low2__<dev>/}; or_ready/coverage/experiment/{subjects.txt,poses_<dev>.json,RENDER_DONE_<geometry>}",
+     "collects": "nothing to copy; poses_<dev>.json travels with the collect step"
+    },
+    {
+     "id": 40437813,
+     "name": "covarm",
+     "script": "SchwingNet/slurm/coverage_arms_train.sh",
+     "array": "0-11 (SchwingNet/slurm/coverage_arms_manifest.txt)",
+     "depends": "afterany:40437812_*",
+     "submitted": "2026-09-24T15:56 EDT",
+     "partition": "gvohp,galhp,gmsap",
+     "eta_done": "2026-09-24T23:30 EDT (40 epochs on 2.6k-5.3k frames: 1-2 h per arm from the dctrain times, + 20 min scoring; 6-12 concurrent; plus GPU queue)",
+     "output": "~/spine-detector/runs/coverage/<arm>/{weights/best.pt,scores.json,eval_*_test.json,unseen/recall_vs_angle.json,case134/case134_sweep.json}; devcorpus/lists/cov_*/LIST_INFO.json; or_ready/coverage/experiment/{lists_<dev>_s<seed>.json,ARM_DONE_<arm>}",
+     "collects": "covcoll below; an arm without ARM_DONE is resubmitted with the same array command"
+    },
+    {
+     "id": 40437814,
+     "name": "covcoll",
+     "script": "SchwingNet/slurm/coverage_arms_collect.sh",
+     "depends": "afterany:40437813_*",
+     "submitted": "2026-09-24T15:56 EDT",
+     "partition": "reqp",
+     "eta_done": "2026-09-24T23:40 EDT",
+     "output": "/rs/rs_grp_oschome/go2432/data/or_ready/coverage/experiment/{arms.json,scores.json,EXPERIMENT.md}",
+     "collects": "scp arms.json scores.json EXPERIMENT.md poses_*.json lists_*.json -> SchwingNet/results/coverage/experiment/; per-arm unseen/recall_vs_angle.json and case134/case134_sweep.json from ~/spine-detector/runs/coverage/<arm>/; then tools/indomain_fit_coverage.py --experiment (N_VS_COVERAGE_PLAN.md step 5)"
+    },
+    {
+     "id": 40443105,
+     "name": "covscore",
+     "script": "SchwingNet/slurm/coverage_arms_score.sh",
+     "array": "0-11 (same manifest; score only, no training)",
+     "submitted": "2026-09-25T05:38 EDT",
+     "partition": "gvohp,galhp,gmsap",
+     "why": "covarm 40437813 trained all 12 arms but every evaluator was refused by eval_gate: the arc renders' -arcNNN names matched no keying rule (fixed 2852ae1: leak_check.render.pose_donor); the wrapper drops the 12 stale on-demand lineage entries and re-scores",
+     "eta_done": "2026-09-25T07:30 EDT (15-30 min scoring per arm from the first pass's timestamps; 11 GPU jobs pending ahead at submission)",
+     "output": "~/spine-detector/runs/coverage/<arm>/{scores.json,scores_refused_40437813.json,unseen/recall_vs_angle.json,case134/case134_sweep.json,eval_*_test.json}; logs ~/model_night/logs/covscore_40443105_<task>.out (COVSCORE_RC, 'NOTE:' if an evaluator still refused)",
+     "collects": "covcoll2 below",
+     "state": "COMPLETED 2026-09-25T05:42 (12/12, RC 0)"
+    },
+    {
+     "id": 40443106,
+     "name": "covcoll2",
+     "script": "SchwingNet/slurm/coverage_arms_collect.sh",
+     "depends": "afterany:40443105",
+     "submitted": "2026-09-25T05:38 EDT",
+     "partition": "reqp",
+     "eta_done": "2026-09-25T07:40 EDT",
+     "output": "/rs/rs_grp_oschome/go2432/data/or_ready/coverage/experiment/{arms.json,scores.json,EXPERIMENT.md} (overwritten)",
+     "collects": "scp arms.json scores.json EXPERIMENT.md -> SchwingNet/results/coverage/experiment/ and the per-arm unseen/recall_vs_angle.json + case134/case134_sweep.json + scores.json -> SchwingNet/results/coverage/experiment/runs/<arm>/; then python tools/indomain_fit_coverage.py --experiment SchwingNet/results/coverage/experiment/scores.json (pooled block) and Figure 5 c/d",
+     "state": "COMPLETED 2026-09-25T05:42, collected 09:52"
+    }
+   ],
+   "first_pass_result": "40437813 COMPLETED 12/12 (weights exist) but scores.json of every arm carries 'GATE REFUSED' on every evaluator (real tests, unseen sweep, case134): eval_gate.UnresolvedLineage, '370 of 1104 val items could not be keyed' (high arms also 1972/1972 train items). Fetched to SchwingNet/results/coverage/experiment/ 05:16 EDT as the record of the refusal; superseded by covcoll2.",
+   "collected_2026-09-25_0955": "covscore 40443105_0-11 COMPLETED 05:42 (18 min each, COVSCORE_RC=0 x12, no evaluator refused), covcoll2 40443106 COMPLETED 05:42. Fetched 09:52 EDT: arms.json, scores.json, EXPERIMENT.md -> SchwingNet/results/coverage/experiment/; per-arm scores.json, results.csv, args.yaml, unseen/recall_vs_angle.{json,md}, case134/case134_sweep.{json,md} -> experiment/runs/<arm>/ (matches.json and eval_*_test.json fetched but git-ignored: 125 MB). Pooled fit run locally (tools/indomain_fit_coverage.py, --arm-conf 0.25 primary; sensitivity/ holds conf 0.74 and the trained-only fit): pooled_fit.json + POOLED_FIT.md. FINDING: the six Elekta arms did not train (final-epoch val mAP50 0.13-0.22, precision 0.07-0.33; zero recall on their own card's unseen sweep, on case134 and on cobra_elekta/test at conf 0.25) -- cause not established; the earlier '1dev_elekta_xvi' devcorpus detectors (val mAP50 0.71) trained on cios_fusion__elekta_xvi, so no detector has yet trained on the elekta_xvi__elekta_xvi styled corpus successfully. The Surgio arms trained normally (val mAP50 0.58-0.80) and carry the whole contrast. Nothing to resubmit for the paper's paragraph; an Elekta re-run is a new job, not a resubmission."
+  }
+ },
+ "done_before_this_pass": {
+  "coverage_A": "SchwingNet/results/coverage/{coverage.json,COVERAGE.md,fig_density.png,fig_density_training.png,training_sets.csv,points_coverage.csv} (acqcov 40437098 COMPLETED 11:30; grid or_ready/coverage/DONE)",
+  "indomain_fills": "name_fill.json 250/250 scored (namefill arrays 40429416, 40429901 with tasks 8 and 16 CANCELLED 07:36, re-run by namefillr 40436049_0-9 COMPLETED by 08:35); det_fill.json 45/45 scored (lcfill 40429442_0-5, lcfcoll 40436400 COMPLETED 08:07). Nothing to resubmit."
+ },
+ "not_done_by_this_pass": {
+  "cios_fusion_arms": "no cios card in devcorpus_arc/anglesweep_unseen; adding one is ~40 subject-hours of arc_angle_set rendering; deferred",
+  "acq_coverage_geometries": "tools/acq_coverage.py read_renders iterates the three device names; the *_arc and *_low2 render dirs are not in its table yet (plan step 4); LIST_INFO.json#lat carries the same bins meanwhile",
+  "grid_tool_versions": "local tools/eval_gate.py, patient_keys.py, realxray_eval.py, arc_recall_eval.py, case134_sweep.py are a later revision than the grid copies (both eval_gate/2); not deployed by this pass, which changed no existing tool",
+  "g3det": "job 40436992 (g3det) FAILED 13:25-13:29 after 40436991 COMPLETED 10:47-13:25; belongs to detector-g3, not touched here"
+ }
+}

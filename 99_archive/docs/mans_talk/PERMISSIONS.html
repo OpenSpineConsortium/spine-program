@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Figure permissions — Reading Spine MRI</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+--ink: #1a1a1a;
+--muted: #5a5a5a;
+--rule: #d8d8d8;
+--accent: #1f4e79;
+--accent-soft: #eef3f8;
+--bg: #ffffff;
+}
+html { font-size: 17px; }
+body {
+font-family: "Charter", "Georgia", "Cambria", serif;
+line-height: 1.6;
+color: var(--ink);
+background: var(--bg);
+max-width: 46em;
+margin: 0 auto;
+padding: 3.5em 2em 6em;
+text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 {
+font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+line-height: 1.25;
+color: var(--accent);
+margin-top: 2em;
+margin-bottom: 0.5em;
+}
+h1 {
+font-size: 2.1rem;
+margin-top: 0;
+letter-spacing: -0.01em;
+}
+h2 {
+font-size: 1.45rem;
+border-bottom: 2px solid var(--rule);
+padding-bottom: 0.25em;
+margin-top: 2.5em;
+}
+h3 {
+font-size: 1.15rem;
+color: var(--ink);
+border-left: 4px solid var(--accent);
+padding-left: 0.6em;
+}
+h4 { font-size: 1rem; color: var(--muted); }
+p { margin: 0.8em 0; }
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(31, 78, 121, 0.3); }
+a:hover { border-bottom-color: var(--accent); }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5em 0; }
+blockquote {
+border-left: 3px solid var(--rule);
+margin-left: 0;
+padding-left: 1.2em;
+color: var(--muted);
+font-style: italic;
+}
+ul, ol { padding-left: 1.4em; }
+li { margin: 0.35em 0; }
+li > ul, li > ol { margin: 0.3em 0; }
+code {
+font-family: "Cascadia Mono", Consolas, monospace;
+font-size: 0.88em;
+background: #f4f4f4;
+padding: 0.1em 0.35em;
+border-radius: 3px;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1.4em 0;
+font-size: 0.94rem;
+font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+thead th {
+background: var(--accent-soft);
+color: var(--accent);
+text-align: left;
+font-weight: 600;
+border-bottom: 2px solid var(--accent);
+}
+th, td {
+padding: 0.5em 0.7em;
+border-bottom: 1px solid var(--rule);
+vertical-align: top;
+}
+tbody tr:nth-child(even) { background: #fafafa; }
+
+h2#references + ol {
+font-size: 0.92rem;
+color: var(--ink);
+}
+h2#references + ol li { margin: 0.6em 0; }
+em { color: inherit; }
+strong { font-weight: 700; }
+@media print {
+html { font-size: 11pt; }
+body { max-width: none; padding: 0; }
+h2 { page-break-after: avoid; }
+h3 { page-break-after: avoid; }
+table, blockquote { page-break-inside: avoid; }
+a { color: var(--ink); border: 0; }
+}
+@media (max-width: 640px) {
+html { font-size: 16px; }
+body { padding: 2em 1.1em 4em; }
+table { font-size: 0.85rem; }
+}
+</style>
+
+<style>
+  .mark { display:inline-flex; align-items:center; gap:.35em; margin-right:1.1em;
+          white-space:nowrap; font-family:"Segoe UI",Arial,sans-serif; font-size:.92em; }
+  .mark input[type=checkbox] { width:1em; height:1em; margin:0; accent-color:var(--accent); cursor:pointer; }
+  ul.task-list li input[type=checkbox] { accent-color:var(--accent); cursor:pointer; }
+  input.fill { font:inherit; font-size:.9em; padding:.15em .5em; min-width:14em;
+               border:1px solid var(--rule); border-radius:4px; background:#fff; }
+  input.fill:focus { outline:2px solid var(--accent-soft); border-color:var(--accent); }
+  #prog { position:sticky; top:0; z-index:20; background:var(--accent-soft);
+          border:1px solid var(--rule); border-radius:7px; padding:.7em 1em; margin:0 0 2em;
+          font-family:"Segoe UI",Arial,sans-serif; font-size:.92em; color:var(--accent); }
+  #prog b { font-size:1.15em; }
+  #prog .bar { display:block; height:6px; background:#fff; border-radius:3px; margin-top:.5em; overflow:hidden; }
+  #prog .bar i { display:block; height:100%; width:0; background:var(--accent); transition:width .25s; }
+  #reset { float:right; font-size:.85em; background:none; border:1px solid var(--rule);
+           border-radius:4px; padding:.15em .6em; cursor:pointer; color:var(--muted); }
+  #reset:hover { border-color:var(--accent); color:var(--accent); }
+  @media print { #prog,#reset { display:none; } }
+  .portal { border:1px solid var(--accent); border-left:5px solid var(--accent);
+            border-radius:7px; background:var(--accent-soft); padding:1em 1.2em; margin:1.6em 0;
+            font-family:"Segoe UI",Arial,sans-serif; font-size:.95em; }
+  .portal p { margin:.4em 0; }
+  .portal .go { display:inline-block; margin:.2em 0 .5em; font-size:1.08em; font-weight:600;
+                border-bottom:2px solid var(--accent); }
+  .go-inline { font-family:"Segoe UI",Arial,sans-serif; font-size:.95em; font-weight:600; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Figure permissions — Reading Spine MRI</h1>
+<div id="prog"><button id="reset" type="button">clear</button>Requests filed: <b><span id="n-done">0</span> of <span id="n-all">4</span></b> &#183; ticks and notes save in this browser<span class="bar"><i></i></span></div>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#figure-permissions-reading-spine-mri" id="toc-figure-permissions-reading-spine-mri">Figure permissions —
+Reading Spine MRI</a>
+<ul>
+<li><a href="#fill-the-form-the-same-way-every-time" id="toc-fill-the-form-the-same-way-every-time">Fill the form the same
+way every time</a></li>
+<li><a href="#request-1-wolters-kluwer-spine-4-papers-17-figures" id="toc-request-1-wolters-kluwer-spine-4-papers-17-figures">Request 1 ·
+Wolters Kluwer (<em>Spine</em>) — 4 papers, 17 figures</a></li>
+<li><a href="#request-2-rsna-radiology-1-paper-4-figures" id="toc-request-2-rsna-radiology-1-paper-4-figures">Request 2 · RSNA
+(<em>Radiology</em>) — 1 paper, 4 figures</a></li>
+<li><a href="#request-3-arrs-ajr-1-paper-10-panels-in-one-composite" id="toc-request-3-arrs-ajr-1-paper-10-panels-in-one-composite">Request 3
+· ARRS (<em>AJR</em>) — 1 paper, 10 panels in one composite</a></li>
+<li><a href="#request-4-springer-nature-eur-spine-j-1-paper-1-figure" id="toc-request-4-springer-nature-eur-spine-j-1-paper-1-figure">Request
+4 · Springer Nature (<em>Eur Spine J</em>) — 1 paper, 1 figure</a></li>
+<li><a href="#nothing-needed-for-the-other-23" id="toc-nothing-needed-for-the-other-23">Nothing needed for the other
+23</a></li>
+<li><a href="#if-something-is-refused-or-priced" id="toc-if-something-is-refused-or-priced">If something is refused or
+priced</a></li>
+<li><a href="#separately-asking-the-authors-for-originals" id="toc-separately-asking-the-authors-for-originals">Separately: asking
+the authors for originals</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="figure-permissions-reading-spine-mri">Figure permissions —
+Reading Spine MRI</h1>
+<p>23 figures are live on
+<code>openspineconsortium.com/spine-mri/</code> marked <em>permission
+pending</em>, from <strong>7 papers</strong> across <strong>4
+publishers</strong>. Four of the seven are the same publisher, so this
+is <strong>four requests</strong>.</p>
+<p>All four publishers run permissions through
+<strong>RightsLink</strong> (Copyright Clearance Center). You will need
+one free CCC account — make it once on the first request and reuse
+it.</p>
+<div class="portal">
+<p><strong>Submit and track everything here →</strong></p>
+<p><a class="go" href="https://marketplace.copyright.com/rs-ui-web/mp" target="_blank" rel="noopener">RightsLink · CCC Marketplace — marketplace.copyright.com</a></p>
+<p>Make the free account on this page first (<em>Sign in → Create
+account</em>), then use the per-request links below. Every request you
+file lands under <strong>My Account → Orders</strong> on this same site,
+whichever publisher you came from — that is where grants, prices and
+refusals come back.</p>
+<p style="color:var(--muted)"><strong>Best practice:</strong> start from
+the publisher’s own “Request Permissions” button (the click paths below)
+rather than searching inside Marketplace — arriving that way pre-fills
+the article, so you cannot license the wrong paper.</p>
+</div>
+<hr />
+<h2 id="fill-the-form-the-same-way-every-time">Fill the form the same
+way every time</h2>
+<p>RightsLink asks the same questions whichever publisher you came from.
+These are the answers for this project. <strong>Read the two marked ⚠
+before you start.</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Field</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I would like to…</td>
+<td><strong>Reuse in a website</strong> (if absent: <em>Republish in
+another publication</em> → medium <strong>website</strong>)</td>
+</tr>
+<tr>
+<td>Requestor type</td>
+<td><strong>Academic / educational institution</strong> (or
+<em>Non-profit</em> if offered)</td>
+</tr>
+<tr>
+<td>Are you the author of this article?</td>
+<td><strong>No</strong> — you are not an author on any of these
+seven</td>
+</tr>
+<tr>
+<td>Format</td>
+<td><strong>Electronic</strong> ⚠ <em>website use always needs the
+electronic licence; print-only will be the wrong licence</em></td>
+</tr>
+<tr>
+<td>Portion</td>
+<td><strong>Figures / tables / illustrations</strong></td>
+</tr>
+<tr>
+<td>Number of figures</td>
+<td>per the table below — count panels, not figure numbers</td>
+</tr>
+<tr>
+<td>Will you be translating?</td>
+<td><strong>No</strong></td>
+</tr>
+<tr>
+<td>⚠ Are you modifying the content?</td>
+<td><strong>Yes</strong> — see note below</td>
+</tr>
+<tr>
+<td>Distribution</td>
+<td><strong>Worldwide</strong></td>
+</tr>
+<tr>
+<td>Circulation / audience</td>
+<td>a realistic estimate; a few hundred to a few thousand is honest for
+a talk companion</td>
+</tr>
+<tr>
+<td>Duration of use</td>
+<td><strong>Life of current edition</strong> / permanent</td>
+</tr>
+<tr>
+<td>Title of your new work</td>
+<td><em>Reading Spine MRI — an open teaching series</em></td>
+</tr>
+<tr>
+<td>Publisher of new work</td>
+<td><strong>OpenSpineConsortium</strong></td>
+</tr>
+<tr>
+<td>Will it be sold / behind a paywall?</td>
+<td><strong>No</strong></td>
+</tr>
+<tr>
+<td>URL where it will appear</td>
+<td><code>https://openspineconsortium.com/spine-mri/</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠ Answer “yes” to modifying the content.</strong> Almost none
+of these are straight reproductions — multi-panel figures were
+<strong>cropped to single panels</strong>, and the Lee figure is an
+<strong>assembly of ten panels from six figures into one new
+image</strong>. Some publishers price or route a derivative differently.
+Declaring it costs nothing; being found to have under-declared it is the
+expensive version.</p>
+<p>If a free text box appears, this is the description that helps
+most:</p>
+<blockquote>
+<p>Free, openly accessible online educational series for advanced
+practice providers and trainees. Non-commercial, no paywall, no
+advertising. Full citation and a link to the original article appear in
+the caption of every figure.</p>
+</blockquote>
+<hr />
+<h2 id="request-1-wolters-kluwer-spine-4-papers-17-figures">Request 1 ·
+Wolters Kluwer (<em>Spine</em>) — 4 papers, 17 figures</h2>
+<p><strong>The one to do first.</strong> Largest batch, and includes the
+only genuinely irreplaceable figure.</p>
+<p><strong>Click path:</strong> open the article link → find
+<strong>“Request Permissions”</strong>, under the article title or in
+the right-hand <strong>Article Tools</strong> panel → RightsLink
+opens.</p>
+<p class="go-inline">Submit at → <a href="https://marketplace.copyright.com/rs-ui-web/mp" target="_blank" rel="noopener">RightsLink · CCC Marketplace</a></p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Article link</th>
+<th>Figures</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Schizas 2010</td>
+<td><a href="https://doi.org/10.1097/BRS.0b013e3181d359bd" class="uri">https://doi.org/10.1097/BRS.0b013e3181d359bd</a></td>
+<td>Figs 1, 2, 3, 4 (incl. crops of 1 and 4)</td>
+<td><strong>11</strong></td>
+</tr>
+<tr>
+<td>Arvin 2013</td>
+<td><a href="https://doi.org/10.1097/BRS.0b013e31828e23a8" class="uri">https://doi.org/10.1097/BRS.0b013e31828e23a8</a></td>
+<td>Fig 1, panels b, c, e</td>
+<td><strong>3</strong></td>
+</tr>
+<tr>
+<td>Kato 2018</td>
+<td><a href="https://doi.org/10.1097/BRS.0000000000002426" class="uri">https://doi.org/10.1097/BRS.0000000000002426</a></td>
+<td>Fig 2, panels b, d</td>
+<td><strong>2</strong></td>
+</tr>
+<tr>
+<td>Nouri 2017</td>
+<td><a href="https://doi.org/10.1097/BRS.0000000000002234" class="uri">https://doi.org/10.1097/BRS.0000000000002234</a></td>
+<td>Fig 1, panel A</td>
+<td><strong>1</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Stuck: <code>lwwjournalpermissions@wolterskluwer.com</code> · form
+help <code>customercare@copyright.com</code> · WK’s own RightsLink FAQ:
+<a href="https://s100.copyright.com/help/rightslinkhelppages/Frequently_Asked_Questions_wolterskluwer.htm" class="uri">https://s100.copyright.com/help/rightslinkhelppages/Frequently_Asked_Questions_wolterskluwer.htm</a></p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Filed — <label class="mark"><input type="checkbox" class="trk"> Granted</label> / <label class="mark"><input type="checkbox" class="trk"> Refused</label> /
+<label class="mark"><input type="checkbox" class="trk"> Priced</label>: <input type="text" class="fill trk" placeholder="notes"></label></li>
+</ul>
+<hr />
+<h2 id="request-2-rsna-radiology-1-paper-4-figures">Request 2 · RSNA
+(<em>Radiology</em>) — 1 paper, 4 figures</h2>
+<p><strong>Click path:</strong> article page →
+<strong>“Permissions”</strong> (or the <strong>©</strong> symbol) →
+RightsLink.</p>
+<p class="go-inline">Submit at → <a href="https://marketplace.copyright.com/rs-ui-web/mp" target="_blank" rel="noopener">RightsLink · CCC Marketplace</a></p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Article link</th>
+<th>Figures</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pfirrmann 2004</td>
+<td><a href="https://doi.org/10.1148/radiol.2302021289" class="uri">https://doi.org/10.1148/radiol.2302021289</a></td>
+<td>Figs 1, 2, 3, 4 — complete, unmodified</td>
+<td><strong>4</strong></td>
+</tr>
+</tbody>
+</table>
+<p>These four are reproduced whole, so <em>modifying content</em> here
+is genuinely <strong>No</strong>.</p>
+<p>Policy page: <a href="https://www.rsna.org/journals/permissions-and-policies" class="uri">https://www.rsna.org/journals/permissions-and-policies</a> ·
+<code>permissions@rsna.org</code></p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Filed — <label class="mark"><input type="checkbox" class="trk"> Granted</label> / <label class="mark"><input type="checkbox" class="trk"> Refused</label> /
+<label class="mark"><input type="checkbox" class="trk"> Priced</label>: <input type="text" class="fill trk" placeholder="notes"></label></li>
+</ul>
+<hr />
+<h2 id="request-3-arrs-ajr-1-paper-10-panels-in-one-composite">Request 3
+· ARRS (<em>AJR</em>) — 1 paper, 10 panels in one composite</h2>
+<p><strong>Click path:</strong> article page →
+<strong>“Permissions”</strong> / <strong>“Reprints”</strong> in the
+article tools.</p>
+<p class="go-inline">Submit at → <a href="https://marketplace.copyright.com/rs-ui-web/mp" target="_blank" rel="noopener">RightsLink · CCC Marketplace</a>
+(if ARRS does not route through RightsLink, see the note below)</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Article link</th>
+<th>Figures</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lee 2010</td>
+<td><a href="https://doi.org/10.2214/AJR.09.2772" class="uri">https://doi.org/10.2214/AJR.09.2772</a></td>
+<td>Figs 1–6 — 5 schematics + 5 case images, <strong>cropped and
+combined into one new figure</strong></td>
+<td><strong>10 panels</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Two things specific to this one:</p>
+<ul>
+<li><p><strong>This is the clearest derivative of the seven.</strong>
+Declare the assembly explicitly.</p></li>
+<li><p>I could not confirm from outside whether ARRS routes through
+RightsLink or handles requests directly — their permissions page blocks
+automated access. If there is no RightsLink button on the article page,
+go via <a href="https://www.arrs.org" class="uri">https://www.arrs.org</a> → Publications → AJR → permissions,
+or email ARRS directly. Worth two minutes of looking before
+assuming.</p></li>
+<li><p><label><input type="checkbox"></input>Filed — <label class="mark"><input type="checkbox" class="trk"> Granted</label> / <label class="mark"><input type="checkbox" class="trk"> Refused</label>
+/ <label class="mark"><input type="checkbox" class="trk"> Priced</label>: <input type="text" class="fill trk" placeholder="notes"></label></p></li>
+</ul>
+<hr />
+<h2 id="request-4-springer-nature-eur-spine-j-1-paper-1-figure">Request
+4 · Springer Nature (<em>Eur Spine J</em>) — 1 paper, 1 figure</h2>
+<p><strong>Skip the click path — submit here.</strong> This is the direct
+RightsLink link, pulled from the article page; it opens the form with
+the paper already loaded:</p>
+<p><strong><a href="https://s100.copyright.com/AppDispatchServlet?title=Presymptomatic%20spondylotic%20cervical%20myelopathy%3A%20an%20updated%20predictive%20model&amp;author=Josef%20Bednarik%20et%20al&amp;contentID=10.1007%2Fs00586-008-0585-1&amp;copyright=Springer-Verlag&amp;publication=0940-6719&amp;publicationDate=2008-01-12&amp;publisherName=SpringerNature&amp;orderBeanReset=true" class="uri">https://s100.copyright.com/AppDispatchServlet?title=Presymptomatic%20spondylotic%20cervical%20myelopathy%3A%20an%20updated%20predictive%20model&amp;author=Josef%20Bednarik%20et%20al&amp;contentID=10.1007%2Fs00586-008-0585-1&amp;copyright=Springer-Verlag&amp;publication=0940-6719&amp;publicationDate=2008-01-12&amp;publisherName=SpringerNature&amp;orderBeanReset=true</a></strong></p>
+<table>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Figures</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bednarik 2008</td>
+<td>Fig 2, panel b only (cropped)</td>
+<td><strong>1</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Article page if you prefer: <a href="https://link.springer.com/article/10.1007/s00586-008-0585-1" class="uri">https://link.springer.com/article/10.1007/s00586-008-0585-1</a>
+→ <strong>“Reprints and permissions”</strong> at the foot of the
+article.</p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Filed — <label class="mark"><input type="checkbox" class="trk"> Granted</label> / <label class="mark"><input type="checkbox" class="trk"> Refused</label> /
+<label class="mark"><input type="checkbox" class="trk"> Priced</label>: <input type="text" class="fill trk" placeholder="notes"></label></li>
+</ul>
+<hr />
+<h2 id="nothing-needed-for-the-other-23">Nothing needed for the other
+23</h2>
+<p>The remaining figures are CC BY or CC BY-NC — attribution only,
+already printed in every caption. Origin:
+<code>figures/from_web/SOURCES.md</code>.</p>
+<p><strong>One to watch:</strong> the truncation-artefact “lip sign”
+figure in Part 1 is <strong>CC BY-NC</strong>. Fine while the series is
+free. If any of this ever sits behind paid CME or sponsorship, that
+image must come out.</p>
+<hr />
+<h2 id="if-something-is-refused-or-priced">If something is refused or
+priced</h2>
+<ul>
+<li><strong>Bednarik, Kato, Nouri, Arvin</strong> — single supporting
+panels. Drop them; the surrounding text carries the argument.</li>
+<li><strong>Pfirrmann</strong> — Part 3 §2 is built on all four grades.
+Replacing them means shooting the equivalent from your own PACS. A real
+afternoon, but doable.</li>
+<li><strong>Schizas</strong> — the hard one. Part 2 depends on it end to
+end: the reference chart, the 66 mm² case, the overlap plot, the drill.
+There is no open-licence substitute for that grading figure. If refused,
+Part 2 becomes text plus your own cases.</li>
+</ul>
+<hr />
+<h2 id="separately-asking-the-authors-for-originals">Separately: asking
+the authors for originals</h2>
+<p>Not a permissions route — authors cannot grant it. But they
+<em>can</em> send high-resolution originals, which would genuinely
+improve the site: everything currently live was extracted from PDFs at
+publication resolution, and the Lee panels had to be re-rendered from
+the page because the embedded image streams came out inverted.</p>
+<p>Say the word and I will draft those into your Outlook
+<strong>Drafts</strong> folder for you to review and send. Outlook is
+already set up for this on your machine — no credentials, no connector,
+nothing to authorise.</p>
+
+<script>
+(function(){
+  var KEY='osc-permissions-v1';
+  var saved={}; try{ saved=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){}
+  var nodes=[].slice.call(document.querySelectorAll('input.trk, ul.task-list input[type=checkbox]'));
+  nodes.forEach(function(el,i){
+    el.dataset.k='n'+i;
+    if(el.type==='checkbox'){ el.checked=!!saved[el.dataset.k]; }
+    else { el.value=saved[el.dataset.k]||''; }
+    el.addEventListener('change',save); el.addEventListener('input',save);
+  });
+  // the four top-level "Filed" boxes are pandoc task-list items; the promoted
+  // inline ones all carry .trk, so excluding those leaves exactly the four.
+  var filed=nodes.filter(function(el){
+    return el.type==='checkbox' && !el.classList.contains('trk');
+  });
+  function save(){
+    var o={};
+    nodes.forEach(function(el){ o[el.dataset.k] = el.type==='checkbox' ? el.checked : el.value; });
+    try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){}
+    paint();
+  }
+  function paint(){
+    var done=filed.filter(function(el){return el.checked;}).length;
+    var pct=filed.length? Math.round(done/filed.length*100) : 0;
+    document.getElementById('n-done').textContent=done;
+    document.getElementById('n-all').textContent=filed.length;
+    document.querySelector('#prog .bar i').style.width=pct+'%';
+  }
+  document.getElementById('reset').addEventListener('click',function(){
+    if(!confirm('Clear all ticks and notes on this page?')) return;
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    nodes.forEach(function(el){ if(el.type==='checkbox'){el.checked=false;} else {el.value='';} });
+    paint();
+  });
+  paint();
+})();
+</script>
+</body>
+</html>

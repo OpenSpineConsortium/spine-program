@@ -1,0 +1,768 @@
+{
+ "built": "2026-09-23T19:53:07",
+ "host": "sfx9",
+ "git": "6e1cf8d",
+ "argv": [
+  "tools/checkpoint_lineage.py",
+  "resolve",
+  "--seed",
+  "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/lineage_seed.json",
+  "--out",
+  "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate",
+  "--arc-json",
+  "/rs/rs_grp_oschome/go2432/data/or_ready/arc/recall_vs_angle.json",
+  "--register"
+ ],
+ "seconds": 423,
+ "home": "/wsu/home/go/go24/go2432",
+ "schema": {
+  "sha": "sha256 of the checkpoint file as it is on disk now (null when absent)",
+  "exists / bytes / mtime": "the file's state when this ran",
+  "family": "ultralytics | level_encoder | recurrent_head | lstv_flag | unknown | missing",
+  "role": "scored (named by a result or launch script) | ancestor | scored+ancestor",
+  "named_by": "where the path was found: '<repo file>:<line>' (results, NUMBERS.md, slurm/*.sh)",
+  "parents": "DIRECT parents this checkpoint was initialised from (paths); public roots are listed apart",
+  "public_roots": "declared exempt ancestors (Ultralytics COCO release, torchvision ImageNet) -- nothing else is exempt",
+  "ancestors": "every non-public ancestor, nearest first",
+  "config_read": "the files this entry was read from",
+  "train_sources / val_sources": "[{source, n_items}] -- the membership files or bank splits the run read",
+  "train_keys / val_keys": "patient keys of THIS run's train and val/selection items (tools/patient_keys.key_any)",
+  "train_pose_keys / val_pose_keys": "real-frame patients whose POSE a render was taken under (styled corpora); not the imaged patient, kept apart so a gate can decide",
+  "touched_keys": "train_keys | val_keys over this checkpoint AND every ancestor -- what the rule forbids scoring on",
+  "touched_pose_keys": "the same union over pose keys",
+  "unresolved": "[{at, what, why}] over this checkpoint and every ancestor; non-empty means touched_keys is a LOWER bound. A deleted-bank row also carries `bound`: the roots its build launch line drew it from, the corpora and patient count those roots key to today, and `complete` (false when a root is gone, changed after the fit, or unexpandable, or holds cases no rule keys); the keys themselves are in bounds.json. A rewritten-list row carries `corpus`: the corpus the entry's location declares (null: no claim), the only corpus whose patients its removed items can be",
+  "unkeyed": "{split: {n, examples, shapes}} -- items no keying rule recognises, counted by name family (digits collapsed); never counted as patients, always an unresolved row",
+  "notes": "what was assumed or corroborated (never a silent assumption)"
+ },
+ "rule": "An evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain. Public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. A non-empty `unresolved` makes touched_keys a lower bound.",
+ "seed_file": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/lineage_seed.json",
+ "seed_built": "2026-09-23T19:30:19",
+ "seed_git": "10fda0c",
+ "n_checkpoints": 306,
+ "n_scored": 304,
+ "families": {
+  "level_encoder": 90,
+  "lstv_flag": 5,
+  "missing": 7,
+  "public_root": 1,
+  "recurrent_head": 64,
+  "ultralytics": 100,
+  "unknown": 39
+ },
+ "n_with_unresolved": 133,
+ "templates_too_broad": [],
+ "templates_matching_nothing": [
+  {
+   "template": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx/runs/model_rung_1*.pt",
+   "shown": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx/runs/model_rung_1*.pt",
+   "where": "slurm/allspine_v2_chain.sh:27",
+   "glob": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx/runs/model_rung_1*.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx/runs/model_rung_1*.pt",
+   "shown": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx/runs/model_rung_1*.pt",
+   "where": "slurm/allspine_v2_chain.sh:28",
+   "glob": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx/runs/model_rung_1*.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx/runs/model_rung_1*.pt",
+   "shown": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx/runs/model_rung_1*.pt",
+   "where": "slurm/allspine_v2_chain.sh:32",
+   "glob": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx/runs/model_rung_1*.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx/runs/model_rung_1*.pt",
+   "shown": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx/runs/model_rung_1*.pt",
+   "where": "slurm/allspine_v2_chain.sh:35",
+   "glob": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx/runs/model_rung_1*.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/carm_cvdaymix\u0000SLURM_ARRAY_TASK_ID\u0000_v9_fov96_ctx/runs/model_rung_1_ft_cvday\u0000SLURM_ARRAY_TASK_ID\u0000_v9_aug2.pt",
+   "shown": "/wsu/home/go/go24/go2432/carm_cvdaymix{SLURM_ARRAY_TASK_ID}_v9_fov96_ctx/runs/model_rung_1_ft_cvday{SLURM_ARRAY_TASK_ID}_v9_aug2.pt",
+   "where": "slurm/carmlspine_cv_day_v9.sh:34",
+   "glob": "/wsu/home/go/go24/go2432/carm_cvdaymix*_v9_fov96_ctx/runs/model_rung_1_ft_cvday*_v9_aug2.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/carm_cvdaymix\u0000SLURM_ARRAY_TASK_ID\u0000_v9_fov96_ctx/runs/model_rung_1_ft_cvday\u0000SLURM_ARRAY_TASK_ID\u0000_v9_aug2.pt",
+   "shown": "/wsu/home/go/go24/go2432/carm_cvdaymix{SLURM_ARRAY_TASK_ID}_v9_fov96_ctx/runs/model_rung_1_ft_cvday{SLURM_ARRAY_TASK_ID}_v9_aug2.pt",
+   "where": "slurm/carmlspine_cv_day_v9.sh:35",
+   "glob": "/wsu/home/go/go24/go2432/carm_cvdaymix*_v9_fov96_ctx/runs/model_rung_1_ft_cvday*_v9_aug2.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/carm_cvdaymix\u0000SLURM_ARRAY_TASK_ID\u0000_v9_fov96_ctx/runs/model_rung_1_ft_cvday\u0000SLURM_ARRAY_TASK_ID\u0000_v9_aug2.pt",
+   "shown": "/wsu/home/go/go24/go2432/carm_cvdaymix{SLURM_ARRAY_TASK_ID}_v9_fov96_ctx/runs/model_rung_1_ft_cvday{SLURM_ARRAY_TASK_ID}_v9_aug2.pt",
+   "where": "slurm/carmlspine_cv_day_v9.sh:37",
+   "glob": "/wsu/home/go/go24/go2432/carm_cvdaymix*_v9_fov96_ctx/runs/model_rung_1_ft_cvday*_v9_aug2.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/carm_cvdaymix\u0000SLURM_ARRAY_TASK_ID\u0000_v9_fov96_ctx/runs/model_rung_1_ft_cvday\u0000SLURM_ARRAY_TASK_ID\u0000_v9_aug2.pt",
+   "shown": "/wsu/home/go/go24/go2432/carm_cvdaymix{SLURM_ARRAY_TASK_ID}_v9_fov96_ctx/runs/model_rung_1_ft_cvday{SLURM_ARRAY_TASK_ID}_v9_aug2.pt",
+   "where": "slurm/carmlspine_cv_day_v9.sh:37",
+   "glob": "/wsu/home/go/go24/go2432/carm_cvdaymix*_v9_fov96_ctx/runs/model_rung_1_ft_cvday*_v9_aug2.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/carm_cvdaymix\u0000SLURM_ARRAY_TASK_ID\u0000_v9_fov96_ctx/runs/model_rung_1_ft_cvday\u0000SLURM_ARRAY_TASK_ID\u0000_v9_aug2.pt",
+   "shown": "/wsu/home/go/go24/go2432/carm_cvdaymix{SLURM_ARRAY_TASK_ID}_v9_fov96_ctx/runs/model_rung_1_ft_cvday{SLURM_ARRAY_TASK_ID}_v9_aug2.pt",
+   "where": "slurm/carmlspine_cv_day_v9.sh:38",
+   "glob": "/wsu/home/go/go24/go2432/carm_cvdaymix*_v9_fov96_ctx/runs/model_rung_1_ft_cvday*_v9_aug2.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cvday\u0000SLURM_ARRAY_TASK_ID\u0000_v9.pt",
+   "shown": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cvday{SLURM_ARRAY_TASK_ID}_v9.pt",
+   "where": "slurm/carmlspine_cv_day_v9.sh:39",
+   "glob": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cvday*_v9.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cvday\u0000SLURM_ARRAY_TASK_ID\u0000_v9.pt",
+   "shown": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cvday{SLURM_ARRAY_TASK_ID}_v9.pt",
+   "where": "slurm/carmlspine_cv_day_v9.sh:40",
+   "glob": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cvday*_v9.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cvday\u0000SLURM_ARRAY_TASK_ID\u0000_v9.pt",
+   "shown": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cvday{SLURM_ARRAY_TASK_ID}_v9.pt",
+   "where": "slurm/carmlspine_cv_day_v9.sh:40",
+   "glob": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cvday*_v9.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/carm_cvdaymix\u0000SLURM_ARRAY_TASK_ID\u0000_v9_fov96_ctx/runs/model_rung_1_ft_cvday\u0000SLURM_ARRAY_TASK_ID\u0000_v9_aug2.pt",
+   "shown": "/wsu/home/go/go24/go2432/carm_cvdaymix{SLURM_ARRAY_TASK_ID}_v9_fov96_ctx/runs/model_rung_1_ft_cvday{SLURM_ARRAY_TASK_ID}_v9_aug2.pt",
+   "where": "slurm/carmlspine_cv_day_v9.sh:44",
+   "glob": "/wsu/home/go/go24/go2432/carm_cvdaymix*_v9_fov96_ctx/runs/model_rung_1_ft_cvday*_v9_aug2.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cvday\u0000SLURM_ARRAY_TASK_ID\u0000_v9.pt",
+   "shown": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cvday{SLURM_ARRAY_TASK_ID}_v9.pt",
+   "where": "slurm/carmlspine_cv_day_v9.sh:44",
+   "glob": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cvday*_v9.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/carm_cvmix\u0000SLURM_ARRAY_TASK_ID\u0000_v9_fov96_ctx/runs/model_rung_1_ft_cv\u0000SLURM_ARRAY_TASK_ID\u0000_v9_aug2.pt",
+   "shown": "/wsu/home/go/go24/go2432/carm_cvmix{SLURM_ARRAY_TASK_ID}_v9_fov96_ctx/runs/model_rung_1_ft_cv{SLURM_ARRAY_TASK_ID}_v9_aug2.pt",
+   "where": "slurm/carmlspine_cv_v9.sh:35",
+   "glob": "/wsu/home/go/go24/go2432/carm_cvmix*_v9_fov96_ctx/runs/model_rung_1_ft_cv*_v9_aug2.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/carm_cvmix\u0000SLURM_ARRAY_TASK_ID\u0000_v9_fov96_ctx/runs/model_rung_1_ft_cv\u0000SLURM_ARRAY_TASK_ID\u0000_v9_aug2.pt",
+   "shown": "/wsu/home/go/go24/go2432/carm_cvmix{SLURM_ARRAY_TASK_ID}_v9_fov96_ctx/runs/model_rung_1_ft_cv{SLURM_ARRAY_TASK_ID}_v9_aug2.pt",
+   "where": "slurm/carmlspine_cv_v9.sh:36",
+   "glob": "/wsu/home/go/go24/go2432/carm_cvmix*_v9_fov96_ctx/runs/model_rung_1_ft_cv*_v9_aug2.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/carm_cvmix\u0000SLURM_ARRAY_TASK_ID\u0000_v9_fov96_ctx/runs/model_rung_1_ft_cv\u0000SLURM_ARRAY_TASK_ID\u0000_v9_aug2.pt",
+   "shown": "/wsu/home/go/go24/go2432/carm_cvmix{SLURM_ARRAY_TASK_ID}_v9_fov96_ctx/runs/model_rung_1_ft_cv{SLURM_ARRAY_TASK_ID}_v9_aug2.pt",
+   "where": "slurm/carmlspine_cv_v9.sh:38",
+   "glob": "/wsu/home/go/go24/go2432/carm_cvmix*_v9_fov96_ctx/runs/model_rung_1_ft_cv*_v9_aug2.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/carm_cvmix\u0000SLURM_ARRAY_TASK_ID\u0000_v9_fov96_ctx/runs/model_rung_1_ft_cv\u0000SLURM_ARRAY_TASK_ID\u0000_v9_aug2.pt",
+   "shown": "/wsu/home/go/go24/go2432/carm_cvmix{SLURM_ARRAY_TASK_ID}_v9_fov96_ctx/runs/model_rung_1_ft_cv{SLURM_ARRAY_TASK_ID}_v9_aug2.pt",
+   "where": "slurm/carmlspine_cv_v9.sh:38",
+   "glob": "/wsu/home/go/go24/go2432/carm_cvmix*_v9_fov96_ctx/runs/model_rung_1_ft_cv*_v9_aug2.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/carm_cvmix\u0000SLURM_ARRAY_TASK_ID\u0000_v9_fov96_ctx/runs/model_rung_1_ft_cv\u0000SLURM_ARRAY_TASK_ID\u0000_v9_aug2.pt",
+   "shown": "/wsu/home/go/go24/go2432/carm_cvmix{SLURM_ARRAY_TASK_ID}_v9_fov96_ctx/runs/model_rung_1_ft_cv{SLURM_ARRAY_TASK_ID}_v9_aug2.pt",
+   "where": "slurm/carmlspine_cv_v9.sh:39",
+   "glob": "/wsu/home/go/go24/go2432/carm_cvmix*_v9_fov96_ctx/runs/model_rung_1_ft_cv*_v9_aug2.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cv\u0000SLURM_ARRAY_TASK_ID\u0000_v9.pt",
+   "shown": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cv{SLURM_ARRAY_TASK_ID}_v9.pt",
+   "where": "slurm/carmlspine_cv_v9.sh:40",
+   "glob": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cv*_v9.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cv\u0000SLURM_ARRAY_TASK_ID\u0000_v9.pt",
+   "shown": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cv{SLURM_ARRAY_TASK_ID}_v9.pt",
+   "where": "slurm/carmlspine_cv_v9.sh:41",
+   "glob": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cv*_v9.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cv\u0000SLURM_ARRAY_TASK_ID\u0000_v9.pt",
+   "shown": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cv{SLURM_ARRAY_TASK_ID}_v9.pt",
+   "where": "slurm/carmlspine_cv_v9.sh:41",
+   "glob": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cv*_v9.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/carm_cvmix\u0000SLURM_ARRAY_TASK_ID\u0000_v9_fov96_ctx/runs/model_rung_1_ft_cv\u0000SLURM_ARRAY_TASK_ID\u0000_v9_aug2.pt",
+   "shown": "/wsu/home/go/go24/go2432/carm_cvmix{SLURM_ARRAY_TASK_ID}_v9_fov96_ctx/runs/model_rung_1_ft_cv{SLURM_ARRAY_TASK_ID}_v9_aug2.pt",
+   "where": "slurm/carmlspine_cv_v9.sh:45",
+   "glob": "/wsu/home/go/go24/go2432/carm_cvmix*_v9_fov96_ctx/runs/model_rung_1_ft_cv*_v9_aug2.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cv\u0000SLURM_ARRAY_TASK_ID\u0000_v9.pt",
+   "shown": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cv{SLURM_ARRAY_TASK_ID}_v9.pt",
+   "where": "slurm/carmlspine_cv_v9.sh:45",
+   "glob": "/wsu/home/go/go24/go2432/model_night/heads_carm/head_cv*_v9.pt"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFull/*/fold_*/checkpoint_*.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFull/*/fold_*/checkpoint_*.pth",
+   "where": "slurm/convert_hf_to_nnet.sh:239",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFull/*/fold_*/checkpoint_*.pth"
+  },
+  {
+   "template": "\u0000CTX\u0000/runs/model_rung_\u0000r\u0000.pt",
+   "shown": "{CTX}/runs/model_rung_{r}.pt",
+   "where": "slurm/ctx_arm_evalnh.sh:33",
+   "glob": "*/runs/model_rung_*.pt"
+  },
+  {
+   "template": "\u0000CTX\u0000/runs/model_rung_\u0000r\u0000.pt",
+   "shown": "{CTX}/runs/model_rung_{r}.pt",
+   "where": "slurm/ctx_arm_evalnh.sh:34",
+   "glob": "*/runs/model_rung_*.pt"
+  },
+  {
+   "template": "\u0000CTX\u0000/runs/model_rung_\u0000r\u0000.pt",
+   "shown": "{CTX}/runs/model_rung_{r}.pt",
+   "where": "slurm/ctx_arm_evalnh.sh:36",
+   "glob": "*/runs/model_rung_*.pt"
+  },
+  {
+   "template": "\u0000FILMS\u0000/runs/model_rung_1_aug2.pt",
+   "shown": "{FILMS}/runs/model_rung_1_aug2.pt",
+   "where": "slurm/cut_drr2fluoro.sh:36",
+   "glob": "*/runs/model_rung_1_aug2.pt"
+  },
+  {
+   "template": "\u0000ALL\u0000/runs/model_rung_1_aug2.pt",
+   "shown": "{ALL}/runs/model_rung_1_aug2.pt",
+   "where": "slurm/cut_drr2fluoro.sh:37",
+   "glob": "*/runs/model_rung_1_aug2.pt"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__\u0000PLANS\u0000__3d_fullres/fold_\u0000FOLD__set_FOLD\u0000/checkpoint_best.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__{PLANS}__3d_fullres/fold_{FOLD__set_FOLD}/checkpoint_best.pth",
+   "where": "slurm/eval_fold_checkpoint.sh:54",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__*__3d_fullres/fold_*/checkpoint_best.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__\u0000PLANS\u0000__3d_fullres/fold_\u0000FOLD__set_FOLD\u0000/checkpoint_best.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__{PLANS}__3d_fullres/fold_{FOLD__set_FOLD}/checkpoint_best.pth",
+   "where": "slurm/eval_fold_checkpoint.sh:55",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__*__3d_fullres/fold_*/checkpoint_best.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__\u0000PLANS\u0000__3d_fullres/fold_\u0000FOLD__set_FOLD\u0000/checkpoint_best.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__{PLANS}__3d_fullres/fold_{FOLD__set_FOLD}/checkpoint_best.pth",
+   "where": "slurm/eval_fold_checkpoint.sh:55",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__*__3d_fullres/fold_*/checkpoint_best.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__\u0000PLANS\u0000__3d_fullres/fold_\u0000FOLD__set_FOLD\u0000/checkpoint_best.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__{PLANS}__3d_fullres/fold_{FOLD__set_FOLD}/checkpoint_best.pth",
+   "where": "slurm/eval_fold_checkpoint.sh:62",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__*__3d_fullres/fold_*/checkpoint_best.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__\u0000PLANS\u0000__3d_fullres/fold_\u0000FOLD__set_FOLD\u0000/eval_\u0000CHECKPOINT__pth\u0000_\u0000cmd\u0000/checkpoint_best.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__{PLANS}__3d_fullres/fold_{FOLD__set_FOLD}/eval_{CHECKPOINT__pth}_{cmd}/checkpoint_best.pth",
+   "where": "slurm/eval_fold_checkpoint.sh:62",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgLSTVOneShot/nnUNetTrainerWandB_500ep_LSTVOversample__*__3d_fullres/fold_*/eval_*_*/checkpoint_best.pth"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/allspine_v7_fov96_ctx/runs/model_rung_1*.pt",
+   "shown": "/wsu/home/go/go24/go2432/allspine_v7_fov96_ctx/runs/model_rung_1*.pt",
+   "where": "slurm/eval_shortcut_controls.sh:89",
+   "glob": "/wsu/home/go/go24/go2432/allspine_v7_fov96_ctx/runs/model_rung_1*.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/FluoroCap/finetune_v3/*.pt",
+   "shown": "/wsu/home/go/go24/go2432/FluoroCap/finetune_v3/*.pt",
+   "where": "slurm/fluorocap_finetune_chain.sh:20",
+   "glob": "/wsu/home/go/go24/go2432/FluoroCap/finetune_v3/*.pt"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_\u0000DATASET_NAME\u0000/\u0000TRAINER\u0000__\u0000PLANS\u0000__3d_fullres/fold_0/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_{DATASET_NAME}/{TRAINER}__{PLANS}__3d_fullres/fold_0/checkpoint_final.pth",
+   "where": "slurm/spine_ablation.sh:245",
+   "glob": "*/nnunet/results/Dataset*_*/*__*__3d_fullres/fold_0/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_\u0000DATASET_NAME\u0000/\u0000TRAINER\u0000__\u0000PLANS\u0000__3d_fullres/fold_0/checkpoint_latest.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_{DATASET_NAME}/{TRAINER}__{PLANS}__3d_fullres/fold_0/checkpoint_latest.pth",
+   "where": "slurm/spine_ablation.sh:246",
+   "glob": "*/nnunet/results/Dataset*_*/*__*__3d_fullres/fold_0/checkpoint_latest.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_\u0000DATASET_NAME\u0000/\u0000TRAINER\u0000__\u0000PLANS\u0000__3d_fullres/fold_0/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_{DATASET_NAME}/{TRAINER}__{PLANS}__3d_fullres/fold_0/checkpoint_final.pth",
+   "where": "slurm/spine_ablation.sh:249",
+   "glob": "*/nnunet/results/Dataset*_*/*__*__3d_fullres/fold_0/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_\u0000DATASET_NAME\u0000/\u0000TRAINER\u0000__\u0000PLANS\u0000__3d_fullres/fold_0/checkpoint_latest.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_{DATASET_NAME}/{TRAINER}__{PLANS}__3d_fullres/fold_0/checkpoint_latest.pth",
+   "where": "slurm/spine_ablation.sh:252",
+   "glob": "*/nnunet/results/Dataset*_*/*__*__3d_fullres/fold_0/checkpoint_latest.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_0/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_0/checkpoint_final.pth",
+   "where": "slurm/spine_eval_single.sh:51",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_0/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_0/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_0/checkpoint_final.pth",
+   "where": "slurm/spine_eval_single.sh:52",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_0/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_0/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_0/checkpoint_final.pth",
+   "where": "slurm/spine_eval_single.sh:53",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_0/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_\u0000arith\u0000/checkpoint_best.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_{arith}/checkpoint_best.pth",
+   "where": "slurm/spine_pred_803_best_array.sh:245",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_*/checkpoint_best.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_\u0000F\u0000/checkpoint_best.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_{F}/checkpoint_best.pth",
+   "where": "slurm/spine_predict_803_best.sh:148",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_*/checkpoint_best.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_\u0000SLURM_ARRAY_TASK_ID\u0000/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_{SLURM_ARRAY_TASK_ID}/checkpoint_final.pth",
+   "where": "slurm/spine_train_array.sh:240",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_*/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_\u0000SLURM_ARRAY_TASK_ID\u0000/checkpoint_latest.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_{SLURM_ARRAY_TASK_ID}/checkpoint_latest.pth",
+   "where": "slurm/spine_train_array.sh:241",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_*/checkpoint_latest.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_\u0000SLURM_ARRAY_TASK_ID\u0000/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_{SLURM_ARRAY_TASK_ID}/checkpoint_final.pth",
+   "where": "slurm/spine_train_array.sh:243",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_*/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_\u0000SLURM_ARRAY_TASK_ID\u0000/checkpoint_latest.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_{SLURM_ARRAY_TASK_ID}/checkpoint_latest.pth",
+   "where": "slurm/spine_train_array.sh:249",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_*/checkpoint_latest.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_\u0000SLURM_ARRAY_TASK_ID\u0000/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_{SLURM_ARRAY_TASK_ID}/checkpoint_final.pth",
+   "where": "slurm/spine_train_array.sh:656",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_*/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_\u0000SLURM_ARRAY_TASK_ID\u0000/checkpoint_*.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_{SLURM_ARRAY_TASK_ID}/checkpoint_*.pth",
+   "where": "slurm/spine_train_array.sh:669",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFullMerged/nnUNetTrainerWandB_500ep_LSTVOversample__nnUNetResEncUNetPlans_100G__3d_fullres/fold_*/checkpoint_*.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__\u0000PLANS\u0000__3d_fullres/fold_0/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__{PLANS}__3d_fullres/fold_0/checkpoint_final.pth",
+   "where": "slurm/spine_train_fold.sh:109",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__*__3d_fullres/fold_0/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__\u0000PLANS\u0000__3d_fullres/fold_0/checkpoint_latest.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__{PLANS}__3d_fullres/fold_0/checkpoint_latest.pth",
+   "where": "slurm/spine_train_fold.sh:110",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__*__3d_fullres/fold_0/checkpoint_latest.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__\u0000PLANS\u0000__3d_fullres/fold_0/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__{PLANS}__3d_fullres/fold_0/checkpoint_final.pth",
+   "where": "slurm/spine_train_fold.sh:115",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__*__3d_fullres/fold_0/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__\u0000PLANS\u0000__3d_fullres/fold_0/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__{PLANS}__3d_fullres/fold_0/checkpoint_final.pth",
+   "where": "slurm/spine_train_fold.sh:118",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__*__3d_fullres/fold_0/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__\u0000PLANS\u0000__3d_fullres/fold_0/checkpoint_latest.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__{PLANS}__3d_fullres/fold_0/checkpoint_latest.pth",
+   "where": "slurm/spine_train_fold.sh:128",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__*__3d_fullres/fold_0/checkpoint_latest.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__\u0000PLANS\u0000__3d_fullres/fold_0/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__{PLANS}__3d_fullres/fold_0/checkpoint_final.pth",
+   "where": "slurm/spine_train_fold.sh:306",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__*__3d_fullres/fold_0/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__\u0000PLANS\u0000__3d_fullres/fold_0/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__{PLANS}__3d_fullres/fold_0/checkpoint_final.pth",
+   "where": "slurm/spine_train_fold.sh:320",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__*__3d_fullres/fold_0/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__\u0000PLANS\u0000__3d_fullres/fold_0/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__{PLANS}__3d_fullres/fold_0/checkpoint_final.pth",
+   "where": "slurm/spine_train_fold.sh:323",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__*__3d_fullres/fold_0/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__\u0000PLANS\u0000__3d_fullres/fold_0/checkpoint_final.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__{PLANS}__3d_fullres/fold_0/checkpoint_final.pth",
+   "where": "slurm/spine_train_fold.sh:327",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFull/nnUNetTrainerWandB_1000ep_LSTVOversample__*__3d_fullres/fold_0/checkpoint_final.pth"
+  },
+  {
+   "template": "\u0000SLURM_SUBMIT_DIR\u0000/nnunet/results/Dataset\u0000cmd\u0000_SpineSurgCTFull/*/fold_*/checkpoint_*.pth",
+   "shown": "{SLURM_SUBMIT_DIR}/nnunet/results/Dataset{cmd}_SpineSurgCTFull/*/fold_*/checkpoint_*.pth",
+   "where": "slurm/sync_to_nnunet.sh:341",
+   "glob": "*/nnunet/results/Dataset*_SpineSurgCTFull/*/fold_*/checkpoint_*.pth"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/ablate/\u00001\u0000.pt",
+   "shown": "/wsu/home/go/go24/go2432/ablate/{1}.pt",
+   "where": "slurm/v5_ablation.sh:41",
+   "glob": "/wsu/home/go/go24/go2432/ablate/*.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/ablate/\u00001\u0000.pt",
+   "shown": "/wsu/home/go/go24/go2432/ablate/{1}.pt",
+   "where": "slurm/v5_ablation.sh:42",
+   "glob": "/wsu/home/go/go24/go2432/ablate/*.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/ablate/\u00001\u0000.pt",
+   "shown": "/wsu/home/go/go24/go2432/ablate/{1}.pt",
+   "where": "slurm/v5_ablation.sh:42",
+   "glob": "/wsu/home/go/go24/go2432/ablate/*.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/ablate/\u00001\u0000.pt_abl.pt",
+   "shown": "/wsu/home/go/go24/go2432/ablate/{1}.pt_abl.pt",
+   "where": "slurm/v5_ablation.sh:44",
+   "glob": "/wsu/home/go/go24/go2432/ablate/*.pt_abl.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/ablate/\u00001\u0000.pt_abl.pt",
+   "shown": "/wsu/home/go/go24/go2432/ablate/{1}.pt_abl.pt",
+   "where": "slurm/v5_ablation.sh:45",
+   "glob": "/wsu/home/go/go24/go2432/ablate/*.pt_abl.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/ablate/\u00001\u0000.pt",
+   "shown": "/wsu/home/go/go24/go2432/ablate/{1}.pt",
+   "where": "slurm/v5_ablation.sh:45",
+   "glob": "/wsu/home/go/go24/go2432/ablate/*.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/ablate/\u00001\u0000.pt",
+   "shown": "/wsu/home/go/go24/go2432/ablate/{1}.pt",
+   "where": "slurm/v5_ablation.sh:46",
+   "glob": "/wsu/home/go/go24/go2432/ablate/*.pt"
+  },
+  {
+   "template": "/wsu/home/go/go24/go2432/ablate/\u00001\u0000.pt_abl.pt",
+   "shown": "/wsu/home/go/go24/go2432/ablate/{1}.pt_abl.pt",
+   "where": "slurm/v5_ablation.sh:46",
+   "glob": "/wsu/home/go/go24/go2432/ablate/*.pt_abl.pt"
+  }
+ ],
+ "relative_names": {
+  "best.pt": [
+   "SchwingNet/results/a1.json:4",
+   "SchwingNet/results/arc/ARC_CHECK.md:100",
+   "SchwingNet/results/inputs/table.md:30",
+   "SchwingNet/results/inputs/table.md:31",
+   "SchwingNet/results/inputs/table.md:33",
+   "SchwingNet/results/inputs/table.md:34",
+   "SchwingNet/results/inputs/table.md:35",
+   "SchwingNet/results/inputs/table.md:37",
+   "SchwingNet/results/inputs/table.md:39",
+   "SchwingNet/results/inputs/table.md:40",
+   "SchwingNet/results/inputs/table.md:41",
+   "SchwingNet/results/inputs/table.md:42",
+   "SchwingNet/results/lcurve/lcurve.json:11136",
+   "SchwingNet/results/lcurve/lcurve.json:8485",
+   "SchwingNet/results/lcurve/lcurve.md:63",
+   "SchwingNet/results/lcurve/lcurve.md:83",
+   "SchwingNet/results/lcurve/lcurve.md:9",
+   "SchwingNet/results/lcurve/lcurve.md:92",
+   "SchwingNet/results/rigor_fixes.json:9"
+  ],
+  "checkpoint_best.pth": [
+   "slurm/eval_fold_checkpoint.sh:111",
+   "slurm/eval_fold_checkpoint.sh:116",
+   "slurm/eval_fold_checkpoint.sh:29",
+   "slurm/spine_ensemble_803_best.sh:202",
+   "slurm/spine_ensemble_803_best.sh:54",
+   "slurm/spine_ensemble_803_best.sh:73",
+   "slurm/spine_eval_803_best.sh:128",
+   "slurm/spine_eval_803_best.sh:47",
+   "slurm/spine_eval_803_best.sh:78",
+   "slurm/spine_eval_803_full.sh:314",
+   "slurm/spine_eval_803_full.sh:49",
+   "slurm/spine_eval_803_full.sh:88",
+   "slurm/spine_pred_803_best_array.sh:143",
+   "slurm/spine_pred_803_best_array.sh:202",
+   "slurm/spine_pred_803_best_array.sh:242",
+   "slurm/spine_pred_803_best_array.sh:246",
+   "slurm/spine_pred_803_best_array.sh:252",
+   "slurm/spine_pred_803_best_array.sh:369",
+   "slurm/spine_pred_803_best_array.sh:425",
+   "slurm/spine_predict_803_best.sh:115"
+  ],
+  "checkpoint_final.pth": [
+   "slurm/spine_pred_803_best_array.sh:242",
+   "slurm/spine_predict_803_best.sh:145",
+   "slurm/spine_train_array.sh:244",
+   "slurm/spine_train_array.sh:665",
+   "slurm/spine_train_fold.sh:117",
+   "slurm/spine_train_fold.sh:127",
+   "slurm/spine_train_fold.sh:322",
+   "slurm/spine_train_fold.sh:326"
+  ],
+  "checkpoint_latest.pth": [
+   "slurm/spine_pred_803_best_array.sh:242",
+   "slurm/spine_predict_803_best.sh:145",
+   "slurm/spine_predict_803_best.sh:159",
+   "slurm/spine_train_array.sh:253",
+   "slurm/spine_train_array.sh:666",
+   "slurm/spine_train_fold.sh:130",
+   "slurm/spine_train_fold.sh:278",
+   "slurm/spine_train_fold.sh:284"
+  ],
+  "dc_B_held_elekta_xvi/weights/best.pt": [
+   "SchwingNet/results/lcurve/JOBS.txt:4"
+  ],
+  "detect_v5z_final_best.pt": [
+   "SchwingNet/NUMBERS.md:170"
+  ],
+  "model_rung_1_aug2.pt": [
+   "slurm/allspine_v2_chain.sh:33"
+  ],
+  "polypose.ckpt": [
+   "SchwingNet/results/polypose/REPRODUCTION.json:114",
+   "SchwingNet/results/polypose/REPRODUCTION.json:139",
+   "SchwingNet/results/polypose/REPRODUCTION.json:164",
+   "SchwingNet/results/polypose/REPRODUCTION.json:189",
+   "SchwingNet/results/polypose/REPRODUCTION.json:214",
+   "SchwingNet/results/polypose/REPRODUCTION.json:89",
+   "SchwingNet/results/polypose/report/REPRODUCTION.json:114",
+   "SchwingNet/results/polypose/report/REPRODUCTION.json:139",
+   "SchwingNet/results/polypose/report/REPRODUCTION.json:164",
+   "SchwingNet/results/polypose/report/REPRODUCTION.json:189",
+   "SchwingNet/results/polypose/report/REPRODUCTION.json:214",
+   "SchwingNet/results/polypose/report/REPRODUCTION.json:89",
+   "SchwingNet/results/polypose/report/attempt1_noflip/1/polypose_run.json:23",
+   "SchwingNet/results/polypose/report/attempt1_noflip/2/polypose_run.json:23",
+   "SchwingNet/results/polypose/report/attempt1_noflip/3/polypose_run.json:23",
+   "SchwingNet/results/polypose/report/attempt1_noflip/4/polypose_run.json:23",
+   "SchwingNet/results/polypose/report/attempt1_noflip/5/polypose_run.json:23",
+   "SchwingNet/results/polypose/report/attempt1_noflip/6/polypose_run.json:23",
+   "SchwingNet/results/polypose/report/attempt1_noflip/REPRODUCTION.json:122",
+   "SchwingNet/results/polypose/report/attempt1_noflip/REPRODUCTION.json:147"
+  ],
+  "rx_lodo_carmlspine_1024/best.pt": [
+   "SchwingNet/results/COUNTING_CHECK.md:83"
+  ],
+  "segmentations/NNN.pt": [
+   "SchwingNet/results/polypose/POLYPOSE_API.md:19"
+  ],
+  "spine-detector/runs/realxray/rx_lodo_carmlspine_1024/weights/best.pt": [
+   "SchwingNet/results/COUNTING_CHECK.md:59"
+  ],
+  "xrays/NNN.pt": [
+   "SchwingNet/results/polypose/POLYPOSE_API.md:21"
+  ],
+  "yolo11m.pt": [
+   "SchwingNet/results/dc_P_pooled_scores.json:4",
+   "slurm/anchor_c2.sh:57",
+   "slurm/deepfluoro_anchor.sh:97"
+  ],
+  "yolo11s.pt": [
+   "slurm/buu_baseline.sh:30",
+   "slurm/sacrum_detector.sh:33"
+  ]
+ },
+ "relative_counts": {
+  "best.pt": 19,
+  "checkpoint_best.pth": 26,
+  "checkpoint_final.pth": 8,
+  "checkpoint_latest.pth": 8,
+  "dc_B_held_elekta_xvi/weights/best.pt": 1,
+  "detect_v5z_final_best.pt": 1,
+  "model_rung_1_aug2.pt": 1,
+  "polypose.ckpt": 25,
+  "rx_lodo_carmlspine_1024/best.pt": 1,
+  "segmentations/NNN.pt": 1,
+  "spine-detector/runs/realxray/rx_lodo_carmlspine_1024/weights/best.pt": 1,
+  "xrays/NNN.pt": 1,
+  "yolo11m.pt": 3,
+  "yolo11s.pt": 2
+ },
+ "slurm_dirs": [
+  "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/slurm"
+ ],
+ "launchers_read": 66,
+ "launchers_by_tool": {
+  "train_level_classifier.py": 21,
+  "lstv_flag_train.py": 5,
+  "make_context_crops.py": 37,
+  "make_implant_ct.py": 3
+ },
+ "implant_builds_declared": [
+  {
+   "scheme": "ctsp",
+   "dst": "/wsu/home/go/go24/go2432/implant_ct",
+   "where": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/slurm/fluorocap_v2.sh:39",
+   "records_on_disk": false
+  },
+  {
+   "scheme": "verse",
+   "dst": "/wsu/home/go/go24/go2432/implant_verse",
+   "where": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/slurm/fluorocap_v2.sh:40",
+   "records_on_disk": true
+  },
+  {
+   "scheme": "totalseg",
+   "dst": "/wsu/home/go/go24/go2432/implant_ts",
+   "where": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/slurm/fluorocap_v2.sh:41",
+   "records_on_disk": true
+  }
+ ],
+ "deleted_bank_bounds": {
+  "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx": {
+   "bank": "/wsu/home/go/go24/go2432/allspine_v2_fov96_ctx",
+   "built_by": [
+    "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/slurm/allspine_v2_chain.sh:17",
+    "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/slurm/reproduce_all.sh:131"
+   ],
+   "roots": [
+    "/wsu/home/go/go24/go2432/ctsp_drr",
+    "/wsu/home/go/go24/go2432/films_drr",
+    "/wsu/home/go/go24/go2432/nhanes_drr",
+    "/wsu/home/go/go24/go2432/physics_drr",
+    "/wsu/home/go/go24/go2432/physics_rare",
+    "/wsu/home/go/go24/go2432/verse_drr"
+   ],
+   "roots_missing": [],
+   "incomplete_launch_lines": [],
+   "root_ann_mtime": {
+    "/wsu/home/go/go24/go2432/ctsp_drr": "2026-09-23T03:04:29",
+    "/wsu/home/go/go24/go2432/films_drr": "2026-09-13T07:45:54",
+    "/wsu/home/go/go24/go2432/nhanes_drr": "2026-09-13T00:18:56",
+    "/wsu/home/go/go24/go2432/physics_drr": "2026-09-23T03:45:35",
+    "/wsu/home/go/go24/go2432/physics_rare": "2026-09-14T18:05:24",
+    "/wsu/home/go/go24/go2432/verse_drr": "2026-09-20T02:34:23"
+   },
+   "n_keys": 11205,
+   "corpora": {
+    "buu": 3600,
+    "csxa": 4963,
+    "ctsp": 802,
+    "nhanes": 364,
+    "ts": 1121,
+    "verse": 355
+   },
+   "n_unkeyed": 0,
+   "unkeyed_shapes": {}
+  },
+  "/wsu/home/go/go24/go2432/allspine_v2anchored_fov96_ctx": {
+   "bank": "/wsu/home/go/go24/go2432/allspine_v2anchored_fov96_ctx",
+   "built_by": [],
+   "roots": [],
+   "roots_missing": [],
+   "incomplete_launch_lines": [],
+   "root_ann_mtime": {},
+   "n_keys": 0,
+   "corpora": {},
+   "n_unkeyed": 0,
+   "unkeyed_shapes": {}
+  },
+  "/wsu/home/go/go24/go2432/allspine_v2crest_fov96_ctx": {
+   "bank": "/wsu/home/go/go24/go2432/allspine_v2crest_fov96_ctx",
+   "built_by": [],
+   "roots": [],
+   "roots_missing": [],
+   "incomplete_launch_lines": [],
+   "root_ann_mtime": {},
+   "n_keys": 0,
+   "corpora": {},
+   "n_unkeyed": 0,
+   "unkeyed_shapes": {}
+  },
+  "/wsu/home/go/go24/go2432/allspine_v2fm_fov96_ctx": {
+   "bank": "/wsu/home/go/go24/go2432/allspine_v2fm_fov96_ctx",
+   "built_by": [],
+   "roots": [],
+   "roots_missing": [],
+   "incomplete_launch_lines": [],
+   "root_ann_mtime": {},
+   "n_keys": 0,
+   "corpora": {},
+   "n_unkeyed": 0,
+   "unkeyed_shapes": {}
+  },
+  "/wsu/home/go/go24/go2432/allspine_v3_fov96_ctx": {
+   "bank": "/wsu/home/go/go24/go2432/allspine_v3_fov96_ctx",
+   "built_by": [],
+   "roots": [],
+   "roots_missing": [],
+   "incomplete_launch_lines": [],
+   "root_ann_mtime": {},
+   "n_keys": 0,
+   "corpora": {},
+   "n_unkeyed": 0,
+   "unkeyed_shapes": {}
+  },
+  "/wsu/home/go/go24/go2432/allspine_v4_fov96_ctx": {
+   "bank": "/wsu/home/go/go24/go2432/allspine_v4_fov96_ctx",
+   "built_by": [],
+   "roots": [],
+   "roots_missing": [],
+   "incomplete_launch_lines": [],
+   "root_ann_mtime": {},
+   "n_keys": 0,
+   "corpora": {},
+   "n_unkeyed": 0,
+   "unkeyed_shapes": {}
+  },
+  "/wsu/home/go/go24/go2432/allspine_v5_fov96_ctx": {
+   "bank": "/wsu/home/go/go24/go2432/allspine_v5_fov96_ctx",
+   "built_by": [],
+   "roots": [],
+   "roots_missing": [],
+   "incomplete_launch_lines": [],
+   "root_ann_mtime": {},
+   "n_keys": 0,
+   "corpora": {},
+   "n_unkeyed": 0,
+   "unkeyed_shapes": {}
+  },
+  "/wsu/home/go/go24/go2432/allspine_v5c_fov96_ctx": {
+   "bank": "/wsu/home/go/go24/go2432/allspine_v5c_fov96_ctx",
+   "built_by": [],
+   "roots": [],
+   "roots_missing": [],
+   "incomplete_launch_lines": [],
+   "root_ann_mtime": {},
+   "n_keys": 0,
+   "corpora": {},
+   "n_unkeyed": 0,
+   "unkeyed_shapes": {}
+  }
+ },
+ "unkeyed_census": {
+  "#": {
+   "n_items": 1602,
+   "n_checkpoints": 2,
+   "example_checkpoint": "/wsu/home/go/go24/go2432/lstv_flag/models/lstv_flag_v1.pt"
+  }
+ }
+}

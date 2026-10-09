@@ -1,0 +1,154 @@
+# Copied 2026-10-08 from the private repository spinesurg-ct-nnunet (branch L6_Class): tools/fluoro_video/config.yaml [untracked at 097933a (laptop copy of 2026-10-08)]
+# tools/fluoro_video configuration. EVERY parameter of the pipeline is here, each with the reason for its value.
+# No coordinate, time or box is ever set here: boxes and boundaries are computed from the pixels.
+# Changing any value changes config_sha256, which every manifest records.
+
+version: 1
+
+inputs:
+  root: /rs/rs_grp_oschome/go2432/data/external/fluoro_video   # where the downloaded videos live (grid CephFS)
+  scan_dirs: [youtube, pmc, commons]      # source folders under root; each file keeps its source as a label
+  include_ext: [.mkv, .mp4, .avi, .mov, .ogg, .ogv, .gif, .webm]   # container extensions that can hold video
+  min_video_frames: 5                     # fewer frames is a still image (the PMC figure GIF thumbnails have 1)
+  min_video_s: 1.0                        # a clip shorter than 1 s cannot show motion
+  transcode_regex: '-pmcvs_normal\.'      # PMC's viewer re-encode of a supplementary video ...
+  transcode_duration_tol_s: 1.0           # ... dropped only if a sibling original lasts the same (+-1 s)
+  intermediate_regex: '\.f\d+\.[A-Za-z0-9]+$|\.part$|\.ytdl$|\.temp\.'   # yt-dlp per-format / partial files
+  youtube_archive: youtube/archive.txt    # yt-dlp writes an id here only after the final merge: complete videos
+
+context_doc: docs/FLUORO_VIDEO_YOUTUBE_SCAN_2026-09-26.md   # expected region/view per video (labels, never boxes)
+
+sampling:
+  sample_hz: 2.0            # pass A samples one frame per 0.5 s: panels on screen for >= 1.5 s are seen >= 3 times;
+                            # boundaries are then refined at the native frame rate, so 2 Hz costs no timing precision
+  analysis_max_side: 640    # frames are block-mean downscaled by an integer factor to <= 640 px (1080p -> 1/3,
+                            # 4K -> 1/6): boxes are then exact to the factor (3 px at 1080p), panels stay >= 40 px,
+                            # the block mean doubles as the chroma blur, and a 1080p sample costs ~0.1 s
+
+panel:
+  chroma_max: 24            # max(R,G,B)-min(R,G,B) after the block mean; greyscale X-ray through YUV 4:2:0 stays
+                            # < ~10, a tinted monitor capture < ~20; skin, drapes, logos and room scenes > 30
+  black_max: 24             # luma <= 24 (full range) is display black: collimator surround, bezels, gutters
+  texture_window: 7         # local std window (analysis px); 7 px ~ 1 % of the frame, sees anatomy edges and mottle
+  texture_min: 1.0          # grey levels; flat UI fills and flat compressed colour have local std < 0.5, while
+                            # smooth re-encoded fluoroscopy at the analysis scale has a median 1.3-2.8 (measured on
+                            # the Bern, DDR and facet videos, where 2.0 fragmented the image)
+  open_px: 2                # opening radius: removes text strokes and 1-3 px lines before labelling
+  close_px: 10              # closing half-width: bridges smooth soft tissue (low texture) inside an image; images
+                            # side by side are separated afterwards by the XY-cut on their black/colour gutters
+  snap_px: 6                # the box follows the exact grey/non-black edge within 6 px of the textured core
+  min_side_px: 40           # analysis px; a panel narrower than ~80 native px cannot show a vertebra
+  min_area_frac: 0.012      # of the frame; the smallest C-arm insets seen in the scan doc are ~2-4 %
+  purity_min: 0.85          # grey fraction of the box; allows coloured overlay text/markers on up to 15 %
+  chroma_p90_max: 14        # 90th percentile of the residual chroma inside the box's grey pixels. Fluoroscopy is
+                            # greyscale at source: <= 8 on screen captures, <= 14 on phone films of a monitor;
+                            # desaturated room scenes that pass the per-pixel test carry 15-23 (measured on
+                            # E06MD3KnhvE, KWwGMIoDrmU, GlyxEYCFTvE, PMC10242080, T3vsvpkRR14, Tbg-a6VosJ8)
+  texture_box_min: 1.2      # median local std over the grey non-black pixels of the box (flat UI and slide
+                            # backgrounds ~0-0.5; the smoothest fluoroscopy seen, a facet arthrogram, 1.5)
+  entropy_min_bits: 3.5     # 64-bin luma entropy; text and flat graphics are < 3, radiographs 4.5-5.8
+  fill_min: 0.5             # region fraction of the box (a rectangle ~1, a full round field pi/4 = 0.785)
+  aspect_range: [0.3, 3.3]  # width/height; strips thinner than this are rulers, bars or text lines
+  circle_fill_max: 0.9      # try the circle fit only when the region leaves the box corners empty
+  circle_fill_min: 0.6      # a round field cropped by its panel still fills > 0.6 of its box
+  circle_rms_max: 0.04      # boundary RMS residual / radius of the Kasa fit for a round (image-intensifier) field
+  circle_min_rim_px: 40     # circle completion: >= 40 region-boundary pixels touching black (the field rim) ...
+  circle_min_arc_deg: 150   # ... covering >= 150 degrees of arc (a straight edge or a corner cannot) ...
+  circle_disk_nonblack: 0.75  # ... and the completed disk must be >= 75 % non-black (a real bright field) ...
+  circle_region_inside: 0.85  # ... and hold >= 85 % of the candidate's region (the rest: title text or a label
+                              # beside the field that the closing joined; it is left out of the box)
+  trim_support: 0.9         # box edges are peeled off while their outer band is < 90 % 'panel-like' (grey and
+                            # textured, or black): room scenes the closing joined are mixed colour, flat grey bars
+                            # and frame lines are untextured; a real panel edge band is ~100 % panel-like
+  trim_band: 4              # analysis px; the band outweighs a 1-2 px texture spill onto a neighbouring flat bar
+  xy_cut_depth: 3           # recursive gutter splits (AP + lateral side by side, 2x2 layouts)
+  gutter_min_px: 3          # a gutter is >= 3 analysis px (>= 6 native px at 1080p) of near-empty columns/rows
+  gutter_occ: 0.02          # 'near-empty' = <= 2 % of the column/row is region
+  nms_contain: 0.6          # a candidate lying >= 60 % inside a LARGER accepted one is a fragment of that panel
+                            # (or text inside it) and is suppressed
+  max_candidates_kept: 8    # per sample, for QC display
+  score:                    # score = mean of the four features mapped linearly from [gate, typical fluoroscopy]
+    purity: [0.85, 1.0]
+    texture: [1.2, 6.0]
+    entropy: [3.5, 5.5]
+    fill: [0.5, 0.95]
+
+layout:
+  cluster_eps: 0.03         # Chebyshev distance between normalised boxes: the same panel's box jitters < 3 % of
+                            # the frame (content-dependent edges); a re-layout or zoom moves an edge by more
+  layout_merge_iou: 0.85    # two layouts overlapping this much are one panel split by jitter
+  layout_nest_contain: 0.9  # a layout >= 90 % inside another whose member samples interleave with its own ...
+  layout_nest_overlap: 0.5  # ... over >= 50 % of the shorter time span is the same panel, shrunk on some frames
+  box_outer_q: 0.9          # layout box = outer envelope: x0,y0 at the 10th and x1,y1 at the 90th percentile of the
+                            # member boxes; detection errors mostly SHRINK a panel (a flat edge peeled on some
+                            # frames), so the outer quantile recovers its extent while ignoring 10 % outliers
+  member_iou: 0.6           # a sample's candidate belongs to a layout if IoU >= 0.6 (exclusive: the best layout)
+  min_layout_members: 3     # a layout seen on fewer than 3 samples (1.5 s) is a transition, not a panel
+  max_gap_s: 2.0            # member runs separated by <= 2 s (a dark frame, an overlay, a dissolve) are one segment
+  min_segment_s: 1.5        # shorter runs are flashes and transitions
+  min_member_frac: 0.5      # at least half the samples of a bridged segment must show the panel
+
+timing:
+  thumb_side: 256           # in-crop change is measured on a <= 256 px block-mean thumbnail (codec noise averaged)
+  vfr_rel_tol: 0.10         # a frame interval off the median by > 10 % (and > 1.5 ms) is irregular ...
+  vfr_frac_min: 0.02        # ... and a stream with > 2 % irregular intervals is variable frame rate
+  gap_min_frames: 3         # >= 3 consecutive frames without the panel inside a segment split it (they are dropped);
+                            # a single-frame dropout (a flash, a compression glitch) does not
+  cut_ncc_max: 0.5          # consecutive 32x32 signatures correlating < 0.5 ...
+  cut_min_d: 8.0            # ... with a mean change >= 8 grey levels = a hard cut (a different image, not motion)
+  min_clip_s: 1.0           # a clip shorter than 1 s is not written
+  dup_abs_max: 1.5          # grey levels: a repeated image re-encoded differs by < 1.5 on average
+  dup_sep_ratio: 4.0        # the update class must be >= 4x the duplicate class to accept a two-class split
+  dup_min_class: 3          # each class needs >= 3 frames
+  dup_outlier_k: 4.0        # in a static clip, a jump > 4x the median change is an image update
+  keyframe_guard: 2.0       # an 'update' on a key frame smaller than 2x the threshold is an I-frame refresh
+  live_window_frac: 0.8     # >= 80 % of 1-s windows hold an image update -> live
+  held_window_frac: 0.2     # <= 20 % -> held (last-image-hold, a still); in between -> mixed
+  replay_hamming_max: 6     # pHash-64 distance for a candidate replay match
+  replay_rel_max: 0.5       # a replayed image is < 0.5x as far from its first showing as successive pulses are apart
+  replay_min_images: 4      # a replay is a run of >= 4 distinct images in the same order
+  replay_min_gap_s: 1.0     # and starts >= 1 s after the matched run ends
+
+speed:
+  allow_fetch: true         # fetch the journal/Commons text once into work/source_text (cached, hashed)
+  clock_min_points: 6       # clock readings needed in a clip for a fit
+  clock_min_pair_dt_s: 2.0  # Theil-Sen slopes from reading pairs >= 2 s apart (1-s clock resolution)
+  clock_inlier_s: 1.5       # a reading within 1.5 s of the fit is an inlier (1-s resolution + OCR slip)
+  clock_min_inlier_frac: 0.6
+  clock_min_distinct: 4     # >= 4 distinct clock values (a frozen clock says nothing about speed)
+  clock_min_span_s: 4.0     # >= 4 s of clock span: +-1 s resolution -> <= ~25 % slope error at the limit
+  speed_range: [0.1, 10.0]  # a fitted slope outside this is an OCR or clock-format failure, not a speed
+  stated_speed_range: [0.25, 4.0]   # a speed derived from a stated acquisition rate must be plausible
+
+ocr:
+  enabled: true
+  ocr_probe_pool: 48        # full-resolution frames kept in pass A (evenly spread) as OCR probe candidates
+  ocr_probe_frames: 24      # probes read for region discovery (inside kept segments first)
+  ocr_upscale_below_h: 2200 # frames lower than 2200 px (i.e. up to 1080p) are read at 2x: overlay clocks are
+                            # 12-20 px high and tesseract missed them at 1x on the SSF videos
+  ocr_min_conf: -1          # no confidence floor: tesseract reported conf 0 for correctly read small clocks; the
+                            # clock pattern, >= 3 hits at one place and >= 2 distinct values are the filter
+  ocr_region_tol: 0.02      # hits within 2 % of the frame size are one text region
+  ocr_min_hits: 3           # a region needs >= 3 probe hits
+  ocr_pad: 0.3              # region box padding, x its height
+  ocr_target_h: 48          # region crops are scaled to 48 px high before --psm 7
+  ocr_interval_s: 0.5       # one reading per 0.5 s of pts per region
+  ocr_max_per_clip: 240     # cap (evenly spread) to bound tesseract time on long clips
+
+qc:
+  frame_width: 640          # original frames stored for QC at <= 640 px wide
+  tile_width: 320           # contact-sheet tile width
+  columns: 4
+  frames_per_segment: [6, 12]   # QC frames per kept segment (one per 5 s, clipped to 6-12)
+  seconds_per_qc_frame: 5.0
+  max_dropped_segments_shown: 12  # dropped runs shown with 2 frames each, up to 12 per video
+  overview_frames: 8        # evenly spaced samples of the whole video with every candidate drawn (shows what was
+                            # rejected and why, including on videos where nothing was kept)
+
+output:
+  png_compress_level: 1     # zlib level for frame PNGs (lossless at any level; 1 is fast)
+  preview: true             # write preview.mp4 per clip (libx264, pts-timed, bit-exact flags)
+  preview_max_width: 480
+
+runtime:
+  decode_threads: 0         # 0 = libavcodec's automatic thread count (output is bit-exact regardless)

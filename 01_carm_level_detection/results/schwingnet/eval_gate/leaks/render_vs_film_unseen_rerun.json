@@ -1,0 +1,183 @@
+{
+ "eval_gate": {
+  "gate_version": "eval_gate/1",
+  "held_out": true,
+  "not_held_out_reason": null,
+  "n_checks": 2,
+  "overlap": 0,
+  "unresolved": 0,
+  "checks": [
+   {
+    "gate": "tools/eval_gate.py",
+    "gate_version": "eval_gate/1",
+    "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+    "where": "tools/rigor_fixes.py a3a-rows [render-trained]",
+    "checked_at": "2026-09-24T06:01:32",
+    "host": "arw4",
+    "checkpoint": "/wsu/home/go/go24/go2432/FluoroCap/anchor_det_v1.pt",
+    "checkpoint_sha256": "8df40e7f1435a7e6c6e83b9627b306f92870df11ced1d6a7b94f92427cfcf9ae",
+    "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+    "lineage_match": "path + sha256 verified",
+    "ancestors": [],
+    "public_roots": [
+     "public:ultralytics/yolo11m.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco.yaml')"
+    ],
+    "eval_set": "/wsu/home/go/go24/go2432/films_drr_buucorr first 17 spines",
+    "n_items": 17,
+    "n_keys": 17,
+    "keys_by_corpus": {
+     "nhanes": 17
+    },
+    "n_unkeyed": 0,
+    "unkeyed": [],
+    "overlap": 0,
+    "overlap_keys": [],
+    "overlap_detail": [],
+    "unresolved": 0,
+    "unresolved_rows": [],
+    "unresolved_decided": [],
+    "pose_donor_overlap": 0,
+    "pose_donor_keys": [],
+    "also_seen": {},
+    "held_out": true,
+    "not_held_out_reason": null,
+    "overlap_by": {},
+    "problems": []
+   },
+   {
+    "gate": "tools/eval_gate.py",
+    "gate_version": "eval_gate/1",
+    "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+    "where": "tools/rigor_fixes.py a3a-rows [film-trained]",
+    "checked_at": "2026-09-24T06:01:32",
+    "host": "arw4",
+    "checkpoint": "/wsu/home/go/go24/go2432/model_registry/797de71a9e0e42f7/detect_v5z_final_best.pt",
+    "checkpoint_sha256": "797de71a9e0e42f75ab81af8d1983a4c19045e47cfda771bf4dadd5559076d65",
+    "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+    "lineage_match": "path + sha256 verified",
+    "ancestors": [
+     "/wsu/home/go/go24/go2432/spine-detector/runs/pose/runs/pose/runs/detect_v3/weights/best.pt"
+    ],
+    "public_roots": [
+     "public:ultralytics/yolo11m-pose.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m-pose.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco-pose.yaml')"
+    ],
+    "eval_set": "/wsu/home/go/go24/go2432/films_drr_buucorr first 17 spines",
+    "n_items": 17,
+    "n_keys": 17,
+    "keys_by_corpus": {
+     "nhanes": 17
+    },
+    "n_unkeyed": 0,
+    "unkeyed": [],
+    "overlap": 0,
+    "overlap_keys": [],
+    "overlap_detail": [],
+    "unresolved": 0,
+    "unresolved_rows": [],
+    "unresolved_decided": [],
+    "pose_donor_overlap": 0,
+    "pose_donor_keys": [],
+    "also_seen": {},
+    "held_out": true,
+    "not_held_out_reason": null,
+    "overlap_by": {},
+    "problems": []
+   }
+  ]
+ },
+ "status": "DONE",
+ "file": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/leaks/a3a_unseen/a3a_rows.csv",
+ "comparison": "render-trained detector (anchor_det_v1, no real image) vs film-trained detector (detect_v5z_final) on the SAME stations of the same real radiographs",
+ "conf_0.05": {
+  "n_items": 161,
+  "n_clusters": 17,
+  "cluster": "spine",
+  "p_a": 0.9937888198757764,
+  "p_b": 0.6770186335403726,
+  "diff": 0.31677018633540377,
+  "diff_pp": 31.677018633540378,
+  "discordant_a_only": 51,
+  "discordant_b_only": 0,
+  "mcnemar_exact_p": 8.881784197001252e-16,
+  "mcnemar_floor": 8.881784197001252e-16,
+  "clusters_favouring_a": 16,
+  "clusters_favouring_b": 0,
+  "cluster_sign_test_p": 3.0517578125e-05,
+  "cluster_sign_floor": 3.0517578125e-05,
+  "percentile": [
+   0.2098765432098766,
+   0.4540016731734523
+  ],
+  "percentile_pp": [
+   20.98765432098766,
+   45.40016731734523
+  ],
+  "bca": [
+   0.2272330377801802,
+   0.4816065769857993
+  ],
+  "bca_note": "z0=0.080 a=0.0684",
+  "bca_pp": [
+   22.72330377801802,
+   48.160657698579925
+  ],
+  "p_boot": 0.0005,
+  "excludes_zero": true,
+  "bootstrap_zero_mass": 1.2088386483023965e-21,
+  "excludes_zero_fragile": false,
+  "warning": "only 17 clusters: percentile and BCa intervals are unreliable below about 20",
+  "by_source": {
+   "nhanes": 161
+  },
+  "spines_by_source": {
+   "nhanes": 17
+  },
+  "bodies_from_spines_in_holdout_train": 161
+ },
+ "conf_0.25": {
+  "n_items": 161,
+  "n_clusters": 17,
+  "cluster": "spine",
+  "p_a": 0.9875776397515528,
+  "p_b": 0.34782608695652173,
+  "diff": 0.639751552795031,
+  "diff_pp": 63.975155279503106,
+  "discordant_a_only": 103,
+  "discordant_b_only": 0,
+  "mcnemar_exact_p": 1.9721522630525295e-31,
+  "mcnemar_floor": 1.9721522630525295e-31,
+  "clusters_favouring_a": 17,
+  "clusters_favouring_b": 0,
+  "cluster_sign_test_p": 1.52587890625e-05,
+  "cluster_sign_floor": 1.52587890625e-05,
+  "percentile": [
+   0.5527788362610982,
+   0.7254931850789097
+  ],
+  "percentile_pp": [
+   55.277883626109826,
+   72.54931850789097
+  ],
+  "bca": [
+   0.5528981790196823,
+   0.7258240083012166
+  ],
+  "bca_note": "z0=-0.006 a=0.0081",
+  "bca_pp": [
+   55.28981790196823,
+   72.58240083012166
+  ],
+  "p_boot": 0.0005,
+  "excludes_zero": true,
+  "bootstrap_zero_mass": 0.0,
+  "excludes_zero_fragile": false,
+  "warning": "only 17 clusters: percentile and BCa intervals are unreliable below about 20",
+  "by_source": {
+   "nhanes": 161
+  },
+  "spines_by_source": {
+   "nhanes": 17
+  },
+  "bodies_from_spines_in_holdout_train": 161
+ }
+}

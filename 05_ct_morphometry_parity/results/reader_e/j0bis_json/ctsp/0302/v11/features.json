@@ -1,0 +1,3406 @@
+{
+ "schema": "reader_e_features_v2",
+ "person_key": "ctsp:0302",
+ "corpus": "ctsp",
+ "case": "0302",
+ "family": "v11",
+ "ct": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct/0302_ct.nii.gz",
+ "mask": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels/0302_label.nii.gz",
+ "ctd": null,
+ "class_map": null,
+ "code_path": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/SchwingNet/tools/reader_e_features.py",
+ "code_sha256": "1568f4d2287fa18d6a26811c53abeb32a13018d44f36349f862eda1481866df7",
+ "generated_utc": "2026-09-25T04:54:36Z",
+ "hostname": "sfx12",
+ "python": "3.11.16",
+ "numpy": "2.2.6",
+ "nibabel": "5.4.2",
+ "notes": [
+  "reader C's thoracic count from a rib-free C7 is TS-only; refused here by design (see adapter)"
+ ],
+ "reader_c_class_map": "/wsu/home/go/go24/go2432/bench/totalsegmentator/class_map.json",
+ "reader_c_class_map_sha256": "253e91856c15f6a787578f693382a620190b795f8013d54c441f261c860ceeb7",
+ "modules": {
+  "rib_count_reader": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/tools/rib_count_reader.py",
+  "tp_morphology": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/tools/tp_morphology.py",
+  "extract_transition_morphometrics": "/wsu/home/go/go24/go2432/CTSpinoPelvic1K/scripts/extract_transition_morphometrics.py",
+  "ostk": "/wsu/home/go/go24/go2432/OpenSpineToolkit/ostk/__init__.py"
+ },
+ "grid": {
+  "shape": [
+   512,
+   512,
+   601
+  ],
+  "zooms_mm": [
+   0.674,
+   0.674,
+   0.8
+  ],
+  "axcodes_native_ct": "PIR",
+  "axcodes_native_mask": "PIR",
+  "mask_shape_native": [
+   512,
+   601,
+   512
+  ],
+  "mask_on_ct_grid": "same grid",
+  "fov_z_mm": [
+   -515.0,
+   -35.0
+  ],
+  "fov_lr_mm": 345.0,
+  "fov_ap_mm": 345.0
+ },
+ "ranges": {
+  "path": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/SchwingNet/tools/reader_e_ranges.json",
+  "sha256": "10ec0239a8401ef57a3cea5c5709dcae3cf406b971c4a0c04a62543b3019c616",
+  "rule": "out_of_range = value < lo or value > hi, lo = max(p1, median - 3*sd_pub), hi = min(p99, median + 3*sd_pub); per-level gate when the instance's position from the sacral plateau is valid, pooled gate always; the wider of the two never overrides the narrower one"
+ },
+ "loader": "ostk.labels.labels_for(counts=bincount) -> scheme decided on pelvis mass",
+ "guard": null,
+ "guard_verdict_text": null,
+ "self_check": {
+  "scheme_L1_id": 20,
+  "id29_voxels": 0,
+  "sacrum26_voxels": 600105,
+  "hip_left_voxels": 932600,
+  "hip_right_voxels": 941911
+ },
+ "warnings": [],
+ "sacrum_source": "release_26",
+ "sacrum_present": true,
+ "sacrum_unverified": false,
+ "sacrum_ml_unverified": null,
+ "sacrum_ml": 217.98,
+ "hips_present": true,
+ "hip_ml": 680.89,
+ "ribs_labelled_present": true,
+ "hardware_present": false,
+ "loader_extra": {},
+ "n_instances": 12,
+ "spacing": {
+  "case_median_ml": 53.33,
+  "case_median_si_extent_mm": 52.8,
+  "n_whole": 9,
+  "gaps": [
+   {
+    "between": [
+     2,
+     3
+    ],
+    "d_mm": 25.3,
+    "ref_mm": 15.7
+   }
+  ],
+  "doubled_candidates": [],
+  "fragments": [],
+  "halves": [],
+  "spacing_mm": [
+   7.2,
+   4.4,
+   25.3,
+   26.9,
+   29.6,
+   32.9,
+   33.7,
+   35.3,
+   36.0,
+   35.7,
+   32.5
+  ]
+ },
+ "sequence": {
+  "pos_from_plateau_valid": true,
+  "last_rib_inst_k": 5,
+  "last_rib_source": "reader_c_cage",
+  "n_instances": 12,
+  "n_below_last_rib": 6
+ },
+ "crest": {
+  "has_crest": true,
+  "crest_z_left": -299.0,
+  "crest_z99_left": -302.2,
+  "crest_at_pos_from_bottom_left": 2,
+  "crest_frac_of_body_left": 0.03,
+  "crest_match_left": "inside",
+  "crest_above_lowest_body_mm_left": 60.0,
+  "crest_z_right": -305.4,
+  "crest_z99_right": -307.0,
+  "crest_at_pos_from_bottom_right": 1,
+  "crest_frac_of_body_right": 0.492,
+  "crest_match_right": "inside",
+  "crest_above_lowest_body_mm_right": 53.6
+ },
+ "junction": {
+  "has_sacrum": true,
+  "has_hips": true,
+  "tp_height_left_mm": 22.4,
+  "tp_height_slab_left_mm": 22.4,
+  "tp_tip_components_left": 1,
+  "tp_tip_ml_left": 1.71,
+  "tp_gap_left_mm": 4.7,
+  "tp_gap_edt_left_mm": 2.75,
+  "tp_contact_left_mm2": 0.0,
+  "tp_gap_ilium_left_mm": 6.6,
+  "tp_gap_ilium_edt_left_mm": 4.75,
+  "tp_contact_ilium_left_mm2": 0.0,
+  "tp_height_right_mm": 25.6,
+  "tp_height_slab_right_mm": 25.6,
+  "tp_tip_components_right": 1,
+  "tp_tip_ml_right": 2.17,
+  "tp_gap_right_mm": 3.1,
+  "tp_gap_edt_right_mm": 2.2,
+  "tp_contact_right_mm2": 0.0,
+  "tp_gap_ilium_right_mm": 4.9,
+  "tp_gap_ilium_edt_right_mm": 4.4,
+  "tp_contact_ilium_right_mm2": 0.0,
+  "tp_height_max_mm": 25.6,
+  "tp_height_asym_mm": 3.2,
+  "tp_gap_min_mm": 2.2,
+  "tp_gap_asym_mm": 0.5,
+  "tp_contact_max_mm2": 0.0,
+  "tp_contact_asym_mm2": 0.0,
+  "has_tp_ala_contact": true,
+  "above": {
+   "tp_height_left_mm": 16.0,
+   "tp_height_slab_left_mm": 28.0,
+   "tp_gap_edt_left_mm": 30.33,
+   "tp_contact_left_mm2": 0.0,
+   "tp_height_right_mm": 12.8,
+   "tp_height_slab_right_mm": 12.8,
+   "tp_gap_edt_right_mm": 32.39,
+   "tp_contact_right_mm2": 0.0,
+   "tp_height_max_mm": 16.0,
+   "tp_height_asym_mm": 3.2
+  },
+  "ala_rise_left_mm": 12.8,
+  "ala_rise_right_mm": 16.8,
+  "ala_rise_max_mm": 16.8,
+  "ala_rise_asym_mm": 4.0,
+  "ala_rise_wholedepth_max_mm": 16.8,
+  "sacrum_crop_voxels": 600105,
+  "has_ala_rise": true,
+  "has_foramina": true,
+  "foramina_left": 2,
+  "foramina_right": 2,
+  "foramina_median_area_mm2": 19.137,
+  "foramina_slab_offset_mm": 13.5,
+  "has_disc_low": true,
+  "has_disc_above": true,
+  "disc_low_mm": 12.8,
+  "disc_above_mm": 14.4,
+  "disc_ratio": 0.889,
+  "disc_low_mm_out_of_range": false,
+  "disc_above_mm_out_of_range": false,
+  "tp_height_left_mm_out_of_range": false,
+  "tp_height_right_mm_out_of_range": false
+ },
+ "range_gate": {
+  "n_instances_out_of_range": 1,
+  "instances_out_of_range": [
+   {
+    "k": 2,
+    "keys": [
+     "SCD"
+    ]
+   }
+  ],
+  "n_scd_below_published_floor": 1,
+  "n_epw_withheld": 2,
+  "n_tp_body_half_invalid": 0,
+  "n_body_cut_fallback": 2,
+  "junction_out_of_range": []
+ },
+ "immaturity": {
+  "has_sacral_profile": false,
+  "sacral_gap_below_45mm": null,
+  "iliac_apophysis_open": null,
+  "age_years": null
+ },
+ "fov": {
+  "junction_tl_in_fov": true,
+  "junction_ls_in_fov": true,
+  "partial_top": true,
+  "partial_bottom": false,
+  "lateral_fov_ok_at_lowest": true,
+  "sacrum_in_field": true,
+  "n_partial_instances": 3
+ },
+ "unusual_spine": {
+  "any": true,
+  "flags": [
+   "spacing gap x1.6: [{'between': [2, 3], 'd_mm': 25.3, 'ref_mm': 15.7}]"
+  ]
+ },
+ "reader_c": {
+  "refusals": [
+   "thoracic count refused (T13 not excluded): t1_rib_cut: a rib-like bone at or above the first rib-bearing body is cut by the field or untraced"
+  ],
+  "thoracic_refusals": [
+   "t1_rib_cut: a rib-like bone at or above the first rib-bearing body is cut by the field or untraced"
+  ],
+  "notes": [],
+  "n_seeds": 13,
+  "junction_tests": [],
+  "fused_evidence": [],
+  "rib_hu_reference": 457.5,
+  "rib_cage_levels": [
+   1,
+   2,
+   3
+  ],
+  "rib_levels_outside_cage": {
+   "above": [],
+   "below": []
+  },
+  "runs": [
+   {
+    "k": 0,
+    "len_mm": 11.0,
+    "s": [
+     13,
+     23
+    ],
+    "z": -44.3,
+    "hu": 277.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [],
+    "class_for_audit": {
+     "T3": 1.0
+    }
+   },
+   {
+    "k": 1,
+    "len_mm": 20.0,
+    "s": [
+     37,
+     56
+    ],
+    "z": -71.7,
+    "hu": 270.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [
+     "L"
+    ],
+    "class_for_audit": {
+     "T4": 1.0
+    }
+   },
+   {
+    "k": 2,
+    "len_mm": 22.0,
+    "s": [
+     62,
+     83
+    ],
+    "z": -97.6,
+    "hu": 264.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [
+     "L",
+     "R"
+    ],
+    "class_for_audit": {
+     "T5": 1.0
+    }
+   },
+   {
+    "k": 3,
+    "len_mm": 23.0,
+    "s": [
+     91,
+     113
+    ],
+    "z": -127.6,
+    "hu": 272.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [
+     "L",
+     "R"
+    ],
+    "class_for_audit": {
+     "T6": 1.0
+    }
+   },
+   {
+    "k": 4,
+    "len_mm": 25.0,
+    "s": [
+     122,
+     146
+    ],
+    "z": -159.6,
+    "hu": 280.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [],
+    "class_for_audit": {
+     "T7": 1.0
+    }
+   },
+   {
+    "k": 5,
+    "len_mm": 27.0,
+    "s": [
+     154,
+     180
+    ],
+    "z": -192.3,
+    "hu": 267.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [],
+    "class_for_audit": {
+     "T8": 1.0
+    }
+   },
+   {
+    "k": 6,
+    "len_mm": 28.0,
+    "s": [
+     190,
+     217
+    ],
+    "z": -227.5,
+    "hu": 270.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [],
+    "class_for_audit": {
+     "T9": 1.0
+    }
+   },
+   {
+    "k": 7,
+    "len_mm": 27.0,
+    "s": [
+     228,
+     254
+    ],
+    "z": -264.9,
+    "hu": 255.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [],
+    "class_for_audit": {
+     "T10": 1.0
+    }
+   },
+   {
+    "k": 8,
+    "len_mm": 27.0,
+    "s": [
+     266,
+     292
+    ],
+    "z": -302.8,
+    "hu": 253.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [],
+    "class_for_audit": {
+     "T11": 1.0
+    }
+   },
+   {
+    "k": 9,
+    "len_mm": 28.0,
+    "s": [
+     303,
+     330
+    ],
+    "z": -339.3,
+    "hu": 245.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": false,
+    "ribs": [],
+    "class_for_audit": {
+     "T12": 1.0
+    }
+   },
+   {
+    "k": 10,
+    "len_mm": 46.0,
+    "s": [
+     340,
+     385
+    ],
+    "z": -374.2,
+    "hu": 355.0,
+    "cut": [
+     false,
+     false
+    ],
+    "split": null,
+    "flag": null,
+    "sacrum": true,
+    "ribs": [],
+    "class_for_audit": {
+     "sacrum": 1.0
+    }
+   }
+  ],
+  "junction_tl": true,
+  "junction_ls": true,
+  "n_rib_free": 6,
+  "n_rib_free_is_lower_bound": false,
+  "stump_levels": [],
+  "n_rib_bearing": null,
+  "sacrum_fused_evidence": false,
+  "subtype_call": "L6",
+  "sacrum_run_mm": 46.0,
+  "ts_s1_mm_on_column": 0.0,
+  "seconds_core": 9.4,
+  "seconds": 9.4,
+  "anchors": {
+   "muscle_median": null,
+   "vertebra_median": 322.0,
+   "fill": null
+  },
+  "adapter": {
+   "instances": {
+    "0": 43,
+    "1": 42,
+    "2": 41,
+    "3": 40,
+    "4": 39,
+    "5": 38,
+    "6": 37,
+    "7": 36,
+    "8": 35,
+    "9": 34,
+    "10": 33,
+    "11": 32
+   },
+   "note": "instances -> TS T1..L5 ids in top-to-bottom order (cycling); no instance is cervical to reader C, so its C7-anchored thoracic count is refused by design",
+   "sacrum_to": 25,
+   "ribs_to": 92,
+   "seeds_after_cleaning": [
+    [
+     41,
+     [
+      1.4,
+      122.0,
+      -46.6
+     ],
+     27.59
+    ],
+    [
+     40,
+     [
+      5.6,
+      125.3,
+      -72.2
+     ],
+     36.82
+    ],
+    [
+     39,
+     [
+      7.2,
+      126.3,
+      -98.7
+     ],
+     40.9
+    ],
+    [
+     38,
+     [
+      8.4,
+      127.2,
+      -128.2
+     ],
+     41.99
+    ],
+    [
+     37,
+     [
+      9.4,
+      127.6,
+      -159.7
+     ],
+     50.36
+    ],
+    [
+     36,
+     [
+      10.2,
+      132.3,
+      -193.1
+     ],
+     53.33
+    ],
+    [
+     35,
+     [
+      11.9,
+      139.8,
+      -228.5
+     ],
+     59.56
+    ],
+    [
+     34,
+     [
+      12.7,
+      146.0,
+      -265.2
+     ],
+     66.09
+    ],
+    [
+     33,
+     [
+      13.5,
+      149.6,
+      -302.8
+     ],
+     66.36
+    ],
+    [
+     32,
+     [
+      13.8,
+      146.4,
+      -339.4
+     ],
+     67.6
+    ],
+    [
+     25,
+     [
+      13.6,
+      124.8,
+      -356.4
+     ],
+     null
+    ],
+    [
+     25,
+     [
+      13.2,
+      131.0,
+      -367.7
+     ],
+     null
+    ],
+    [
+     25,
+     [
+      13.9,
+      114.4,
+      -380.4
+     ],
+     null
+    ]
+   ],
+   "vertebral_seeds_dropped": 1,
+   "sacral_top_for_seed_cleaning_mm": {
+    "global": -333.4,
+    "under_column": -340.6
+   }
+  },
+  "ribs": [
+   {
+    "vox": 39167,
+    "ml": 14.23,
+    "medial_mm": 19.9,
+    "medial_dy": -12.0,
+    "hu_mean": 482.0,
+    "hu_p90": 940.0,
+    "medial_xyz": [
+     -12.6,
+     111.5,
+     -58.2
+    ],
+    "lateral_mm": 126.2,
+    "side": "left",
+    "ts_rib_frac": 0.98,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -13.2,
+     110.6,
+     -58.1
+    ],
+    "chord_mm": 141.0,
+    "attached": true,
+    "rib_like": true,
+    "is_rib": true,
+    "stump": false,
+    "level": 1,
+    "curve_i": 28
+   },
+   {
+    "vox": 39928,
+    "ml": 14.5,
+    "medial_mm": 15.2,
+    "medial_dy": -7.1,
+    "hu_mean": 446.0,
+    "hu_p90": 902.0,
+    "medial_xyz": [
+     -13.9,
+     113.5,
+     -35.8
+    ],
+    "lateral_mm": 124.7,
+    "side": "left",
+    "ts_rib_frac": 0.98,
+    "cut_si": true,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -12.6,
+     109.9,
+     -41.6
+    ],
+    "chord_mm": 125.6,
+    "attached": true,
+    "rib_like": true,
+    "is_rib": true,
+    "stump": false,
+    "level": null,
+    "curve_i": 12,
+    "level_by_medial_end": null
+   },
+   {
+    "vox": 38795,
+    "ml": 14.09,
+    "medial_mm": 25.4,
+    "medial_dy": -14.6,
+    "hu_mean": 481.0,
+    "hu_p90": 899.0,
+    "medial_xyz": [
+     -13.9,
+     111.5,
+     -94.2
+    ],
+    "lateral_mm": 129.1,
+    "side": "left",
+    "ts_rib_frac": 0.98,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -11.3,
+     107.9,
+     -92.5
+    ],
+    "chord_mm": 194.5,
+    "attached": true,
+    "rib_like": true,
+    "is_rib": true,
+    "stump": false,
+    "level": 2,
+    "curve_i": 65
+   },
+   {
+    "vox": 24937,
+    "ml": 9.06,
+    "medial_mm": 26.1,
+    "medial_dy": -17.1,
+    "hu_mean": 454.0,
+    "hu_p90": 827.0,
+    "medial_xyz": [
+     -11.2,
+     110.2,
+     -131.8
+    ],
+    "lateral_mm": 110.8,
+    "side": "left",
+    "ts_rib_frac": 0.97,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -10.8,
+     107.6,
+     -126.9
+    ],
+    "chord_mm": 140.0,
+    "attached": true,
+    "rib_like": true,
+    "is_rib": true,
+    "stump": false,
+    "level": 3,
+    "curve_i": 100
+   },
+   {
+    "vox": 1057,
+    "ml": 0.38,
+    "medial_mm": 37.3,
+    "medial_dy": -16.1,
+    "hu_mean": 587.0,
+    "hu_p90": 1038.0,
+    "medial_xyz": [
+     -20.0,
+     123.6,
+     -344.6
+    ],
+    "lateral_mm": 56.6,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -20.6,
+     124.3,
+     -340.7
+    ],
+    "chord_mm": 23.7,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "stump: a nubbin (< 0.5 ml or < 20 mm) that TS does not call rib",
+    "level": null
+   },
+   {
+    "vox": 1472,
+    "ml": 0.53,
+    "medial_mm": 23.2,
+    "medial_dy": -19.8,
+    "hu_mean": 462.0,
+    "hu_p90": 840.0,
+    "medial_xyz": [
+     1.6,
+     112.9,
+     -350.2
+    ],
+    "lateral_mm": 25.6,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     -1.1,
+     108.6,
+     -346.4
+    ],
+    "chord_mm": 15.1,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "stump: a nubbin (< 0.5 ml or < 20 mm) that TS does not call rib",
+    "level": null
+   },
+   {
+    "vox": 306,
+    "ml": 0.11,
+    "medial_mm": 10.3,
+    "medial_dy": 9.5,
+    "hu_mean": 315.0,
+    "hu_p90": 491.0,
+    "medial_xyz": [
+     9.7,
+     137.1,
+     -355.0
+    ],
+    "lateral_mm": 22.1,
+    "side": "left",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     16.1,
+     142.8,
+     -354.9
+    ],
+    "chord_mm": 25.3,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "level": null
+   },
+   {
+    "vox": 49916,
+    "ml": 18.13,
+    "medial_mm": 0.2,
+    "medial_dy": 0.2,
+    "hu_mean": 456.0,
+    "hu_p90": 919.0,
+    "medial_xyz": [
+     2.3,
+     123.0,
+     -52.6
+    ],
+    "lateral_mm": 121.7,
+    "side": "right",
+    "ts_rib_frac": 0.81,
+    "cut_si": true,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     6.5,
+     123.7,
+     -51.1
+    ],
+    "chord_mm": 150.4,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "medial end 0.2 mm from the column (inside the body)",
+    "level": null
+   },
+   {
+    "vox": 51280,
+    "ml": 18.63,
+    "medial_mm": 28.6,
+    "medial_dy": 28.5,
+    "hu_mean": 1203.0,
+    "hu_p90": 3067.0,
+    "medial_xyz": [
+     15.7,
+     174.9,
+     -335.8
+    ],
+    "lateral_mm": 67.1,
+    "side": "right",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "stall",
+    "steps": 29,
+    "stall_mm": 11.3,
+    "contact_xyz": [
+     35.3,
+     147.9,
+     -353.4
+    ],
+    "chord_mm": 72.5,
+    "attached": false,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "level": null
+   },
+   {
+    "vox": 38690,
+    "ml": 14.05,
+    "medial_mm": 21.9,
+    "medial_dy": -9.7,
+    "hu_mean": 458.0,
+    "hu_p90": 903.0,
+    "medial_xyz": [
+     19.1,
+     110.8,
+     -35.0
+    ],
+    "lateral_mm": 123.7,
+    "side": "right",
+    "ts_rib_frac": 0.98,
+    "cut_si": true,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     19.3,
+     109.8,
+     -39.6
+    ],
+    "chord_mm": 125.7,
+    "attached": true,
+    "rib_like": true,
+    "is_rib": true,
+    "stump": false,
+    "level": 0,
+    "curve_i": 15
+   },
+   {
+    "vox": 32699,
+    "ml": 11.88,
+    "medial_mm": 24.6,
+    "medial_dy": -14.4,
+    "hu_mean": 522.0,
+    "hu_p90": 943.0,
+    "medial_xyz": [
+     26.5,
+     111.5,
+     -87.8
+    ],
+    "lateral_mm": 120.0,
+    "side": "right",
+    "ts_rib_frac": 0.98,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     25.1,
+     107.7,
+     -92.2
+    ],
+    "chord_mm": 145.4,
+    "attached": true,
+    "rib_like": true,
+    "is_rib": true,
+    "stump": false,
+    "level": 2,
+    "curve_i": 67
+   },
+   {
+    "vox": 1905,
+    "ml": 0.69,
+    "medial_mm": 22.4,
+    "medial_dy": -18.3,
+    "hu_mean": 471.0,
+    "hu_p90": 821.0,
+    "medial_xyz": [
+     26.5,
+     111.5,
+     -352.6
+    ],
+    "lateral_mm": 29.0,
+    "side": "right",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     30.9,
+     111.6,
+     -345.2
+    ],
+    "chord_mm": 17.1,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "stump: a nubbin (< 0.5 ml or < 20 mm) that TS does not call rib",
+    "level": null
+   },
+   {
+    "vox": 24752,
+    "ml": 8.99,
+    "medial_mm": 25.8,
+    "medial_dy": -17.7,
+    "hu_mean": 457.0,
+    "hu_p90": 812.0,
+    "medial_xyz": [
+     27.2,
+     109.5,
+     -129.4
+    ],
+    "lateral_mm": 114.4,
+    "side": "right",
+    "ts_rib_frac": 0.98,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     27.9,
+     108.2,
+     -123.9
+    ],
+    "chord_mm": 146.6,
+    "attached": true,
+    "rib_like": true,
+    "is_rib": true,
+    "stump": false,
+    "level": 3,
+    "curve_i": 99
+   },
+   {
+    "vox": 403,
+    "ml": 0.15,
+    "medial_mm": 34.3,
+    "medial_dy": -6.0,
+    "hu_mean": 432.0,
+    "hu_p90": 694.0,
+    "medial_xyz": [
+     47.4,
+     131.7,
+     -346.2
+    ],
+    "lateral_mm": 49.2,
+    "side": "right",
+    "ts_rib_frac": 0.0,
+    "cut_si": false,
+    "cut_lat": false,
+    "how": "bone",
+    "steps": 0,
+    "stall_mm": 0.0,
+    "contact_xyz": [
+     49.4,
+     129.4,
+     -342.6
+    ],
+    "chord_mm": 19.2,
+    "attached": true,
+    "rib_like": false,
+    "is_rib": false,
+    "stump": false,
+    "rejected": "stump: a nubbin (< 0.5 ml or < 20 mm) that TS does not call rib",
+    "level": null
+   }
+  ]
+ },
+ "instances": [
+  {
+   "source_label_for_audit": "14:T7",
+   "vox": 134,
+   "ml": 0.05,
+   "centroid_xyz": [
+    6.2,
+    74.4,
+    -36.6
+   ],
+   "zmin": -38.2,
+   "zmax": -35.8,
+   "si_extent_mm": 2.4,
+   "lr_extent_mm": 4.7,
+   "ap_extent_mm": 5.4,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": true,
+   "partial_bottom": false,
+   "tiny": true,
+   "k": 0,
+   "run_k": 0,
+   "run_match": "nearest (8 mm)",
+   "rib_left_n": 0,
+   "rib_left_trace_chord_mm": null,
+   "rib_left_lateral_mm": null,
+   "rib_left_hu": null,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 1,
+   "rib_right_trace_chord_mm": 125.7,
+   "rib_right_lateral_mm": 123.7,
+   "rib_right_hu": 458.0,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": true,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": true,
+   "run_len_mm": 11.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 10,
+   "pos_from_last_rib_run": -3,
+   "ml_ratio_case_median": 0.001,
+   "si_extent_ratio_case_median": 0.045,
+   "spacing_above_mm": null,
+   "spacing_below_mm": 7.2,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 11,
+   "pos_from_last_rib_inst": -5,
+   "morph_selected": false,
+   "has_tp": false,
+   "has_morph": false,
+   "rib_right_trace_chord_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "15:T8",
+   "vox": 6201,
+   "ml": 2.25,
+   "centroid_xyz": [
+    3.7,
+    82.4,
+    -43.8
+   ],
+   "zmin": -61.4,
+   "zmax": -35.8,
+   "si_extent_mm": 25.6,
+   "lr_extent_mm": 31.0,
+   "ap_extent_mm": 27.6,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": true,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 1,
+   "run_k": 0,
+   "run_match": "inside",
+   "rib_left_n": 0,
+   "rib_left_trace_chord_mm": null,
+   "rib_left_lateral_mm": null,
+   "rib_left_hu": null,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 1,
+   "rib_right_trace_chord_mm": 125.7,
+   "rib_right_lateral_mm": 123.7,
+   "rib_right_hu": 458.0,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": true,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": true,
+   "run_len_mm": 11.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 10,
+   "pos_from_last_rib_run": -3,
+   "ml_ratio_case_median": 0.042,
+   "si_extent_ratio_case_median": 0.485,
+   "spacing_above_mm": 7.2,
+   "spacing_below_mm": 4.4,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 10,
+   "pos_from_last_rib_inst": -4,
+   "morph_selected": false,
+   "has_tp": false,
+   "has_morph": false,
+   "rib_right_trace_chord_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "16:T9",
+   "vox": 75949,
+   "ml": 27.59,
+   "centroid_xyz": [
+    3.0,
+    104.8,
+    -48.2
+   ],
+   "zmin": -78.2,
+   "zmax": -35.8,
+   "si_extent_mm": 42.4,
+   "lr_extent_mm": 69.4,
+   "ap_extent_mm": 74.8,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": true,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 2,
+   "run_k": 0,
+   "run_match": "inside",
+   "rib_left_n": 0,
+   "rib_left_trace_chord_mm": null,
+   "rib_left_lateral_mm": null,
+   "rib_left_hu": null,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 1,
+   "rib_right_trace_chord_mm": 125.7,
+   "rib_right_lateral_mm": 123.7,
+   "rib_right_hu": 458.0,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": true,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": true,
+   "run_len_mm": 11.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 10,
+   "pos_from_last_rib_run": -3,
+   "ml_ratio_case_median": 0.517,
+   "si_extent_ratio_case_median": 0.803,
+   "spacing_above_mm": 4.4,
+   "spacing_below_mm": 25.3,
+   "flag_gap_below": true,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 9,
+   "pos_from_last_rib_inst": -3,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 15.5,
+    "left_reach_mm": 16.17,
+    "left_thickness_mm": 13.35,
+    "left_slenderness": 1.211,
+    "left_ap_spread_mm": 39.08,
+    "left_si_spread_mm": 20.0,
+    "right_reach_mm": 19.54,
+    "right_thickness_mm": 15.87,
+    "right_slenderness": 1.231,
+    "right_ap_spread_mm": 47.84,
+    "right_si_spread_mm": 25.6
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "ostk_body_mask_fallback",
+    "canal_column": {
+     "n_candidates": 3,
+     "n_kept": 2,
+     "n_column": 0,
+     "dropped_far": 1,
+     "dropped_wall": 0,
+     "min_px": 40
+    },
+    "VBHa": 19.768,
+    "VBHp": 22.81,
+    "EPDu": 29.76,
+    "EPWu": 33.911,
+    "EPDl": 28.729,
+    "EPWl": 35.083,
+    "SCW": 20.432,
+    "SCD": 8.256,
+    "plate_rms_mm": 0.54,
+    "plate_ok": true,
+    "wedge_ratio": 0.867,
+    "body_ml": 13.12,
+    "corners_world": {
+     "sup_ant": [
+      1.14,
+      137.26,
+      -36.89
+     ],
+     "sup_post": [
+      -5.14,
+      108.2,
+      -35.49
+     ],
+     "inf_ant": [
+      -1.1,
+      138.56,
+      -56.49
+     ],
+     "inf_post": [
+      -5.14,
+      110.17,
+      -58.22
+     ]
+    },
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": false,
+    "EPWu_out_of_range": false,
+    "EPWl_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": true,
+    "SCD_below_published_floor": true
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": false,
+   "morph_epw_withheld_reason": [],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 17.2,
+     "level_hi": 31.2,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 21.05,
+     "level_hi": 32.0,
+     "level_out": false
+    },
+    "EPWu": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 26.66,
+     "level_hi": 48.71,
+     "level_out": false
+    },
+    "EPWl": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 26.66,
+     "level_hi": 48.71,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 14.26,
+     "level_hi": 26.47,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": true,
+     "level": "T11",
+     "level_lo": 13.3,
+     "level_hi": 20.7,
+     "level_out": true,
+     "below_published_floor": true
+    }
+   },
+   "morph_n_out_of_range": 1,
+   "morph_any_out_of_range": true,
+   "rib_right_trace_chord_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "17:T10",
+   "vox": 101360,
+   "ml": 36.82,
+   "centroid_xyz": [
+    5.3,
+    109.1,
+    -73.5
+   ],
+   "zmin": -103.8,
+   "zmax": -53.4,
+   "si_extent_mm": 50.4,
+   "lr_extent_mm": 66.7,
+   "ap_extent_mm": 77.5,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 3,
+   "run_k": 1,
+   "run_match": "inside",
+   "rib_left_n": 1,
+   "rib_left_trace_chord_mm": 141.0,
+   "rib_left_lateral_mm": 126.2,
+   "rib_left_hu": 482.0,
+   "rib_left_is_rib": true,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 1,
+   "rib_right_trace_chord_mm": 150.4,
+   "rib_right_lateral_mm": 121.7,
+   "rib_right_hu": 456.0,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": true,
+   "rib_right_rejected": [
+    "medial end 0.2 mm from the column (inside the body)"
+   ],
+   "rib_bearing_c": true,
+   "rib_bearing_trace": true,
+   "run_len_mm": 20.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 9,
+   "pos_from_last_rib_run": -2,
+   "ml_ratio_case_median": 0.69,
+   "si_extent_ratio_case_median": 0.955,
+   "spacing_above_mm": 25.3,
+   "spacing_below_mm": 26.9,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 8,
+   "pos_from_last_rib_inst": -2,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 16.85,
+    "left_reach_mm": 16.17,
+    "left_thickness_mm": 17.22,
+    "left_slenderness": 0.939,
+    "left_ap_spread_mm": 45.15,
+    "left_si_spread_mm": 32.8,
+    "right_reach_mm": 13.48,
+    "right_thickness_mm": 16.68,
+    "right_slenderness": 0.808,
+    "right_ap_spread_mm": 50.54,
+    "right_si_spread_mm": 24.0
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "ostk_body_mask_fallback",
+    "canal_column": {
+     "n_candidates": 4,
+     "n_kept": 2,
+     "n_column": 0,
+     "dropped_far": 2,
+     "dropped_wall": 0,
+     "min_px": 40
+    },
+    "VBHa": 22.961,
+    "VBHp": 22.75,
+    "EPDu": 30.066,
+    "EPWu": 36.793,
+    "EPDl": 31.589,
+    "EPWl": 40.545,
+    "SCW": 22.701,
+    "SCD": 17.172,
+    "plate_rms_mm": 0.58,
+    "plate_ok": true,
+    "wedge_ratio": 1.009,
+    "body_ml": 20.1,
+    "corners_world": {
+     "sup_ant": [
+      6.32,
+      139.05,
+      -59.24
+     ],
+     "sup_post": [
+      -1.77,
+      110.17,
+      -61.29
+     ],
+     "inf_ant": [
+      5.31,
+      140.24,
+      -82.15
+     ],
+     "inf_post": [
+      -1.77,
+      109.51,
+      -84.03
+     ]
+    },
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": false,
+    "EPWu_out_of_range": false,
+    "EPWl_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": false,
+   "morph_epw_withheld_reason": [],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 17.2,
+     "level_hi": 31.2,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 21.05,
+     "level_hi": 32.0,
+     "level_out": false
+    },
+    "EPWu": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 26.66,
+     "level_hi": 48.71,
+     "level_out": false
+    },
+    "EPWl": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 26.66,
+     "level_hi": 48.71,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 14.26,
+     "level_hi": 26.47,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 13.3,
+     "level_hi": 20.7,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 0,
+   "morph_any_out_of_range": false,
+   "rib_left_trace_chord_out_of_range": false,
+   "rib_right_trace_chord_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "18:T11",
+   "vox": 112589,
+   "ml": 40.9,
+   "centroid_xyz": [
+    6.9,
+    110.6,
+    -100.4
+   ],
+   "zmin": -131.8,
+   "zmax": -79.0,
+   "si_extent_mm": 52.8,
+   "lr_extent_mm": 64.7,
+   "ap_extent_mm": 76.1,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 4,
+   "run_k": 2,
+   "run_match": "inside",
+   "rib_left_n": 1,
+   "rib_left_trace_chord_mm": 194.5,
+   "rib_left_lateral_mm": 129.1,
+   "rib_left_hu": 481.0,
+   "rib_left_is_rib": true,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 1,
+   "rib_right_trace_chord_mm": 145.4,
+   "rib_right_lateral_mm": 120.0,
+   "rib_right_hu": 522.0,
+   "rib_right_is_rib": true,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": true,
+   "rib_bearing_trace": true,
+   "run_len_mm": 22.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 8,
+   "pos_from_last_rib_run": -1,
+   "ml_ratio_case_median": 0.767,
+   "si_extent_ratio_case_median": 1.0,
+   "spacing_above_mm": 26.9,
+   "spacing_below_mm": 29.6,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 7,
+   "pos_from_last_rib_inst": -1,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 17.52,
+    "left_reach_mm": 13.48,
+    "left_thickness_mm": 19.12,
+    "left_slenderness": 0.705,
+    "left_ap_spread_mm": 47.17,
+    "left_si_spread_mm": 28.8,
+    "right_reach_mm": 12.8,
+    "right_thickness_mm": 18.3,
+    "right_slenderness": 0.7,
+    "right_ap_spread_mm": 46.49,
+    "right_si_spread_mm": 29.6
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "closed_ring_column",
+    "canal_column": {
+     "n_candidates": 8,
+     "n_kept": 6,
+     "n_column": 6,
+     "dropped_far": 2,
+     "dropped_wall": 0,
+     "min_px": 40,
+     "hole_vox": 3606,
+     "wall_median_mm": 111.5
+    },
+    "VBHa": 24.415,
+    "VBHp": 23.994,
+    "EPDu": 29.812,
+    "EPWu": 41.021,
+    "EPDl": 31.617,
+    "EPWl": 43.635,
+    "SCW": 20.837,
+    "SCD": 17.423,
+    "plate_rms_mm": 0.52,
+    "plate_ok": true,
+    "wedge_ratio": 1.018,
+    "body_ml": 22.55,
+    "corners_world": {
+     "sup_ant": [
+      7.02,
+      141.0,
+      -85.9
+     ],
+     "sup_post": [
+      -0.42,
+      112.18,
+      -87.47
+     ],
+     "inf_ant": [
+      7.03,
+      140.89,
+      -110.32
+     ],
+     "inf_post": [
+      -0.42,
+      110.19,
+      -111.38
+     ]
+    },
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": false,
+    "EPWu_out_of_range": false,
+    "EPWl_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": false,
+   "morph_epw_withheld_reason": [],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 17.2,
+     "level_hi": 31.2,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 21.05,
+     "level_hi": 32.0,
+     "level_out": false
+    },
+    "EPWu": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 26.66,
+     "level_hi": 48.71,
+     "level_out": false
+    },
+    "EPWl": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 26.66,
+     "level_hi": 48.71,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 14.26,
+     "level_hi": 26.47,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 13.3,
+     "level_hi": 20.7,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 0,
+   "morph_any_out_of_range": false,
+   "rib_left_trace_chord_out_of_range": false,
+   "rib_right_trace_chord_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "19:T12",
+   "vox": 115599,
+   "ml": 41.99,
+   "centroid_xyz": [
+    8.0,
+    112.5,
+    -130.0
+   ],
+   "zmin": -157.4,
+   "zmax": -107.8,
+   "si_extent_mm": 49.6,
+   "lr_extent_mm": 57.9,
+   "ap_extent_mm": 76.1,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 5,
+   "run_k": 3,
+   "run_match": "inside",
+   "rib_left_n": 1,
+   "rib_left_trace_chord_mm": 140.0,
+   "rib_left_lateral_mm": 110.8,
+   "rib_left_hu": 454.0,
+   "rib_left_is_rib": true,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 1,
+   "rib_right_trace_chord_mm": 146.6,
+   "rib_right_lateral_mm": 114.4,
+   "rib_right_hu": 457.0,
+   "rib_right_is_rib": true,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": true,
+   "rib_bearing_trace": true,
+   "run_len_mm": 23.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 7,
+   "pos_from_last_rib_run": 0,
+   "ml_ratio_case_median": 0.787,
+   "si_extent_ratio_case_median": 0.939,
+   "spacing_above_mm": 29.6,
+   "spacing_below_mm": 32.9,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 6,
+   "pos_from_last_rib_inst": 0,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 18.87,
+    "left_reach_mm": 8.76,
+    "left_thickness_mm": 20.46,
+    "left_slenderness": 0.428,
+    "left_ap_spread_mm": 45.82,
+    "left_si_spread_mm": 28.8,
+    "right_reach_mm": 6.06,
+    "right_thickness_mm": 20.29,
+    "right_slenderness": 0.299,
+    "right_ap_spread_mm": 46.49,
+    "right_si_spread_mm": 24.0
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "closed_ring_column",
+    "canal_column": {
+     "n_candidates": 7,
+     "n_kept": 6,
+     "n_column": 6,
+     "dropped_far": 1,
+     "dropped_wall": 0,
+     "min_px": 40,
+     "hole_vox": 4256,
+     "wall_median_mm": 112.9
+    },
+    "VBHa": 25.465,
+    "VBHp": 25.879,
+    "EPDu": 28.678,
+    "EPWu": 46.524,
+    "EPDl": 30.062,
+    "EPWl": 45.318,
+    "SCW": 22.396,
+    "SCD": 19.234,
+    "plate_rms_mm": 0.37,
+    "plate_ok": true,
+    "wedge_ratio": 0.984,
+    "body_ml": 23.98,
+    "corners_world": {
+     "sup_ant": [
+      4.97,
+      141.81,
+      -115.54
+     ],
+     "sup_post": [
+      0.25,
+      113.54,
+      -116.41
+     ],
+     "inf_ant": [
+      4.97,
+      141.89,
+      -141.01
+     ],
+     "inf_post": [
+      0.25,
+      112.23,
+      -142.25
+     ]
+    },
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": false,
+    "EPWu_out_of_range": false,
+    "EPWl_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": false,
+   "morph_epw_withheld_reason": [],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 17.2,
+     "level_hi": 31.2,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 21.05,
+     "level_hi": 32.0,
+     "level_out": false
+    },
+    "EPWu": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 26.66,
+     "level_hi": 48.71,
+     "level_out": false
+    },
+    "EPWl": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 26.66,
+     "level_hi": 48.71,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 14.26,
+     "level_hi": 26.47,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "T11",
+     "level_lo": 13.3,
+     "level_hi": 20.7,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 0,
+   "morph_any_out_of_range": false,
+   "rib_left_trace_chord_out_of_range": false,
+   "rib_right_trace_chord_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "20:L1",
+   "vox": 138632,
+   "ml": 50.36,
+   "centroid_xyz": [
+    8.7,
+    111.1,
+    -162.9
+   ],
+   "zmin": -195.0,
+   "zmax": -142.2,
+   "si_extent_mm": 52.8,
+   "lr_extent_mm": 69.4,
+   "ap_extent_mm": 78.8,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 6,
+   "run_k": 4,
+   "run_match": "inside",
+   "rib_left_n": 0,
+   "rib_left_trace_chord_mm": null,
+   "rib_left_lateral_mm": null,
+   "rib_left_hu": null,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 0,
+   "rib_right_trace_chord_mm": null,
+   "rib_right_lateral_mm": null,
+   "rib_right_hu": null,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 25.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 6,
+   "pos_from_last_rib_run": 1,
+   "ml_ratio_case_median": 0.944,
+   "si_extent_ratio_case_median": 1.0,
+   "spacing_above_mm": 32.9,
+   "spacing_below_mm": 33.7,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 5,
+   "pos_from_last_rib_inst": 1,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 19.54,
+    "left_reach_mm": 12.8,
+    "left_thickness_mm": 23.24,
+    "left_slenderness": 0.551,
+    "left_ap_spread_mm": 53.91,
+    "left_si_spread_mm": 29.6,
+    "right_reach_mm": 9.43,
+    "right_thickness_mm": 16.84,
+    "right_slenderness": 0.56,
+    "right_ap_spread_mm": 49.19,
+    "right_si_spread_mm": 25.6
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "closed_ring_column",
+    "canal_column": {
+     "n_candidates": 6,
+     "n_kept": 6,
+     "n_column": 6,
+     "dropped_far": 0,
+     "dropped_wall": 0,
+     "min_px": 40,
+     "hole_vox": 5074,
+     "wall_median_mm": 113.5
+    },
+    "VBHa": 25.739,
+    "VBHp": 28.901,
+    "EPDu": 28.159,
+    "EPWu": 44.939,
+    "EPDl": 31.836,
+    "EPWl": 45.198,
+    "SCW": 25.252,
+    "SCD": 19.423,
+    "plate_rms_mm": 0.27,
+    "plate_ok": true,
+    "wedge_ratio": 0.891,
+    "body_ml": 26.7,
+    "corners_world": {
+     "sup_ant": [
+      5.64,
+      141.82,
+      -145.34
+     ],
+     "sup_post": [
+      0.25,
+      114.19,
+      -146.15
+     ],
+     "inf_ant": [
+      6.32,
+      144.63,
+      -170.92
+     ],
+     "inf_post": [
+      0.25,
+      113.66,
+      -175.05
+     ]
+    },
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": false,
+    "EPWu_out_of_range": false,
+    "EPWl_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": false,
+   "morph_epw_withheld_reason": [],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 22.4,
+     "level_hi": 32.8,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 24.0,
+     "level_hi": 34.4,
+     "level_out": false
+    },
+    "EPWu": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 28.66,
+     "level_hi": 52.16,
+     "level_out": false
+    },
+    "EPWl": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 28.66,
+     "level_hi": 52.16,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 19.21,
+     "level_hi": 52.28,
+     "level_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 26.56,
+     "level_hi": 56.74,
+     "level_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 17.34,
+     "level_hi": 29.41,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "T12",
+     "level_lo": 14.57,
+     "level_hi": 21.63,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 0,
+   "morph_any_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "21:L2",
+   "vox": 146816,
+   "ml": 53.33,
+   "centroid_xyz": [
+    9.9,
+    116.1,
+    -196.6
+   ],
+   "zmin": -231.8,
+   "zmax": -176.6,
+   "si_extent_mm": 55.2,
+   "lr_extent_mm": 78.2,
+   "ap_extent_mm": 82.9,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 7,
+   "run_k": 5,
+   "run_match": "inside",
+   "rib_left_n": 0,
+   "rib_left_trace_chord_mm": null,
+   "rib_left_lateral_mm": null,
+   "rib_left_hu": null,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 0,
+   "rib_right_trace_chord_mm": null,
+   "rib_right_lateral_mm": null,
+   "rib_right_hu": null,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 27.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 5,
+   "pos_from_last_rib_run": 2,
+   "ml_ratio_case_median": 1.0,
+   "si_extent_ratio_case_median": 1.045,
+   "spacing_above_mm": 33.7,
+   "spacing_below_mm": 35.3,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 4,
+   "pos_from_last_rib_inst": 2,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 20.21,
+    "left_reach_mm": 13.48,
+    "left_thickness_mm": 19.08,
+    "left_slenderness": 0.706,
+    "left_ap_spread_mm": 56.6,
+    "left_si_spread_mm": 28.8,
+    "right_reach_mm": 14.82,
+    "right_thickness_mm": 15.5,
+    "right_slenderness": 0.956,
+    "right_ap_spread_mm": 54.58,
+    "right_si_spread_mm": 28.0
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "closed_ring_column",
+    "canal_column": {
+     "n_candidates": 7,
+     "n_kept": 6,
+     "n_column": 6,
+     "dropped_far": 1,
+     "dropped_wall": 0,
+     "min_px": 40,
+     "hole_vox": 4845,
+     "wall_median_mm": 116.9
+    },
+    "VBHa": 26.741,
+    "VBHp": 29.536,
+    "EPDu": 28.731,
+    "EPWu": 45.391,
+    "EPDl": 33.461,
+    "EPWl": 46.989,
+    "SCW": 25.246,
+    "SCD": 18.431,
+    "plate_rms_mm": 0.35,
+    "plate_ok": true,
+    "wedge_ratio": 0.905,
+    "body_ml": 30.05,
+    "corners_world": {
+     "sup_ant": [
+      5.64,
+      145.79,
+      -177.68
+     ],
+     "sup_post": [
+      0.92,
+      117.53,
+      -179.82
+     ],
+     "inf_ant": [
+      9.68,
+      148.74,
+      -203.94
+     ],
+     "inf_post": [
+      0.92,
+      116.9,
+      -209.35
+     ]
+    },
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": false,
+    "EPWu_out_of_range": false,
+    "EPWl_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": false,
+   "morph_epw_withheld_reason": [],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 24.8,
+     "level_hi": 37.2,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 25.6,
+     "level_hi": 36.0,
+     "level_out": false
+    },
+    "EPWu": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 29.04,
+     "level_hi": 51.66,
+     "level_out": false
+    },
+    "EPWl": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 29.04,
+     "level_hi": 51.66,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 19.29,
+     "level_hi": 50.58,
+     "level_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 27.26,
+     "level_hi": 62.31,
+     "level_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 18.69,
+     "level_hi": 30.86,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "L1",
+     "level_lo": 14.07,
+     "level_hi": 21.76,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 0,
+   "morph_any_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "22:L3",
+   "vox": 163968,
+   "ml": 59.56,
+   "centroid_xyz": [
+    11.6,
+    122.8,
+    -231.9
+   ],
+   "zmin": -265.4,
+   "zmax": -212.6,
+   "si_extent_mm": 52.8,
+   "lr_extent_mm": 86.9,
+   "ap_extent_mm": 89.6,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 8,
+   "run_k": 6,
+   "run_match": "inside",
+   "rib_left_n": 0,
+   "rib_left_trace_chord_mm": null,
+   "rib_left_lateral_mm": null,
+   "rib_left_hu": null,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 0,
+   "rib_right_trace_chord_mm": null,
+   "rib_right_lateral_mm": null,
+   "rib_right_hu": null,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 28.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 4,
+   "pos_from_last_rib_run": 3,
+   "ml_ratio_case_median": 1.117,
+   "si_extent_ratio_case_median": 1.0,
+   "spacing_above_mm": 35.3,
+   "spacing_below_mm": 36.0,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 3,
+   "pos_from_last_rib_inst": 3,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 21.56,
+    "left_reach_mm": 14.82,
+    "left_thickness_mm": 18.77,
+    "left_slenderness": 0.79,
+    "left_ap_spread_mm": 59.3,
+    "left_si_spread_mm": 30.4,
+    "right_reach_mm": 19.54,
+    "right_thickness_mm": 12.16,
+    "right_slenderness": 1.607,
+    "right_ap_spread_mm": 53.23,
+    "right_si_spread_mm": 24.0
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "closed_ring_column",
+    "canal_column": {
+     "n_candidates": 7,
+     "n_kept": 6,
+     "n_column": 6,
+     "dropped_far": 1,
+     "dropped_wall": 0,
+     "min_px": 40,
+     "hole_vox": 4912,
+     "wall_median_mm": 122.3
+    },
+    "VBHa": 28.446,
+    "VBHp": 29.705,
+    "EPDu": 32.012,
+    "EPWu": 46.829,
+    "EPDl": 38.293,
+    "EPWl": 48.4,
+    "SCW": 25.677,
+    "SCD": 18.162,
+    "plate_rms_mm": 0.38,
+    "plate_ok": true,
+    "wedge_ratio": 0.958,
+    "body_ml": 35.18,
+    "corners_world": {
+     "sup_ant": [
+      11.71,
+      152.44,
+      -212.0
+     ],
+     "sup_post": [
+      1.6,
+      122.33,
+      -215.99
+     ],
+     "inf_ant": [
+      10.71,
+      158.4,
+      -239.79
+     ],
+     "inf_post": [
+      1.6,
+      121.67,
+      -245.68
+     ]
+    },
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": false,
+    "EPWu_out_of_range": false,
+    "EPWl_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": false,
+   "morph_epw_withheld_reason": [],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 25.6,
+     "level_hi": 36.0,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 25.78,
+     "level_hi": 35.2,
+     "level_out": false
+    },
+    "EPWu": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 33.1,
+     "level_hi": 52.9,
+     "level_out": false
+    },
+    "EPWl": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 33.1,
+     "level_hi": 52.9,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 20.92,
+     "level_hi": 52.94,
+     "level_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 27.74,
+     "level_hi": 62.84,
+     "level_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 16.94,
+     "level_hi": 29.7,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "L2",
+     "level_lo": 13.1,
+     "level_hi": 21.5,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 0,
+   "morph_any_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "23:L4",
+   "vox": 181955,
+   "ml": 66.09,
+   "centroid_xyz": [
+    12.3,
+    128.3,
+    -267.9
+   ],
+   "zmin": -300.6,
+   "zmax": -247.8,
+   "si_extent_mm": 52.8,
+   "lr_extent_mm": 98.4,
+   "ap_extent_mm": 91.0,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 9,
+   "run_k": 7,
+   "run_match": "inside",
+   "rib_left_n": 0,
+   "rib_left_trace_chord_mm": null,
+   "rib_left_lateral_mm": null,
+   "rib_left_hu": null,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 0,
+   "rib_right_trace_chord_mm": null,
+   "rib_right_lateral_mm": null,
+   "rib_right_hu": null,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 27.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 3,
+   "pos_from_last_rib_run": 4,
+   "ml_ratio_case_median": 1.239,
+   "si_extent_ratio_case_median": 1.0,
+   "spacing_above_mm": 36.0,
+   "spacing_below_mm": 35.7,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 2,
+   "pos_from_last_rib_inst": 4,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 22.24,
+    "left_reach_mm": 21.56,
+    "left_thickness_mm": 17.5,
+    "left_slenderness": 1.232,
+    "left_ap_spread_mm": 47.17,
+    "left_si_spread_mm": 30.4,
+    "right_reach_mm": 23.58,
+    "right_thickness_mm": 12.62,
+    "right_slenderness": 1.868,
+    "right_ap_spread_mm": 53.91,
+    "right_si_spread_mm": 25.6
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "closed_ring_column",
+    "canal_column": {
+     "n_candidates": 9,
+     "n_kept": 7,
+     "n_column": 7,
+     "dropped_far": 2,
+     "dropped_wall": 0,
+     "min_px": 40,
+     "hole_vox": 5757,
+     "wall_median_mm": 127.7
+    },
+    "VBHa": 30.534,
+    "VBHp": 29.093,
+    "EPDu": 33.304,
+    "EPWu": 49.3,
+    "EPDl": 35.35,
+    "EPWl": 51.517,
+    "SCW": 26.162,
+    "SCD": 17.743,
+    "plate_rms_mm": 0.46,
+    "plate_ok": true,
+    "wedge_ratio": 1.05,
+    "body_ml": 37.94,
+    "corners_world": {
+     "sup_ant": [
+      11.37,
+      159.49,
+      -248.63
+     ],
+     "sup_post": [
+      2.27,
+      127.62,
+      -251.83
+     ],
+     "inf_ant": [
+      11.38,
+      162.49,
+      -279.01
+     ],
+     "inf_post": [
+      2.27,
+      128.38,
+      -280.92
+     ]
+    },
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": false,
+    "EPWu_out_of_range": false,
+    "EPWl_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": false,
+   "morph_epw_withheld_reason": [],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 26.4,
+     "level_hi": 36.8,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 25.6,
+     "level_hi": 35.52,
+     "level_out": false
+    },
+    "EPWu": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 32.62,
+     "level_hi": 57.04,
+     "level_out": false
+    },
+    "EPWl": {
+     "checked": true,
+     "pooled_lo": 26.66,
+     "pooled_hi": 59.86,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 32.62,
+     "level_hi": 57.04,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 22.75,
+     "level_hi": 50.32,
+     "level_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 27.34,
+     "level_hi": 57.02,
+     "level_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 16.5,
+     "level_hi": 32.03,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "L3",
+     "level_lo": 12.83,
+     "level_hi": 20.97,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 0,
+   "morph_any_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "24:L5",
+   "vox": 182696,
+   "ml": 66.36,
+   "centroid_xyz": [
+    13.1,
+    132.3,
+    -303.6
+   ],
+   "zmin": -330.2,
+   "zmax": -279.8,
+   "si_extent_mm": 50.4,
+   "lr_extent_mm": 80.9,
+   "ap_extent_mm": 90.3,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 10,
+   "run_k": 8,
+   "run_match": "inside",
+   "rib_left_n": 0,
+   "rib_left_trace_chord_mm": null,
+   "rib_left_lateral_mm": null,
+   "rib_left_hu": null,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 0,
+   "rib_right_trace_chord_mm": null,
+   "rib_right_lateral_mm": null,
+   "rib_right_hu": null,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 27.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 2,
+   "pos_from_last_rib_run": 5,
+   "ml_ratio_case_median": 1.244,
+   "si_extent_ratio_case_median": 0.955,
+   "spacing_above_mm": 35.7,
+   "spacing_below_mm": 32.5,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 1,
+   "pos_from_last_rib_inst": 5,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 22.24,
+    "left_reach_mm": 10.11,
+    "left_thickness_mm": 25.12,
+    "left_slenderness": 0.402,
+    "left_ap_spread_mm": 55.25,
+    "left_si_spread_mm": 32.0,
+    "right_reach_mm": 14.15,
+    "right_thickness_mm": 15.73,
+    "right_slenderness": 0.9,
+    "right_ap_spread_mm": 48.52,
+    "right_si_spread_mm": 41.6
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "closed_ring_column",
+    "canal_column": {
+     "n_candidates": 11,
+     "n_kept": 9,
+     "n_column": 9,
+     "dropped_far": 2,
+     "dropped_wall": 0,
+     "min_px": 40,
+     "hole_vox": 7004,
+     "wall_median_mm": 129.7
+    },
+    "VBHa": 31.912,
+    "VBHp": 28.409,
+    "EPDu": 37.33,
+    "EPWu": null,
+    "EPDl": 35.581,
+    "EPWl": null,
+    "SCW": 26.476,
+    "SCD": 17.923,
+    "plate_rms_mm": 0.47,
+    "plate_ok": true,
+    "wedge_ratio": 1.123,
+    "body_ml": 41.55,
+    "corners_world": {
+     "sup_ant": [
+      12.4,
+      165.83,
+      -287.95
+     ],
+     "sup_post": [
+      2.95,
+      129.71,
+      -287.71
+     ],
+     "inf_ant": [
+      12.4,
+      163.12,
+      -319.74
+     ],
+     "inf_post": [
+      2.95,
+      129.01,
+      -316.11
+     ]
+    },
+    "EPWu_withheld_raw": 50.877,
+    "EPWl_withheld_raw": 51.427,
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": true,
+   "morph_epw_withheld_reason": [
+    "two_lowest_presacral"
+   ],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "L4",
+     "level_lo": 26.4,
+     "level_hi": 36.8,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "L4",
+     "level_lo": 24.8,
+     "level_hi": 35.2,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false,
+     "level": "L4",
+     "level_lo": 22.44,
+     "level_hi": 48.0,
+     "level_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false,
+     "level": "L4",
+     "level_lo": 24.26,
+     "level_hi": 47.43,
+     "level_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "L4",
+     "level_lo": 18.89,
+     "level_hi": 33.8,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "L4",
+     "level_lo": 12.86,
+     "level_hi": 21.99,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 0,
+   "morph_any_out_of_range": false
+  },
+  {
+   "source_label_for_audit": "25:L6",
+   "vox": 186098,
+   "ml": 67.6,
+   "centroid_xyz": [
+    13.6,
+    129.9,
+    -336.1
+   ],
+   "zmin": -359.0,
+   "zmax": -311.0,
+   "si_extent_mm": 48.0,
+   "lr_extent_mm": 89.6,
+   "ap_extent_mm": 88.3,
+   "n_components": 1,
+   "largest_component_frac": 1.0,
+   "partial_top": false,
+   "partial_bottom": false,
+   "tiny": false,
+   "k": 11,
+   "run_k": 9,
+   "run_match": "inside",
+   "rib_left_n": 1,
+   "rib_left_trace_chord_mm": 25.3,
+   "rib_left_lateral_mm": 22.1,
+   "rib_left_hu": 315.0,
+   "rib_left_is_rib": false,
+   "rib_left_stump": false,
+   "rib_left_cut": false,
+   "rib_left_rejected": [],
+   "rib_right_n": 1,
+   "rib_right_trace_chord_mm": 19.2,
+   "rib_right_lateral_mm": 49.2,
+   "rib_right_hu": 432.0,
+   "rib_right_is_rib": false,
+   "rib_right_stump": false,
+   "rib_right_cut": false,
+   "rib_right_rejected": [
+    "stump: a nubbin (< 0.5 ml or < 20 mm) that TS does not call rib"
+   ],
+   "rib_bearing_c": false,
+   "rib_bearing_trace": false,
+   "run_len_mm": 28.0,
+   "run_cut_top": false,
+   "run_cut_bottom": false,
+   "run_flag": null,
+   "run_split": null,
+   "pos_from_plateau_run": 1,
+   "pos_from_last_rib_run": 6,
+   "ml_ratio_case_median": 1.268,
+   "si_extent_ratio_case_median": 0.909,
+   "spacing_above_mm": 32.5,
+   "spacing_below_mm": null,
+   "flag_gap_below": false,
+   "flag_doubled": false,
+   "flag_fragment": false,
+   "flag_half": false,
+   "pos_from_plateau_inst": 0,
+   "pos_from_last_rib_inst": 6,
+   "morph_selected": true,
+   "tp_body_half_invalid": false,
+   "tp": {
+    "body_half_mm": 24.26,
+    "left_reach_mm": 18.19,
+    "left_thickness_mm": 21.04,
+    "left_slenderness": 0.865,
+    "left_ap_spread_mm": 49.19,
+    "left_si_spread_mm": 41.6,
+    "right_reach_mm": 18.19,
+    "right_thickness_mm": 19.94,
+    "right_slenderness": 0.912,
+    "right_ap_spread_mm": 45.82,
+    "right_si_spread_mm": 40.0
+   },
+   "has_tp": true,
+   "morph": {
+    "body_cut": "closed_ring_column",
+    "canal_column": {
+     "n_candidates": 12,
+     "n_kept": 11,
+     "n_column": 11,
+     "dropped_far": 1,
+     "dropped_wall": 0,
+     "min_px": 40,
+     "hole_vox": 9609,
+     "wall_median_mm": 127.7
+    },
+    "VBHa": 33.484,
+    "VBHp": 26.664,
+    "EPDu": 39.819,
+    "EPWu": null,
+    "EPDl": 24.969,
+    "EPWl": null,
+    "SCW": 33.019,
+    "SCD": 17.729,
+    "plate_rms_mm": 0.88,
+    "plate_ok": true,
+    "wedge_ratio": 1.256,
+    "body_ml": 41.09,
+    "corners_world": {
+     "sup_ant": [
+      14.27,
+      164.6,
+      -329.14
+     ],
+     "sup_post": [
+      3.62,
+      127.05,
+      -321.26
+     ],
+     "inf_ant": [
+      6.99,
+      152.03,
+      -359.31
+     ],
+     "inf_post": [
+      3.62,
+      130.17,
+      -347.75
+     ]
+    },
+    "EPWu_withheld_raw": 73.54,
+    "EPWl_withheld_raw": 52.119,
+    "VBHa_out_of_range": false,
+    "VBHp_out_of_range": false,
+    "EPDu_out_of_range": false,
+    "EPDl_out_of_range": false,
+    "SCW_out_of_range": false,
+    "SCD_out_of_range": false,
+    "SCD_below_published_floor": false
+   },
+   "has_morph": true,
+   "morph_epw_position_unverified": false,
+   "morph_epw_withheld": true,
+   "morph_epw_withheld_reason": [
+    "value_gt_60mm",
+    "two_lowest_presacral"
+   ],
+   "morph_range": {
+    "VBHa": {
+     "checked": true,
+     "pooled_lo": 17.2,
+     "pooled_hi": 37.9,
+     "pooled_out": false,
+     "level": "L5",
+     "level_lo": 26.4,
+     "level_hi": 37.9,
+     "level_out": false
+    },
+    "VBHp": {
+     "checked": true,
+     "pooled_lo": 21.05,
+     "pooled_hi": 40.3,
+     "pooled_out": false,
+     "level": "L5",
+     "level_lo": 24.5,
+     "level_hi": 40.3,
+     "level_out": false
+    },
+    "EPDu": {
+     "checked": true,
+     "pooled_lo": 19.21,
+     "pooled_hi": 52.96,
+     "pooled_out": false,
+     "level": "L5",
+     "level_lo": 26.24,
+     "level_hi": 52.96,
+     "level_out": false
+    },
+    "EPDl": {
+     "checked": true,
+     "pooled_lo": 20.54,
+     "pooled_hi": 62.84,
+     "pooled_out": false,
+     "level": "L5",
+     "level_lo": 20.54,
+     "level_hi": 48.91,
+     "level_out": false
+    },
+    "SCW": {
+     "checked": true,
+     "pooled_lo": 14.26,
+     "pooled_hi": 40.73,
+     "pooled_out": false,
+     "level": "L5",
+     "level_lo": 20.36,
+     "level_hi": 40.73,
+     "level_out": false
+    },
+    "SCD": {
+     "checked": true,
+     "pooled_lo": 12.56,
+     "pooled_hi": 25.8,
+     "pooled_out": false,
+     "level": "L5",
+     "level_lo": 12.56,
+     "level_hi": 25.8,
+     "level_out": false,
+     "below_published_floor": false
+    }
+   },
+   "morph_n_out_of_range": 0,
+   "morph_any_out_of_range": false,
+   "rib_left_trace_chord_out_of_range": false,
+   "rib_right_trace_chord_out_of_range": false
+  }
+ ],
+ "render": {
+  "sag": "/rs/rs_grp_oschome/go2432/data/or_ready/auto_reference/readerE/j0bis/ctsp/0302/v11/render_sag.png",
+  "cor": "/rs/rs_grp_oschome/go2432/data/or_ready/auto_reference/readerE/j0bis/ctsp/0302/v11/render_cor.png"
+ },
+ "failures": {},
+ "n_failures": 0,
+ "stage_seconds": {
+  "load": 7.24,
+  "loader": 0.0,
+  "instance_table": 0.98,
+  "reader_c": 10.16,
+  "rib_features": 0.0,
+  "spacing": 0.0,
+  "sequence": 0.0,
+  "crest": 6.46,
+  "tp_ala": 3.63,
+  "ala_rise": 1.55,
+  "foramina": 1.66,
+  "discs": 0.16,
+  "tp_metrics": 0.13,
+  "ostk_morphometry": 9.95,
+  "immaturity": 0.0,
+  "fov": 0.0,
+  "render": 4.12
+ },
+ "seconds_total": 46.69
+}

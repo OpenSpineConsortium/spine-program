@@ -1,0 +1,267 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/spinesurg-ct-nnunet/spine_data_review/charting_schema.json",
+  "title": "Spine imaging dataset charting form",
+  "description": "One JSON per dataset (charting unit) for the scoping review of human spine CT and projection-radiography datasets. Protocol 1.0, 2026-09-19. 'unknown' is a value, never a blank: every enum that can be undetermined carries it. Fields filled by code from a repository API record where they came from in the 'field_sources' map.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id", "name", "aliases", "modality", "projection", "region", "n_subjects", "n_images_or_volumes",
+    "pediatric_included", "annotation_types", "annotation_origin", "annotation_validation",
+    "variant_labels", "per_vertebra_level_names", "licence", "access_route", "access_probe",
+    "year", "country", "source_record", "size_gb", "format", "split_defined", "patient_level_dedup",
+    "image_quality_reported", "on_grid", "flags", "notes", "quotes", "charted_by", "charted_date", "verified_by"
+  ],
+  "definitions": {
+    "count_or_unknown": {
+      "description": "A non-negative integer, or the string 'unknown' when the source does not state it.",
+      "oneOf": [
+        { "type": "integer", "minimum": 0 },
+        { "type": "string", "enum": ["unknown"] }
+      ]
+    },
+    "yes_no_unknown": { "type": "string", "enum": ["yes", "no", "unknown"] },
+    "iso_date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "doi": { "type": "string", "pattern": "^10\\.[0-9]{4,9}/[^\\s]+$" },
+    "url": { "type": "string", "pattern": "^https?://" },
+    "variant_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["labelled"],
+      "properties": {
+        "labelled": { "$ref": "#/definitions/yes_no_unknown", "description": "yes: the variant is explicitly labelled per subject or per image in the released annotations or metadata. no: the source states it is absent or was excluded. unknown: not stated." },
+        "n_positive": { "$ref": "#/definitions/count_or_unknown", "description": "Subjects (not images) carrying the variant, as reported." },
+        "n_assessed": { "$ref": "#/definitions/count_or_unknown", "description": "Subjects in whom the variant was assessed; the denominator for pooled prevalence. Required when n_positive is an integer." },
+        "unit": { "type": "string", "enum": ["subject", "image", "volume", "unknown"] },
+        "how": { "type": "string", "description": "How the variant was determined (e.g., expert read, counted from labels, Castellvi table)." }
+      }
+    },
+    "quote": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "source", "location", "supports"],
+      "properties": {
+        "text": { "type": "string", "minLength": 10, "description": "Verbatim sentence(s); no paraphrase." },
+        "source": { "type": "string", "description": "DOI, PMID, or URL of the document quoted." },
+        "location": { "type": "string", "description": "Section, table, figure, page, or repository field name." },
+        "supports": { "type": "array", "items": { "type": "string" }, "minItems": 1, "description": "Charting field names this quote supports." }
+      }
+    }
+  },
+  "properties": {
+    "id": { "type": "string", "pattern": "^ds_[a-z0-9_]{2,40}$", "description": "Stable dataset id assigned at charting; never renumbered." },
+    "name": { "type": "string", "minLength": 1 },
+    "aliases": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "versions": {
+      "type": "array",
+      "description": "Named versions of the dataset if any; charted counts refer to the latest unless 'charted_version' says otherwise.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label"],
+        "properties": {
+          "label": { "type": "string" },
+          "year": { "type": "integer", "minimum": 2000, "maximum": 2026 },
+          "doi": { "$ref": "#/definitions/doi" },
+          "url": { "$ref": "#/definitions/url" }
+        }
+      }
+    },
+    "charted_version": { "type": "string" },
+    "modality": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "enum": ["CT", "cone-beam CT", "radiograph", "fluoroscopy", "DXA-VFA", "EOS", "other-projection", "MRI", "other"] },
+      "description": "All modalities present. At least one of CT, cone-beam CT, radiograph, fluoroscopy, DXA-VFA, EOS must be present for eligibility; MRI and other are recorded when co-present."
+    },
+    "projection": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "enum": ["lateral", "AP", "PA", "oblique", "biplanar", "whole-spine", "other", "NA", "unknown"] },
+      "description": "For projection modalities; ['NA'] for CT-only. whole-spine means a single film or stitched film covering the full spine."
+    },
+    "region": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "enum": ["cervical", "thoracic", "lumbar", "sacrum-pelvis", "whole-spine", "mixed", "unknown"] }
+    },
+    "n_subjects": { "$ref": "#/definitions/count_or_unknown" },
+    "n_images_or_volumes": { "$ref": "#/definitions/count_or_unknown" },
+    "n_images_unit": { "type": "string", "enum": ["images", "volumes", "series", "studies", "sub-figures", "unknown"] },
+    "n_per_modality": {
+      "type": "object",
+      "description": "Subject and image counts per eligible modality when the dataset is multimodal.",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "n_subjects": { "$ref": "#/definitions/count_or_unknown" },
+          "n_images_or_volumes": { "$ref": "#/definitions/count_or_unknown" }
+        }
+      }
+    },
+    "pediatric_included": { "$ref": "#/definitions/yes_no_unknown" },
+    "age_range": { "type": "string" },
+    "annotation_types": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": { "type": "string", "enum": ["per-vertebra-level-names", "segmentation-voxel", "segmentation-2d", "landmarks", "bounding-boxes", "centroids", "pathology-labels", "measurements", "report-text", "fracture-grade", "none", "unknown"] }
+    },
+    "annotation_origin": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": { "type": "string", "enum": ["expert-manual", "trained-non-expert-manual", "model-generated", "model-generated-expert-corrected", "counting-inferred", "report-derived", "crowd", "none", "unknown"] },
+      "description": "counting-inferred: level names assigned by counting from a reference vertebra rather than read per vertebra; this is the origin the review is designed to expose."
+    },
+    "annotation_validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "type": "string", "enum": ["inter-rater-kappa", "inter-rater-dice", "inter-rater-other", "qa-process-described", "consensus-read", "none", "unknown"] },
+        "statistic_name": { "type": "string" },
+        "value": { "type": "number" },
+        "ci_low": { "type": "number" },
+        "ci_high": { "type": "number" },
+        "n_raters": { "$ref": "#/definitions/count_or_unknown" },
+        "n_items": { "$ref": "#/definitions/count_or_unknown" },
+        "description": { "type": "string" }
+      }
+    },
+    "variant_labels": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["L6", "T13", "LSTV"],
+      "properties": {
+        "L6": { "$ref": "#/definitions/variant_entry" },
+        "T13": { "$ref": "#/definitions/variant_entry" },
+        "LSTV": { "$ref": "#/definitions/variant_entry" },
+        "other": { "type": "string", "description": "Other variants labelled (e.g., T11-rib absence, sacralisation grade)." }
+      }
+    },
+    "per_vertebra_level_names": { "type": "string", "enum": ["yes", "no", "unknown"], "description": "yes only if each vertebra instance is named (L1..L5, T12, ...) in the released annotations." },
+    "licence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["string", "tier"],
+      "properties": {
+        "string": { "type": "string", "description": "Verbatim licence name or SPDX id as stated by the source or repository API." },
+        "tier": { "type": "string", "enum": ["open", "non-commercial", "restricted", "unknown"], "description": "open: CC0, CC BY, CC BY-SA, ODC, MIT-like. non-commercial: CC BY-NC(-SA/-ND). restricted: custom DUA, share-alike with use limits, research-only without a named licence. unknown: nothing stated." },
+        "url": { "$ref": "#/definitions/url" },
+        "from": { "type": "string", "enum": ["api", "repository-page", "article", "unknown"] }
+      }
+    },
+    "access_route": {
+      "type": "string",
+      "enum": ["open-download", "registration", "data-use-agreement", "request-to-authors", "unavailable", "commercial", "unresolved"],
+      "description": "Final classification from the probe rules P1-P10 (PROTOCOL section 10), after reviewer resolution of 'unresolved'."
+    },
+    "access_url": { "$ref": "#/definitions/url", "description": "The landing URL probed." },
+    "file_url_probed": { "$ref": "#/definitions/url" },
+    "described_as_public": { "$ref": "#/definitions/yes_no_unknown", "description": "The source record matches the public-availability regex (PROTOCOL section 10)." },
+    "access_probe": {
+      "type": "array",
+      "minItems": 1,
+      "description": "One entry per probe run (at least two, at least 24 h apart).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["url", "http_status", "method", "date", "classification", "rule"],
+        "properties": {
+          "url": { "$ref": "#/definitions/url" },
+          "final_url": { "type": "string" },
+          "http_status": { "type": "integer", "minimum": 0, "maximum": 999, "description": "0 means no HTTP response (DNS, timeout, TLS)." },
+          "status_chain": { "type": "array", "items": { "type": "integer" } },
+          "method": { "type": "string", "enum": ["HEAD", "GET-range", "API"] },
+          "content_type": { "type": "string" },
+          "content_length": { "type": "integer" },
+          "date": { "$ref": "#/definitions/iso_date" },
+          "classification": { "type": "string", "enum": ["open-download", "registration", "data-use-agreement", "request-to-authors", "unavailable", "commercial", "unresolved"] },
+          "rule": { "type": "string", "pattern": "^P(10|[1-9])$|^reviewer$" },
+          "raw_sha1": { "type": "string", "pattern": "^[0-9a-f]{40}$", "description": "Cache file of the probe response." },
+          "error": { "type": "string" }
+        }
+      }
+    },
+    "year": { "type": "integer", "minimum": 2000, "maximum": 2026, "description": "Year of first public description." },
+    "country": { "type": "array", "items": { "type": "string", "pattern": "^[A-Z]{2}$|^unknown$" }, "minItems": 1, "description": "ISO 3166-1 alpha-2 of the acquiring institution(s)." },
+    "source_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "doi": { "$ref": "#/definitions/doi" },
+        "pmid": { "type": "string", "pattern": "^[0-9]+$" },
+        "pmcid": { "type": "string", "pattern": "^PMC[0-9]+$" },
+        "arxiv": { "type": "string" },
+        "url": { "$ref": "#/definitions/url" },
+        "record_ids": { "type": "array", "items": { "type": "string", "pattern": "^(lit|repo):[0-9a-f]{12}$" }, "minItems": 1, "description": "All merged source records that contributed (see charting/dataset_sources.csv)." },
+        "record_type": { "type": "string", "enum": ["journal-article", "preprint", "challenge-page", "repository-record", "other"] }
+      },
+      "required": ["record_ids", "record_type"]
+    },
+    "size_gb": { "oneOf": [ { "type": "number", "minimum": 0 }, { "type": "string", "enum": ["unknown"] } ] },
+    "format": { "type": "array", "items": { "type": "string", "enum": ["DICOM", "NIfTI", "NRRD", "MHA/MHD", "PNG", "JPEG", "TIFF", "parquet", "HDF5", "other", "unknown"] }, "minItems": 1, "uniqueItems": true },
+    "split_defined": { "$ref": "#/definitions/yes_no_unknown" },
+    "patient_level_dedup": { "$ref": "#/definitions/yes_no_unknown", "description": "yes if the source states that subjects are unique or that splits are grouped by subject." },
+    "image_quality_reported": { "$ref": "#/definitions/yes_no_unknown", "description": "yes if resolution, spacing, kV/mAs, detector, or an explicit quality assessment is reported." },
+    "resolution_summary": { "type": "string", "description": "Free text: matrix size, pixel spacing, slice thickness as reported." },
+    "on_grid": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["present"],
+      "properties": {
+        "present": { "type": "string", "enum": ["yes", "no", "partial"] },
+        "path": { "type": "string" },
+        "checked_date": { "$ref": "#/definitions/iso_date" }
+      }
+    },
+    "flags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "enum": ["figure-derived", "derived", "multimodal", "challenge", "authors-own", "retired", "superseded"] }
+    },
+    "parent_id": { "type": "string", "pattern": "^ds_[a-z0-9_]{2,40}$", "description": "Required when flags contains 'derived'." },
+    "checksums": {
+      "type": "array",
+      "description": "Published checksums or sizes pulled by sdr/enrich.py; used by the recipe for verification.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["file", "from"],
+        "properties": {
+          "file": { "type": "string" },
+          "size_bytes": { "type": "integer", "minimum": 0 },
+          "md5": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "url": { "$ref": "#/definitions/url" },
+          "from": { "type": "string", "description": "API that supplied it, e.g. api:zenodo, api:huggingface(blobs)." }
+        }
+      }
+    },
+    "field_sources": {
+      "type": "object",
+      "description": "Field name -> where its value came from ('api:<source>' or 'article' or 'repository-page' or 'reviewer').",
+      "additionalProperties": { "type": "string" }
+    },
+    "notes": { "type": "string" },
+    "quotes": { "type": "array", "items": { "$ref": "#/definitions/quote" }, "minItems": 1 },
+    "charted_by": { "type": "string", "minLength": 1 },
+    "charted_date": { "$ref": "#/definitions/iso_date" },
+    "verified_by": { "type": "string", "description": "Empty string until verified; verification is required for any dataset entering a pooled analysis." },
+    "verified_date": { "$ref": "#/definitions/iso_date" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "flags": { "contains": { "const": "derived" } } }, "required": ["flags"] },
+      "then": { "required": ["parent_id"] }
+    },
+    {
+      "if": { "properties": { "on_grid": { "properties": { "present": { "enum": ["yes", "partial"] } } } } },
+      "then": { "properties": { "on_grid": { "required": ["path", "checked_date"] } } }
+    }
+  ]
+}

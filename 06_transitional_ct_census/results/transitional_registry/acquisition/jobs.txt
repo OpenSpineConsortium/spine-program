@@ -1,0 +1,98 @@
+# Acquisition jobs, 2026-09-23 (grid; every id is a Slurm job; submitted by slurm/acquisition_submit.sh unless noted).
+# Grid log of record: /rs/rs_grp_oschome/go2432/data/anomaly_harvest/acquisition/jobs.txt ; logs under .../acquisition/logs/
+# Resume or extend: bash ~/spinesurg-ct-nnunet/slurm/acquisition_submit.sh tier1   (skips verified units and finished cases)
+# Tier 2 is written into the same script (`tier2`) and deliberately NOT submitted (ACQUISITION_PLAN.md section 3).
+
+# --- measurement and setup
+40425064  acq_fovcal        P(both junction references) by coverage class and z-extent (tools/acquisition_calibrate_fov.py) -- COMPLETED
+40425754  acq_env           venv + TS vertebrae_body weights -- FAILED (pandas source build on glibc 2.17; fixed: --system-site-packages + wheels only)
+40425850  acq_env           cancelled (resubmitted with the venv rebuild)
+40425851  acq_env           idc-index 0.12.5 + s5cmd + TotalSegmentator task 305 weights -- COMPLETED
+40425958  acq_fetch_smoke   FAILED (quoting in an sbatch --wrap; replaced by slurm/acquisition_fetch_smoke.sh)
+40425969  acq_fetch_smoke   every fetch route on one unit into a scratch root: IDC 2/2, NBIA 1/1, Zenodo md5 1/1, HF sha256 1/1 -- COMPLETED
+
+# --- the outside check (VertebralBodiesCT-Labels, 70 TotalSegmentator v2 CTs)
+40425899  acq_vprep         link the 70 CTs -- COMPLETED
+40425900  convert  40425901 cases  40425902 ts (6 GPU)  40425903 gate  40425904 gate_merge  40425905 spineps (6 GPU)
+40425906  call     40425907 summary -- COMPLETED (3 of 69 SPINEPS runs failed inside SPINEPS)
+40425908  acq_validate      FAILED (tuple dict key in validation.json; fixed)
+40428080  acq_validate      rescored -> anomaly_harvest/validation_ts/VALIDATION.md (copied to validation/) -- COMPLETED
+# diagnostics while tuning labeller B (not part of any chain): 40426311 40426313 40426464 40426543 40426792 40426806
+#   (acq_btest, labeller B passes 1-5 on the finished validation cases), 40427584 (acq_atest, labeller A),
+#   40428081 (acq_render, validation/vts_s0049.png and vts_s0616.png)
+
+# --- tier 1 chains: fetch -> convert -> cases -> ts -> gate -> gate_merge -> spineps -> call -> summary (afterany)
+idc                      fetch=40426149 convert=40426150 cases=40426151 ts=40426152 gate=40426153 gate_merge=40426154 spineps=40426155 call=40426156 summary=40426157
+tcia_fdg_pet_ct_lesions  fetch=40426158 convert=40426159 cases=40426160 ts=40426161 gate=40426162 gate_merge=40426163 spineps=40426164 call=40426165 summary=40426166
+abdomenatlas3_mini       fetch=40426167 convert=40426168 cases=40426169 ts=40426170 gate=40426171 gate_merge=40426172 spineps=40426173 call=40426174 summary=40426175
+amos22                   fetch=40426176 convert=40426177 cases=40426178 ts=40426179 gate=40426180 gate_merge=40426181 spineps=40426182 call=40426183 summary=40426184
+nlst_pilot               fetch=40426185 convert=40426186 cases=40426187 ts=40426188 gate=40426189 gate_merge=40426190 spineps=40426191 call=40426192 summary=40426193
+ctpelvic1k_clinic        fetch=40426194 convert=40426195 cases=40426196 ts=40426197 gate=40426198 gate_merge=40426199 spineps=40426200 call=40426201 summary=40426202
+csi2014                  fetch=40426203 convert=40426204 cases=40426205 ts=40426206 gate=40426207 gate_merge=40426208 spineps=40426209 call=40426210 summary=40426211
+40426214  acq_dedupe        exact + thumbnail near-duplicates across every tier-1 collection (afterany all tier-1 cases jobs) -> acquisition/alias_pairs.csv
+
+# --- state at hand-off (2026-09-23 ~21:25 EDT)
+# fetch verified units: idc 2,700/3,600 series; FDG 77/900 series (NBIA ~1 series/min, ~15 h); AbdomenAtlas 5/40 tars
+#   (~22 min per 14 GB tar); AMOS 1/5 zips (Zenodo); NLST pilot 500/500; CSI 20/20; CTPelvic1K 2/2. No unresolved failures.
+# screen: NLST pilot and CTPelvic1K in TotalSegmentator; CSI waiting for a SPINEPS GPU; the rest wait on their fetches.
+
+# ================================================================ 2026-09-24 (relaunch)
+# --- tier-1 chains of 2026-09-23: all alive, nothing to resubmit (state at ~07:10 EDT)
+# fetch: idc 3,600/3,600 (done 21:57); AbdomenAtlas 40/40 tars (done 05:08); AMOS 5/5 zips (done 01:07); NLST pilot, CSI,
+#   CTPelvic1K done; FDG-PET-CT-Lesions 550/900 series (NBIA ~25 series / 20 min, 4-day limit, requeueable).
+# convert (measured <= 3 mm): idc 3,499 of 3,600; AbdomenAtlas 7,649 of 9,262; AMOS 723 of 2,364 (1,564 refused as
+#   > 3 mm -- the census had assumed every AMOS CT thin, ACQUISITION_PLAN.md section 9); NLST pilot 500 of 500.
+# screen: csi2014 and ctpelvic1k_clinic finished (SUMMARY.md each); idc TotalSegmentator 2,883 of 3,499 (8 GPUs);
+#   AbdomenAtlas TotalSegmentator running (12 GPUs); AMOS SPINEPS running; NLST pilot SPINEPS running.
+
+# --- scoping-review re-observation (not Slurm chains; see REVIEW_RUN.md)
+40429437  sdr_netprobe      reachability of the literature endpoints from a compute node (arXiv 200, bioRxiv refused) -- COMPLETED
+40429469  sdr_arxiv         arxiv_01 re-observed from a compute node, merged back into runs/2026-09-23 -- COMPLETED (186 of 186)
+
+# --- tier 1, late (collections found 2026-09-24; `acquisition_submit.sh tier1_late`, nice 200, one CT per person)
+panorama              fetch=40430881 convert=40430882 cases=40430883 ts=40430884 gate=40430885 gate_merge=40430886 spineps=40430887 call=40430888 summary=40430889
+barts_crl             fetch=40430890 convert=40430891 cases=40430892 ts=40430893 gate=40430894 gate_merge=40430895 spineps=40430896 call=40430897 summary=40430898
+kidney_thoraxabdomen  fetch=40430899 convert=40430900 cases=40430901 ts=40430902 gate=40430903 gate_merge=40430904 spineps=40430905 call=40430906 summary=40430907
+curvas_pdacvi         fetch=40430908 convert=40430909 cases=40430910 ts=40430911 gate=40430912 gate_merge=40430913 spineps=40430914 call=40430915 summary=40430916
+aortaseg60            fetch=40430917 convert=40430918 cases=40430919 ts=40430920 gate=40430921 gate_merge=40430922 spineps=40430923 call=40430924 summary=40430925
+curvas                fetch=40430926 convert=40430927 cases=40430928 ts=40430929 gate=40430930 gate_merge=40430931 spineps=40430932 call=40430933 summary=40430934
+quadra_hc             fetch=40430935 convert=40430936 cases=40430937 ts=40430938 gate=40430939 gate_merge=40430940 spineps=40430941 call=40430942 summary=40430943
+deep_psma             fetch=40430944 convert=40430945 cases=40430946 ts=40430947 gate=40430948 gate_merge=40430949 spineps=40430950 call=40430951 summary=40430952
+waw_tace              fetch=40430953 convert=40430954 cases=40430955 ts=40430956 gate=40430957 gate_merge=40430958 spineps=40430959 call=40430960 summary=40430961
+pengwin2026           fetch=40430962 convert=40430963 cases=40430964 ts=40430965 gate=40430966 gate_merge=40430967 spineps=40430968 call=40430969 summary=40430970
+40430971  acq_dedupe2       exact + thumbnail near-duplicates over every acquired collection, tier 1 and late (afterany the
+                            FDG and AbdomenAtlas cases jobs and the ten late cases jobs) -> acquisition/alias_pairs_all.csv
+# 40426214 (the first dedupe, tier 1 only) is still queued behind the FDG cases job; 40430971 supersedes it but both run.
+# All ten late fetches were running at 06:43. oschome quota: 3 TB used of 20 TB at 07:10 (df-ceph).
+# Not submitted, by the stopping rule: tier 2 (waits for tier 1's measured rates); ENHANCE.PET 1.6k, TMTV, LUMOS
+#   (deferred: route); TotalSegmentator task data and AbdomenAtlas 2.0 Mini (unresolved overlap). ACQUISITION_PLAN.md 4b.
+# 07:16 curvas training_set.zip (Deflate64) failed to unpack: the grid's p7zip answered "Headers Error" (exit 2) after
+#   the md5 verified. Fix: the fetcher now tries unzip, then 7z, and keeps a completed download instead of re-fetching it.
+curvas (repair)       fetch=40436037 convert=40436038 cases=40436039 ts=40436040 gate=40436041 gate_merge=40436042 spineps=40436043 call=40436044 summary=40436045   (afterany 40430934; `tier1_late 40430934 curvas`)
+40436046  acq_dedupe2       the all-collection dedupe again, after 40430971 and the CURVAS repair's cases -> alias_pairs_all.csv (overwrites)
+
+# ================================================================ 2026-09-24 (resume, ~10:45 EDT; Greg's acquisition-space review integrated by the coordinator at 10:40 -- this stream resumes unchanged, ACQUISITION_PLAN.md section 10)
+# --- state at 10:35 EDT (squeue; df-ceph 3 TB used of 20)
+# fetch: FDG-PET-CT-Lesions 750/900 series (running); panorama 0/4 zips verified (four 40-60 GB zips, running since 06:43);
+#   kidney_thoraxabdomen 2/4; waw_tace 2/4; curvas 2/3 (training_set.zip Deflate64 -> repair chain 40436037 queued after 40430934).
+# screen: TotalSegmentator running on idc (3,325/3,499), AbdomenAtlas (1,908/7,649, 12 GPUs), and every late collection whose
+#   fetch finished (barts_crl, curvas, curvas_pdacvi [gate], aortaseg60, quadra_hc, deep_psma, pengwin2026); SPINEPS on amos22
+#   (681/723 ctd; last shard running). Finished screens: csi2014, ctpelvic1k_clinic, nlst_pilot (08:03).
+# --- the NLST pilot's first measurement, and the rule it forced (ACQUISITION_PLAN.md section 11)
+# nlst_pilot SUMMARY at 08:03: 367 of 500 with a count from T1 (0.73; prior 0.70 for CHEST_SCREEN), 34 single-labeller T13 =
+#   9.3 % of counted (prior 0.6-2.0 %). Every one a VERIDAH name (labeller B cannot count the cage on chest CT).
+40436876  acq_t13check      nlst_pilot: VERIDAH T13 vs B's rib heads (tools/acquisition_t13_check.py) -- COMPLETED: 5 of 34 have a
+                            rib on the body named T13, 21 do not, 2 only a cut rib, 6 sit below B's last disc; "rib at C7" fires in 196/333 ordinary spines (an artefact, dropped)
+40436877  acq_t13check      validation_ts: same -- COMPLETED: the 5 external T13 all carry a rib on that body; the 2 false T13 on
+                            non-L6 spines do not; 2 external-L6 spines carry a rib on their 20th vertebra (the TS_s1088 question)
+# rule (tools/acquisition_screen.py confirm_t13_by_rib, in the `call` stage from now on): A's T13 stands only with a whole rib
+#   head (B) on the body A names T13, and is then rendered into review/ for adjudication; otherwise no count. Running chains pick
+#   it up at their own `call` stage. Requeued where `call` had already run:
+40436963  acq_call_nlst_pilot (array 0-3, N_SHARDS=4)  40436964 acq_sum_nlst_pilot  40436965 acq_t13check nlst_pilot (re-measure)
+40436966  acq_call_validation_ts (array 0-1)  40436967 acq_sum_validation_ts  40436968 acq_validate (rescore VALIDATION.md)  40436969 acq_t13check validation_ts
+# csi2014 and ctpelvic1k_clinic carry no T13 name: not requeued.
+# --- 10:50 EDT: the requeue finished (every job COMPLETED 0:0). nlst_pilot after the rule: 338 CTs with a count from T1, 5 T13 at
+#   single-labeller tier (1.5 %; renders in nlst_pilot/review, copied to collections/nlst_pilot/review), 29 of the 34 names dropped to
+#   no_count (21 no rib on that body, 2 cut rib only, 6 below B's last disc). validation_ts rescored: A's false T13 on negatives 1 -> 0,
+#   5/7 external T13 unchanged, 2 external-L6-with-a-rib still named T13 (the TS_s1088 question). Copies: collections/nlst_pilot/,
+#   validation/ (VALIDATION.md, SUMMARY.md, rows.csv, t13_check/).

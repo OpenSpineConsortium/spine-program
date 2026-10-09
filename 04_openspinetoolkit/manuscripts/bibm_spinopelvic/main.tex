@@ -1,0 +1,283 @@
+%% BIBM 2026 — IEEE conference format.
+%% Compile on Overleaf with the IEEE BIBM template (\documentclass[conference]{IEEEtran}).
+%% HONESTY CONTRACT (do not overclaim — see notes in each section):
+%%   - spinopelvic params: implemented + geometry unit-tested; manual-measurement
+%%     validation is ONGOING (not done). PI is posture-invariant; SS/PT/LL on supine CT
+%%     are surrogates. SVA/TPA are out of scope (FOV/posture) — say so.
+%%   - DRR/XR: projection + label transfer WORK; the full 1k release is forthcoming;
+%%     the XR level-localizer is a FRAMEWORK (not trained).
+%%   - viewer: live single-case web demo; engine-swap contract is DESIGNED (not dual-engine).
+%%   - post-op synthesis: prototype (illustrative), not validated.
+%% \TODO{...} marks a number/figure to drop in after running tools/cohort_stats.py.
+\documentclass[conference]{IEEEtran}
+\usepackage{cite,amsmath,graphicx,booktabs,url,xcolor}
+\newcommand{\TODO}[1]{\textcolor{red}{[TODO: #1]}}
+\newcommand{\dataset}{CTSpinoPelvic1K}
+\newcommand{\xrdataset}{XRSpinoPelvic1K}
+\newcommand{\ostk}{OpenSpineToolkit}
+
+\begin{document}
+\title{From Segmented CT to Spinopelvic Measurement:\\
+An Open Geometric Engine, a CT$\rightarrow$Radiograph Bridge,\\ and a Deployable Viewer}
+
+\author{\IEEEauthorblockN{Gregory Schwing\,$^{\dagger}$ and the OpenSpine Consortium}
+\IEEEauthorblockA{$^{\dagger}$Correspondence: [personal e-mail struck on copy, 2026-10-08]}}
+
+\maketitle
+
+\begin{abstract}
+Spinopelvic parameters---pelvic incidence (PI), sacral slope (SS), pelvic tilt (PT)
+and lumbar lordosis (LL)---drive surgical planning for adult spinal deformity, yet they
+are still measured by hand on radiographs, with substantial inter-rater variability, and
+they are rarely available from the cross-sectional CT that is increasingly acquired first.
+We present an open, reproducible pipeline that turns a densely segmented CT volume into
+spinopelvic measurements and brings the same measurements to the radiographic domain.
+First, a geometric engine (\ostk) derives PI/SS/PT/LL directly from world-space anatomical
+landmarks fit to the segmentation (robust femoral-head sphere fit, sacral-endplate and
+vertebral-endplate plane fits), emitting a per-case JSON contract with explicit
+quality-control flags; the construction is internally consistent ($|\mathrm{SS}+\mathrm{PT}-\mathrm{PI}|<1^\circ$).
+Second, we close the CT--radiograph gap two ways: an analytic 2D port computes the
+identical angles on lateral radiographs (cross-validated against the 3D engine on
+identical geometry), and a digitally-reconstructed-radiograph (DRR) pipeline projects the
+CT \emph{and its dense labels} through one shared geometry to produce paired synthetic
+radiographs, per-pixel label maps and per-level landmarks with no manual annotation
+(\xrdataset). Third, a browser viewer renders a case and animates each angle construction
+from the JSON contract, which is designed to decouple the measurement engine from the
+interface so a learned engine can later replace the geometric one. We report the parameter
+distribution over the \dataset{} cohort, the 2D--3D equivalence, and an illustrative
+post-operative alignment-simulation mode. All code is released under Apache-2.0.
+\end{abstract}
+
+\begin{IEEEkeywords}
+spinopelvic parameters, CT segmentation, digitally reconstructed radiograph, surgical
+planning, open-source, biomedical image analysis
+\end{IEEEkeywords}
+
+\section{Introduction}
+Sagittal spinopelvic alignment governs outcomes in adult spinal deformity surgery.
+The core parameters---pelvic incidence (PI), sacral slope (SS), pelvic tilt (PT) and
+lumbar lordosis (LL)---and the PI$-$LL mismatch underlie widely used classification and
+realignment schemes \cite{schwab2012,lafage2016}. In practice these are measured manually
+on standing lateral radiographs, a process that is time-consuming and shows non-trivial
+inter- and intra-rater variability. At the same time, cross-sectional CT is frequently the
+first study available (trauma, oncologic, pre-operative), and modern automated
+segmentation now labels the spine and pelvis on CT at scale
+\cite{verse,totalsegmentator}. This raises a practical question: can spinopelvic
+assessment be derived \emph{automatically and reproducibly} from a segmented CT, and can
+the result be made usable in the radiographic workflow clinicians already trust?
+
+We answer this with an open, end-to-end pipeline built on a densely labeled CT resource,
+\dataset{}\TODO{cite the descriptor once arXiv/MLHC id is known}, and make three
+contributions:
+\begin{enumerate}
+\item \textbf{A geometric measurement engine} (\ostk) that computes PI/SS/PT/LL from a CT
+segmentation using world-space landmark geometry, with a machine-readable output contract
+and per-measurement quality-control (QC) flags. The construction is internally consistent
+by design and unit-tested.
+\item \textbf{A CT$\rightarrow$radiograph bridge}: an analytic 2D port that reproduces the
+identical angles on lateral radiographs (cross-validated against the 3D engine), together
+with a DRR pipeline that projects the CT and its dense labels through one shared geometry
+to yield paired synthetic radiographs, label maps and per-level landmarks
+(\xrdataset)---annotation-free supervision for radiograph-based analysis.
+\item \textbf{A deployable, open viewer} that renders a case and animates each angle from a
+JSON contract designed to separate the measurement engine from the interface, plus an
+illustrative post-operative alignment-simulation mode.
+\end{enumerate}
+Everything is released under Apache-2.0 for reproducibility. We are explicit about scope:
+PI is posture-invariant and therefore directly meaningful on supine CT, whereas SS, PT and
+LL on supine CT are reported as surrogates; SVA and the T1-pelvic angle are out of scope on
+this acquisition (Section~\ref{sec:disc}).
+
+\section{Related Work}
+Automated vertebral labeling and spine/pelvis segmentation on CT are now mature
+\cite{verse,totalsegmentator,ctspine1k,ctpelvic1k}. Prior automation of spinopelvic
+parameters has largely targeted radiographs via landmark regression, or proprietary
+vendor tools; reproducible, openly licensed pipelines that operate from CT segmentation
+and expose an auditable geometric construction are scarce. DRR synthesis is well
+established for 2D/3D registration and for training radiograph models
+\cite{drr}; we use it here specifically to transfer \emph{dense anatomical labels} from CT
+into the radiographic domain so that radiograph measurements inherit CT-derived geometry.
+Our contribution is integrative and open: a single, inspectable path from CT labels to
+spinopelvic measurement, to radiograph transfer, to a deployable viewer.
+
+\section{Methods}
+\subsection{Dense CT labels (substrate)}
+The pipeline consumes a CT segmentation in a fixed label scheme covering the lumbar
+vertebrae, sacrum and S1, the hips and femora, and (FOV-permitting) the lower thoracic
+vertebrae and ribs. These labels are produced by the \dataset{} pipeline
+\TODO{1-2 sentences + cite descriptor}; this paper concerns everything \emph{downstream}
+of the labels. All geometry is computed in world millimetres from the NIfTI affine.
+
+\subsection{Geometric spinopelvic engine (\ostk)}
+\label{sec:ostk}
+\textbf{Landmarks.} Femoral-head centres are estimated by a robust two-stage sphere fit
+seeded from the acetabular interface and refined by shell-outlier rejection; the
+bicoxofemoral axis (line through the two centres) defines the patient left--right
+direction and hence the sagittal plane used by every angle. The S1 superior endplate and
+each vertebral endplate are fit by a total-least-squares plane to an anterior band of the
+endplate surface, which rejects posterior elements and osteophytes.
+
+\textbf{Parameters.} With the S1 endplate normal $\mathbf{n}_{S1}$, the femoral-head
+midpoint $\mathbf{m}$ and the endplate centroid $\mathbf{c}$, all projected into the
+sagittal plane:
+PI is the angle between $\mathbf{n}_{S1}$ and the radius $\mathbf{m}\!\to\!\mathbf{c}$;
+SS is the angle of $\mathbf{n}_{S1}$ to vertical; PT is the angle of
+$\mathbf{m}\!\to\!\mathbf{c}$ to vertical. LL is the signed Cobb angle between the L1 and
+S1 superior endplates, decomposed into per-level segments (L1--L2 $\ldots$ L5--S1). The
+construction enforces the morphological identity $\mathrm{PI}=\mathrm{SS}+\mathrm{PT}$,
+checked per case ($|\mathrm{SS}+\mathrm{PT}-\mathrm{PI}|<1^\circ$).
+
+\textbf{Output contract and QC.} Each measurement is emitted as JSON with the value, the
+world-mm landmarks, plane-fit residuals, a method version, and QC flags
+(e.g.\ \texttt{low\_voxels}, high fit residual, identity violation) so that unreliable
+cases are surfaced rather than silently returned. PI$-$LL mismatch and SRS--Schwab
+severity modifiers are computed from the parameters \cite{schwab2012}.
+
+\subsection{CT$\rightarrow$radiograph bridge}
+\label{sec:bridge}
+\textbf{Analytic 2D port.} The same angle definitions are implemented for 2D lateral
+geometry; on identical input geometry the 2D and 3D engines agree to numerical tolerance
+(Section~\ref{sec:results}), so a measurement made on a lateral radiograph is the same
+quantity the CT engine computes.
+
+\textbf{DRR + label projection (\xrdataset).} We render synthetic radiographs by
+attenuation integration (parallel-beam ray casting) along the projection axis, with a
+bone-emphasis mode and correct voxel spacing, in lateral and AP views. Crucially, the
+dense \emph{labels} are projected through the \emph{same} projection geometry, producing,
+per case and view: a synthetic radiograph, a per-pixel projected label map, and per-level
+landmarks (centroid and bounding box). Because image and labels share one geometry, the
+2D supervision is exact and requires no manual radiograph annotation. The builder runs
+over \dataset{} CT--label pairs; we show a fully rendered example
+(Fig.~\ref{fig:drr}) and report the projection alignment. A heatmap-based level-localizer
+\emph{framework} (per-level Gaussian targets, a nearest-level baseline, and a compact
+U-Net regressor) is provided; training and evaluation on the rendered set are future work.
+
+\subsection{Deployable viewer and engine contract}
+A browser viewer (NiiVue) loads a compact per-case bundle (cropped, bone-masked,
+downsampled CT $\sim$1\,MB; the label map; and a \texttt{metrics.json}). Clicking a
+parameter animates its geometric construction---solid anatomical lines, dashed
+constructions and the angle arc---mapped from world mm to the screen each frame, so the
+overlay stays correct as the user scrolls. The \texttt{metrics.json} schema stores the
+construction in world coordinates independently of the renderer; it is designed so that a
+learned engine can later emit the same contract and replace the geometric one without
+changing the interface. The viewer is an educational, browser-only demonstration (NIfTI,
+not a clinical PACS) and is hosted publicly.
+
+\subsection{Post-operative alignment simulation (prototype)}
+For planning visualisation, \ostk{} can simulate a correction: a mobile spinal segment is
+rotated about a technique-specific fulcrum (interbody/osteotomy), interbody cages are
+rendered, the pelvis is analytically re-oriented to a target PT, and a smooth displacement
+field warps the CT to a plausible post-operative image; age-adjusted realignment targets
+follow \cite{lafage2016}. This mode is an illustrative prototype and is not validated
+against post-operative imaging.
+
+\section{Results}
+\label{sec:results}
+\textbf{Internal consistency.} Across the cohort the PI$=$SS$+$PT identity holds to
+$<1^\circ$ on \TODO{N} cases that pass QC; \TODO{report \% with each QC flag} were flagged
+for low voxel support or high fit residual and excluded from summary statistics.
+
+\textbf{2D--3D equivalence.} On matched geometry the analytic 2D port reproduces the 3D
+PI/SS/PT/LL to within \TODO{$\epsilon$}$^\circ$ (unit-tested), confirming that radiograph
+and CT measurements are the same quantity.
+
+\textbf{Cohort parameter distribution.} Running the engine over the \dataset{} cohort
+yields the distributions in Table~\ref{tab:dist} (mean$\pm$SD; valid-measurement rate per
+parameter). \TODO{fill Table~\ref{tab:dist} from tools/cohort\_stats.py output}
+
+\begin{table}[t]
+\caption{Spinopelvic parameters over the \dataset{} cohort (supine CT). SS/PT/LL are
+supine surrogates; PI is posture-invariant.}
+\label{tab:dist}
+\centering
+\begin{tabular}{lccc}
+\toprule
+Parameter & Mean$\pm$SD ($^\circ$) & Range & Valid rate \\
+\midrule
+PI & \TODO{} & \TODO{} & \TODO{} \\
+SS & \TODO{} & \TODO{} & \TODO{} \\
+PT & \TODO{} & \TODO{} & \TODO{} \\
+LL & \TODO{} & \TODO{} & \TODO{} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{CT$\rightarrow$radiograph.} Fig.~\ref{fig:drr} shows a rendered lateral DRR with
+its auto-projected per-level labels; projected bone footprints align with DRR bone
+intensity \TODO{quantify overlap on the example/subset}.
+
+\textbf{Viewer.} Fig.~\ref{fig:viewer}\TODO{screenshot} shows the live viewer with an
+animated PI construction and the report panel.
+
+\begin{figure}[t]\centering
+%\includegraphics[width=\columnwidth]{fig_drr_example.png}
+\fbox{\parbox{0.9\columnwidth}{\centering\vspace{2.2cm}\TODO{Fig: lateral DRR + projected
+level labels (example case)}\vspace{2.2cm}}}
+\caption{Synthetic lateral radiograph (DRR) with dense labels projected through the same
+geometry: paired image, label map and per-level landmarks, annotation-free.}
+\label{fig:drr}
+\end{figure}
+
+\begin{figure}[t]\centering
+\fbox{\parbox{0.9\columnwidth}{\centering\vspace{2.2cm}\TODO{Fig: viewer screenshot ---
+animated PI/SS/PT/LL construction + report}\vspace{2.2cm}}}
+\caption{Browser viewer: angle constructions animated from the \texttt{metrics.json}
+contract; engine is decoupled from the interface.}
+\label{fig:viewer}
+\end{figure}
+
+\section{Discussion and Limitations}
+\label{sec:disc}
+\textbf{Scope.} PI is a morphological constant and is therefore directly valid on supine
+CT; SS, PT and LL depend on posture, so their absolute values on supine CT are reported as
+surrogates rather than standing equivalents. SVA and the T1-pelvic angle require a C7/T1
+reference and standing acquisition and are out of scope on this data
+(C7 is outside the field of view); the engine marks them as such rather than reporting
+unreliable values.
+
+\textbf{Validation.} The geometric construction is unit-tested for correctness (identity,
+plane/sphere fits, 2D--3D equivalence), but agreement against manual radiographic
+measurement (MAE, ICC, Bland--Altman) is ongoing and is the primary next step.
+
+\textbf{Maturity.} The radiograph level-localizer is provided as a framework, not a trained
+model; the \xrdataset{} full release is forthcoming (the generation pipeline is complete and
+demonstrated); the viewer is a single-case educational demonstration with a contract
+designed---but not yet wired---for a dual (geometric/learned) engine; and the
+post-operative mode is an illustrative prototype. We state these explicitly so the
+contribution is not over-read.
+
+\textbf{Why it matters.} Even within this scope, the pipeline gives an open, auditable,
+reproducible route from routinely acquired CT to spinopelvic geometry, and---through exact
+label transfer---an annotation-free path to bring the same measurements to radiographs.
+
+\section{Conclusion}
+We presented an open pipeline from segmented CT to spinopelvic measurement: a geometric
+engine with an auditable contract, a CT$\rightarrow$radiograph bridge (exact 2D port plus
+label-carrying DRRs), and a deployable viewer. The components are released under Apache-2.0;
+manual-measurement validation and a trained radiograph localizer are the immediate next
+steps.
+
+\section*{Reproducibility}
+Code: \ostk{} (\url{https://github.com/Gregory-Schwing-MD-PhD/OpenSpineToolkit}); DRR/\xrdataset{}
+pipeline and the viewer are open under Apache-2.0\TODO{add repo URLs}. Demo:
+\url{https://openspineconsortium.com/pacs/}.
+
+\begin{thebibliography}{1}
+\bibitem{schwab2012} F. Schwab \emph{et al.}, ``Scoliosis Research Society--Schwab adult
+spinal deformity classification: a validation study,'' \emph{Spine}, 2012.
+\bibitem{lafage2016} R. Lafage \emph{et al.}, ``Age-adjusted alignment goals in adult
+spinal deformity,'' \emph{Spine}, 2016.
+\bibitem{verse} A. Sekuboyina \emph{et al.}, ``VerSe: a vertebrae labelling and
+segmentation benchmark,'' \emph{Medical Image Analysis}, 2021.
+\bibitem{totalsegmentator} J. Wasserthal \emph{et al.}, ``TotalSegmentator: robust
+segmentation of 104 anatomic structures in CT images,'' \emph{Radiology: AI}, 2023.
+\bibitem{ctspine1k} Y. Deng \emph{et al.}, ``CTSpine1K: a large-scale dataset for spinal
+vertebrae segmentation in CT,'' 2021.
+\bibitem{ctpelvic1k} P. Liu \emph{et al.}, ``CTPelvic1K: pelvic bone segmentation in CT,''
+\emph{IJCARS}, 2021.
+\bibitem{drr} \TODO{DRR reference, e.g. DiffDRR/DeepDRR or a classic Siddon ray-casting
+citation}
+\bibitem{nnunet} F. Isensee \emph{et al.}, ``nnU-Net: a self-configuring method for deep
+learning-based biomedical image segmentation,'' \emph{Nature Methods}, 2021.
+\end{thebibliography}
+\end{document}

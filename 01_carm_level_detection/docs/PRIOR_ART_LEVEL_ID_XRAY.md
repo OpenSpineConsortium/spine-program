@@ -1,0 +1,13 @@
+| Year | Title | Journal | Cited | Reported numbers |
+|---|---|---|---|---|
+| 2022 | Realistic C-arm to pCT registration for vertebral localization in spine surgery : A hybrid 3D-2D registration  | Medical & biological engineeri | 6 |  |
+| 2024 | Identification of L5 vertebra on lumbar spine radiographs using deep learning. | The Journal of international m | 3 | The model's precision was 95.7% and its recall was 97. |
+| 2022 | Multi-perspective region-based CNNs for vertebrae labeling in intraoperative long-length images. | Computer methods and programs  | 3 | Results The MVMS network achieved an F1 score of >96% and an average vertebral localization error of 3. / 3% labeling accuracy on both AP and lateral images - (15.5% and 35. |
+| 2026 | A two-stage approach for the identification and classification of osteoporotic vertebral compression fractures | Medical physics | 0 | Furthermore, for binary classification, this cascade model obtained an average weighted accuracy of 62.72%, weighted precision of 72. / 72%, and weighted F1-score of 66.69%. |
+| 2026 | X2P-Net: Context-Aware 2D/3D Vertebra Localization. | Bioengineering (Basel, Switzer | 0 |  |
+| 2026 | Principles Underlying Surgical Decision-Making in Lowest-Instrumented Vertebra Level Selection of Adolescent I | Journal of clinical medicine | 0 | A composite index combining (LIV- Neutral vertebra) and (LIV- Stable vertebra) reported sensitivity 100% and specificity 92-94% in its derivation cohort, without external validatio |
+| 2026 | Accuracy in spinal level determination, including transitional vertebrae: an ASReview supported systematic rev | European spine journal : offic | 0 | RESULTS: With conventional methods, varying levels of accuracy were achieved with up to 100% accuracy reported in nine studies. / The advanced methods showed an accuracy of 100% in most studies. |
+| 2026 | Deep learning-based precision phenotyping of spine curvature identifies novel genetic risk loci for scoliosis  | NPJ digital medicine | 0 |  |
+| 2026 | Geometric feature analysis for identifying and characterizing normal variations on chest radiographs. | BMC medical imaging | 0 |  |
+| 2026 | Comparison of multistage and single-stage framework for automated landmark localization and radiologic measure | BMC medical imaging | 0 |  |
+| 2025 | CerviHFENet: hybrid feature extraction-based deep learning for multi-label classification of upper cervical sp | BMC medical imaging | 0 | 22% and a mean mAP of 94.6% on the test set, indicating promising diagnostic performance and validating the feasibility and effectiveness of the proposed model. |

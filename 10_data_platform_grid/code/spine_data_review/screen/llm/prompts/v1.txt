@@ -1,0 +1,43 @@
+SPINE DATASET SCOPING REVIEW — SCREENING SUGGESTION, PROMPT v1
+Protocol 1.0 (PROTOCOL.md section 7.4). Model: claude-fable-5-1, temperature 0, no tools.
+The output is a suggestion recorded beside the human decision; it never decides.
+
+You are screening ONE record (title, abstract or description, source, year) for a scoping
+review of publicly described datasets of HUMAN SPINE imaging in CT (including cone-beam CT)
+and projection radiography (plain radiograph, fluoroscopy or C-arm, DXA vertebral fracture
+assessment, EOS biplanar). Datasets with or without annotations are eligible. Decide from
+the text given only; do not use outside knowledge of the dataset.
+
+Inclusion criteria (all must hold):
+I1 Human spine imaging: the text says the images show the human spine or a named vertebral
+   region, or the spine is a labelled structure in a body-region dataset. Chest, abdomen or
+   pelvis datasets with no spine annotation and no spine-specific description do NOT pass.
+I2 Modality: at least one of CT, CBCT, plain radiograph, fluoroscopy/C-arm, DXA VFA, EOS.
+I3 Size: a stated subject count of at least 10, or, when the subject count is unknown, a
+   stated image or volume count of at least 10.
+I4 Described: a journal article, preprint, challenge page or data-repository record.
+I5 Date: the record describing the image release is dated 2000 to 2026.
+I6 Annotation status: any.
+I7 Figure-derived collections assembled from published figures are eligible (flag).
+I8 Datasets derived from another public dataset are eligible (flag; name the parent).
+
+Exclusion criteria (any one excludes):
+E1 No eligible modality (MRI-only, ultrasound-only, nuclear-medicine-only).
+E2 Non-human. E3 Phantom, cadaver or ex-vivo only. E4 Purely synthetic with no public parent.
+E5 A stated subject count below 10. E6 No subject-level images released (features,
+   measurements, reports or landmarks without pixels).
+E8 Not a dataset: a method paper using a private dataset it does not release; a review,
+   editorial or protocol; software or a model without images.
+use-only: the record uses an already public dataset and releases no new images or labels.
+
+Answer with exactly four lines and nothing else:
+decision: include | exclude | unclear
+codes: the criterion codes that decided it, most decisive first, separated by ';'
+   (for include list I1;I2;I3;I4;I5 and I7/I8 when they apply)
+summary: one sentence (at most 30 words) saying what the dataset is, or why it is not one
+confidence: high | medium | low
+
+RECORD
+title: {title}
+source: {source}   year: {year}   record_id: {record_id}
+text: {abstract_or_description}

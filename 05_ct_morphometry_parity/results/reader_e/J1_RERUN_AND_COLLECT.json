@@ -1,0 +1,54 @@
+{
+ "j1_job": 40438897,
+ "j1_final_states": {"COMPLETED": 3512, "OUT_OF_MEMORY": 12},
+ "oom_tasks": [2978, 2979, 2990, 2991, 3028, 3090, 3129, 3131, 3150, 3152, 3219, 3221],
+ "oom_pairs": [
+  "2978 verse:verse503 versefusion", "2979 verse:verse503 spineps",
+  "2990 verse:verse507 versefusion", "2991 verse:verse507 spineps",
+  "3028 verse:verse524 versefusion",
+  "3090 verse:verse549 versefusion",
+  "3129 verse:verse563 versefusion", "3131 verse:verse563 ts",
+  "3150 verse:verse573 versefusion", "3152 verse:verse573 ts",
+  "3219 verse:verse602 versefusion", "3221 verse:verse602 ts"
+ ],
+ "oom_common": "all 12 are whole-spine VerSe CTs (seven persons: verse503, 507, 524, 549, 563, 573, 602; CT gzip 475-1017 MB, 7 of the 8 largest CTs in j1_pairs.json). Every log ends 'READER_E_EXIT rc=137' 18-100 s after START with no stage line, i.e. killed while loading the CT + label; MaxRSS at the kill 1.1-11.6 GB (sacct_40438897.txt). Not corpus-specific to a segmenter: 7 versefusion, 2 spineps, 3 ts. The ctsp pairs (802 persons, abdominopelvic FOV) never exceeded 12 GB. Slurm's --qos=requeue requeued each once (StepIds 404421xx in the logs) and it OOM'd again, so the 12 GB line was the cause, not a transient.",
+ "rerun": {
+  "job_id": 40443093,
+  "script": "SchwingNet/slurm/reader_e_j1_rerun.sh (ffd2b42; --array given on the sbatch line, --mem=32G, same CASES/OUTROOT/--skip-if-done, same task index -> pair)",
+  "submit_command": "sbatch -D $HOME/spinesurg-ct-nnunet/SchwingNet --array=2978,2979,2990,2991,3028,3090,3129,3131,3150,3152,3219,3221 $HOME/spinesurg-ct-nnunet/SchwingNet/slurm/reader_e_j1_rerun.sh",
+  "states": "12/12 COMPLETED (sacct_40443093.txt); READER_E_DONE + rc=0 in every logs/reader_e_j1_rerun-40443093_<task>.out, finished 09:24-09:27Z",
+  "maxrss_mb": {"min": 7014, "max": 12044, "max_task": "2979 verse503 spineps"},
+  "elapsed_s": {"min": 131, "max": 275},
+  "note": "peak 12.0 GB is 2.7x under the 32 GB line and just over the 12 GB line that killed it; the sibling pairs on the same CTs that survived J1 peaked 8.7-11.3 GB, so 12 GB was a ceiling sitting inside the whole-spine distribution, not a leak"
+ },
+ "collect": {
+  "job_id": 40443125,
+  "script": "SchwingNet/slurm/reader_e_collect.sh -> tools/reader_e_j0_collect.py --job 40438897 --sacct-file sacct_40438897.txt --sacct-file sacct_40443093.txt (later job overrides by task index)",
+  "exit": "COLLECT_EXIT rc=0 2026-09-25T09:31:32Z",
+  "outputs_cephfs": "/rs/rs_grp_oschome/go2432/data/or_ready/auto_reference/readerE/j1/_collect/{timing_j1.csv,features_index.csv,features_j1.csv,sacct_40438897.txt,sacct_40443093.txt}",
+  "outputs_local": "SchwingNet/results/reader_e/{timing_j1.csv,features_index.csv,features_j1.csv.gz,sacct_40438897.txt,sacct_40443093.txt} (features_j1.csv raw 40 MB is gitignored; gunzip -c features_j1.csv.gz | md5sum == a59818ae696b78bebde8158e4f03c85a)",
+  "md5": {"timing_j1.csv": "05e278d9ac33e1f6704d67e086029e22", "features_index.csv": "a1df7d539e157126b536f2c6421ac349", "features_j1.csv": "a59818ae696b78bebde8158e4f03c85a"},
+  "md5_grid_equals_local": true,
+  "features_json_on_cephfs": 3524
+ },
+ "j1_readback": {
+  "tool": "python SchwingNet/tools/reader_e_j1_readback.py --dir SchwingNet/results/reader_e",
+  "pairs": {"total": 3524, "state_ok": 3524, "slurm_COMPLETED": 3524, "from_40438897": 3512, "from_40443093": 12, "feature_group_failures": 0},
+  "families": {"ctsp": {"v11": 802, "spineps": 801, "ts": 802}, "verse": {"versefusion": 374, "spineps": 368, "ts": 374}, "ctspine1k": {"ctspine1k": 3}},
+  "instances": {"total": 38432, "has_morph": 31316, "partial": 5864, "body_cut_closed_ring_column": 27641, "body_cut_ostk_body_mask_fallback": 3675, "plate_ok_false_among_morph": 1812, "epw_withheld": 6654},
+  "seconds_total_p50_p90_max": "34.5 / 54.6 / 516.9 s (slowest verse524 ts)",
+  "maxrss_p50_p95_max_mb": "1318 / 3602 / 12044",
+  "ctspine1k": "3/3 ran (tasks 3521-3523: liver_106, liver_83, liver_93), 18-19 instances each, 0 failures, MaxRSS 2.3-2.8 GB, 107-158 s. All three: sacrum none, hips none, junction_ls and junction_tl out of FOV, reader_c_call no_count -> they contribute 55 instances to the per-level morphometry only and carry no lumbosacral label",
+  "guard_verdicts": {"verse_ok": 1159, "verse_ok_no_ctd": 374, "misnamed_1_2_levels": 10},
+  "reader_c_call": {"ordinary": 1475, "no_count": 1881, "L6": 90, "four_lumbar": 44, "blank": 31, "sacralised_fused": 2, "T13": 1}
+ },
+ "open_for_j2": [
+  "SCD below the 11.07 mm floor on 4,809 / 30,455 instances (15.8 %) against a published prevalence of 2.62 % (6x). The floor bit is set on every one, so it is masked, but the share is a spread failure by the standing rule and J2 must say per family and per level where it comes from before J3 is submitted.",
+  "EPDu / EPDl SD 5.5-6.5 mm at the worst level in every family, v11 included, against a widest published SD of 3.5 mm: the ostk 1b7005c canal-closing regression (VBHp / EPD inflated 10-17 mm on ~1 in 7 vertebrae, no gate) that the grid ostk copy carries. Fix in ostk and test against the 0097 release rows before J2 trusts EPD.",
+  "EPWu / EPWl SD 7.6-9.6 mm in versefusion / ts / spineps (v11 4.7) against 5.54; the J0-bis verify already saw 5.9-6.9 at T11-L2.",
+  "body_cut fallback 3,675 / 31,316 = 11.7 % of morph instances (J0-bis: 14 %) -- must be a mask bit in J3, not a feature.",
+  "range level tag 'T11' on 7,750 rows and blank on 7,429: whether the tag clamps every level above T12 into T11 on the whole-spine CTs is unverified; J2's per-level spread must key on the anatomical level, not the range tag.",
+  "guard misnamed_1_2_levels on 10 verse pairs and reader_c_call blank on 31 pairs: list them and look at the renders before they enter J3.",
+  "Renders: 20 random + every held render still to be LOOKED AT (J2), none looked at in this step."
+ ]
+}

@@ -1,0 +1,59 @@
+{
+ "job_id": 40438806,
+ "job_name": "reader_e_j0",
+ "array": "0-59%30",
+ "n_tasks": 60,
+ "submitted_utc": "2026-09-25T04:54:23Z",
+ "submit_command": "sbatch -D $HOME/spinesurg-ct-nnunet/SchwingNet --export=ALL,OUTROOT=/rs/rs_grp_oschome/go2432/data/or_ready/auto_reference/readerE/j0bis $HOME/spinesurg-ct-nnunet/SchwingNet/slurm/reader_e_j0.sh",
+ "code_commit": "06c1416",
+ "grid_clone_at_submit": "06c1416e (~/spinesurg-ct-nnunet, git pull --ff-only)",
+ "what_changed_since_j0": "reader_e_features.py: closed-ring-column body cut (task item 1), reader_e_ranges.json spread gate (2), EPW withholding by value and by presacral position (3), tp_metrics reach only below body_half 30 mm (4), SPINEPS sacrum states with guard verdict text (5); j0_cases.json VerSe spineps sacrum_present corrected to false",
+ "partition": "reqp --qos=requeue, 1 core, 16 GB, 01:00:00 per task (J0's own requests; the J1 script carries the derived 12 GB / 30 min)",
+ "cases_file": "SchwingNet/results/reader_e/j0_cases.json (20 CTs x {release_or_expert, spineps, ts}; task i = case i // 3, segmenter i % 3)",
+ "output_dir": "/rs/rs_grp_oschome/go2432/data/or_ready/auto_reference/readerE/j0bis/<corpus>/<case>/<family>/{features.json,render_sag.png,render_cor.png}",
+ "log_pattern": "~/spinesurg-ct-nnunet/SchwingNet/logs/reader_e_j0-40438806_<task>.out",
+ "companion_jobs": {
+  "40438804": "reader_e_chk: CTSP 0097 v11 with --assert-reference results/reader_e/reference_0097_v11.json (VBHa/VBHp/EPDu/EPDl within 1 mm of the release ostk rows at T11/T12/L3/L4); log logs/reader_e_check-40438804.out, lines REFCHECK / REFCHECK_OK / CHECK_EXIT",
+  "40438805": "reader_e_j1list: tools/reader_e_j1_pairs.py on a compute node -> readerE/j1/j1_pairs.json; log line J1_PAIRS n_pairs=..."
+ },
+ "readback": [
+  "sacct -P --format=JobID,Elapsed,MaxRSS,State,ExitCode -j 40438806",
+  "grep -h READER_E_DONE ~/spinesurg-ct-nnunet/SchwingNet/logs/reader_e_j0-40438806_*.out | wc -l   # 60 when done",
+  "python SchwingNet/tools/reader_e_j0_collect.py --job 40438806 --out-root <j0bis copy> --sacct-file ... --csv SchwingNet/results/reader_e/timing_j0bis.csv"
+ ],
+ "readback_result": {
+  "read_utc": "2026-09-25T05:00Z",
+  "sacct": "60/60 COMPLETED 0:0 (sacct_40438806.txt); Elapsed p50 45 s, p90 94 s, max 151 s; MaxRSS p50 1462 MB, p95 4529 MB, max 5979 MB",
+  "logs": "60/60 READER_E_EXIT rc=0; 0 GROUP_FAILED lines; n_failures 0 on every JSON",
+  "collector": "timing_j0bis.csv: seconds_total p50 37.7 / p90 86.4 / max 145.0; J1 memory 12,288 MB, J1 wall 86 s x 3,524 / 64 x 2 = 2.6 h (unchanged from J0)",
+  "check_0097": "job 40438804 REFCHECK_OK: 16 values (VBHa/VBHp/EPDu/EPDl at T11/T12/L3/L4) within 1 mm of the release ostk rows, max |d| 0.83 mm (L3 EPDu), T12 exact to 0.01 mm; the j0bis 0097 v11 JSON carries the same values",
+  "gates_over_60_pairs": {
+   "instances_with_morph": 536,
+   "instances_any_out_of_range": 272,
+   "out_of_range_by_key": {
+    "SCD": 149,
+    "VBHp": 107,
+    "VBHa": 52,
+    "EPWl": 50,
+    "SCW": 40,
+    "EPWu": 19,
+    "EPDu": 14,
+    "EPDl": 10
+   },
+   "scd_below_published_floor": "86 of 524 (16.4 %) -- the same population the J0 review found (88, 16.8 %); the canal chord code is unchanged, it is now flagged",
+   "merged_ts_bodies_vbh_57_74": "all 20 flagged VBHa/VBHp out_of_range (0097/0234/0244/0302/0366 ts, verse085 ts)",
+   "epw_withheld": 114,
+   "body_cut_fallback_to_ostk_body_mask": 74,
+   "tp_body_half_invalid": 4,
+   "sacrum_sources": {
+    "spineps_26": 10,
+    "spineps none (VerSe ctd_relabel, id 26 absent)": 10,
+    "ts_sacrum_union_S1": 20,
+    "release_26": 10,
+    "versefusion none": 10,
+    "spineps_26_unverified": 0
+   }
+  },
+  "json_copies": "SchwingNet/results/reader_e/j0bis_json/<corpus>/<case>/<family>/features.json (renders stay on CephFS)"
+ }
+}

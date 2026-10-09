@@ -1,0 +1,94 @@
+{
+ "list": "cov_surgio_b51_dr_low_s0",
+ "list_info": {
+  "name": "cov_surgio_b51_dr_low_s0",
+  "device": "surgio_b51_dr",
+  "arm": "low",
+  "seed": 0,
+  "n_train": 2646,
+  "n_val": 1104,
+  "matched_N": 2646,
+  "n_arc_poses": 0,
+  "lat": {
+   "C": 0.1111,
+   "H": 0.2396,
+   "n": 2646,
+   "outside": 0,
+   "unreadable": 0
+  },
+  "tilt": {
+   "C": 0.0,
+   "H": null,
+   "n": 0,
+   "outside": 0,
+   "unreadable": 2646
+  },
+  "corpora": {
+   "low": {
+    "root": "/rs/rs_grp_oschome/go2432/data/devcorpus/styled/surgio_b51_dr__surgio_b51_dr",
+    "renders": 1508,
+    "images": 3016
+   },
+   "high": {
+    "root": "/rs/rs_grp_oschome/go2432/data/devcorpus/styled/surgio_b51_dr_arc__surgio_b51_dr",
+    "renders": 1521,
+    "images": 3042
+   },
+   "low2n": {
+    "root": "/rs/rs_grp_oschome/go2432/data/devcorpus/styled/surgio_b51_dr_low2__surgio_b51_dr",
+    "renders": 1504,
+    "images": 3008
+   }
+  },
+  "val_subjects": [
+   "s0585",
+   "s0970",
+   "s1045",
+   "s1062",
+   "s1159",
+   "s1384",
+   "s1535",
+   "s1579",
+   "s1700",
+   "s1836",
+   "s1842",
+   "s1872",
+   "s1880",
+   "s1883",
+   "s1902",
+   "s2033",
+   "s2053"
+  ],
+  "subjects_train": 125,
+  "real_frames": 0,
+  "selection": "the union of the three corpora's val images (the same 17 subjects every devcorpus arm selected on)",
+  "written": "2026-09-24T23:13:57"
+ },
+ "weights": "/wsu/home/go/go24/go2432/spine-detector/runs/coverage/cov_surgio_b51_dr_low_s0/weights/best.pt",
+ "init": "yolo11m.pt",
+ "epochs": 40,
+ "imgsz": 1024,
+ "scored": "2026-09-25T00:08:36",
+ "real": {
+  "deepfluoro/test": {
+   "status": "GATE REFUSED or failed: no dump (see the log; realxray_eval runs tools/eval_gate.py before scoring)"
+  },
+  "carmlspine/test": {
+   "status": "GATE REFUSED or failed: no dump (see the log; realxray_eval runs tools/eval_gate.py before scoring)"
+  },
+  "cobra_elekta/test": {
+   "status": "GATE REFUSED or failed: no dump (see the log; realxray_eval runs tools/eval_gate.py before scoring)"
+  },
+  "geneva_hip/test": {
+   "status": "GATE REFUSED or failed: no dump (see the log; realxray_eval runs tools/eval_gate.py before scoring)"
+  }
+ },
+ "unseen": {
+  "json": null,
+  "status": "GATE REFUSED or failed: no recall_vs_angle.json"
+ },
+ "case134": {
+  "json": null,
+  "status": "GATE REFUSED or failed: no case134_sweep.json"
+ }
+}

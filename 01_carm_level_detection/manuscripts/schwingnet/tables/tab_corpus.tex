@@ -1,0 +1,81 @@
+% Table 1 -- every collection the models learned from or were tested on, one row per collection; no merged cells
+% (group headings sit in the first cell of their own row). Every cell is traced in tab_corpus.sources.md; the same rows
+% are in tab_corpus.md. Re-derived 2026-09-23 against docs/DATA_COMPLETENESS_AUDIT.md and docs/DATASHEET.md sections
+% 2.1, 2.6 and 3: NHANES II is 543 annotated films of a 17,075-entry release; COBRA2026 is 145 patients used of 692
+% public cases (467 Elekta + 225 Varian), the rest fetching (G0); C-ArmLSpine ships 299 spot exposures and two
+% cone-beam sweeps, of which 296 frames of 148 cases were scored (case134's two exposures missed by a folder walker,
+% case118's oblique scored as a lateral -- G0 repair); VinDr's three counts are three objects and 2,071 of its films
+% sit as 2,632 crops in the intraoperative fold banks (none in the film bank); FluoroCap likewise (950 panels as
+% 2,100 crops). New column "Released from it" (corpus / parameters / weights; footnote k).
+% Revision 2 (2026-09-24, REVISION_LOG2.md): title "one row per collection" (REVIEW2_RSNA Fix 2: VinDr-SpineXR is under
+% a data use agreement, FluoroCap is figures of articles); gate labels and pipeline slang out of the notes (Fix 26);
+% footnote c widened to the implant-render key alias (closure MANUSCRIPT_CORRECTIONS.md 2.4); Geneva and Ljubljana R2
+% are within-subject and footnote k says what each fold leaves out (closure 3b; EVAL_LEAKS L6); the film rows'
+% validation split named as the checkpoint-selection split (closure 3c).
+% Layout: landscape. The whole table (caption, tabular, notes) sits in a 23.2 cm minipage rotated 90 degrees with
+% graphicx's \rotatebox inside the float, so no package is added to rsnastyle.tex and endfloat still moves it to the
+% end. The rotated box is 23.2 cm tall (text height 23.7 cm) and its width is the table's natural height, which must
+% stay under the 16 cm line: slurm/tables_check.sh + tools/tables_check.py measure that and every font size (7 pt
+% floor at native size, the size a landscape page prints it). Footnote markers are \textsuperscript so a Word
+% conversion keeps them as superscripts. Body 7 pt on 7.6 pt.
+\begin{table}[p]
+\centering
+\begingroup
+\singlespacing
+\fontsize{7}{7.6}\selectfont
+\newcommand{\fnm}[1]{\textsuperscript{\fontsize{7}{7}\selectfont #1}}
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.0}
+\rotatebox[origin=c]{90}{\begin{minipage}{23.2cm}
+\captionsetup{font=footnotesize,skip=4pt}
+\centering
+\caption{Image sources: one row per collection, with its modality and device, its role, the unit the split keeps disjoint, what was scored, its truth and what this work releases from it.}
+\label{tab:data}
+% column widths sum to 22.10 cm; with 14 gaps of 2 pt (0.99 cm) the tabular is 23.09 cm in a 23.1 cm minipage
+\begin{tabular}{%
+>{\raggedright\arraybackslash}p{2.20cm}%
+>{\raggedright\arraybackslash}p{2.50cm}%
+>{\raggedright\arraybackslash}p{3.20cm}%
+>{\raggedright\arraybackslash}p{3.30cm}%
+>{\raggedright\arraybackslash}p{3.70cm}%
+>{\raggedright\arraybackslash}p{3.40cm}%
+>{\raggedright\arraybackslash}p{3.80cm}}
+\toprule
+Collection\fnm{j} & Modality; device & Role in this work & Distinct subjects (split unit) & Frames, films or renders (train / val / test) & Truth source & Released from it\fnm{k} \\
+\midrule
+\emph{CT with labels, rendered} & & & & & & \\
+CTSpino\-Pelvic1K & abdominopelvic CT & level bank\fnm{a} & 801 patients of 802 records\fnm{b} (TCIA patient identifier) & 801 renders & release labels: levels, ribs, pelvis & corpus; level weights \\
+Total\-Segmentator v2 and v3 & whole-body CT & level bank; styled corpus (142 subjects, 17 validation) & 1,935 scans\fnm{c} (CT scan) & 1,170 (v2) and 1,735 (v3) renders & labels mapped by name & corpus; level weights \\
+VerSe 19/20 & spine CT & level bank; no accuracy quoted\fnm{c} & 355 subjects, 374 series (subject) & 387 renders; 374 soft-tissue renders & VerSe masks C1--L6; published transitional table & corpus; level weights \\
+\emph{Radiographs} & & & & & & \\
+CSXA & cervical lateral & level bank; checkpoint selection & 4,963 individuals (individual) & 4,963 films & per-vertebra levels, released & corpus; level weights \\
+BUU-LSPINE & lumbar AP and lateral & level bank; checkpoint selection & 3,600 cases\fnm{d} (case number) & 3,603 lateral films; the 3,600 AP films in no bank & end-plate lines L1--S1; levels by position & corpus; level weights \\
+NHANES II & lateral survey film & level bank; checkpoint selection & 364 persons among the annotated (sample person) & 543 annotated films (542 on disk) of 17,075 release entries\fnm{e} & landmarks, released & corpus; level weights \\
+VinDr-SpineXR & AP and lateral & intraoperative fold banks only, training, pseudo-labelled\fnm{f} & 5,000 studies\fnm{c} (study) & 2,071 films as 2,632 crops, of 10,466 released images & lesion boxes released; levels pseudo-labelled & corpus (all 10,466 images) \\
+FluoroCap & literature fluoroscopy panels & intraoperative fold banks only, training\fnm{f} & not established\fnm{g} (source article or video) & 950 panels as 2,100 crops, of 29,484 harvested & none released & none: dropped \\
+\emph{Real exposures with three-dimensional truth} & & & & & & \\
+C-ArmLSpine & mobile C-arm, Surgio-B51; per-case CBCT & naming cross-validation; held-out detector test & not established; 149 released cases, 148 scored\fnm{h} (case = acquisition session) & 296 scored: 210 / 30 / 56 (105 / 15 / 28 cases); released 299 spot exposures, two cone-beam sweeps\fnm{h} & CBCT, two automatic labellers, agreed levels; pose by registration & corpus; level weights (fold models); no detector weight \\
+DeepFluoro & mobile C-arm, Cios Fusion; cadaver CT & detector training; device parameters & 6 specimens (specimen; 4 / 1 / 1) & 366 frames: 238 / 24 / 104 & CT and C-arm pose per frame & corpus; parameters (40 of 366 frames, R² 0.905 vs 0.899); detector weights \\
+COBRA2026, Elekta XVI & radiotherapy kV imager; planning CT & detector training; device parameters & 145 patients of 467 public Elekta cases\fnm{i} (case = patient; 110 / 8 / 27) & 3,480 frames: 2,640 / 192 / 648 & planning CT, deformably registered; RTK geometry & corpus (all 692 public cases); parameters (40 of 335, R² 0.974 vs 0.964); detector weights \\
+Geneva hip & mobile C-arm, BV Pulsera; phantom CT & unseen device, test only; device parameters & 1 phantom (none: one object) & 116 frames, all test & CT and gold-standard pose & corpus; parameters (40 of 116, within-subject R² 0.952 vs 0.917) \\
+Ljubljana 2D-3D-GS & turntable flat panel, PIXIUM 4600; cadaver CT & device parameters only & 1 specimen (not split) & 18 frames & CT and gold-standard pose & parameters (14 of 18, within-subject R² 0.679 vs 0.650); no frame \\
+\bottomrule
+\end{tabular}
+\par\vspace{1pt}
+\begingroup\fontsize{7}{7.6}\selectfont\raggedright
+AP = anteroposterior; CBCT = cone-beam CT; CDC = Centers for Disease Control and Prevention; RTK = reconstruction toolkit; TCIA = The Cancer Imaging Archive; level bank = the training set of the level encoder and head; R² = coefficient of determination.
+\fnm{a}Physics-styled re-renders of the three CT collections (7,045 over 3,029 subjects; 1,482 over 81 transitional subjects) repeat subjects already counted; bank subject counts are not additive.
+\fnm{b}Record 0533 was a truncated download and is in no trained bank; rebuilt and replaced in the release (802 records in the released corpus, supplement Table~S3), it enters no reported number.
+\fnm{c}No patient identifier in the release: the scan, series or study is the finest recoverable unit; the TotalSegmentator count folds 24 renumbered pairs and three duplicate groups; in the level banks, CTSpinoPelvic1K implant renders were keyed apart from their source CT and, in the first bank, VerSe series as subjects, which put CT-derived persons on both sides of each bank's split (192 in the first, 164 in the second; none from a film corpus), so no CT-render naming accuracy is quoted.
+\fnm{d}3,598 by content: two case pairs share byte-identical films, which the built split merges (supplement Table~S3).
+\fnm{e}The CDC index lists 17,075 films; two are served empty at the source, so 17,073 are on disk; one annotated film survives only inside the annotation archive.
+\fnm{f}Fold banks = the capped per-fold crop banks of the intraoperative cross-validation (about 31,400 crops per fold); the film bank behind the plain-film accuracies holds no VinDr or FluoroCap image. The released corpus takes all 10,466 VinDr images and drops FluoroCap (a republished figure is the same patient).
+\fnm{g}A panel keys to its source article or video, which may hold several patients or one patient republished.
+\fnm{h}The archive ships 299 spot exposures over 149 cases (149 AP, 149 lateral with one repeat, one oblique) and two 301-projection cone-beam sweeps; the scored bank holds one AP and one lateral of 148 cases (case134's two, filed in its cone-beam directory, were missed by the export script) and scores case118's −58° oblique as a lateral. No patient tag survives; the cases fall on five acquisition dates.
+\fnm{i}692 public cases: 467 Elekta XVI (centres A--D), 225 Varian OBI (F--G); 152 Elekta cases were fetched before the analysis and 145 kept --- two pilot cases (A004, A005) never entered the export list and five (A081, A239, A260, A303, B000) failed an axis-map check, B000 because its planning CT is released outside the imaged volume; 26 Varian cases trained no model; the remaining cases enter no reported number.
+\fnm{j}Totals over the additive rows: 4,093 renders (801 + 1,170 + 1,735 + 387); 9,108 level-bank films (4,963 + 3,603 + 542; 2,071 VinDr films and 950 FluoroCap panels sit in the fold banks alone); 4,276 real frames scored (296 + 366 + 3,480 + 116 + 18), of which the mobile C-arm rows (296, 366, 116) give 778; subjects are not totalled because the units differ.
+\fnm{k}Corpus: rebuilt from the public release by the released exporters (the licences differ, so derived frames are not redistributed). Parameters: a fitted nine-term image-formation file for the device, with the frames it was fitted on and its median R² over six folds on the frames each fold left out, against uncalibrated physics (patients left out for Cios Fusion and Elekta XVI; views or frames of the one object for BV Pulsera and PIXIUM 4600). Weights: the released weights were trained on it (level weights = the fold models of the intraoperative cross-validation; detector = the held-out-device detector trained on COBRA2026 and DeepFluoro real frames); corpus and weights are released at publication. Downloaded but used by no trained component: SpinalAI, AASCE, SpineSAC phantom frames, Mendeley-716 and one internal render set.
+\par\endgroup
+\end{minipage}}
+\endgroup
+\end{table}

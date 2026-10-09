@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "about": "Entries moved out of SchwingNet/numbers_manifest.json on 2026-09-24 (paper-1 HEAD dd8f4a562709af202541f422efe42525c29beaa0) because they belong to the LevelCheck / surgeon comparison, which is now paper 2 (paper2_levelcheck/MOVED_FROM_PAPER1.md). Same schema as the paper-1 manifest: key -> results file (path relative to SchwingNet/), RFC 6901 pointer, format, the job that produces it. Copied verbatim; nothing re-pointed. 2026-09-24 fill pass: the automated-reference keys (autoref_*, results/fig6/frozen/auto_reference.json) added here with the paragraph of MOVED_FROM_PAPER1.md item 8; they were never in the paper-1 manifest.",
+  "numbers": {
+    "power_n_min_h1_822": {
+      "file": "results/power/power.json",
+      "pointer": "/n_needed_zero_errors/H1_exact_82.2",
+      "fmt": "{:d}",
+      "job": "fig_power (2026-09-24 10:33)",
+      "note": "persons, zero errors, to reject p0 = 0.822 at one-sided 0.025"
+    },
+    "power_n_min_h2_976": {
+      "file": "results/power/power.json",
+      "pointer": "/n_needed_zero_errors/H2_exact_97.6",
+      "fmt": "{:d}",
+      "job": "fig_power (2026-09-24 10:33)"
+    },
+    "power_n_min_g6_level_90": {
+      "file": "results/power/power.json",
+      "pointer": "/n_needed_zero_errors/G6_level_wilson_90",
+      "fmt": "{:d}",
+      "job": "fig_power (2026-09-24 10:33)",
+      "moved_note": "the Wilson-90 % n (35 persons), the pre-stated G6 target; paper 1 still prints 35 in Table 2 note f and the Results from results/stats_review/recompute.json#R4_wilson and this same pointer, typed, until its \\RESULT{} conversion pass; moved because the task listed it with the two exact-test keys"
+    },
+    "fig6_h1_coupled_accuracy_pct": {
+      "file": "results/fig6/fig6.json",
+      "pointer": "/primary/H1/accuracy_pct",
+      "fmt": "{:.1f}",
+      "job": "f6eval 40431765 (HELD until the section-14 freeze and the section-15 detector)",
+      "note": "the primary transitional comparison; unblinding has not happened"
+    },
+    "autoref_n_calibration": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/dawid_skene/n_calibration",
+      "fmt": "{:d}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)",
+      "note": "calibration persons (CTSP 707 + VerSe 238, train + val sides, human read)"
+    },
+    "autoref_n_test_in_calibration": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_set/test_persons_in_calibration",
+      "fmt": "{:d}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)",
+      "note": "asserted 0"
+    },
+    "autoref_ppv_lb_min": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/parameters/ppv_wilson_lower_bound_min",
+      "fmt": "{:.2f}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)"
+    },
+    "autoref_ds_threshold": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/parameters/ds_posterior_threshold",
+      "fmt": "{:.2f}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)"
+    },
+    "autoref_ds_coverage_pct": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/dawid_skene/coverage/0",
+      "fmt": "{:.1f}",
+      "kind": "pct_of",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)",
+      "note": "coverage of the Dawid-Skene rule; the array is [point, lo, hi]"
+    },
+    "autoref_ds_coverage_lo_pct": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/dawid_skene/coverage/1",
+      "fmt": "{:.1f}",
+      "kind": "pct_of",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)"
+    },
+    "autoref_ds_coverage_hi_pct": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/dawid_skene/coverage/2",
+      "fmt": "{:.1f}",
+      "kind": "pct_of",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)"
+    },
+    "autoref_ds_ord_ppv": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/dawid_skene/per_class/ordinary/ppv/0",
+      "fmt": "{:.3f}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)",
+      "note": "ordinary PPV under Dawid-Skene; [point, lo, hi], one key per element (not the ci kind)"
+    },
+    "autoref_ds_ord_ppv_lo": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/dawid_skene/per_class/ordinary/ppv/1",
+      "fmt": "{:.3f}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)"
+    },
+    "autoref_ds_ord_ppv_hi": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/dawid_skene/per_class/ordinary/ppv/2",
+      "fmt": "{:.3f}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)"
+    },
+    "autoref_ds_ord_correct": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/dawid_skene/per_class/ordinary/n_correct",
+      "fmt": "{:d}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)"
+    },
+    "autoref_ds_ord_assigned": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/dawid_skene/per_class/ordinary/n_assigned",
+      "fmt": "{:d}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)"
+    },
+    "autoref_ds_ord_wrong_l6": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/dawid_skene/per_class/ordinary/wrong_truths/L6",
+      "fmt": "{:d}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)"
+    },
+    "autoref_ds_ord_wrong_t13": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/dawid_skene/per_class/ordinary/wrong_truths/T13",
+      "fmt": "{:d}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)"
+    },
+    "autoref_ds_ord_sens": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/dawid_skene/per_class/ordinary/sensitivity/0",
+      "fmt": "{:.3f}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)"
+    },
+    "autoref_unan_l6_correct": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/unanimity/per_class/L6/n_correct",
+      "fmt": "{:d}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)",
+      "note": "L6 unanimity 14/14"
+    },
+    "autoref_unan_l6_assigned": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/unanimity/per_class/L6/n_assigned",
+      "fmt": "{:d}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)"
+    },
+    "autoref_unan_l6_ppv_lb": {
+      "file": "results/fig6/frozen/auto_reference.json",
+      "pointer": "/calibration_table/unanimity/per_class/L6/ppv/1",
+      "fmt": "{:.3f}",
+      "job": "tools/auto_reference_calibrate.py (2026-09-24T19:46:05Z, HEAD 749bc94; frozen, sha256 57782cad...)",
+      "note": "Wilson lower bound 0.785 < 0.90: L6 not certified"
+    }
+  },
+  "figures": {
+    "figure6": {
+      "file": "figures/figure6.pdf",
+      "job": "f6eval 40431765 (HELD) -> tools/fig6.py",
+      "note": "vs the pre-specified LevelCheck model"
+    }
+  }
+}

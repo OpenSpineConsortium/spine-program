@@ -1,0 +1,560 @@
+{
+ "figure": "figure3",
+ "title": "SchwingNet: two detectors, level model, count from the sacrum, alphabet coupling",
+ "tool": "SchwingNet/tools/figure3_network.py",
+ "built": "2026-09-24T10:32:28-04:00",
+ "git_head": "7f8d7f009b500d41d144e35088d5493a49089495",
+ "tool_uncommitted": true,
+ "components": {
+  "a": "detectors (YOLO11m-pose keypoint lane; YOLO11m box lane)",
+  "b": "level model",
+  "c": "count from the sacrum",
+  "d": "alphabet coupling"
+ },
+ "results_numbers": "none. The figure carries no result: every number on it is an architecture parameter quoted from the atlas card or the Methods (below), a feature-map size computed from them (below), an ordinal computed on the drawn column, or a level name.",
+ "drawn_terms": [
+  {
+   "panel": "a",
+   "drawn": "one exposure",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Model properties/Input",
+   "quote": "One 8-bit C-arm exposure"
+  },
+  {
+   "panel": "a",
+   "drawn": "1024²",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Model properties/Input",
+   "quote": "C-ArmLSpine exported at 1,024 x 1,024"
+  },
+  {
+   "panel": "a",
+   "drawn": "two detectors, neither trained on the test C-arm (title)",
+   "source": "SchwingNet/sections/methods.tex",
+   "where": "The network",
+   "quote": "Two detectors never trained on the test C-arm find the bodies"
+  },
+  {
+   "panel": "a",
+   "drawn": "two detectors, neither trained on the test C-arm (title)",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Summary",
+   "quote": "two detectors never trained on the test C-arm"
+  },
+  {
+   "panel": "a",
+   "drawn": "neither names a level (title): the keypoint detector boxes, the level model names",
+   "source": "SchwingNet/sections/methods.tex",
+   "where": "The network",
+   "quote": "boxes the bodies the level model names"
+  },
+  {
+   "panel": "a",
+   "drawn": "neither names a level (title): YOLO11m renames nothing",
+   "source": "tools/level_prototype.py",
+   "where": "comment above sacdet",
+   "quote": "It never adds, removes or renames a vertebra"
+  },
+  {
+   "panel": "a",
+   "drawn": "YOLO11m-pose keypoint detector, trained on films",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Summary",
+   "quote": "a film-trained YOLO11m-pose keypoint detector that boxes the bodies to be named"
+  },
+  {
+   "panel": "a",
+   "drawn": "YOLO11m-pose keypoint detector",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Model properties/Architecture",
+   "quote": "Body detector: YOLO11m-pose (Ultralytics)"
+  },
+  {
+   "panel": "a",
+   "drawn": "trained on films",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Model properties/Architecture",
+   "quote": "on the plain-film keypoint corpus"
+  },
+  {
+   "panel": "a",
+   "drawn": "keypoint detector, trained on films; its boxes are the bodies (b) names",
+   "source": "SchwingNet/sections/methods.tex",
+   "where": "The network",
+   "quote": "keypoint detector trained on films boxes the bodies the level model names"
+  },
+  {
+   "panel": "a",
+   "drawn": "keypoint lane: four corners per body (dots) become the body boxes",
+   "source": "tools/level_prototype.py",
+   "where": "module docstring, pipeline",
+   "quote": "vertebra detector (keypoint corners -> boxes, top to bottom)"
+  },
+  {
+   "panel": "a",
+   "drawn": "keypoint lane: the body box is the corners' hull (no margin)",
+   "source": "tools/level_prototype.py",
+   "where": "keypoint loop",
+   "quote": "b = [int(pts[:, 0].min()), int(pts[:, 1].min()), int(pts[:, 0].max()), int(pts[:, 1].max())]"
+  },
+  {
+   "panel": "a",
+   "drawn": "four corner keypoints per body: the drawn detector is detector_v5z_final, trained on data/yolo_v4z",
+   "source": "docs/MANIFEST_DATA_MODELS_RESULTS.md",
+   "where": "detector table",
+   "quote": "`detector_v5z_final` | `~/FluoroCap/detect_v5z_final_best.pt` | `data/yolo_v4z`"
+  },
+  {
+   "panel": "a",
+   "drawn": "four corner keypoints per body: yolo_v4z is written by make_zoom_dataset.py",
+   "source": "tools/make_zoom_dataset.py",
+   "where": "module docstring",
+   "quote": "--dst ~/spine-detector/data/yolo_v4z"
+  },
+  {
+   "panel": "a",
+   "drawn": "four corner keypoints per body",
+   "source": "tools/make_zoom_dataset.py",
+   "where": "module docstring",
+   "quote": "The detector (YOLO pose, four corners per vertebral body)"
+  },
+  {
+   "panel": "a",
+   "drawn": "four corner keypoints per body",
+   "source": "tools/make_zoom_dataset.py",
+   "where": "data.yaml it writes",
+   "quote": "kpt_shape: [4, 3]"
+  },
+  {
+   "panel": "a",
+   "drawn": "keypoint lane: no box on the sacrum",
+   "source": "tools/level_prototype.py",
+   "where": "comment above sacdet",
+   "quote": "The keypoint detector and the oracle boxes carry no sacrum"
+  },
+  {
+   "panel": "a",
+   "drawn": "YOLO11m lane: its sacrum box is the anchor of (c)",
+   "source": "tools/level_prototype.py",
+   "where": "comment above sacdet",
+   "quote": "its best class-1 box goes into `sacrum_box`"
+  },
+  {
+   "panel": "a",
+   "drawn": "YOLO11m box detector, classes vertebra and sacrum, 1024 px",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Model properties/Architecture",
+   "quote": "Sacrum detector: YOLO11m, classes vertebra and sacrum, 1,024-pixel input"
+  },
+  {
+   "panel": "a",
+   "drawn": "YOLO11m box detector, classes vertebra and sacrum",
+   "source": "SchwingNet/sections/methods.tex",
+   "where": "The network",
+   "quote": "a YOLO11m vertebra and sacrum detector"
+  },
+  {
+   "panel": "a",
+   "drawn": "YOLO11m, render-trained, fine-tuned on real frames of two other devices (lane label, REVIEW2_RSNA Fix 26)",
+   "source": "SchwingNet/sections/methods.tex",
+   "where": "The network",
+   "quote": "fine-tuned from a render-trained detector on real frames of two other devices, boxes the sacrum"
+  },
+  {
+   "panel": "a",
+   "drawn": "YOLO11m, fine-tuned on real frames of two other devices (COBRA2026, DeepFluoro)",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Summary",
+   "quote": "a YOLO11m vertebra/sacrum detector trained on real COBRA2026 and DeepFluoro frames that boxes the sacrum"
+  },
+  {
+   "panel": "a",
+   "drawn": "YOLO11m, fine-tuned (from a render-trained parent)",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Model properties/Architecture",
+   "quote": "initialised from COCO-pretrained yolo11m.pt through the render-trained anchor_none_v2_17-1882"
+  },
+  {
+   "panel": "a",
+   "drawn": "other devices: the test C-arm",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Descriptors/References (C-ArmLSpine)",
+   "quote": "Surgio-B51 flat-panel C-arm"
+  },
+  {
+   "panel": "a",
+   "drawn": "other devices: DeepFluoro",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Descriptors/References (DeepFluoro)",
+   "quote": "DeepFluoro: Siemens Cios Fusion"
+  },
+  {
+   "panel": "a",
+   "drawn": "other devices: COBRA2026",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Descriptors/References (COBRA2026)",
+   "quote": "Elekta XVI centres A-D used"
+  },
+  {
+   "panel": "a",
+   "drawn": "routing as drawn: bodies from the keypoint lane, sacrum from YOLO11m (the illustrated det74 numbers)",
+   "source": "SchwingNet/results/COUPLING.md",
+   "where": "Variants",
+   "quote": "**det74** = keypoint-detector boxes; LODO sacrum, conf >= 0.74"
+  },
+  {
+   "panel": "a",
+   "drawn": "routing as drawn: the coupling run fills the sacrum only",
+   "source": "SchwingNet/slurm/coupling.sh",
+   "where": "level_prototype call",
+   "quote": "--dump-posterior --sacrum-detector \"$SACDET\""
+  },
+  {
+   "panel": "b",
+   "drawn": "two-channel crop: image plus target marker, 2 x 320², target body 96 px",
+   "source": "SchwingNet/sections/methods.tex",
+   "where": "The level encoder and what it learns",
+   "quote": "fixed-scale two-channel crop (image and target marker; target 96 of 320 pixels)"
+  },
+  {
+   "panel": "b",
+   "drawn": "ResNet-18, two-channel crop",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Model properties/Architecture",
+   "quote": "ResNet-18 with a two-channel stem (image + target marker)"
+  },
+  {
+   "panel": "b",
+   "drawn": "2 x 320² crop, target body 96 px",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Model properties/Architecture",
+   "quote": "2 x 320 x 320 fixed-scale crop with the target body at 96 pixels"
+  },
+  {
+   "panel": "b",
+   "drawn": "ResNet-18, one 512-vector per body",
+   "source": "SchwingNet/sections/methods.tex",
+   "where": "The level encoder and what it learns",
+   "quote": "ResNet-18 encoder \\citep{he2016} into a 512-dimensional embedding"
+  },
+  {
+   "panel": "b",
+   "drawn": "one 512-vector per body, 27-level posterior",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Summary",
+   "quote": "a ResNet-18 level encoder reading a fixed-scale two-channel crop per body into a 512-d embedding and a 27-level posterior (C1-C7, T1-T13, L1-L6, sacrum)"
+  },
+  {
+   "panel": "b",
+   "drawn": "GRU, two layers, both directions",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Model properties/Architecture",
+   "quote": "Recurrent head: Linear(512->256) + GELU, two-layer bidirectional GRU(256), Linear(512->27)"
+  },
+  {
+   "panel": "b",
+   "drawn": "GRU across 2-9 bodies",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Summary",
+   "quote": "a two-layer bidirectional GRU head over runs of two to nine bodies"
+  },
+  {
+   "panel": "b",
+   "drawn": "GRU across 2-9 bodies, into a 27-level posterior",
+   "source": "SchwingNet/sections/methods.tex",
+   "where": "The network",
+   "quote": "two-layer bidirectional gated recurrent unit (GRU) decodes runs of two to nine embeddings at mixed lengths into a 27-level posterior"
+  },
+  {
+   "panel": "c",
+   "drawn": "ordinals from the detected sacrum, no names",
+   "source": "SchwingNet/sections/methods.tex",
+   "where": "The network",
+   "quote": "Counting ranks each body from the detected sacrum and reads no morphology"
+  },
+  {
+   "panel": "c",
+   "drawn": "ordinals from the detected sacrum, no names",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Model properties/Architecture",
+   "quote": "Count: rank from the detected sacrum, no morphology."
+  },
+  {
+   "panel": "c",
+   "drawn": "ordinal 1 = the body nearest the sacrum, along the principal axis",
+   "source": "tools/alphabet_couple.py",
+   "where": "module docstring, ENUMERATOR",
+   "quote": "Ordinal 1 is the body nearest the sacrum, counting AWAY from it along the principal axis of the box centres (sacrum included)"
+  },
+  {
+   "panel": "d",
+   "drawn": "four alphabets scored by the posteriors",
+   "source": "SchwingNet/sections/methods.tex",
+   "where": "The network",
+   "quote": "The coupled call chooses, among the ordinary, L6, T13 and both-variant naming alphabets, the one best fitting the posteriors at the ordinals"
+  },
+  {
+   "panel": "d",
+   "drawn": "four alphabets; no learned parameter in (c) or (d)",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Model properties/Architecture",
+   "quote": "No learned parameters in the count or the coupling."
+  },
+  {
+   "panel": "d",
+   "drawn": "score: mean log posterior of an alphabet's names",
+   "source": "tools/alphabet_couple.py",
+   "where": "module docstring, ALPHABETS",
+   "quote": "S(A) = mean over bodies with an ordinal of log p_i( A(n_i) )"
+  },
+  {
+   "panel": "d",
+   "drawn": "call: the alphabet that scores highest",
+   "source": "tools/alphabet_couple.py",
+   "where": "module docstring, ALPHABETS",
+   "quote": "the call is argmax_A S(A)"
+  },
+  {
+   "panel": "d",
+   "drawn": "stop: a classifier name differs from the call, or a low margin over the next-best alphabet",
+   "source": "SchwingNet/sections/methods.tex",
+   "where": "The network",
+   "quote": "a classifier name differing from the call, or a margin over the next-best alphabet below the fifth percentile of correct frames in the other folds, stops the read"
+  },
+  {
+   "panel": "d",
+   "drawn": "stop: a classifier name differs from the call",
+   "source": "SchwingNet/atlas/model.json",
+   "where": "Model/Model properties/Architecture",
+   "quote": "a classifier name differing from the call stops the read"
+  },
+  {
+   "panel": "d",
+   "drawn": "stop: a classifier name differs from the call",
+   "source": "tools/alphabet_couple.py",
+   "where": "module docstring",
+   "quote": "a body whose classifier name differs from its corrected name is a DISAGREEMENT -- the stop signal"
+  },
+  {
+   "panel": "d",
+   "drawn": "stop: a low margin over the next-best alphabet (the threshold is set on the other folds, not drawn)",
+   "source": "tools/alphabet_couple.py",
+   "where": "module docstring, FLAG",
+   "quote": "any disagreement, or margin_next below --tau"
+  },
+  {
+   "panel": "a",
+   "drawn": "routing: YOLO11m's vertebra boxes are not the bodies (b) and (c) use",
+   "source": "SchwingNet/slurm/coupling.sh",
+   "where": "whole file",
+   "quote": "(absent) --box-detector"
+  },
+  {
+   "panel": "b",
+   "drawn": "the 27 levels, grouped C1-C7, T1-T13, L1-L6, sacrum",
+   "source": "tools/make_context_crops.py",
+   "where": "LEVEL_ORDER",
+   "quote": "C1 C2 C3 C4 C5 C6 C7 T1 T2 T3 T4 T5 T6 T7 T8 T9 T10 T11 T12 T13 L1 L2 L3 L4 L5 L6 sacrum"
+  }
+ ],
+ "derived_not_stated": [
+  {
+   "panel": "a",
+   "drawn": "1024², 512², 256², 128², 64², 32²; the neck fed by the last three scales; a head at three scales",
+   "rule": "conv_out(n, k=3, s=2, p=1) = floor((n + 2 - 3) / 2) + 1 applied five times from the stated 1024 px input (YOLO11 backbone P1-P5); the neck and detect head on P3-P5 (ultralytics yolo11.yaml). Computed by yolo_sizes() in this tool. Not stated in the atlas or the Methods; kept from Figure 1(c) (tools/fig6_arch.py). Drawn for the YOLO11m box lane only: the keypoint lane is one block."
+  },
+  {
+   "panel": "b",
+   "drawn": "160², 80², 40², 20², 10²; a residual skip over each stage",
+   "rule": "torchvision resnet18 from the stated 320 px crop: conv1 7x7/2 p3, max-pool 3x3/2 p1 and layer1 (stride 1), layer2-4 each opening 3x3/2 p1; computed by resnet18_sizes() in this tool. tools/train_level_classifier.build_model rebuilds conv1 for two channels with stride=conv.stride kept. Not stated in the atlas or the Methods."
+  }
+ ],
+ "computed_on_the_drawing": {
+  "c_ordinals": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ],
+  "c_rule": "tools/alphabet_couple.order_from_anchor on the drawn boxes and the drawn sacrum box; the arrow is the first principal direction of the box centres, signed away from the sacrum",
+  "d_table": {
+   "ordinary": [
+    "sacrum",
+    "L5",
+    "L4",
+    "L3",
+    "L2",
+    "L1",
+    "T12",
+    "T11"
+   ],
+   "L6": [
+    "sacrum",
+    "L6",
+    "L5",
+    "L4",
+    "L3",
+    "L2",
+    "L1",
+    "T12"
+   ],
+   "T13": [
+    "sacrum",
+    "L5",
+    "L4",
+    "L3",
+    "L2",
+    "L1",
+    "T13",
+    "T12"
+   ],
+   "both": [
+    "sacrum",
+    "L6",
+    "L5",
+    "L4",
+    "L3",
+    "L2",
+    "L1",
+    "T13"
+   ]
+  },
+  "d_rule": "tools/sweep_map.alphabet(l6, t13), name of ordinal n = col[len(col) - 1 - n] (tools/alphabet_couple.couple), sacrum at ordinal 0"
+ },
+ "routing": "The bodies (b) names and (c) counts are the keypoint lane's boxes; the anchor of (c) is the YOLO11m lane's sacrum box; YOLO11m's vertebra boxes go to neither. This is how the illustrated coupled numbers were produced (COUPLING.md det74; coupling.sh --sacrum-detector, no --box-detector). YOLO11m's vertebra class is drawn because the network has it and the held-out detection numbers of the Results score it.",
+ "schematic_not_data": [
+  "the exposure icons in (a) and the crop icons in (b)",
+  "the keypoint dots in (a): four per body, placed on the icon's body corners",
+  "the posterior bars in (b) and (d): shapes peaked at the name printed with them, not model output",
+  "the lordotic column in (c)",
+  "the outlined call in (d) (L6): an example of the mechanism, not a result"
+ ],
+ "not_drawn": [
+  "the keypoint detector's internals: the atlas names it YOLO11m-pose and states nothing inside it",
+  "the preprocessing before the keypoint detector in tools/level_prototype.py (orientation net, skipped by --no-orient in the coupling run; film histogram match), neither in the atlas nor the Methods",
+  "the confidence thresholds (keypoint 0.35, YOLO11m 0.74): in the Methods text",
+  "the Linear(512->256) + GELU before the GRU and the Linear(512->27) after it (atlas Architecture)",
+  "the single-crop classifier output blended with the recurrent head, and the flip test-time augmentation (atlas Architecture)",
+  "the abstention rule (posterior below 0.5, or decode and crop disagree)",
+  "the value of the margin threshold behind the fourth line of (d): the Methods set it at 'the fifth percentile of correct frames in the other folds' (SchwingNet/tools/coupling_report.py, apply_tau); the line says 'low margin' and no number",
+  "any parameter count"
+ ],
+ "scope_note": "Panel (a) draws the detectors of the reported C-ArmLSpine system as the Methods ('The network') and the atlas card state them: neither trained on the test C-arm. SchwingNet/LEVELCHECK_MODEL.md section 15 (added 2026-09-24, commit d0403de) makes the Figure 6 PRIMARY detector one trained on the G3 TRAIN side of every device (the device seen), the device-held-out detectors a secondary, and leaves open whether the keypoint body detector is kept. The Methods now say so in the LevelCheck paragraph ('the primary detector was changed by commit before unblinding to one trained on the split's training persons of every device'), which concerns Figure 6 and Table 3; the paragraph Figure 3 draws ('The network') is unchanged. If that detector replaces the drawn ones for the naming results, panel (a)'s title and the YOLO11m lane label must follow; check_sources() stops the build on the changed quotes.",
+ "wording_note": "the YOLO11m lane label is REVIEW2_RSNA.md Fix 26's replacement text ('YOLO11m box detector, render-trained, fine-tuned on real frames of two other devices') less 'box detector,', which put the line 0.27 in off the page at 12 pt; the lane's output icon, its 'boxes' label and the class key carry what it emits. The YOLO11m class is drawn as 'vertebra', as the atlas (classes vertebra and sacrum) and the Methods (vertebra and sacrum) name it; the figure brief's 'vertebral body' is not used because the atlas Limitations state the boxes are whole-vertebra projections with the vertebral-body recompute pending (G5). The keypoint lane's box is 'body', the Methods' word ('boxes the bodies the level model names').",
+ "colour": {
+  "LEARN tint": "a learned block",
+  "red": "the transitional levels T13 and L6",
+  "else": "black, grey, white"
+ },
+ "geometry": {
+  "rows_in": {
+   "a": [
+    5.74,
+    8.14
+   ],
+   "b": [
+    3.68,
+    5.6
+   ],
+   "c_d": [
+    0.0,
+    3.54
+   ]
+  },
+  "letter_pt": 14.0,
+  "gutter_in": 0.24,
+  "label_min_clear_in": 0.06,
+  "a": {
+   "top": 8.139999999999999,
+   "yolo_sizes": [
+    512,
+    256,
+    128,
+    64,
+    32
+   ],
+   "lane_keypoint_y": [
+    6.93,
+    7.55
+   ],
+   "lane_yolo_y": [
+    5.97,
+    6.59
+   ],
+   "title_y": 7.93,
+   "lane_labels_y": [
+    7.66,
+    6.7
+   ]
+  },
+  "b": {
+   "top": 5.6,
+   "strip": [
+    1.29,
+    6.57
+   ],
+   "resnet_sizes": [
+    160,
+    80,
+    40,
+    20,
+    10
+   ]
+  },
+  "d": {
+   "x_right": 6.76,
+   "title_y": 3.3899999999999997
+  },
+  "label_rows_least_gap_in": {
+   "y=5.93 [512² | 256²]": 0.078,
+   "y=4.37 [160² | 80²]": 0.102
+  }
+ },
+ "text": {
+  "spans": 110,
+  "smallest_pt": 12.0,
+  "fonts": [
+   "Arial-BoldMT",
+   "ArialMT"
+  ]
+ },
+ "page_in": [
+  7.0,
+  8.14
+ ],
+ "png": {
+  "px": [
+   2100,
+   2442
+  ],
+  "dpi": 300
+ },
+ "tif": {
+  "px": [
+   8400,
+   9768
+  ],
+  "dpi": 1200,
+  "compression": "tiff_lzw",
+  "bytes": 4732648
+ },
+ "caption_words": 60,
+ "caption": "SchwingNet; shaded blocks learned, sizes in pixels. (a) Two detectors, neither naming a level; one boxes bodies, one the sacrum. (b) Level model: two-channel crop per body, ResNet-18, bidirectional gated recurrent unit (GRU) across bodies, 27-level posterior; red, T13 (thirteenth thoracic) and L6 (sixth lumbar). (c) Ordinals counted from the detected sacrum. (d) Posteriors choose the alphabet; outlined, the call.",
+ "source_sha256": {
+  "SchwingNet/atlas/model.json": "862377e7050381004b0a2a57531d2e1bfc0434121669941ffdfb631eae9184ad",
+  "SchwingNet/sections/methods.tex": "5a5c548e2b6906d6c570d21b6a9d8d307ffdb856edeec7d1ed2cc426b598468e",
+  "tools/level_prototype.py": "2946f0296ac2295d710816bbaf388cd940844c229e01c1430e557e1b2453fbca",
+  "SchwingNet/results/COUPLING.md": "b3e2e679020a55b4620cfa765af0abbc4f6ef7d19c9c04c05e30d473144e0298",
+  "SchwingNet/slurm/coupling.sh": "b1766112f36d5ac1397db8fac8e104e3cfcfee53f6b487bf20c93ab9cf0a6488",
+  "tools/sweep_map.py": "ee74b7e0f6fd04a528a685b2a2616fa54cd6fb89497015697d7d289604df8839",
+  "tools/alphabet_couple.py": "a6c1450abac213d13bba1c62e98d5732965c5d8aeef0e3cdd91cc7c89841b4c4",
+  "tools/make_context_crops.py": "63e970382a34102c8ae535bbd7c056885162550a9c640def2fe183a242bebbc3",
+  "tools/fig1_style.py": "6f77e1cd171d0435a5a3b880efc95df476ff0722101967634fd41327f91c51f2",
+  "docs/MANIFEST_DATA_MODELS_RESULTS.md": "0776a6ea2100f7ccce34fafd6517c240e0a64d986d0742226023b32515d733b1",
+  "tools/make_zoom_dataset.py": "62d45acd98ab1d3fd654c253803b95eceda873977cf2fc493e8746b5f07f07dc",
+  "SchwingNet/tools/figure3_network.py": "8c6daa0638242dad7f90609938d09a68c7454863a9cd55a98af269ffb644f7f2"
+ }
+}

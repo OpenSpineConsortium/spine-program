@@ -1,0 +1,277 @@
+% PRIVATE. Research document copied 2026-10-08 into spine-program/09_wrong_level_clinical_qi from
+% spinesurg-ct-nnunet (private, branch L6_Class, commit 097933a) paper/qi_universal_protocol/main.tex
+% (last commit d4b895e, 2026-09-22). It describes the sweep and the persistent digital fiducial, which are
+% invention aspects: it stays private until Greg confirms the provisional is filed (HANDOFF MANUSCRIPTS.md
+% section 5). Known defects, left as written in this copy: the affiliation line reads Neurosurgery and must
+% read General Surgery (Wayne State University School of Medicine / Detroit Medical Center); 'the encoder
+% takes 17 ms per frame' has no result file; 'about fifteen minutes for fluoroscopic localization' is an
+% unverified citation. See TODO.md step 4. Edits made in this copy: the corresponding e-mail is withheld;
+% \bibliography points at refs.bib beside this file (a copy of paper/rsnai/refs.bib at 180fb0f).
+% Wrong-level spine surgery after the Universal Protocol: what the evidence supports, and a quality-
+% improvement protocol for a mechanism that names the level rather than re-counting it.
+% Target: The Joint Commission Journal on Quality and Patient Safety (analysis / QI protocol; SQUIRE 2.0
+% for the protocol section). Every figure traces to docs/WRONG_LEVEL_COST_EVIDENCE.md and
+% docs/WRONG_SITE_BURDEN_EVIDENCE.md, where each carries its adversarial-verification vote; derived
+% arithmetic is labelled as derived in the text.
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{natbib}
+\usepackage{textcomp}
+\setstretch{1.15}
+
+\begin{document}
+
+\noindent{\Large\bfseries The Universal Protocol with a level in it: site marking and time-out for spine
+surgery assisted by a fluoroscopic level map---evidence, and a quality-improvement protocol}
+
+\bigskip
+\noindent Gregory Schwing, MD, PhD\\
+Department of Neurosurgery, Wayne State University School of Medicine / Detroit Medical Center\\
+\texttt{[e-mail withheld]}
+
+\bigskip
+\noindent\textbf{Word count:} about 2,400 (main text). \textbf{Tables:} 2.
+
+\section*{Abstract}
+\noindent\textbf{Background.} The Universal Protocol has been mandatory in accredited United States
+hospitals since 2004. Wrong-level spine surgery persists under it, and the reason is structural: a
+time-out verifies a site that has been \emph{marked}, but a vertebral level is not marked, it is counted,
+on intraoperative images that show a few bodies at a time.
+
+\noindent\textbf{Evidence.} Two adversarially verified literature syntheses (every claim put to three
+independent refutation attempts) give the following. Half of responding neurosurgeons report at least one
+wrong-level operation in their career. Per-procedure incidence is 0.032\,\% by self-report and 0.12\,\% in
+a prospective 34,544-case registry, with the thoracic spine highest at 0.42\,\%. Chart review found the
+Universal Protocol would have prevented 62\,\% of insured wrong-site cases under ideal conditions, and
+wrong-site events continued at a steady rate through the protocol era. In a contemporary closed-claims
+series the mean wrong-site indemnity was \$136,453 and spine surgery the commonest procedure; 17\,\% of
+self-reported wrong-level events led to legal action and 81\,\% of litigated cases ended in payment. No
+published study measures the intraoperative localisation \emph{process}---exposures, minutes, dose, needle
+counts, disagreements---as a quality metric, and no per-event hospital cost exists.
+
+\noindent\textbf{Proposal.} A single-centre, SQUIRE-structured quality-improvement study of the Universal
+Protocol performed \emph{with} a level in it. The protocol's three elements map onto a fluoroscopic level
+map built in theatre: verification enters the target level; site marking is a short sweep of overlapping
+exposures from the sacrum, linked by software into one map, that places a digital fiducial on the target
+body in the live image; the time-out confirms the fiducial's level against the surgeon's own count before
+incision, and a disagreement is resolved by rule. On held-out CT renders the walk from the sacrum places
+the fiducial on the right body in 94.5\,\% of 950 walks (96.3\,\% of those reached) from two exposures on
+average, and 92.2\,\% of 7,405 walks on 522 clinical CTs from a second institution; published C-arm
+repositioning times put the whole manoeuvre at one to three minutes against fifteen for fluoroscopic
+counting. After a four-month process baseline, the assisted protocol runs for eight months; the primary
+outcome is the disagreement rate between the surgeon's count and the fiducial, adjudicated against
+postoperative imaging.
+
+\noindent\textbf{Conclusion.} The Universal Protocol is necessary and not sufficient for wrong-level
+spine surgery, because it verifies a mark and the spine has none. Giving it a mark that was named from
+the patient's own images, and a time-out that checks that name against the count, is a change to the
+protocol rather than a replacement for it, and it can be measured at one centre in a year.
+
+\section*{The problem the Universal Protocol was not built for}
+The Universal Protocol for Preventing Wrong Site, Wrong Procedure, and Wrong Person Surgery requires
+preprocedure verification, marking of the procedure site, and a time-out; for spinal procedures it
+allows that intraoperative imaging may be needed to locate and mark the exact vertebral level
+\citep{jcnpsg2025}. Each element
+assumes the site can be identified on the patient before incision. For a laterality error that is true:
+the limb is visible and the mark sits on it. For a vertebral level it is not. The level is identified
+intraoperatively on fluoroscopy, by placing needles every few levels and counting cephalad from the
+sacrum on lateral views, or by counting levels on anteroposterior views \citep{strong2021,mayer2008}. The time-out can confirm that everyone agrees on the target level; it
+cannot confirm that the count reached it.
+
+Two independent surveys found that about half of responding neurosurgeons had performed at least one
+wrong-level spine operation \citep{mody2008,groff2013}. Self-reported incidence was one in 3,110
+procedures \citep{mody2008}; a prospectively collected multicentre registry of 34,544 degenerative spine
+operations, in which intraoperative disorientation caused 81\,\% of the lumbar events, recorded 0.12\,\% overall,
+0.42\,\% thoracic, 0.13\,\% lumbar and 0.05\,\% cervical \citep{furuya2026}. A systematic review found
+twelve incidence studies, none thoracic-specific, and reported that in the one study assessing it,
+site-verification protocols failed to prevent about one-third of cases \citep{longo2012}. The
+frequently quoted 0.09--4.5 per 10,000 range is wrong-site surgery across all specialties, not a spine
+rate \citep{devine2010}.
+
+\section*{What the protocol era shows}
+Kwaan and colleagues reviewed 13 insured nonspine wrong-site cases from 1985--2004 and judged
+retrospectively that the Universal Protocol, under optimal conditions, might have prevented eight
+(62\,\%) \citep{kwaan2006}. Stahel and colleagues
+analysed 27,370 physician self-reported occurrences in a Colorado insurer database from 2002 to mid-2008
+and found 107 wrong-site and 25 wrong-patient procedures, persisting after the Universal Protocol was
+introduced, with significant harm in 35.5\,\% of wrong-site cases and one death \citep{stahel2010}. The Joint Commission received 127 reports of wrong surgery in
+2024, nine wrong-level, seven of those spinal, from a voluntary system that, it cautions, cannot show
+how often such events actually occur \citep{jc2024}. NHS England provisionally recorded 185 wrong site surgery Never Events in
+2024/25, a category that also counts wrong-site blocks and wrong skin lesions \citep{nhse2025}. None of these series can say how many wrong-level spine operations occur; all of them
+say the number has not gone to zero.
+
+The costs that are measurable are legal. Seventeen percent of self-reported wrong-level events led to
+legal action or settlement \citep{mody2008}; of 68 litigated wrong-disc-level cases, 55 ended in a
+payment and surgeons prevailed in 42\,\% of jury trials \citep{goodkin2004}; the mean wrong-site
+indemnity in a 2013--2020 closed-claims series was \$136,453 (median \$36,250), with spine and disc
+surgery the commonest procedure and 45.6\,\% of claims involving additional surgery \citep{tan2023};
+malpractice payments for all surgical never events summed to \$1.3 billion over 21 years
+\citep{mehtsun2013}; 978 spinal-surgery negligence claims in England over five years were valued at
+\pounds535.5 million \citep{machin2018}. Applying the two per-procedure rates to 1.3--1.6 million spine
+operations a year gives, as derived arithmetic, roughly 400--1,900 wrong-level operations and \$8--37
+million in indemnity a year in the United States; the hospital cost of the reoperations, added stay and
+readmissions those events cause has no published per-event figure, and there is no defensible worldwide
+estimate.
+
+\begin{table}[htbp]\centering
+\caption{The verified figures and where each comes from. Votes are refutation attempts survived (of 3).}
+\small
+\begin{tabular}{p{7.2cm}p{3.2cm}p{4.8cm}}
+\toprule
+Figure & Source & Verification \\
+\midrule
+Half of neurosurgeons report a wrong-level operation & Mody 2008; Groff 2013 & 3/3 twice \\
+Incidence 1 in 3,110 (self-report); 0.12\,\% (registry) & Mody 2008; Furuya 2026 & 3/3 twice \\
+Thoracic 0.42\,\%, lumbar 0.13\,\%, cervical 0.05\,\% & Furuya 2026 & 3/3 \\
+Universal Protocol would have prevented 62\,\% & Kwaan 2006 & 2/3 \\
+Steady rate through the protocol era & Stahel 2010 & 3/3 \\
+17\,\% of events litigated; 81\,\% of litigated paid & Mody 2008; Goodkin 2004 & 3/3, 2/3 \\
+Mean wrong-site indemnity \$136,453; spine commonest & Tan 2023 & 3/3 \\
+\$1.3 billion never-event payments, 21 years & Mehtsun 2013 & 3/3 \\
+179 fiducial placements, 51.9 min, 183 mGy & AJNR 2023 & 3/3 \\
+Operating-room time \$34--37 per minute & Childers 2018 & 3/3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Why counting fails, and what it costs to avoid counting}
+The traditional intraoperative technique is needles every few levels, counted from the sacrum on
+lateral fluoroscopy; surgeons disagree even on which structure to count, the facet joint with its
+pedicle for 67\,\% and the spinous process for 49\,\% in the thoracic spine \citep{strong2021,mayer2008}. The images supply the failure
+modes. A field of a few bodies means a count to a mid-thoracic level passes through several
+exposures, each of which can be joined to the previous one body off. A lumbosacral or thoracolumbar
+transitional vertebra shifts the count for the whole column, and such variants are common enough that
+any series of a few hundred spines contains them. Ribs are hard to number where a twelfth rib is absent
+or hypoplastic. Habitus, osteopenia and the scapular shadow degrade the mid-thoracic image most. None of
+these is a lapse of attention that a time-out addresses.
+
+The cost of avoiding the count is visible at one centre, Mayo Clinic in Rochester, which placed
+preoperative percutaneous gold fiducial markers in 179 patients over 38 months, 176 of them thoracic,
+at a mean of 51.9 minutes and 183\,mGy each, to let the surgeon find the level \citep{siminski2023}. At a
+hospital operating-room cost of \$34--37 per minute before physician fees \citep{childers2018}, each
+placement represents about \$1,750--1,950 of staffed procedural time and the series about 155 hours; the
+figure is a proxy, since the marker is placed in a fluoroscopy or CT suite, and it omits the second
+anaesthetic and the second day. That a centre with every resource chooses this over counting is the
+clearest statement in the literature that the thoracic level is, in practice, un-nameable in theatre.
+
+\section*{The measurement gap}
+The literature measures outcomes---events, claims, payments---and does not measure the process that
+produces them. No published study records, per case, how many fluoroscopic exposures were spent on
+localisation, how many minutes, what dose, how many needles, whether the surgeon and the radiographer
+disagreed, or how a disagreement was resolved. Without that baseline no intervention can be evaluated,
+and the one intervention the field has, the time-out, was evaluated retrospectively against claims. A
+quality-improvement study that measures the process is the missing first step, and it is cheap.
+
+\section*{What the engine does, and what it has been measured at}
+The level map is built from what the radiographer already does. The first exposure places the sacrum at
+the bottom of the field; each move is one field minus two vertebral bodies, and the last move is a full
+move or none. Software links each new frame to the last by image correlation restricted to the step the
+protocol asked for, so the periodic column cannot lock one body off, and names every body in the map by
+counting from the sacrum and by a shape reader, with the two readings reconciled. When the target level
+enters a frame the map marks it: a digital fiducial drawn on the live image, on the body the map says is
+the target. That is the site mark the Universal Protocol asks for and the spine has never had.
+
+Measured on renders of CT the software was never trained on, walking from the sacrum to every labelled
+level in turn, the fiducial landed on the right body in 94.5\,\% of 950 walks on 120 spines (96.3\,\% of
+the walks that reached the target) from 2.0 exposures on average, and in 92.2\,\% of 7,405 walks on 522
+clinical CTs from another institution, 96.2\,\% in the lumbar and 91.6\,\% in the thoracic spine, from
+3.0 exposures. The errors are one body off and are concentrated in the known ambiguities: a spine with
+four lumbar bodies on the sacrum, or six, where a count from one anchor cannot tell one more lumbar body
+from one fewer thoracic; the decoder has since gained the four-lumbar alphabet and the remainder are
+stated as the residual. Accuracy falls with distance from the anchor, 96\,\% within six levels and about
+90\,\% at ten to sixteen, which is why thoracic work is anchored from C2 or the first rib rather than
+walked twenty bodies from the sacrum. On 25 real lumbar radiographs, with the detector's own boxes, the
+map completed on 21; the film domain is where the residual risk is, and it is why the study below keeps
+the surgeon's count as the decision.
+
+The time is the C-arm's, not the software's: the encoder takes 17 ms per frame and the linking a fraction
+of a second per walk, while published timed positioning trials put reaching a target view with a C-arm at 36
+to 49 seconds on average \citep{matthews2007,desilva2018}. A lumbar walk of two exposures is therefore about a minute and a
+mid-thoracic walk of three to four about two to three, against about fifteen minutes for fluoroscopic
+localization in the thoracic spine and about three with a pre-placed fiducial in one small
+non-randomised series \citep{mongardi2021}. The fiducial moves the work, not removes it: a separate CT
+procedure of a mean 14.3 minutes 2--48 hours before surgery \citep{keil2024}, usually as an outpatient
+the day before \citep{siminski2023}.
+
+\section*{A quality-improvement protocol (SQUIRE 2.0)}
+\noindent\textbf{Setting and population.} One academic neurosurgery service; all elective and urgent
+thoracic and lumbar operations requiring intraoperative level localisation over twelve months, with
+cervical cases as a comparison arm. Institutional review as quality improvement.
+
+\noindent\textbf{Phase 1, baseline (months 1--4).} For every case the circulating radiographer records
+on a one-page form: the anchor used (sacrum, C2, ribs, preoperative marker), the number of localisation
+exposures, fluoroscopy minutes and cumulative dose from the C-arm log, the number of needles, whether a
+preoperative fiducial or CT-guided marker was placed (with its procedure time and dose from the
+radiology record), the surgeon's stated confidence before incision, and any disagreement between team
+members and how it was settled. The level reached is adjudicated against postoperative imaging by a
+radiologist blinded to the form. Transitional anatomy is read from the preoperative CT where one exists.
+
+\noindent\textbf{Phase 2, the assisted protocol (months 5--12).} The Universal Protocol is performed as
+written, with each element carried by the map. \emph{Verification:} the target level from the consent
+and the plan is entered into the system before the patient is draped. \emph{Site marking:} at the start of
+localisation the radiographer performs the sweep from the sacrum (or from C2 for cervical and upper
+thoracic work) until the system reports the target in the field, and the digital fiducial is displayed on
+the live image and on the monitor the team sees. \emph{Time-out:} the surgeon states the level by their
+own count, the circulator reads the fiducial's level and the system's confidence, and the two are
+compared aloud with the plan. Agreement proceeds. Disagreement, or a system refusal, invokes a written
+rule: one more exposure with greater overlap, then a count from the other anchor if one is in reach, then
+the surgeon's judgement, recorded as such. The surgeon's count remains the decision throughout; the map
+adds a second, independent reading and a mark. Every disagreement is recorded with its resolution and the
+adjudicated truth. The system's own accuracy is published separately and is not an outcome here.
+
+\noindent\textbf{Outcomes.} Primary: the disagreement rate between the surgeon's count and the fiducial
+at the time-out, and which of the two the adjudicated level supported, by region. Compliance: the share
+of cases in which all three elements were performed as written, and the share in which the fiducial was
+in the field at incision. Secondary: localisation exposures,
+minutes and dose per case, needles per case, preoperative marker placements per month, surgeon
+confidence, and the near-miss rate (a count corrected before incision). Balancing: total operative
+time, and any case in which the map was wrong and the surgeon right.
+
+\noindent\textbf{Analysis.} Phase 1 gives the process distribution per region, which is the number this
+literature lacks. Phase 2 is analysed as an interrupted series on exposures and minutes, and the
+disagreement rate is reported with its interval and every case listed. The study is powered to
+estimate, not to detect a change in wrong-level events, which at 0.12\,\% would need tens of thousands
+of cases; the near-miss rate is the tractable proxy and is reported as such.
+
+\begin{table}[htbp]\centering
+\caption{Process measures recorded per case, and the source of each.}
+\small
+\begin{tabular}{p{6.5cm}p{4.2cm}p{4.5cm}}
+\toprule
+Measure & Source & Why \\
+\midrule
+Anchor used & radiographer form & which count was made \\
+Localisation exposures, minutes, dose & C-arm log & the cost of counting \\
+Needles placed & form & the count's length \\
+Preoperative marker (time, dose) & radiology record & the cost of not counting \\
+Surgeon confidence before incision & form (5-point) & when the count is doubted \\
+Disagreement and resolution & form & the near-miss \\
+Level reached & postoperative imaging, blinded & the truth \\
+Transitional anatomy & preoperative CT & the known failure mode \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Limitations}
+The evidence synthesis is of published figures, several of them self-reported or claims-based, and the
+annual event and dollar figures are derived from stated rates and volumes rather than counted. The
+proposed study is single-centre and cannot measure a change in wrong-level events; it measures the
+process and the near-miss. The second reader is one implementation of a level map, and its own accuracy
+is a separate question with separate evidence.
+
+\section*{Conclusion}
+The Universal Protocol verifies a mark. A vertebral level has no mark; it has a count, made on images
+that show a few bodies at a time, through anatomy that varies. That is why wrong-level spine surgery
+has persisted through two decades of time-outs, why a centre pays an hour and a second procedure per
+thoracic patient to avoid counting, and why the next quality-improvement step is not another checklist
+but a measurement of how the level is named today and a second reader that names it independently.
+
+\bibliographystyle{unsrtnat}
+\bibliography{refs}
+\end{document}

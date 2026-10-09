@@ -1,0 +1,535 @@
+{
+ "about": "CLAIM checklist map for the SchwingNet manuscript: the 42 items of the CLAIM 2020 checklist, verbatim from the docx at the repository root, each mapped to its evidence on disk or to the FLAGSHIP_PLAN.md gate that produces it.",
+ "source_docx": "CLAIM+-+Checklist+for+AI+in+Medical+imaging.docx",
+ "claim_version": "CLAIM 2020: Mongan J, Moy L, Kahn CE Jr. Radiol Artif Intell 2020;2(2):e200029; doi 10.1148/ryai.2020200029",
+ "version_note": "The docx on disk is CLAIM 2020 (42 items; doi 10.1148/ryai.2020200029). sections/methods.tex line 111 states 'reporting follows CLAIM 2024', the update that reorganises the checklist (Tejani et al., Radiol Artif Intell 2024; doi 10.1148/ryai.240300). This file maps the docx on disk; at G7 either the citation moves to the 2020 paper or the 2024 checklist is obtained and this map is rebuilt from it.",
+ "written": "2026-09-23",
+ "manuscript": "SchwingNet/main.tex with sections/, tables/, supplement.tex (line numbers of 2026-09-23)",
+ "generator": "SchwingNet/tools/gen_claim_checklist.py (edit ANNOT there and rerun; never edit the outputs by hand)",
+ "counts": {
+  "items": 42,
+  "SATISFIED": 30,
+  "GAP": 12
+ },
+ "rows": [
+  {
+   "item": 1,
+   "section": "TITLE / ABSTRACT",
+   "topic": "",
+   "text": "Identification as a study of AI methodology, specifying the category of technology used (e.g., deep learning)",
+   "verdict": "SATISFIED",
+   "where": "main.tex line 11: the title names the category ('a convolutional--recurrent network'); sections/methods.tex lines 56-88 (YOLO11m detector; ResNet-18 encoder; two-layer bidirectional GRU); docs/MODEL_CARD.md section 1.1",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 2,
+   "section": "TITLE / ABSTRACT",
+   "topic": "",
+   "text": "Structured summary of study design, methods, results, and conclusions",
+   "verdict": "SATISFIED",
+   "where": "main.tex (structured abstract: Purpose / Materials and Methods / Results / Conclusion, 248 of 250 words by tools/check_limits.py; summary statement 246 characters; three key points), every number with interval and denominator, no placeholder. The G6 transitional result the abstract awaited moved to paper 2 (paper2_levelcheck/) on 2026-09-24; age and sex print through \\RESULT keys from results/age_sex_by_source.json",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 3,
+   "section": "INTRODUCTION",
+   "topic": "",
+   "text": "Scientific and clinical background, including the intended use and clinical role of the AI approach",
+   "verdict": "SATISFIED",
+   "where": "sections/introduction.tex (wrong-level rates, registration-assisted naming, the clinical role beside the surgeon's count); sections/discussion_motivation.tex; docs/MODEL_CARD.md section 2 (intended user, abstain path)",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 4,
+   "section": "INTRODUCTION",
+   "topic": "",
+   "text": "Study objectives and hypotheses",
+   "verdict": "SATISFIED",
+   "where": "sections/introduction.tex line 30 ('We hypothesised that...'); sections/methods.tex lines 89-98 (pre-specified primary and secondary outcomes with pre-stated Wilson lower bounds); docs/RSNAI_PLAN.md boxes C3 and C7 (criteria written before the results were read)",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 5,
+   "section": "METHODS",
+   "topic": "Study Design",
+   "text": "Prospective or retrospective study",
+   "verdict": "SATISFIED",
+   "where": "sections/methods.tex line 8 ('This retrospective study used only public, de-identified releases'); abstract Materials and Methods, main.tex line 46",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 6,
+   "section": "METHODS",
+   "topic": "Study Design",
+   "text": "Study goal, such as model creation, exploratory study, feasibility study, non-inferiority trial",
+   "verdict": "SATISFIED",
+   "where": "main.tex line 44 (Purpose: build and release a network, and test its detector on a C-arm absent from training); sections/methods.tex lines 89-98 (outcomes)",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 7,
+   "section": "METHODS",
+   "topic": "Data",
+   "text": "Data sources",
+   "verdict": "SATISFIED",
+   "where": "tables/tab_corpus.tex (Table 1; every cell traced in tables/tab_corpus.sources.md); sections/methods.tex lines 17-33; docs/RSNAI_DATA_MANIFEST.json (per root: source, DOI, licence, file count, SHA-256 over the file list); atlas/dataset.json",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 8,
+   "section": "METHODS",
+   "topic": "Data",
+   "text": "Eligibility criteria: how, where, and when potentially eligible participants or studies were identified (e.g.,  symptoms, results from previous tests, inclusion in registry, patient-care setting, location, dates)",
+   "verdict": "GAP",
+   "where": "Exists: sections/methods.tex lines 17-33 (sources and exclusions, stating that the COBRA subset was 'cut by download volume and no criterion'); docs/DATASHEET.md section 3",
+   "gap": "The full COBRA release (cobra2026/COBRA_COMPLETE.md = 692/692; fetch job 40416315 in flight) and a written criterion for the 142-subject TotalSegmentator clean list, into docs/DATASHEET.md section 3 and the Table 1 footnotes",
+   "gate": "G0"
+  },
+  {
+   "item": 9,
+   "section": "METHODS",
+   "topic": "Data",
+   "text": "Data pre-processing steps",
+   "verdict": "SATISFIED",
+   "where": "sections/methods.tex lines 67-74 (formation terms, ray-cast and styling) and 76-80 (fixed-scale context crop, target body at 96 px in a 320-px two-channel crop); docs/REAL_XRAY_DATASETS_SPEC.md 'Display' (per-device windowing, 0.78 mm working pixel); docs/DATASHEET.md section 4 steps 1-6",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 10,
+   "section": "METHODS",
+   "topic": "Data",
+   "text": "Selection of data subsets, if applicable",
+   "verdict": "SATISFIED",
+   "where": "sections/methods.tex lines 47-54 and 56-65; sections/results.tex lines 55-57 (five to one vertebrae visible; day-grouped folds); subset keys in docs/carmlspine_cv5_mixed_2026-09-21.json ({det,oracle} x {LAT,AP} x {kfull..k1}); docs/DATASHEET.md section 2.3 (agreed-level subset)",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 11,
+   "section": "METHODS",
+   "topic": "Data",
+   "text": "Definitions of data elements, with references to Common Data Elements",
+   "verdict": "SATISFIED",
+   "where": "sections/methods.tex lines 76-87 (27-level vocabulary C1-C7, T1-T13, L1-L6, sacrum; crop and abstention definitions); sections/results.tex line 4 and Table 2 (box convention stated); docs/REAL_XRAY_DATASETS_SPEC.md 'Meta (per frame JSON)'. No radiology common data element applies to per-vertebra level names",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 12,
+   "section": "METHODS",
+   "topic": "Data",
+   "text": "De-identification methods",
+   "verdict": "SATISFIED",
+   "where": "main.tex line 66 (Ethics: public de-identified sources; 'One C-ArmLSpine directory carrying a residual patient identifier was excluded and reported to the dataset authors'); sections/methods.tex lines 10-13 (determination 2026-269); docs/PATIENT_IDENTITY_SPEC.md sections 3-4 (where the residual identifier sat and that no output read it)",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 13,
+   "section": "METHODS",
+   "topic": "Data",
+   "text": "How missing data were handled",
+   "verdict": "SATISFIED",
+   "where": "sections/methods.tex lines 17-33 ('every exclusion with its cause' in Table 1) and 38-40 (unagreed vertebrae withheld from scoring); tables/tab_corpus.tex footnotes (e.g. footnote b: record 0533); docs/DATASHEET.md section 4 step 4 (null-level boxes kept for detection, excluded from naming); docs/DEVICE_PARAM_AUDIT.md (physics defaults where a term has no paired frames)",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 14,
+   "section": "METHODS",
+   "topic": "Ground Truth",
+   "text": "Definition of ground truth reference standard, in sufficient detail to allow replication",
+   "verdict": "SATISFIED",
+   "where": "sections/methods.tex lines 35-45 (per-case cone-beam CT registered to each exposure; two automatic labellers; a vertebra scored only where both agree, 814 of 910; whole-vertebra projection convention); docs/REAL_XRAY_DATASETS_SPEC.md 'Two labellers' and 'Boxes' (the operational rules)",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 15,
+   "section": "METHODS",
+   "topic": "Ground Truth",
+   "text": "Rationale for choosing the reference standard (if alternatives exist)",
+   "verdict": "SATISFIED",
+   "where": "sections/methods.tex lines 38-45 (both labellers count from the sacrum, so agreement is not independent; the three disputed L6 reads measure agreement, not correctness); docs/REAL_XRAY_DATASETS_SPEC.md (TotalSegmentator carries no L6/T13, VERIDAH does: why two tools); docs/MODEL_CARD.md section 5.1",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 16,
+   "section": "METHODS",
+   "topic": "Ground Truth",
+   "text": "Source of ground-truth annotations; qualifications and preparation of annotators",
+   "verdict": "GAP",
+   "where": "Exists: sections/methods.tex line 36 ('No image was read by a person for this study; every level is a release's annotation or an automatic label'); docs/DATASHEET.md sections 2.6 and 3 (each release's annotation source)",
+   "gap": "The human read of the 22 variant-flagged and 30 random cases against the CBCT (docs/MODEL_CARD.md section 8 item 6) has not been performed; it rides the G1 transitional inventory, and the reader and qualifications then enter Methods",
+   "gate": "G1"
+  },
+  {
+   "item": 17,
+   "section": "METHODS",
+   "topic": "Ground Truth",
+   "text": "Annotation tools",
+   "verdict": "GAP",
+   "where": "Exists: sections/methods.tex lines 37-38 (labellers named) and 110-111 (Python 3.11, PyTorch 2.6.0, Ultralytics 8.4, NumPy 2.2.6, SciPy 1.15.3); tools/dual_seg_compare.py, tools/carmlspine_pose.py",
+   "gap": "The TotalSegmentator and SPINEPS+VERIDAH versions that labelled the CBCTs are recorded nowhere (docs/REAL_XRAY_DATASETS_SPEC.md label_source still reads 'vX'); read them from the job logs and write them into the spec and Methods with the G0 audit repairs",
+   "gate": "G0"
+  },
+  {
+   "item": 18,
+   "section": "METHODS",
+   "topic": "Ground Truth",
+   "text": "Measurement of inter- and intrarater variability; methods to mitigate variability and/or resolve discrepancies",
+   "verdict": "GAP",
+   "where": "Exists: sections/methods.tex lines 38-40 (814 of 910 agreed, T11 and most of T12 withheld, the correlation of the two labellers stated); docs/DATASHEET.md section 2.3 (per-level agreement table; 41 name disagreements, 55 unmatched)",
+   "gap": "No human inter- or intrarater measurement exists and discrepancies are excluded rather than resolved; the G1 human read supplies an independent rater and adjudicates the 41 disagreements, and its agreement with each labeller is then reported",
+   "gate": "G1"
+  },
+  {
+   "item": 19,
+   "section": "METHODS",
+   "topic": "Data Partitions",
+   "text": "Intended sample size and how it was determined",
+   "verdict": "SATISFIED",
+   "where": "sections/methods.tex lines 100-103 (no sample size set for the naming study; the transitional test size follows from the Wilson lower bound: 60 test persons give 94.0 % with no error, the 89 count-changing persons on hand give 37 and 90.6 %); sections/results.tex lines 79-80",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 20,
+   "section": "METHODS",
+   "topic": "Data Partitions",
+   "text": "How data were assigned to partitions; specify proportions",
+   "verdict": "GAP",
+   "where": "Exists: sections/methods.tex lines 47-54 (7:1:2 by case; DeepFluoro by specimen; five case-grouped folds; day-grouped rebuild; transitional persons 50:10:40 with every real transitional subject on the test side); audited counts in /rs/rs_grp_oschome/go2432/data/or_ready/audit/AUDIT.md",
+   "gap": "The released person-disjoint split that Methods describes does not exist on disk yet: ~/split_final.json plus SchwingNet/results/split_audit.md are the G3 gate evidence",
+   "gate": "G3"
+  },
+  {
+   "item": 21,
+   "section": "METHODS",
+   "topic": "Data Partitions",
+   "text": "Level at which partitions are disjoint (e.g., image, study, patient, institution)",
+   "verdict": "GAP",
+   "where": "Exists: sections/methods.tex lines 48-52 (a C-ArmLSpine case is an acquisition session, not a proven person; both groupings reported; film split keyed by patient; the leaky initialisation banks disclosed); docs/PATIENT_IDENTITY_SPEC.md section 2; the per-corpus table below (Item 21 in full)",
+   "gap": "One person key per case across every source (~/patient_keys_final.json with tools/test_patient_keys.py PASS; gate G2) and the fresh leak audit at G3; until then disjointness is per-corpus and the flagship claim of person-disjointness across sources is unsupported",
+   "gate": "G3"
+  },
+  {
+   "item": 22,
+   "section": "METHODS",
+   "topic": "Model",
+   "text": "Detailed description of model, including inputs, outputs, all intermediate layers and connections",
+   "verdict": "SATISFIED",
+   "where": "sections/methods.tex lines 56-61 and 76-87 (detector classes and input; encoder, posterior, GRU head, counting, coupling, abstention rule); docs/MODEL_CARD.md sections 1.1 and 6.3 (layer widths, 11,173,376 + 2,117,403 parameters, 3.62 GMAC); Figure 1(c), main.tex figure block",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 23,
+   "section": "METHODS",
+   "topic": "Model",
+   "text": "Software libraries, frameworks, and packages",
+   "verdict": "SATISFIED",
+   "where": "sections/methods.tex lines 110-111 (Python 3.11, PyTorch 2.6.0, Ultralytics 8.4, NumPy 2.2.6, SciPy 1.15.3); docs/REAL_XRAY_DATASETS_SPEC.md 'Rules for builders' (the named environments); docs/MODEL_CARD.md section 6.3",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 24,
+   "section": "METHODS",
+   "topic": "Model",
+   "text": "Initialization of model parameters (e.g., randomization, transfer learning)",
+   "verdict": "SATISFIED",
+   "where": "docs/MODEL_CARD.md section 1.2 (detector initialised from yolo11m.pt COCO weights; encoder from registry alias allspine_v2_r1); sections/methods.tex lines 51-52 (the initialisation banks and their leaks disclosed, no test case inside them)",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 25,
+   "section": "METHODS",
+   "topic": "Training",
+   "text": "Details of training approach, including data augmentation, hyperparameters, number of models trained",
+   "verdict": "GAP",
+   "where": "Exists: sections/methods.tex lines 56-65 and 80-82 (80 epochs, seed 0; 15 epochs, lr 1e-4, physics augmentation, mixed-length head; 24 detector arms; the flagship two-stage recipe); slurm/carmlspine_cv.sh (per-fold bank recipe)",
+   "gap": "The detector's augmentation is the ultralytics default and is listed nowhere, and no result JSON carries the code revision that produced it; the G5 training recipe writes both into SchwingNet/results/final/*.json and the supplement",
+   "gate": "G5"
+  },
+  {
+   "item": 26,
+   "section": "METHODS",
+   "topic": "Training",
+   "text": "Method of selecting the final model",
+   "verdict": "SATISFIED",
+   "where": "sections/methods.tex lines 57-61 (checkpoint choice disclosed; operating point 0.74 fixed before the test frames were read, software default 0.25 beside it) and 81-82 (encoder checkpoints on validation folds excluding every test case); tools/train_level_classifier.py line 410",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 27,
+   "section": "METHODS",
+   "topic": "Training",
+   "text": "Ensembling techniques, if applicable",
+   "verdict": "SATISFIED",
+   "where": "sections/methods.tex lines 82-84: no ensemble; flip test-time augmentation named as the only averaging in the pipeline",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 28,
+   "section": "METHODS",
+   "topic": "Evaluation",
+   "text": "Metrics of model performance",
+   "verdict": "SATISFIED",
+   "where": "sections/methods.tex lines 89-98 (primary and secondary outcomes); sections/results.tex (every percentage with its denominator, conditional rates beside their coverage); key definitions in docs/carmlspine_cv5_mixed_2026-09-21.json and SchwingNet/results/a1.json",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 29,
+   "section": "METHODS",
+   "topic": "Evaluation",
+   "text": "Statistical measures of significance and uncertainty (e.g., confidence intervals)",
+   "verdict": "SATISFIED",
+   "where": "sections/methods.tex lines 103-109 (2,000-resample cluster bootstrap, percentile with BCa beside it; Wilson on design-effect-adjusted counts; paired differences with Holm over four pre-listed comparisons; sign-flip test; multiplicity declared: 5 of 1,440 detector cells, 6 of 120); SchwingNet/results/a1.json, a4-a7.json, a9.json",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 30,
+   "section": "METHODS",
+   "topic": "Evaluation",
+   "text": "Robustness or sensitivity analysis",
+   "verdict": "SATISFIED",
+   "where": "sections/results.tex lines 19-36 (source ablations, angular-coverage analysis, frame-budget cut, seed repeats) and 53-57 (field-size sweep, day-grouped folds, zero-shot device); results/contribution_matrix.json seed_spread; what is not measured is stated in sections/discussion_limits.tex and docs/MODEL_CARD.md section 5.6",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 31,
+   "section": "METHODS",
+   "topic": "Evaluation",
+   "text": "Methods for explainability or interpretability (e.g., saliency maps), and how they were validated",
+   "verdict": "GAP",
+   "where": "Exists: tools/explain_level_model.py and slurm/explain.sh (region occlusion, Grad-CAM, prototypes, morphometric probes), run once on a superseded model trained on a leaked bank (docs/FEASIBILITY_REPRODUCE.md row 15)",
+   "gap": "No explainability result exists for the models this manuscript reports and none is validated; rerun on the G5 flagship models (with the manifold figure, results/corpus_manifold) and hold for the supplement",
+   "gate": "G5"
+  },
+  {
+   "item": 32,
+   "section": "METHODS",
+   "topic": "Evaluation",
+   "text": "Validation or testing on external data",
+   "verdict": "SATISFIED",
+   "where": "sections/results.tex lines 19-36 (detector on a C-arm absent from training, at the pre-stated operating point, with case-clustered intervals; SchwingNet/results/a1.json) and 50-52 (naming with no exposure of the device in training, 96.3 % lateral; docs/carmlspine_zeroshot2_pooled_all_2026-09-21.json)",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 33,
+   "section": "RESULTS",
+   "topic": "Data",
+   "text": "Flow of participants or cases, using a diagram to indicate inclusion and exclusion",
+   "verdict": "SATISFIED",
+   "where": "supplement.tex lines 17-21: Figure S1 is the flow of cases (figures/fig2_flow.pdf, drawn by tools/fig2_flow.py), every count read from the files named in NUMBERS.md; the counts themselves are itemised below (Item 33 in full). The G4 corpus rebuild regenerates the counts, not the item",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 34,
+   "section": "RESULTS",
+   "topic": "Data",
+   "text": "Demographic and clinical characteristics of cases in each partition",
+   "verdict": "GAP",
+   "where": "Exists: sections/results.tex 'Study population' (age and sex per source through \\RESULT keys from results/age_sex_by_source.json: none for the intraoperative, cadaveric or phantom sets; COBRA2026 gives PatientAge on 115 and PatientSex on 75 of the 145 detector cases, so the earlier clause that the radiotherapy set releases none was false and left the text on 2026-09-24); supplement Table S3 (tables/tabS3_corpus.tex, the corpus-by-source table merged with the census on 2026-09-24, written by tools/make_supp_census_tables.py --merged)",
+   "gap": "Per partition: Table S3 is per source over the built split's persons, not per train / validation / test partition; produce the partition rows when the G5 results carry them; the intraoperative gap remains and stays stated",
+   "gate": "G5"
+  },
+  {
+   "item": 35,
+   "section": "RESULTS",
+   "topic": "Model performance",
+   "text": "Performance metrics for optimal model(s) on all data partitions",
+   "verdict": "GAP",
+   "where": "Exists: sections/results.tex (test-partition results for every arm: held-out device, same-device control, zero-shot, case- and day-grouped CV, pooled devices); docs/carmlspine_ft_mix_test_2026-09-21.json (fixed test split)",
+   "gap": "Training- and validation-partition performance is recorded in no result file and the CV folds are pooled without per-fold rows; the G5 flagship results (SchwingNet/results/final/*.json) must carry train, validation and test rows and the per-fold spread",
+   "gate": "G5"
+  },
+  {
+   "item": 36,
+   "section": "RESULTS",
+   "topic": "Model performance",
+   "text": "Estimates of diagnostic accuracy and their precision (such as 95% confidence intervals)",
+   "verdict": "SATISFIED",
+   "where": "sections/results.tex throughout: every accuracy with its denominator and 95 % CI, BCa beside the boundary-hitting ones (e.g. lines 53-57: 98.2 %, 606 of 617; 95.7, 100.0; BCa 95.0, 99.5); SchwingNet/results/a1.json, a9.json; abstract numbers ledger-bound (NUMBERS.md)",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 37,
+   "section": "RESULTS",
+   "topic": "Model performance",
+   "text": "Failure analysis of incorrectly classified cases",
+   "verdict": "SATISFIED",
+   "where": "sections/results.tex lines 53-70: three cases carry all 11 lateral errors, each one level; every counting mismatch is one ordinal; the 35 missed bodies sit at the field edge; the disagreement flag fired on nine of ten frames with an error; the three disputed-L6 cases examined body by body; confusions per key in docs/carmlspine_cv5_mixed_2026-09-21.json",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 38,
+   "section": "DISCUSSION",
+   "topic": "",
+   "text": "Study limitations, including potential bias, statistical uncertainty, and generalizability",
+   "verdict": "SATISFIED",
+   "where": "sections/discussion_limits.tex: one intraoperative device; machine truth and the withheld thoracolumbar junction; identity not provable on disk and both groupings given; leaky initialisation banks; transitional n below the pre-stated target; box-convention recompute and Elekta refit pending; uncalibrated posterior; nothing evaluated prospectively",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 39,
+   "section": "DISCUSSION",
+   "topic": "",
+   "text": "Implications for practice, including the intended use and/or clinical role",
+   "verdict": "SATISFIED",
+   "where": "sections/discussion_motivation.tex and sections/discussion_limits.tex last paragraph (decision support that abstains visibly beside the surgeon's own count and never replaces the check film; next test a phantom, then a cadaver, then a human series); docs/MODEL_CARD.md sections 2 and 7",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 40,
+   "section": "OTHER INFORMATION",
+   "topic": "",
+   "text": "Registration number and name of registry",
+   "verdict": "SATISFIED",
+   "where": "main.tex line 68: 'Registration. Not a clinical trial; not registered.' The IRB determination (2026-269) is cited as ethics, not in place of a registration",
+   "gap": "",
+   "gate": ""
+  },
+  {
+   "item": 41,
+   "section": "OTHER INFORMATION",
+   "topic": "",
+   "text": "Where the full study protocol can be accessed",
+   "verdict": "GAP",
+   "where": "Exists: main.tex lines 62-64 (data availability; code, parameters and weights in a private repository at revision 6e1cf8d, available to reviewers and editors on request, deposit promised at publication); the pre-stated protocol itself is docs/BENCHMARK_PROTOCOL.md and docs/RSNAI_PLAN.md",
+   "gap": "A reader cannot access the protocol: deposit the protocol files, code and weight hashes with a DOI at submission and put the identifier into the availability statement in place of 'on request'",
+   "gate": "G7"
+  },
+  {
+   "item": 42,
+   "section": "OTHER INFORMATION",
+   "topic": "",
+   "text": "Sources of funding and other support; role of funders",
+   "verdict": "GAP",
+   "where": "Exists: main.tex line 70 (funding and acknowledgments deferred to the full title page for double-anonymized review); the conflict statement, main.tex line 74",
+   "gap": "The full title page file with the funding sentence (no external funding; computing provided by the Wayne State University High Performance Computing Grid) exists nowhere in SchwingNet/; it is part of the G7 submission packet",
+   "gate": "G7"
+  }
+ ],
+ "required_statements": [
+  {
+   "statement": "data availability",
+   "status": "SATISFIED",
+   "evidence": "main.tex line 62; docs/DATASHEET.md section 6; docs/RSNAI_DATA_MANIFEST.json",
+   "note": "Every source public under its own licence; the derived layout is rebuilt by the released exporters, not redistributed."
+  },
+  {
+   "statement": "code availability",
+   "status": "GAP",
+   "evidence": "main.tex line 64 (private repository, revision 6e1cf8d, on request; deposit promised)",
+   "note": "The public deposit with a revision identifier and registered weight hashes is G7 submission work; docs/MODEL_CARD.md section 1.3 records that no weight file has a hash yet."
+  },
+  {
+   "statement": "ethics",
+   "status": "SATISFIED",
+   "evidence": "main.tex line 66 (determination 2026-269; the residual-identifier disclosure); sections/methods.tex lines 10-13; OSC_HPR_Determination_public_datasets.pdf",
+   "note": "SpineSAC and AASCE trained no reported component (sections/methods.tex lines 30-31), so the determination-scope check for those two applies only if that changes."
+  },
+  {
+   "statement": "funding",
+   "status": "GAP",
+   "evidence": "main.tex line 70 (deferred to the full title page)",
+   "note": "See item 42: the full title page file does not exist; G7."
+  },
+  {
+   "statement": "guarantor",
+   "status": "SATISFIED",
+   "evidence": "main.tex line 72",
+   "note": "The sole author is the guarantor."
+  },
+  {
+   "statement": "conflicts of interest",
+   "status": "SATISFIED",
+   "evidence": "main.tex line 74",
+   "note": "Commercial interest stated; no product or pathway named."
+  }
+ ],
+ "disjointness_item21": [
+  {
+   "corpus": "C-ArmLSpine (the only intraoperative test set; the 98.2 % and every CV number)",
+   "disjoint_at": "ACQUISITION SESSION (case). Not provably patient: PatientID empty on 59,307 of 59,609 instances, UIDs regenerated per file, 149 cases on five acquisition dates a median 224 s apart. ACQUISITION DAY after the folds are regrouped by day (lateral whole frame 92.5 % [87.7, 96.4] against 98.2 % case-grouped, SchwingNet/results/a9.json). Institution-disjoint from every training corpus for the zero-shot and LODO results."
+  },
+  {
+   "corpus": "DeepFluoro",
+   "disjoint_at": "SPECIMEN (six cadaveric pelves); test specimen 18-1109 has 0 frames in train or val."
+  },
+  {
+   "corpus": "COBRA2026 Elekta",
+   "disjoint_at": "CASE on the dataset paper's authority; centres D, F and G carry no identity remnant on disk; 74,364 cross-split near-duplicate pairs are different patients at the same gantry angle."
+  },
+  {
+   "corpus": "Geneva hip; Ljubljana",
+   "disjoint_at": "ONE OBJECT each (a resin phantom; one cadaver L1-L5); test only or card only; a split carries no information."
+  },
+  {
+   "corpus": "CTSpinoPelvic1K",
+   "disjoint_at": "PATIENT (TCIA PatientID; one release id = one person verified 802/802 by two routes). The shipped allspine v2/v6/v7 banks split it by case NAME and put 357 people on both sides, so nothing from those banks is quoted."
+  },
+  {
+   "corpus": "VerSe",
+   "disjoint_at": "SUBJECT in the spec (355 subjects over 374 series) but SERIES in the v8 bank (five people on both sides); no VerSe number is quoted."
+  },
+  {
+   "corpus": "TotalSegmentator (the device-corpus CTs)",
+   "disjoint_at": "SCAN. No patient identifier exists in either release; persons <= 1,935 and unknowable on disk. The device corpus holds 17 validation subjects fixed across every geometry and card."
+  },
+  {
+   "corpus": "NHANES II",
+   "disjoint_at": "PERSON (sample_id), but entered twice and split independently in v2/v6/v7 (48 of 54 validation patients leaked); withdrawn."
+  },
+  {
+   "corpus": "BUU-LSPINE",
+   "disjoint_at": "PATIENT (release patient_id, AP and LA together); two byte-identical pairs uncertain."
+  },
+  {
+   "corpus": "CSXA",
+   "disjoint_at": "IMAGE, assumed to equal patient; untested."
+  },
+  {
+   "corpus": "VinDr-SpineXR",
+   "disjoint_at": "STUDY (5,000) in the spec; IMAGE in the shipped vindrps bank; not quoted."
+  },
+  {
+   "corpus": "FluoroCap literature panels",
+   "disjoint_at": "SOURCE DOCUMENT; trained the intraoperative fold banks only; never a test claim and never a patient count."
+  }
+ ],
+ "flow_item33": [
+  "C-ArmLSpine: 149 cases released -> 148 built (1 failed conversion) -> 296 frames; fixed split md5(case) % 10: 105/15/28 cases; five-fold CV md5(case) % 5: test folds 35, 25, 28, 36, 24",
+  "C-ArmLSpine truth: 910 CBCT vertebrae compared -> 814 agreed (89.5 %), 41 name disagreements, 55 unmatched; SPINEPS missing on 3 cases; boxes 1,807 -> 1,623 with an agreed level (T11 0 of 3, T12 6 of 63)",
+  "C-ArmLSpine scoring: lateral 676 agreed vertebrae in 143 cases -> 617 detected in 141 (the 98.2 % denominator); AP 673 -> 631 in 142",
+  "DeepFluoro: 6 specimens, 366 frames -> 4/1/1 specimens (238/24/104 frames)",
+  "COBRA2026 Elekta: 692 public cases -> 152 fetched (download-volume cut, no criterion; full fetch = gate G0) -> 145 in splits (B000 dropped: 41 frames the CT never covers) -> 110/8/27 cases (2,640/192/648 frames)",
+  "COBRA2026 Varian: 26 cases fetched (F 14, G 12); device-card fitting only",
+  "Geneva hip: 1 phantom, 116 frames, test only. Ljubljana: 1 cadaver, 18 frames, card only. SpineSAC: header census only, no result",
+  "CT rendered: CTSpinoPelvic1K 802 -> 801 (0533 truncated; rebuild = gate G0); TotalSegmentator v2 1,228 -> 1,170 rendered -> 142 clean whole-spine -> 17 fixed validation subjects; VerSe 374 series (355 subjects) -> 387 renders, none quoted",
+  "Plain film validation (patient-keyed v8 bank, SchwingNet/results/a5.json): CSXA 727 patients / 3,635 vertebrae; BUU-LSPINE 549 / 2,744; NHANES II 52 / 445"
+ ]
+}

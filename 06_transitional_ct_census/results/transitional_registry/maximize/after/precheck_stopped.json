@@ -1,0 +1,29 @@
+{
+ "_about": "Cases whose rare_max_stage.sh task STOPPED at the precheck (before the renderer ran), transcribed from ~/logs/rare_max_stage_<job>_<task>.out on the grid on 2026-09-24 16:47 EDT. A precheck stop is a refusal to name the case from that mask, not a render failure: no ann, no img, no held/ record exists for it. sacct shows the task FAILED with exit 5 after 11 s.",
+ "totalsegmentator_drr_arc": [
+  {
+   "case": "TS_s0077",
+   "subtype": "L6",
+   "truth_tier": "two-labeller",
+   "job_task": "40437726_2",
+   "log": "~/logs/rare_max_stage_40437726_2.out",
+   "exit": "FAILED 5:0 after 00:00:11",
+   "stage": "precheck: spineps_ids.assert_verse_monotonic on ~/bench_ts/spineps/native_ctd/TS_s0077_seg-vert_msk.nii.gz",
+   "error": "SpinepsIdError [veridah_skipped_name]: VERIDAH's ctd skips T12 between T11 and L1 at a normal spacing (30.7 mm, local 26.6 mm), so the names on one side of the skip are one level off. Name this case from another labeller, or pass allow_skipped_names=True where another labeller gates every name.",
+   "classification": "refusal (by design): the SPINEPS mask's ids cannot be read as VerSe names, so the renderer never saw the case; the same guard that caught the raw-id harvests (tools/spineps_ids.py) fired on a skipped name. Not rendered, not held; stays in the TotalSegmentator review queue (already listed at priority 1).",
+   "marker": "RARE_MAX_PRECHECK_FAIL TS_s0077"
+  },
+  {
+   "case": "TS_s0477",
+   "subtype": "L6",
+   "truth_tier": "two-labeller",
+   "job_task": "40437726_9",
+   "log": "~/logs/rare_max_stage_40437726_9.out",
+   "exit": "FAILED 5:0 after 00:00:11",
+   "stage": "precheck: spineps_ids.assert_verse_monotonic on ~/bench_ts/spineps/native_ctd/TS_s0477_seg-vert_msk.nii.gz",
+   "error": "SpinepsIdError [veridah_skipped_name]: VERIDAH's ctd skips T12 between T11 and L1 at a normal spacing (27.5 mm, local 26.3 mm), so the names on one side of the skip are one level off. Name this case from another labeller, or pass allow_skipped_names=True where another labeller gates every name.",
+   "classification": "refusal (by design): same guard, same reason as TS_s0077. The stream's SUMMARY had already predicted s0477 as a 'rib-less T12' kind; the ctd's skipped T12 is the same finding seen from the id side. Not rendered, not held; stays in the TotalSegmentator review queue (already listed at priority 1).",
+   "marker": "RARE_MAX_PRECHECK_FAIL TS_s0477"
+  }
+ ]
+}

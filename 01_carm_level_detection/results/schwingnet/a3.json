@@ -1,0 +1,1143 @@
+{
+ "item": "A3",
+ "status": "DONE",
+ "comparisons": {
+  "render_vs_film_detector": {
+   "status": "DONE",
+   "file": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/SchwingNet/results/a3a_rows.csv",
+   "comparison": "render-trained detector (anchor_det_v1, no real image) vs film-trained detector (detect_v5z_final) on the SAME stations of the same real radiographs",
+   "conf_0.05": {
+    "n_items": 233,
+    "n_clusters": 25,
+    "cluster": "spine",
+    "p_a": 0.9914163090128756,
+    "p_b": 0.7167381974248928,
+    "diff": 0.27467811158798283,
+    "diff_pp": 27.467811158798284,
+    "discordant_a_only": 64,
+    "discordant_b_only": 0,
+    "mcnemar_exact_p": 1.0842021724855044e-19,
+    "mcnemar_floor": 1.0842021724855044e-19,
+    "clusters_favouring_a": 23,
+    "clusters_favouring_b": 0,
+    "cluster_sign_test_p": 2.384185791015625e-07,
+    "cluster_sign_floor": 2.384185791015625e-07,
+    "percentile": [
+     0.205237375433882,
+     0.35243586421352685
+    ],
+    "percentile_pp": [
+     20.5237375433882,
+     35.24358642135269
+    ],
+    "bca": [
+     0.2091122071787025,
+     0.35593220338983056
+    ],
+    "bca_note": "z0=-0.009 a=0.0277",
+    "bca_pp": [
+     20.91122071787025,
+     35.59322033898306
+    ],
+    "p_boot": 0.0005,
+    "excludes_zero": true,
+    "bootstrap_zero_mass": 3.777893186295718e-28,
+    "excludes_zero_fragile": false,
+    "by_source": {
+     "nhanes": 233
+    },
+    "spines_by_source": {
+     "nhanes": 25
+    },
+    "bodies_from_spines_in_holdout_train": 196,
+    "caveat": "the shipped run passed no --holdout-bank, so whether detect_v5z_final trained on any of these 25 spines was never checked. Measured here: every spine is an NHANES II film and 196 of 233 bodies come from spines whose case names sit in the allspine_v7 TRAIN split (the film corpora the film detector was trained from). The film-trained recall is therefore NOT a held-out number and must not be quoted as one; the render-trained recall is (that detector saw no real image). The paired difference is a lower bound on the sim-to-real gap only in the sense that a held-out film detector could score lower, not higher."
+   },
+   "conf_0.25": {
+    "n_items": 233,
+    "n_clusters": 25,
+    "cluster": "spine",
+    "p_a": 0.9871244635193133,
+    "p_b": 0.4334763948497854,
+    "diff": 0.5536480686695279,
+    "diff_pp": 55.36480686695279,
+    "discordant_a_only": 129,
+    "discordant_b_only": 0,
+    "mcnemar_exact_p": 2.938735877055719e-39,
+    "mcnemar_floor": 2.938735877055719e-39,
+    "clusters_favouring_a": 25,
+    "clusters_favouring_b": 0,
+    "cluster_sign_test_p": 5.960464477539063e-08,
+    "cluster_sign_floor": 5.960464477539063e-08,
+    "percentile": [
+     0.46952136592647875,
+     0.6359653710636423
+    ],
+    "percentile_pp": [
+     46.952136592647875,
+     63.596537106364224
+    ],
+    "bca": [
+     0.46527186810497817,
+     0.6344279978941765
+    ],
+    "bca_note": "z0=-0.018 a=-0.0043",
+    "bca_pp": [
+     46.52718681049782,
+     63.44279978941765
+    ],
+    "p_boot": 0.0005,
+    "excludes_zero": true,
+    "bootstrap_zero_mass": 0.0,
+    "excludes_zero_fragile": false,
+    "by_source": {
+     "nhanes": 233
+    },
+    "spines_by_source": {
+     "nhanes": 25
+    },
+    "bodies_from_spines_in_holdout_train": 196,
+    "caveat": "the shipped run passed no --holdout-bank, so whether detect_v5z_final trained on any of these 25 spines was never checked. Measured here: every spine is an NHANES II film and 196 of 233 bodies come from spines whose case names sit in the allspine_v7 TRAIN split (the film corpora the film detector was trained from). The film-trained recall is therefore NOT a held-out number and must not be quoted as one; the render-trained recall is (that detector saw no real image). The paired difference is a lower bound on the sim-to-real gap only in the sense that a held-out film detector could score lower, not higher."
+   }
+  },
+  "zeroshot_lateral_vs_ap": {
+   "n_items": 593,
+   "n_clusters": 140,
+   "cluster": "case",
+   "p_a": 0.9612141652613828,
+   "p_b": 0.3844856661045531,
+   "diff": 0.5767284991568298,
+   "diff_pp": 57.672849915682974,
+   "discordant_a_only": 350,
+   "discordant_b_only": 8,
+   "mcnemar_exact_p": 2.1558147017142786e-92,
+   "mcnemar_floor": 3.4063678720065206e-108,
+   "clusters_favouring_a": 86,
+   "clusters_favouring_b": 2,
+   "cluster_sign_test_p": 2.531301921382976e-23,
+   "cluster_sign_floor": 6.462348535570529e-27,
+   "percentile": [
+    0.4885563725490196,
+    0.6643487194758786
+   ],
+   "percentile_pp": [
+    48.855637254901964,
+    66.43487194758787
+   ],
+   "bca": [
+    0.4880546075085324,
+    0.6616098273605466
+   ],
+   "bca_note": "z0=0.001 a=-0.0094",
+   "bca_pp": [
+    48.80546075085324,
+    66.16098273605466
+   ],
+   "p_boot": 0.0005,
+   "excludes_zero": true,
+   "bootstrap_zero_mass": 6.060983670262884e-61,
+   "excludes_zero_fragile": false,
+   "status": "DONE",
+   "files": [
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_test/score_kfull.json",
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_train/score_kfull.json",
+    "/rs/rs_grp_oschome/go2432/data/carmlspine/proto/zeroshot2_det_val/score_kfull.json"
+   ],
+   "matched_vertebrae": 593,
+   "lat_only": 24,
+   "ap_only": 38,
+   "marginal_lat": {
+    "k": 594,
+    "n": 617,
+    "clusters": 141,
+    "point": 0.9627228525121556,
+    "clusters_with_error": 6,
+    "clusters_all_wrong": 6,
+    "wilson_naive": [
+     0.9446857042868556,
+     0.9750338020177501
+    ],
+    "percentile": [
+     0.9305745673861296,
+     0.9873015873015873
+    ],
+    "bca": [
+     0.9231853450315899,
+     0.9853780358308423
+    ],
+    "bca_note": "z0=-0.040 a=-0.0667",
+    "design_effect": 4.008020818453113,
+    "n_effective": 153.9413161626565,
+    "wilson_effective_n": [
+     0.9198240811625301,
+     0.9830902571329715
+    ],
+    "ceiling_regime": true,
+    "cluster": "case"
+   },
+   "marginal_ap": {
+    "k": 239,
+    "n": 631,
+    "clusters": 142,
+    "point": 0.3787638668779715,
+    "clusters_with_error": 91,
+    "clusters_all_wrong": 90,
+    "wilson_naive": [
+     0.3417567568658483,
+     0.4172381892357837
+    ],
+    "percentile": [
+     0.29570025140836403,
+     0.4586170115503001
+    ],
+    "bca": [
+     0.3014039908463817,
+     0.4635387367263429
+    ],
+    "bca_note": "z0=0.043 a=0.0080",
+    "design_effect": 4.722100186036277,
+    "n_effective": 133.62698272813654,
+    "wilson_effective_n": [
+     0.3009924945373342,
+     0.4633109559972562
+    ],
+    "ceiling_regime": false,
+    "cluster": "case"
+   },
+   "note": "pairing by (case, truth level) across the AP and lateral frame of the same case; the marginals include vertebrae found in one view only"
+  },
+  "card_vs_uncalibrated_physics": {
+   "n_folds": 24,
+   "values": [
+    0.06801523549717658,
+    0.03792769889571668,
+    0.03153081244663258,
+    0.037778138907897274,
+    0.034990530863240665,
+    0.03991092084481285,
+    0.03328855423410537,
+    0.013188581338382854,
+    -0.012785522125364879,
+    0.036016474929530196,
+    0.012636782121754009,
+    0.009686614066446442,
+    0.0031267426735287485,
+    0.028521648861409177,
+    0.001434342578920167,
+    0.03628954142992302,
+    -0.0010082433984689443,
+    0.0710092029134769,
+    0.09914286915609694,
+    -0.041239956351522666,
+    0.17539517968843454,
+    -0.020279905281736288,
+    0.08051933469255956,
+    0.12840876330458784
+   ],
+   "mean": 0.03764601426198082,
+   "median": 0.03413954254867302,
+   "min": -0.041239956351522666,
+   "max": 0.17539517968843454,
+   "n_negative": 4,
+   "mean_percentile": [
+    0.020496044925012814,
+    0.05731694374626531
+   ],
+   "mean_bca": [
+    0.02189046611260606,
+    0.06061096247626941
+   ],
+   "mean_bca_note": "z0=0.039 a=0.0371",
+   "median_percentile": [
+    0.012636782121754009,
+    0.038100231137367935
+   ],
+   "median_bca": [
+    0.011437597702414648,
+    0.03792769889571668
+   ],
+   "median_bca_note": "z0=-0.060 a=-0.0000",
+   "p_boot_mean": 0.0005,
+   "p_signflip_mc": 0.00019998000199980003,
+   "warning": null,
+   "status": "DONE",
+   "per_device": {
+    "bv_pulsera": {
+     "file": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/SchwingNet/results/inputs/devices/bv_pulsera.json",
+     "folds": [
+      {
+       "held": "fold0",
+       "n_frames": 6,
+       "baseline": 0.8655644672716603,
+       "calibrated": 0.9335797027688368,
+       "gain": 0.06801523549717658
+      },
+      {
+       "held": "fold1",
+       "n_frames": 14,
+       "baseline": 0.934696350055463,
+       "calibrated": 0.9726240489511797,
+       "gain": 0.03792769889571668
+      },
+      {
+       "held": "fold2",
+       "n_frames": 22,
+       "baseline": 0.9271607087590765,
+       "calibrated": 0.9586915212057091,
+       "gain": 0.03153081244663258
+      },
+      {
+       "held": "fold3",
+       "n_frames": 39,
+       "baseline": 0.9072986351979437,
+       "calibrated": 0.945076774105841,
+       "gain": 0.037778138907897274
+      },
+      {
+       "held": "fold4",
+       "n_frames": 18,
+       "baseline": 0.9406539435423693,
+       "calibrated": 0.97564447440561,
+       "gain": 0.034990530863240665
+      },
+      {
+       "held": "fold5",
+       "n_frames": 17,
+       "baseline": 0.9062054915497908,
+       "calibrated": 0.9461164123946036,
+       "gain": 0.03991092084481285
+      }
+     ],
+     "n_folds": 6,
+     "values": [
+      0.06801523549717658,
+      0.03792769889571668,
+      0.03153081244663258,
+      0.037778138907897274,
+      0.034990530863240665,
+      0.03991092084481285
+     ],
+     "mean": 0.0416922229092461,
+     "median": 0.037852918901806976,
+     "min": 0.03153081244663258,
+     "max": 0.06801523549717658,
+     "n_negative": 0,
+     "mean_percentile": [
+      0.03476493994593887,
+      0.052787549517913424
+     ],
+     "mean_bca": [
+      0.03536804047332809,
+      0.057389812400752534
+     ],
+     "mean_bca_note": "z0=0.029 a=0.1082",
+     "median_percentile": [
+      0.033260671654936624,
+      0.053963078170994716
+     ],
+     "median_bca": [
+      0.033260671654936624,
+      0.05289668720253693
+     ],
+     "median_bca_note": "z0=-0.147 a=0.0000",
+     "p_boot_mean": 0.0005,
+     "p_signflip_exact": 0.03125,
+     "p_signflip_floor": 0.03125,
+     "warning": "only 6 folds: intervals over folds are coarse; the exact sign-flip test cannot go below 0.0312"
+    },
+    "cios_fusion": {
+     "file": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/SchwingNet/results/inputs/devices/cios_fusion.json",
+     "folds": [
+      {
+       "held": "17-1882",
+       "n_frames": 111,
+       "baseline": 0.8671141519169887,
+       "calibrated": 0.9004027061510941,
+       "gain": 0.03328855423410537
+      },
+      {
+       "held": "17-1905",
+       "n_frames": 24,
+       "baseline": 0.9301568682304088,
+       "calibrated": 0.9433454495687916,
+       "gain": 0.013188581338382854
+      },
+      {
+       "held": "18-0725",
+       "n_frames": 24,
+       "baseline": 0.9056791397316973,
+       "calibrated": 0.8928936176063325,
+       "gain": -0.012785522125364879
+      },
+      {
+       "held": "18-1109",
+       "n_frames": 104,
+       "baseline": 0.7527930586428784,
+       "calibrated": 0.7888095335724086,
+       "gain": 0.036016474929530196
+      },
+      {
+       "held": "18-2799",
+       "n_frames": 48,
+       "baseline": 0.8966873355496432,
+       "calibrated": 0.9093241176713972,
+       "gain": 0.012636782121754009
+      },
+      {
+       "held": "18-2800",
+       "n_frames": 55,
+       "baseline": 0.9021127287698265,
+       "calibrated": 0.911799342836273,
+       "gain": 0.009686614066446442
+      }
+     ],
+     "n_folds": 6,
+     "values": [
+      0.03328855423410537,
+      0.013188581338382854,
+      -0.012785522125364879,
+      0.036016474929530196,
+      0.012636782121754009,
+      0.009686614066446442
+     ],
+     "mean": 0.015338580760808998,
+     "median": 0.012912681730068432,
+     "min": -0.012785522125364879,
+     "max": 0.036016474929530196,
+     "n_negative": 1,
+     "mean_percentile": [
+      0.0028749713103690196,
+      0.027369788435253714
+     ],
+     "mean_bca": [
+      -0.0004740981415852219,
+      0.026914208955350072
+     ],
+     "mean_bca_note": "z0=-0.092 a=-0.0207",
+     "median_percentile": [
+      -0.0015494540294592185,
+      0.034652514581817784
+     ],
+     "median_bca": [
+      -0.012785522125364879,
+      0.03328855423410537
+     ],
+     "median_bca_note": "z0=-0.243 a=0.0000",
+     "p_boot_mean": 0.034,
+     "p_signflip_exact": 0.125,
+     "p_signflip_floor": 0.03125,
+     "warning": "only 6 folds: intervals over folds are coarse; the exact sign-flip test cannot go below 0.0312"
+    },
+    "elekta_xvi": {
+     "file": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/SchwingNet/results/inputs/devices/elekta_xvi.json",
+     "folds": [
+      {
+       "held": "fold0",
+       "n_frames": 22,
+       "baseline": 0.9720155049500193,
+       "calibrated": 0.9751422476235481,
+       "gain": 0.0031267426735287485
+      },
+      {
+       "held": "fold1",
+       "n_frames": 21,
+       "baseline": 0.9554207295354249,
+       "calibrated": 0.9839423783968341,
+       "gain": 0.028521648861409177
+      },
+      {
+       "held": "fold2",
+       "n_frames": 88,
+       "baseline": 0.9746590652433013,
+       "calibrated": 0.9760934078222214,
+       "gain": 0.001434342578920167
+      },
+      {
+       "held": "fold3",
+       "n_frames": 102,
+       "baseline": 0.9258235914187357,
+       "calibrated": 0.9621131328486587,
+       "gain": 0.03628954142992302
+      },
+      {
+       "held": "fold4",
+       "n_frames": 62,
+       "baseline": 0.9746244110542451,
+       "calibrated": 0.9736161676557762,
+       "gain": -0.0010082433984689443
+      },
+      {
+       "held": "fold5",
+       "n_frames": 40,
+       "baseline": 0.8992157117727272,
+       "calibrated": 0.9702249146862041,
+       "gain": 0.0710092029134769
+      }
+     ],
+     "n_folds": 6,
+     "values": [
+      0.0031267426735287485,
+      0.028521648861409177,
+      0.001434342578920167,
+      0.03628954142992302,
+      -0.0010082433984689443,
+      0.0710092029134769
+     ],
+     "mean": 0.023228872509798177,
+     "median": 0.015824195767468963,
+     "min": -0.0010082433984689443,
+     "max": 0.0710092029134769,
+     "n_negative": 1,
+     "mean_percentile": [
+      0.0054167649826400615,
+      0.045279951329632834
+     ],
+     "mean_bca": [
+      0.00610592932797301,
+      0.04691054761371539
+     ],
+     "mean_bca_note": "z0=-0.016 a=0.0529",
+     "median_percentile": [
+      0.00021304959022561132,
+      0.05364937217169996
+     ],
+     "median_bca": [
+      0.00021304959022561132,
+      0.03628954142992302
+     ],
+     "median_bca_note": "z0=-0.230 a=0.0000",
+     "p_boot_mean": 0.001,
+     "p_signflip_exact": 0.0625,
+     "p_signflip_floor": 0.03125,
+     "warning": "only 6 folds: intervals over folds are coarse; the exact sign-flip test cannot go below 0.0312"
+    },
+    "pixium_4600": {
+     "file": "/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/SchwingNet/results/inputs/devices/pixium_4600.json",
+     "folds": [
+      {
+       "held": "fold0",
+       "n_frames": 4,
+       "baseline": 0.6648953840327021,
+       "calibrated": 0.764038253188799,
+       "gain": 0.09914286915609694
+      },
+      {
+       "held": "fold1",
+       "n_frames": 4,
+       "baseline": 0.6342054732309785,
+       "calibrated": 0.5929655168794559,
+       "gain": -0.041239956351522666
+      },
+      {
+       "held": "fold2",
+       "n_frames": 1,
+       "baseline": 0.6677604398149706,
+       "calibrated": 0.8431556195034051,
+       "gain": 0.17539517968843454
+      },
+      {
+       "held": "fold3",
+       "n_frames": 4,
+       "baseline": 0.47807288662495584,
+       "calibrated": 0.45779298134321955,
+       "gain": -0.020279905281736288
+      },
+      {
+       "held": "fold4",
+       "n_frames": 4,
+       "baseline": 0.41767175895723574,
+       "calibrated": 0.4981910936497953,
+       "gain": 0.08051933469255956
+      },
+      {
+       "held": "fold5",
+       "n_frames": 1,
+       "baseline": 0.8162089391520972,
+       "calibrated": 0.9446177024566851,
+       "gain": 0.12840876330458784
+      }
+     ],
+     "n_folds": 6,
+     "values": [
+      0.09914286915609694,
+      -0.041239956351522666,
+      0.17539517968843454,
+      -0.020279905281736288,
+      0.08051933469255956,
+      0.12840876330458784
+     ],
+     "mean": 0.07032438086806998,
+     "median": 0.08983110192432825,
+     "min": -0.041239956351522666,
+     "max": 0.17539517968843454,
+     "n_negative": 2,
+     "mean_percentile": [
+      0.006333157686433537,
+      0.13121168163911687
+     ],
+     "mean_bca": [
+      0.0017753785296932597,
+      0.12428979366755458
+     ],
+     "mean_bca_note": "z0=-0.060 a=-0.0183",
+     "median_percentile": [
+      -0.030759930816629477,
+      0.1519019714965112
+     ],
+     "median_bca": [
+      -0.030759930816629477,
+      0.12840876330458784
+     ],
+     "median_bca_note": "z0=-0.190 a=0.0000",
+     "p_boot_mean": 0.029,
+     "p_signflip_exact": 0.125,
+     "p_signflip_floor": 0.03125,
+     "warning": "only 6 folds: intervals over folds are coarse; the exact sign-flip test cannot go below 0.0312"
+    }
+   },
+   "note": "paired over folds: the nine-term card and the uncalibrated physics + linear match are scored on the SAME held-out fold; 24 folds over four devices pooled, and per device (A6)"
+  },
+  "pooled_vs_heldout_detector": {
+   "status": "DONE",
+   "files": {
+    "pooled": "/rs/rs_grp_oschome/go2432/data/or_ready/lodo/sweeps/pooled__carm_test.json",
+    "lodo_carm": "/rs/rs_grp_oschome/go2432/data/or_ready/lodo/sweeps/lodo_carm__carm_test.json"
+   },
+   "frames_shared": 56,
+   "cases": 28,
+   "cross_device_thresholds": {
+    "pooled": 0.76,
+    "lodo_carm": 0.74
+   },
+   "conf_0.25_both": {
+    "threshold_pooled": 0.25,
+    "threshold_lodo": 0.25,
+    "sacrum_found_outline": {
+     "n_items": 56,
+     "n_clusters": 28,
+     "cluster": "case",
+     "p_a": 0.9821428571428571,
+     "p_b": 0.8392857142857143,
+     "diff": 0.1428571428571428,
+     "diff_pp": 14.28571428571428,
+     "discordant_a_only": 8,
+     "discordant_b_only": 0,
+     "mcnemar_exact_p": 0.0078125,
+     "mcnemar_floor": 0.0078125,
+     "clusters_favouring_a": 8,
+     "clusters_favouring_b": 0,
+     "cluster_sign_test_p": 0.0078125,
+     "cluster_sign_floor": 0.0078125,
+     "percentile": [
+      0.0535714285714286,
+      0.2321428571428571
+     ],
+     "percentile_pp": [
+      5.35714285714286,
+      23.214285714285708
+     ],
+     "bca": [
+      0.05357142857142849,
+      0.2142857142857143
+     ],
+     "bca_note": "z0=-0.197 a=0.0299",
+     "bca_pp": [
+      5.357142857142849,
+      21.42857142857143
+     ],
+     "p_boot": 0.0005,
+     "excludes_zero": true,
+     "bootstrap_zero_mass": 8.098694206237014e-05,
+     "excludes_zero_fragile": false
+    },
+    "sacrum_found_body": {
+     "n_items": 56,
+     "n_clusters": 28,
+     "cluster": "case",
+     "p_a": 0.9821428571428571,
+     "p_b": 0.8392857142857143,
+     "diff": 0.1428571428571428,
+     "diff_pp": 14.28571428571428,
+     "discordant_a_only": 8,
+     "discordant_b_only": 0,
+     "mcnemar_exact_p": 0.0078125,
+     "mcnemar_floor": 0.0078125,
+     "clusters_favouring_a": 8,
+     "clusters_favouring_b": 0,
+     "cluster_sign_test_p": 0.0078125,
+     "cluster_sign_floor": 0.0078125,
+     "percentile": [
+      0.0535714285714286,
+      0.2321428571428571
+     ],
+     "percentile_pp": [
+      5.35714285714286,
+      23.214285714285708
+     ],
+     "bca": [
+      0.05357142857142849,
+      0.2142857142857143
+     ],
+     "bca_note": "z0=-0.197 a=0.0299",
+     "bca_pp": [
+      5.357142857142849,
+      21.42857142857143
+     ],
+     "p_boot": 0.0005,
+     "excludes_zero": true,
+     "bootstrap_zero_mass": 8.098694206237014e-05,
+     "excludes_zero_fragile": false
+    },
+    "vertebra_found_centre": {
+     "n_items": 287,
+     "n_clusters": 28,
+     "cluster": "case",
+     "p_a": 0.9163763066202091,
+     "p_b": 0.9094076655052264,
+     "diff": 0.006968641114982632,
+     "diff_pp": 0.6968641114982632,
+     "discordant_a_only": 2,
+     "discordant_b_only": 0,
+     "mcnemar_exact_p": 0.5,
+     "mcnemar_floor": 0.5,
+     "clusters_favouring_a": 2,
+     "clusters_favouring_b": 0,
+     "cluster_sign_test_p": 0.5,
+     "cluster_sign_floor": 0.5,
+     "percentile": [
+      0.0,
+      0.017667844522968212
+     ],
+     "percentile_pp": [
+      0.0,
+      1.7667844522968212
+     ],
+     "bca": [
+      0.0,
+      0.021201413427561825
+     ],
+     "bca_note": "z0=0.080 a=0.1047",
+     "bca_pp": [
+      0.0,
+      2.1201413427561824
+     ],
+     "p_boot": 0.229,
+     "excludes_zero": false,
+     "bootstrap_zero_mass": 0.12555351206860377,
+     "excludes_zero_fragile": false
+    },
+    "vertebra_found_outline": {
+     "n_items": 287,
+     "n_clusters": 28,
+     "cluster": "case",
+     "p_a": 0.4076655052264808,
+     "p_b": 0.9059233449477352,
+     "diff": -0.49825783972125437,
+     "diff_pp": -49.825783972125436,
+     "discordant_a_only": 1,
+     "discordant_b_only": 144,
+     "mcnemar_exact_p": 6.546866425325545e-42,
+     "mcnemar_floor": 4.484155085839415e-44,
+     "clusters_favouring_a": 0,
+     "clusters_favouring_b": 28,
+     "cluster_sign_test_p": 7.450580596923828e-09,
+     "cluster_sign_floor": 7.450580596923828e-09,
+     "percentile": [
+      -0.5425531914893618,
+      -0.44482758620689655
+     ],
+     "percentile_pp": [
+      -54.255319148936174,
+      -44.48275862068966
+     ],
+     "bca": [
+      -0.536231884057971,
+      -0.4327694748144266
+     ],
+     "bca_note": "z0=0.065 a=0.0595",
+     "bca_pp": [
+      -53.623188405797094,
+      -43.27694748144266
+     ],
+     "p_boot": 0.0005,
+     "excludes_zero": true,
+     "bootstrap_zero_mass": 0.0,
+     "excludes_zero_fragile": false
+    },
+    "vertebra_found_body": {
+     "n_items": 287,
+     "n_clusters": 28,
+     "cluster": "case",
+     "p_a": 0.9059233449477352,
+     "p_b": 0.05226480836236934,
+     "diff": 0.8536585365853658,
+     "diff_pp": 85.36585365853658,
+     "discordant_a_only": 247,
+     "discordant_b_only": 2,
+     "mcnemar_exact_p": 6.881520190614264e-71,
+     "mcnemar_floor": 2.210859150104178e-75,
+     "clusters_favouring_a": 28,
+     "clusters_favouring_b": 0,
+     "cluster_sign_test_p": 7.450580596923828e-09,
+     "cluster_sign_floor": 7.450580596923828e-09,
+     "percentile": [
+      0.7945954477204477,
+      0.9078095631907376
+     ],
+     "percentile_pp": [
+      79.45954477204477,
+      90.78095631907375
+     ],
+     "bca": [
+      0.7910426743475317,
+      0.9047481643240525
+     ],
+     "bca_note": "z0=-0.001 a=-0.0281",
+     "bca_pp": [
+      79.10426743475317,
+      90.47481643240525
+     ],
+     "p_boot": 0.0005,
+     "excludes_zero": true,
+     "bootstrap_zero_mass": 0.0,
+     "excludes_zero_fragile": false
+    }
+   },
+   "cross_device_each": {
+    "threshold_pooled": 0.76,
+    "threshold_lodo": 0.74,
+    "sacrum_found_outline": {
+     "n_items": 56,
+     "n_clusters": 28,
+     "cluster": "case",
+     "p_a": 0.9642857142857143,
+     "p_b": 0.7678571428571429,
+     "diff": 0.1964285714285714,
+     "diff_pp": 19.64285714285714,
+     "discordant_a_only": 11,
+     "discordant_b_only": 0,
+     "mcnemar_exact_p": 0.0009765625,
+     "mcnemar_floor": 0.0009765625,
+     "clusters_favouring_a": 9,
+     "clusters_favouring_b": 0,
+     "cluster_sign_test_p": 0.00390625,
+     "cluster_sign_floor": 0.00390625,
+     "percentile": [
+      0.0892857142857143,
+      0.3214285714285714
+     ],
+     "percentile_pp": [
+      8.92857142857143,
+      32.14285714285714
+     ],
+     "bca": [
+      0.0892857142857143,
+      0.3214285714285714
+     ],
+     "bca_note": "z0=-0.133 a=0.0416",
+     "bca_pp": [
+      8.92857142857143,
+      32.14285714285714
+     ],
+     "p_boot": 0.0005,
+     "excludes_zero": true,
+     "bootstrap_zero_mass": 1.926087217704758e-05,
+     "excludes_zero_fragile": false
+    },
+    "sacrum_found_body": {
+     "n_items": 56,
+     "n_clusters": 28,
+     "cluster": "case",
+     "p_a": 0.9642857142857143,
+     "p_b": 0.7678571428571429,
+     "diff": 0.1964285714285714,
+     "diff_pp": 19.64285714285714,
+     "discordant_a_only": 11,
+     "discordant_b_only": 0,
+     "mcnemar_exact_p": 0.0009765625,
+     "mcnemar_floor": 0.0009765625,
+     "clusters_favouring_a": 9,
+     "clusters_favouring_b": 0,
+     "cluster_sign_test_p": 0.00390625,
+     "cluster_sign_floor": 0.00390625,
+     "percentile": [
+      0.0892857142857143,
+      0.3214285714285714
+     ],
+     "percentile_pp": [
+      8.92857142857143,
+      32.14285714285714
+     ],
+     "bca": [
+      0.0892857142857143,
+      0.3214285714285714
+     ],
+     "bca_note": "z0=-0.133 a=0.0416",
+     "bca_pp": [
+      8.92857142857143,
+      32.14285714285714
+     ],
+     "p_boot": 0.0005,
+     "excludes_zero": true,
+     "bootstrap_zero_mass": 1.926087217704758e-05,
+     "excludes_zero_fragile": false
+    },
+    "vertebra_found_centre": {
+     "n_items": 287,
+     "n_clusters": 28,
+     "cluster": "case",
+     "p_a": 0.8118466898954704,
+     "p_b": 0.8048780487804879,
+     "diff": 0.006968641114982521,
+     "diff_pp": 0.6968641114982521,
+     "discordant_a_only": 16,
+     "discordant_b_only": 14,
+     "mcnemar_exact_p": 0.855535551905632,
+     "mcnemar_floor": 1.862645149230957e-09,
+     "clusters_favouring_a": 9,
+     "clusters_favouring_b": 8,
+     "cluster_sign_test_p": 1.0,
+     "cluster_sign_floor": 1.52587890625e-05,
+     "percentile": [
+      -0.03509080800593031,
+      0.04948321554770302
+     ],
+     "percentile_pp": [
+      -3.5090808005930314,
+      4.948321554770302
+     ],
+     "bca": [
+      -0.03472222222222221,
+      0.05130537849560218
+     ],
+     "bca_note": "z0=0.021 a=-0.0001",
+     "bca_pp": [
+      -3.472222222222221,
+      5.130537849560218
+     ],
+     "p_boot": 0.82,
+     "excludes_zero": false,
+     "bootstrap_zero_mass": 4.350811891360261e-12,
+     "excludes_zero_fragile": false
+    },
+    "vertebra_found_outline": {
+     "n_items": 287,
+     "n_clusters": 28,
+     "cluster": "case",
+     "p_a": 0.40069686411149824,
+     "p_b": 0.8048780487804879,
+     "diff": -0.4041811846689896,
+     "diff_pp": -40.41811846689896,
+     "discordant_a_only": 7,
+     "discordant_b_only": 123,
+     "mcnemar_exact_p": 1.6442075142553407e-28,
+     "mcnemar_floor": 1.4693679385278594e-39,
+     "clusters_favouring_a": 1,
+     "clusters_favouring_b": 27,
+     "cluster_sign_test_p": 2.1606683731079102e-07,
+     "cluster_sign_floor": 7.450580596923828e-09,
+     "percentile": [
+      -0.4607142857142857,
+      -0.3434101286841014
+     ],
+     "percentile_pp": [
+      -46.07142857142857,
+      -34.34101286841014
+     ],
+     "bca": [
+      -0.45449792991576476,
+      -0.33333333333333326
+     ],
+     "bca_note": "z0=0.039 a=0.0501",
+     "bca_pp": [
+      -45.44979299157647,
+      -33.33333333333333
+     ],
+     "p_boot": 0.0005,
+     "excludes_zero": true,
+     "bootstrap_zero_mass": 0.0,
+     "excludes_zero_fragile": false
+    },
+    "vertebra_found_body": {
+     "n_items": 287,
+     "n_clusters": 28,
+     "cluster": "case",
+     "p_a": 0.8118466898954704,
+     "p_b": 0.05226480836236934,
+     "diff": 0.759581881533101,
+     "diff_pp": 75.9581881533101,
+     "discordant_a_only": 220,
+     "discordant_b_only": 2,
+     "mcnemar_exact_p": 7.345415124329314e-63,
+     "mcnemar_floor": 2.967364920549937e-67,
+     "clusters_favouring_a": 28,
+     "clusters_favouring_b": 0,
+     "cluster_sign_test_p": 7.450580596923828e-09,
+     "cluster_sign_floor": 7.450580596923828e-09,
+     "percentile": [
+      0.6949107939339876,
+      0.8181818181818181
+     ],
+     "percentile_pp": [
+      69.49107939339876,
+      81.81818181818181
+     ],
+     "bca": [
+      0.6928545017671076,
+      0.8169014084507042
+     ],
+     "bca_note": "z0=0.006 a=-0.0194",
+     "bca_pp": [
+      69.28545017671077,
+      81.69014084507043
+     ],
+     "p_boot": 0.0005,
+     "excludes_zero": true,
+     "bootstrap_zero_mass": 0.0,
+     "excludes_zero_fragile": false
+    }
+   },
+   "note": "the two arms learned different box conventions (pooled: C-ArmLSpine body boxes; lodo_carm: whole-vertebra outlines), so the vertebra comparison is reported under the convention-free mutual-centre rule first and under both IoU conventions beside it; the sacrum box is the same under both. Cluster = case (each contributes two frames)."
+  }
+ },
+ "primary_with_holm": {
+  "render_vs_film_detector": {
+   "p_boot": 0.0005,
+   "p_exact": 2.384185791015625e-07,
+   "diff_pp": 27.467811158798284,
+   "ci_pp": [
+    20.5237375433882,
+    35.24358642135269
+   ],
+   "bca_pp": [
+    20.91122071787025,
+    35.59322033898306
+   ],
+   "unit": "bodies, cluster = spine",
+   "p_boot_holm": 0.002,
+   "p_exact_holm": 7.152557373046875e-07
+  },
+  "zeroshot_lateral_vs_ap": {
+   "p_boot": 0.0005,
+   "p_exact": 2.531301921382976e-23,
+   "diff_pp": 57.672849915682974,
+   "ci_pp": [
+    48.855637254901964,
+    66.43487194758787
+   ],
+   "bca_pp": [
+    48.80546075085324,
+    66.16098273605466
+   ],
+   "unit": "vertebrae, cluster = case",
+   "p_boot_holm": 0.002,
+   "p_exact_holm": 1.0125207685531904e-22
+  },
+  "card_vs_uncalibrated_physics": {
+   "p_boot": 0.0005,
+   "p_exact": 0.00019998000199980003,
+   "diff_pp": 3.7646014261980816,
+   "ci_pp": [
+    2.0496044925012815,
+    5.731694374626531
+   ],
+   "bca_pp": [
+    2.189046611260606,
+    6.061096247626941
+   ],
+   "unit": "held-out R2 x 100, mean over 24 folds",
+   "p_boot_holm": 0.002,
+   "p_exact_holm": 0.00039996000399960006
+  },
+  "pooled_vs_heldout_detector": {
+   "p_boot": 0.0005,
+   "p_exact": 0.0078125,
+   "diff_pp": 14.28571428571428,
+   "ci_pp": [
+    5.35714285714286,
+    23.214285714285708
+   ],
+   "bca_pp": [
+    5.357142857142849,
+    21.42857142857143
+   ],
+   "unit": "frames with the sacrum found at conf 0.25, cluster = case",
+   "p_boot_holm": 0.002,
+   "p_exact_holm": 0.0078125
+  }
+ },
+ "holm_note": "Holm over the four pre-listed comparisons, applied separately to the paired-bootstrap p and to the exact cluster-level test p; the family is the four comparisons the audit named, none added after seeing the data",
+ "meta": {
+  "code_sha": "6e1cf8d",
+  "when": "2026-09-22 21:12",
+  "n_boot": 2000,
+  "seed": 0,
+  "alpha": 0.05,
+  "files_read": []
+ },
+ "headline": [
+  {
+   "label": "paired difference: render_vs_film_detector",
+   "value": 0.27467811158798283,
+   "ci": [
+    0.205237375433882,
+    0.3524358642135269
+   ],
+   "bca": [
+    0.2091122071787025,
+    0.3559322033898306
+   ],
+   "scale": "pp",
+   "denominator": "bodies, cluster = spine",
+   "text": "p_boot 5.00e-04 (Holm 0.0020); exact cluster test p 2.38e-07 (Holm 7.15e-07)",
+   "file": "SchwingNet/results/a3.json#comparisons/render_vs_film_detector"
+  },
+  {
+   "label": "paired difference: zeroshot_lateral_vs_ap",
+   "value": 0.5767284991568298,
+   "ci": [
+    0.4885563725490196,
+    0.6643487194758787
+   ],
+   "bca": [
+    0.4880546075085324,
+    0.6616098273605466
+   ],
+   "scale": "pp",
+   "denominator": "vertebrae, cluster = case",
+   "text": "p_boot 5.00e-04 (Holm 0.0020); exact cluster test p 2.53e-23 (Holm 1.01e-22)",
+   "file": "SchwingNet/results/a3.json#comparisons/zeroshot_lateral_vs_ap"
+  },
+  {
+   "label": "paired difference: card_vs_uncalibrated_physics",
+   "value": 0.03764601426198082,
+   "ci": [
+    0.020496044925012814,
+    0.05731694374626531
+   ],
+   "bca": [
+    0.02189046611260606,
+    0.06061096247626941
+   ],
+   "scale": "pp",
+   "denominator": "held-out R2 x 100, mean over 24 folds",
+   "text": "p_boot 5.00e-04 (Holm 0.0020); exact cluster test p 2.00e-04 (Holm 4.00e-04)",
+   "file": "SchwingNet/results/a3.json#comparisons/card_vs_uncalibrated_physics"
+  },
+  {
+   "label": "paired difference: pooled_vs_heldout_detector",
+   "value": 0.1428571428571428,
+   "ci": [
+    0.0535714285714286,
+    0.2321428571428571
+   ],
+   "bca": [
+    0.053571428571428485,
+    0.2142857142857143
+   ],
+   "scale": "pp",
+   "denominator": "frames with the sacrum found at conf 0.25, cluster = case",
+   "text": "p_boot 5.00e-04 (Holm 0.0020); exact cluster test p 0.0078 (Holm 0.0078)",
+   "file": "SchwingNet/results/a3.json#comparisons/pooled_vs_heldout_detector"
+  }
+ ]
+}

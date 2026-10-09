@@ -1,0 +1,5131 @@
+{
+ "chosen": [
+  "s0086",
+  "s0139",
+  "s0178",
+  "s0236",
+  "s0243",
+  "s0244",
+  "s0355",
+  "s0370",
+  "s0550",
+  "s0586",
+  "s0657",
+  "s0667",
+  "s0669",
+  "s0733",
+  "s0830",
+  "s0859",
+  "s0869",
+  "s0913",
+  "s0979",
+  "s0983",
+  "s1111",
+  "s1230",
+  "s1294",
+  "s1347",
+  "s1364",
+  "s1395",
+  "s1404",
+  "s1487",
+  "s1540",
+  "s1547",
+  "s1574",
+  "s1741",
+  "s1807",
+  "s1815",
+  "s1868",
+  "s1935",
+  "s1949",
+  "s1973",
+  "s2021",
+  "s2106"
+ ],
+ "leaked": [
+  "s0585",
+  "s0970",
+  "s1045",
+  "s1062",
+  "s1159",
+  "s1384",
+  "s1535",
+  "s1579",
+  "s1700",
+  "s1836",
+  "s1842",
+  "s1872",
+  "s1880",
+  "s1883",
+  "s1902",
+  "s2033",
+  "s2053"
+ ],
+ "chains": {
+  "pooled": [
+   {
+    "run": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_P_pooled",
+    "model": "yolo11m.pt",
+    "data": "/rs/rs_grp_oschome/go2432/data/devcorpus/lists/P_pooled/data.yaml"
+   }
+  ],
+  "lodoA": [
+   {
+    "run": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_surgio_b51_dr",
+    "model": "yolo11m.pt",
+    "data": "/rs/rs_grp_oschome/go2432/data/devcorpus/lists/A_held_surgio_b51_dr/data.yaml"
+   }
+  ],
+  "lodoB": [
+   {
+    "run": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_surgio_b51_dr_s1",
+    "model": "yolo11m.pt",
+    "data": "/rs/rs_grp_oschome/go2432/data/devcorpus/lists/B_held_surgio_b51_dr_s1/data.yaml"
+   }
+  ],
+  "real_lodo": [
+   {
+    "run": "/wsu/home/go/go24/go2432/spine-detector/runs/realxray/rx_lodo_carmlspine_1024",
+    "model": "/wsu/home/go/go24/go2432/spine-detector/runs/pose/anchor_none_v2_17-1882/weights/best.pt",
+    "data": "/wsu/home/go/go24/go2432/spine-detector/runs/realxray/rx_lodo_carmlspine_1024/data.yaml"
+   },
+   {
+    "run": "/wsu/home/go/go24/go2432/spine-detector/runs/pose/anchor_none_v2_17-1882",
+    "model": "yolo11m.pt",
+    "data": "/wsu/home/go/go24/go2432/model_night/anchor_none_v2_17-1882/data.yaml"
+   }
+  ]
+ },
+ "tokens": {
+  "pooled :: dc_P_pooled :: train": {
+   "n_entries": 18906,
+   "n_ts_subjects": 125,
+   "chosen_hits": [],
+   "leaked_hits": [],
+   "missing": [],
+   "sources": {
+    "cobra_elekta": 5280,
+    "cios_fusion__cios_fusion": 2704,
+    "cios_fusion__surgio_b51_dr": 2704,
+    "cios_fusion__elekta_xvi": 2704,
+    "surgio_b51_dr__surgio_b51_dr": 2646,
+    "elekta_xvi__elekta_xvi": 1972,
+    "deepfluoro": 476,
+    "carmlspine": 420
+   },
+   "model": "yolo11m.pt"
+  },
+  "pooled :: dc_P_pooled :: val": {
+   "n_entries": 1998,
+   "n_ts_subjects": 17,
+   "chosen_hits": [],
+   "leaked_hits": [
+    "s0585",
+    "s0970",
+    "s1045",
+    "s1062",
+    "s1159",
+    "s1384",
+    "s1535",
+    "s1579",
+    "s1700",
+    "s1836",
+    "s1842",
+    "s1872",
+    "s1880",
+    "s1883",
+    "s1902",
+    "s2033",
+    "s2053"
+   ],
+   "missing": [],
+   "sources": {
+    "cios_fusion__cios_fusion": 370,
+    "cios_fusion__surgio_b51_dr": 370,
+    "cios_fusion__elekta_xvi": 370,
+    "surgio_b51_dr__surgio_b51_dr": 370,
+    "elekta_xvi__elekta_xvi": 272,
+    "cobra_elekta": 192,
+    "carmlspine": 30,
+    "deepfluoro": 24
+   },
+   "model": "yolo11m.pt"
+  },
+  "lodoA :: dc_A_held_surgio_b51_dr :: train": {
+   "n_entries": 11164,
+   "n_ts_subjects": 125,
+   "chosen_hits": [],
+   "leaked_hits": [],
+   "missing": [],
+   "sources": {
+    "cobra_elekta": 5280,
+    "cios_fusion__cios_fusion": 2704,
+    "cios_fusion__elekta_xvi": 2704,
+    "deepfluoro": 476
+   },
+   "model": "yolo11m.pt"
+  },
+  "lodoA :: dc_A_held_surgio_b51_dr :: val": {
+   "n_entries": 956,
+   "n_ts_subjects": 17,
+   "chosen_hits": [],
+   "leaked_hits": [
+    "s0585",
+    "s0970",
+    "s1045",
+    "s1062",
+    "s1159",
+    "s1384",
+    "s1535",
+    "s1579",
+    "s1700",
+    "s1836",
+    "s1842",
+    "s1872",
+    "s1880",
+    "s1883",
+    "s1902",
+    "s2033",
+    "s2053"
+   ],
+   "missing": [],
+   "sources": {
+    "cios_fusion__cios_fusion": 370,
+    "cios_fusion__elekta_xvi": 370,
+    "cobra_elekta": 192,
+    "deepfluoro": 24
+   },
+   "model": "yolo11m.pt"
+  },
+  "lodoB :: dc_B_held_surgio_b51_dr_s1 :: train": {
+   "n_entries": 10432,
+   "n_ts_subjects": 125,
+   "chosen_hits": [],
+   "leaked_hits": [],
+   "missing": [],
+   "sources": {
+    "cobra_elekta": 5280,
+    "cios_fusion__cios_fusion": 2704,
+    "elekta_xvi__elekta_xvi": 1972,
+    "deepfluoro": 476
+   },
+   "model": "yolo11m.pt"
+  },
+  "lodoB :: dc_B_held_surgio_b51_dr_s1 :: val": {
+   "n_entries": 858,
+   "n_ts_subjects": 17,
+   "chosen_hits": [],
+   "leaked_hits": [
+    "s0585",
+    "s0970",
+    "s1045",
+    "s1062",
+    "s1159",
+    "s1384",
+    "s1535",
+    "s1579",
+    "s1700",
+    "s1836",
+    "s1842",
+    "s1872",
+    "s1880",
+    "s1883",
+    "s1902",
+    "s2033",
+    "s2053"
+   ],
+   "missing": [],
+   "sources": {
+    "cios_fusion__cios_fusion": 370,
+    "elekta_xvi__elekta_xvi": 272,
+    "cobra_elekta": 192,
+    "deepfluoro": 24
+   },
+   "model": "yolo11m.pt"
+  },
+  "real_lodo :: rx_lodo_carmlspine_1024 :: train": {
+   "n_entries": 3094,
+   "n_ts_subjects": 0,
+   "chosen_hits": [],
+   "leaked_hits": [],
+   "missing": [],
+   "sources": {
+    "cobra_elekta": 2832,
+    "deepfluoro": 262
+   },
+   "model": "/wsu/home/go/go24/go2432/spine-detector/runs/pose/anchor_none_v2_17-1882/weights/best.pt"
+  },
+  "real_lodo :: rx_lodo_carmlspine_1024 :: val": {
+   "n_entries": 752,
+   "n_ts_subjects": 0,
+   "chosen_hits": [],
+   "leaked_hits": [],
+   "missing": [],
+   "sources": {
+    "cobra_elekta": 648,
+    "deepfluoro": 104
+   },
+   "model": "/wsu/home/go/go24/go2432/spine-detector/runs/pose/anchor_none_v2_17-1882/weights/best.pt"
+  },
+  "real_lodo :: anchor_none_v2_17-1882 :: train": {
+   "n_entries": 569,
+   "n_ts_subjects": 42,
+   "chosen_hits": [],
+   "leaked_hits": [
+    "s0585",
+    "s0970",
+    "s1045",
+    "s1159",
+    "s1384"
+   ],
+   "missing": [],
+   "sources": {
+    "anchor_none_v2_17-1882": 569
+   },
+   "model": "yolo11m.pt"
+  },
+  "real_lodo :: anchor_none_v2_17-1882 :: val": {
+   "n_entries": 84,
+   "n_ts_subjects": 6,
+   "chosen_hits": [],
+   "leaked_hits": [
+    "s1062"
+   ],
+   "missing": [],
+   "sources": {
+    "anchor_none_v2_17-1882": 84
+   },
+   "model": "yolo11m.pt"
+  }
+ },
+ "identity": {
+  "s0086": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0086",
+    "v300:s0086"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0139": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0139",
+    "v300:s0139"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0178": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0178",
+    "v300:s0178"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0236": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0236",
+    "v300:s0236"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0243": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0243",
+    "v300:s0243"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0244": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0244",
+    "v300:s0244"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0355": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0355",
+    "v300:s0355"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0370": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0370",
+    "v300:s0370"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0550": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0550",
+    "v300:s0550"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0586": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0586",
+    "v300:s0586"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0657": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0657",
+    "v300:s0657"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0667": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0667",
+    "v300:s0667"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0669": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0669",
+    "v300:s0669"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0733": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0733",
+    "v300:s0733"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0830": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0830",
+    "v300:s0830"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0859": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0859",
+    "v300:s0859"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0869": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0869",
+    "v300:s0869"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0913": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0913",
+    "v300:s0913"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0979": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0979",
+    "v300:s0979"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s0983": {
+   "v300": true,
+   "same_md5": [
+    "v201:s0983",
+    "v300:s0983"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s1111": {
+   "v300": true,
+   "same_md5": [
+    "v201:s1111",
+    "v300:s1111"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s1230": {
+   "v300": true,
+   "same_md5": [
+    "v201:s1230",
+    "v300:s1230"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s1294": {
+   "v300": true,
+   "same_md5": [
+    "v201:s1294",
+    "v300:s1294"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s1347": {
+   "v300": true,
+   "same_md5": [
+    "v201:s1347",
+    "v300:s1347"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s1364": {
+   "v300": true,
+   "same_md5": [
+    "v201:s1364",
+    "v300:s1364"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s1395": {
+   "v300": true,
+   "same_md5": [
+    "v201:s1395",
+    "v300:s1395"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s1404": {
+   "v300": true,
+   "same_md5": [
+    "v201:s1404",
+    "v300:s1404"
+   ],
+   "other_ids": [],
+   "v201_same_ct": true
+  },
+  "s1487": {
+   "v300": true,
+   "same_md5": [
+    "v300:s1487"
+   ],
+   "other_ids": [],
+   "v201_same_ct": null
+  },
+  "s1540": {
+   "v300": true,
+   "same_md5": [
+    "v300:s1540"
+   ],
+   "other_ids": [],
+   "v201_same_ct": null
+  },
+  "s1547": {
+   "v300": true,
+   "same_md5": [
+    "v300:s1547"
+   ],
+   "other_ids": [],
+   "v201_same_ct": null
+  },
+  "s1574": {
+   "v300": true,
+   "same_md5": [
+    "v300:s1574"
+   ],
+   "other_ids": [],
+   "v201_same_ct": null
+  },
+  "s1741": {
+   "v300": true,
+   "same_md5": [
+    "v300:s1741"
+   ],
+   "other_ids": [],
+   "v201_same_ct": null
+  },
+  "s1807": {
+   "v300": true,
+   "same_md5": [
+    "v300:s1807"
+   ],
+   "other_ids": [],
+   "v201_same_ct": null
+  },
+  "s1815": {
+   "v300": true,
+   "same_md5": [
+    "v300:s1815"
+   ],
+   "other_ids": [],
+   "v201_same_ct": null
+  },
+  "s1868": {
+   "v300": true,
+   "same_md5": [
+    "v300:s1868"
+   ],
+   "other_ids": [],
+   "v201_same_ct": null
+  },
+  "s1935": {
+   "v300": true,
+   "same_md5": [
+    "v300:s1935"
+   ],
+   "other_ids": [],
+   "v201_same_ct": null
+  },
+  "s1949": {
+   "v300": true,
+   "same_md5": [
+    "v300:s1949"
+   ],
+   "other_ids": [],
+   "v201_same_ct": null
+  },
+  "s1973": {
+   "v300": true,
+   "same_md5": [
+    "v300:s1973"
+   ],
+   "other_ids": [],
+   "v201_same_ct": null
+  },
+  "s2021": {
+   "v300": true,
+   "same_md5": [
+    "v300:s2021"
+   ],
+   "other_ids": [],
+   "v201_same_ct": null
+  },
+  "s2106": {
+   "v300": true,
+   "same_md5": [
+    "v300:s2106"
+   ],
+   "other_ids": [],
+   "v201_same_ct": null
+  }
+ },
+ "params": {
+  "pool": {
+   "same": true,
+   "old": "/rs/rs_grp_oschome/go2432/data/devcorpus/poses/surgio_b51_dr.json",
+   "new": "/rs/rs_grp_oschome/go2432/data/devcorpus/poses/surgio_b51_dr.json"
+  },
+  "anchor_tag": {
+   "same": true,
+   "old": "case29/AP",
+   "new": "case29/AP"
+  },
+  "anchor_angles": {
+   "same": true,
+   "old": {
+    "lat_deg": -0.18320270200893612,
+    "tilt_deg": -0.2846822933261115,
+    "roll_deg": -0.2170166952034846
+   },
+   "new": {
+    "lat_deg": -0.18320270200893612,
+    "tilt_deg": -0.2846822933261115,
+    "roll_deg": -0.2170166952034846
+   }
+  },
+  "cards": {
+   "same": true,
+   "old": [
+    "surgio_b51_dr",
+    "elekta_xvi"
+   ],
+   "new": [
+    "surgio_b51_dr",
+    "elekta_xvi"
+   ]
+  },
+  "lats": {
+   "same": true,
+   "old": [
+    -90.0,
+    90.0,
+    19
+   ],
+   "new": [
+    -90.0,
+    90.0,
+    19
+   ]
+  },
+  "tilts": {
+   "same": true,
+   "old": [
+    -15.0,
+    0.0,
+    15.0
+   ],
+   "new": [
+    -15.0,
+    0.0,
+    15.0
+   ]
+  },
+  "roll_deg": {
+   "same": true,
+   "old": 0.0,
+   "new": 0.0
+  },
+  "down": {
+   "same": true,
+   "old": 2,
+   "new": 2
+  },
+  "seed": {
+   "same": true,
+   "old": 0,
+   "new": 0
+  },
+  "out_px": {
+   "same": true,
+   "old": 1024,
+   "new": 1024
+  },
+  "convention": {
+   "same": true,
+   "old": "pose_arc.py: lat 0 = source posterior (AP), +90 = source patient-left (RAO family), -90 = source patient-right (the real Surgio lateral); tilt + = beam cranial; no jitter, no wander",
+   "new": "pose_arc.py: lat 0 = source posterior (AP), +90 = source patient-left (RAO family), -90 = source patient-right (the real Surgio lateral); tilt + = beam cranial; no jitter, no wander"
+  }
+ },
+ "subjects_old": [
+  "s0585",
+  "s0970",
+  "s1045",
+  "s1062",
+  "s1159",
+  "s1384",
+  "s1535",
+  "s1579",
+  "s1700",
+  "s1836",
+  "s1842",
+  "s1872",
+  "s1880",
+  "s1883",
+  "s1902",
+  "s2033",
+  "s2053"
+ ],
+ "subjects_new": [
+  "s0086",
+  "s0139",
+  "s0178",
+  "s0236",
+  "s0243",
+  "s0244",
+  "s0355",
+  "s0370",
+  "s0550",
+  "s0586",
+  "s0657",
+  "s0667",
+  "s0669",
+  "s0733",
+  "s0830",
+  "s0859",
+  "s0869",
+  "s0913",
+  "s0979",
+  "s0983",
+  "s1111",
+  "s1230",
+  "s1294",
+  "s1347",
+  "s1364",
+  "s1395",
+  "s1404",
+  "s1487",
+  "s1540",
+  "s1547",
+  "s1574",
+  "s1741",
+  "s1807",
+  "s1815",
+  "s1868",
+  "s1935",
+  "s1949",
+  "s1973",
+  "s2021",
+  "s2106"
+ ],
+ "targets_new": {
+  "s0086": "vertebrae_L3",
+  "s0236": "vertebrae_L3",
+  "s0355": "vertebrae_L3",
+  "s0586": "vertebrae_L3",
+  "s0669": "vertebrae_L3",
+  "s0859": "vertebrae_L3",
+  "s0979": "vertebrae_L3",
+  "s1230": "vertebrae_L3",
+  "s1364": "vertebrae_L3",
+  "s1487": "vertebrae_L3",
+  "s1574": "vertebrae_L3",
+  "s1815": "vertebrae_L3",
+  "s1949": "vertebrae_L3",
+  "s2106": "vertebrae_L3",
+  "s0139": "vertebrae_L3",
+  "s0243": "vertebrae_L3",
+  "s0370": "vertebrae_L3",
+  "s0657": "vertebrae_L3",
+  "s0733": "vertebrae_L3",
+  "s0869": "vertebrae_L3",
+  "s0983": "vertebrae_L3",
+  "s1294": "vertebrae_L3",
+  "s1395": "vertebrae_L3",
+  "s1540": "vertebrae_L3",
+  "s1741": "vertebrae_L3",
+  "s1868": "vertebrae_L3",
+  "s1973": "vertebrae_L3",
+  "s0178": "vertebrae_L3",
+  "s0244": "vertebrae_L3",
+  "s0550": "vertebrae_L3",
+  "s0667": "vertebrae_L3",
+  "s0830": "vertebrae_L3",
+  "s0913": "vertebrae_L3",
+  "s1111": "vertebrae_L3",
+  "s1347": "vertebrae_L3",
+  "s1404": "vertebrae_L3",
+  "s1547": "vertebrae_L3",
+  "s1807": "vertebrae_L3",
+  "s1935": "vertebrae_L3",
+  "s2021": "vertebrae_L3"
+ },
+ "excluded_new": [],
+ "boxes": {
+  "old": {
+   "s0585": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 25.203109741210938,
+     "trunc_frac": 0.0776824951171875,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.54775047302246,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 30.14060401916504,
+     "trunc_frac": 0.010224342346191406,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.50893783569336,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.846965789794922,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0970": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 17.36532974243164,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 23.616226196289062,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 26.610137939453125,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 30.953083038330078,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.044231414794922,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1045": {
+    "0": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 20.43032455444336,
+     "trunc_frac": 0.18243789672851562,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 33.058719635009766,
+     "trunc_frac": 0.015028953552246094,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 27.122934341430664,
+     "trunc_frac": 0.11263465881347656,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 30.77451515197754,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 31.135101318359375,
+     "trunc_frac": 0.10508155822753906,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1062": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 25.828899383544922,
+     "trunc_frac": 0.010533332824707031,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 30.701190948486328,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.240596771240234,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.05884552001953,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.29695510864258,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1159": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 15.136218070983887,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 20.760025024414062,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 20.8772029876709,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.20778465270996,
+     "trunc_frac": 0.41889381408691406,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.427486419677734,
+     "trunc_frac": 0.17814350128173828,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1384": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 19.418994903564453,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 23.546667098999023,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 24.91397476196289,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 26.70379066467285,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 26.778783798217773,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1535": {
+    "0": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 10.25958251953125,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 12.189754486083984,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 12.5498628616333,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 19.9791259765625,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 22.422481536865234,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1579": {
+    "0": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 11.017875671386719,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 15.232953071594238,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 14.890048027038574,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 32.178653717041016,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 32.603668212890625,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1700": {
+    "0": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 9.271838188171387,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 13.444363594055176,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 11.520856857299805,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 23.154495239257812,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 22.983219146728516,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1836": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 19.31239891052246,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 25.548494338989258,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 26.893993377685547,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 38.0517692565918,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 37.402435302734375,
+     "trunc_frac": 0.005504608154296875,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1842": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 18.219205856323242,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.877338409423828,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 26.230121612548828,
+     "trunc_frac": 0.09826183319091797,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.201833724975586,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.361703872680664,
+     "trunc_frac": 0.15549182891845703,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1872": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 18.79844093322754,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.711496353149414,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 35.081268310546875,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.801971435546875,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.915496826171875,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1880": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 22.790319442749023,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.032169342041016,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.757740020751953,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 34.84988021850586,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 34.54276657104492,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1883": {
+    "0": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 5,
+     "thickness_cm": 24.367212295532227,
+     "trunc_frac": 0.04717826843261719,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 5,
+     "thickness_cm": 31.488208770751953,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 5,
+     "thickness_cm": 31.399738311767578,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 35.062843322753906,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 35.23902130126953,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1902": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 15.924395561218262,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 21.123798370361328,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 22.39407730102539,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 34.897911071777344,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 35.821624755859375,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s2033": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 17.660388946533203,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 21.865406036376953,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 23.148956298828125,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 37.7110481262207,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 38.2808952331543,
+     "trunc_frac": 0.000919342041015625,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s2053": {
+    "0": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 22.514179229736328,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 29.521564483642578,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 27.2230281829834,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 35.31077194213867,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 35.56505584716797,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   }
+  },
+  "new": {
+   "s0086": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 20.81357192993164,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 26.137863159179688,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.43923568725586,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 33.282203674316406,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 33.598960876464844,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0139": {
+    "0": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 18.504833221435547,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 23.830432891845703,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 23.824064254760742,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.2159423828125,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.31621742248535,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0178": {
+    "0": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 23.118343353271484,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 28.347436904907227,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 28.687179565429688,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.743255615234375,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.82268142700195,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0236": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 26.5103702545166,
+     "trunc_frac": 0.061728477478027344,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 30.2757625579834,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.33858299255371,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.84468078613281,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 33.1372184753418,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0243": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 20.361007690429688,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 24.905792236328125,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 23.7991943359375,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.972564697265625,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.1057186126709,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0244": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 22.42524528503418,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.5894718170166,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.514423370361328,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 30.323379516601562,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 30.546344757080078,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0355": {
+    "0": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 22.024255752563477,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 27.76113510131836,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 27.140111923217773,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 31.990215301513672,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 32.29929733276367,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0370": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.661447525024414,
+     "trunc_frac": 0.4462394714355469,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 34.32070541381836,
+     "trunc_frac": 0.03628063201904297,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.87122344970703,
+     "trunc_frac": 0.044114112854003906,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 40.128326416015625,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 40.263832092285156,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0550": {
+    "0": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 26.1739559173584,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 29.126916885375977,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 29.887279510498047,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 33.084075927734375,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 33.35376739501953,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0586": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 22.996829986572266,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.170604705810547,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.823999404907227,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.96154022216797,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 33.169708251953125,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0657": {
+    "0": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 25.331396102905273,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 30.34275245666504,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 29.43268394470215,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 29.071325302124023,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 29.40029525756836,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0667": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 23.218952178955078,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 25.76377296447754,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 26.1090030670166,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.01646041870117,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.512386322021484,
+     "trunc_frac": 0.005160331726074219,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0669": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 24.417072296142578,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.842220306396484,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.1004638671875,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.22007751464844,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.582740783691406,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0733": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "L6"
+     ],
+     "n_body": 7,
+     "thickness_cm": 21.05550193786621,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "L6"
+     ],
+     "n_body": 7,
+     "thickness_cm": 28.2443904876709,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "L6"
+     ],
+     "n_body": 7,
+     "thickness_cm": 28.838598251342773,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "L6"
+     ],
+     "n_body": 7,
+     "thickness_cm": 30.906768798828125,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "L6"
+     ],
+     "n_body": 7,
+     "thickness_cm": 31.053192138671875,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0830": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 19.62840461730957,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 24.434024810791016,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 22.902376174926758,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.989643096923828,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.122325897216797,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0859": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 16.246902465820312,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 19.77623748779297,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 19.90812110900879,
+     "trunc_frac": 0.08633041381835938,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.822769165039062,
+     "trunc_frac": 0.36699485778808594,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.261693954467773,
+     "trunc_frac": 0.18199825286865234,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0869": {
+    "0": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 5,
+     "thickness_cm": 25.48346710205078,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 5,
+     "thickness_cm": 28.475317001342773,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 5,
+     "thickness_cm": 28.47039794921875,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 5,
+     "thickness_cm": 28.724796295166016,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 5,
+     "thickness_cm": 29.096710205078125,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0913": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 22.66086769104004,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.834009170532227,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.499542236328125,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.908626556396484,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 30.154125213623047,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0979": {
+    "0": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 25.076879501342773,
+     "trunc_frac": 0.1716146469116211,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 31.7292537689209,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 31.279712677001953,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 34.03343963623047,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 34.15648651123047,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s0983": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 19.15457534790039,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.268848419189453,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 25.96730613708496,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.059478759765625,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.384389877319336,
+     "trunc_frac": 0.00051116943359375,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1111": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 22.33121681213379,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 25.357784271240234,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 26.4652156829834,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.443927764892578,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.719369888305664,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1230": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 25.112018585205078,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.823200225830078,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.492910385131836,
+     "trunc_frac": 0.0024003982543945312,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.93657875061035,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.08857727050781,
+     "trunc_frac": 0.020302772521972656,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1294": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 20.49356460571289,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 21.887876510620117,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 23.08536720275879,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 24.56942367553711,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 24.61002540588379,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1347": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.172908782958984,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.24058532714844,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.871997833251953,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 34.08329391479492,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 34.25908279418945,
+     "trunc_frac": 0.00016117095947265625,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1364": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 18.1829833984375,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 23.633493423461914,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 23.10121726989746,
+     "trunc_frac": 0.0048770904541015625,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.50046730041504,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.703466415405273,
+     "trunc_frac": 0.007475852966308594,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1395": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 26.891185760498047,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 33.673927307128906,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 33.90234375,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 37.03742218017578,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 37.210968017578125,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1404": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 19.428577423095703,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 25.870159149169922,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 24.483535766601562,
+     "trunc_frac": 0.000835418701171875,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.30223846435547,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 32.240478515625,
+     "trunc_frac": 0.008296966552734375,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1487": {
+    "0": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 13.733823776245117,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 9.34514331817627,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 13.8369722366333,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 15.015121459960938,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 15.445363998413086,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1540": {
+    "0": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 15.811302185058594,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 18.232219696044922,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 18.17412757873535,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 20.237228393554688,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 20.617115020751953,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1547": {
+    "0": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 14.701006889343262,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 19.10201644897461,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 19.531152725219727,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 22.949382781982422,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 23.108911514282227,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1574": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 19.98931312561035,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 24.971195220947266,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 25.50018882751465,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.95086097717285,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.97440528869629,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1741": {
+    "0": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 10.26944637298584,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 13.245376586914062,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 11.905702590942383,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 15.416166305541992,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 7,
+     "thickness_cm": 15.761375427246094,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1807": {
+    "0": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 20.713138580322266,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 5,
+     "thickness_cm": 27.29214096069336,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.244831085205078,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 33.913883209228516,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 33.7789421081543,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1815": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.73516845703125,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.809051513671875,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.48980140686035,
+     "trunc_frac": 0.016733169555664062,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 30.037395477294922,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 30.152786254882812,
+     "trunc_frac": 0.044098854064941406,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1868": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 22.978158950805664,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.438451766967773,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.980031967163086,
+     "trunc_frac": 0.018030166625976562,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 35.436710357666016,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 35.668113708496094,
+     "trunc_frac": 0.1424560546875,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1935": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 21.640583038330078,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.50697898864746,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.50717544555664,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.670909881591797,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.814922332763672,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1949": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 20.046066284179688,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.604846954345703,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 28.789093017578125,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.6684627532959,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.772014617919922,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s1973": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 23.0358829498291,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.612817764282227,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 27.021961212158203,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.383544921875,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 31.46127700805664,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s2021": {
+    "0": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 18.49916648864746,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 20.722543716430664,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 21.639659881591797,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.410263061523438,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 6,
+     "thickness_cm": 29.3720703125,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   },
+   "s2106": {
+    "0": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 13.45001220703125,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-50": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 16.293611526489258,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "50": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 17.061241149902344,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "-90": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 18.287736892700195,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    },
+    "90": {
+     "truth": [
+      "T10",
+      "T11",
+      "T12",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "sacrum"
+     ],
+     "n_body": 8,
+     "thickness_cm": 18.563180923461914,
+     "trunc_frac": 0.0,
+     "target": "vertebrae_L3"
+    }
+   }
+  }
+ }
+}

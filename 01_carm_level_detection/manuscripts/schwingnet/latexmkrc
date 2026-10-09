@@ -1,0 +1,16 @@
+# latexmkrc -- after the cai4cai/RSNATemplate: build with xelatex, biber for biblatex, makeglossaries for the
+# acronym list.  `latexmk` in this folder builds main.pdf.  On a machine without biblatex/biber, rsnastyle.tex
+# falls back to natbib + bibtex, which latexmk also drives.
+$pdf_mode = 5;                                    # xelatex -> pdf
+$xelatex  = 'xelatex -interaction=nonstopmode -halt-on-error -synctex=1 %O %S';
+$bibtex_use = 2;
+$clean_ext = 'bbl run.xml glo gls glg acn acr alg ist synctex.gz lof lot';
+
+# glossaries (only needed when rsnastyle.tex uses \makeglossaries; the noidx variant needs nothing)
+add_cus_dep('glo', 'gls', 0, 'run_makeglossaries');
+add_cus_dep('acn', 'acr', 0, 'run_makeglossaries');
+sub run_makeglossaries {
+    if ( $silent ) { system "makeglossaries -q '$_[0]'"; }
+    else           { system "makeglossaries '$_[0]'"; }
+}
+push @generated_exts, 'glo', 'gls', 'glg', 'acn', 'acr', 'alg';

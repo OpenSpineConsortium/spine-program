@@ -1,0 +1,375 @@
+{
+ "dump": "/rs/rs_grp_oschome/go2432/data/or_ready/lcurve/dumps/lc_cios_fusion_N50_s0__deepfluoro_test.json",
+ "weights": "/wsu/home/go/go24/go2432/spine-detector/runs/lcurve/lc_cios_fusion_N50_s0/weights/best.pt",
+ "data": "/rs/rs_grp_oschome/go2432/data/realxray/deepfluoro",
+ "split": "test",
+ "frames": 104,
+ "missing_meta": 0,
+ "cases": [
+  "18-2799"
+ ],
+ "case_ids": [
+  "18-1109"
+ ],
+ "truth_vertebrae": 83,
+ "truth_sacra": 90,
+ "frames_with_sacrum": 90,
+ "has_outline_truth": false,
+ "operating_points": {
+  "0.74": "cross-device threshold pre-stated in SchwingNet/results/a1.json",
+  "0.25": "YOLO default"
+ },
+ "matching": "greedy one-to-one in descending confidence; IoU >= 0.5 (body / outline) or mutual centre containment (centre)",
+ "bootstrap": {
+  "cluster": "case",
+  "n_boot": 2000,
+  "seed": 0,
+  "alpha": 0.05,
+  "intervals": [
+   "percentile",
+   "bca"
+  ]
+ },
+ "conventions": {
+  "body": {
+   "at": {
+    "0.74": {
+     "vertebra_recall": {
+      "k": 28,
+      "n": 83,
+      "clusters": 1,
+      "point": 0.3373493975903614,
+      "clusters_with_error": 1,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.24484304754652997,
+       0.44424554715628073
+      ],
+      "percentile": [
+       null,
+       null
+      ],
+      "bca": [
+       null,
+       null
+      ],
+      "note": "one cluster: no cluster-level interval",
+      "cluster": "case",
+      "frame_level": {
+       "percentile": [
+        0.23527911164465787,
+        0.44594594594594594
+       ],
+       "bca": [
+        0.23319222824343816,
+        0.44180226752847374
+       ],
+       "clusters": 104,
+       "note": "frames of ONE specimen resampled: frames are not exchangeable, so this understates the uncertainty"
+      }
+     },
+     "sacrum_found": {
+      "k": 77,
+      "n": 90,
+      "clusters": 1,
+      "point": 0.8555555555555555,
+      "clusters_with_error": 1,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.7684012207986421,
+       0.9136001121333921
+      ],
+      "percentile": [
+       null,
+       null
+      ],
+      "bca": [
+       null,
+       null
+      ],
+      "note": "one cluster: no cluster-level interval",
+      "cluster": "case",
+      "frame_level": {
+       "percentile": [
+        0.7777777777777778,
+        0.9222222222222223
+       ],
+       "bca": [
+        0.7568956983165135,
+        0.9111111111111111
+       ],
+       "clusters": 90,
+       "note": "frames of ONE specimen resampled: frames are not exchangeable, so this understates the uncertainty"
+      }
+     },
+     "sacrum_box_recall": {
+      "k": 77,
+      "n": 90,
+      "clusters": 1,
+      "point": 0.8555555555555555,
+      "clusters_with_error": 1,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.7684012207986421,
+       0.9136001121333921
+      ],
+      "percentile": [
+       null,
+       null
+      ],
+      "bca": [
+       null,
+       null
+      ],
+      "note": "one cluster: no cluster-level interval",
+      "cluster": "case",
+      "frame_level": {
+       "percentile": [
+        0.7790697674418605,
+        0.9230769230769231
+       ],
+       "bca": [
+        0.7717391304347826,
+        0.9175786438612857
+       ],
+       "clusters": 104,
+       "note": "frames of ONE specimen resampled: frames are not exchangeable, so this understates the uncertainty"
+      }
+     },
+     "vertebra_prf": {
+      "tp": 28,
+      "predictions": 52,
+      "precision": 0.5384615384615384,
+      "recall": 0.3373493975903614,
+      "f1": 0.41481481481481475
+     },
+     "sacrum_prf": {
+      "tp": 77,
+      "predictions": 80,
+      "precision": 0.9625,
+      "recall": 0.8555555555555555,
+      "f1": 0.9058823529411764
+     }
+    },
+    "0.25": {
+     "vertebra_recall": {
+      "k": 68,
+      "n": 83,
+      "clusters": 1,
+      "point": 0.8192771084337349,
+      "clusters_with_error": 1,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.7230012316563488,
+       0.8873063417048004
+      ],
+      "percentile": [
+       null,
+       null
+      ],
+      "bca": [
+       null,
+       null
+      ],
+      "note": "one cluster: no cluster-level interval",
+      "cluster": "case",
+      "frame_level": {
+       "percentile": [
+        0.7407287157287157,
+        0.8961150918047469
+       ],
+       "bca": [
+        0.7380952380952381,
+        0.8928571428571429
+       ],
+       "clusters": 104,
+       "note": "frames of ONE specimen resampled: frames are not exchangeable, so this understates the uncertainty"
+      }
+     },
+     "sacrum_found": {
+      "k": 85,
+      "n": 90,
+      "clusters": 1,
+      "point": 0.9444444444444444,
+      "clusters_with_error": 1,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.8764626377820048,
+       0.976039028383038
+      ],
+      "percentile": [
+       null,
+       null
+      ],
+      "bca": [
+       null,
+       null
+      ],
+      "note": "one cluster: no cluster-level interval",
+      "cluster": "case",
+      "frame_level": {
+       "percentile": [
+        0.9,
+        0.9888888888888889
+       ],
+       "bca": [
+        0.8777777777777778,
+        0.9666666666666667
+       ],
+       "clusters": 90,
+       "note": "frames of ONE specimen resampled: frames are not exchangeable, so this understates the uncertainty"
+      }
+     },
+     "sacrum_box_recall": {
+      "k": 85,
+      "n": 90,
+      "clusters": 1,
+      "point": 0.9444444444444444,
+      "clusters_with_error": 1,
+      "clusters_all_wrong": 0,
+      "wilson_naive": [
+       0.8764626377820048,
+       0.976039028383038
+      ],
+      "percentile": [
+       null,
+       null
+      ],
+      "bca": [
+       null,
+       null
+      ],
+      "note": "one cluster: no cluster-level interval",
+      "cluster": "case",
+      "frame_level": {
+       "percentile": [
+        0.8935980243161094,
+        0.9887640449438202
+       ],
+       "bca": [
+        0.8804347826086957,
+        0.9787234042553191
+       ],
+       "clusters": 104,
+       "note": "frames of ONE specimen resampled: frames are not exchangeable, so this understates the uncertainty"
+      }
+     },
+     "vertebra_prf": {
+      "tp": 68,
+      "predictions": 149,
+      "precision": 0.4563758389261745,
+      "recall": 0.8192771084337349,
+      "f1": 0.5862068965517242
+     },
+     "sacrum_prf": {
+      "tp": 85,
+      "predictions": 98,
+      "precision": 0.8673469387755102,
+      "recall": 0.9444444444444444,
+      "f1": 0.9042553191489361
+     }
+    }
+   },
+   "curve": {
+    "0.01": {
+     "vertebra_recall": 0.9397590361445783,
+     "sacrum_found": 0.9777777777777777
+    },
+    "0.02": {
+     "vertebra_recall": 0.9397590361445783,
+     "sacrum_found": 0.9777777777777777
+    },
+    "0.03": {
+     "vertebra_recall": 0.9397590361445783,
+     "sacrum_found": 0.9777777777777777
+    },
+    "0.05": {
+     "vertebra_recall": 0.9397590361445783,
+     "sacrum_found": 0.9777777777777777
+    },
+    "0.08": {
+     "vertebra_recall": 0.927710843373494,
+     "sacrum_found": 0.9777777777777777
+    },
+    "0.10": {
+     "vertebra_recall": 0.9156626506024096,
+     "sacrum_found": 0.9666666666666667
+    },
+    "0.15": {
+     "vertebra_recall": 0.891566265060241,
+     "sacrum_found": 0.9555555555555556
+    },
+    "0.20": {
+     "vertebra_recall": 0.8554216867469879,
+     "sacrum_found": 0.9444444444444444
+    },
+    "0.25": {
+     "vertebra_recall": 0.8192771084337349,
+     "sacrum_found": 0.9444444444444444
+    },
+    "0.30": {
+     "vertebra_recall": 0.7831325301204819,
+     "sacrum_found": 0.9444444444444444
+    },
+    "0.40": {
+     "vertebra_recall": 0.7108433734939759,
+     "sacrum_found": 0.9444444444444444
+    },
+    "0.50": {
+     "vertebra_recall": 0.6506024096385542,
+     "sacrum_found": 0.9444444444444444
+    },
+    "0.60": {
+     "vertebra_recall": 0.5301204819277109,
+     "sacrum_found": 0.9333333333333333
+    },
+    "0.70": {
+     "vertebra_recall": 0.43373493975903615,
+     "sacrum_found": 0.8888888888888888
+    },
+    "0.74": {
+     "vertebra_recall": 0.3373493975903614,
+     "sacrum_found": 0.8555555555555555
+    },
+    "0.80": {
+     "vertebra_recall": 0.2289156626506024,
+     "sacrum_found": 0.7222222222222222
+    },
+    "0.90": {
+     "vertebra_recall": 0.012048192771084338,
+     "sacrum_found": 0.07777777777777778
+    }
+   },
+   "vertebra": {
+    "pr_auc": 0.5483395807586702,
+    "ap50_interp": 0.5469701137809355,
+    "n_predictions": 528,
+    "max_recall": 0.9397590361445783
+   },
+   "sacrum": {
+    "pr_auc": 0.9581893693517329,
+    "ap50_interp": 0.947996789769342,
+    "n_predictions": 127,
+    "max_recall": 0.9777777777777777
+   }
+  }
+ },
+ "device": "cios_fusion",
+ "device_label": "DeepFluoro (Siemens Cios Fusion)",
+ "target_n": 50,
+ "realized_n": 48,
+ "n_cases": 1,
+ "seed": 0,
+ "init": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_cios_fusion/weights/best.pt",
+ "stage1_note": "",
+ "real_rep": 48,
+ "epoch_entries": 15322,
+ "device_real_share": 0.15037201409737633,
+ "transitional_in_subset": [],
+ "epochs": 20,
+ "lr0": 0.005,
+ "lists": "/rs/rs_grp_oschome/go2432/data/devcorpus/lists/lcurve_cios_fusion_N50_s0",
+ "kind": "lcurve",
+ "set": "deepfluoro_test",
+ "run": "lc_cios_fusion_N50_s0"
+}

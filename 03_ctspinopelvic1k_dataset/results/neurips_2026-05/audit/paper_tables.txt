@@ -1,0 +1,54 @@
+
+==============================================================================================================
+  TABLE 5  —  TotalSegmentator Zero-Shot Benchmark (per-vertebra Dice; n = patients)
+==============================================================================================================
+  Subgroup source: splits_5fold.json:patient_subtypes (6-way LSTV)
+  Taxonomy:        6-way
+  Aggregation:     patient-level (separate-mode patients merged)
+
+  Subgroup                                    n     L1     L2     L3     L4     L5     L6    Sac   HipL   HipR   JxnDSC
+  ------------------------------------------------------------------------------------------------------------------
+  All cases                                 801  0.911  0.906  0.913  0.914  0.913      —  0.817  0.927  0.930    0.818
+  Fused only                                341  0.923  0.920  0.928  0.930  0.930      —  0.817  0.927  0.930    0.818
+  Spine only                                440  0.902  0.895  0.901  0.901  0.901      —  0.817  0.927  0.930        —
+  Pelvic native                             371  0.906  0.899  0.904  0.902  0.901      —  0.817  0.927  0.929        —
+  Normal                                    768  0.921  0.918  0.929  0.936  0.938      —  0.817  0.927  0.930    0.824
+  Any LSTV                                   33  0.681  0.615  0.523  0.367  0.314      —  0.822  0.928  0.930    0.534
+  Any sacralization (semi+full+count)        17  0.462  0.349  0.320  0.305  0.328      —  0.820  0.929  0.930    0.666
+  Lumbarization                              14  0.878  0.853  0.690  0.388  0.291      —  0.833  0.926  0.929    0.357
+  Sacralization (count-style)                 9  0.265  0.100  0.055  0.001  0.000      —  0.814  0.925  0.926    0.697
+  Semi-sacralization                          2  0.951  0.951  0.951  0.955  0.956      —  0.824  0.937  0.936        —
+  Sacralization (full)                        6  0.718  0.676  0.673  0.724  0.793      —  0.826  0.930  0.933    0.636
+  Ambiguous                                   2  0.952  0.951  0.882  0.678  0.374      —  0.771  0.929  0.934        —
+
+  † L6 column = '—': TS has no L6 label.
+  ‡ Subgroup definitions (filename qualifier on pelvic mask):
+    - Lumbarization        : 6 lumbar vertebrae or has_l6
+    - Sacralization (count): vert=SACR + n_lumb=4 (no qualifier)
+    - Semi-sacralization   : '_semisacralization_' in pelvic mask
+    - Sacralization (full) : '_sacralization_' in pelvic mask + 0/5 lumbars
+    - Ambiguous            : cross-anatomy disagreement (vert vs pelvic)
+
+============================================================================================================================
+  TABLE 6  —  Surface-distance metrics (mm) for surgical-planning relevance (n = patients)
+============================================================================================================================
+
+  ASSD = Average Symmetric Surface Distance (lower = better)
+  HD95 = 95th-percentile Hausdorff distance (lower = better; outlier-sensitive)
+  MSD asymm = msd_pred_to_gt - msd_gt_to_pred for sacrum
+              (positive = TS over-segments, negative = TS under-segments)
+
+  Subgroup                                    n   Sac ASSD   Sac HD95   HipL ASSD   HipL HD95   HipR ASSD   HipR HD95   Sac MSD asym
+  --------------------------------------------------------------------------------------------------------------------------
+  All cases                                 801       1.19       6.20        0.74        1.94        0.71        1.89          -0.89
+  Fused only                                341       1.19       6.20        0.74        1.97        0.71        1.92          -0.90
+  Spine only                                440       1.18       6.17        0.73        1.91        0.71        1.87          -0.88
+  Pelvic native                             371       1.18       6.19        0.74        1.91        0.71        1.87          -0.88
+  Normal                                    768       1.18       6.20        0.74        1.94        0.71        1.89          -0.89
+  Any LSTV                                   33       1.21       6.11        0.72        1.82        0.70        1.80          -0.81
+  Any sacralization (semi+full+count)        17       1.26       6.52        0.69        1.79        0.68        1.77          -0.91
+  Lumbarization                              14       1.05       5.06        0.75        1.89        0.72        1.87          -0.54
+  Sacralization (count-style)                 9       1.24       6.57        0.70        1.81        0.69        1.81          -1.12
+  Semi-sacralization                          2       0.99       4.86        0.62        1.65        0.64        1.60          -0.47
+  Sacralization (full)                        6       1.39       6.99        0.70        1.80        0.68        1.76          -0.78
+  Ambiguous                                   2       1.60       8.58        0.72        1.79        0.67        1.69          -1.49

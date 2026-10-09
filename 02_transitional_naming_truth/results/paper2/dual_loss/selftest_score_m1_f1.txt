@@ -1,0 +1,113 @@
+# python tools/score_m1_f1.py self-test   (2026-09-24T10:05:32Z)
+1. Wilson intervals against the values printed in LEVELCHECK_MODEL.md s2 (an outside check)
+  [PASS] wilson(33,71) = [0.3536, 0.5796] within 0.06 points of [0.354, 0.58]: got True, want True
+  [PASS] wilson(6,34) = [0.0835, 0.3351] within 0.06 points of [0.083, 0.335]: got True, want True
+  [PASS] wilson(10,48) = [0.1173, 0.3426] within 0.06 points of [0.117, 0.343]: got True, want True
+  [PASS] wilson(20,20) = [0.8389, 1.0] within 0.06 points of [0.839, 1.0]: got True, want True
+  [PASS] wilson(373,410) = [0.8781, 0.9338] within 0.06 points of [0.878, 0.934]: got True, want True
+  [PASS] wilson(12,885) = [0.0078, 0.0236] within 0.06 points of [0.008, 0.024]: got True, want True
+2. exact one-sided McNemar and the six-discordant rule
+  [PASS] P(X>=8 | 9, 1/2) = 10/512: got 0.01953125, want 0.01953125
+  [PASS] P(X>=9 | 10, 1/2) = 11/1024: got 0.0107421875, want 0.0107421875
+  [PASS] P(X>=6 | 6, 1/2) = 1/64: got 0.015625, want 0.015625
+  [PASS] P(X>=5 | 5, 1/2) = 1/32 > 0.025 (why six): got True, want True
+  [PASS] P(X>=6 | 7, 1/2) = 8/128: got 0.0625, want 0.0625
+  [PASS] McNemar P == scipy binomtest(9, 10, 0.5, 'greater') (an independent implementation): got 0.0107421875, want 0.0107421875
+3. tau on validation: 20 transitional persons at p = 0.05..1.00, 10 ordinary at 0.00..0.45
+  [PASS] tau at 95 %: k = ceil(19.0) = 19 -> 19th largest = 0.10: got 0.1, want 0.1
+  [PASS] tau at 97 %: k = ceil(19.4) = 20 -> smallest = 0.05: got 0.05, want 0.05
+  [PASS] validation sensitivity at tau95 = 19/20: got 19, want 19
+  [PASS] validation specificity at tau95 (p < 0.10: 0.00, 0.05) = 2/10: got 2, want 2
+  [PASS] tau95 is the LARGEST passing value: one step above it, sensitivity falls below 95 %: got True, want True
+  [PASS] a tau file is never overwritten: got True, want True
+4. the draw (s4): the excluded patient, three-body frames and the render never drawn
+  [PASS] draw equals the hand-built s4 draw: got {'cobra:FLa': 'cobra_FLa_f0', 'cobra:Ua': 'cobra_Ua_f0', 'ctsp:L6a': 'ctsp_L6a_f0', 'ctsp:L6b': 'ctsp_L6b_f0', 'ctsp:L6c': 'ctsp_L6c_f2', 'ctsp:L6d': 'ctsp_L6d_f0', 'ctsp:L6e': 'ctsp_L6e_f1', 'ctsp:L6f': 'ctsp_L6f_f1', 'ctsp:L6g': 'ctsp_L6g_f1', 'ctsp:L6h': 'ctsp_L6h_f0', 'ctsp:L6i': 'ctsp_L6i_f1', 'ctsp:Oa': 'ctsp_Oa_f0', 'ctsp:Ob': 'ctsp_Ob_f1', 'ctsp:Oc': 'ctsp_Oc_f0', 'ctsp:Od': 'ctsp_Od_f0', 'ctsp:Oe': 'ctsp_Oe_f0', 'ctsp:Of': 'ctsp_Of_f0', 'verse:BOTHa': 'verse_BOTHa_f0', 'verse:SL5a': 'verse_SL5a_f1', 'verse:SL5b': 'verse_SL5b_f0', 'verse:T13a': 'verse_T13a_f0', 'verse:T13b': 'verse_T13b_f0', 'verse:VNUa': 'verse_VNUa_f0'}, want {'cobra:FLa': 'cobra_FLa_f0', 'cobra:Ua': 'cobra_Ua_f0', 'ctsp:L6a': 'ctsp_L6a_f0', 'ctsp:L6b': 'ctsp_L6b_f0', 'ctsp:L6c': 'ctsp_L6c_f2', 'ctsp:L6d': 'ctsp_L6d_f0', 'ctsp:L6e': 'ctsp_L6e_f1', 'ctsp:L6f': 'ctsp_L6f_f1', 'ctsp:L6g': 'ctsp_L6g_f1', 'ctsp:L6h': 'ctsp_L6h_f0', 'ctsp:L6i': 'ctsp_L6i_f1', 'ctsp:Oa': 'ctsp_Oa_f0', 'ctsp:Ob': 'ctsp_Ob_f1', 'ctsp:Oc': 'ctsp_Oc_f0', 'ctsp:Od': 'ctsp_Od_f0', 'ctsp:Oe': 'ctsp_Oe_f0', 'ctsp:Of': 'ctsp_Of_f0', 'verse:BOTHa': 'verse_BOTHa_f0', 'verse:SL5a': 'verse_SL5a_f1', 'verse:SL5b': 'verse_SL5b_f0', 'verse:T13a': 'verse_T13a_f0', 'verse:T13b': 'verse_T13b_f0', 'verse:VNUa': 'verse_VNUa_f0'}
+  [PASS] no three-body frame drawn: got False, want False
+  [PASS] excluded patient absent: got False, want False
+  [PASS] persons scored (23 in the real pool, the three-L6 patient out): got 23, want 23
+5. M1 known answers: pooled L6 x9, both x1, sacralised_L5 x2, four_lumbar x1
+  [PASS] pooled n: got 13, want 13
+  [PASS] 'both' is in the M1 population: got True, want True
+  [PASS] COUPLED right 10 (L6 a-f, L6h, BOTHa, SL5 a-b): got 10, want 10
+  [PASS] COUNT right 2 (L6g, L6h): got 2, want 2
+  [PASS] MORPHOLOGY right 3 (L6g, L6h, FLa unanchored): got 3, want 3
+  [PASS] discordant b = 9: got 9, want 9
+  [PASS] discordant c = 1: got 1, want 1
+  [PASS] tested (10 >= 6): got True, want True
+  [PASS] P = 11/1024: got 0.010742, want 0.010742
+  [PASS] rejected at 0.025: got True, want True
+  [PASS] L6 stratum, descriptive: b=6 c=1 P=8/128: got 0.0625, want 0.0625
+  [PASS] both stratum, descriptive: coupled 1/1, count 0/1: got (1, 0), want (1, 0)
+  [PASS] T13 descriptive, coupled 1/2: got 1, want 1
+  [PASS] T13 is NOT in the M1 population: got True, want True
+  [PASS] missed body (L6i): every arm wrong: got {'count': False, 'morphology': False, 'coupled': False}, want {'count': False, 'morphology': False, 'coupled': False}
+  [PASS] no abstention in this study: the fig6 rule agrees with s4: got 10, want 10
+6. F1 known answers at tau = 0.6: 16 transitional, 6 ordinary
+  [PASS] a OR b sensitivity 12/16: got 12, want 12
+  [PASS] a OR b specificity 5/6 (Oe: count and morphology disagree): got 5, want 5
+  [PASS] a OR b OR c sensitivity 14/16 (+L6h 0.9, +VNUa 0.95): got 14, want 14
+  [PASS] a OR b OR c specificity 4/6 (+Of 0.65): got 4, want 4
+  [PASS] c alone 9/16: got 9, want 9
+  [PASS] per subtype: sacralised_L5_fused 3/3 with c: got 3, want 3
+  [PASS] per subtype: four_lumbar 0/1 (unanchored, p 0.2): got 0, want 0
+  [PASS] per subtype: T13 1/2: got 1, want 1
+  [PASS] per subtype: both 1/1 (flag a): got 1, want 1
+  [PASS] sensitivity interval = Wilson(14, 16): got [0.6398, 0.965], want [0.6398, 0.965]
+  [PASS] sensitivity lower bound at 14/16 below 0.85: got True, want True
+  [PASS] target (lower bound >= 0.85) not met at 14/16: got False, want False
+  [PASS] unreadable person reported as other, flagged 1/1: got 1, want 1
+  [PASS] transitional unanchored counted (FLa): got 1, want 1
+  [PASS] tau fixed before unblinding -> pre-specified: got True, want True
+  [PASS] unblinding record created: got True, want True
+  [PASS] unblinding record carries git HEAD: got True, want True
+7. unblinding is written once; a tau fixed after it, or altered, is not pre-specified
+  [PASS] existing record read, not rewritten: got False, want False
+  [PASS] same unblinding time: got '2026-09-24T10:05:40.351110Z', want '2026-09-24T10:05:40.351110Z'
+  [PASS] tau fixed after unblinding -> not pre-specified: got False, want False
+  [PASS] altered tau file (sha256 mismatch) -> not pre-specified: got False, want False
+  [PASS] primary arm refuses a tau (c is the dual arm's rule): got True, want True
+  [PASS] blinded outputs without an unblinding record are refused: got True, want True
+8. cross-check against the primary scorer's output (its rule: abstentions not scored)
+  [PASS] identical draw and COUPLED outcome -> 0 mismatches: got (0, 0), want (0, 0)
+  [PASS] one moved draw and one flipped outcome are both caught: got (1, 1), want (1, 1)
+9. a scored frame with no model output is wrong, unflagged and reported
+  [PASS] incomplete flagged: got (True, 1), want (True, 1)
+  [PASS] COUPLED pooled falls to 9: got 9, want 9
+10. six discordant persons all favouring COUPLED reject; five are descriptive
+  [PASS] 5 discordant -> descriptive: got (5, False), want (5, False)
+  [PASS] 6 discordant, 6-0 -> P = 1/64, rejected: got (0.015625, True), want (0.015625, True)
+11. adapt: the REAL coupler (tools/alphabet_couple.couple_frame) -> couple_all.json -> dumps -> score
+wrote 2 frame dumps (2 with a model output) to (session scratch path, not kept)\dumps.jsonl
+  [PASS] adapt stamps the blinded frame with the prototype run's time: got ('2026-09-24T01:02:03.000000Z', 'prototype_meta.json'), want ('2026-09-24T01:02:03.000000Z', 'prototype_meta.json')
+  [PASS] an unreachable prototype dir falls back to couple_all.json: got 'couple_all.json', want 'couple_all.json'
+  [PASS] the new unblinding record takes the earlier model run, not the scoring time: got '2026-09-24T01:02:03.000000Z', want '2026-09-24T01:02:03.000000Z'
+  [PASS] the coupler calls the L6 frame L6: got 'L6', want 'L6'
+  [PASS] COUPLED here == the coupler's frame_all_correct_coupled: got True, want True
+  [PASS] COUNT here == (the coupler's count_correct == n_truth_named): got False, want False
+  [PASS] MORPHOLOGY here == the coupler's frame_all_correct_classifier: got False, want False
+  [PASS] L6 frame: coupled right, count wrong, morphology wrong: got {'count': False, 'morphology': False, 'coupled': True}, want {'count': False, 'morphology': False, 'coupled': True}
+  [PASS] L6 frame: flags a and b; spine probability carried through adapt: got (True, True, 0.81), want (True, True, 0.81)
+  [PASS] ordinary frame: every arm right, no flag: got ({'count': True, 'morphology': True, 'coupled': True}, False, False), want ({'count': True, 'morphology': True, 'coupled': True}, False, False)
+12. s4 abstention: an abstained reference-named body is not correct for SchwingNet's arms
+  [PASS] X1 (abstains on its L6 body), s4: every arm wrong: got {'count': False, 'morphology': False, 'coupled': False}, want {'count': False, 'morphology': False, 'coupled': False}
+  [PASS] X1, fig6 rule beside: morphology and coupled right: got {'count': False, 'morphology': True, 'coupled': True}, want {'count': False, 'morphology': True, 'coupled': True}
+  [PASS] X2 (abstains only on an unmatched box): coupled right under s4: got True, want True
+  [PASS] X3 (abstains, count right): COUNT is not an abstaining arm: got True, want True
+  [PASS] M1 pooled coupled: s4 1/3, fig6 rule 2/3: got (1, 2), want (1, 2)
+  [PASS] persons with an abstained scored body: X1, X3: got 2, want 2
+13. unblinding is the EARLIER of the first blinded model output and the scoring (s9)
+  [PASS] new record: unblinded_utc = the earliest blinded output (the render), not the scoring time: got '2026-09-19T00:00:00.000000Z', want '2026-09-19T00:00:00.000000Z'
+  [PASS] the three excluded L6 patients (2020) and the open persons (2019) do not set it: got '2026-09-19T00:00:00.000000Z', want '2026-09-19T00:00:00.000000Z'
+  [PASS] a tau fixed today, after that output -> not pre-specified: got False, want False
+  [PASS] existing record, but a dump output precedes it -> the earlier time governs: got (True, '2026-09-20T00:00:00.000000Z'), want (True, '2026-09-20T00:00:00.000000Z')
+  [PASS] ... and the tau fixed between the two is no longer pre-specified: got False, want False
+  [PASS] model run after tau was fixed (and before this scoring) -> it sets unblinding; tau pre-specified: got ('2026-09-24T10:05:45.147345Z', True, True), want ('2026-09-24T10:05:45.147345Z', True, True)
+14. --subset: M1 and F1 on a named subset, the whole-pool draw unchanged
+  [PASS] the draw is the whole pool's (all 23 persons, same frames): got (23, True), want (23, True)
+  [PASS] subset M1: n 6, coupled 6, count 0, P = 1/64, rejected: got (6, 6, 0, 0.015625, True), want (6, 6, 0, 0.015625, True)
+  [PASS] subset F1 a OR b: 6/6 (flag a on every one): got 6, want 6
+  [PASS] the whole-pool M1 is unchanged by the subset: got 10, want 10
+  [PASS] a text subset file reads the same: got {'ctsp:L6b', 'ctsp:L6c', 'ctsp:L6a', 'ctsp:L6f', 'ctsp:L6e', 'ctsp:L6d'}, want {'ctsp:L6b', 'ctsp:L6c', 'ctsp:L6a', 'ctsp:L6f', 'ctsp:L6e', 'ctsp:L6d'}
+
+SELF-TEST PASSED: 94/94 checks
+exit 0

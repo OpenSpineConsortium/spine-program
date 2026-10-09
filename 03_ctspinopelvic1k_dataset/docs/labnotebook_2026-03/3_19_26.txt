@@ -1,0 +1,9 @@
+Scientific Update
+SpineSurg-CT: Status Update — [Date]
+Following dataset acquisition and quality audit, the training infrastructure for SpineSurg-CT is now fully operational on the Wayne State warrior HPC cluster. The complete CTSpine1K dataset (784 COLONOG cases, ~150GB) and CTPelvic1K pelvic masks have been downloaded and validated. A pre-training dataset audit across 2,010 cases confirmed 16 lumbarization and 12 sacralization cases in the COLONOG subset — 1.8% LSTV prevalence, consistent with published estimates — and correctly excluded COVID-19 and HNSCC subsets due to truncated field of view.
+The model implements the Li et al. (Scientific Reports 2025) CTSpineSegNet architecture — 3D ResUNet with cross-scale feature fusion modules and linear self-attention (O(kn)) — extended with three novel components for LSTV detection: a 10-class output including L6, a multi-task LSTV classification head, and class-weighted loss with CopyPaste augmentation oversampling LSTV cases 10×. A key architectural correction was made: orientation preprocessing was updated from RAS to PIR per the original paper specification, which is expected to improve L5/sacrum boundary performance given the model's positional sensitivity at the lumbosacral junction.
+Training infrastructure includes TensorBoard and optional W&B logging with per-component loss tracking (Dice, CE, LSTV), and automated Bayesian hyperparameter optimization via Ray Tune with Optuna TPE. Training is queued. Primary evaluation metric will be L6 DSC on lumbarization cases benchmarked against TotalSegmentator, which has no L6 class and will score 0.0 — the central capability gap this architecture is designed to close.
+
+
+NOTES:
+Currently doing the test train validation split, not sure why it takes so long?

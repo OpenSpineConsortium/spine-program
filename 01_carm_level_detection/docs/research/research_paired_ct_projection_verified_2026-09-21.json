@@ -1,0 +1,362 @@
+{
+ "question": "Find and verify every dataset that pairs a 3-D CT (or CBCT) volume with REAL 2-D X-ray projections (fluoroscopy, C-arm radiographs, kV setup radiographs, flat-panel or image-intensifier) of the SPINE, PELVIS or TORSO, with a known or recoverable projection pose, that could fill a specific gap in a spine-surgery project. Include phantom, cadaver, animal and patient sets, and 2-D/3-D registration benchmarks that I have neglected. Return hard facts with URLs/DOIs/PMIDs, not summaries.\n\nTHE GAP (engage with this precisely): I calibrate a physics image-formation model (exact geometry + polyenergetic attenuation + nine device terms: scatter, receptor blur, edge enhancement, vignette, heel; per-frame linear window) on DeepFluoro's 366 paired frames (6 cadaveric pelves, one Siemens Cios Fusion) and apply it to whole-spine living CTs to train a vertebra/sacrum detector for level counting under intraoperative fluoroscopy. I found today that DeepFluoro's stored intensities are log-compressed display images, not transmission. I need MORE paired CT + real-projection data that (a) includes the spine (thoracic/lumbar, ideally lumbosacral), (b) comes from a DIFFERENT device (mobile C-arm with image intensifier or flat panel; radiotherapy kV imagers acceptable if kV), (c) has soft tissue around the bone (living patient, cadaver torso, or anthropomorphic phantom with tissue-equivalent material such as Kyoto Kagaku PBU-60 / Rando / CIRS), (d) has a known pose (fiducials, tracked C-arm, registration ground truth) or enough calibration info to recover it, (e) is downloadable or obtainable on request with a stated licence. Thin-bone rendering (iliac wing, sacral ala) and the device display curve (log vs linear stored intensity) are the two things I most need to test on another device.\n\nALREADY KNOWN — do not re-describe, but DO check for newer versions or overlooked sub-sets: DeepFluoro (JHU, 2020); Ljubljana 2D-3D gold standard (Tomazevic 2002/2004: one cadaveric L1-L5 in a water tube, Trixell flat panel, 18 X-rays, 8-bit CT); Veriserum (ETH, knee implant phantoms); CAMS-Knee; CM Spine (208 intraoperative G-arm lumbar images, Chinese Academy of Sciences, email request); LevelCheck/JHU clinical data (DUA only); Pelphix (simulated + cadaver); Goswami 2020 IOERT pig lower limb (no spine); Liu 2019 Med Phys MV portal vs DRR (megavoltage, not usable); Sun 2021 CrossModalNet (2,698 patients cervical/prostate DR vs DRR, same group — verify whether those DRs are kV or MV and whether any of it is public); KCL cardiac sheath phantom (no use); SPARE challenge / 4D-CBCT projection sets (verify: do they contain the spine and raw projections?).\n\nQUESTIONS, each with citations and exact numbers:\n1. LIST every candidate dataset found (name, year, institution, anatomy, subject type: patient/cadaver/animal/phantom, device make/model and detector type, kVp if stated, number of volumes and projections, pose ground truth method and accuracy, whether stored projections are raw intensity or processed/log display images, image size and pixel pitch, licence, access route: direct download URL / request / DUA, and whether it has been used by published 2-D/3-D registration or DRR-to-real domain-adaptation papers). Cover at least: xreg/JHU releases beyond DeepFluoro; Siewerdsen/Uneri/Otake spine cadaver sets; the \"Spine cadaver CBCT + fluoroscopy\" sets used in LevelCheck papers; Grupp/Unberath/Killeen datasets (e.g., Pelphix, SyntheX, \"CT + real fluoro cadaver pelvis\" releases); ProST/DiffDRR/DiffPose/xvr evaluation data (they used DeepFluoro AND Ljubljana — anything else?); Veriserum's spine sibling if any; TCIA collections with CBCT PROJECTIONS (e.g., 4D-Lung with projections, SPARE, \"CBCT projection\" sets from Varian/Elekta OBI); radiotherapy kV setup image sets paired with planning CT (kV, not MV) that include lumbar/thoracic spine; dental/ENT are irrelevant unless torso; the \"Kyoto Kagaku PBU-60 / CIRS ATOM / Rando\" phantom sets with CT + C-arm fluoro (e.g., from surgical-navigation or robot papers, Chinese Academy of Sciences, TUM/CAMP, Balgrist, Bern ISTB, ETH, KCL, Imperial); vertebra-level 2-D/3-D registration papers from 2018-2026 that released their CT+fluoro pairs (e.g., \"MICCAI 2D/3D registration challenge\", \"Learn2Reg\" does not qualify unless projection data); Zenodo/Figshare/Mendeley/OSF/PhysioNet/Synapse/Kaggle/HuggingFace/GitHub-hosted sets; any porcine or ovine spine CT + C-arm sets (animal labs, spine robotics papers).\n2. For each candidate, state whether the projections are of a mobile C-arm (image intensifier vs flat panel) or a fixed radiography/RT imager, and whether the stored intensities are documented as raw counts, log-transformed, or vendor-processed — I need this to test my display-curve finding on a second device.\n3. PHANTOM VALUE: give a measured, cited answer to \"are anthropomorphic phantom CT+fluoro sets useful for calibrating a CT-to-fluoroscopy formation model that will be applied to living abdomens?\" Find papers that compared phantom-derived and patient-derived calibration or domain gap (DeepDRR validation on phantoms vs cadavers; SyntheX; Rapuri 2026; any that quantify phantom-to-patient appearance gap, scatter fraction of anthropomorphic phantoms vs patients).\n4. Rank the candidates by how well they fill the stated gap (spine present, soft tissue present, different device, pose known, raw-vs-log documented, obtainable), and say explicitly which ONE to obtain first and how (contact, form, URL).\n5. Name what is MISSING from the field: is there any public set of living-patient CT + intraoperative C-arm fluoroscopy of the lumbar spine with pose? If none, say so plainly with the evidence.\n\nReport exact figures, DOIs/URLs, and a table; mark every unverifiable claim as such.",
+ "summary": "Only one confirmed dataset can be downloaded now and fills most of the gap: COBRA2026 (Zenodo DOI 10.5281/zenodo.21322350; arXiv:2607.20037; July 2026). It holds raw kV CBCT projections from 867 living pelvic-radiotherapy patients, with per-projection RTK geometry and a planning CT. The projections come from two vendors that are not Siemens (Elekta XVI and Varian TrueBeam/Halcyon/VitalBeam), and the paper documents them as linear uint16 detector signal, not log-compressed. It is not a C-arm dataset. Spine coverage is not confirmed: the paper never mentions the spine or sacrum, although its figures show iliac wings. The closest anatomical match is a Siemens/FAU set of 55 living-patient thoracic and lumbar CBCT volumes with their real projections and ground-truth pose (Jaganathan et al., arXiv:2210.07611 and 2107.10004). It has never been released, and its device is not named. Verification turned up no public dataset pairing a living patient's CT with intraoperative lumbar C-arm fluoroscopy and a known pose. No claim that measures how phantom-derived calibration transfers to patients survived verification, so question 3 is still open. Three premises in the question were wrong. The \"Ljubljana\" set used by xvr and DiffDRR is cerebral angiography, not Tomaževič's spine set. CrossModalNet's radiographs are megavoltage (MV). The figure of 2,698 comes from IB-cGAN, not CrossModalNet.",
+ "findings": [
+  {
+   "claim": "COBRA2026 contains REAL measured kV CBCT projections paired with a planning CT for 867 living pelvic-radiotherapy patients from six European centres. The projections come from linac-mounted flat-panel kV imagers, not mobile C-arms. Every projection has a known pose, but the source never mentions the spine or sacrum.",
+   "confidence": "high",
+   "vote": "3-0",
+   "sources": [
+    "https://zenodo.org/records/21322350",
+    "https://doi.org/10.5281/zenodo.21322350",
+    "https://arxiv.org/abs/2607.20037",
+    "https://github.com/cobra-challenge-2026/preprocessing"
+   ],
+   "evidence": "Released on Zenodo 2026-07-13 as v1.0.0 under CC BY-NC 4.0; arXiv v1 posted 22 Jul 2026. The first author and contact is Adrian Thummerer, Univ. Bern ([e-mail withheld]); Simon Rit, an RTK developer, is a co-author. Split: 867 cases = 692 train / 52 val / 123 test. Centres: Utrecht, Vienna, Lyon, LMU Munich, Graz and Cologne, labelled A–D, F and G (there is no E).\n\nDevices, from Table 1 of the paper:\n- Centres A–D: Elekta Synergy/VersaHD (Centre C Synergy only), 120 kV, 504×504 detector at 0.8×0.8 mm, no scatter grid.\n- Centre F: Varian Halcyon/TrueBeam.\n- Centre G: Varian TrueBeam/VitalBeam.\n- Both Varian centres run 125–140 kV with a scatter grid and bowtie filters.\n\nFiles in each case: projections.mha, geometry.xml (RTK format), ct_original.mha, and a deformed planning CT. The deformed CT is presumably warped into the CBCT frame, which would let DRRs be rendered in the projection geometry. That use is an inference and was not verified.\n\nAnatomy: a full-text search of the 26-page paper for spine, spinal, sacr, lumbar, vertebr, femur, hip and L5 returned nothing. Figure 1 (axial pelvic CBCTs) shows iliac wings and a posterior midline bone, so sacral coverage is likely. L5/S1 coverage is UNVERIFIED. One tool summary said 'lumbar spine, sacrum, pelvis bones'; that text is not in the paper and was hallucinated."
+  },
+  {
+   "claim": "COBRA2026 stores its projections as linear uint16 detector signal (0–65,535). They are not log-transformed and not display-processed, and the paper documents this for both vendors. The dataset can therefore serve as a linear-transmission reference against the DeepFluoro/Siemens Cios display images. It cannot serve as a second example of a log-display curve.",
+   "confidence": "high",
+   "vote": "3-0 (two merged claims, both 3-0)",
+   "sources": [
+    "https://zenodo.org/records/21322350",
+    "https://arxiv.org/html/2607.20037",
+    "https://github.com/cobra-challenge-2026/preprocessing"
+   ],
+   "evidence": "Paper, Sec. II.B.1, Elekta: the .his files were stacked 'without conversion to line integral' by the RTK v2.7.0 reader, and the stack 'contains the measured X-ray detector signal stored as 16-bit unsigned integers with a nominal range of 0–65,535'. RTK's ElektaSynergyRawLookupTableImageFilter applies 65536 − v to undo the inverted .his storage, so the stack is linear.\n\nVarian: .xim frames were stacked 'wihtout conversion to line integrals'. Each case ships a per-acquisition Calibrations/ directory that includes about ten air-scan projections at different gantry angles. Each projection is normalised by the air scan nearest in angle.\n\nSec. II.B.2: the authors compute p = −ln(I/I0) themselves. Elekta frames were already flood-field corrected by the vendor before export. I0 is a scalar: FloodImageFilterNorm (filter F1) or FloodImageOpenNorm (F0) from the *.INI files, times mAs_scan·ms_scan/(mA_air·ms_air).\n\nCode: preprocessor.py writes dtype uint16 using SetComputeLineIntegral(False), after sitk Clamp(0, 65535).\n\nCaveats:\n- The paper states the 16-bit format only for Elekta. Varian .xim is read as 32-bit and clamped to 65,535; whether any pixels saturate at that clamp is undocumented.\n- Elekta frames were cropped from 512 to 504 px.\n- The grand-challenge platform copy ships projections already converted to line integrals (Varian also scatter-corrected). Only the institutional-repository release is raw."
+  },
+  {
+   "claim": "COBRA2026 can be downloaded now without registration: the training set, 692 cases and about 750 GB, is hosted by CREATIS Lyon. The validation and test sets are embargoed. The licence is CC BY-NC 4.0 (non-commercial).",
+   "confidence": "medium",
+   "vote": "3-0 (from verifier evidence on claims 1 and 6)",
+   "sources": [
+    "https://zenodo.org/doi/10.5281/zenodo.21322350",
+    "https://arxiv.org/abs/2607.20037"
+   ],
+   "evidence": "The Zenodo record links to tomoradio-warehouse.creatis.insa-lyon.fr for the training set (~750 GB, released 13 Jul 2026, no registration). One verifier read the paper as saying validation and test open on '01.03.2032'. That date looks implausible and should be checked on the record. The licence is CC BY-NC 4.0; see caveats on commercial use."
+  },
+  {
+   "claim": "SPARE (Univ. Sydney) is a free download of real clinical kV CBCT projections of thoracic radiotherapy patients, each with a prior 10-phase 4D-CT. Pose is given per projection, but only relative to the CBCT frame: no registration from the CBCT to the prior 4D-CT is provided. Some Elekta geometry was estimated rather than recorded.",
+   "confidence": "high",
+   "vote": "3-0",
+   "sources": [
+    "https://ses.library.usyd.edu.au/handle/2123/34378",
+    "https://ses-data.library.sydney.edu.au/public/34378_Shieh/SPARE_PublicArchive.zip",
+    "https://doi.org/10.1002/mp.13687",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6739166/"
+   ],
+   "evidence": "Distribution: DSpace handle 2123/34378, CC BY-NC 4.0. SPARE_PublicArchive.zip is 291,259,820,248 bytes; the server accepts byte-range requests. The 7z volumes inside are AES-256 encrypted, and the password is printed in Instructions_Datasets.docx (A. Shieh, last updated 3 Sep 2020).\n\nGeometry: one RTK Geometry.xml per scan. It holds a 3×4 matrix per projection under <Matrix> (patient (x,y,z) to detector (u,v)), plus SourceToIsocenterDistance, SourceToDetectorDistance, ProjectionOffsetX/Y and a per-projection GantryAngle. The Limitations section says some ClinicalElektaDatasets geometry 'estimated by assuming even angular increment' because the original files were lost.\n\nDevices, from the Med Phys paper: Elekta Synergy, 512×512 at 0.8 mm, 120 kVp, SID 1000 mm, SDD 1536 mm; Varian Trilogy, 1024×768 at 0.388 mm, 125 kVp.\n\nThe Monte Carlo subset is simulated, not real. Patient counts disagree between sources: the landing page gives Elekta 6 patients/24 scans, the paper 5/20. A broader claim about subset sizes and spine coverage failed verification (1-2). Presence of the thoracic spine in the field of view is UNVERIFIED."
+  },
+  {
+   "claim": "SPARE projections are headerless float32 values that are already log-domain line integrals. They are not detector counts and not a vendor display image. For the display-curve question SPARE therefore adds a log-domain reference, not a raw one.",
+   "confidence": "medium",
+   "vote": "2-1",
+   "sources": [
+    "https://ses.library.usyd.edu.au/handle/2123/34378",
+    "https://github.com/fuyabo/4DGS_for_4DCBCT"
+   ],
+   "evidence": "The instructions call the files 'raw projections', float32 with no header, and say FDK reconstructions come out at about 0.01–0.015/mm for soft tissue and 0.016–0.03/mm for bone. The documents never state a log step or a flat-field step.\n\nA verifier decrypted part of ClinicalElektaDatasets.7z.001 and checked CE_P1_T_01:\n- Each .bin is 1,048,576 bytes, i.e. 512×512 float32.\n- Values run 0–6.16 (median about 5.1). Body pixels are high and air pixels low, which is log-domain.\n- FDK3D.mha is 270×256×270 at 1 mm, with the 99th percentile at 0.0146/mm.\n- The prior CT_01.mha is in HU.\n\nThe air and couch region reads 1.1–1.9 rather than 0, so I0 looks like a fixed reference and the line integrals carry an offset. The paper says the flat-field factor was not available. Independently, the 4DGS_for_4DCBCT code feeds SPARE projections to TIGRE without taking a log. Only the Clinical Elekta subset was checked directly."
+  },
+  {
+   "claim": "TCIA 4D-Lung releases only reconstructed CT/4D-CBCT volumes and RTSTRUCT, with no projections. Its raw Varian OBI kV projections of the thorax can be requested from the authors.",
+   "confidence": "high",
+   "vote": "3-0 (two merged claims)",
+   "sources": [
+    "https://doi.org/10.7937/K9/TCIA.2016.ELN8YGLE",
+    "https://www.cancerimagingarchive.net/collection/4d-lung/",
+    "https://doi.org/10.1002/mp.12059"
+   ],
+   "evidence": "TCIA release: modalities CT and RTSTRUCT; 20 patients, 589 studies, 6,690 series, 347,330 images, 183.04 GB; DICOM; CC BY 3.0; Version 2, 2016-10-19.\n\nAcquisition: Varian On-Board Imager (v1.3 per the paper), 125 kVp, 20 mA, 20 ms. About 2,500 projections over 8–10 min in half-fan mode with a half bowtie filter, in one 360° arc. Projections were phase-sorted into 10 phases and reconstructed with in-house FDK.\n\nHugo et al., Med Phys 2017;44(2):762–771 (PMID 27991677, PMC5912888): 'Although not included in the TCIA dataset, these data (both projections and marker traces) can be obtained by contacting the authors.'\n\nThe field is thoracic, so only the thoracic spine would appear incidentally, and there is no lumbar or pelvic field. Whether the authors still answer requests is untested."
+  },
+  {
+   "claim": "A Siemens Healthineers/FAU clinical set is the closest anatomical match to the gap: 55 living-patient thoracic and lumbar CBCT volumes, each paired with the real 2-D projections of its sweep, with ground-truth pose from the reconstruction geometry. It has not been released. The paper names no device and gives no data-availability statement.",
+   "confidence": "high",
+   "vote": "3-0",
+   "sources": [
+    "https://arxiv.org/html/2210.07611",
+    "https://arxiv.org/abs/2107.10004"
+   ],
+   "evidence": "Jaganathan, Kukla, Wang, Shetty and Maier, WACV 2023 (arXiv:2210.07611), and the same group at MICCAI 2021 (arXiv:2107.10004): 'clinical Cone Beam CT ... X-ray images with ground truth registration used for reconstruction ... thoracic and lumbar regions with 55 CBCT volumes acquired from 55 patients'.\n\nData details: projections 616×480 at 0.616 mm; 190–390 projections per volume; voxel spacing 0.49–0.99 mm; split 43/6/6. Training also used 16,000 unpaired real X-ray and DRR images.\n\nAffiliations: FAU Erlangen and Siemens Healthineers, Forchheim. The MICCAI paper carries the disclaimer 'not commercially available'. It is likely proprietary, which is UNVERIFIED.\n\nThese are CBCT sweep frames, not intraoperative fluoroscopy. Stored intensity (raw or processed) is not stated. The device may be a Siemens system, in which case it would NOT be a different vendor from DeepFluoro's Cios Fusion; UNVERIFIED."
+  },
+  {
+   "claim": "The UCLA radiotherapy set of Charters et al. (2024) pairs real gantry-mounted kV radiographs (and MV images) of the thoraco-abdominal spine with planning-CT DRRs, with pose from the clinical DICOM REG files. The data are not public and are available only on reasonable request.",
+   "confidence": "high",
+   "vote": "3-0 (two merged claims)",
+   "sources": [
+    "https://iopscience.iop.org/article/10.1088/2057-1976/ad2baa",
+    "https://web.archive.org/web/20250529074135/https://iopscience.iop.org/article/10.1088/2057-1976/ad2baa",
+    "https://pubmed.ncbi.nlm.nih.gov/38382110/",
+    "https://github.com/jcharters-mp/DRR"
+   ],
+   "evidence": "Charters JA et al., Biomed Phys Eng Express 2024;10(2):025039, DOI 10.1088/2057-1976/ad2baa, PMID 38382110.\n\nFinal dataset: 4,213 images from 527 patients (2011–2021), made up of 2,486 paired kV images (254 patients), 58 unpaired AP kV images (23) and 1,669 MV images (250). The pre-exclusion pool was 5,860. Exclusions included 'primarily sacral spine' cases (1 / 0 / 50 across the three datasets) and spine laterally out of FOV (681 / 19 / 838). The imagers are gantry-mounted AP/LAT with a 30×40 cm FOV.\n\nData statement: 'The data cannot be made publicly available ... available upon reasonable request from the authors.' Contact [e-mail withheld]. The article is CC BY 4.0; the data carry no licence because they were never deposited. Only the DRR code is public.\n\nThe specific T2–L2 coverage range proposed during research FAILED verification (0-3), so the level range is unknown."
+  },
+  {
+   "claim": "Sun et al. 2021 (CrossModalNet) cannot serve as kV or C-arm paired data. Its radiographs are megavoltage portal images, the scan count does not match the '2,698' in the question, and neither code nor data is public.",
+   "confidence": "medium",
+   "vote": "3-0 (three merged claims; MV label only partly verified)",
+   "sources": [
+    "https://iopscience.iop.org/article/10.1088/1361-6560/ac195e",
+    "https://pubmed.ncbi.nlm.nih.gov/34330122/",
+    "https://api.github.com/repos/lc82111/crossModalNet",
+    "https://doi.org/10.1002/mp.13770"
+   ],
+   "evidence": "Phys Med Biol 2021;66(17), PMID 34330122, Changzhou No.2 People's Hospital / Nanjing Medical University.\n\nScan count: the abstract gives 2,486 training + 170 test scans = 2,656 and names no anatomical site. The figure of 2,698 belongs to IB-cGAN (Liu 2019, Med Phys, 10.1002/mp.13770: 2,698 training / 208 test MV-DR scans).\n\nMV evidence:\n- A search-engine-indexed ResearchGate caption (fig1_353594546; the page itself returned 403): 'MV-DR, kV-DRR and their corresponding delineations'.\n- Co-author Cong Liu's IB-cGAN README: 'megavoltage ... EPIDs'.\n- LandmarkNet (PMC7374909) also uses MV-DRs.\n\nAvailability: github.com/lc82111/crossModalNet returned 404 on 2026-09-21 (the account lc82111 still exists with 59 repos). The article is closed access (Unpaywall is_oa=false), and no full text was read."
+  },
+  {
+   "claim": "The question's premise needs correcting: the 'Ljubljana' set that xvr, DiffDRR and DiffPose evaluate on is Mitrović et al.'s cerebral angiography set, not Tomaževič's L1–L5 spine gold standard. The public repositories of this lineage hold no spine CT + real-projection set.",
+   "confidence": "high",
+   "vote": "3-0",
+   "sources": [
+    "https://arxiv.org/html/2503.16309",
+    "https://github.com/eigenvivek/DiffDRR-Datasets",
+    "https://huggingface.co/datasets/eigenvivek/xvr-data",
+    "https://lit.fe.uni-lj.si/data/research/resources/3D-2D-GS-CA/3D-2D-GS-CA.pdf"
+   ],
+   "evidence": "xvr (arXiv 2503.16309), ref [36]: Mitrović, Špiclin, Likar and Pernuš, IEEE TMI 2013. The set has 10 endovascular patients, each with one 3-D rotational DSA and two 2-D DSAs from a biplane system, 20 X-rays in total. Its gold standard comes from fiducials, with mTRE 0.033–0.077 mm, and access requires a signed agreement.\n\nDiffDRR-Datasets offers only DeepFluoro (6 subjects, 366 images) and this cerebral Ljubljana set (10 subjects, 20 images). HF xvr-data holds DeepFluoro, Femur and the cerebral Ljubljana set.\n\nA separate claim that the xvr paper text never mentions the spine failed verification (0-3). The no-spine conclusion therefore rests on the repository listings only."
+  },
+  {
+   "claim": "The ETH/HEdS-Geneva hip 2D-3D registration gold-standard dataset is a public download under CC BY-SA 4.0. The companion article is CC BY-NC 4.0. The claims about its contents (phantom composition, lumbar segments, C-arm model, pose accuracy) all FAILED verification.",
+   "confidence": "medium",
+   "vote": "3-0 on access/licence; content claims 1-2, 0-3, 0-3",
+   "sources": [
+    "https://doi.org/10.26037/yareta:2kw5s2jadbbv3ngtkzsovihtnu",
+    "https://yareta.unige.ch/archives/ed4bb43a-eaaa-4e62-8763-bd5803f5cd47",
+    "https://access.yareta.unige.ch/access/metadata/ed4bb43a-eaaa-4e62-8763-bd5803f5cd47",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9290855/"
+   ],
+   "evidence": "Yareta record: 481 files, 394.1 MB (TIFF, PNG, PDF, CSV, JSON, XML, text, binary). Access Level Public, aip-dua false; issued 2021-03-12, updated 2022-07-01.\n\nArticle: D'Isidoro, Chênes, Ferguson and Schmid, Med Phys 2021;48(10):5991–6006, doi:10.1002/mp.15124, PMID 34287934.\n\nThree content claims were refuted in verification and should be treated as unknown until the archive's own README is read:\n- one anthropomorphic phantom with lumbar segments in soft-tissue resin (1-2)\n- a Philips BV Pulsera C-arm, 1000×1000, 12-bit (0-3)\n- 21 beads plus VICON, rTRE 0.05 mm (0-3)"
+  },
+  {
+   "claim": "Candidates ranked by fit to the gap (spine present, soft tissue, different device, known pose, raw vs log documented, obtainable): (1) COBRA2026; (2) the Jaganathan/Siemens 55-patient spine CBCT; (3) Charters/UCLA kV setup radiographs; (4) SPARE; (5) 4D-Lung projections on request; (6) the ETH hip gold standard. Excluded: CrossModalNet and the cerebral Ljubljana set. Obtain COBRA2026 first.",
+   "confidence": "medium",
+   "vote": "synthesis of verified claims",
+   "sources": [
+    "https://doi.org/10.5281/zenodo.21322350",
+    "https://arxiv.org/abs/2607.20037",
+    "https://arxiv.org/html/2210.07611",
+    "https://iopscience.iop.org/article/10.1088/2057-1976/ad2baa",
+    "https://ses.library.usyd.edu.au/handle/2123/34378",
+    "https://doi.org/10.1002/mp.12059"
+   ],
+   "evidence": "(1) COBRA2026\n- Fit: living patients with full soft tissue; two non-Siemens vendors (Elekta XVI at 120 kV with no grid; Varian at 125–140 kV with grid and bowtie); per-projection RTK pose plus planning CT; linear intensity documented; downloadable now with no registration.\n- Gaps: RT flat panel, not a C-arm. The pelvic field shows iliac wings, which suits the thin-bone test, but sacral ala and L5 coverage is unverified.\n- How: follow the Zenodo record's link to tomoradio-warehouse.creatis.insa-lyon.fr and pull a handful of Elekta training cases first (no grid, simpler scatter). Confirm the sacrum is in the field from the CBCT/planning-CT extents and by rendering before bulk-downloading 750 GB. Contact: [e-mail withheld].\n\n(2) Jaganathan/Siemens\n- Fit: the best spine match; living thoracic and lumbar patients, real projections with pose.\n- Gaps: unreleased, device unknown and possibly Siemens.\n- How: request through the FAU Pattern Recognition Lab (Maier) or Siemens Healthineers.\n\n(3) Charters/UCLA\n- Fit: kV spine radiographs with DICOM REG pose.\n- Gaps: RT imager, level range unknown, request only.\n- How: [e-mail withheld].\n\n(4) SPARE\n- Fit: public, pose known.\n- Gaps: thoracic only; already log-domain, so it shows nothing about a vendor display curve.\n\n(5) 4D-Lung\n- Gaps: thoracic only; projections by request only (Hugo et al.).\n\n(6) ETH hip gold standard\n- Fit: public.\n- Gaps: contents unverified; no confirmed spine."
+  },
+  {
+   "claim": "No verified public dataset pairs a living patient's CT with intraoperative mobile C-arm fluoroscopy of the lumbar spine and a known pose. The only living-patient spine set with real projections and ground-truth pose (Jaganathan et al.) is unreleased CBCT sweep data. Every public living-patient set found (COBRA2026, SPARE, 4D-Lung) comes from radiotherapy linac kV imagers.",
+   "confidence": "medium",
+   "vote": "synthesis; absence claim",
+   "sources": [
+    "https://arxiv.org/html/2210.07611",
+    "https://doi.org/10.5281/zenodo.21322350",
+    "https://ses.library.usyd.edu.au/handle/2123/34378",
+    "https://github.com/eigenvivek/DiffDRR-Datasets",
+    "https://huggingface.co/datasets/eigenvivek/xvr-data"
+   ],
+   "evidence": "- Jaganathan: no data statement.\n- Charters: RT setup radiographs, request only.\n- CrossModalNet: MV, not public.\n- DiffDRR and xvr public repositories: pelvis (DeepFluoro), femur and cerebral sets only.\n- No claim about Siewerdsen/Uneri/Otake cadaver spine sets, the LevelCheck clinical data (known to need a DUA), SyntheX/Killeen releases, TUM/Balgrist/Bern phantom sets, or porcine/ovine spine C-arm sets survived verification in either direction.\n\nThis is absence of evidence within the verified sources, not proof that no such set exists."
+  },
+  {
+   "claim": "Question 3 (are anthropomorphic phantom CT+fluoro sets useful for calibrating a formation model that will be applied to living abdomens?) has no verified, measured answer. No claim quantifying the phantom-to-patient appearance gap or scatter-fraction differences survived verification.",
+   "confidence": "low",
+   "vote": "no surviving claims",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9290855/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12270334/"
+   ],
+   "evidence": "The one phantom candidate that reached verification (the ETH hip set) had all its content claims refuted. A claim that the phantom projection pairs in PMC12270334 are unreleased also failed (1-2). None of DeepDRR's phantom-vs-cadaver validation, SyntheX or Rapuri 2026 produced a verified number. The question remains open."
+  }
+ ],
+ "caveats": "1. **Spine coverage in COBRA2026 is the key unverified point.** The paper never mentions the spine, sacrum or L5. Treat pelvic RT CBCT as covering the iliac wings (seen in Fig. 1) with unknown sacral-ala and L5 coverage until you render a few cases.\n\n2. **Device class.** COBRA, SPARE and 4D-Lung all use linac-mounted kV flat panels with RT geometry (SID ~1000 mm, SDD ~1536 mm, bowtie filters on Varian, a grid on Varian but not Elekta). None is a mobile C-arm, and none has an image intensifier.\n   - COBRA's linear storage makes it a linear-transmission reference. It is not a second instance of a vendor log-display curve.\n   - SPARE is already in the log domain.\n\n3. **Licences.** COBRA and SPARE are CC BY-NC 4.0; the ETH hip set is CC BY-SA 4.0. If calibrations or trained weights feed a commercial product, the non-commercial and share-alike terms matter. Get legal review before use on that track.\n\n4. **Refuted claims.** The following failed verification and should be treated as unknown, not false:\n   - the COBRA per-vendor split (573 Elekta / 294 Varian)\n   - SPARE subset sizes and spine coverage\n   - the Charters T2–L2 level range\n   - all ETH hip content details (phantom, lumbar segments, Philips BV Pulsera, bead/VICON accuracy)\n   - the pig-lung Zenodo 997887 set\n   - the xvr page text search\n\n5. **Weaker points.**\n   - The SPARE log-domain finding rests on a 2-1 vote, although a verifier checked real files.\n   - The MV label for CrossModalNet rests on a search-engine-indexed figure caption plus related papers from the same group. The full text was not read.\n   - The COBRA validation/test release date reported as '01.03.2032' is suspicious and needs checking.\n\n6. **Not re-examined.** Items the question listed as already known (DeepFluoro, the Tomaževič spine set, Veriserum, CAMS-Knee, CM Spine, LevelCheck, Pelphix, Goswami, Liu 2019) were not re-verified here, except for the corrections noted. No claims survived for the Siewerdsen/Uneri cadaver sets, SyntheX/Killeen releases, TCIA collections other than 4D-Lung, or animal spine C-arm sets. Silence on these means not verified, not non-existent.\n\n7. **Time-sensitivity.** COBRA was released in July 2026, and more of it will come later. GitHub links rot (the CrossModalNet code is already gone).\n\n8. **Procedural.** One verifier passed the user's email address as the Unpaywall API's required email parameter. It was not used anywhere else.",
+ "openQuestions": [
+  "What fraction of COBRA2026 cases contain the sacral ala and L5/S1 inside the projection field, and do the Elekta (no-grid) and Varian (grid + bowtie) subsets differ enough to separate scatter terms from the rest of the model?",
+  "Will Jaganathan/Maier (FAU) or Siemens Healthineers share the 55-patient thoracolumbar CBCT sweep set under a DUA, and which device and stored-intensity format does it use? If it is a Siemens system, it does not count as a second vendor.",
+  "Does any cadaver-torso or animal-spine set with CT + mobile C-arm frames and pose exist from the Siewerdsen/Uneri LevelCheck cadaver work, the Killeen/Unberath group, TUM/CAMP, Balgrist or Bern? None of these reached verification.",
+  "Is there any measured comparison of phantom-derived and patient-derived formation-model calibration, such as scatter fraction or intensity-histogram gap, that would show whether a tissue-equivalent phantom (PBU-60, Rando, CIRS) is worth acquiring locally instead?"
+ ],
+ "refuted": [
+  {
+   "claim": "The ETH/HES-SO hip gold-standard dataset has 1 CT and 19 real fluoroscopic images of ONE anthropomorphic phantom (not cadaver or patient). The phantom has a female pelvis, proximal femurs and lumbar spinal segments set in a resin that mimics soft tissue, so it meets the soft-tissue and spine criteria on paper. The paper does not say whether the lumbar segments appear in the 2-D views; it is framed as a hip dataset. It also gives no phantom maker, and does not say whether the bone is real or synthetic.",
+   "vote": "1-2",
+   "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9290855/"
+  },
+  {
+   "claim": "The device differs from DeepFluoro's Siemens Cios Fusion. The projections come from a Philips BV Pulsera mobile video-fluoroscopy C-arm: 1000 x 1000 pixels, 12-bit greyscale, taken at several kV/mAs settings. The paper does not give the detector type, pixel pitch, source-to-image distance, distortion correction, or whether the stored intensities are raw, log or vendor-processed. The claim that the BV Pulsera uses an image intensifier comes from general knowledge and is UNVERIFIED in this source.",
+   "vote": "0-3",
+   "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9290855/"
+  },
+  {
+   "claim": "Pose ground truth has sub-millimetre accuracy. It uses 21 metal beads of 3 mm fixed to the phantom surface and a C-arm projection matrix from a calibration procedure (re-projection error 0.033 mm). The poses are solved jointly across views with the MPPC method, and a VICON MX motion-capture system (26 cameras, 100 Hz) links the phantom to the lab frame. Reported for 19 views: mPD 0.12 ± 0.06 mm, FRE 0.13 mm, FLE 0.14 mm, rTRE 0.05 mm (range 0.05 to 0.15 mm).",
+   "vote": "0-3",
+   "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9290855/"
+  },
+  {
+   "claim": "Charters et al. (UCLA Radiation Oncology) built a dataset of real kV (and MV) radiotherapy setup radiographs of the thoracic/lumbar spine (T2 to L2) paired with planning-CT DRRs, co-registered using the clinically applied alignment stored in DICOM REG files, so the projection pose relative to the CT can be recovered. The spine coverage stops at L2; there is no lumbosacral coverage.",
+   "vote": "0-3",
+   "source": "https://iopscience.iop.org/article/10.1088/2057-1976/ad2baa"
+  },
+  {
+   "claim": "xvr's real-X-ray evaluation used three public paired sets, none of which contains the spine: DeepFluoro (cadaveric pelvis), a cadaveric distal-femur set, and the Ljubljana set. A fetched search of the page for spine, vertebra, lumbar and thoracic found none of these terms. So the xvr/DiffDRR lineage adds no public spine CT plus real-projection data.",
+   "vote": "0-3",
+   "source": "https://arxiv.org/html/2503.16309"
+  },
+  {
+   "claim": "The dataset comes from a pig lung model inflated with oxygen, not from living patients or a whole torso. The accessible text does not say whether spine, ribs or surrounding soft tissue appear, so there is no evidence that it meets the spine requirement (a). The model is probably an excised lung, but that could not be confirmed because the full paper at Wiley returned 403. The Zenodo landing-page summary called the subjects 'patient', and that contradicts the abstract.",
+   "vote": "0-3",
+   "source": "https://doi.org/10.5281/zenodo.997887"
+  },
+  {
+   "claim": "Ground truth is landmarks only. Each 3D volume has 120 manually annotated landmarks. The 2D images (CT scout and X-ray) have just 8 landmarks, all on the large bronchial branches. The documentation gives no projection pose, source-to-detector distance, detector pitch or calibration, so any pose would have to be recovered from those 8 bronchial points.",
+   "vote": "1-2",
+   "source": "https://doi.org/10.5281/zenodo.997887"
+  },
+  {
+   "claim": "COBRA2026 (Thummerer, Rit, Kamp, Maspero, Landry, Kurz, Zimmermann et al.) releases raw kV CBCT projection data, acquisition geometry and planning CT for 867 pelvic radiotherapy patients from six European centres. The imagers are linac-integrated flat panels from Elekta (Synergy, VersaHD) and Varian (Halcyon, TrueBeam, VitalBeam), so these are fixed radiotherapy imagers, not mobile C-arms. The licence is CC BY-NC 4.0 and the data are on Zenodo, DOI 10.5281/zenodo.21322350. By vendor: Elekta 573 patients (467 train / 35 val / 71 test), Varian 294 (225 / 17 / 52).",
+   "vote": "0-3",
+   "source": "https://arxiv.org/abs/2607.20037"
+  },
+  {
+   "claim": "SPARE contains REAL clinical kV CBCT projections from two fixed radiotherapy gantry imagers, not C-arms: a Varian set (5 patients, 30 scans, half-fan, 4-8-minute research scans on a Varian Clinac) and an Elekta set (6 patients, 24 scans, full-fan, 3-minute clinical scans on an Elekta Synergy). A separate Monte Carlo set has 12 patients and 32 scans, but it is simulated from 4D-CTs, so it adds no real projections. Every patient also gets a prior 10-phase 4D-CT in Hounsfield units (CT_01.mha to CT_10.mha). All patients are thoracic radiotherapy cases. The page never says whether the spine is in the field. That the thoracic spine is included can only be inferred from the reconstruction field of view (450x220x450 mm for Varian, 270x256x270 mm for Elekta), and this is not verified. No kVp is stated on the page or in the instructions.",
+   "vote": "1-2",
+   "source": "https://ses.library.usyd.edu.au/handle/2123/34378"
+  },
+  {
+   "claim": "The article gives no data availability statement and names no public repository, so the phantom projection pairs look unreleased. The only closing declaration is a conflict-of-interest line. That the data are unreleased is an inference from this absence; no statement confirms it.",
+   "vote": "1-2",
+   "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12270334/"
+  }
+ ],
+ "unverified": [],
+ "sources": [
+  {
+   "url": "https://zenodo.org/records/21322350",
+   "quality": "primary",
+   "angle": "Registration benchmarks and JHU/xreg lineage (primary)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9290855/",
+   "quality": "primary",
+   "angle": "Registration benchmarks and JHU/xreg lineage (primary)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://iopscience.iop.org/article/10.1088/2057-1976/ad2baa",
+   "quality": "primary",
+   "angle": "Registration benchmarks and JHU/xreg lineage (primary)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/html/2503.16309",
+   "quality": "primary",
+   "angle": "Registration benchmarks and JHU/xreg lineage (primary)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/html/2210.07611",
+   "quality": "primary",
+   "angle": "Registration benchmarks and JHU/xreg lineage (primary)",
+   "claimCount": 4
+  },
+  {
+   "url": "https://doi.org/10.5281/zenodo.997887",
+   "quality": "primary",
+   "angle": "Registration benchmarks and JHU/xreg lineage (primary)",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/2607.20037",
+   "quality": "primary",
+   "angle": "Radiotherapy kV projections paired with planning CT",
+   "claimCount": 5
+  },
+  {
+   "url": "https://ses.library.usyd.edu.au/handle/2123/34378",
+   "quality": "primary",
+   "angle": "Radiotherapy kV projections paired with planning CT",
+   "claimCount": 5
+  },
+  {
+   "url": "https://iopscience.iop.org/article/10.1088/1361-6560/ac195e",
+   "quality": "primary",
+   "angle": "Radiotherapy kV projections paired with planning CT",
+   "claimCount": 5
+  },
+  {
+   "url": "https://doi.org/10.7937/K9/TCIA.2016.ELN8YGLE",
+   "quality": "primary",
+   "angle": "Radiotherapy kV projections paired with planning CT",
+   "claimCount": 5
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12270334/",
+   "quality": "primary",
+   "angle": "Radiotherapy kV projections paired with planning CT",
+   "claimCount": 5
+  },
+  {
+   "url": "https://doi.org/10.26037/yareta:2kw5s2jadbbv3ngtkzsovihtnu",
+   "quality": "primary",
+   "angle": "Phantom, cadaver and animal C-arm sets from navigation/robotics labs",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/html/2401.16027",
+   "quality": "primary",
+   "angle": "Phantom, cadaver and animal C-arm sets from navigation/robotics labs",
+   "claimCount": 5
+  },
+  {
+   "url": "https://www.nature.com/articles/s41598-025-27784-2",
+   "quality": "primary",
+   "angle": "Phantom, cadaver and animal C-arm sets from navigation/robotics labs",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/2401.16027",
+   "quality": "primary",
+   "angle": "Skeptical: does phantom calibration transfer to living abdomens?",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/abs/2206.06127",
+   "quality": "primary",
+   "angle": "Skeptical: does phantom calibration transfer to living abdomens?",
+   "claimCount": 5
+  },
+  {
+   "url": "https://arxiv.org/html/2606.21414",
+   "quality": "primary",
+   "angle": "Skeptical: does phantom calibration transfer to living abdomens?",
+   "claimCount": 5
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/11243347/",
+   "quality": "primary",
+   "angle": "Skeptical: does phantom calibration transfer to living abdomens?",
+   "claimCount": 5
+  },
+  {
+   "url": "https://marketing.webassets.siemens-healthineers.com/8f8b3889f3ace2b1/015e6f9fb020/Cios_Alpha_Fusion_Connect_VA20H_DICOM_Conformance_Statement.pdf",
+   "quality": "primary",
+   "angle": "Technical: stored intensity convention and raw-vs-log documentation",
+   "claimCount": 5
+  },
+  {
+   "url": "https://github.com/rg2/DeepFluoroLabeling-IPCAI2020",
+   "quality": "primary",
+   "angle": "Technical: stored intensity convention and raw-vs-log documentation",
+   "claimCount": 5
+  }
+ ],
+ "stats": {
+  "angles": 5,
+  "sourcesFetched": 20,
+  "claimsExtracted": 99,
+  "claimsVerified": 25,
+  "confirmed": 15,
+  "killed": 10,
+  "unverified": 0,
+  "afterSynthesis": 14,
+  "urlDupes": 3,
+  "budgetDropped": 7,
+  "agentCalls": 102
+ }
+}

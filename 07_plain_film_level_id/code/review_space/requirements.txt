@@ -1,0 +1,12 @@
+# gradio 5.9.1 shipped a gradio_client whose _json_schema_to_python_type raises
+# "TypeError: argument of type 'bool' is not iterable" on a schema with additionalProperties: true,
+# which fires while the app is starting. A later 5.x fixes it.
+# The [oauth] extra (authlib + itsdangerous) is required by gr.LoginButton. Without it gradio raises
+# ImportError from attach_oauth the moment the Blocks context closes, so the Space dies at import with a
+# message that never reaches the page -- it just fails to start.
+gradio[oauth]>=5.25,<6
+huggingface_hub>=0.26
+pillow>=10.0
+# gradio's CLI imports requests at package import time but does not declare it; on a slim base image the
+# app dies with ModuleNotFoundError before it reaches a line of its own code.
+requests>=2.31

@@ -1,0 +1,157 @@
+{
+ "synthesis": null,
+ "tracks": [
+  {
+   "track": "audit",
+   "headline": "Splits are disjoint by case everywhere (0 overlaps in carmlspine/cobra_elekta/deepfluoro/geneva, 0 in 4,620 crops and 5,212 carmlspine_multi images, 0 fold-test cases in any of the five DRR/context/mix banks, 0 fixed-test cases in carm_fov96_ctx/carm_mix; splits.json), no real-X-ray frame exists in any training corpus (0 pairs at NCC32 >= 0.97 against 37,165 film-corpus images, 29,484 FluoroCap panels, 1,445 yolo_v6f images; dupes.json), and the film detector v5z predates every download by 6-7 days. The defect is in the claim, not the data: the \"100% sacrum on DeepFluoro test\" is rx_pooled_1024, fine-tuned on five DeepFluoro specimens of the same Cios Fusion and initialised from anchor_none_v2_17-1882, whose 569 training renders were 44.8% (255) under the test specimen 18-1109's own poses and whose nine device terms were fitted on 255 real frames including all 104 of 18-1109 (splits.json render_detector). The render-only method with 18-1109 truly held out (anchor_none_v2_18-1109, three seeds) gives 88.5-91.3% sacrum recall at conf 0.05 and 67.3-83.7% at 0.25, and the v2 LOSO generation pools to 64.0% at 0.05 / 54.3% at 0.25 over 365 frames, 13 points below the manuscript's 76.9%, which comes from the earlier anchor_none_r2 generation. COBRA's 74,364 cross-split near-duplicates are same-gantry-angle laterals of different patients with no bony detail (contact sheet), so COBRA sacrum recall is partly a positional prior. Pose QC: film-detector boxes sit within 0.01 body heights of projected truth (AP/LAT medians), none beyond 0.4 (pose_qc.txt).",
+   "numbers": [
+    {
+     "what": "cross-split case overlaps, all four realxray datasets (train/val/test)",
+     "value": "0 / 0 / 0 / 0; meta-vs-splits.json disagreements 0; images in wrong split dir 0",
+     "source": "/rs/rs_grp_oschome/go2432/data/or_ready/audit/splits.json (datasets)",
+     "ci_or_n": "carmlspine 296 frames/148 cases; cobra 3480/145; deepfluoro 366/6; geneva 116/1"
+    },
+    {
+     "what": "C-ArmLSpine crops and crops+frames set outside their case's split",
+     "value": "0 of 4,620 crop metas; 0 of 5,212 carmlspine_multi images (3660/565/987)",
+     "source": "splits.json carmlspine_derived"
+    },
+    {
+     "what": "CV folds: fold test cases present in per-fold DRR bank / context bank / mix bank",
+     "value": "0 / 0 / 0 for every fold (fold sizes 35, 25, 28, 36, 24 cases; fold view == md5 rule in all five)",
+     "source": "splits.json cv_folds"
+    },
+    {
+     "what": "fixed 28-case test split present in carm_fov96_ctx or carm_mix_fov96_ctx",
+     "value": "0 patients (990 and 15,746 real crops from 117 train+val patients)",
+     "source": "splits.json carm_banks"
+    },
+    {
+     "what": "DeepFluoro test specimen 18-1109 frames in train or val",
+     "value": "0 (train 17-1882 111, 18-2799 48, 18-2800 55, 17-1905 24; val 18-0725 24; test 18-1109 104)",
+     "source": "splits.json deepfluoro_specimens"
+    },
+    {
+     "what": "anchor_none_v2_17-1882 training renders under 18-1109's poses",
+     "value": "255 of 569 (44.8%), 90 distinct 18-1109 poses; val 39 of 84",
+     "source": "splits.json render_detector; ~/model_night/anchor_none_v2_17-1882/images"
+    },
+    {
+     "what": "real frames that fitted the calibration fold used by anchor_none_v2_17-1882",
+     "value": "255 frames of five specimens including all 104 of 18-1109 (fold held=17-1882)",
+     "source": "~/model_night/deepfluoro/calibration_best.json; splits.json render_detector.calibration"
+    },
+    {
+     "what": "rx_pooled_1024 sacrum recall on 18-1109 at conf 0.25",
+     "value": "100% (104/104); rx_only_carmlspine_1024 0.96% (1/104)",
+     "source": "~/spine-detector/runs/realxray/rx_pooled_1024/scores.json, rx_only_carmlspine_1024/scores.json",
+     "ci_or_n": "n=104 frames, one specimen"
+    },
+    {
+     "what": "render-only, 18-1109 truly held out (anchor_none_v2_18-1109, seeds 0/1/2) sacrum recall",
+     "value": "90.4/91.3/88.5% at conf 0.05; 81.7/89.4/88.5 at 0.10; 67.3/83.7/80.8 at 0.25; 56.7/74.0/67.3 at 0.40",
+     "source": "~/model_night/anchor_none_v2_18-1109/eval_anchor_none_v2_18-1109*.json",
+     "ci_or_n": "n=104"
+    },
+    {
+     "what": "v2 LOSO generation pooled sacrum recall (frame-weighted, seed-averaged)",
+     "value": "64.0% at conf 0.05; 54.3% at 0.25",
+     "source": "splits.json render_detector.loso_evals (18 eval jsons); AUDIT.md addendum",
+     "ci_or_n": "365 frames, six specimens, 3 seeds"
+    },
+    {
+     "what": "manuscript 76.9% generation",
+     "value": "anchor_none_r2_<spec> arms (18-1109 96.2, 18-0725 95.8, 18-2799 77.1, 18-2800 74.5, 17-1905 47.8, 17-1882 51.4/77.5/56.8 at 0.05)",
+     "source": "~/model_night/anchor_none_r2*/eval_*.json; docs/DEEPFLUORO_FORMATION.md:250"
+    },
+    {
+     "what": "COBRA cross-split near-duplicate pairs (NCC32 >= 0.97)",
+     "value": "74,364 train+val vs test (all cross-case, all 27 test cases involved, top-40 NCC64 all >= 0.97, max 0.998); 22,260 train vs val",
+     "source": "dupes.json; dupes_cobra_elekta_trainval_test.png"
+    },
+    {
+     "what": "C-ArmLSpine / DeepFluoro cross-split max NCC32",
+     "value": "0.962 / 0.934 (0 pairs >= 0.97)",
+     "source": "dupes.json"
+    },
+    {
+     "what": "realxray frames vs external corpora, pairs >= 0.97",
+     "value": "0 vs film corpus (37,165), 0 vs FluoroCap panels (29,484), 0 vs yolo_v6f (1,445); max 0.967/0.966/0.932 (COBRA laterals)",
+     "source": "dupes.json across; xcorpus_*_nearest.png"
+    },
+    {
+     "what": "film detector v5z weight dates vs dataset arrival",
+     "value": "weights 2026-09-14 01:31-09:33; DeepFluoro unpacked 2026-09-20 23:43; C-ArmLSpine 2026-09-21 17:32; COBRA 18:00; Geneva 17:00; 0 corpus stems naming a test dataset",
+     "source": "splits.json film_detector"
+    },
+    {
+     "what": "allspine_v7 bank sources",
+     "value": "164,161 crops / 29,105 cases: buu_full 18,008; csxa 24,815; nhanes 3,217; nhanes_drr 3,053; ctsp_drr 7,161; verse_drr 4,548; physics_drr 37,556; physics_rare 7,602; FLUOROCAP 14,957; VINDRPS 43,244; 0 case names referencing deepfluoro/carm/cobra/geneva",
+     "source": "splits.json allspine"
+    },
+    {
+     "what": "pose QC offset, film-detector boxes vs projected truth",
+     "value": "AP 147 frames median dy +0.01 bodies (IQR -0.01..+0.05), 0 beyond 0.25; LAT 146 frames median dy -0.01 (IQR -0.03..-0.00), 1 beyond 0.25 (case19_LAT +0.27), 0 beyond 0.4; corr(|dy|, edge NCC) -0.47 AP, -0.39 LAT",
+     "source": "/rs/rs_grp_oschome/go2432/data/or_ready/audit/pose_qc.txt, pose_qc.json"
+    },
+    {
+     "what": "registration edge NCC from metas",
+     "value": "carmlspine AP median 0.370 (p10 0.244), LAT 0.207 (p10 0.103); cobra 0.841; deepfluoro 0.309; geneva 0.053",
+     "source": "splits.json datasets.*.edge_ncc"
+    }
+   ],
+   "figures": [
+    {
+     "path_local": "<laptop:Temp scratchpad>\\claude\\c--Users-grego-OneDrive-Desktop-CTSpinoPelvic1K-1\\f1bdbd78-151f-470b-b703-dd9af9b3fecc\\scratchpad\\or_ready\\audit\\lineage.png",
+     "path_grid": "/rs/rs_grp_oschome/go2432/data/or_ready/audit/lineage.png",
+     "caption": "Lineage matrix: real frames per device (rows) against every detector and level model (columns). T trained on, V checkpoint selection, C real pixels fitted the device terms, P poses only, E evaluated. Every rx_* detector inherits the render detector's pose and calibration exposure to DeepFluoro 18-1109."
+    },
+    {
+     "path_local": "<laptop:Temp scratchpad>\\claude\\c--Users-grego-OneDrive-Desktop-CTSpinoPelvic1K-1\\f1bdbd78-151f-470b-b703-dd9af9b3fecc\\scratchpad\\or_ready\\audit\\loso_sacrum_recall.png",
+     "path_grid": "/rs/rs_grp_oschome/go2432/data/or_ready/audit/loso_sacrum_recall.png",
+     "caption": "Sacrum recall against confidence for the leave-one-specimen-out render-only arms (anchor_none_v2, three seeds; red = 18-1109 held out), with rx_pooled_1024's 100% on 18-1109 at 0.25 shown as the square. Same specimen, different questions."
+    },
+    {
+     "path_local": "<laptop:Temp scratchpad>\\claude\\c--Users-grego-OneDrive-Desktop-CTSpinoPelvic1K-1\\f1bdbd78-151f-470b-b703-dd9af9b3fecc\\scratchpad\\or_ready\\audit\\dupes_cobra_elekta_trainval_test.png",
+     "path_grid": "/rs/rs_grp_oschome/go2432/data/or_ready/audit/dupes_cobra_elekta_trainval_test.png",
+     "caption": "Strongest COBRA cross-split, cross-case pairs (NCC32 and NCC64 up to 0.998): same-gantry-angle lateral projections of different patients, smooth soft-tissue gradients with no bony detail. Not shared frames; a positional prior."
+    },
+    {
+     "path_local": "<laptop:Temp scratchpad>\\claude\\c--Users-grego-OneDrive-Desktop-CTSpinoPelvic1K-1\\f1bdbd78-151f-470b-b703-dd9af9b3fecc\\scratchpad\\or_ready\\audit\\xcorpus_fluorocap_panels_nearest.png",
+     "path_grid": "/rs/rs_grp_oschome/go2432/data/or_ready/audit/xcorpus_fluorocap_panels_nearest.png",
+     "caption": "Nearest FluoroCap panel to the three closest frames of each real-X-ray dataset (NCC32 at most 0.966). All are unrelated pictures; a Geneva frame's nearest panel is a pie chart. No test frame is reproduced in the literature bank."
+    },
+    {
+     "path_local": "<laptop:Temp scratchpad>\\claude\\c--Users-grego-OneDrive-Desktop-CTSpinoPelvic1K-1\\f1bdbd78-151f-470b-b703-dd9af9b3fecc\\scratchpad\\or_ready\\audit\\AUDIT.md",
+     "path_grid": "/rs/rs_grp_oschome/go2432/data/or_ready/audit/AUDIT.md",
+     "caption": "The audit report with tables (a)-(g), defects and an inspection addendum; identical on grid and local (md5 9875222997bd603befa7b7403bb9a00c). Companion sheets: xcorpus_film_corpus_v3_v4z_nearest.png, xcorpus_yolo_v6f_nearest.png, dupes_cobra_elekta_train_val.png."
+    }
+   ],
+   "defects_found": [
+    "CLAIM DEFECT: 'the same detector finds the sacrum in 100% of DeepFluoro test frames, against the 76.9% the manuscript reports' compares rx_pooled_1024 (fine-tuned on real frames of five DeepFluoro specimens on the same Cios Fusion, initialised from anchor_none_v2_17-1882) with a leave-one-specimen-out render-only number; the render-only method with 18-1109 held out gives 88.5-91.3% at conf 0.05 and 67.3-83.7% at 0.25. Not a leakage of frames, but not the manuscript's method either.",
+    "INDIRECT EXPOSURE: anchor_none_v2_17-1882 (the initialisation of every rx_* detector) drew 255 of 569 training renders (44.8%) under 18-1109's poses and used device terms and a photon range fitted on real frames that include all 104 of 18-1109; any number from these detectors on 18-1109 carries that geometry and pixel-statistics exposure (not anatomy).",
+    "TWO ARM GENERATIONS: the manuscript's 76.9% is the anchor_none_r2 generation; the anchor_none_v2 generation on disk (OR display window, the one in use) pools to 64.0% at 0.05 / 54.3% at 0.25 over the same 365 frames. Claims must name the generation.",
+    "LODO CHECKPOINT SELECTION: rx_lodo_{carmlspine,cobra_elekta,deepfluoro}_1024 select best.pt on the TEST splits of the two devices they train on (data.yaml val lists); only the held-out device's numbers from a lodo run are clean.",
+    "COBRA TEMPLATE EFFECT: 74,364 cross-case cross-split pairs at NCC >= 0.97 are same-angle laterals with no bony detail; COBRA sacrum recall (97.9% pooled) is partly a positional prior and must be read per angle bin.",
+    "carmlspine_pose_qc.py was not on the grid copy of the repo (job 40411469's pose step failed; rerun as job 40411488)."
+   ],
+   "unverified": [
+    "Film detector v5z's exact training corpus: its run directory was not found under ~/spine-detector/runs; the corpus is inferred from the same-day yolo_v4z data.yaml chain (BUU, CSXA, NHANES, Mendeley, AASCE plain films). The date argument (weights 2026-09-14, datasets 2026-09-20/21) holds regardless.",
+    "Whether allspine_v7's 37,556 physics_drr crops were rendered under all six DeepFluoro specimens' poses or five; the bank records no pose set.",
+    "Whether any two COBRA case ids are the same patient; the 74,364 cross-case pairs were read by eye as different pelves on 12 sheets, not verified against patient metadata.",
+    "The 32x32 / 64x64 NCC finds reproductions and re-exports but not mirrored, cropped or heavily annotated copies; a figure reproduction of a test frame with a large crop would be missed.",
+    "rx_only_carmlspine_multi_1024 and the three lodo runs were still training (jobs 40411213/40411285-7); their scores are not in this audit."
+   ],
+   "jobs": [
+    "40411469 oraudit (splits + dupes + report, COMPLETED 5 min, log ~/model_night/logs/or_audit_40411469.out)",
+    "40411488 orauditp (pose QC + report regeneration, COMPLETED, log ~/model_night/logs/or_audit_pose_40411488.out)"
+   ],
+   "code_written": [
+    "<laptop:Desktop>\\spinesurg-ct-nnunet\\tools\\or_audit_splits.py (split disjointness, bank contents, render-detector exposure, v5z dates, allspine sources -> splits.json)",
+    "<laptop:Desktop>\\spinesurg-ct-nnunet\\tools\\or_audit_dupes.py (NCC32/NCC64 near-duplicates within datasets and across corpora, contact sheets -> dupes.json)",
+    "<laptop:Desktop>\\spinesurg-ct-nnunet\\tools\\or_audit_report.py (AUDIT.md, lineage.png, loso_sacrum_recall.png, defects.json)",
+    "<laptop:Desktop>\\spinesurg-ct-nnunet\\slurm\\or_audit.sh and slurm\\or_audit_pose.sh (CPU job drivers; also copied to ~/spinesurg-ct-nnunet on the grid together with tools/carmlspine_pose_qc.py); nothing committed"
+   ]
+  }
+ ]
+}

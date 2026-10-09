@@ -1,0 +1,65 @@
+% Table 3 -- the LevelCheck comparator, pre-specified and frozen (SchwingNet/LEVELCHECK_MODEL.md sections 3-5 and the
+% JSON block of section 11; frozen by the commit that added that file, ecae75f, 2026-09-23 19:50 EDT). Every frozen
+% cell is transcribed from that file; the columns a gate owes are \PENDING{G6}{...}. No merged cells. Sources, one
+% line per cell, in tab_levelcheck.sources.md; the same rows in tab_levelcheck.md.
+% Revision 2 (2026-09-24, REVISION_LOG2.md): footnote a says the render L6 recall seen before the freeze is on the
+% encoder's selection split (EVAL_LEAKS L5); footnote c adds the primary detector of LEVELCHECK_MODEL.md s15 (commit
+% d0403de) and that the frozen values are constants (REVIEW2_STATS N10); footnote d adds H6 feasibility (N8a;
+% results/stats_review2/recompute.json#S3_H6_feasibility: at most 51 ordinary real-frame test persons).
+% Revision 3 (2026-09-24, collect-and-submit-1; REVISION_LOG3.md): footnote c names the secondary analyses of
+% LEVELCHECK_MODEL.md s12 (M1 McNemar, F1 flag at 95 % validation sensitivity, D1 dual-loss head) and s13 (S1
+% accepted-person accuracy vs 0.976 with tau_s fixed on validation for >= 99.5 %, n_min 152, coverage and the
+% confidently-wrong count beside it; F1b at 97 %), which the Methods now name in one clause.
+% Layout: landscape (rotated 23.2 cm minipage, see tab_corpus.tex); 7 pt on 7.6 pt.
+\begin{table}[p]
+\centering
+\begingroup
+\singlespacing
+\fontsize{7}{7.6}\selectfont
+\newcommand{\fnm}[1]{\textsuperscript{\fontsize{7}{7}\selectfont #1}}
+\renewcommand{\arraystretch}{1.0}
+\rotatebox[origin=c]{90}{\begin{minipage}{23.2cm}
+\captionsetup{font=footnotesize,skip=4pt}
+\centering
+\caption{The LevelCheck comparator, frozen before any held-out transitional person was scored: per hypothesis the stratum, the test, the modelled LevelCheck accuracy and its source, the published range, the smallest test count at which an error-free result passes, and the result owed.}
+\label{tab:levelcheck}
+% widths sum to 22.00 cm; 14 gaps of 1.9 pt (0.94 cm) -> 22.94 cm
+\setlength{\tabcolsep}{1.9pt}
+\begin{tabular}{%
+>{\raggedright\arraybackslash}p{1.30cm}%
+>{\raggedright\arraybackslash}p{3.90cm}%
+>{\raggedright\arraybackslash}p{2.20cm}%
+>{\raggedright\arraybackslash}p{1.60cm}%
+>{\raggedright\arraybackslash}p{4.30cm}%
+>{\raggedright\arraybackslash}p{3.70cm}%
+>{\raggedright\arraybackslash}p{1.60cm}%
+>{\raggedright\arraybackslash}p{3.40cm}}
+\toprule
+Hypothesis\fnm{a} & Stratum\fnm{b} & Test\fnm{c} & Modelled LevelCheck accuracy, \% & Source of the frozen value & Published range of the modelled accuracy, \% & Smallest passing test count\fnm{d} & Test persons; SchwingNet $k/n$ [Wilson]; Holm-adjusted $P$ \\
+\midrule
+H1 (primary) & at risk, pooled & superiority & 82.2 & a lumbar planning read without a count from C2, coronal localiser \citep{peh1999}: the most favourable published value, measured on all patients & 20.8 (count-changing transitional spines counted correctly, 10 of 48 \citep{nakagawa2017}) to 100 (the read counted correctly) & 19 & \PENDING{G6}{H1} \\
+\addlinespace[2pt]
+H2 (key secondary) & at risk, pooled & superiority & 97.6 & surgeons with the LevelCheck overlay, median of five over 62 difficult films \citep{manbachi2018}; assumes the planning read counted correctly; no interval published & as H1 & 152 & \PENDING{G6}{H2} \\
+\addlinespace[2pt]
+H3 & at risk, L6 & superiority & 82.2 & as H1 (no subtype given) & 17.6 (lumbarised S1 counted correctly, 6 of 34 \citep{nakagawa2017}) to 100 & 19 & \PENDING{G6}{H3} \\
+\addlinespace[2pt]
+H4 & at risk, sacralised L5 & superiority & 82.2 & as H1 & 28.6 (sacralisation, Castellvi III, 4 of 14 \citep{nakagawa2017}) to 100 & 19 & \PENDING{G6}{H4} \\
+\addlinespace[2pt]
+H5 & at risk, T13 & superiority & 82.2 & borrowed from H1: no planning-read series on thoracolumbar variants & 31 (a twelve-thoracic count agreeing with morphology on L1, 31 of 100 \citep{yun2018}) to 100 & 19 & \PENDING{G6}{H5} \\
+\addlinespace[2pt]
+H6 & ordinary spines & non-inferiority, margin 5 points & 92.6 & 97.6 \citep{manbachi2018} minus the margin, chosen knowing the development accuracy on ordinary spines & 97.6 to 100 (operating-room series, 20 of 20 \citep{manbachi2018}) & 48 & \PENDING{G6}{H6} \\
+\addlinespace[2pt]
+-- & transitional, naming unaffected & descriptive & none & 97.6 and 100 printed beside & 97.6 to 100 (sacralisation, Castellvi II, 23 of 23 counted correctly \citep{nakagawa2017}) & -- & \PENDING{G6}{naming unaffected} \\
+\bottomrule
+\end{tabular}
+\par\vspace{1pt}
+\begingroup\fontsize{7}{7.6}\selectfont\raggedright
+L5, L6 = fifth, sixth lumbar vertebra; S1 = first sacral segment; T13 = thirteenth thoracic vertebra; LevelCheck = labelling by registration of the preoperative CT to the intraoperative radiograph \citep{levelcheck2012}.
+\fnm{a}Model: LevelCheck carries the labels a reader assigned to the preoperative CT, so its accuracy on a stratum is $r(1-e)$, with $r$ the registration success, frozen at 1.0 (published 0.993--1.000 \citep{levelcheck2016}), and $e$ the probability that the planning read names a scored vertebra otherwise than the reference; no residual surgeon error is multiplied in, both simplifications favouring LevelCheck. Frozen by commit on 23 September 2026 before any held-out transitional person was scored; seen before the freeze were the ordinary-spine development results, the three C-ArmLSpine L6 patients and render L6 recall of 56.1--72.4\,\% on the encoder's checkpoint-selection split, all below 82.2\,\% where transitional.
+\fnm{b}Membership from the reference standard alone, fixed before unblinding. At risk: a transitional person with a frame on which a reference-named body is misnamed by counting up from the sacrum over five lumbar vertebrae or down from C2 over seven cervical, twelve thoracic and five lumbar. Naming unaffected: Castellvi I/II, lumbar rib, a fused L6 left unlabelled, a sacralised L5 keeping its label, or no flagged frame. The three C-ArmLSpine L6 patients are excluded from the primary analysis in advance and reported descriptively.
+\fnm{c}Unit: the person. One frame with at least four reference-named bodies drawn per person by a fixed seed from the truth alone; correct when every reference-named body receives its reference name (missed, unnamed, abstained or unanchored = wrong). SchwingNet configuration fixed before unblinding: an arm never trained on a test person (encoder from ImageNet weights on the split's training persons), the coupled call, detector confidence 0.74, whole frame, seed 0; the detector is trained on the split's training persons of every device (patient-held-out, device seen; added by commit on 24 September 2026), the device-held-out detectors a secondary analysis. Reference: the source's reader truth; otherwise a human verification or, failing that, an automated reference whose rule and calibrated positive predictive value were frozen before unblinding (added by commit on 24 September 2026). Secondary analyses added by commit on 23 September, outside the H1--H6 family: the count from the detected sacrum against the coupled call on the same frames (exact one-sided McNemar on discordant persons, lumbosacral strata); a transitional flag (non-ordinary alphabet, count--morphology disagreement, or a dual-loss head's spine-level probability at a threshold fixed on validation for at least 95\,\% and, separately, 97\,\% sensitivity); and accuracy on the persons whose frame SchwingNet accepts (anchored, unflagged, every margin at or above a value fixed on validation for at least 99.5\,\% validation accuracy) against 97.6\,\%, tested only from 152 accepted persons and always printed with its coverage and the count of accepted-but-wrong persons. One-sided exact binomial $P$, the probability of at least $k$ correct of $n$ at the frozen value; Holm over the eligible hypotheses at a familywise one-sided 0.025; Wilson 95\,\% interval for description. The frozen values are fixed constants; their own sampling error is not modelled.
+\fnm{d}The smallest $n$ at which $n$ of $n$ correct gives $P \le 0.025$; a hypothesis whose stratum is smaller is reported descriptively and not claimed. The built split holds at most 51 ordinary real-frame test persons (COBRA2026 41, C-ArmLSpine 10), so H6 passes only without error.
+\par\endgroup
+\end{minipage}}
+\endgroup
+\end{table}

@@ -1,0 +1,122 @@
+% Materials and Methods, wrapped around the five figures (rebuilt 2026-09-24 against the figure builds of that
+% morning; the sixth figure, the LevelCheck comparison, moved to paper 2 that evening). Every number is traced in
+% NUMBERS.md ("The six-figure wrap" and "Revision 2") and sections/methods_sources.md.
+% Order here = order of the Results, with the same subheadings (REVIEW2_RSNA.md Fix 25): population and sources,
+% phenotypes (Figure 1, Table 2), the reference standard (the automated reference of LEVELCHECK_MODEL.md s14 moved
+% to paper 2 in the 2026-09-24 fill pass: no paper-1 result uses it; paper2_levelcheck/MOVED_FROM_PAPER1.md item 8),
+% the encoder and its embedding (Figure 2), the network (Figure 3), naming, counting
+% and coupling on the intraoperative C-arm (Figure 4) and transitional sample size (Figure 5). First paragraph:
+% design, dates, ethics, subject overlap. Last paragraph: statistics. Device-card formation, the corpus manifold,
+% the detector's source contributions and detection against angle are in the supplement (Figures S2-S5, Tables
+% S1-S4).
+% Fill pass (2026-09-24 evening, REVISION_LOG3.md section 8): "Design" dates = April 2026 (month precision: the
+% TCIA CT COLONOGRAPHY download scripts are in the repository's first commit, 550cfff, 2026-04-18; no on-grid file of
+% that download survives, so the day is not defended) to 24 September 2026. The two CTSpinoPelvic1K readers are
+% radiology residents (Greg 2026-09-24 22:15: both PGY2; earlier that day names only, no year was recorded in either repository, so
+% none is printed; the descriptor's title page carries their names and department, which the anonymized file may not).
+% Revision 5 (2026-09-24, REVISION_LOG3.md section 8; PAPER1_SCOPE.md): the paragraph "The LevelCheck comparison"
+% (comparator, strata, unit, s15 detector, s12-s13 secondary analyses), the power sentence of "Statistical
+% analysis" and the one-sided .025 clause moved verbatim to paper2_levelcheck/MOVED_FROM_PAPER1.md item 5. What
+% stays of that material is paper 1's own cross-validation reporting: the coupled call, the count and the stop
+% signal ("The network"; Table 3, Results). "Transitional sample size" is rewritten around the pre-stated Wilson
+% targets and defines "at risk" here, since Table 3 no longer does.
+% Revision 2 (2026-09-24, manuscript-drive; REVISION_LOG2.md): EVAL_LEAKS.md applied (the zero-shot run is the
+% lineage-complete v9 encoder and head, HELD OUT for all 148 cases; the fold models are being re-run from it, their
+% numbers PENDING G5); REVIEW2_RSNA.md Fixes 6, 11, 14, 16, 19, 20, 21, 25, 26 and cuts CUT2, CUT5, CUT6, CUT8;
+% REVIEW2_STATS.md N1, N4, N12, N13, N17; LEVELCHECK_MODEL.md s14 (automated reference; s15, the primary detector,
+% left with the comparison). The automated-reference selection rule is committed (b511985), the rule itself is
+% frozen with its SHA-256 before scoring (s14 R2).
+% Revision 3 (2026-09-24, collect-and-submit-1; REVISION_LOG3.md): one sentence at the end of "Statistical analysis"
+% points to the supplement section "Data integrity and quality controls" (the evaluation gate and every audit tool);
+% the abstention rule moved to the naming table's note d for room; small trims measured with check_limits.words().
+\section*{Materials and Methods}
+
+\paragraph{Design.}
+This retrospective study used de-identified image collections (Table~\ref{tab:data}), analysed
+from April 2026, when the first collection was downloaded, to 24 September 2026; intraoperative exposures carry study dates
+11 November--12 December 2023. The institutional human research protection office determined this secondary
+analysis not to be human participant research (determination 2026-269); consent and the Health Insurance
+Portability and Accountability Act do not apply. Every subject was reported by its release or article; CTSpinoPelvic1K also in a
+data descriptor \selfcite{ctsp1kdescriptor}.
+
+\paragraph{Sources and transitional phenotypes.}
+Rendered CT came from CTSpinoPelvic1K \selfcite{ctsp1k} (801 of 802 records), TotalSegmentator v2 and v3
+\citep{totalsegmentator} and VerSe 19/20 \citep{verse2021}; CSXA \citep{csxa}, BUU-LSPINE \citep{buu2023} and
+NHANES~II \citep{nhanes} supplied radiographs with released levels or landmarks, and VinDr-SpineXR pseudo-labelled
+films \citep{vindr}. Real exposures with three-dimensional truth came from C-ArmLSpine \citep{carmlspine} (296
+exposures, 148 of 149 cases, one mobile C-arm, per-case cone-beam CT), DeepFluoro (six specimens
+\citep{grupp2020}), COBRA2026 (145 of 467 Elekta cases; seven of 152 downloaded failed a pre-export check
+\citep{cobra2026}), a phantom \citep{genevahip} and a cadaveric specimen \citep{ljubljana2d3d}
+(Table~\ref{tab:data}; flow, Figure~S1). Transitional persons were typed under a rib
+convention as L6, T13, sacralised L5
+(Castellvi III or IV \citep{castellvi1984}), Castellvi I/II or lumbar rib (Figure~\ref{fig:phenotypes},
+Table~\ref{tab:transitional}): VerSe from its published read; CTSpinoPelvic1K from two radiology residents
+(postgraduate year 2) grading independently, six disagreements resolved by consensus
+\selfcite{ctsp1kdescriptor}; TotalSegmentator by an independent rib count; intraoperative and COBRA2026 calls are an
+automatic labeller's (SPINEPS with VERIDAH \citep{veridah2026}), read by no person.
+
+\paragraph{Reference standard.}
+No person read an intraoperative image. Truth is the per-case cone-beam CT, registered to each exposure and
+labelled by TotalSegmentator and by SPINEPS with VERIDAH; a vertebra is scored only where both agree (814 of
+910), withholding T11 and most of T12, and both count from the sacrum, so agreement is not independent. Naming matches detections one to one to vertebral-body truth boxes
+(Table~\ref{tab:naming}); detection is scored against whole-vertebra projections.
+
+\paragraph{The level encoder and what it learns.}
+Each body is read from a fixed-scale two-channel crop (image and target marker; target 96 of 320 pixels) by a
+ResNet-18 encoder \citep{he2016} into a 512-dimensional embedding. The latest encoder's embedding was mapped by
+t-distributed stochastic neighbour embedding (t-SNE) on its validation split after dropping 2,889 crops of 164
+persons also in its training keys (Figure~\ref{fig:embedding}); that split chose the checkpoint, so it is not
+held out. Separation from the level above is the cosine silhouette, bootstrapped by person and repeated per
+render source. The three contested C-ArmLSpine L6 patients, in neither split, and the last free vertebra
+of validation persons with an unlabelled fused L5 were placed against the neighbouring clusters (supplement).
+Occlusion over ten lateral crops per level from persons outside the training keys gave the share and density
+of attribution on the body above, the target and the body below. Renders were styled by image-formation terms
+fitted per device, which missed their pre-stated criterion (Figures~S2 and S3, Table~S1).
+
+\paragraph{The network.}
+Two detectors never trained on the test C-arm find the bodies (Figure~\ref{fig:network}): a YOLO11m-pose keypoint
+detector trained on films boxes the bodies the level model names (confidence 0.35), and a YOLO11m vertebra and
+sacrum detector, fine-tuned on real frames of two other devices, boxes the sacrum at confidence 0.74, chosen on
+three other devices (Table~S2); 97\,\% detection was pre-stated as counting grade. A two-layer
+bidirectional gated recurrent unit (GRU) decodes runs of two to nine embeddings at mixed lengths into a 27-level
+posterior. Counting ranks each body from the detected sacrum and reads no morphology. The coupled call chooses,
+among the ordinary, L6, T13 and both-variant naming alphabets, the one best fitting the posteriors at the
+ordinals; a classifier name differing from the call, or an alphabet margin below the fifth percentile of correct
+frames in the other folds, stops the read (Table~\ref{tab:naming}).
+
+\paragraph{Naming, counting and coupling on the intraoperative C-arm.}
+C-ArmLSpine was scored zero-shot by the latest encoder and its recurrent head, whose training lists hold no
+C-ArmLSpine case; with five case-grouped folds; and, because a case is an
+acquisition session rather than a proven person (five dates), with three folds by acquisition day. Per
+fold that encoder and head were fine-tuned (15 epochs, learning rate $10^{-4}$), checkpoints chosen on validation
+folds excluding every test case (Figure~\ref{fig:exposure}). The primary outcome, designated after a first
+zero-shot run was scored, was the exact level of detected lateral vertebrae at full coverage; secondary outcomes
+were naming with one or three bodies in view, the count, the coupled call and its stop signal, and detection on
+the 56 test frames (Table~S2, Figure~S4). Same-device
+detection used nested whole-case subsets of 0 to 210 real frames, and one view alone at 25 and 50 frames (two
+seeds; supplement). Detection against view angle used $\pm$90$^\circ$ render pose pools per
+device and one patient's 301-frame rotational acquisition, the real pool holding only anteroposterior and lateral
+views (Figure~S5). Naming against training persons used NHANES~II, BUU-LSPINE and CSXA with a render-only
+encoder on nested person subsets, and C-ArmLSpine per view by case-grouped folds. Render-only detector arms, the fit of accuracy against count, and the
+ablation of the rendered rows are in the supplement.
+
+\paragraph{Transitional sample size.}
+Pre-stated Wilson targets, a 95\,\% lower bound of 90\,\% for the exact level and 85\,\% for variant sensitivity on
+pooled at-risk test persons, set the persons a transitional test needs (Table~\ref{tab:transitional},
+Figure~\ref{fig:power}); at risk are the subtypes a count from the sacrum or from C2 misnames: L6, T13 and a
+sacralised L5 on a four-lumbar count. The person-disjoint split (50:10:40 per subtype) puts every real transitional
+subject on the test side; of its transitional test persons only the three C-ArmLSpine L6 patients, scored in
+cross-validation, enter a result here.
+
+\paragraph{Statistical analysis.}
+Naming used every available case. Transitional sample size is the smallest person count at which the Wilson
+95\,\% lower bound with zero to five errors reaches a target (Figure~\ref{fig:power}a). Intervals are 95\,\% two-thousand-resample bootstraps clustered by case,
+patient or person, percentile with the bias-corrected and accelerated (BCa) interval beside; where errors fall in
+few clusters, the Wilson interval on the design-effect-adjusted count replaces it. Paired comparisons report the same-item difference with its bootstrap interval and an exact
+sign test over clusters, Holm-adjusted over four comparisons named before adjustment (lateral versus
+anteroposterior naming; three in the supplement); other contrasts are exploratory; significance was two-sided
+$P<.05$. Every reported number passed a patient-keyed evaluation gate
+that counts a model's, and its ancestors', training and checkpoint-selection persons as seen (supplement, with
+the other integrity checks). Analyses used Python 3.11 and 3.12 (Python Software Foundation,
+Wilmington, Del), PyTorch 2.6.0 (PyTorch Foundation), Ultralytics 8.4 (Ultralytics, Frederick, Md), NumPy 2.2.6
+and SciPy 1.15.3 and 1.18.1; reporting follows CLAIM 2024 \citep{claim2024}.

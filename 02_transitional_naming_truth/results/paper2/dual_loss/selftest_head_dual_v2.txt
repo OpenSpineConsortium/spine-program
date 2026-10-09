@@ -1,0 +1,93 @@
+1. the level part is RunLabeller, unchanged
+  [PASS] same seed -> identical level weights (the spine layer consumed nothing from the global stream)
+  [PASS] the global torch stream continues identically after construction
+  [PASS] the alphabet term is head_mixed_length's object, not a copy
+  [PASS] forward_dual level logits == RunLabeller.forward
+  [PASS] level_state_dict loads into a plain RunLabeller strict (tools/level_prototype.py --head reads it)
+2. masked pooling reads only the window's bodies
+  [PASS] pooled logit == spine(mean of h over the first n bodies)
+  [PASS] lengths=None on an unpadded window == lengths=[L]
+3. inverse subtype frequency and the weighted BCE, known answers
+  [PASS] weights W/(K*W_s): ordinary 0.3125, L6 2.5, T13 5, castellvi 5: {'ordinary': 0.3125, 'L6': 2.5, 'T13': 5.0, 'castellvi_I_II': 5.0}
+  [PASS] each subtype carries the same total weight (W/K = 250)
+  [PASS] spine_loss = (2 ln2 + 0.5 ln(1+e^2)) / 2 = 1.224879, the masked window ignored: 1.224879
+  [PASS] AUROC with a tie counted half: pos [0.9, 0.5], neg [0.5, 0.1] -> 0.875
+4. end to end on a synthetic bank (embeddings stand in for the encoder)
+  [PASS] census: training persons by subtype: {'ordinary': 46, 'L6': 10, 'T13': 6, 'sacralised_L5_fused': 6, 'castellvi_I_II': 5, 'unassigned': 2}
+  [PASS] unassigned persons: in the bank, but no spine target, no spine windows, no weight: 4 unassigned persons; weights {"ordinary": 0.333, "L6": 1.203, "T13": 2.128, "sacralised_L5_fused": 2.677, "castellvi_I_II": 3.074}
+  [PASS] side_mismatches: none on the frozen sides; a listed val person moved to train is caught
+      ep   0 windows     441 loss 2.6237 level ce 1.7431 alphabet ce 0.6513 (409) spine bce 0.2290 (316 windows, 112 transitional)
+            val: level ce 0.2606 acc 0.9181 (L6 0.0556, T13 0.0) alphabet ce 0.1119 spine bce 0.0319 (weighted 0.0211) | drawn persons AUROC 1.0 spec@95%sens {'k': 24, 'n': 24, 'rate': 1.0, 'wilson95': [0.862, 1.0]}
+      ep   1 windows     441 loss 0.2464 level ce 0.1589 alphabet ce 0.0655 (409) spine bce 0.0218 (306 windows, 105 transitional)
+            val: level ce 0.0133 acc 1.0000 (L6 1.0, T13 1.0) alphabet ce 0.0224 spine bce 0.0183 (weighted 0.0147) | drawn persons AUROC 1.0 spec@95%sens {'k': 24, 'n': 24, 'rate': 1.0, 'wilson95': [0.862, 1.0]}
+      ep   2 windows     441 loss 0.0485 level ce 0.0178 alphabet ce 0.0220 (409) spine bce 0.0084 (321 windows, 109 transitional)
+            val: level ce 0.0021 acc 1.0000 (L6 1.0, T13 1.0) alphabet ce 0.0114 spine bce 0.0031 (weighted 0.0034) | drawn persons AUROC 1.0 spec@95%sens {'k': 24, 'n': 24, 'rate': 1.0, 'wilson95': [0.862, 1.0]}
+      ep   3 windows     441 loss 0.0215 level ce 0.0090 alphabet ce 0.0089 (409) spine bce 0.0035 (307 windows, 97 transitional)
+            val: level ce 0.0017 acc 1.0000 (L6 1.0, T13 1.0) alphabet ce 0.0078 spine bce 0.0017 (weighted 0.0012) | drawn persons AUROC 1.0 spec@95%sens {'k': 24, 'n': 24, 'rate': 1.0, 'wilson95': [0.862, 1.0]}
+      ep   4 windows     441 loss 0.0471 level ce 0.0229 alphabet ce 0.0234 (409) spine bce 0.0009 (328 windows, 107 transitional)
+            val: level ce 0.0004 acc 1.0000 (L6 1.0, T13 1.0) alphabet ce 0.006 spine bce 0.001 (weighted 0.0007) | drawn persons AUROC 1.0 spec@95%sens {'k': 24, 'n': 24, 'rate': 1.0, 'wilson95': [0.862, 1.0]}
+      ep   5 windows     441 loss 0.0066 level ce 0.0015 alphabet ce 0.0044 (409) spine bce 0.0007 (302 windows, 103 transitional)
+            val: level ce 0.0003 acc 1.0000 (L6 1.0, T13 1.0) alphabet ce 0.0053 spine bce 0.0007 (weighted 0.0005) | drawn persons AUROC 1.0 spec@95%sens {'k': 24, 'n': 24, 'rate': 1.0, 'wilson95': [0.862, 1.0]}
+      ep   6 windows     441 loss 0.0262 level ce 0.0070 alphabet ce 0.0184 (409) spine bce 0.0005 (297 windows, 93 transitional)
+            val: level ce 0.0003 acc 1.0000 (L6 1.0, T13 1.0) alphabet ce 0.0048 spine bce 0.0005 (weighted 0.0004) | drawn persons AUROC 1.0 spec@95%sens {'k': 24, 'n': 24, 'rate': 1.0, 'wilson95': [0.862, 1.0]}
+      ep   7 windows     441 loss 0.0209 level ce 0.0115 alphabet ce 0.0088 (409) spine bce 0.0004 (310 windows, 112 transitional)
+            val: level ce 0.0003 acc 1.0000 (L6 1.0, T13 1.0) alphabet ce 0.0044 spine bce 0.0005 (weighted 0.0004) | drawn persons AUROC 1.0 spec@95%sens {'k': 24, 'n': 24, 'rate': 1.0, 'wilson95': [0.862, 1.0]}
+      ep   8 windows     441 loss 0.0446 level ce 0.0166 alphabet ce 0.0267 (409) spine bce 0.0005 (318 windows, 110 transitional)
+            val: level ce 0.0002 acc 1.0000 (L6 1.0, T13 1.0) alphabet ce 0.0041 spine bce 0.0005 (weighted 0.0004) | drawn persons AUROC 1.0 spec@95%sens {'k': 24, 'n': 24, 'rate': 1.0, 'wilson95': [0.862, 1.0]}
+      ep   9 windows     441 loss 0.0104 level ce 0.0046 alphabet ce 0.0055 (409) spine bce 0.0004 (321 windows, 109 transitional)
+            val: level ce 0.0002 acc 1.0000 (L6 1.0, T13 1.0) alphabet ce 0.004 spine bce 0.0005 (weighted 0.0004) | drawn persons AUROC 1.0 spec@95%sens {'k': 24, 'n': 24, 'rate': 1.0, 'wilson95': [0.862, 1.0]}
+      ep  10 windows     441 loss 0.0163 level ce 0.0037 alphabet ce 0.0122 (409) spine bce 0.0005 (308 windows, 102 transitional)
+            val: level ce 0.0002 acc 1.0000 (L6 1.0, T13 1.0) alphabet ce 0.0039 spine bce 0.0005 (weighted 0.0004) | drawn persons AUROC 1.0 spec@95%sens {'k': 24, 'n': 24, 'rate': 1.0, 'wilson95': [0.862, 1.0]}
+      ep  11 windows     441 loss 0.0167 level ce 0.0049 alphabet ce 0.0110 (409) spine bce 0.0006 (307 windows, 106 transitional)
+            val: level ce 0.0002 acc 1.0000 (L6 1.0, T13 1.0) alphabet ce 0.0039 spine bce 0.0005 (weighted 0.0004) | drawn persons AUROC 1.0 spec@95%sens {'k': 24, 'n': 24, 'rate': 1.0, 'wilson95': [0.862, 1.0]}
+  [PASS] the validation curve changes no training draw: same weights, same streams after, with and without it
+  [PASS] the curve has every epoch; validation naming rises, level and spine BCE fall: acc 0.9181 -> 1.0, spine bce 0.0319 -> 0.0005
+  [PASS] the alphabet term ran on anchored windows and fell: 0.6513 -> 0.011
+  [PASS] the spine term ran on windows >= 4 bodies, with transitional windows, and fell: 0.229 -> 0.0006
+  [PASS] validation naming, band 9, > 0.9: 1.0
+  [PASS] validation L6 bodies named L6 > 0.8: {'n': 12, 'exact': 1.0}
+  [PASS] validation spine AUROC on drawn persons > 0.9: 1.0 (14 transitional, 24 ordinary)
+  [PASS] no three-body film drawn
+  [PASS] validation draw == the s4 draw written out by hand
+  [PASS] the curve's last epoch == validation_spine read film by film (same persons, same p, same AUROC): AUROC 1.0 vs 1.0
+  [PASS] tau95 = the 14-th largest of 14 transitional probabilities: 0.9997
+  [PASS] tau97 <= tau95 and validation sensitivity meets each target: tau95 0.9997 (14/14), tau97 0.9997 (14/14); specificity at tau95 24/24
+  [PASS] saved head + spine reload and reproduce the validation probability: 0.999908 vs 0.999908
+    validation AUROC by source {"ctsp_drr": {"transitional": 7, "ordinary": 12, "auroc": 1.0}, "verse_drr": {"transitional": 7, "ordinary": 12, "auroc": 1.0}}
+  [PASS] census subcommand == the training census, and its tau n == the validation draw's: 14 transitional validation persons, k {'0.95': 14, '0.97': 14}
+5. frame-probs against the REAL tools/level_prototype.py main() (oracle boxes; detector and gate stubbed)
+  recurrent head head_d1.pt loaded, d_in=8, k=? (band ?), bank ?
+prototype: 1 images; level model enc.pt (70e29c9f183b); head on; device cpu
+T2__open_f0: C7(0.07?) T1(0.05?) T2(0.07?) T3(0.05?) T4(0.02?)  [0.16 s]
+done: 1 images, 5 vertebrae named, 5 abstained, 0 with no detection
+  recurrent head head_d1.pt loaded, d_in=8, k=? (band ?), bank ?
+prototype: 1 images; level model enc.pt (70e29c9f183b); head on; device cpu
+T2__blinded_f0: C7(0.07?) T1(0.05?) T2(0.07?) T3(0.05?) T4(0.02?)  [0.14 s]
+done: 1 images, 5 vertebrae named, 5 abstained, 0 with no detection
+  [PASS] the prototype ran with the D1 level head and TTA
+  [PASS] rebuilt crops reproduce the prototype's single-crop AND blended posteriors (every body, both TTA): max |diff| single 4.6e-07, blend 2.6e-07
+  [PASS] spine probability = the mean of the two TTA variants' sigmoids: 0.502844 from [0.502847, 0.502841]
+  [PASS] a different crop (rung 2) fails the self-check: single diff 0.010
+  [PASS] a different level head fails on the blended posterior (the single-crop one still matches): blend diff 0.003
+  [PASS] blinded frames without --unblinding-record are refused
+wrote (session scratch path, not kept)\sp_b.json: 1 frames, self-check passed on every frame (largest posterior difference 4.40e-07 <= 0.0005)
+  [PASS] CLI on blinded frames: flat {stem: p} written; unblinding = the prototype run's start, not now: 2026-09-24T14:50:19.791661Z
+REFUSED: 1 of 1 frames fail the self-check (first ['T2__open_f0']); no probabilities written. See (session scratch path, not kept)\sp_bad.json.REFUSED.json
+  [PASS] CLI with a mismatched crop refuses: exit 2, no probability file, a REFUSED report
+  [PASS] a head the prototype did not load is refused before anything runs
+6. the learning-curve subset and the coverage census
+  [PASS] fraction 1.0 returns the training films unchanged and no subset
+  [PASS] fraction 0.5 is deterministic and person-grouped: every film of a kept person, none of a dropped one
+  [PASS] stratified: ceil(0.5 * n) persons of EVERY training subtype (ordinary 46 -> 23, T13 6 -> 3, unassigned 2 -> 1): {'L6': 5, 'T13': 3, 'castellvi_I_II': 3, 'ordinary': 23, 'sacralised_L5_fused': 3, 'unassigned': 1}
+  [PASS] nested: the 0.25 persons are inside the 0.5 persons at the same seed, and a smaller set
+  [PASS] another seed draws another subset of the same size
+  [PASS] fraction 0 is refused
+  [PASS] acq_bins: render names give view and pose; a real film is one bin; a bare name is unstated
+  [PASS] normalised entropy: uniform over K = 1.0, one bin = 0.0, K < 2 = None; body bins 2-3 / 4-6 / 7-9 / 10-14 / 15+
+  [PASS] coverage census counts every film once per side and reads the two synthetic sources as K = 2
+  [PASS] synthetic names state no view or pose: one bin occupied, H* = 0, coverage 1/K; sources near-even: H* > 0.99: source H* 0.9999, bins {'ctsp_drr': 76, 'verse_drr': 74}
+  [PASS] bodies-per-film K = 5 fixed, its coverage < 1 here (no 15+ film), holes listed per side
+  [PASS] a film with one body is not counted (neither training nor the validation curve reads it), and is reported
+  [PASS] coverage subcommand == coverage_report on the same columns
+
+SELF-TEST PASSED: 50/50 checks

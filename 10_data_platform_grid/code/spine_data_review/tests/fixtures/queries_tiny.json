@@ -1,0 +1,201 @@
+{
+ "_hand": {
+  "absent_codes": [
+   "E0",
+   "P0"
+  ],
+  "appendix_blocks": 8,
+  "chase": [
+   "2",
+   "55"
+  ],
+  "note": "Hand calculation. L1 = pubmed_01 + pubmed_02: 2 queries, hits 1234 + 56 = 1290, fetched and retrieved 3 + 3 = 6. L7 = crossref_12 + crossref_13: 2 queries, hits 100000 + 5 = 100005 with a cap on crossref_12 so the cell carries '*', fetched and retrieved 3 + 2 = 5. The pilot row (role pilot) and the enrich row (role enrich) are outside SEARCH_ROLES and must not appear in Table 2. multicare_01 is the shape sdr.repo_run.write_not_run writes for a planned id with no adapter: a run date, credential_mode not-run, no request timestamp and a null total. Its row F2 must therefore show no query, no date and no hits, and count 1 under Not sent -- the run date must not be read as a query date. springer_01 is a planned id with nothing recorded at all: row S1, also not run. Appendix A prints one block per non-chase id: pubmed_01, pubmed_02, crossref_12, crossref_13, pilot_pubmed_01, openi_enrich, springer_01, multicare_01 = 8 blocks; the two chase ids collapse to one summary line: 2 ids chased, 40 + 15 = 55 hits.",
+  "table2": {
+   "L1": {
+    "queries": "2",
+    "not_sent": "--",
+    "hits": "1,290",
+    "fetched": "6",
+    "retrieved": "6"
+   },
+   "L7": {
+    "queries": "2",
+    "not_sent": "--",
+    "hits": "100,005*",
+    "fetched": "5",
+    "retrieved": "5"
+   },
+   "F2": {
+    "queries": "--",
+    "not_sent": "1",
+    "hits": "--",
+    "fetched": "--",
+    "retrieved": "--",
+    "date": ""
+   }
+  }
+ },
+ "crossref_12": {
+  "cap_hit": 5000,
+  "coverage": "all registered DOIs",
+  "credential_mode": "keyed",
+  "endpoint": "https://api.crossref.org/works",
+  "first_request_ts": "2026-09-19T10:02:00Z",
+  "grammar": "grid",
+  "hit_count_api": 100000,
+  "n_retrieved": 3,
+  "query_string": "spine CT dataset",
+  "role": "search",
+  "run_date": "2026-09-19",
+  "source": "crossref",
+  "source_code": "L7",
+  "source_name": "Crossref works API"
+ },
+ "crossref_13": {
+  "cap_hit": null,
+  "coverage": "all registered DOIs",
+  "credential_mode": "keyed",
+  "endpoint": "https://api.crossref.org/works",
+  "first_request_ts": "2026-09-19T10:03:00Z",
+  "grammar": "grid",
+  "hit_count_api": 5,
+  "n_retrieved": 2,
+  "query_string": "vertebra CT dataset",
+  "role": "search",
+  "run_date": "2026-09-19",
+  "source": "crossref",
+  "source_code": "L7",
+  "source_name": "Crossref works API"
+ },
+ "openalex_03_W1": {
+  "cap_hit": null,
+  "coverage": "all years",
+  "credential_mode": "keyed",
+  "endpoint": "https://api.openalex.org/works",
+  "grammar": "chase",
+  "hit_count_api": 40,
+  "n_retrieved": 40,
+  "query_string": "cites:W1",
+  "role": "chase",
+  "run_date": "2026-09-19",
+  "source": "openalex",
+  "source_code": "L3",
+  "source_name": "OpenAlex works API"
+ },
+ "openalex_03r_W1": {
+  "cap_hit": null,
+  "coverage": "all years",
+  "credential_mode": "keyed",
+  "endpoint": "https://api.openalex.org/works",
+  "grammar": "chase",
+  "hit_count_api": 15,
+  "n_retrieved": 15,
+  "query_string": "referenced_works:W1",
+  "role": "chase",
+  "run_date": "2026-09-19",
+  "source": "openalex",
+  "source_code": "L3",
+  "source_name": "OpenAlex works API"
+ },
+ "openi_enrich": {
+  "cap_hit": null,
+  "coverage": "PMC open-access subset",
+  "credential_mode": "credential-free",
+  "endpoint": "https://www.ebi.ac.uk/europepmc/webservices/rest/search",
+  "grammar": "enrich",
+  "hit_count_api": 7,
+  "n_retrieved": 7,
+  "query_string": "PMCID:<pmcid>",
+  "role": "enrich",
+  "run_date": "2026-09-19",
+  "source": "openi",
+  "source_code": "E0",
+  "source_name": "NLM Open-i"
+ },
+ "pilot_pubmed_01": {
+  "cap_hit": null,
+  "coverage": "MEDLINE 1946-",
+  "credential_mode": "keyed",
+  "endpoint": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+  "grammar": "boolean",
+  "hit_count_api": 999,
+  "n_retrieved": 0,
+  "query_string": "(spine[tiab]) AND (CT[tiab])",
+  "role": "pilot",
+  "run_date": "2026-09-19",
+  "source": "pubmed",
+  "source_code": "P0",
+  "source_name": "PubMed (pilot)"
+ },
+ "pubmed_01": {
+  "cap_hit": null,
+  "coverage": "MEDLINE 1946-",
+  "credential_mode": "keyed",
+  "endpoint": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+  "first_request_ts": "2026-09-19T10:00:00Z",
+  "grammar": "boolean",
+  "hit_count_api": 1234,
+  "n_retrieved": 3,
+  "query_string": "(spine[tiab]) AND (CT[tiab])",
+  "role": "search",
+  "run_date": "2026-09-19",
+  "source": "pubmed",
+  "source_code": "L1",
+  "source_name": "PubMed (NCBI E-utilities)"
+ },
+ "pubmed_02": {
+  "cap_hit": null,
+  "coverage": "MEDLINE 1946-",
+  "credential_mode": "keyed",
+  "endpoint": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+  "first_request_ts": "2026-09-19T10:01:00Z",
+  "grammar": "boolean",
+  "hit_count_api": 56,
+  "n_retrieved": 3,
+  "query_string": "(\"Sci Data\"[ta]) AND (spine[tiab])",
+  "role": "search",
+  "run_date": "2026-09-19",
+  "source": "pubmed",
+  "source_code": "L1",
+  "source_name": "PubMed (NCBI E-utilities)"
+ },
+ "springer_01": {
+  "coverage": "Scientific Data 2014-",
+  "credential_mode_expected": "keyed",
+  "endpoint": "https://api.springernature.com/meta/v2/json",
+  "grammar": "boolean",
+  "not_run_reason": "fixture: planned, never sent",
+  "query_string": "journalid:41597 AND (spine)",
+  "role": "supplementary",
+  "source": "springer",
+  "source_code": "S1",
+  "source_name": "Springer Nature Meta API"
+ },
+ "multicare_01": {
+  "source": "multicare",
+  "source_code": "F2",
+  "source_name": "MultiCaRe (Zenodo 10079370)",
+  "role": "search",
+  "grammar": "list",
+  "endpoint": "https://zenodo.org/api/records/10079370",
+  "query_string": "zenodo.org/api/records/10079370 + local caption regex",
+  "coverage": "PMC case reports 1990-2023 (v1)",
+  "run_date": "2026-09-19",
+  "first_request_ts": null,
+  "last_request_ts": "2026-09-19T10:05:00Z",
+  "hit_count_api": null,
+  "unit": "records",
+  "n_requests": 0,
+  "n_fetched": 0,
+  "n_retrieved": 0,
+  "n_pages": 0,
+  "cap_hit": null,
+  "date_filter": "none",
+  "credential_mode": "not-run",
+  "raw_cache_published": true,
+  "not_run_reason": "no search adapter in this version: MultiCaRe is a charting-time route",
+  "notes": {
+   "not_run_reason": "no search adapter in this version: MultiCaRe is a charting-time route"
+  }
+ }
+}

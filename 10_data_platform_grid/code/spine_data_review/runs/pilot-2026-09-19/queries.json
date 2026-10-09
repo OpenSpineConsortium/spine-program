@@ -1,0 +1,48 @@
+{
+  "_comment": "Pilot search (JBI step 1), run by hand on 2026-09-19 before the protocol freeze. Count-only requests; no record was retrieved, no title or abstract was read, and no term was added to any block as a result. The pilot decided one thing: Europe PMC strings are fielded (TITLE/ABSTRACT/KW) because the unfielded form also matches open-access full text. Recorded here so that information_sources.md carries no typed hit count.",
+  "pilot_epmc_unfielded": {
+    "source": "europepmc",
+    "role": "pilot",
+    "endpoint": "https://www.ebi.ac.uk/europepmc/webservices/rest/search",
+    "method": "GET",
+    "query_string": "epmc_01 with the TITLE:/ABSTRACT:/KW: field prefixes removed (the same three term blocks, unfielded)",
+    "params": {"resultType": "lite", "format": "json", "pageSize": 1},
+    "grammar": "boolean",
+    "run_date": "2026-09-19",
+    "hit_count_api": 214305,
+    "n_retrieved": 0,
+    "credential_mode": "credential-free",
+    "coverage": "MEDLINE 1946-, PMC 2000-, preprints 2018-",
+    "notes": "count only; unfielded terms match full text of open-access articles"
+  },
+  "pilot_epmc_fielded": {
+    "source": "europepmc",
+    "role": "pilot",
+    "endpoint": "https://www.ebi.ac.uk/europepmc/webservices/rest/search",
+    "method": "GET",
+    "query_string": "epmc_01 as written in information_sources.md",
+    "params": {"resultType": "lite", "format": "json", "pageSize": 1},
+    "grammar": "boolean",
+    "run_date": "2026-09-19",
+    "hit_count_api": 5846,
+    "n_retrieved": 0,
+    "credential_mode": "credential-free",
+    "coverage": "MEDLINE 1946-, PMC 2000-, preprints 2018-",
+    "notes": "count only; chosen form"
+  },
+  "pilot_pubmed_01": {
+    "source": "pubmed",
+    "role": "pilot",
+    "endpoint": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+    "method": "GET",
+    "query_string": "pubmed_01 as written in information_sources.md",
+    "params": {"db": "pubmed", "retmax": 0, "retmode": "json"},
+    "grammar": "boolean",
+    "run_date": "2026-09-19",
+    "hit_count_api": 5810,
+    "n_retrieved": 0,
+    "credential_mode": "keyed",
+    "coverage": "MEDLINE 1946-; 2000-2026 by [dp]",
+    "notes": "count only; comparison point for the Europe PMC fielded form"
+  }
+}

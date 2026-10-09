@@ -1,0 +1,236 @@
+{
+ "design": "P",
+ "held": "none",
+ "init": "yolo11m.pt",
+ "epochs": 60,
+ "imgsz": 1024,
+ "lists": {
+  "design": "P",
+  "held": null,
+  "devices": [
+   "cios_fusion",
+   "surgio_b51_dr",
+   "elekta_xvi"
+  ],
+  "corpora": [
+   {
+    "geometry": "cios_fusion",
+    "noise": "cios_fusion",
+    "train": 2704,
+    "val": 370,
+    "val_subjects": 17
+   },
+   {
+    "geometry": "cios_fusion",
+    "noise": "surgio_b51_dr",
+    "train": 2704,
+    "val": 370,
+    "val_subjects": 17
+   },
+   {
+    "geometry": "cios_fusion",
+    "noise": "elekta_xvi",
+    "train": 2704,
+    "val": 370,
+    "val_subjects": 17
+   },
+   {
+    "geometry": "elekta_xvi",
+    "noise": "elekta_xvi",
+    "train": 1972,
+    "val": 272,
+    "val_subjects": 17
+   },
+   {
+    "geometry": "surgio_b51_dr",
+    "noise": "surgio_b51_dr",
+    "train": 2646,
+    "val": 370,
+    "val_subjects": 17
+   }
+  ],
+  "val_subjects": [
+   "s0585",
+   "s0970",
+   "s1045",
+   "s1062",
+   "s1159",
+   "s1384",
+   "s1535",
+   "s1579",
+   "s1700",
+   "s1836",
+   "s1842",
+   "s1872",
+   "s1880",
+   "s1883",
+   "s1902",
+   "s2033",
+   "s2053"
+  ],
+  "real": {
+   "cios_fusion": {
+    "dataset": "deepfluoro",
+    "train": 238,
+    "val": 24,
+    "test": 104,
+    "specimens": {
+     "train": 4,
+     "val": 1,
+     "test": 1
+    }
+   },
+   "surgio_b51_dr": {
+    "dataset": "carmlspine",
+    "train": 210,
+    "val": 30,
+    "test": 56,
+    "specimens": {
+     "train": 105,
+     "val": 15,
+     "test": 28
+    }
+   },
+   "elekta_xvi": {
+    "dataset": "cobra_elekta",
+    "train": 2640,
+    "val": 192,
+    "test": 648,
+    "specimens": {
+     "train": 110,
+     "val": 8,
+     "test": 27
+    }
+   }
+  },
+  "real_rep": 2,
+  "train_synthetic": 12730,
+  "train_real_entries": 6176,
+  "val": 1998,
+  "test": "every device's real test split, disjoint from training by specimen",
+  "checks": [
+   "styled corpora agree on validation subjects",
+   "no real specimen on two sides of any device's split"
+  ]
+ },
+ "results": {
+  "deepfluoro/test": {
+   "vertebra": {
+    "truth": 83,
+    "recall": 0.9759036144578314,
+    "precision": 0.6044776119402985,
+    "ap50": 0.8574909307273659
+   },
+   "sacrum": {
+    "truth": 90,
+    "recall": 0.9888888888888889,
+    "precision": 0.9175257731958762,
+    "ap50": 0.9876787678767877
+   },
+   "frames": 104,
+   "sacrum_found_rate": 0.9888888888888889,
+   "naming": {
+    "frames_named": 59,
+    "frames_abstained": 45,
+    "coverage": 0.5673076923076923,
+    "vertebrae_right": 39,
+    "vertebrae_wrong": 0,
+    "accuracy": 1.0,
+    "exact_frames": 38,
+    "exact_rate_of_named": 0.6440677966101694
+   },
+   "status": "in-training-device"
+  },
+  "carmlspine/test": {
+   "vertebra": {
+    "truth": 287,
+    "recall": 0.89198606271777,
+    "precision": 0.9481481481481482,
+    "ap50": 0.9106428910921931
+   },
+   "sacrum": {
+    "truth": 56,
+    "recall": 0.9642857142857143,
+    "precision": 0.9152542372881356,
+    "ap50": 0.937740662302657
+   },
+   "frames": 56,
+   "sacrum_found_rate": 0.9642857142857143,
+   "naming": {
+    "frames_named": 56,
+    "frames_abstained": 0,
+    "coverage": 1.0,
+    "vertebrae_right": 233,
+    "vertebrae_wrong": 8,
+    "accuracy": 0.966804979253112,
+    "exact_frames": 51,
+    "exact_rate_of_named": 0.9107142857142857
+   },
+   "status": "in-training-device",
+   "matched_convention": {
+    "body_iou_0p25": 0.8954703832752613,
+    "outline_iou_0p25": 0.3902439024390244,
+    "centre_0p25": 0.8989547038327527,
+    "body_iou_0p05": 0.9163763066202091,
+    "outline_iou_0p05": 0.4181184668989547,
+    "centre_0p05": 0.9198606271777003,
+    "truth": 287,
+    "frames": 56
+   }
+  },
+  "cobra_elekta/test": {
+   "vertebra": {
+    "truth": 893,
+    "recall": 0.975363941769317,
+    "precision": 0.7127659574468085,
+    "ap50": 0.9673549822203372
+   },
+   "sacrum": {
+    "truth": 609,
+    "recall": 0.9901477832512315,
+    "precision": 0.9319938176197836,
+    "ap50": 0.9880796144230366
+   },
+   "frames": 648,
+   "sacrum_found_rate": 0.9901477832512315,
+   "naming": {
+    "frames_named": 345,
+    "frames_abstained": 303,
+    "coverage": 0.5324074074074074,
+    "vertebrae_right": 466,
+    "vertebrae_wrong": 7,
+    "accuracy": 0.985200845665962,
+    "exact_frames": 254,
+    "exact_rate_of_named": 0.736231884057971
+   },
+   "status": "in-training-device"
+  },
+  "geneva_hip/test": {
+   "vertebra": {
+    "truth": 37,
+    "recall": 0.2702702702702703,
+    "precision": 0.8333333333333334,
+    "ap50": 0.31855798981377004
+   },
+   "sacrum": {
+    "truth": 87,
+    "recall": 0.28735632183908044,
+    "precision": 0.6097560975609756,
+    "ap50": 0.4266809216966964
+   },
+   "frames": 116,
+   "sacrum_found_rate": 0.28735632183908044,
+   "naming": {
+    "frames_named": 4,
+    "frames_abstained": 112,
+    "coverage": 0.034482758620689655,
+    "vertebrae_right": 3,
+    "vertebrae_wrong": 0,
+    "accuracy": 1.0,
+    "exact_frames": 3,
+    "exact_rate_of_named": 0.75
+   },
+   "status": "in-training-device"
+  }
+ }
+}

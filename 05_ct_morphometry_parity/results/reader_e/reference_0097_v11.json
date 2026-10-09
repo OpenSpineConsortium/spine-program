@@ -1,0 +1,133 @@
+{
+ "what": "CTSP 0097 v11 (ct 0097_ct.nii.gz, mask 0097_label.nii.gz): the release's own ostk run on the same mask",
+ "source": "CTSpinoPelvic1K-1/morphometrics/ostk_level_morphometry.csv rows case=97 (commit 90a27a7, 2026-09-10 05:14, pre-1b7005c canal_mask); T11 has no release row and is taken from the diagnosis job 40438723 path LM_whole_old (level_morphometry on the whole canonical volume with the pre-1b7005c canal_mask, SchwingNet/results/reader_e/diag/0097_v11_diag.json), which reproduced the release rows at T12/L3/L4 exactly. SCD (added by J2, 2026-09-25): CTSpinoPelvic1K-1/morphometrics/surgical_morphometrics.csv canal_ap_mm_<level> case 0097 (extract_surgical_morphometrics.py closed-ring column recipe, LEVEL_MORPHOMETRY.md section 1), tolerance 2 mm; J1 (schema v2, ostk canal_dimensions) read 13.3 mm at L1 (n_column 5) against 19.7",
+ "tol_mm": 1.0,
+ "keys": [
+  "VBHa",
+  "VBHp",
+  "EPDu",
+  "EPDl",
+  "SCD"
+ ],
+ "expected": {
+  "T11": {
+   "VBHa": 20.38,
+   "VBHp": 25.18,
+   "EPDu": 35.11,
+   "EPDl": 35.39,
+   "source": "diag LM_whole_old (no release row); SCD canal_ap_mm_T11",
+   "SCD": 15.2
+  },
+  "T12": {
+   "VBHa": 25.46,
+   "VBHp": 28.88,
+   "EPDu": 32.49,
+   "EPDl": 34.8,
+   "source": "ostk_level_morphometry.csv 97,T12; SCD canal_ap_mm_T12",
+   "SCD": 17.1
+  },
+  "L3": {
+   "VBHa": 31.36,
+   "VBHp": 28.5,
+   "EPDu": 29.99,
+   "EPDl": 36.4,
+   "source": "ostk_level_morphometry.csv 97,L3; SCD canal_ap_mm_L3",
+   "SCD": 17.8
+  },
+  "L4": {
+   "VBHa": 29.97,
+   "VBHp": 27.74,
+   "EPDu": 31.85,
+   "EPDl": 33.09,
+   "source": "ostk_level_morphometry.csv 97,L4; SCD canal_ap_mm_L4",
+   "SCD": 19.0
+  },
+  "L1": {
+   "SCD": 19.7,
+   "source": "canal_ap_mm_L1 (VBH / EPD stay not_asserted at this level)"
+  },
+  "L2": {
+   "SCD": 18.7,
+   "source": "canal_ap_mm_L2 (VBH / EPD stay not_asserted at this level)"
+  },
+  "L5": {
+   "SCD": 21.6,
+   "source": "canal_ap_mm_L5 (VBH / EPD stay not_asserted at this level)"
+  }
+ },
+ "not_asserted": {
+  "L1": {
+   "VBHa": 25.32,
+   "VBHp": 28.5,
+   "EPDu": 27.21,
+   "EPDl": 34.6,
+   "source": "ostk_level_morphometry.csv 97,L1"
+  },
+  "L2": {
+   "VBHa": 26.79,
+   "VBHp": 27.64,
+   "EPDu": 28.34,
+   "EPDl": 36.1,
+   "source": "ostk_level_morphometry.csv 97,L2"
+  },
+  "L5": {
+   "VBHa": 33.12,
+   "VBHp": 25.21,
+   "EPDu": 33.09,
+   "EPDl": 27.84,
+   "EPWu": 70.46,
+   "source": "ostk_level_morphometry.csv 97,L5 (second-lowest presacral on this L6 spine; EPWu 70 = the transverse-process tail, withheld)"
+  },
+  "L6": {
+   "source": "level_morphometry returned None on every path (body cut fails on the fused transitional body); reader E's crop gives plate_rms 2.82 > 2 -> plate_ok false"
+  }
+ },
+ "current_code_values_for_contrast": {
+  "T11": {
+   "VBHp": 30.29,
+   "EPDl": 50.2
+  },
+  "T12": {
+   "VBHp": 38.4,
+   "EPDl": 52.0
+  },
+  "L3": {
+   "VBHp": 32.22,
+   "EPDl": 49.82
+  },
+  "L4": {
+   "VBHp": 30.87,
+   "EPDl": 37.68,
+   "EPWl": 57.13
+  },
+  "note": "ostk canal_mask with the 2 mm ring closing (grid ~/OpenSpineToolkit), the body cut inheriting a pocket wall 14-15 mm posterior; J0 40438613"
+ },
+ "tol_mm_by_key": {
+  "SCD": 2.0
+ },
+ "j1_schema_v2_values_for_contrast": {
+  "T11": {
+   "SCD": 14.313
+  },
+  "T12": {
+   "SCD": 16.406
+  },
+  "L1": {
+   "SCD": 13.333,
+   "n_column": 5
+  },
+  "L2": {
+   "SCD": 17.082
+  },
+  "L3": {
+   "SCD": 16.835
+  },
+  "L4": {
+   "SCD": 18.371
+  },
+  "L5": {
+   "SCD": 21.322
+  },
+  "note": "features_j1.csv rows case 0097 family v11 (J1 40438897)"
+ }
+}

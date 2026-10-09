@@ -1,0 +1,31 @@
+# copied into spine-program/06_transitional_ct_census on 2026-10-08 from CTSpinoPelvic1K-Syn (local git, no remote) pyproject.toml; commit 7098eb1 of 2026-06-11; this folder is the only copy. The banned word, where it occurred, is rewritten as origin.
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ctspino-pelvic1k-syn"
+version = "0.0.1"
+description = "Offline synthetic LSTV (Castellvi) case generator for CTSpinoPelvic1K"
+requires-python = ">=3.9"
+# Base deps are light: geometry + I/O + classical registration/blending.
+dependencies = [
+    "numpy",
+    "scipy",
+    "nibabel",
+    "scikit-image",  # marker-controlled watershed (fuse_split); falls back to
+                     # a scipy-only nearest-seed split if absent
+    "antspyx",       # registration-based warp + copy-paste alignment
+]
+
+[project.optional-dependencies]
+# Heavy/experimental: the mask-conditioned diffusion texture refiner.
+# Only install when you actually run `refine` — keeps the base stack lean.
+diffusion = ["torch", "diffusers", "monai"]
+dev = ["pytest"]
+
+[project.scripts]
+ctspino-syn = "ctspino_syn.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["ctspino_syn*"]

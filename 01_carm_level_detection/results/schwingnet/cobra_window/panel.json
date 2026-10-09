@@ -1,0 +1,1650 @@
+{
+ "geometry": {
+  "cases": 150,
+  "fan_counts": {
+   "Half": 145,
+   "Full": 5
+  },
+  "offset_mm": {
+   "median": -114.305,
+   "min": -117.69,
+   "max": 2.05
+  },
+  "iso_band_short_mm": {
+   "median": 56.8,
+   "min": 54.6,
+   "max": 131.2
+  },
+  "iso_band_long_mm": {
+   "median": 205.7
+  },
+  "drops_all_cases": {
+   "incomplete_in_ct": 3528,
+   "visible_frac<0.5": 10493
+  },
+  "note": "one projection sees a transverse band at the isocentre of (panel/2 +- |offset|) x SAD/SDD: the long side one way, the short side the other. The reconstruction FOV is the two combined over the full orbit; a SINGLE frame is a partial view."
+ },
+ "visible_frac_written": {
+  "train": {
+   "frames": 2640,
+   "vert": {
+    "0.5-0.75": 463,
+    "whole": 1862,
+    "0.95-1": 814,
+    "0.75-0.95": 552
+   },
+   "sac": {
+    "whole": 942,
+    "0.95-1": 639,
+    "0.75-0.95": 494,
+    "0.5-0.75": 319
+   }
+  },
+  "test": {
+   "frames": 648,
+   "vert": {
+    "0.5-0.75": 129,
+    "0.75-0.95": 161,
+    "whole": 349,
+    "0.95-1": 254
+   },
+   "sac": {
+    "0.95-1": 152,
+    "whole": 289,
+    "0.75-0.95": 112,
+    "0.5-0.75": 56
+   }
+  },
+  "val": {
+   "frames": 192,
+   "vert": {
+    "0.5-0.75": 53,
+    "0.75-0.95": 29,
+    "0.95-1": 15,
+    "whole": 32
+   },
+   "sac": {
+    "0.5-0.75": 34,
+    "0.75-0.95": 28,
+    "0.95-1": 48,
+    "whole": 41
+   }
+  }
+ },
+ "thresholds_applied": {
+  "export": "tools/realxray_cobra_export.py MIN_VIS = 0.5: a structure whose projected mask is less than half on the panel is DROPPED (not written as kept: false)",
+  "realxray_eval": "tools/realxray_eval.py load_truth reads b['kept'] only (default True) and never reads visible_frac: every written box is full truth",
+  "lcurve_score": "tools/lcurve_score.py load() the same: [b for b in m['boxes'] if b.get('kept', True)]",
+  "consequence": "a vertebra with half its projection off the offset panel is scored exactly like one in the middle of the field"
+ },
+ "detection_stratified_by_panel": {
+  "lodo_carm": {
+   "conf_0.74": {
+    "by_band": {
+     "0.5-0.75": {
+      "hits": 109,
+      "truth": 129,
+      "recall": 0.8449612403100775
+     },
+     "0.75-0.95": {
+      "hits": 130,
+      "truth": 161,
+      "recall": 0.8074534161490683
+     },
+     "0.95-1": {
+      "hits": 246,
+      "truth": 254,
+      "recall": 0.968503937007874
+     },
+     "whole": {
+      "hits": 329,
+      "truth": 349,
+      "recall": 0.9426934097421203
+     }
+    },
+    "all": {
+     "hits": 814,
+     "truth": 893,
+     "recall": 0.9115341545352743
+    },
+    "whole_panel_only": {
+     "hits": 329,
+     "truth": 349,
+     "recall": 0.9426934097421203
+    },
+    "delta_recall_if_partly_visible_excluded": 0.031159255206846037,
+    "misses_that_hang_off_the_panel": 59,
+    "misses_total": 79,
+    "miss_examples": [
+     {
+      "stem": "A280_0096",
+      "level": "L3",
+      "visible_frac": 0.5012,
+      "lat_deg": 13.66
+     },
+     {
+      "stem": "A280_0153",
+      "level": "L4",
+      "visible_frac": 0.9846,
+      "lat_deg": 33.25
+     },
+     {
+      "stem": "A280_0153",
+      "level": "L5",
+      "visible_frac": 0.9601,
+      "lat_deg": 33.25
+     },
+     {
+      "stem": "A280_0172",
+      "level": "L4",
+      "visible_frac": 0.9358,
+      "lat_deg": 49.01
+     },
+     {
+      "stem": "A280_0172",
+      "level": "L5",
+      "visible_frac": 0.8654,
+      "lat_deg": 49.01
+     },
+     {
+      "stem": "A280_0192",
+      "level": "L4",
+      "visible_frac": 0.8647,
+      "lat_deg": 65.42
+     },
+     {
+      "stem": "A280_0192",
+      "level": "L5",
+      "visible_frac": 0.7904,
+      "lat_deg": 65.42
+     },
+     {
+      "stem": "A280_0211",
+      "level": "L4",
+      "visible_frac": 0.852,
+      "lat_deg": 81.17
+     },
+     {
+      "stem": "A280_0211",
+      "level": "L5",
+      "visible_frac": 0.7688,
+      "lat_deg": 81.17
+     },
+     {
+      "stem": "A280_0230",
+      "level": "L4",
+      "visible_frac": 0.8533,
+      "lat_deg": 83.13
+     },
+     {
+      "stem": "A280_0230",
+      "level": "L5",
+      "visible_frac": 0.7899,
+      "lat_deg": 83.13
+     },
+     {
+      "stem": "A280_0249",
+      "level": "L4",
+      "visible_frac": 0.8945,
+      "lat_deg": 67.47
+     }
+    ]
+   },
+   "conf_0.25": {
+    "by_band": {
+     "0.5-0.75": {
+      "hits": 128,
+      "truth": 129,
+      "recall": 0.9922480620155039
+     },
+     "0.75-0.95": {
+      "hits": 145,
+      "truth": 161,
+      "recall": 0.9006211180124224
+     },
+     "0.95-1": {
+      "hits": 254,
+      "truth": 254,
+      "recall": 1.0
+     },
+     "whole": {
+      "hits": 342,
+      "truth": 349,
+      "recall": 0.9799426934097422
+     }
+    },
+    "all": {
+     "hits": 869,
+     "truth": 893,
+     "recall": 0.973124300111982
+    },
+    "whole_panel_only": {
+     "hits": 342,
+     "truth": 349,
+     "recall": 0.9799426934097422
+    },
+    "delta_recall_if_partly_visible_excluded": 0.006818393297760128,
+    "misses_that_hang_off_the_panel": 17,
+    "misses_total": 24,
+    "miss_examples": [
+     {
+      "stem": "A280_0172",
+      "level": "L5",
+      "visible_frac": 0.8654,
+      "lat_deg": 49.01
+     },
+     {
+      "stem": "A280_0192",
+      "level": "L4",
+      "visible_frac": 0.8647,
+      "lat_deg": 65.42
+     },
+     {
+      "stem": "A280_0192",
+      "level": "L5",
+      "visible_frac": 0.7904,
+      "lat_deg": 65.42
+     },
+     {
+      "stem": "A280_0211",
+      "level": "L4",
+      "visible_frac": 0.852,
+      "lat_deg": 81.17
+     },
+     {
+      "stem": "A280_0211",
+      "level": "L5",
+      "visible_frac": 0.7688,
+      "lat_deg": 81.17
+     },
+     {
+      "stem": "A280_0230",
+      "level": "L4",
+      "visible_frac": 0.8533,
+      "lat_deg": 83.13
+     },
+     {
+      "stem": "A280_0230",
+      "level": "L5",
+      "visible_frac": 0.7899,
+      "lat_deg": 83.13
+     },
+     {
+      "stem": "A280_0249",
+      "level": "L4",
+      "visible_frac": 0.8945,
+      "lat_deg": 67.47
+     },
+     {
+      "stem": "A280_0249",
+      "level": "L5",
+      "visible_frac": 0.815,
+      "lat_deg": 67.47
+     },
+     {
+      "stem": "A280_0268",
+      "level": "L4",
+      "visible_frac": 0.9362,
+      "lat_deg": 51.76
+     },
+     {
+      "stem": "A280_0268",
+      "level": "L5",
+      "visible_frac": 0.8563,
+      "lat_deg": 51.76
+     },
+     {
+      "stem": "B135_0000",
+      "level": "L5",
+      "visible_frac": 0.9214,
+      "lat_deg": 89.94
+     }
+    ]
+   }
+  },
+  "lodo_cobra": {
+   "conf_0.74": {
+    "by_band": {
+     "0.5-0.75": {
+      "hits": 8,
+      "truth": 129,
+      "recall": 0.06201550387596899
+     },
+     "0.75-0.95": {
+      "hits": 5,
+      "truth": 161,
+      "recall": 0.031055900621118012
+     },
+     "0.95-1": {
+      "hits": 18,
+      "truth": 254,
+      "recall": 0.07086614173228346
+     },
+     "whole": {
+      "hits": 24,
+      "truth": 349,
+      "recall": 0.06876790830945559
+     }
+    },
+    "all": {
+     "hits": 55,
+     "truth": 893,
+     "recall": 0.06159014557670773
+    },
+    "whole_panel_only": {
+     "hits": 24,
+     "truth": 349,
+     "recall": 0.06876790830945559
+    },
+    "delta_recall_if_partly_visible_excluded": 0.00717776273274786,
+    "misses_that_hang_off_the_panel": 513,
+    "misses_total": 838,
+    "miss_examples": [
+     {
+      "stem": "A053_0000",
+      "level": "L5",
+      "visible_frac": 0.5406,
+      "lat_deg": 89.6
+     },
+     {
+      "stem": "A053_0020",
+      "level": "L5",
+      "visible_frac": 0.5399,
+      "lat_deg": 78.15
+     },
+     {
+      "stem": "A053_0039",
+      "level": "L5",
+      "visible_frac": 0.5574,
+      "lat_deg": 62.93
+     },
+     {
+      "stem": "A053_0059",
+      "level": "L5",
+      "visible_frac": 0.5447,
+      "lat_deg": 46.98
+     },
+     {
+      "stem": "A053_0079",
+      "level": "L5",
+      "visible_frac": 0.5083,
+      "lat_deg": 30.88
+     },
+     {
+      "stem": "A053_0138",
+      "level": "L5",
+      "visible_frac": 0.5308,
+      "lat_deg": 16.25
+     },
+     {
+      "stem": "A053_0157",
+      "level": "L5",
+      "visible_frac": 0.5699,
+      "lat_deg": 31.44
+     },
+     {
+      "stem": "A053_0177",
+      "level": "L5",
+      "visible_frac": 0.624,
+      "lat_deg": 47.58
+     },
+     {
+      "stem": "A053_0197",
+      "level": "L5",
+      "visible_frac": 0.7007,
+      "lat_deg": 63.51
+     },
+     {
+      "stem": "A053_0216",
+      "level": "L5",
+      "visible_frac": 0.7649,
+      "lat_deg": 78.75
+     },
+     {
+      "stem": "A053_0236",
+      "level": "L5",
+      "visible_frac": 0.8164,
+      "lat_deg": 85.31
+     },
+     {
+      "stem": "A053_0256",
+      "level": "L5",
+      "visible_frac": 0.8479,
+      "lat_deg": 69.3
+     }
+    ]
+   },
+   "conf_0.25": {
+    "by_band": {
+     "0.5-0.75": {
+      "hits": 16,
+      "truth": 129,
+      "recall": 0.12403100775193798
+     },
+     "0.75-0.95": {
+      "hits": 25,
+      "truth": 161,
+      "recall": 0.15527950310559005
+     },
+     "0.95-1": {
+      "hits": 53,
+      "truth": 254,
+      "recall": 0.20866141732283464
+     },
+     "whole": {
+      "hits": 71,
+      "truth": 349,
+      "recall": 0.2034383954154728
+     }
+    },
+    "all": {
+     "hits": 165,
+     "truth": 893,
+     "recall": 0.18477043673012317
+    },
+    "whole_panel_only": {
+     "hits": 71,
+     "truth": 349,
+     "recall": 0.2034383954154728
+    },
+    "delta_recall_if_partly_visible_excluded": 0.018667958685349623,
+    "misses_that_hang_off_the_panel": 450,
+    "misses_total": 728,
+    "miss_examples": [
+     {
+      "stem": "A053_0000",
+      "level": "L5",
+      "visible_frac": 0.5406,
+      "lat_deg": 89.6
+     },
+     {
+      "stem": "A053_0020",
+      "level": "L5",
+      "visible_frac": 0.5399,
+      "lat_deg": 78.15
+     },
+     {
+      "stem": "A053_0039",
+      "level": "L5",
+      "visible_frac": 0.5574,
+      "lat_deg": 62.93
+     },
+     {
+      "stem": "A053_0059",
+      "level": "L5",
+      "visible_frac": 0.5447,
+      "lat_deg": 46.98
+     },
+     {
+      "stem": "A053_0079",
+      "level": "L5",
+      "visible_frac": 0.5083,
+      "lat_deg": 30.88
+     },
+     {
+      "stem": "A053_0138",
+      "level": "L5",
+      "visible_frac": 0.5308,
+      "lat_deg": 16.25
+     },
+     {
+      "stem": "A053_0157",
+      "level": "L5",
+      "visible_frac": 0.5699,
+      "lat_deg": 31.44
+     },
+     {
+      "stem": "A053_0177",
+      "level": "L5",
+      "visible_frac": 0.624,
+      "lat_deg": 47.58
+     },
+     {
+      "stem": "A053_0197",
+      "level": "L5",
+      "visible_frac": 0.7007,
+      "lat_deg": 63.51
+     },
+     {
+      "stem": "A053_0216",
+      "level": "L5",
+      "visible_frac": 0.7649,
+      "lat_deg": 78.75
+     },
+     {
+      "stem": "A053_0236",
+      "level": "L5",
+      "visible_frac": 0.8164,
+      "lat_deg": 85.31
+     },
+     {
+      "stem": "A053_0256",
+      "level": "L5",
+      "visible_frac": 0.8479,
+      "lat_deg": 69.3
+     }
+    ]
+   }
+  },
+  "lodo_df": {
+   "conf_0.74": {
+    "by_band": {
+     "0.5-0.75": {
+      "hits": 111,
+      "truth": 129,
+      "recall": 0.8604651162790697
+     },
+     "0.75-0.95": {
+      "hits": 133,
+      "truth": 161,
+      "recall": 0.8260869565217391
+     },
+     "0.95-1": {
+      "hits": 245,
+      "truth": 254,
+      "recall": 0.9645669291338582
+     },
+     "whole": {
+      "hits": 326,
+      "truth": 349,
+      "recall": 0.9340974212034384
+     }
+    },
+    "all": {
+     "hits": 815,
+     "truth": 893,
+     "recall": 0.9126539753639418
+    },
+    "whole_panel_only": {
+     "hits": 326,
+     "truth": 349,
+     "recall": 0.9340974212034384
+    },
+    "delta_recall_if_partly_visible_excluded": 0.021443445839496644,
+    "misses_that_hang_off_the_panel": 55,
+    "misses_total": 78,
+    "miss_examples": [
+     {
+      "stem": "A280_0134",
+      "level": "L5",
+      "visible_frac": 0.9934,
+      "lat_deg": 17.67
+     },
+     {
+      "stem": "A280_0172",
+      "level": "L5",
+      "visible_frac": 0.8654,
+      "lat_deg": 49.01
+     },
+     {
+      "stem": "A280_0192",
+      "level": "L4",
+      "visible_frac": 0.8647,
+      "lat_deg": 65.42
+     },
+     {
+      "stem": "A280_0192",
+      "level": "L5",
+      "visible_frac": 0.7904,
+      "lat_deg": 65.42
+     },
+     {
+      "stem": "A280_0211",
+      "level": "L4",
+      "visible_frac": 0.852,
+      "lat_deg": 81.17
+     },
+     {
+      "stem": "A280_0211",
+      "level": "L5",
+      "visible_frac": 0.7688,
+      "lat_deg": 81.17
+     },
+     {
+      "stem": "A280_0230",
+      "level": "L4",
+      "visible_frac": 0.8533,
+      "lat_deg": 83.13
+     },
+     {
+      "stem": "A280_0230",
+      "level": "L5",
+      "visible_frac": 0.7899,
+      "lat_deg": 83.13
+     },
+     {
+      "stem": "A280_0249",
+      "level": "L4",
+      "visible_frac": 0.8945,
+      "lat_deg": 67.47
+     },
+     {
+      "stem": "A280_0249",
+      "level": "L5",
+      "visible_frac": 0.815,
+      "lat_deg": 67.47
+     },
+     {
+      "stem": "A280_0268",
+      "level": "L4",
+      "visible_frac": 0.9362,
+      "lat_deg": 51.76
+     },
+     {
+      "stem": "A280_0268",
+      "level": "L5",
+      "visible_frac": 0.8563,
+      "lat_deg": 51.76
+     }
+    ]
+   },
+   "conf_0.25": {
+    "by_band": {
+     "0.5-0.75": {
+      "hits": 124,
+      "truth": 129,
+      "recall": 0.9612403100775194
+     },
+     "0.75-0.95": {
+      "hits": 148,
+      "truth": 161,
+      "recall": 0.9192546583850931
+     },
+     "0.95-1": {
+      "hits": 252,
+      "truth": 254,
+      "recall": 0.9921259842519685
+     },
+     "whole": {
+      "hits": 341,
+      "truth": 349,
+      "recall": 0.9770773638968482
+     }
+    },
+    "all": {
+     "hits": 865,
+     "truth": 893,
+     "recall": 0.9686450167973124
+    },
+    "whole_panel_only": {
+     "hits": 341,
+     "truth": 349,
+     "recall": 0.9770773638968482
+    },
+    "delta_recall_if_partly_visible_excluded": 0.008432347099535775,
+    "misses_that_hang_off_the_panel": 20,
+    "misses_total": 28,
+    "miss_examples": [
+     {
+      "stem": "A280_0192",
+      "level": "L5",
+      "visible_frac": 0.7904,
+      "lat_deg": 65.42
+     },
+     {
+      "stem": "A280_0211",
+      "level": "L4",
+      "visible_frac": 0.852,
+      "lat_deg": 81.17
+     },
+     {
+      "stem": "A280_0211",
+      "level": "L5",
+      "visible_frac": 0.7688,
+      "lat_deg": 81.17
+     },
+     {
+      "stem": "A280_0230",
+      "level": "L5",
+      "visible_frac": 0.7899,
+      "lat_deg": 83.13
+     },
+     {
+      "stem": "A280_0249",
+      "level": "L4",
+      "visible_frac": 0.8945,
+      "lat_deg": 67.47
+     },
+     {
+      "stem": "A280_0249",
+      "level": "L5",
+      "visible_frac": 0.815,
+      "lat_deg": 67.47
+     },
+     {
+      "stem": "A280_0268",
+      "level": "L4",
+      "visible_frac": 0.9362,
+      "lat_deg": 51.76
+     },
+     {
+      "stem": "A280_0268",
+      "level": "L5",
+      "visible_frac": 0.8563,
+      "lat_deg": 51.76
+     },
+     {
+      "stem": "B135_0254",
+      "level": "L5",
+      "visible_frac": 0.961,
+      "lat_deg": 47.59
+     },
+     {
+      "stem": "B135_0620",
+      "level": "L5",
+      "visible_frac": 0.9212,
+      "lat_deg": 67.01
+     },
+     {
+      "stem": "C000_0000",
+      "level": "L5",
+      "visible_frac": 0.919,
+      "lat_deg": 89.95
+     },
+     {
+      "stem": "C000_0319",
+      "level": "L5",
+      "visible_frac": 0.8254,
+      "lat_deg": 85.51
+     }
+    ]
+   }
+  },
+  "only_carm": {
+   "conf_0.74": {
+    "by_band": {
+     "0.5-0.75": {
+      "hits": 4,
+      "truth": 129,
+      "recall": 0.031007751937984496
+     },
+     "0.75-0.95": {
+      "hits": 0,
+      "truth": 161,
+      "recall": 0.0
+     },
+     "0.95-1": {
+      "hits": 14,
+      "truth": 254,
+      "recall": 0.05511811023622047
+     },
+     "whole": {
+      "hits": 14,
+      "truth": 349,
+      "recall": 0.04011461318051576
+     }
+    },
+    "all": {
+     "hits": 32,
+     "truth": 893,
+     "recall": 0.03583426651735722
+    },
+    "whole_panel_only": {
+     "hits": 14,
+     "truth": 349,
+     "recall": 0.04011461318051576
+    },
+    "delta_recall_if_partly_visible_excluded": 0.004280346663158539,
+    "misses_that_hang_off_the_panel": 526,
+    "misses_total": 861,
+    "miss_examples": [
+     {
+      "stem": "A053_0000",
+      "level": "L5",
+      "visible_frac": 0.5406,
+      "lat_deg": 89.6
+     },
+     {
+      "stem": "A053_0020",
+      "level": "L5",
+      "visible_frac": 0.5399,
+      "lat_deg": 78.15
+     },
+     {
+      "stem": "A053_0039",
+      "level": "L5",
+      "visible_frac": 0.5574,
+      "lat_deg": 62.93
+     },
+     {
+      "stem": "A053_0059",
+      "level": "L5",
+      "visible_frac": 0.5447,
+      "lat_deg": 46.98
+     },
+     {
+      "stem": "A053_0079",
+      "level": "L5",
+      "visible_frac": 0.5083,
+      "lat_deg": 30.88
+     },
+     {
+      "stem": "A053_0138",
+      "level": "L5",
+      "visible_frac": 0.5308,
+      "lat_deg": 16.25
+     },
+     {
+      "stem": "A053_0157",
+      "level": "L5",
+      "visible_frac": 0.5699,
+      "lat_deg": 31.44
+     },
+     {
+      "stem": "A053_0177",
+      "level": "L5",
+      "visible_frac": 0.624,
+      "lat_deg": 47.58
+     },
+     {
+      "stem": "A053_0197",
+      "level": "L5",
+      "visible_frac": 0.7007,
+      "lat_deg": 63.51
+     },
+     {
+      "stem": "A053_0216",
+      "level": "L5",
+      "visible_frac": 0.7649,
+      "lat_deg": 78.75
+     },
+     {
+      "stem": "A053_0236",
+      "level": "L5",
+      "visible_frac": 0.8164,
+      "lat_deg": 85.31
+     },
+     {
+      "stem": "A053_0256",
+      "level": "L5",
+      "visible_frac": 0.8479,
+      "lat_deg": 69.3
+     }
+    ]
+   },
+   "conf_0.25": {
+    "by_band": {
+     "0.5-0.75": {
+      "hits": 12,
+      "truth": 129,
+      "recall": 0.09302325581395349
+     },
+     "0.75-0.95": {
+      "hits": 4,
+      "truth": 161,
+      "recall": 0.024844720496894408
+     },
+     "0.95-1": {
+      "hits": 25,
+      "truth": 254,
+      "recall": 0.0984251968503937
+     },
+     "whole": {
+      "hits": 38,
+      "truth": 349,
+      "recall": 0.10888252148997135
+     }
+    },
+    "all": {
+     "hits": 79,
+     "truth": 893,
+     "recall": 0.08846584546472565
+    },
+    "whole_panel_only": {
+     "hits": 38,
+     "truth": 349,
+     "recall": 0.10888252148997135
+    },
+    "delta_recall_if_partly_visible_excluded": 0.020416676025245703,
+    "misses_that_hang_off_the_panel": 503,
+    "misses_total": 814,
+    "miss_examples": [
+     {
+      "stem": "A053_0000",
+      "level": "L5",
+      "visible_frac": 0.5406,
+      "lat_deg": 89.6
+     },
+     {
+      "stem": "A053_0020",
+      "level": "L5",
+      "visible_frac": 0.5399,
+      "lat_deg": 78.15
+     },
+     {
+      "stem": "A053_0039",
+      "level": "L5",
+      "visible_frac": 0.5574,
+      "lat_deg": 62.93
+     },
+     {
+      "stem": "A053_0059",
+      "level": "L5",
+      "visible_frac": 0.5447,
+      "lat_deg": 46.98
+     },
+     {
+      "stem": "A053_0079",
+      "level": "L5",
+      "visible_frac": 0.5083,
+      "lat_deg": 30.88
+     },
+     {
+      "stem": "A053_0138",
+      "level": "L5",
+      "visible_frac": 0.5308,
+      "lat_deg": 16.25
+     },
+     {
+      "stem": "A053_0157",
+      "level": "L5",
+      "visible_frac": 0.5699,
+      "lat_deg": 31.44
+     },
+     {
+      "stem": "A053_0177",
+      "level": "L5",
+      "visible_frac": 0.624,
+      "lat_deg": 47.58
+     },
+     {
+      "stem": "A053_0197",
+      "level": "L5",
+      "visible_frac": 0.7007,
+      "lat_deg": 63.51
+     },
+     {
+      "stem": "A053_0216",
+      "level": "L5",
+      "visible_frac": 0.7649,
+      "lat_deg": 78.75
+     },
+     {
+      "stem": "A053_0236",
+      "level": "L5",
+      "visible_frac": 0.8164,
+      "lat_deg": 85.31
+     },
+     {
+      "stem": "A053_0256",
+      "level": "L5",
+      "visible_frac": 0.8479,
+      "lat_deg": 69.3
+     }
+    ]
+   }
+  },
+  "only_carm_multi": {
+   "conf_0.74": {
+    "by_band": {
+     "0.5-0.75": {
+      "hits": 0,
+      "truth": 129,
+      "recall": 0.0
+     },
+     "0.75-0.95": {
+      "hits": 0,
+      "truth": 161,
+      "recall": 0.0
+     },
+     "0.95-1": {
+      "hits": 0,
+      "truth": 254,
+      "recall": 0.0
+     },
+     "whole": {
+      "hits": 0,
+      "truth": 349,
+      "recall": 0.0
+     }
+    },
+    "all": {
+     "hits": 0,
+     "truth": 893,
+     "recall": 0.0
+    },
+    "whole_panel_only": {
+     "hits": 0,
+     "truth": 349,
+     "recall": 0.0
+    },
+    "delta_recall_if_partly_visible_excluded": 0.0,
+    "misses_that_hang_off_the_panel": 544,
+    "misses_total": 893,
+    "miss_examples": [
+     {
+      "stem": "A053_0000",
+      "level": "L5",
+      "visible_frac": 0.5406,
+      "lat_deg": 89.6
+     },
+     {
+      "stem": "A053_0020",
+      "level": "L5",
+      "visible_frac": 0.5399,
+      "lat_deg": 78.15
+     },
+     {
+      "stem": "A053_0039",
+      "level": "L5",
+      "visible_frac": 0.5574,
+      "lat_deg": 62.93
+     },
+     {
+      "stem": "A053_0059",
+      "level": "L5",
+      "visible_frac": 0.5447,
+      "lat_deg": 46.98
+     },
+     {
+      "stem": "A053_0079",
+      "level": "L5",
+      "visible_frac": 0.5083,
+      "lat_deg": 30.88
+     },
+     {
+      "stem": "A053_0138",
+      "level": "L5",
+      "visible_frac": 0.5308,
+      "lat_deg": 16.25
+     },
+     {
+      "stem": "A053_0157",
+      "level": "L5",
+      "visible_frac": 0.5699,
+      "lat_deg": 31.44
+     },
+     {
+      "stem": "A053_0177",
+      "level": "L5",
+      "visible_frac": 0.624,
+      "lat_deg": 47.58
+     },
+     {
+      "stem": "A053_0197",
+      "level": "L5",
+      "visible_frac": 0.7007,
+      "lat_deg": 63.51
+     },
+     {
+      "stem": "A053_0216",
+      "level": "L5",
+      "visible_frac": 0.7649,
+      "lat_deg": 78.75
+     },
+     {
+      "stem": "A053_0236",
+      "level": "L5",
+      "visible_frac": 0.8164,
+      "lat_deg": 85.31
+     },
+     {
+      "stem": "A053_0256",
+      "level": "L5",
+      "visible_frac": 0.8479,
+      "lat_deg": 69.3
+     }
+    ]
+   },
+   "conf_0.25": {
+    "by_band": {
+     "0.5-0.75": {
+      "hits": 0,
+      "truth": 129,
+      "recall": 0.0
+     },
+     "0.75-0.95": {
+      "hits": 4,
+      "truth": 161,
+      "recall": 0.024844720496894408
+     },
+     "0.95-1": {
+      "hits": 4,
+      "truth": 254,
+      "recall": 0.015748031496062992
+     },
+     "whole": {
+      "hits": 2,
+      "truth": 349,
+      "recall": 0.0057306590257879654
+     }
+    },
+    "all": {
+     "hits": 10,
+     "truth": 893,
+     "recall": 0.011198208286674132
+    },
+    "whole_panel_only": {
+     "hits": 2,
+     "truth": 349,
+     "recall": 0.0057306590257879654
+    },
+    "delta_recall_if_partly_visible_excluded": -0.005467549260886166,
+    "misses_that_hang_off_the_panel": 536,
+    "misses_total": 883,
+    "miss_examples": [
+     {
+      "stem": "A053_0000",
+      "level": "L5",
+      "visible_frac": 0.5406,
+      "lat_deg": 89.6
+     },
+     {
+      "stem": "A053_0020",
+      "level": "L5",
+      "visible_frac": 0.5399,
+      "lat_deg": 78.15
+     },
+     {
+      "stem": "A053_0039",
+      "level": "L5",
+      "visible_frac": 0.5574,
+      "lat_deg": 62.93
+     },
+     {
+      "stem": "A053_0059",
+      "level": "L5",
+      "visible_frac": 0.5447,
+      "lat_deg": 46.98
+     },
+     {
+      "stem": "A053_0079",
+      "level": "L5",
+      "visible_frac": 0.5083,
+      "lat_deg": 30.88
+     },
+     {
+      "stem": "A053_0138",
+      "level": "L5",
+      "visible_frac": 0.5308,
+      "lat_deg": 16.25
+     },
+     {
+      "stem": "A053_0157",
+      "level": "L5",
+      "visible_frac": 0.5699,
+      "lat_deg": 31.44
+     },
+     {
+      "stem": "A053_0177",
+      "level": "L5",
+      "visible_frac": 0.624,
+      "lat_deg": 47.58
+     },
+     {
+      "stem": "A053_0197",
+      "level": "L5",
+      "visible_frac": 0.7007,
+      "lat_deg": 63.51
+     },
+     {
+      "stem": "A053_0216",
+      "level": "L5",
+      "visible_frac": 0.7649,
+      "lat_deg": 78.75
+     },
+     {
+      "stem": "A053_0236",
+      "level": "L5",
+      "visible_frac": 0.8164,
+      "lat_deg": 85.31
+     },
+     {
+      "stem": "A053_0256",
+      "level": "L5",
+      "visible_frac": 0.8479,
+      "lat_deg": 69.3
+     }
+    ]
+   }
+  },
+  "pooled": {
+   "conf_0.74": {
+    "by_band": {
+     "0.5-0.75": {
+      "hits": 116,
+      "truth": 129,
+      "recall": 0.8992248062015504
+     },
+     "0.75-0.95": {
+      "hits": 135,
+      "truth": 161,
+      "recall": 0.8385093167701864
+     },
+     "0.95-1": {
+      "hits": 248,
+      "truth": 254,
+      "recall": 0.9763779527559056
+     },
+     "whole": {
+      "hits": 333,
+      "truth": 349,
+      "recall": 0.9541547277936963
+     }
+    },
+    "all": {
+     "hits": 832,
+     "truth": 893,
+     "recall": 0.9316909294512878
+    },
+    "whole_panel_only": {
+     "hits": 333,
+     "truth": 349,
+     "recall": 0.9541547277936963
+    },
+    "delta_recall_if_partly_visible_excluded": 0.022463798342408414,
+    "misses_that_hang_off_the_panel": 45,
+    "misses_total": 61,
+    "miss_examples": [
+     {
+      "stem": "A280_0172",
+      "level": "L4",
+      "visible_frac": 0.9358,
+      "lat_deg": 49.01
+     },
+     {
+      "stem": "A280_0172",
+      "level": "L5",
+      "visible_frac": 0.8654,
+      "lat_deg": 49.01
+     },
+     {
+      "stem": "A280_0192",
+      "level": "L4",
+      "visible_frac": 0.8647,
+      "lat_deg": 65.42
+     },
+     {
+      "stem": "A280_0192",
+      "level": "L5",
+      "visible_frac": 0.7904,
+      "lat_deg": 65.42
+     },
+     {
+      "stem": "A280_0211",
+      "level": "L4",
+      "visible_frac": 0.852,
+      "lat_deg": 81.17
+     },
+     {
+      "stem": "A280_0211",
+      "level": "L5",
+      "visible_frac": 0.7688,
+      "lat_deg": 81.17
+     },
+     {
+      "stem": "A280_0230",
+      "level": "L4",
+      "visible_frac": 0.8533,
+      "lat_deg": 83.13
+     },
+     {
+      "stem": "A280_0230",
+      "level": "L5",
+      "visible_frac": 0.7899,
+      "lat_deg": 83.13
+     },
+     {
+      "stem": "A280_0249",
+      "level": "L4",
+      "visible_frac": 0.8945,
+      "lat_deg": 67.47
+     },
+     {
+      "stem": "A280_0249",
+      "level": "L5",
+      "visible_frac": 0.815,
+      "lat_deg": 67.47
+     },
+     {
+      "stem": "A280_0268",
+      "level": "L4",
+      "visible_frac": 0.9362,
+      "lat_deg": 51.76
+     },
+     {
+      "stem": "A280_0268",
+      "level": "L5",
+      "visible_frac": 0.8563,
+      "lat_deg": 51.76
+     }
+    ]
+   },
+   "conf_0.25": {
+    "by_band": {
+     "0.5-0.75": {
+      "hits": 125,
+      "truth": 129,
+      "recall": 0.9689922480620154
+     },
+     "0.75-0.95": {
+      "hits": 150,
+      "truth": 161,
+      "recall": 0.9316770186335404
+     },
+     "0.95-1": {
+      "hits": 254,
+      "truth": 254,
+      "recall": 1.0
+     },
+     "whole": {
+      "hits": 341,
+      "truth": 349,
+      "recall": 0.9770773638968482
+     }
+    },
+    "all": {
+     "hits": 870,
+     "truth": 893,
+     "recall": 0.9742441209406495
+    },
+    "whole_panel_only": {
+     "hits": 341,
+     "truth": 349,
+     "recall": 0.9770773638968482
+    },
+    "delta_recall_if_partly_visible_excluded": 0.0028332429561986894,
+    "misses_that_hang_off_the_panel": 15,
+    "misses_total": 23,
+    "miss_examples": [
+     {
+      "stem": "A280_0172",
+      "level": "L5",
+      "visible_frac": 0.8654,
+      "lat_deg": 49.01
+     },
+     {
+      "stem": "A280_0211",
+      "level": "L4",
+      "visible_frac": 0.852,
+      "lat_deg": 81.17
+     },
+     {
+      "stem": "A280_0211",
+      "level": "L5",
+      "visible_frac": 0.7688,
+      "lat_deg": 81.17
+     },
+     {
+      "stem": "A280_0230",
+      "level": "L5",
+      "visible_frac": 0.7899,
+      "lat_deg": 83.13
+     },
+     {
+      "stem": "A280_0249",
+      "level": "L4",
+      "visible_frac": 0.8945,
+      "lat_deg": 67.47
+     },
+     {
+      "stem": "A280_0249",
+      "level": "L5",
+      "visible_frac": 0.815,
+      "lat_deg": 67.47
+     },
+     {
+      "stem": "A280_0268",
+      "level": "L5",
+      "visible_frac": 0.8563,
+      "lat_deg": 51.76
+     },
+     {
+      "stem": "B135_0620",
+      "level": "L5",
+      "visible_frac": 0.9212,
+      "lat_deg": 67.01
+     },
+     {
+      "stem": "C000_0000",
+      "level": "L5",
+      "visible_frac": 0.919,
+      "lat_deg": 89.95
+     },
+     {
+      "stem": "D152_0103",
+      "level": null,
+      "visible_frac": 0.5603,
+      "lat_deg": 13.65
+     },
+     {
+      "stem": "D152_0148",
+      "level": null,
+      "visible_frac": 0.5228,
+      "lat_deg": 62.13
+     },
+     {
+      "stem": "D152_0236",
+      "level": null,
+      "visible_frac": 0.573,
+      "lat_deg": 22.94
+     }
+    ]
+   }
+  },
+  "render": {
+   "conf_0.74": {
+    "by_band": {
+     "0.5-0.75": {
+      "hits": 3,
+      "truth": 129,
+      "recall": 0.023255813953488372
+     },
+     "0.75-0.95": {
+      "hits": 6,
+      "truth": 161,
+      "recall": 0.037267080745341616
+     },
+     "0.95-1": {
+      "hits": 22,
+      "truth": 254,
+      "recall": 0.08661417322834646
+     },
+     "whole": {
+      "hits": 15,
+      "truth": 349,
+      "recall": 0.04297994269340974
+     }
+    },
+    "all": {
+     "hits": 46,
+     "truth": 893,
+     "recall": 0.051511758118701005
+    },
+    "whole_panel_only": {
+     "hits": 15,
+     "truth": 349,
+     "recall": 0.04297994269340974
+    },
+    "delta_recall_if_partly_visible_excluded": -0.008531815425291266,
+    "misses_that_hang_off_the_panel": 513,
+    "misses_total": 847,
+    "miss_examples": [
+     {
+      "stem": "A053_0000",
+      "level": "L5",
+      "visible_frac": 0.5406,
+      "lat_deg": 89.6
+     },
+     {
+      "stem": "A053_0020",
+      "level": "L5",
+      "visible_frac": 0.5399,
+      "lat_deg": 78.15
+     },
+     {
+      "stem": "A053_0039",
+      "level": "L5",
+      "visible_frac": 0.5574,
+      "lat_deg": 62.93
+     },
+     {
+      "stem": "A053_0059",
+      "level": "L5",
+      "visible_frac": 0.5447,
+      "lat_deg": 46.98
+     },
+     {
+      "stem": "A053_0079",
+      "level": "L5",
+      "visible_frac": 0.5083,
+      "lat_deg": 30.88
+     },
+     {
+      "stem": "A053_0138",
+      "level": "L5",
+      "visible_frac": 0.5308,
+      "lat_deg": 16.25
+     },
+     {
+      "stem": "A053_0157",
+      "level": "L5",
+      "visible_frac": 0.5699,
+      "lat_deg": 31.44
+     },
+     {
+      "stem": "A053_0177",
+      "level": "L5",
+      "visible_frac": 0.624,
+      "lat_deg": 47.58
+     },
+     {
+      "stem": "A053_0197",
+      "level": "L5",
+      "visible_frac": 0.7007,
+      "lat_deg": 63.51
+     },
+     {
+      "stem": "A053_0216",
+      "level": "L5",
+      "visible_frac": 0.7649,
+      "lat_deg": 78.75
+     },
+     {
+      "stem": "A053_0236",
+      "level": "L5",
+      "visible_frac": 0.8164,
+      "lat_deg": 85.31
+     },
+     {
+      "stem": "A053_0256",
+      "level": "L5",
+      "visible_frac": 0.8479,
+      "lat_deg": 69.3
+     }
+    ]
+   },
+   "conf_0.25": {
+    "by_band": {
+     "0.5-0.75": {
+      "hits": 45,
+      "truth": 129,
+      "recall": 0.3488372093023256
+     },
+     "0.75-0.95": {
+      "hits": 61,
+      "truth": 161,
+      "recall": 0.37888198757763975
+     },
+     "0.95-1": {
+      "hits": 120,
+      "truth": 254,
+      "recall": 0.47244094488188976
+     },
+     "whole": {
+      "hits": 112,
+      "truth": 349,
+      "recall": 0.3209169054441261
+     }
+    },
+    "all": {
+     "hits": 338,
+     "truth": 893,
+     "recall": 0.3784994400895857
+    },
+    "whole_panel_only": {
+     "hits": 112,
+     "truth": 349,
+     "recall": 0.3209169054441261
+    },
+    "delta_recall_if_partly_visible_excluded": -0.05758253464545959,
+    "misses_that_hang_off_the_panel": 318,
+    "misses_total": 555,
+    "miss_examples": [
+     {
+      "stem": "A053_0000",
+      "level": "L5",
+      "visible_frac": 0.5406,
+      "lat_deg": 89.6
+     },
+     {
+      "stem": "A053_0020",
+      "level": "L5",
+      "visible_frac": 0.5399,
+      "lat_deg": 78.15
+     },
+     {
+      "stem": "A053_0039",
+      "level": "L5",
+      "visible_frac": 0.5574,
+      "lat_deg": 62.93
+     },
+     {
+      "stem": "A053_0059",
+      "level": "L5",
+      "visible_frac": 0.5447,
+      "lat_deg": 46.98
+     },
+     {
+      "stem": "A053_0157",
+      "level": "L5",
+      "visible_frac": 0.5699,
+      "lat_deg": 31.44
+     },
+     {
+      "stem": "A053_0177",
+      "level": "L5",
+      "visible_frac": 0.624,
+      "lat_deg": 47.58
+     },
+     {
+      "stem": "A053_0197",
+      "level": "L5",
+      "visible_frac": 0.7007,
+      "lat_deg": 63.51
+     },
+     {
+      "stem": "A053_0216",
+      "level": "L5",
+      "visible_frac": 0.7649,
+      "lat_deg": 78.75
+     },
+     {
+      "stem": "A053_0236",
+      "level": "L5",
+      "visible_frac": 0.8164,
+      "lat_deg": 85.31
+     },
+     {
+      "stem": "A053_0256",
+      "level": "L5",
+      "visible_frac": 0.8479,
+      "lat_deg": 69.3
+     },
+     {
+      "stem": "A053_0275",
+      "level": "L5",
+      "visible_frac": 0.8705,
+      "lat_deg": 54.01
+     },
+     {
+      "stem": "A053_0295",
+      "level": "L5",
+      "visible_frac": 0.8873,
+      "lat_deg": 38.03
+     }
+    ]
+   }
+  }
+ }
+}

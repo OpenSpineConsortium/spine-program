@@ -1,0 +1,113 @@
+# copied into spine-program/06_transitional_ct_census on 2026-10-08 from CTSpinoPelvic1K (public, master) docker/Dockerfile.spineps; UNTRACKED in the working tree at 7ddfe38 on 2026-10-08. The banned word, where it occurred, is rewritten as origin.
+# CTSpinoPelvic1K — SPINEPS (CT) + Möller rib stack benchmark image.
+#
+# Bundles the whole Hendrik-code toolchain so one container can do the full
+# comparison run against our labels:
+#
+#   1. SPINEPS       github.com/Hendrik-code/spineps           spine semantic + vertebra
+#                    instance + vertebra LABELLING, CT-native models (release v1.4.2 /
+#                    v1.4.0 weights, baked in at build time -> works on an offline node)
+#   2. rib nnU-Net   Möller binary rib segmentor (Zenodo 10.5281/zenodo.14850928)
+#                    -- weights are NOT baked (~GB, already on the grid); bind-mount them
+#   3. rib measure   github.com/Hendrik-code/rib-segmentation  instance rib assignment +
+#                    rib length algorithm + stump-rib features (needs 1 and 2 as input)
+#
+# Used by: scripts/spineps_ct_pipeline.py (inference) and scripts/benchmark_spineps.py
+# (scoring).  GPU for 1 and 2; 3 is CPU-only.
+#
+# Build:  docker build -f docker/Dockerfile.spineps -t ctspinopelvic1k-spineps:latest .
+# HPC:    singularity pull ctspinopelvic1k-spineps.sif \
+#             docker://<user>/ctspinopelvic1k-spineps:latest
+#
+# Pin a specific upstream commit with:
+#     docker build -f docker/Dockerfile.spineps \
+#         --build-arg SPINEPS_REF=<sha-or-tag> --build-arg RIBSEG_REF=<sha-or-tag> ...
+# The resolved refs are written to /opt/ctspinopelvic1k/BUILD_INFO.txt inside the image.
+
+FROM pytorch/pytorch:2.4.1-cuda12.4-cudnn9-runtime
+
+# SPINEPS "now supports both CT and T2w with completely independent, modality specific
+# models" — that CT support is the new inference mode, and it only exists on main /
+# >= v1.4.2, so default to main and let the caller pin.
+ARG SPINEPS_REF=main
+ARG RIBSEG_REF=main
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    SPINEPS_SEGMENTOR_MODELS=/opt/spineps_models \
+    RIBSEG_REPO_DIR=/opt/ribseg \
+    nnUNet_raw=/tmp/nnunet_raw \
+    nnUNet_preprocessed=/tmp/nnunet_preprocessed \
+    nnUNet_results=/tmp/nnunet_results
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        git \
+        curl \
+        unzip \
+        libgomp1 \
+        ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /opt/ctspinopelvic1k
+
+# ── SPINEPS + its stack ──────────────────────────────────────────────────────
+# SPINEPS pulls TPTBox / nnunetv2 / monai / antspyx / pytorch-lightning itself.
+# numpy is re-pinned AFTER, because antspyx and nnunetv2 both float it and the 2.x
+# ABI break silently poisons the nnU-Net predictor.
+RUN pip install --upgrade pip \
+    && pip install "spineps @ git+https://github.com/Hendrik-code/spineps.git@${SPINEPS_REF}" \
+    && pip install \
+        "numpy==1.26.4" \
+        nibabel==5.2.1 \
+        SimpleITK==2.3.1 \
+        scipy==1.13.1 \
+        scikit-image==0.22.0 \
+        matplotlib==3.8.4 \
+        pandas==2.2.2 \
+        tqdm==4.66.4 \
+        huggingface_hub==0.24.5
+
+# ── Möller rib measurement code (no weights, no pip package — plain modules) ──
+# Imported as top-level packages (`from instance_rib_assignment... import ...`), so the
+# clone root has to be on PYTHONPATH.
+RUN git clone https://github.com/Hendrik-code/rib-segmentation.git "${RIBSEG_REPO_DIR}" \
+    && git -C "${RIBSEG_REPO_DIR}" checkout "${RIBSEG_REF}" \
+    && rm -rf "${RIBSEG_REPO_DIR}/figures"
+
+# ── SPINEPS CT weights, baked ────────────────────────────────────────────────
+# Compute nodes have no outbound internet, and SPINEPS auto-downloads on first use —
+# so pull ct / ct_instance / ct_labeling now, through SPINEPS' own downloader (it owns
+# the release-URL + extraction-path convention).  Build FAILS if they don't land.
+COPY docker/fetch_spineps_weights.py /opt/ctspinopelvic1k/docker/
+RUN mkdir -p "${SPINEPS_SEGMENTOR_MODELS}" \
+    && python /opt/ctspinopelvic1k/docker/fetch_spineps_weights.py \
+    && chmod -R a+rX "${SPINEPS_SEGMENTOR_MODELS}"
+
+# ── our code ─────────────────────────────────────────────────────────────────
+COPY scripts/label_scheme.py           /opt/ctspinopelvic1k/scripts/
+COPY scripts/spineps_ct_pipeline.py    /opt/ctspinopelvic1k/scripts/
+COPY scripts/benchmark_spineps.py      /opt/ctspinopelvic1k/scripts/
+COPY slurm/spineps_bench.sh            /opt/ctspinopelvic1k/slurm/
+
+ENV PYTHONPATH=/opt/ribseg:/opt/ctspinopelvic1k/scripts
+
+RUN printf 'spineps_ref=%s\nribseg_ref=%s\nribseg_commit=%s\nspineps_version=%s\n' \
+        "${SPINEPS_REF}" "${RIBSEG_REF}" \
+        "$(git -C ${RIBSEG_REPO_DIR} rev-parse HEAD 2>/dev/null || echo unknown)" \
+        "$(pip show spineps 2>/dev/null | awk '/^Version:/{print $2}')" \
+        > /opt/ctspinopelvic1k/BUILD_INFO.txt \
+    && rm -rf "${RIBSEG_REPO_DIR}/.git" \
+    && cat /opt/ctspinopelvic1k/BUILD_INFO.txt
+
+# Smoke test: everything the pipeline imports must import at BUILD time, not on a node.
+RUN python -c "\
+import torch, spineps, TPTBox, nnunetv2, numpy; \
+from spineps.get_models import get_semantic_model, get_instance_model, get_labeling_model; \
+from instance_rib_assignment.assign_ribs_to_vert import assign_ribs_to_vert_segmentation; \
+from rib_length_measurement.run_algorithm import measure_rib_length_subject; \
+from rib_features.calc_rib_features import calc_rib_features; \
+print('ok  torch', torch.__version__, '| numpy', numpy.__version__)"
+
+CMD ["python", "-c", "print('CTSpinoPelvic1K SPINEPS/rib benchmark container. Use scripts/spineps_ct_pipeline.py then scripts/benchmark_spineps.py.')"]

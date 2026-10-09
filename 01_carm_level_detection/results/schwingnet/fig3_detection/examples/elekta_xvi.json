@@ -1,0 +1,141 @@
+{
+ "device": "elekta_xvi",
+ "label": "COBRA, Elekta XVI",
+ "arm": "lodo_cobra",
+ "arm_label": "real frames of DeepFluoro + C-ArmLSpine; COBRA never seen",
+ "set": "cobra_test_v3",
+ "set_label": "COBRA Elekta XVI test, body-region window (cobra_elekta_v3)",
+ "convention": "body",
+ "conf": 0.74,
+ "bank": "/rs/rs_grp_oschome/go2432/data/realxray/cobra_elekta_v3",
+ "rule": "frame with >= 1 kept vertebra box and a sacrum box, EVERY vertebra + sacrum box at visible_frac >= 0.95 (truth inside the half-fan panel), whose vertebra recall at conf 0.74 is nearest the arm's recall on the whole v3 test set at the corpus's min-vis 0.5 rule, within the near-anteroposterior tier (|lat_from_ap_deg| <= 30) when it is non-empty; ties to more truth vertebrae, then the frame nearest anteroposterior, then first stem",
+ "in_field_clause_met": true,
+ "arm_recall_on_set": 0.07054871220604703,
+ "arm_recall_k": 63,
+ "arm_recall_n": 893,
+ "arm_recall_min_vis": 0.5,
+ "frame_recall": 0.0,
+ "frame_hits": 0,
+ "frame_truth_vertebrae": 2,
+ "frame_sacrum_found": false,
+ "abs_gap_to_set_recall": 0.07054871220604703,
+ "candidates": 199,
+ "candidates_any": 648,
+ "stem": "A280_0115",
+ "case": "A280",
+ "view": {
+  "gantry_deg": 271.981,
+  "lat_from_ap_deg": 1.98,
+  "cranial_caudal_deg": 0.0,
+  "source_side": "anterior",
+  "source_mm": [
+   34.6,
+   -999.4,
+   -0.0
+  ],
+  "beam_dir_lps": [
+   -0.0346,
+   0.9994,
+   0.0
+  ],
+  "image_px_per_50mm_at_iso": {
+   "patient_left": [
+    98.59,
+    0.0
+   ],
+   "posterior": [
+    3.24,
+    0.0
+   ],
+   "superior": [
+    0.0,
+    -98.48
+   ]
+  }
+ },
+ "image": "/rs/rs_grp_oschome/go2432/data/realxray/cobra_elekta_v3/images/test/A280_0115.png",
+ "image_size": [
+  517,
+  517
+ ],
+ "px_mm": 0.77988,
+ "truth_vertebrae": [
+  {
+   "level": null,
+   "box": [
+    365.58,
+    38.7,
+    473.72,
+    107.18
+   ],
+   "outline_box": null,
+   "visible_frac": 1.0,
+   "matched_conf": null
+  },
+  {
+   "level": null,
+   "box": [
+    347.42,
+    88.67,
+    481.44,
+    165.26
+   ],
+   "outline_box": null,
+   "visible_frac": 1.0,
+   "matched_conf": null
+  }
+ ],
+ "truth_sacra": [
+  {
+   "level": null,
+   "box": [
+    311.22,
+    157.64,
+    512.4,
+    342.05
+   ],
+   "outline_box": null,
+   "visible_frac": 0.9889,
+   "matched_conf": null
+  }
+ ],
+ "predictions_at_or_above_conf": [],
+ "predictions_between_0p25_and_conf": [
+  {
+   "cls": 0,
+   "box": [
+    362.6387023925781,
+    6.136819362640381,
+    466.1974182128906,
+    98.46857452392578
+   ],
+   "conf": 0.6256598234176636
+  },
+  {
+   "cls": 1,
+   "box": [
+    295.5430603027344,
+    120.11373138427734,
+    517.0,
+    434.943359375
+   ],
+   "conf": 0.5216149687767029
+  }
+ ],
+ "device_meta": {
+  "make": "Elekta",
+  "model": "XVI (kV CBCT imager on a linac)",
+  "detector": "flat panel",
+  "kvp": 120.0,
+  "mas": 3.2,
+  "ma": 80.0,
+  "ms": 40.0,
+  "fan": "Half",
+  "collimator": "M20",
+  "kv_filter": "F1",
+  "scatter_grid": "None",
+  "sid_mm": 1000.0,
+  "sdd_mm": 1536.0,
+  "centre": "A"
+ }
+}

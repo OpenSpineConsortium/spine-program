@@ -1,0 +1,67 @@
+{
+  "schema": "polypose_reference_envelope/1",
+  "written": "2026-09-23",
+  "purpose": "The acceptance region for a drawn standing-equivalent sagittal profile (PI, PT, SS, LL, TK, Roussouly type). tools/polypose_manifest.py evaluate_profile() reads it; the sampler must reject any profile that fails it BEFORE rendering, and tools/polypose_invariants.py re-evaluates every manifest row against it (check profile_in_envelope). Every bound names its source and says whether the number was re-read from the source today (verified) or is a transcription from memory (verified=false; the checker prints those in its note, as rom_bound does for the ROM table). Edit a bound only with a citation.",
+  "conventions": {
+    "angles": "degrees; PI, PT, SS, LL (L1-S1), TK (T4-T12) as in the cited series; PI = PT + SS (Legaye 1998)",
+    "posture": "standing. A supine CT is shifted to standing-equivalent by supine_to_standing before it is compared here; the offset cancels in every delta the checker measures on the volume.",
+    "range_rule": "range bounds are mean -/+ 3 SD of the cited asymptomatic series: the population support, not the balanced subset",
+    "balance_rule": "balance bounds are the SRS-Schwab grade-0 thresholds: |PI - LL| < 10 and PT < 20 (Schwab 2012). A drawn profile must satisfy BOTH range and balance.",
+    "roussouly_rule": "type by sacral slope: SS < 35 -> type 1 or 2; 35 <= SS <= 45 -> type 3; SS > 45 -> type 4 (Roussouly 2005). Type 3AP (anteverted pelvis, Laouissat 2018) is accepted as a type-3 SS band. A type inconsistent with its SS fails."
+  },
+  "range": {
+    "PI": {"lo": 23.2, "hi": 86.8, "mean": 55.0, "sd": 10.6, "n": 300, "source": "vialle2005", "verified": true,
+           "note": "mean -/+ 3 SD of Vialle 2005 (abstract values read 2026-09-23 by the sampling-spec pass)"},
+    "PT": {"lo": -5.0, "hi": 31.0, "mean": 13.0, "sd": 6.0, "n": 300, "source": "vialle2005", "verified": true,
+           "note": "population support; the balance rule below is tighter on the high side"},
+    "SS": {"lo": 15.8, "hi": 66.2, "mean": 41.0, "sd": 8.4, "n": 300, "source": "vialle2005", "verified": true},
+    "LL": {"lo": 16.1, "hi": 83.3, "mean": 49.7, "sd": 11.2, "n": 626, "source": "yukawa2017", "verified": true,
+           "note": "standing L1-S1; Yukawa 2017 values as recorded in sampling_spec.json citations"},
+    "TK": {"lo": 5.7, "hi": 66.3, "mean": 36.0, "sd": 10.1, "n": 626, "source": "yukawa2017", "verified": true,
+           "note": "T4-T12 standing. Our CTs are FOV-limited to ~T8 down, so the checker compares TK DELTAS on the measured span and this range applies to the drawn full-span TK only"}
+  },
+  "balance": {
+    "_why_these_and_not_schwab": "CORRECTED 2026-09-23 after an outside check. Until now this section gated on the SRS-Schwab grade-0 thresholds (|PI - LL| < 10 and PT < 20) and evaluate_profile rejected any profile outside them. Measured against the cohort's own ostk numbers, that rule refuses 397 of 686 plate-sane CTSP ordinary spines -- 57.9 % of REAL, unoperated, asymptomatic-cohort people (the same check over all 709 measured ordinary rows refuses 58.3 %). A rule that calls the majority of a normal population out-of-envelope is a definition of SURGICALLY BALANCED, not a reference range, and using it to reject draws would have halved the bank and biased every synthetic spine toward Schwab grade 0 -- the opposite of covering the whole envelope. The gating bounds below are therefore the 2.5-SD population band of the assembled normative model (sampling_spec.json joint_sagittal_model / rejection_envelope), which refuses 49 of 686 (7.1 %). The Schwab grades are kept as a RECORDED DESCRIPTOR per row (schwab_grade, never gating) so a bank can still be reported by balance grade. Reproduce with tools/polypose_sample.py envelope-vs-cohort.",
+    "pi_ll_lo": {"value": -30.0, "source": "sardar2022 (PI-LL -5.4 +/- 10.7, n=468) at 2.5 SD", "verified": true,
+                 "note": "SIGNED: PI - LL, not its absolute value. The population is lordotic-biased (mean -5.4), so the band is asymmetric and an abs() bound is wrong in both directions"},
+    "pi_ll_hi": {"value": 20.0, "source": "sardar2022 at 2.5 SD; coincides with the Schwab ++ threshold", "verified": true},
+    "pt_lo": {"value": -8.0, "source": "laouissat2018 type 3AP PT 4 +/- 3 (anteverted pelvis, 16 % of 296)", "verified": true,
+              "note": "the anteverted floor; a negative PT is anatomy, not an error"},
+    "pt_hi": {"value": 35.0, "source": "sardar2022 PT 12.5 +/- 7.3 at 2.5 SD = 30.8; widened to 35 to hold the cohort's own p95+ (29.4) and Diebo's ASD mean 29.2", "verified": true},
+    "pi_ll_mismatch_max": {"value": 30.0, "source": "superseded", "verified": false,
+                           "note": "LEGACY KEY, kept so an older reader does not crash. evaluate_profile prefers pi_ll_lo/pi_ll_hi when present. The value is the widest |PI - LL| the signed band allows; it is NOT the Schwab threshold any more"},
+    "pt_max": {"value": 35.0, "source": "superseded", "verified": false,
+               "note": "LEGACY KEY; evaluate_profile prefers pt_lo/pt_hi when present"},
+    "schwab_grades_recorded_not_gating": {
+      "pi_ll": {"0": "< 10", "+": "10 to 20", "++": "> 20"},
+      "pt": {"0": "< 20", "+": "20 to 30", "++": "> 30"},
+      "source": "schwab2012", "verified": false,
+      "note": "from memory of the classification, not re-read today. Reported per row as schwab_grade; status is always 'n/a' so it can never pass or fail a draw",
+      "share_of_real_ctsp_ordinary_at_grade_0_both": 0.421
+    }
+  },
+  "roussouly": {
+    "ss_type12_max": 35.0, "ss_type3_min": 35.0, "ss_type3_max": 45.0, "ss_type4_min": 45.0,
+    "types": ["1", "2", "3", "3AP", "4"],
+    "source": "roussouly2005", "verified": false,
+    "note": "SS cut-offs 35 and 45 from memory of Roussouly 2005 (Spine 30(3):346-353); check before verified=1. Types 1 and 2 share the SS band and differ by lordosis shape (apex level, number of lordotic vertebrae), which the checker cannot resolve from SS alone."
+  },
+  "coupling": {
+    "tk_ll": {"enabled": false, "a": null, "b": null, "sd": null, "source": null,
+              "note": "TK = a*LL + b with residual within k*sd. DISABLED until a regression is transcribed from a source on hand (Berthonnaud 2005 / Vialle 2005 give one); the sampler couples TK to LL by drawing jointly and the checker verifies TK lies in range. The checker reports this rule as n/a, never as pass."}
+  },
+  "supine_to_standing": {
+    "LL_deg": 4.6, "TK_deg": null,
+    "source": "chevillotte2018",
+    "note": "standing L1-S1 54.8 vs supine 50.2 (n=15). No supine-standing TK offset is on hand: null, applied as 0 and said so in every row (profile.supine_to_standing)."
+  },
+  "sources": {
+    "vialle2005": "Vialle R, Levassor N, Rillardon L, Templier A, Skalli W, Guigui P. Radiographic analysis of the sagittal alignment and balance of the spine in asymptomatic subjects. J Bone Joint Surg Am 2005;87(2):260-267. PMID 15687145",
+    "yukawa2017": "Yukawa Y, Kato F, Suda K, Yamagata M, Ueta T, Yoshida M. Normative data for parameters of sagittal spinal alignment in healthy subjects. Eur Spine J 2017;26(11):2851-2862. doi 10.1007/s00586-016-4807-7",
+    "schwab2012": "Schwab F, Ungar B, Blondel B, et al. Scoliosis Research Society-Schwab adult spinal deformity classification: a validation study. Spine 2012;37(12):1077-1082",
+    "roussouly2005": "Roussouly P, Gollogly S, Berthonnaud E, Dimnet J. Classification of the normal variation in the sagittal alignment of the human lumbar spine and pelvis in the standing position. Spine 2005;30(3):346-353",
+    "legaye1998": "Legaye J, Duval-Beaupere G, Hecquet J, Marty C. Pelvic incidence: a fundamental pelvic parameter for three-dimensional regulation of spinal sagittal curves. Eur Spine J 1998;7(2):99-103",
+    "chevillotte2018": "Chevillotte T, Coudert P, Cawley D, et al. Influence of posture on relationships between pelvic parameters and lumbar lordosis. Orthop Traumatol Surg Res 2018;104(5):565-568. PMID 30009961",
+    "laouissat2018": "Laouissat F, Sebaaly A, Gehrchen M, Roussouly P. Classification of normal sagittal spine alignment: refounding the Roussouly classification. Eur Spine J 2018;27(8):2002-2011"
+  }
+}

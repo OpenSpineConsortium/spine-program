@@ -1,0 +1,1119 @@
+{
+ "_about": "J0 case list for reader E (CT_LSTV_CLASSIFIER_PLAN.md section 8): 20 CTs x 3 segmenters = 60 tasks. Every path verified on the grid login node 2026-09-24. Built by the scratch script select_j0.py from auto_reference/lists, readersAB/tables (reader A source_file = SPINEPS mask), fig6/frozen/auto_truth.csv (g3_side), transitional_registry (verse/screened.csv, registry.csv), positives_table.md section B, MAXIMIZE.md held list.",
+ "n_cases": 20,
+ "n_pairs": 60,
+ "segmenters": [
+  "release_or_expert",
+  "spineps",
+  "ts"
+ ],
+ "class_maps": {
+  "ctsp": "/wsu/home/go/go24/go2432/bench/totalsegmentator/class_map.json",
+  "verse": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/class_map.json",
+  "cobra_and_readersAB": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/cobra/class_map.json",
+  "note": "readers A/B use the cobra copy for every corpus and state the three are md5-identical; reader C uses ~/bench/totalsegmentator/class_map.json; harvest_verse_census uses <ts_dir>/../class_map.json. All three exist (ls 2026-09-24); the J0 extractor should hash the one it loads into the JSON."
+ },
+ "split": {
+  "file": "/wsu/home/go/go24/go2432/split_final.json",
+  "local_copy": "SchwingNet/results/fig6/frozen/v1/split_final.json",
+  "sides_used": "auto_truth.csv column g3_side",
+  "g3_test_persons": 0,
+  "all_train": true
+ },
+ "exclusions": {
+  "ctsp_contradicted_or_barred": [
+   "0008",
+   "0021",
+   "0033",
+   "0049",
+   "0176",
+   "0179",
+   "0196",
+   "0068"
+  ],
+  "ctsp_ls_l6_on_g3_test_side_not_used": [
+   "0005",
+   "0208",
+   "0268",
+   "0376",
+   "0565",
+   "0950",
+   "1053"
+  ],
+  "ctsp_ls_l6_on_val_side_not_needed": [
+   "0960"
+  ],
+  "ctsp_ls_l6_train_not_needed": [
+   "0486",
+   "0831",
+   "0999"
+  ],
+  "verse_contradicted": [
+   "verse026",
+   "verse512",
+   "verse540",
+   "verse571",
+   "verse612",
+   "verse765",
+   "verse814"
+  ],
+  "verse_tl11_not_l6_truth": [
+   "verse544",
+   "verse581",
+   "verse606",
+   "verse626",
+   "verse636",
+   "verse642"
+  ],
+  "verse_ambiguous_or_no_ls_junction": [
+   "verse406",
+   "verse403",
+   "verse559"
+  ],
+  "verse_held_l6_lacking_spineps_mask (reader A had no seg-vert mask)": [
+   "verse513",
+   "verse535",
+   "verse616"
+  ],
+  "verse_held_l6_on_g3_test_side_not_used": [
+   "verse024",
+   "verse034",
+   "verse088",
+   "verse510",
+   "verse526",
+   "verse554",
+   "verse555",
+   "verse557",
+   "verse587",
+   "verse592",
+   "verse609"
+  ],
+  "verse_held_l6_train_not_needed": [
+   "verse536",
+   "verse545",
+   "verse572",
+   "verse590",
+   "verse599",
+   "verse618"
+  ],
+  "verse_ordinary_replaced": {
+   "verse809": "only ctd beside its SPINEPS mask is VERSE_verse809_ctd_isogrid.json (no plain _ctd.json); replaced by verse811"
+  }
+ },
+ "cases": [
+  {
+   "person_key": "ctsp:0097",
+   "corpus": "ctsp",
+   "case": "0097",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "L6",
+    "registry_subtype": "L6",
+    "registry_tier": "read",
+    "castellvi": "IIb",
+    "read_structure": "",
+    "read_subtype": "",
+    "expert_mask_has_L6": ""
+   },
+   "why": "read L6 (LS-L6 pool, positives_table B; two-reader Castellvi + release id 25)",
+   "ct": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct/0097_ct.nii.gz",
+   "ct_bytes": 263997057,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels/0097_label.nii.gz",
+   "release_or_expert_mask_bytes": 1645979,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0097_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 1790728,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0097_ctd.json",
+   "spineps_relabel_json": "",
+   "ts_dir": "/wsu/home/go/go24/go2432/bench/totalsegmentator/native/COLONOG_67.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 3816852,
+   "ts_class_map": "/wsu/home/go/go24/go2432/bench/totalsegmentator/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "ctsp_release_v11",
+     "loader": "ostk.labels.labels_for(volume) (never a fixed map)",
+     "sacrum_source": "release id 26 (S1 dissolved back into 26; id 29 retired)",
+     "sacrum_present": true
+    },
+    "spineps": {
+     "family": "spineps_postfix_veridah_named",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd)",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": true
+    },
+    "ts": {
+     "family": "totalsegmentator_total_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh)"
+  },
+  {
+   "person_key": "ctsp:0234",
+   "corpus": "ctsp",
+   "case": "0234",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "L6",
+    "registry_subtype": "L6",
+    "registry_tier": "read",
+    "castellvi": "IIIb",
+    "read_structure": "",
+    "read_subtype": "",
+    "expert_mask_has_L6": ""
+   },
+   "why": "read L6 (LS-L6 pool, positives_table B; two-reader Castellvi + release id 25)",
+   "ct": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct/0234_ct.nii.gz",
+   "ct_bytes": 283369883,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels/0234_label.nii.gz",
+   "release_or_expert_mask_bytes": 1480811,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0234_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 1782200,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0234_ctd.json",
+   "spineps_relabel_json": "",
+   "ts_dir": "/wsu/home/go/go24/go2432/bench/totalsegmentator/native/COLONOG_167.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 3508886,
+   "ts_class_map": "/wsu/home/go/go24/go2432/bench/totalsegmentator/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "ctsp_release_v11",
+     "loader": "ostk.labels.labels_for(volume) (never a fixed map)",
+     "sacrum_source": "release id 26 (S1 dissolved back into 26; id 29 retired)",
+     "sacrum_present": true
+    },
+    "spineps": {
+     "family": "spineps_postfix_veridah_named",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd)",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": true
+    },
+    "ts": {
+     "family": "totalsegmentator_total_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh)"
+  },
+  {
+   "person_key": "ctsp:0244",
+   "corpus": "ctsp",
+   "case": "0244",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "L6",
+    "registry_subtype": "L6",
+    "registry_tier": "read",
+    "castellvi": "Ib",
+    "read_structure": "",
+    "read_subtype": "",
+    "expert_mask_has_L6": ""
+   },
+   "why": "read L6 (LS-L6 pool, positives_table B; two-reader Castellvi + release id 25)",
+   "ct": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct/0244_ct.nii.gz",
+   "ct_bytes": 195718988,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels/0244_label.nii.gz",
+   "release_or_expert_mask_bytes": 1477815,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0244_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 1649263,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0244_ctd.json",
+   "spineps_relabel_json": "",
+   "ts_dir": "/wsu/home/go/go24/go2432/bench/totalsegmentator/native/COLONOG_175.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 2995603,
+   "ts_class_map": "/wsu/home/go/go24/go2432/bench/totalsegmentator/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "ctsp_release_v11",
+     "loader": "ostk.labels.labels_for(volume) (never a fixed map)",
+     "sacrum_source": "release id 26 (S1 dissolved back into 26; id 29 retired)",
+     "sacrum_present": true
+    },
+    "spineps": {
+     "family": "spineps_postfix_veridah_named",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd)",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": true
+    },
+    "ts": {
+     "family": "totalsegmentator_total_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh)"
+  },
+  {
+   "person_key": "ctsp:0302",
+   "corpus": "ctsp",
+   "case": "0302",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "L6",
+    "registry_subtype": "L6",
+    "registry_tier": "read",
+    "castellvi": "Ib",
+    "read_structure": "",
+    "read_subtype": "",
+    "expert_mask_has_L6": ""
+   },
+   "why": "read L6 (LS-L6 pool, positives_table B; two-reader Castellvi + release id 25)",
+   "ct": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct/0302_ct.nii.gz",
+   "ct_bytes": 282367737,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels/0302_label.nii.gz",
+   "release_or_expert_mask_bytes": 1786577,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0302_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 1914409,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0302_ctd.json",
+   "spineps_relabel_json": "",
+   "ts_dir": "/wsu/home/go/go24/go2432/bench/totalsegmentator/native/COLONOG_215.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 3910224,
+   "ts_class_map": "/wsu/home/go/go24/go2432/bench/totalsegmentator/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "ctsp_release_v11",
+     "loader": "ostk.labels.labels_for(volume) (never a fixed map)",
+     "sacrum_source": "release id 26 (S1 dissolved back into 26; id 29 retired)",
+     "sacrum_present": true
+    },
+    "spineps": {
+     "family": "spineps_postfix_veridah_named",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd)",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": true
+    },
+    "ts": {
+     "family": "totalsegmentator_total_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh)"
+  },
+  {
+   "person_key": "ctsp:0366",
+   "corpus": "ctsp",
+   "case": "0366",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "L6",
+    "registry_subtype": "L6",
+    "registry_tier": "read",
+    "castellvi": "IIb",
+    "read_structure": "",
+    "read_subtype": "",
+    "expert_mask_has_L6": ""
+   },
+   "why": "read L6 (LS-L6 pool, positives_table B; two-reader Castellvi + release id 25)",
+   "ct": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct/0366_ct.nii.gz",
+   "ct_bytes": 269159239,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels/0366_label.nii.gz",
+   "release_or_expert_mask_bytes": 1644235,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0366_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 1805164,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0366_ctd.json",
+   "spineps_relabel_json": "",
+   "ts_dir": "/wsu/home/go/go24/go2432/bench/totalsegmentator/native/COLONOG_261.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 3511883,
+   "ts_class_map": "/wsu/home/go/go24/go2432/bench/totalsegmentator/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "ctsp_release_v11",
+     "loader": "ostk.labels.labels_for(volume) (never a fixed map)",
+     "sacrum_source": "release id 26 (S1 dissolved back into 26; id 29 retired)",
+     "sacrum_present": true
+    },
+    "spineps": {
+     "family": "spineps_postfix_veridah_named",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd)",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": true
+    },
+    "ts": {
+     "family": "totalsegmentator_total_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh)"
+  },
+  {
+   "person_key": "ctsp:0029",
+   "corpus": "ctsp",
+   "case": "0029",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "ordinary",
+    "registry_subtype": "",
+    "registry_tier": "",
+    "castellvi": "",
+    "read_structure": "",
+    "read_subtype": "",
+    "expert_mask_has_L6": ""
+   },
+   "why": "ordinary (release labels five lumbar; readers A/B/C unanimous ordinary; G3 train)",
+   "ct": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct/0029_ct.nii.gz",
+   "ct_bytes": 355833906,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels/0029_label.nii.gz",
+   "release_or_expert_mask_bytes": 1751788,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0029_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 1860395,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0029_ctd.json",
+   "spineps_relabel_json": "",
+   "ts_dir": "/wsu/home/go/go24/go2432/bench/totalsegmentator/native/COLONOG_20.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 3881495,
+   "ts_class_map": "/wsu/home/go/go24/go2432/bench/totalsegmentator/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "ctsp_release_v11",
+     "loader": "ostk.labels.labels_for(volume) (never a fixed map)",
+     "sacrum_source": "release id 26 (S1 dissolved back into 26; id 29 retired)",
+     "sacrum_present": true
+    },
+    "spineps": {
+     "family": "spineps_postfix_veridah_named",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd)",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": true
+    },
+    "ts": {
+     "family": "totalsegmentator_total_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh)"
+  },
+  {
+   "person_key": "ctsp:0768",
+   "corpus": "ctsp",
+   "case": "0768",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "ordinary",
+    "registry_subtype": "",
+    "registry_tier": "",
+    "castellvi": "",
+    "read_structure": "",
+    "read_subtype": "",
+    "expert_mask_has_L6": ""
+   },
+   "why": "ordinary (release labels five lumbar; readers A/B/C unanimous ordinary; G3 train)",
+   "ct": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct/0768_ct.nii.gz",
+   "ct_bytes": 281077022,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels/0768_label.nii.gz",
+   "release_or_expert_mask_bytes": 1365286,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0768_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 1696061,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0768_ctd.json",
+   "spineps_relabel_json": "",
+   "ts_dir": "/wsu/home/go/go24/go2432/bench/totalsegmentator/native/COLONOG_543.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 2861412,
+   "ts_class_map": "/wsu/home/go/go24/go2432/bench/totalsegmentator/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "ctsp_release_v11",
+     "loader": "ostk.labels.labels_for(volume) (never a fixed map)",
+     "sacrum_source": "release id 26 (S1 dissolved back into 26; id 29 retired)",
+     "sacrum_present": true
+    },
+    "spineps": {
+     "family": "spineps_postfix_veridah_named",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd)",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": true
+    },
+    "ts": {
+     "family": "totalsegmentator_total_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh)"
+  },
+  {
+   "person_key": "ctsp:0890",
+   "corpus": "ctsp",
+   "case": "0890",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "ordinary",
+    "registry_subtype": "",
+    "registry_tier": "",
+    "castellvi": "",
+    "read_structure": "",
+    "read_subtype": "",
+    "expert_mask_has_L6": ""
+   },
+   "why": "ordinary (release labels five lumbar; readers A/B/C unanimous ordinary; G3 train)",
+   "ct": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct/0890_ct.nii.gz",
+   "ct_bytes": 187840493,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels/0890_label.nii.gz",
+   "release_or_expert_mask_bytes": 1148824,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0890_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 1376831,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0890_ctd.json",
+   "spineps_relabel_json": "",
+   "ts_dir": "/wsu/home/go/go24/go2432/bench/totalsegmentator/native/COLONOG_627.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 2499935,
+   "ts_class_map": "/wsu/home/go/go24/go2432/bench/totalsegmentator/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "ctsp_release_v11",
+     "loader": "ostk.labels.labels_for(volume) (never a fixed map)",
+     "sacrum_source": "release id 26 (S1 dissolved back into 26; id 29 retired)",
+     "sacrum_present": true
+    },
+    "spineps": {
+     "family": "spineps_postfix_veridah_named",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd)",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": true
+    },
+    "ts": {
+     "family": "totalsegmentator_total_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh)"
+  },
+  {
+   "person_key": "ctsp:0925",
+   "corpus": "ctsp",
+   "case": "0925",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "ordinary",
+    "registry_subtype": "",
+    "registry_tier": "",
+    "castellvi": "",
+    "read_structure": "",
+    "read_subtype": "",
+    "expert_mask_has_L6": ""
+   },
+   "why": "ordinary (release labels five lumbar; readers A/B/C unanimous ordinary; G3 train)",
+   "ct": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct/0925_ct.nii.gz",
+   "ct_bytes": 227685072,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels/0925_label.nii.gz",
+   "release_or_expert_mask_bytes": 1247539,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0925_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 1474598,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_0925_ctd.json",
+   "spineps_relabel_json": "",
+   "ts_dir": "/wsu/home/go/go24/go2432/bench/totalsegmentator/native/COLONOG_649.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 2576941,
+   "ts_class_map": "/wsu/home/go/go24/go2432/bench/totalsegmentator/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "ctsp_release_v11",
+     "loader": "ostk.labels.labels_for(volume) (never a fixed map)",
+     "sacrum_source": "release id 26 (S1 dissolved back into 26; id 29 retired)",
+     "sacrum_present": true
+    },
+    "spineps": {
+     "family": "spineps_postfix_veridah_named",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd)",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": true
+    },
+    "ts": {
+     "family": "totalsegmentator_total_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh)"
+  },
+  {
+   "person_key": "ctsp:1138",
+   "corpus": "ctsp",
+   "case": "1138",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "ordinary",
+    "registry_subtype": "",
+    "registry_tier": "",
+    "castellvi": "",
+    "read_structure": "",
+    "read_subtype": "",
+    "expert_mask_has_L6": ""
+   },
+   "why": "ordinary (release labels five lumbar; readers A/B/C unanimous ordinary; G3 train)",
+   "ct": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/ct/1138_ct.nii.gz",
+   "ct_bytes": 189806419,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K/labels/1138_label.nii.gz",
+   "release_or_expert_mask_bytes": 1307901,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_1138_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 1498996,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctsp/CTSP_1138_ctd.json",
+   "spineps_relabel_json": "",
+   "ts_dir": "/wsu/home/go/go24/go2432/bench/totalsegmentator/native/COLONOG_CTC-2741063004.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 2935870,
+   "ts_class_map": "/wsu/home/go/go24/go2432/bench/totalsegmentator/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "ctsp_release_v11",
+     "loader": "ostk.labels.labels_for(volume) (never a fixed map)",
+     "sacrum_source": "release id 26 (S1 dissolved back into 26; id 29 retired)",
+     "sacrum_present": true
+    },
+    "spineps": {
+     "family": "spineps_postfix_veridah_named",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd)",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": true
+    },
+    "ts": {
+     "family": "totalsegmentator_total_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh)"
+  },
+  {
+   "person_key": "verse:verse085",
+   "corpus": "verse",
+   "case": "verse085",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "L6",
+    "registry_subtype": "L6",
+    "registry_tier": "read",
+    "castellvi": "IIIa",
+    "read_structure": "7/12/6/5",
+    "read_subtype": "L6",
+    "expert_mask_has_L6": "False"
+   },
+   "why": "read L6 (Loffler read), HELD by the id guard: expert mask carries no id 25 (mask names stop at 24); 25 presacral by the read structure",
+   "ct": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse085/scan-verse085_ct.nii.gz",
+   "ct_bytes": 30406576,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse085/scan-verse085_msk.nii.gz",
+   "release_or_expert_mask_bytes": 434789,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse085_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 320568,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse085_ctd.json",
+   "spineps_relabel_json": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse085_relabel.json",
+   "ts_dir": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/ts/verse085.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 485889,
+   "ts_class_map": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "versefusion_expert_unified",
+     "loader": "raw VerSe ids (C1..L5 = 1..24, L6 25, T13 28); NO sacrum id",
+     "sacrum_source": "none: sacrum features NaN + mask bit, never zero",
+     "sacrum_present": false
+    },
+    "spineps": {
+     "family": "spineps_ctd_relabel_bench_ts_native",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd); relabel.json records raw->name map",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": false,
+     "note": "corrected 2026-09-25 from the J0 read-back (40438613): the ctd_relabel mask is a raw pre-fix SPINEPS tree renamed by ctd binding; relabel.json point_binding S = empty, so id 26 is absent (ctd carries a sacrum centroid the tree has no instance for); sacrum_source none on all 10 VerSe spineps pairs"
+    },
+    "ts": {
+     "family": "totalsegmentator_total_2.18.0_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh); VerSe ct/msk are symlinks in VerSeFusion/data/unified, resolved with readlink -f + stat -L (sizes are the targets')",
+   "ct_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/03_test/verse085/verse085_CT-iso.nii.gz",
+   "release_or_expert_mask_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/03_test/verse085/verse085_CT-iso_seg.nii.gz"
+  },
+  {
+   "person_key": "verse:verse502",
+   "corpus": "verse",
+   "case": "verse502",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "L6",
+    "registry_subtype": "L6",
+    "registry_tier": "read",
+    "castellvi": "IIIb",
+    "read_structure": "7/12/6/5",
+    "read_subtype": "L6",
+    "expert_mask_has_L6": "False"
+   },
+   "why": "read L6 (Loffler read), HELD by the id guard: expert mask carries no id 25 (mask names stop at 24); 25 presacral by the read structure",
+   "ct": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse502/scan-verse502_ct.nii.gz",
+   "ct_bytes": 287514162,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse502/scan-verse502_msk.nii.gz",
+   "release_or_expert_mask_bytes": 10601774,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse502_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 584681,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse502_ctd.json",
+   "spineps_relabel_json": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse502_relabel.json",
+   "ts_dir": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/ts/verse502.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 4028825,
+   "ts_class_map": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "versefusion_expert_unified",
+     "loader": "raw VerSe ids (C1..L5 = 1..24, L6 25, T13 28); NO sacrum id",
+     "sacrum_source": "none: sacrum features NaN + mask bit, never zero",
+     "sacrum_present": false
+    },
+    "spineps": {
+     "family": "spineps_ctd_relabel_bench_ts_native",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd); relabel.json records raw->name map",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": false,
+     "note": "corrected 2026-09-25 from the J0 read-back (40438613): the ctd_relabel mask is a raw pre-fix SPINEPS tree renamed by ctd binding; relabel.json point_binding S = empty, so id 26 is absent (ctd carries a sacrum centroid the tree has no instance for); sacrum_source none on all 10 VerSe spineps pairs"
+    },
+    "ts": {
+     "family": "totalsegmentator_total_2.18.0_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh); VerSe ct/msk are symlinks in VerSeFusion/data/unified, resolved with readlink -f + stat -L (sizes are the targets')",
+   "ct_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/03_test/verse502/verse502_CT-iso.nii.gz",
+   "release_or_expert_mask_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/03_test/verse502/verse502_CT-iso_seg.nii.gz"
+  },
+  {
+   "person_key": "verse:verse514",
+   "corpus": "verse",
+   "case": "verse514",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "L6",
+    "registry_subtype": "L6",
+    "registry_tier": "read",
+    "castellvi": "IIIb",
+    "read_structure": "7/12/6/5",
+    "read_subtype": "L6",
+    "expert_mask_has_L6": "False"
+   },
+   "why": "read L6 (Loffler read), HELD by the id guard: expert mask carries no id 25 (mask names stop at 24); 25 presacral by the read structure",
+   "ct": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse514/scan-verse514_ct.nii.gz",
+   "ct_bytes": 208874001,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse514/scan-verse514_msk.nii.gz",
+   "release_or_expert_mask_bytes": 6692175,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse514_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 518377,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse514_ctd.json",
+   "spineps_relabel_json": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse514_relabel.json",
+   "ts_dir": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/ts/verse514.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 3534831,
+   "ts_class_map": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "versefusion_expert_unified",
+     "loader": "raw VerSe ids (C1..L5 = 1..24, L6 25, T13 28); NO sacrum id",
+     "sacrum_source": "none: sacrum features NaN + mask bit, never zero",
+     "sacrum_present": false
+    },
+    "spineps": {
+     "family": "spineps_ctd_relabel_bench_ts_native",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd); relabel.json records raw->name map",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": false,
+     "note": "corrected 2026-09-25 from the J0 read-back (40438613): the ctd_relabel mask is a raw pre-fix SPINEPS tree renamed by ctd binding; relabel.json point_binding S = empty, so id 26 is absent (ctd carries a sacrum centroid the tree has no instance for); sacrum_source none on all 10 VerSe spineps pairs"
+    },
+    "ts": {
+     "family": "totalsegmentator_total_2.18.0_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh); VerSe ct/msk are symlinks in VerSeFusion/data/unified, resolved with readlink -f + stat -L (sizes are the targets')",
+   "ct_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/01_training/verse514/verse514.nii.gz",
+   "release_or_expert_mask_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/01_training/verse514/verse514_seg.nii.gz"
+  },
+  {
+   "person_key": "verse:verse518",
+   "corpus": "verse",
+   "case": "verse518",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "L6",
+    "registry_subtype": "L6",
+    "registry_tier": "read",
+    "castellvi": "IV",
+    "read_structure": "7/12/6/5",
+    "read_subtype": "L6",
+    "expert_mask_has_L6": "False"
+   },
+   "why": "read L6 (Loffler read), HELD by the id guard: expert mask carries no id 25 (mask names stop at 24); 25 presacral by the read structure",
+   "ct": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse518/scan-verse518_ct.nii.gz",
+   "ct_bytes": 214167595,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse518/scan-verse518_msk.nii.gz",
+   "release_or_expert_mask_bytes": 7233163,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse518_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 700228,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse518_ctd.json",
+   "spineps_relabel_json": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse518_relabel.json",
+   "ts_dir": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/ts/verse518.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 3944403,
+   "ts_class_map": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "versefusion_expert_unified",
+     "loader": "raw VerSe ids (C1..L5 = 1..24, L6 25, T13 28); NO sacrum id",
+     "sacrum_source": "none: sacrum features NaN + mask bit, never zero",
+     "sacrum_present": false
+    },
+    "spineps": {
+     "family": "spineps_ctd_relabel_bench_ts_native",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd); relabel.json records raw->name map",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": false,
+     "note": "corrected 2026-09-25 from the J0 read-back (40438613): the ctd_relabel mask is a raw pre-fix SPINEPS tree renamed by ctd binding; relabel.json point_binding S = empty, so id 26 is absent (ctd carries a sacrum centroid the tree has no instance for); sacrum_source none on all 10 VerSe spineps pairs"
+    },
+    "ts": {
+     "family": "totalsegmentator_total_2.18.0_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh); VerSe ct/msk are symlinks in VerSeFusion/data/unified, resolved with readlink -f + stat -L (sizes are the targets')",
+   "ct_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/01_training/verse518/verse518.nii.gz",
+   "release_or_expert_mask_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/01_training/verse518/verse518_seg.nii.gz"
+  },
+  {
+   "person_key": "verse:verse534",
+   "corpus": "verse",
+   "case": "verse534",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "L6",
+    "registry_subtype": "L6",
+    "registry_tier": "read",
+    "castellvi": "IIIb",
+    "read_structure": "7/12/6/5",
+    "read_subtype": "L6",
+    "expert_mask_has_L6": "False"
+   },
+   "why": "read L6 (Loffler read), HELD by the id guard: expert mask carries no id 25 (mask names stop at 24); 25 presacral by the read structure",
+   "ct": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse534/scan-verse534_ct.nii.gz",
+   "ct_bytes": 139837045,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse534/scan-verse534_msk.nii.gz",
+   "release_or_expert_mask_bytes": 4868400,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse534_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 440732,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse534_ctd.json",
+   "spineps_relabel_json": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse534_relabel.json",
+   "ts_dir": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/ts/verse534.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 2594811,
+   "ts_class_map": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "versefusion_expert_unified",
+     "loader": "raw VerSe ids (C1..L5 = 1..24, L6 25, T13 28); NO sacrum id",
+     "sacrum_source": "none: sacrum features NaN + mask bit, never zero",
+     "sacrum_present": false
+    },
+    "spineps": {
+     "family": "spineps_ctd_relabel_bench_ts_native",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd); relabel.json records raw->name map",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": false,
+     "note": "corrected 2026-09-25 from the J0 read-back (40438613): the ctd_relabel mask is a raw pre-fix SPINEPS tree renamed by ctd binding; relabel.json point_binding S = empty, so id 26 is absent (ctd carries a sacrum centroid the tree has no instance for); sacrum_source none on all 10 VerSe spineps pairs"
+    },
+    "ts": {
+     "family": "totalsegmentator_total_2.18.0_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh); VerSe ct/msk are symlinks in VerSeFusion/data/unified, resolved with readlink -f + stat -L (sizes are the targets')",
+   "ct_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/01_training/verse534/verse534.nii.gz",
+   "release_or_expert_mask_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/01_training/verse534/verse534_seg.nii.gz"
+  },
+  {
+   "person_key": "verse:verse096",
+   "corpus": "verse",
+   "case": "verse096",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "ordinary",
+    "registry_subtype": "none",
+    "registry_tier": "read",
+    "castellvi": "",
+    "read_structure": "7/12/5/5",
+    "read_subtype": "normal",
+    "expert_mask_has_L6": "False"
+   },
+   "why": "ordinary (Loffler read normal; LS junction in field; readers A/B/C unanimous ordinary; G3 train)",
+   "ct": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse096/scan-verse096_ct.nii.gz",
+   "ct_bytes": 321323536,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse096/scan-verse096_msk.nii.gz",
+   "release_or_expert_mask_bytes": 3460818,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse096_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 634566,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse096_ctd.json",
+   "spineps_relabel_json": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse096_relabel.json",
+   "ts_dir": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/ts/verse096.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 2192963,
+   "ts_class_map": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "versefusion_expert_unified",
+     "loader": "raw VerSe ids (C1..L5 = 1..24, L6 25, T13 28); NO sacrum id",
+     "sacrum_source": "none: sacrum features NaN + mask bit, never zero",
+     "sacrum_present": false
+    },
+    "spineps": {
+     "family": "spineps_ctd_relabel_bench_ts_native",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd); relabel.json records raw->name map",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": false,
+     "note": "corrected 2026-09-25 from the J0 read-back (40438613): the ctd_relabel mask is a raw pre-fix SPINEPS tree renamed by ctd binding; relabel.json point_binding S = empty, so id 26 is absent (ctd carries a sacrum centroid the tree has no instance for); sacrum_source none on all 10 VerSe spineps pairs"
+    },
+    "ts": {
+     "family": "totalsegmentator_total_2.18.0_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh); VerSe ct/msk are symlinks in VerSeFusion/data/unified, resolved with readlink -f + stat -L (sizes are the targets')",
+   "ct_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/01_training/verse096/verse096.nii.gz",
+   "release_or_expert_mask_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/01_training/verse096/verse096_seg.nii.gz"
+  },
+  {
+   "person_key": "verse:verse755",
+   "corpus": "verse",
+   "case": "verse755",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "ordinary",
+    "registry_subtype": "none",
+    "registry_tier": "read",
+    "castellvi": "",
+    "read_structure": "7/12/5/5",
+    "read_subtype": "normal",
+    "expert_mask_has_L6": "False"
+   },
+   "why": "ordinary (Loffler read normal; LS junction in field; readers A/B/C unanimous ordinary; G3 train)",
+   "ct": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse755/scan-verse755_ct.nii.gz",
+   "ct_bytes": 19828717,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse755/scan-verse755_msk.nii.gz",
+   "release_or_expert_mask_bytes": 1169809,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse755_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 826000,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse755_ctd.json",
+   "spineps_relabel_json": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse755_relabel.json",
+   "ts_dir": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/ts/verse755.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 790228,
+   "ts_class_map": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "versefusion_expert_unified",
+     "loader": "raw VerSe ids (C1..L5 = 1..24, L6 25, T13 28); NO sacrum id",
+     "sacrum_source": "none: sacrum features NaN + mask bit, never zero",
+     "sacrum_present": false
+    },
+    "spineps": {
+     "family": "spineps_ctd_relabel_bench_ts_native",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd); relabel.json records raw->name map",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": false,
+     "note": "corrected 2026-09-25 from the J0 read-back (40438613): the ctd_relabel mask is a raw pre-fix SPINEPS tree renamed by ctd binding; relabel.json point_binding S = empty, so id 26 is absent (ctd carries a sacrum centroid the tree has no instance for); sacrum_source none on all 10 VerSe spineps pairs"
+    },
+    "ts": {
+     "family": "totalsegmentator_total_2.18.0_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh); VerSe ct/msk are symlinks in VerSeFusion/data/unified, resolved with readlink -f + stat -L (sizes are the targets')",
+   "ct_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/02_validation/verse755/verse755_CT-sag.nii.gz",
+   "release_or_expert_mask_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/02_validation/verse755/verse755_CT-sag_seg.nii.gz"
+  },
+  {
+   "person_key": "verse:verse758",
+   "corpus": "verse",
+   "case": "verse758",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "ordinary",
+    "registry_subtype": "none",
+    "registry_tier": "read",
+    "castellvi": "",
+    "read_structure": "7/12/5/5",
+    "read_subtype": "normal",
+    "expert_mask_has_L6": "False"
+   },
+   "why": "ordinary (Loffler read normal; LS junction in field; readers A/B/C unanimous ordinary; G3 train)",
+   "ct": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse758/scan-verse758_ct.nii.gz",
+   "ct_bytes": 255642000,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse758/scan-verse758_msk.nii.gz",
+   "release_or_expert_mask_bytes": 7308639,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse758_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 705075,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse758_ctd.json",
+   "spineps_relabel_json": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse758_relabel.json",
+   "ts_dir": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/ts/verse758.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 2042898,
+   "ts_class_map": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "versefusion_expert_unified",
+     "loader": "raw VerSe ids (C1..L5 = 1..24, L6 25, T13 28); NO sacrum id",
+     "sacrum_source": "none: sacrum features NaN + mask bit, never zero",
+     "sacrum_present": false
+    },
+    "spineps": {
+     "family": "spineps_ctd_relabel_bench_ts_native",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd); relabel.json records raw->name map",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": false,
+     "note": "corrected 2026-09-25 from the J0 read-back (40438613): the ctd_relabel mask is a raw pre-fix SPINEPS tree renamed by ctd binding; relabel.json point_binding S = empty, so id 26 is absent (ctd carries a sacrum centroid the tree has no instance for); sacrum_source none on all 10 VerSe spineps pairs"
+    },
+    "ts": {
+     "family": "totalsegmentator_total_2.18.0_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh); VerSe ct/msk are symlinks in VerSeFusion/data/unified, resolved with readlink -f + stat -L (sizes are the targets')",
+   "ct_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/03_test/verse758/verse758_CT-sag.nii.gz",
+   "release_or_expert_mask_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/03_test/verse758/verse758_CT-sag_seg.nii.gz"
+  },
+  {
+   "person_key": "verse:verse811",
+   "corpus": "verse",
+   "case": "verse811",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "ordinary",
+    "registry_subtype": "none",
+    "registry_tier": "read",
+    "castellvi": "",
+    "read_structure": "7/12/5/5",
+    "read_subtype": "normal",
+    "expert_mask_has_L6": "False"
+   },
+   "why": "ordinary (Loffler read normal; LS junction in field; readers A/B/C unanimous ordinary; G3 train)",
+   "ct": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse811/scan-verse811_ct.nii.gz",
+   "ct_bytes": 101095622,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse811/scan-verse811_msk.nii.gz",
+   "release_or_expert_mask_bytes": 3299950,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse811_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 498665,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse811_ctd.json",
+   "spineps_relabel_json": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse811_relabel.json",
+   "ts_dir": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/ts/verse811.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 1893955,
+   "ts_class_map": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "versefusion_expert_unified",
+     "loader": "raw VerSe ids (C1..L5 = 1..24, L6 25, T13 28); NO sacrum id",
+     "sacrum_source": "none: sacrum features NaN + mask bit, never zero",
+     "sacrum_present": false
+    },
+    "spineps": {
+     "family": "spineps_ctd_relabel_bench_ts_native",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd); relabel.json records raw->name map",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": false,
+     "note": "corrected 2026-09-25 from the J0 read-back (40438613): the ctd_relabel mask is a raw pre-fix SPINEPS tree renamed by ctd binding; relabel.json point_binding S = empty, so id 26 is absent (ctd carries a sacrum centroid the tree has no instance for); sacrum_source none on all 10 VerSe spineps pairs"
+    },
+    "ts": {
+     "family": "totalsegmentator_total_2.18.0_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh); VerSe ct/msk are symlinks in VerSeFusion/data/unified, resolved with readlink -f + stat -L (sizes are the targets')",
+   "ct_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/01_training/verse811/verse811_CT-ax.nii.gz",
+   "release_or_expert_mask_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/01_training/verse811/verse811_CT-ax_seg.nii.gz"
+  },
+  {
+   "person_key": "verse:verse825",
+   "corpus": "verse",
+   "case": "verse825",
+   "g3_side": "train",
+   "truth": {
+    "human_truth_subtype": "ordinary",
+    "registry_subtype": "none",
+    "registry_tier": "read",
+    "castellvi": "",
+    "read_structure": "7/12/5/5",
+    "read_subtype": "normal",
+    "expert_mask_has_L6": "False"
+   },
+   "why": "ordinary (Loffler read normal; LS junction in field; readers A/B/C unanimous ordinary; G3 train)",
+   "ct": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse825/scan-verse825_ct.nii.gz",
+   "ct_bytes": 169473473,
+   "release_or_expert_mask": "/wsu/home/go/go24/go2432/VerSeFusion/data/unified/scan-verse825/scan-verse825_msk.nii.gz",
+   "release_or_expert_mask_bytes": 5804676,
+   "spineps_mask": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse825_seg-vert_msk.nii.gz",
+   "spineps_mask_bytes": 478898,
+   "spineps_ctd": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse825_ctd.json",
+   "spineps_relabel_json": "/rs/rs_grp_oschome/go2432/data/spineps/ctd_relabel/bench_ts_native/VERSE_verse825_relabel.json",
+   "ts_dir": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/ts/verse825.nii.gz",
+   "ts_kind": "single multilabel NIfTI (ts_kind=ml in auto_reference/lists)",
+   "ts_bytes": 3457064,
+   "ts_class_map": "/rs/rs_grp_oschome/go2432/data/anomaly_harvest/verse/class_map.json",
+   "mask_families": {
+    "release_or_expert": {
+     "family": "versefusion_expert_unified",
+     "loader": "raw VerSe ids (C1..L5 = 1..24, L6 25, T13 28); NO sacrum id",
+     "sacrum_source": "none: sacrum features NaN + mask bit, never zero",
+     "sacrum_present": false
+    },
+    "spineps": {
+     "family": "spineps_ctd_relabel_bench_ts_native",
+     "loader": "tools.spineps_ids.assert_verse_monotonic(mask, ctd); relabel.json records raw->name map",
+     "sacrum_source": "SPINEPS id 26",
+     "sacrum_present": false,
+     "note": "corrected 2026-09-25 from the J0 read-back (40438613): the ctd_relabel mask is a raw pre-fix SPINEPS tree renamed by ctd binding; relabel.json point_binding S = empty, so id 26 is absent (ctd carries a sacrum centroid the tree has no instance for); sacrum_source none on all 10 VerSe spineps pairs"
+    },
+    "ts": {
+     "family": "totalsegmentator_total_2.18.0_multilabel",
+     "loader": "class_map.json names; sacrum = sacrum UNION vertebrae_S1 (disjoint classes)",
+     "sacrum_source": "TS sacrum+vertebrae_S1",
+     "sacrum_present": true
+    }
+   },
+   "verified_ls": "login node: bash -s over ssh, [ -e ] + stat -c %s per path, 2026-09-24 (verify.sh / verify2.sh); VerSe ct/msk are symlinks in VerSeFusion/data/unified, resolved with readlink -f + stat -L (sizes are the targets')",
+   "ct_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/01_training/verse825/verse825_CT-iso.nii.gz",
+   "release_or_expert_mask_resolves_to": "/wsu/home/go/go24/go2432/VerSeFusion/data/raw/verse20/01_training/verse825/verse825_CT-iso_seg.nii.gz"
+  }
+ ],
+ "symlink_note": "VerSe scan-<cid>_ct/_msk under VerSeFusion/data/unified are symlinks into VerSeFusion/data/raw/verse20/{01_training,02_validation,03_test}/<cid>/ (CT-iso / CT-sag / CT-ax series); the *_resolves_to fields carry the targets, checked 2026-09-24.",
+ "_corrections": [
+  "2026-09-25: mask_families.spineps.sacrum_present set to false on the 10 VerSe cases (see each note)"
+ ]
+}

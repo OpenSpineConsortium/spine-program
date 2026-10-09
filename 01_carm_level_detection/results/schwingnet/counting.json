@@ -1,0 +1,6954 @@
+{
+ "about": "counting accuracy from the detected sacrum on real C-arm frames, from the detectors' own boxes; no level classifier anywhere",
+ "definition": "ordinal from the detected sacrum = rank of the detected body along the spine axis moving away from the sacrum; truth ordinal likewise from the truth sacrum among truth bodies (name-free); one-to-one greedy matching in descending confidence at IoU >= 0.5 (tools/realxray_eval.sweep_matches, the matching of the contribution matrix and a1.json); a matched body is counted correctly when the two ordinals agree; counting is defined on a frame when truth has a sacrum and a sacrum was detected",
+ "interval": "2,000-resample bootstrap clustered by case (C-ArmLSpine case, DeepFluoro specimen, COBRA patient), percentile and BCa, seed 0",
+ "tool": "tools/count_from_sacrum_eval.py",
+ "report_tool": "SchwingNet/tools/counting_report.py",
+ "slurm": "SchwingNet/slurm/counting.sh",
+ "pooled_P": "dc_P_pooled not scored: ~/spine-detector/runs/devcorpus/dc_P_pooled/scores.json was not on disk when this ran (Wed Sep 23 01:01:44 EDT 2026); job 40415009 state: RUNNING",
+ "example_frame": "case100_AP",
+ "example_png": "SchwingNet/results/counting_example_case100_AP.png",
+ "example_error_frame": "case139_AP",
+ "example_error_png": "SchwingNet/results/counting_example_case139_AP.png",
+ "sweep_pointers": {
+  "protocol": "docs/SWEEP_PROTOCOL.md",
+  "claims_file": "docs/RSNAI_CLAIMS.json",
+  "claims": [
+   {
+    "id": "lstv_runs",
+    "text": "runs per arm (18 CTSpinoPelvic1K spines with L6, 3 seeds)",
+    "expect": 54
+   },
+   {
+    "id": "lstv_clean_exact_chain",
+    "text": "clean frames: chains with exactly one node per body",
+    "expect": 45
+   },
+   {
+    "id": "lstv_clean_l6",
+    "text": "clean frames: the instrument's exposure placed on the chain named L6",
+    "expect": 36
+   },
+   {
+    "id": "lstv_film_exact_chain",
+    "text": "film noise model: chains with one node per body",
+    "expect": 45
+   },
+   {
+    "id": "lstv_film_l6",
+    "text": "film noise model: the instrument's exposure named L6",
+    "expect": 35
+   }
+  ]
+ },
+ "outside_check": {
+  "file": "SchwingNet/results/counting_outside_check.json",
+  "all_pass": true,
+  "checks": [
+   {
+    "conf": 0.25,
+    "cell_file": "SchwingNet/results/counting/lodo_carm__carm_test__outline__0.25.json",
+    "matches_all_frames": 260,
+    "truth_all_frames": 287,
+    "matches_defined_frames": 235,
+    "cell_matched_bodies": 235,
+    "matches_undefined_frames": 25,
+    "a1_operating_point": "conf_0.25_as_quoted",
+    "a1_k": 260,
+    "a1_n": 287,
+    "matching_agrees_with_a1": true,
+    "ordering_verdicts_agree": 259,
+    "ordering_verdicts_disagree": 0,
+    "pass": true,
+    "ordering_differences": 0
+   },
+   {
+    "conf": 0.74,
+    "cell_file": "SchwingNet/results/counting/lodo_carm__carm_test__outline__0.74.json",
+    "matches_all_frames": 231,
+    "truth_all_frames": 287,
+    "matches_defined_frames": 197,
+    "cell_matched_bodies": 197,
+    "matches_undefined_frames": 34,
+    "a1_operating_point": "cross_device_0.74",
+    "a1_k": 231,
+    "a1_n": 287,
+    "matching_agrees_with_a1": true,
+    "ordering_verdicts_agree": 232,
+    "ordering_verdicts_disagree": 0,
+    "pass": true,
+    "ordering_differences": 0
+   }
+  ]
+ },
+ "cells": [
+  {
+   "arm": "lodo_carm",
+   "arm_label": "real D+E frames only (C-ArmLSpine never seen)",
+   "set": "carm_test",
+   "target": "C-ArmLSpine test (28 cases, AP + lateral)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.74,
+   "convention": "outline",
+   "file": "SchwingNet/results/counting/lodo_carm__carm_test__outline__0.74.json",
+   "sources": [
+    "/rs/rs_grp_oschome/go2432/data/or_ready/lodo/sweeps/lodo_carm__carm_test.json"
+   ],
+   "truth_check": {
+    "frames": 56,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 56,
+   "cases": 28,
+   "frames_no_truth_sacrum": 0,
+   "frames_with_truth_sacrum": 56,
+   "frames_defined": 46,
+   "truth_bodies_sacrum_frames": 287,
+   "truth_bodies_defined": 232,
+   "matched_bodies": 197,
+   "defined_share": {
+    "point": 0.8214285714285714,
+    "n_clusters": 28,
+    "num": 46,
+    "den": 56,
+    "percentile": [
+     0.6964285714285714,
+     0.9285714285714286
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6964285714285714,
+     0.9107142857142857
+    ],
+    "bca_note": "z0=-0.011 a=-0.0473 (ties split; p0=0.496)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.9347826086956522,
+    "n_clusters": 28,
+    "num": 43,
+    "den": 46,
+    "percentile": [
+     0.8571428571428571,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8237695243391657,
+     0.98
+    ],
+    "bca_note": "z0=-0.088 a=-0.0778 (ties split; p0=0.465)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.9543147208121827,
+    "n_clusters": 28,
+    "num": 188,
+    "den": 197,
+    "percentile": [
+     0.8944041867954912,
+     0.995349375538329
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8524838988174211,
+     0.989247311827957
+    ],
+    "bca_note": "z0=-0.181 a=-0.1129 (ties split; p0=0.428)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 1.0,
+    "n_clusters": 28,
+    "num": 197,
+    "den": 197,
+    "percentile": [
+     1.0,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.8913043478260869,
+    "n_clusters": 28,
+    "num": 41,
+    "den": 46,
+    "percentile": [
+     0.7755102040816326,
+     0.98
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.7412183833460882,
+     0.9752050845471403
+    ],
+    "bca_note": "z0=-0.124 a=-0.0802 (ties split; p0=0.451)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.43478260869565216,
+    "n_clusters": 28,
+    "num": 20,
+    "den": 46,
+    "percentile": [
+     0.26,
+     0.6088191699604737
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.2682926829268293,
+     0.620328760929821
+    ],
+    "bca_note": "z0=0.034 a=0.0116 (ties split; p0=0.514)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.8103448275862069,
+    "n_clusters": 28,
+    "num": 188,
+    "den": 232,
+    "percentile": [
+     0.7383121940364931,
+     0.8755191174113582
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.7354085603112841,
+     0.8713571289517299
+    ],
+    "bca_note": "z0=-0.028 a=-0.0205 (ties split; p0=0.489)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.03879310344827586,
+    "n_clusters": 28,
+    "num": 9,
+    "den": 232,
+    "percentile": [
+     0.0040318532193289285,
+     0.08964544995729469
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.009433962264150943,
+     0.1256768694047421
+    ],
+    "bca_note": "z0=0.194 a=0.1162 (ties split; p0=0.577)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.0,
+    "n_clusters": 28,
+    "num": 0,
+    "den": 232,
+    "percentile": [
+     0.0,
+     0.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.15086206896551724,
+    "n_clusters": 28,
+    "num": 35,
+    "den": 232,
+    "percentile": [
+     0.09958412346745273,
+     0.20920502092050208
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.10089406783904865,
+     0.2107721637936478
+    ],
+    "bca_note": "z0=0.004 a=0.0101 (ties split; p0=0.502)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.8491379310344828,
+    "n_clusters": 28,
+    "num": 197,
+    "den": 232,
+    "percentile": [
+     0.7907949790794979,
+     0.9004158765325473
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.7892278362063522,
+     0.8991059321609515
+    ],
+    "bca_note": "z0=-0.004 a=-0.0101 (ties split; p0=0.498)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.6550522648083623,
+    "n_clusters": 28,
+    "num": 188,
+    "den": 287,
+    "percentile": [
+     0.5366605960264901,
+     0.7695105617633552
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5252856895331496,
+     0.7641461800268509
+    ],
+    "bca_note": "z0=-0.014 a=-0.0272 (ties split; p0=0.494)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.686411149825784,
+    "n_clusters": 28,
+    "num": 197,
+    "den": 287,
+    "percentile": [
+     0.5650506917130069,
+     0.7992957746478874
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.55654216816422,
+     0.7893648105125307
+    ],
+    "bca_note": "z0=-0.014 a=-0.0328 (ties split; p0=0.494)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 46,
+     "correct": 44,
+     "one_off": 1,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 1,
+     "correct_share": 0.9565217391304348
+    },
+    "2": {
+     "n": 46,
+     "correct": 44,
+     "one_off": 1,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 1,
+     "correct_share": 0.9565217391304348
+    },
+    "3": {
+     "n": 46,
+     "correct": 41,
+     "one_off": 2,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 3,
+     "correct_share": 0.8913043478260869
+    },
+    "4": {
+     "n": 46,
+     "correct": 38,
+     "one_off": 3,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 5,
+     "correct_share": 0.8260869565217391
+    },
+    "5": {
+     "n": 41,
+     "correct": 21,
+     "one_off": 2,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 18,
+     "correct_share": 0.5121951219512195
+    },
+    "6": {
+     "n": 7,
+     "correct": 0,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 7,
+     "correct_share": 0.0
+    }
+   },
+   "by_view": {
+    "AP": {
+     "frames": 24,
+     "matched": 103,
+     "correct": 96,
+     "truth": 121,
+     "missed": 18,
+     "matched_correct": 0.9320388349514563,
+     "truth_correct": 0.7933884297520661
+    },
+    "LAT": {
+     "frames": 22,
+     "matched": 94,
+     "correct": 92,
+     "truth": 111,
+     "missed": 17,
+     "matched_correct": 0.9787234042553191,
+     "truth_correct": 0.8288288288288288
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 258,
+    "agree": 258,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 0,
+   "det_unmatched_in_defined_frames": 2
+  },
+  {
+   "arm": "lodo_carm",
+   "arm_label": "real D+E frames only (C-ArmLSpine never seen)",
+   "set": "carm_test",
+   "target": "C-ArmLSpine test (28 cases, AP + lateral)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "outline",
+   "file": "SchwingNet/results/counting/lodo_carm__carm_test__outline__0.25.json",
+   "sources": [
+    "/rs/rs_grp_oschome/go2432/data/or_ready/lodo/sweeps/lodo_carm__carm_test.json"
+   ],
+   "truth_check": {
+    "frames": 56,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 56,
+   "cases": 28,
+   "frames_no_truth_sacrum": 0,
+   "frames_with_truth_sacrum": 56,
+   "frames_defined": 51,
+   "truth_bodies_sacrum_frames": 287,
+   "truth_bodies_defined": 259,
+   "matched_bodies": 235,
+   "defined_share": {
+    "point": 0.9107142857142857,
+    "n_clusters": 28,
+    "num": 51,
+    "den": 56,
+    "percentile": [
+     0.8392857142857143,
+     0.9642857142857143
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8214285714285714,
+     0.9642857142857143
+    ],
+    "bca_note": "z0=-0.018 a=-0.0529 (ties split; p0=0.493)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.9215686274509803,
+    "n_clusters": 28,
+    "num": 47,
+    "den": 51,
+    "percentile": [
+     0.84,
+     0.9811320754716981
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8210046616226185,
+     0.9803921568627451
+    ],
+    "bca_note": "z0=-0.069 a=-0.0636 (ties split; p0=0.473)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.8468085106382979,
+    "n_clusters": 28,
+    "num": 199,
+    "den": 235,
+    "percentile": [
+     0.7737920168067227,
+     0.9069857232647929
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.7649752370740296,
+     0.903917690878803
+    ],
+    "bca_note": "z0=-0.031 a=-0.0239 (ties split; p0=0.488)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 0.9574468085106383,
+    "n_clusters": 28,
+    "num": 225,
+    "den": 235,
+    "percentile": [
+     0.9216589861751152,
+     0.9872353948791922
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9127279000435502,
+     0.9830784146102047
+    ],
+    "bca_note": "z0=-0.068 a=-0.0512 (ties split; p0=0.473)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.72,
+    "n_clusters": 28,
+    "num": 36,
+    "den": 50,
+    "percentile": [
+     0.6122448979591837,
+     0.8222549019607841
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6122448979591837,
+     0.8235294117647058
+    ],
+    "bca_note": "z0=0.006 a=0.0009 (ties split; p0=0.502)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.47058823529411764,
+    "n_clusters": 28,
+    "num": 24,
+    "den": 51,
+    "percentile": [
+     0.3137254901960784,
+     0.6122448979591837
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.3269230769230769,
+     0.621364705656749
+    ],
+    "bca_note": "z0=0.048 a=0.0061 (ties split; p0=0.519)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.7683397683397684,
+    "n_clusters": 28,
+    "num": 199,
+    "den": 259,
+    "percentile": [
+     0.6831622445210539,
+     0.8380585005679667
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6761380623814343,
+     0.834445000343759
+    ],
+    "bca_note": "z0=-0.013 a=-0.0227 (ties split; p0=0.495)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.10038610038610038,
+    "n_clusters": 28,
+    "num": 26,
+    "den": 259,
+    "percentile": [
+     0.059253792537925384,
+     0.14760147601476015
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.06131242381436382,
+     0.151191889502093
+    ],
+    "bca_note": "z0=0.018 a=0.0259 (ties split; p0=0.507)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.03861003861003861,
+    "n_clusters": 28,
+    "num": 10,
+    "den": 259,
+    "percentile": [
+     0.01162567084078712,
+     0.07063700433705078
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.01556420233463035,
+     0.08149859257667338
+    ],
+    "bca_note": "z0=0.077 a=0.0529 (ties split; p0=0.531)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.09266409266409266,
+    "n_clusters": 28,
+    "num": 24,
+    "den": 259,
+    "percentile": [
+     0.045959661678594665,
+     0.15261749477247832
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.05181662149610546,
+     0.16938471201513366
+    ],
+    "bca_note": "z0=0.041 a=0.0704 (ties split; p0=0.516)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.9073359073359073,
+    "n_clusters": 28,
+    "num": 235,
+    "den": 259,
+    "percentile": [
+     0.8473825052275217,
+     0.9540403383214052
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8306152879848662,
+     0.9481833785038943
+    ],
+    "bca_note": "z0=-0.041 a=-0.0704 (ties split; p0=0.483)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.6933797909407665,
+    "n_clusters": 28,
+    "num": 199,
+    "den": 287,
+    "percentile": [
+     0.5763757183908046,
+     0.7979257012508459
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5677431690445937,
+     0.7901363841813407
+    ],
+    "bca_note": "z0=-0.013 a=-0.0386 (ties split; p0=0.495)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.7839721254355401,
+    "n_clusters": 28,
+    "num": 225,
+    "den": 287,
+    "percentile": [
+     0.6756756756756757,
+     0.8811188811188811
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6621234836494996,
+     0.8725212243556985
+    ],
+    "bca_note": "z0=-0.013 a=-0.0551 (ties split; p0=0.495)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 51,
+     "correct": 46,
+     "one_off": 3,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 2,
+     "correct_share": 0.9019607843137255
+    },
+    "2": {
+     "n": 51,
+     "correct": 46,
+     "one_off": 4,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 1,
+     "correct_share": 0.9019607843137255
+    },
+    "3": {
+     "n": 51,
+     "correct": 44,
+     "one_off": 4,
+     "off_more": 2,
+     "unranked": 0,
+     "missed": 1,
+     "correct_share": 0.8627450980392157
+    },
+    "4": {
+     "n": 51,
+     "correct": 38,
+     "one_off": 7,
+     "off_more": 5,
+     "unranked": 0,
+     "missed": 1,
+     "correct_share": 0.7450980392156863
+    },
+    "5": {
+     "n": 46,
+     "correct": 25,
+     "one_off": 7,
+     "off_more": 3,
+     "unranked": 0,
+     "missed": 11,
+     "correct_share": 0.5434782608695652
+    },
+    "6": {
+     "n": 9,
+     "correct": 0,
+     "one_off": 1,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 8,
+     "correct_share": 0.0
+    }
+   },
+   "by_view": {
+    "AP": {
+     "frames": 27,
+     "matched": 127,
+     "correct": 100,
+     "truth": 137,
+     "missed": 10,
+     "matched_correct": 0.7874015748031497,
+     "truth_correct": 0.7299270072992701
+    },
+    "LAT": {
+     "frames": 24,
+     "matched": 108,
+     "correct": 99,
+     "truth": 122,
+     "missed": 14,
+     "matched_correct": 0.9166666666666666,
+     "truth_correct": 0.8114754098360656
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 258,
+    "agree": 258,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 0,
+   "det_unmatched_in_defined_frames": 33
+  },
+  {
+   "arm": "dc_A_held_surgio_b51_dr",
+   "arm_label": "design A: styled + real D+E (one pose pool for every card), seed 0",
+   "set": "carm_test",
+   "target": "C-ArmLSpine test (28 cases, AP + lateral)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "outline",
+   "file": "SchwingNet/results/counting/dc_A_held_surgio_b51_dr__carm_test__outline__0.25.json",
+   "sources": [
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_surgio_b51_dr/eval_carmlspine_test.json"
+   ],
+   "truth_check": {
+    "frames": 56,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 56,
+   "cases": 28,
+   "frames_no_truth_sacrum": 0,
+   "frames_with_truth_sacrum": 56,
+   "frames_defined": 46,
+   "truth_bodies_sacrum_frames": 287,
+   "truth_bodies_defined": 234,
+   "matched_bodies": 206,
+   "defined_share": {
+    "point": 0.8214285714285714,
+    "n_clusters": 28,
+    "num": 46,
+    "den": 56,
+    "percentile": [
+     0.7321428571428571,
+     0.9107142857142857
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.7321428571428571,
+     0.9107142857142857
+    ],
+    "bca_note": "z0=-0.002 a=-0.0188 (ties split; p0=0.499)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.9782608695652174,
+    "n_clusters": 28,
+    "num": 45,
+    "den": 46,
+    "percentile": [
+     0.926829268292683,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8837209302325582,
+     1.0
+    ],
+    "bca_note": "z0=-0.104 a=-0.1568 (ties split; p0=0.459)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.7864077669902912,
+    "n_clusters": 28,
+    "num": 162,
+    "den": 206,
+    "percentile": [
+     0.6712283705839942,
+     0.8838383838383839
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6530872039416299,
+     0.8738073204666581
+    ],
+    "bca_note": "z0=-0.022 a=-0.0556 (ties split; p0=0.491)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 0.9660194174757282,
+    "n_clusters": 28,
+    "num": 199,
+    "den": 206,
+    "percentile": [
+     0.9306930693069307,
+     0.9946538211244094
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9236682539764386,
+     0.9902439024390244
+    ],
+    "bca_note": "z0=-0.071 a=-0.0675 (ties split; p0=0.471)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.6666666666666666,
+    "n_clusters": 28,
+    "num": 30,
+    "den": 45,
+    "percentile": [
+     0.5293343653250774,
+     0.7959183673469388
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5238095238095238,
+     0.7948023274004099
+    ],
+    "bca_note": "z0=-0.007 a=-0.0077 (ties split; p0=0.497)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.3695652173913043,
+    "n_clusters": 28,
+    "num": 17,
+    "den": 46,
+    "percentile": [
+     0.21424772036474163,
+     0.5217391304347826
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.22727272727272727,
+     0.5306122448979592
+    ],
+    "bca_note": "z0=0.036 a=0.0203 (ties split; p0=0.514)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.6923076923076923,
+    "n_clusters": 28,
+    "num": 162,
+    "den": 234,
+    "percentile": [
+     0.5846708734813574,
+     0.785153125833111
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5769226513858957,
+     0.7814477733825295
+    ],
+    "bca_note": "z0=0.008 a=-0.0324 (ties split; p0=0.503)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.1581196581196581,
+    "n_clusters": 28,
+    "num": 37,
+    "den": 234,
+    "percentile": [
+     0.07622129365402908,
+     0.2603488627221531
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.08849557522123894,
+     0.28618063602792954
+    ],
+    "bca_note": "z0=0.065 a=0.0749 (ties split; p0=0.526)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.029914529914529916,
+    "n_clusters": 28,
+    "num": 7,
+    "den": 234,
+    "percentile": [
+     0.004524377318494966,
+     0.06091668454040655
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.008579268723626873,
+     0.06771150272993755
+    ],
+    "bca_note": "z0=0.080 a=0.0689 (ties split; p0=0.532)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.11965811965811966,
+    "n_clusters": 28,
+    "num": 28,
+    "den": 234,
+    "percentile": [
+     0.06854407912875654,
+     0.18777292576419213
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.0743801652892562,
+     0.2048361232010287
+    ],
+    "bca_note": "z0=0.022 a=0.0665 (ties split; p0=0.509)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.8803418803418803,
+    "n_clusters": 28,
+    "num": 206,
+    "den": 234,
+    "percentile": [
+     0.8122270742358079,
+     0.9314559208712434
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.7951638767989712,
+     0.9256198347107438
+    ],
+    "bca_note": "z0=-0.022 a=-0.0665 (ties split; p0=0.491)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.5644599303135889,
+    "n_clusters": 28,
+    "num": 162,
+    "den": 287,
+    "percentile": [
+     0.4409722222222222,
+     0.6783216783216783
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.4395184775114396,
+     0.6766826856161672
+    ],
+    "bca_note": "z0=0.012 a=-0.0140 (ties split; p0=0.505)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.6933797909407665,
+    "n_clusters": 28,
+    "num": 199,
+    "den": 287,
+    "percentile": [
+     0.5818693784944494,
+     0.7993252595155709
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5712749758561121,
+     0.7930535102805644
+    ],
+    "bca_note": "z0=-0.019 a=-0.0312 (ties split; p0=0.492)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 46,
+     "correct": 40,
+     "one_off": 4,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 2,
+     "correct_share": 0.8695652173913043
+    },
+    "2": {
+     "n": 46,
+     "correct": 39,
+     "one_off": 5,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 2,
+     "correct_share": 0.8478260869565217
+    },
+    "3": {
+     "n": 46,
+     "correct": 34,
+     "one_off": 10,
+     "off_more": 1,
+     "unranked": 0,
+     "missed": 1,
+     "correct_share": 0.7391304347826086
+    },
+    "4": {
+     "n": 46,
+     "correct": 31,
+     "one_off": 10,
+     "off_more": 3,
+     "unranked": 0,
+     "missed": 2,
+     "correct_share": 0.6739130434782609
+    },
+    "5": {
+     "n": 42,
+     "correct": 18,
+     "one_off": 7,
+     "off_more": 3,
+     "unranked": 0,
+     "missed": 14,
+     "correct_share": 0.42857142857142855
+    },
+    "6": {
+     "n": 8,
+     "correct": 0,
+     "one_off": 1,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 7,
+     "correct_share": 0.0
+    }
+   },
+   "by_view": {
+    "AP": {
+     "frames": 27,
+     "matched": 123,
+     "correct": 87,
+     "truth": 137,
+     "missed": 14,
+     "matched_correct": 0.7073170731707317,
+     "truth_correct": 0.635036496350365
+    },
+    "LAT": {
+     "frames": 19,
+     "matched": 83,
+     "correct": 75,
+     "truth": 97,
+     "missed": 14,
+     "matched_correct": 0.9036144578313253,
+     "truth_correct": 0.7731958762886598
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 258,
+    "agree": 258,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 0,
+   "det_unmatched_in_defined_frames": 25
+  },
+  {
+   "arm": "dc_A_held_surgio_b51_dr_s1",
+   "arm_label": "design A: styled + real D+E (one pose pool for every card), seed 1",
+   "set": "carm_test",
+   "target": "C-ArmLSpine test (28 cases, AP + lateral)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "outline",
+   "file": "SchwingNet/results/counting/dc_A_held_surgio_b51_dr_s1__carm_test__outline__0.25.json",
+   "sources": [
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_surgio_b51_dr_s1/eval_carmlspine_test.json"
+   ],
+   "truth_check": {
+    "frames": 56,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 56,
+   "cases": 28,
+   "frames_no_truth_sacrum": 0,
+   "frames_with_truth_sacrum": 56,
+   "frames_defined": 47,
+   "truth_bodies_sacrum_frames": 287,
+   "truth_bodies_defined": 238,
+   "matched_bodies": 197,
+   "defined_share": {
+    "point": 0.8392857142857143,
+    "n_clusters": 28,
+    "num": 47,
+    "den": 56,
+    "percentile": [
+     0.75,
+     0.9107142857142857
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.75,
+     0.9107142857142857
+    ],
+    "bca_note": "z0=-0.037 a=-0.0241 (ties split; p0=0.485)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.9787234042553191,
+    "n_clusters": 28,
+    "num": 46,
+    "den": 47,
+    "percentile": [
+     0.9333333333333333,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8940161207583625,
+     1.0
+    ],
+    "bca_note": "z0=-0.131 a=-0.1568 (ties split; p0=0.448)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.6548223350253807,
+    "n_clusters": 28,
+    "num": 129,
+    "den": 197,
+    "percentile": [
+     0.5802334943639291,
+     0.718604331179708
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5760368664069941,
+     0.7174887892376681
+    ],
+    "bca_note": "z0=-0.024 a=-0.0034 (ties split; p0=0.490)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 0.8375634517766497,
+    "n_clusters": 28,
+    "num": 165,
+    "den": 197,
+    "percentile": [
+     0.7740077506174943,
+     0.8944849819875633
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.7716034830671744,
+     0.8919540042704279
+    ],
+    "bca_note": "z0=-0.016 a=-0.0103 (ties split; p0=0.493)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.35555555555555557,
+    "n_clusters": 28,
+    "num": 16,
+    "den": 45,
+    "percentile": [
+     0.25,
+     0.4468627876682585
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.2558937256026614,
+     0.45416289839454527
+    ],
+    "bca_note": "z0=0.015 a=0.0177 (ties split; p0=0.506)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.23404255319148937,
+    "n_clusters": 28,
+    "num": 11,
+    "den": 47,
+    "percentile": [
+     0.13723262032085562,
+     0.32608695652173914
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.14285714285714285,
+     0.32653061224489793
+    ],
+    "bca_note": "z0=0.015 a=0.0095 (ties split; p0=0.506)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.542016806722689,
+    "n_clusters": 28,
+    "num": 129,
+    "den": 238,
+    "percentile": [
+     0.44537650997899164,
+     0.6239669421487604
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.43301825946101913,
+     0.6186440677966102
+    ],
+    "bca_note": "z0=-0.039 a=-0.0263 (ties split; p0=0.484)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.15126050420168066,
+    "n_clusters": 28,
+    "num": 36,
+    "den": 238,
+    "percentile": [
+     0.12033195020746888,
+     0.18584070796460178
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.12065517273127686,
+     0.1862227619406543
+    ],
+    "bca_note": "z0=-0.014 a=0.0128 (ties split; p0=0.494)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.13445378151260504,
+    "n_clusters": 28,
+    "num": 32,
+    "den": 238,
+    "percentile": [
+     0.08799665271966527,
+     0.18695652173913044
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.08864980159168709,
+     0.18723404255319148
+    ],
+    "bca_note": "z0=0.004 a=0.0077 (ties split; p0=0.501)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.1722689075630252,
+    "n_clusters": 28,
+    "num": 41,
+    "den": 238,
+    "percentile": [
+     0.10212548849326965,
+     0.25403391062929664
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.11263264566491604,
+     0.27847830803006973
+    ],
+    "bca_note": "z0=0.070 a=0.0646 (ties split; p0=0.528)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.8277310924369747,
+    "n_clusters": 28,
+    "num": 197,
+    "den": 238,
+    "percentile": [
+     0.7459660893707033,
+     0.8978745115067303
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.7215216919699301,
+     0.8873673543350837
+    ],
+    "bca_note": "z0=-0.070 a=-0.0646 (ties split; p0=0.472)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.44947735191637633,
+    "n_clusters": 28,
+    "num": 129,
+    "den": 287,
+    "percentile": [
+     0.3465566562152574,
+     0.548951048951049
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.3385537225290618,
+     0.5425531914893617
+    ],
+    "bca_note": "z0=-0.030 a=-0.0121 (ties split; p0=0.488)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.5749128919860628,
+    "n_clusters": 28,
+    "num": 165,
+    "den": 287,
+    "percentile": [
+     0.4662001550731059,
+     0.6818181818181818
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.46229241724464215,
+     0.67552548127895
+    ],
+    "bca_note": "z0=-0.026 a=-0.0102 (ties split; p0=0.489)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 47,
+     "correct": 41,
+     "one_off": 2,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 4,
+     "correct_share": 0.8723404255319149
+    },
+    "2": {
+     "n": 47,
+     "correct": 39,
+     "one_off": 4,
+     "off_more": 1,
+     "unranked": 0,
+     "missed": 3,
+     "correct_share": 0.8297872340425532
+    },
+    "3": {
+     "n": 47,
+     "correct": 23,
+     "one_off": 17,
+     "off_more": 4,
+     "unranked": 0,
+     "missed": 3,
+     "correct_share": 0.48936170212765956
+    },
+    "4": {
+     "n": 47,
+     "correct": 16,
+     "one_off": 7,
+     "off_more": 16,
+     "unranked": 0,
+     "missed": 8,
+     "correct_share": 0.3404255319148936
+    },
+    "5": {
+     "n": 42,
+     "correct": 10,
+     "one_off": 6,
+     "off_more": 11,
+     "unranked": 0,
+     "missed": 15,
+     "correct_share": 0.23809523809523808
+    },
+    "6": {
+     "n": 8,
+     "correct": 0,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 8,
+     "correct_share": 0.0
+    }
+   },
+   "by_view": {
+    "AP": {
+     "frames": 28,
+     "matched": 121,
+     "correct": 59,
+     "truth": 143,
+     "missed": 22,
+     "matched_correct": 0.48760330578512395,
+     "truth_correct": 0.4125874125874126
+    },
+    "LAT": {
+     "frames": 19,
+     "matched": 76,
+     "correct": 70,
+     "truth": 95,
+     "missed": 19,
+     "matched_correct": 0.9210526315789473,
+     "truth_correct": 0.7368421052631579
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 258,
+    "agree": 258,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 1,
+   "det_unmatched_in_defined_frames": 74
+  },
+  {
+   "arm": "dc_B_held_surgio_b51_dr_s1",
+   "arm_label": "design B: styled + real D+E (each device's own poses), seed 1",
+   "set": "carm_test",
+   "target": "C-ArmLSpine test (28 cases, AP + lateral)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "outline",
+   "file": "SchwingNet/results/counting/dc_B_held_surgio_b51_dr_s1__carm_test__outline__0.25.json",
+   "sources": [
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_surgio_b51_dr_s1/eval_carmlspine_test.json"
+   ],
+   "truth_check": {
+    "frames": 56,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 56,
+   "cases": 28,
+   "frames_no_truth_sacrum": 0,
+   "frames_with_truth_sacrum": 56,
+   "frames_defined": 50,
+   "truth_bodies_sacrum_frames": 287,
+   "truth_bodies_defined": 256,
+   "matched_bodies": 225,
+   "defined_share": {
+    "point": 0.8928571428571429,
+    "n_clusters": 28,
+    "num": 50,
+    "den": 56,
+    "percentile": [
+     0.8214285714285714,
+     0.9642857142857143
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8035714285714286,
+     0.9642857142857143
+    ],
+    "bca_note": "z0=-0.066 a=-0.0439 (ties split; p0=0.474)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.96,
+    "n_clusters": 28,
+    "num": 48,
+    "den": 50,
+    "percentile": [
+     0.9,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8693483273541106,
+     1.0
+    ],
+    "bca_note": "z0=-0.119 a=-0.1041 (ties split; p0=0.453)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.6488888888888888,
+    "n_clusters": 28,
+    "num": 146,
+    "den": 225,
+    "percentile": [
+     0.5806417441224714,
+     0.7212444942821352
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5808704132754563,
+     0.7216130366623497
+    ],
+    "bca_note": "z0=-0.003 a=0.0047 (ties split; p0=0.499)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 0.8444444444444444,
+    "n_clusters": 28,
+    "num": 190,
+    "den": 225,
+    "percentile": [
+     0.7710183914944697,
+     0.9106477641543455
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.7581395348837209,
+     0.902803776699885
+    ],
+    "bca_note": "z0=-0.058 a=-0.0271 (ties split; p0=0.477)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.40816326530612246,
+    "n_clusters": 28,
+    "num": 20,
+    "den": 49,
+    "percentile": [
+     0.3,
+     0.5217391304347826
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.29411764705882354,
+     0.5208333333333334
+    ],
+    "bca_note": "z0=-0.023 a=-0.0071 (ties split; p0=0.491)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.18,
+    "n_clusters": 28,
+    "num": 9,
+    "den": 50,
+    "percentile": [
+     0.08506205673758865,
+     0.2826086956521739
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.09615384615384616,
+     0.2886213887755744
+    ],
+    "bca_note": "z0=0.028 a=0.0232 (ties split; p0=0.511)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.5703125,
+    "n_clusters": 28,
+    "num": 146,
+    "den": 256,
+    "percentile": [
+     0.5080597536195073,
+     0.6347965021248774
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.507955286519076,
+     0.6345453567932807
+    ],
+    "bca_note": "z0=0.003 a=-0.0029 (ties split; p0=0.501)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.171875,
+    "n_clusters": 28,
+    "num": 44,
+    "den": 256,
+    "percentile": [
+     0.11876902457861978,
+     0.22426645325430553
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.12201726245080649,
+     0.22641316454182878
+    ],
+    "bca_note": "z0=0.049 a=0.0149 (ties split; p0=0.519)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.13671875,
+    "n_clusters": 28,
+    "num": 35,
+    "den": 256,
+    "percentile": [
+     0.07691605839416059,
+     0.2064801087225105
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.08199550947862745,
+     0.21449669710662414
+    ],
+    "bca_note": "z0=0.038 a=0.0241 (ties split; p0=0.515)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.12109375,
+    "n_clusters": 28,
+    "num": 31,
+    "den": 256,
+    "percentile": [
+     0.06349206349206349,
+     0.1875117481203007
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.07171314741035857,
+     0.20583097819857749
+    ],
+    "bca_note": "z0=0.057 a=0.0719 (ties split; p0=0.523)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.87890625,
+    "n_clusters": 28,
+    "num": 225,
+    "den": 256,
+    "percentile": [
+     0.8124882518796992,
+     0.9365079365079365
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.7941690218014221,
+     0.9282868525896414
+    ],
+    "bca_note": "z0=-0.057 a=-0.0719 (ties split; p0=0.477)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.5087108013937283,
+    "n_clusters": 28,
+    "num": 146,
+    "den": 287,
+    "percentile": [
+     0.4368540595106475,
+     0.5787716294160057
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.43361723547083464,
+     0.5743523376280378
+    ],
+    "bca_note": "z0=-0.033 a=-0.0140 (ties split; p0=0.487)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.662020905923345,
+    "n_clusters": 28,
+    "num": 190,
+    "den": 287,
+    "percentile": [
+     0.5684091325875664,
+     0.7491506968641113
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5638297872340425,
+     0.7430285773807714
+    ],
+    "bca_note": "z0=-0.026 a=-0.0181 (ties split; p0=0.490)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 50,
+     "correct": 44,
+     "one_off": 1,
+     "off_more": 1,
+     "unranked": 0,
+     "missed": 4,
+     "correct_share": 0.88
+    },
+    "2": {
+     "n": 50,
+     "correct": 42,
+     "one_off": 3,
+     "off_more": 4,
+     "unranked": 0,
+     "missed": 1,
+     "correct_share": 0.84
+    },
+    "3": {
+     "n": 50,
+     "correct": 26,
+     "one_off": 17,
+     "off_more": 6,
+     "unranked": 0,
+     "missed": 1,
+     "correct_share": 0.52
+    },
+    "4": {
+     "n": 50,
+     "correct": 21,
+     "one_off": 13,
+     "off_more": 13,
+     "unranked": 0,
+     "missed": 3,
+     "correct_share": 0.42
+    },
+    "5": {
+     "n": 45,
+     "correct": 13,
+     "one_off": 10,
+     "off_more": 9,
+     "unranked": 0,
+     "missed": 13,
+     "correct_share": 0.28888888888888886
+    },
+    "6": {
+     "n": 11,
+     "correct": 0,
+     "one_off": 0,
+     "off_more": 2,
+     "unranked": 0,
+     "missed": 9,
+     "correct_share": 0.0
+    }
+   },
+   "by_view": {
+    "AP": {
+     "frames": 28,
+     "matched": 132,
+     "correct": 76,
+     "truth": 143,
+     "missed": 11,
+     "matched_correct": 0.5757575757575758,
+     "truth_correct": 0.5314685314685315
+    },
+    "LAT": {
+     "frames": 22,
+     "matched": 93,
+     "correct": 70,
+     "truth": 113,
+     "missed": 20,
+     "matched_correct": 0.7526881720430108,
+     "truth_correct": 0.6194690265486725
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 258,
+    "agree": 258,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 0,
+   "det_unmatched_in_defined_frames": 62
+  },
+  {
+   "arm": "pooled",
+   "arm_label": "real D+S+E frames (in-training device)",
+   "set": "carm_test",
+   "target": "C-ArmLSpine test (28 cases, AP + lateral)",
+   "status": "in-training-device (reference)",
+   "conf": 0.25,
+   "convention": "outline",
+   "file": "SchwingNet/results/counting/pooled__carm_test__outline__0.25.json",
+   "sources": [
+    "/rs/rs_grp_oschome/go2432/data/or_ready/lodo/sweeps/pooled__carm_test.json"
+   ],
+   "truth_check": {
+    "frames": 56,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 56,
+   "cases": 28,
+   "frames_no_truth_sacrum": 0,
+   "frames_with_truth_sacrum": 56,
+   "frames_defined": 56,
+   "truth_bodies_sacrum_frames": 287,
+   "truth_bodies_defined": 287,
+   "matched_bodies": 117,
+   "defined_share": {
+    "point": 1.0,
+    "n_clusters": 28,
+    "num": 56,
+    "den": 56,
+    "percentile": [
+     1.0,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.9821428571428571,
+    "n_clusters": 28,
+    "num": 55,
+    "den": 56,
+    "percentile": [
+     0.9464285714285714,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9107142857142857,
+     1.0
+    ],
+    "bca_note": "z0=-0.126 a=-0.1576 (ties split; p0=0.450)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 1.0,
+    "n_clusters": 28,
+    "num": 117,
+    "den": 117,
+    "percentile": [
+     1.0,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 1.0,
+    "n_clusters": 28,
+    "num": 117,
+    "den": 117,
+    "percentile": [
+     1.0,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 1.0,
+    "n_clusters": 28,
+    "num": 31,
+    "den": 31,
+    "percentile": [
+     1.0,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.07142857142857142,
+    "n_clusters": 28,
+    "num": 4,
+    "den": 56,
+    "percentile": [
+     0.017857142857142856,
+     0.14285714285714285
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.017857142857142856,
+     0.16071428571428573
+    ],
+    "bca_note": "z0=0.104 a=0.0643 (ties split; p0=0.541)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.4076655052264808,
+    "n_clusters": 28,
+    "num": 117,
+    "den": 287,
+    "percentile": [
+     0.38435343888445056,
+     0.42857142857142855
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.38243545403553314,
+     0.42758170357282893
+    ],
+    "bca_note": "z0=-0.018 a=-0.0221 (ties split; p0=0.493)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.0,
+    "n_clusters": 28,
+    "num": 0,
+    "den": 287,
+    "percentile": [
+     0.0,
+     0.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.0,
+    "n_clusters": 28,
+    "num": 0,
+    "den": 287,
+    "percentile": [
+     0.0,
+     0.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.5923344947735192,
+    "n_clusters": 28,
+    "num": 170,
+    "den": 287,
+    "percentile": [
+     0.5714285714285714,
+     0.6156465611155494
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5724182964271711,
+     0.6175645459644671
+    ],
+    "bca_note": "z0=0.018 a=0.0221 (ties split; p0=0.507)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.4076655052264808,
+    "n_clusters": 28,
+    "num": 117,
+    "den": 287,
+    "percentile": [
+     0.38435343888445056,
+     0.42857142857142855
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.38243545403553314,
+     0.42758170357282893
+    ],
+    "bca_note": "z0=-0.018 a=-0.0221 (ties split; p0=0.493)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.4076655052264808,
+    "n_clusters": 28,
+    "num": 117,
+    "den": 287,
+    "percentile": [
+     0.38435343888445056,
+     0.42857142857142855
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.38243545403553314,
+     0.42758170357282893
+    ],
+    "bca_note": "z0=-0.018 a=-0.0221 (ties split; p0=0.493)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.4076655052264808,
+    "n_clusters": 28,
+    "num": 117,
+    "den": 287,
+    "percentile": [
+     0.38435343888445056,
+     0.42857142857142855
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.38243545403553314,
+     0.42758170357282893
+    ],
+    "bca_note": "z0=-0.018 a=-0.0221 (ties split; p0=0.493)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 56,
+     "correct": 27,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 29,
+     "correct_share": 0.48214285714285715
+    },
+    "2": {
+     "n": 56,
+     "correct": 28,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 28,
+     "correct_share": 0.5
+    },
+    "3": {
+     "n": 56,
+     "correct": 24,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 32,
+     "correct_share": 0.42857142857142855
+    },
+    "4": {
+     "n": 56,
+     "correct": 27,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 29,
+     "correct_share": 0.48214285714285715
+    },
+    "5": {
+     "n": 51,
+     "correct": 11,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 40,
+     "correct_share": 0.21568627450980393
+    },
+    "6": {
+     "n": 12,
+     "correct": 0,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 12,
+     "correct_share": 0.0
+    }
+   },
+   "by_view": {
+    "AP": {
+     "frames": 28,
+     "matched": 114,
+     "correct": 114,
+     "truth": 143,
+     "missed": 29,
+     "matched_correct": 1.0,
+     "truth_correct": 0.7972027972027972
+    },
+    "LAT": {
+     "frames": 28,
+     "matched": 3,
+     "correct": 3,
+     "truth": 144,
+     "missed": 141,
+     "matched_correct": 1.0,
+     "truth_correct": 0.020833333333333332
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 258,
+    "agree": 258,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 0,
+   "det_unmatched_in_defined_frames": 157
+  },
+  {
+   "arm": "lodo_carm",
+   "arm_label": "real D+E frames only (C-ArmLSpine never seen)",
+   "set": "carm_test",
+   "target": "C-ArmLSpine test (28 cases, AP + lateral)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.74,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/lodo_carm__carm_test__body__0.74.json",
+   "sources": [
+    "/rs/rs_grp_oschome/go2432/data/or_ready/lodo/sweeps/lodo_carm__carm_test.json"
+   ],
+   "truth_check": {
+    "frames": 56,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 56,
+   "cases": 28,
+   "frames_no_truth_sacrum": 0,
+   "frames_with_truth_sacrum": 56,
+   "frames_defined": 46,
+   "truth_bodies_sacrum_frames": 287,
+   "truth_bodies_defined": 232,
+   "matched_bodies": 14,
+   "defined_share": {
+    "point": 0.8214285714285714,
+    "n_clusters": 28,
+    "num": 46,
+    "den": 56,
+    "percentile": [
+     0.6964285714285714,
+     0.9285714285714286
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6964285714285714,
+     0.9107142857142857
+    ],
+    "bca_note": "z0=-0.011 a=-0.0473 (ties split; p0=0.496)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.9347826086956522,
+    "n_clusters": 28,
+    "num": 43,
+    "den": 46,
+    "percentile": [
+     0.8571428571428571,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8237695243391657,
+     0.98
+    ],
+    "bca_note": "z0=-0.088 a=-0.0778 (ties split; p0=0.465)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.9285714285714286,
+    "n_clusters": 28,
+    "num": 13,
+    "den": 14,
+    "percentile": [
+     0.75,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.428525811548167,
+     1.0
+    ],
+    "bca_note": "z0=-0.083 a=-0.1318 (ties split; p0=0.467)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 1.0,
+    "n_clusters": 28,
+    "num": 14,
+    "den": 14,
+    "percentile": [
+     1.0,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.8888888888888888,
+    "n_clusters": 28,
+    "num": 8,
+    "den": 9,
+    "percentile": [
+     0.6666666666666666,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.34604521355959267,
+     1.0
+    ],
+    "bca_note": "z0=-0.084 a=-0.1375 (ties split; p0=0.467)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.0,
+    "n_clusters": 28,
+    "num": 0,
+    "den": 46,
+    "percentile": [
+     0.0,
+     0.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.05603448275862069,
+    "n_clusters": 28,
+    "num": 13,
+    "den": 232,
+    "percentile": [
+     0.023428485576923078,
+     0.09565217391304348
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.026296011143243387,
+     0.10034455617672862
+    ],
+    "bca_note": "z0=0.010 a=0.0358 (ties split; p0=0.504)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.004310344827586207,
+    "n_clusters": 28,
+    "num": 1,
+    "den": 232,
+    "percentile": [
+     0.0,
+     0.013888888888888888
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.0,
+     0.02297102564040001
+    ],
+    "bca_note": "z0=0.086 a=0.1563 (ties split; p0=0.534)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.0,
+    "n_clusters": 28,
+    "num": 0,
+    "den": 232,
+    "percentile": [
+     0.0,
+     0.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.9396551724137931,
+    "n_clusters": 28,
+    "num": 218,
+    "den": 232,
+    "percentile": [
+     0.9,
+     0.972972972972973
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8968079390831599,
+     0.9716536594270804
+    ],
+    "bca_note": "z0=0.017 a=-0.0309 (ties split; p0=0.507)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.0603448275862069,
+    "n_clusters": 28,
+    "num": 14,
+    "den": 232,
+    "percentile": [
+     0.02702702702702703,
+     0.1
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.028346340572919716,
+     0.10319206091684145
+    ],
+    "bca_note": "z0=-0.017 a=0.0309 (ties split; p0=0.493)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.04529616724738676,
+    "n_clusters": 28,
+    "num": 13,
+    "den": 287,
+    "percentile": [
+     0.020406433759944654,
+     0.07801418439716312
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.02100921377131651,
+     0.08098591549295775
+    ],
+    "bca_note": "z0=0.038 a=0.0398 (ties split; p0=0.515)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.04878048780487805,
+    "n_clusters": 28,
+    "num": 14,
+    "den": 287,
+    "percentile": [
+     0.023333333333333334,
+     0.08014637801223162
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.02413793103448276,
+     0.08356313455540458
+    ],
+    "bca_note": "z0=0.008 a=0.0366 (ties split; p0=0.503)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 46,
+     "correct": 5,
+     "one_off": 1,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 40,
+     "correct_share": 0.10869565217391304
+    },
+    "2": {
+     "n": 46,
+     "correct": 7,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 39,
+     "correct_share": 0.15217391304347827
+    },
+    "3": {
+     "n": 46,
+     "correct": 0,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 46,
+     "correct_share": 0.0
+    },
+    "4": {
+     "n": 46,
+     "correct": 1,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 45,
+     "correct_share": 0.021739130434782608
+    },
+    "5": {
+     "n": 41,
+     "correct": 0,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 41,
+     "correct_share": 0.0
+    },
+    "6": {
+     "n": 7,
+     "correct": 0,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 7,
+     "correct_share": 0.0
+    }
+   },
+   "by_view": {
+    "AP": {
+     "frames": 24,
+     "matched": 14,
+     "correct": 13,
+     "truth": 121,
+     "missed": 107,
+     "matched_correct": 0.9285714285714286,
+     "truth_correct": 0.10743801652892562
+    },
+    "LAT": {
+     "frames": 22,
+     "matched": 0,
+     "correct": 0,
+     "truth": 111,
+     "missed": 111,
+     "matched_correct": null,
+     "truth_correct": 0.0
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 258,
+    "agree": 254,
+    "share": 0.9844961240310077,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 0,
+   "det_unmatched_in_defined_frames": 185
+  },
+  {
+   "arm": "lodo_carm",
+   "arm_label": "real D+E frames only (C-ArmLSpine never seen)",
+   "set": "carm_test",
+   "target": "C-ArmLSpine test (28 cases, AP + lateral)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/lodo_carm__carm_test__body__0.25.json",
+   "sources": [
+    "/rs/rs_grp_oschome/go2432/data/or_ready/lodo/sweeps/lodo_carm__carm_test.json"
+   ],
+   "truth_check": {
+    "frames": 56,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 56,
+   "cases": 28,
+   "frames_no_truth_sacrum": 0,
+   "frames_with_truth_sacrum": 56,
+   "frames_defined": 51,
+   "truth_bodies_sacrum_frames": 287,
+   "truth_bodies_defined": 259,
+   "matched_bodies": 14,
+   "defined_share": {
+    "point": 0.9107142857142857,
+    "n_clusters": 28,
+    "num": 51,
+    "den": 56,
+    "percentile": [
+     0.8392857142857143,
+     0.9642857142857143
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8214285714285714,
+     0.9642857142857143
+    ],
+    "bca_note": "z0=-0.018 a=-0.0529 (ties split; p0=0.493)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.9215686274509803,
+    "n_clusters": 28,
+    "num": 47,
+    "den": 51,
+    "percentile": [
+     0.84,
+     0.9811320754716981
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8210046616226185,
+     0.9803921568627451
+    ],
+    "bca_note": "z0=-0.069 a=-0.0636 (ties split; p0=0.473)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.7857142857142857,
+    "n_clusters": 28,
+    "num": 11,
+    "den": 14,
+    "percentile": [
+     0.4444444444444444,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.36363636363636365,
+     1.0
+    ],
+    "bca_note": "z0=-0.066 a=-0.0868 (ties split; p0=0.474)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 1.0,
+    "n_clusters": 28,
+    "num": 14,
+    "den": 14,
+    "percentile": [
+     1.0,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.7777777777777778,
+    "n_clusters": 28,
+    "num": 7,
+    "den": 9,
+    "percentile": [
+     0.4444444444444444,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.375,
+     1.0
+    ],
+    "bca_note": "z0=-0.056 a=-0.0742 (ties split; p0=0.478)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.0,
+    "n_clusters": 28,
+    "num": 0,
+    "den": 51,
+    "percentile": [
+     0.0,
+     0.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.04247104247104247,
+    "n_clusters": 28,
+    "num": 11,
+    "den": 259,
+    "percentile": [
+     0.015503875968992248,
+     0.07392996108949416
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.019157088122605363,
+     0.07975977927798607
+    ],
+    "bca_note": "z0=0.066 a=0.0456 (ties split; p0=0.526)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.011583011583011582,
+    "n_clusters": 28,
+    "num": 3,
+    "den": 259,
+    "percentile": [
+     0.0,
+     0.0311284046692607
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.0,
+     0.04279328087137396
+    ],
+    "bca_note": "z0=0.094 a=0.1212 (ties split; p0=0.537)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.0,
+    "n_clusters": 28,
+    "num": 0,
+    "den": 259,
+    "percentile": [
+     0.0,
+     0.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.9459459459459459,
+    "n_clusters": 28,
+    "num": 245,
+    "den": 259,
+    "percentile": [
+     0.9108527131782945,
+     0.9748334431046711
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9092634250281135,
+     0.973724983549167
+    ],
+    "bca_note": "z0=0.003 a=-0.0327 (ties split; p0=0.501)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.05405405405405406,
+    "n_clusters": 28,
+    "num": 14,
+    "den": 259,
+    "percentile": [
+     0.025166556895328807,
+     0.08914728682170543
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.026275016450833025,
+     0.09073657497188627
+    ],
+    "bca_note": "z0=-0.003 a=0.0327 (ties split; p0=0.499)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.03832752613240418,
+    "n_clusters": 28,
+    "num": 11,
+    "den": 287,
+    "percentile": [
+     0.01384083044982699,
+     0.06761565836298933
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.017303602213077335,
+     0.0727134054950476
+    ],
+    "bca_note": "z0=0.080 a=0.0478 (ties split; p0=0.532)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.04878048780487805,
+    "n_clusters": 28,
+    "num": 14,
+    "den": 287,
+    "percentile": [
+     0.023333333333333334,
+     0.08014637801223162
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.02413793103448276,
+     0.08356313455540458
+    ],
+    "bca_note": "z0=0.008 a=0.0366 (ties split; p0=0.503)",
+    "interval": "case bootstrap, 28 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 51,
+     "correct": 4,
+     "one_off": 2,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 45,
+     "correct_share": 0.0784313725490196
+    },
+    "2": {
+     "n": 51,
+     "correct": 6,
+     "one_off": 1,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 44,
+     "correct_share": 0.11764705882352941
+    },
+    "3": {
+     "n": 51,
+     "correct": 0,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 51,
+     "correct_share": 0.0
+    },
+    "4": {
+     "n": 51,
+     "correct": 1,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 50,
+     "correct_share": 0.0196078431372549
+    },
+    "5": {
+     "n": 46,
+     "correct": 0,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 46,
+     "correct_share": 0.0
+    },
+    "6": {
+     "n": 9,
+     "correct": 0,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 9,
+     "correct_share": 0.0
+    }
+   },
+   "by_view": {
+    "AP": {
+     "frames": 27,
+     "matched": 14,
+     "correct": 11,
+     "truth": 137,
+     "missed": 123,
+     "matched_correct": 0.7857142857142857,
+     "truth_correct": 0.08029197080291971
+    },
+    "LAT": {
+     "frames": 24,
+     "matched": 0,
+     "correct": 0,
+     "truth": 122,
+     "missed": 122,
+     "matched_correct": null,
+     "truth_correct": 0.0
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 258,
+    "agree": 254,
+    "share": 0.9844961240310077,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 0,
+   "det_unmatched_in_defined_frames": 254
+  },
+  {
+   "arm": "lodo_df",
+   "arm_label": "real S+E frames only (DeepFluoro never seen)",
+   "set": "df_test",
+   "target": "DeepFluoro test (specimen 18-1109)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/lodo_df__df_test__body__0.25.json",
+   "sources": [
+    "/rs/rs_grp_oschome/go2432/data/or_ready/lodo/sweeps/lodo_df__df_test.json"
+   ],
+   "truth_check": {
+    "frames": 104,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 104,
+   "cases": 1,
+   "frames_no_truth_sacrum": 14,
+   "frames_with_truth_sacrum": 90,
+   "frames_defined": 90,
+   "truth_bodies_sacrum_frames": 71,
+   "truth_bodies_defined": 71,
+   "matched_bodies": 67,
+   "defined_share": {
+    "point": 1.0,
+    "n_clusters": 1,
+    "num": 90,
+    "den": 90,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "anchor_correct_share": {
+    "point": 1.0,
+    "n_clusters": 1,
+    "num": 90,
+    "den": 90,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "matched_correct": {
+    "point": 0.7910447761194029,
+    "n_clusters": 1,
+    "num": 53,
+    "den": 67,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "matched_within_one": {
+    "point": 1.0,
+    "n_clusters": 1,
+    "num": 67,
+    "den": 67,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.7777777777777778,
+    "n_clusters": 1,
+    "num": 49,
+    "den": 63,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "frame_exact": {
+    "point": 0.7301587301587301,
+    "n_clusters": 1,
+    "num": 46,
+    "den": 63,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_correct_defined": {
+    "point": 0.7464788732394366,
+    "n_clusters": 1,
+    "num": 53,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_one_off_defined": {
+    "point": 0.19718309859154928,
+    "n_clusters": 1,
+    "num": 14,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_off_more_defined": {
+    "point": 0.0,
+    "n_clusters": 1,
+    "num": 0,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_missed_defined": {
+    "point": 0.056338028169014086,
+    "n_clusters": 1,
+    "num": 4,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_recall_defined": {
+    "point": 0.9436619718309859,
+    "n_clusters": 1,
+    "num": 67,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.7464788732394366,
+    "n_clusters": 1,
+    "num": 53,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.9436619718309859,
+    "n_clusters": 1,
+    "num": 67,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 63,
+     "correct": 49,
+     "one_off": 14,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 0,
+     "correct_share": 0.7777777777777778
+    },
+    "2": {
+     "n": 8,
+     "correct": 4,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 4,
+     "correct_share": 0.5
+    }
+   },
+   "by_view": {
+    "0-30": {
+     "frames": 81,
+     "matched": 64,
+     "correct": 51,
+     "truth": 68,
+     "missed": 4,
+     "matched_correct": 0.796875,
+     "truth_correct": 0.75
+    },
+    "30-60": {
+     "frames": 9,
+     "matched": 3,
+     "correct": 2,
+     "truth": 3,
+     "missed": 0,
+     "matched_correct": 0.6666666666666666,
+     "truth_correct": 0.6666666666666666
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 71,
+    "agree": 71,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 1,
+   "det_unmatched_in_defined_frames": 46
+  },
+  {
+   "arm": "dc_A_held_cios_fusion",
+   "arm_label": "design A: styled + real S+E (one pose pool for every card), seed 0",
+   "set": "df_test",
+   "target": "DeepFluoro test (specimen 18-1109)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/dc_A_held_cios_fusion__df_test__body__0.25.json",
+   "sources": [
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_cios_fusion/eval_deepfluoro_test.json"
+   ],
+   "truth_check": {
+    "frames": 104,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 104,
+   "cases": 1,
+   "frames_no_truth_sacrum": 14,
+   "frames_with_truth_sacrum": 90,
+   "frames_defined": 90,
+   "truth_bodies_sacrum_frames": 71,
+   "truth_bodies_defined": 71,
+   "matched_bodies": 64,
+   "defined_share": {
+    "point": 1.0,
+    "n_clusters": 1,
+    "num": 90,
+    "den": 90,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "anchor_correct_share": {
+    "point": 1.0,
+    "n_clusters": 1,
+    "num": 90,
+    "den": 90,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "matched_correct": {
+    "point": 0.984375,
+    "n_clusters": 1,
+    "num": 63,
+    "den": 64,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "matched_within_one": {
+    "point": 1.0,
+    "n_clusters": 1,
+    "num": 64,
+    "den": 64,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.9830508474576272,
+    "n_clusters": 1,
+    "num": 58,
+    "den": 59,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "frame_exact": {
+    "point": 0.873015873015873,
+    "n_clusters": 1,
+    "num": 55,
+    "den": 63,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_correct_defined": {
+    "point": 0.8873239436619719,
+    "n_clusters": 1,
+    "num": 63,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_one_off_defined": {
+    "point": 0.014084507042253521,
+    "n_clusters": 1,
+    "num": 1,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_off_more_defined": {
+    "point": 0.0,
+    "n_clusters": 1,
+    "num": 0,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_missed_defined": {
+    "point": 0.09859154929577464,
+    "n_clusters": 1,
+    "num": 7,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_recall_defined": {
+    "point": 0.9014084507042254,
+    "n_clusters": 1,
+    "num": 64,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.8873239436619719,
+    "n_clusters": 1,
+    "num": 63,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.9014084507042254,
+    "n_clusters": 1,
+    "num": 64,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 63,
+     "correct": 59,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 4,
+     "correct_share": 0.9365079365079365
+    },
+    "2": {
+     "n": 8,
+     "correct": 4,
+     "one_off": 1,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 3,
+     "correct_share": 0.5
+    }
+   },
+   "by_view": {
+    "0-30": {
+     "frames": 81,
+     "matched": 61,
+     "correct": 60,
+     "truth": 68,
+     "missed": 7,
+     "matched_correct": 0.9836065573770492,
+     "truth_correct": 0.8823529411764706
+    },
+    "30-60": {
+     "frames": 9,
+     "matched": 3,
+     "correct": 3,
+     "truth": 3,
+     "missed": 0,
+     "matched_correct": 1.0,
+     "truth_correct": 1.0
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 71,
+    "agree": 71,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 2,
+   "det_unmatched_in_defined_frames": 24
+  },
+  {
+   "arm": "dc_A_held_cios_fusion_s1",
+   "arm_label": "design A: styled + real S+E (one pose pool for every card), seed 1",
+   "set": "df_test",
+   "target": "DeepFluoro test (specimen 18-1109)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/dc_A_held_cios_fusion_s1__df_test__body__0.25.json",
+   "sources": [
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_cios_fusion_s1/eval_deepfluoro_test.json"
+   ],
+   "truth_check": {
+    "frames": 104,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 104,
+   "cases": 1,
+   "frames_no_truth_sacrum": 14,
+   "frames_with_truth_sacrum": 90,
+   "frames_defined": 90,
+   "truth_bodies_sacrum_frames": 71,
+   "truth_bodies_defined": 71,
+   "matched_bodies": 66,
+   "defined_share": {
+    "point": 1.0,
+    "n_clusters": 1,
+    "num": 90,
+    "den": 90,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "anchor_correct_share": {
+    "point": 0.9888888888888889,
+    "n_clusters": 1,
+    "num": 89,
+    "den": 90,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "matched_correct": {
+    "point": 0.5606060606060606,
+    "n_clusters": 1,
+    "num": 37,
+    "den": 66,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "matched_within_one": {
+    "point": 0.9848484848484849,
+    "n_clusters": 1,
+    "num": 65,
+    "den": 66,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.5555555555555556,
+    "n_clusters": 1,
+    "num": 35,
+    "den": 63,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "frame_exact": {
+    "point": 0.47619047619047616,
+    "n_clusters": 1,
+    "num": 30,
+    "den": 63,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_correct_defined": {
+    "point": 0.5211267605633803,
+    "n_clusters": 1,
+    "num": 37,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_one_off_defined": {
+    "point": 0.39436619718309857,
+    "n_clusters": 1,
+    "num": 28,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_off_more_defined": {
+    "point": 0.014084507042253521,
+    "n_clusters": 1,
+    "num": 1,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_missed_defined": {
+    "point": 0.07042253521126761,
+    "n_clusters": 1,
+    "num": 5,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_recall_defined": {
+    "point": 0.9295774647887324,
+    "n_clusters": 1,
+    "num": 66,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.5211267605633803,
+    "n_clusters": 1,
+    "num": 37,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.9154929577464789,
+    "n_clusters": 1,
+    "num": 65,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 63,
+     "correct": 35,
+     "one_off": 27,
+     "off_more": 1,
+     "unranked": 0,
+     "missed": 0,
+     "correct_share": 0.5555555555555556
+    },
+    "2": {
+     "n": 8,
+     "correct": 2,
+     "one_off": 1,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 5,
+     "correct_share": 0.25
+    }
+   },
+   "by_view": {
+    "0-30": {
+     "frames": 81,
+     "matched": 63,
+     "correct": 35,
+     "truth": 68,
+     "missed": 5,
+     "matched_correct": 0.5555555555555556,
+     "truth_correct": 0.5147058823529411
+    },
+    "30-60": {
+     "frames": 9,
+     "matched": 3,
+     "correct": 2,
+     "truth": 3,
+     "missed": 0,
+     "matched_correct": 0.6666666666666666,
+     "truth_correct": 0.6666666666666666
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 71,
+    "agree": 71,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 0,
+   "det_unmatched_in_defined_frames": 61
+  },
+  {
+   "arm": "dc_B_held_cios_fusion",
+   "arm_label": "design B: styled + real S+E (each device's own poses), seed 0",
+   "set": "df_test",
+   "target": "DeepFluoro test (specimen 18-1109)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/dc_B_held_cios_fusion__df_test__body__0.25.json",
+   "sources": [
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_cios_fusion/eval_deepfluoro_test.json"
+   ],
+   "truth_check": {
+    "frames": 104,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 104,
+   "cases": 1,
+   "frames_no_truth_sacrum": 14,
+   "frames_with_truth_sacrum": 90,
+   "frames_defined": 90,
+   "truth_bodies_sacrum_frames": 71,
+   "truth_bodies_defined": 71,
+   "matched_bodies": 67,
+   "defined_share": {
+    "point": 1.0,
+    "n_clusters": 1,
+    "num": 90,
+    "den": 90,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "anchor_correct_share": {
+    "point": 1.0,
+    "n_clusters": 1,
+    "num": 90,
+    "den": 90,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "matched_correct": {
+    "point": 0.8805970149253731,
+    "n_clusters": 1,
+    "num": 59,
+    "den": 67,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "matched_within_one": {
+    "point": 1.0,
+    "n_clusters": 1,
+    "num": 67,
+    "den": 67,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.864406779661017,
+    "n_clusters": 1,
+    "num": 51,
+    "den": 59,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "frame_exact": {
+    "point": 0.8095238095238095,
+    "n_clusters": 1,
+    "num": 51,
+    "den": 63,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_correct_defined": {
+    "point": 0.8309859154929577,
+    "n_clusters": 1,
+    "num": 59,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_one_off_defined": {
+    "point": 0.11267605633802817,
+    "n_clusters": 1,
+    "num": 8,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_off_more_defined": {
+    "point": 0.0,
+    "n_clusters": 1,
+    "num": 0,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_missed_defined": {
+    "point": 0.056338028169014086,
+    "n_clusters": 1,
+    "num": 4,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_recall_defined": {
+    "point": 0.9436619718309859,
+    "n_clusters": 1,
+    "num": 67,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.8309859154929577,
+    "n_clusters": 1,
+    "num": 59,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.9436619718309859,
+    "n_clusters": 1,
+    "num": 67,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 63,
+     "correct": 51,
+     "one_off": 8,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 4,
+     "correct_share": 0.8095238095238095
+    },
+    "2": {
+     "n": 8,
+     "correct": 8,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 0,
+     "correct_share": 1.0
+    }
+   },
+   "by_view": {
+    "0-30": {
+     "frames": 81,
+     "matched": 64,
+     "correct": 57,
+     "truth": 68,
+     "missed": 4,
+     "matched_correct": 0.890625,
+     "truth_correct": 0.8382352941176471
+    },
+    "30-60": {
+     "frames": 9,
+     "matched": 3,
+     "correct": 2,
+     "truth": 3,
+     "missed": 0,
+     "matched_correct": 0.6666666666666666,
+     "truth_correct": 0.6666666666666666
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 71,
+    "agree": 71,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 0,
+   "det_unmatched_in_defined_frames": 38
+  },
+  {
+   "arm": "dc_B_held_cios_fusion_s1",
+   "arm_label": "design B: styled + real S+E (each device's own poses), seed 1",
+   "set": "df_test",
+   "target": "DeepFluoro test (specimen 18-1109)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/dc_B_held_cios_fusion_s1__df_test__body__0.25.json",
+   "sources": [
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_cios_fusion_s1/eval_deepfluoro_test.json"
+   ],
+   "truth_check": {
+    "frames": 104,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 104,
+   "cases": 1,
+   "frames_no_truth_sacrum": 14,
+   "frames_with_truth_sacrum": 90,
+   "frames_defined": 90,
+   "truth_bodies_sacrum_frames": 71,
+   "truth_bodies_defined": 71,
+   "matched_bodies": 66,
+   "defined_share": {
+    "point": 1.0,
+    "n_clusters": 1,
+    "num": 90,
+    "den": 90,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "anchor_correct_share": {
+    "point": 1.0,
+    "n_clusters": 1,
+    "num": 90,
+    "den": 90,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "matched_correct": {
+    "point": 0.5151515151515151,
+    "n_clusters": 1,
+    "num": 34,
+    "den": 66,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "matched_within_one": {
+    "point": 1.0,
+    "n_clusters": 1,
+    "num": 66,
+    "den": 66,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.5517241379310345,
+    "n_clusters": 1,
+    "num": 32,
+    "den": 58,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "frame_exact": {
+    "point": 0.5079365079365079,
+    "n_clusters": 1,
+    "num": 32,
+    "den": 63,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_correct_defined": {
+    "point": 0.4788732394366197,
+    "n_clusters": 1,
+    "num": 34,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_one_off_defined": {
+    "point": 0.4507042253521127,
+    "n_clusters": 1,
+    "num": 32,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_off_more_defined": {
+    "point": 0.0,
+    "n_clusters": 1,
+    "num": 0,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_missed_defined": {
+    "point": 0.07042253521126761,
+    "n_clusters": 1,
+    "num": 5,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_recall_defined": {
+    "point": 0.9295774647887324,
+    "n_clusters": 1,
+    "num": 66,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.4788732394366197,
+    "n_clusters": 1,
+    "num": 34,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.9295774647887324,
+    "n_clusters": 1,
+    "num": 66,
+    "den": 71,
+    "percentile": null,
+    "bca": null,
+    "interval": "no interval: one cluster"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 63,
+     "correct": 32,
+     "one_off": 26,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 5,
+     "correct_share": 0.5079365079365079
+    },
+    "2": {
+     "n": 8,
+     "correct": 2,
+     "one_off": 6,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 0,
+     "correct_share": 0.25
+    }
+   },
+   "by_view": {
+    "0-30": {
+     "frames": 81,
+     "matched": 63,
+     "correct": 33,
+     "truth": 68,
+     "missed": 5,
+     "matched_correct": 0.5238095238095238,
+     "truth_correct": 0.4852941176470588
+    },
+    "30-60": {
+     "frames": 9,
+     "matched": 3,
+     "correct": 1,
+     "truth": 3,
+     "missed": 0,
+     "matched_correct": 0.3333333333333333,
+     "truth_correct": 0.3333333333333333
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 71,
+    "agree": 71,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 2,
+   "det_unmatched_in_defined_frames": 59
+  },
+  {
+   "arm": "dc_A_held_cios_fusion",
+   "arm_label": "design A: styled + real S+E (one pose pool for every card), seed 0",
+   "set": "df_all6",
+   "target": "DeepFluoro, all six specimens",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/dc_A_held_cios_fusion__df_all6__body__0.25.json",
+   "sources": [
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_cios_fusion/eval_deepfluoro_train.json",
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_cios_fusion/eval_deepfluoro_val.json",
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_cios_fusion/eval_deepfluoro_test.json"
+   ],
+   "truth_check": {
+    "frames": 366,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 366,
+   "cases": 6,
+   "frames_no_truth_sacrum": 28,
+   "frames_with_truth_sacrum": 338,
+   "frames_defined": 333,
+   "truth_bodies_sacrum_frames": 416,
+   "truth_bodies_defined": 407,
+   "matched_bodies": 292,
+   "defined_share": {
+    "point": 0.985207100591716,
+    "n_clusters": 6,
+    "num": 333,
+    "den": 338,
+    "percentile": [
+     0.9452554744525548,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9214659685863874,
+     1.0
+    ],
+    "bca_note": "z0=-0.083 a=-0.0971 (ties split; p0=0.467)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.9429429429429429,
+    "n_clusters": 6,
+    "num": 314,
+    "den": 333,
+    "percentile": [
+     0.7633718640164828,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6433566433566433,
+     1.0
+    ],
+    "bca_note": "z0=-0.143 a=-0.0791 (ties split; p0=0.443)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.9041095890410958,
+    "n_clusters": 6,
+    "num": 264,
+    "den": 292,
+    "percentile": [
+     0.7100840336134454,
+     0.9878885630498534
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5643094555421256,
+     0.9810126582278481
+    ],
+    "bca_note": "z0=-0.130 a=-0.0960 (ties split; p0=0.448)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 1.0,
+    "n_clusters": 6,
+    "num": 292,
+    "den": 292,
+    "percentile": [
+     1.0,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.8911290322580645,
+    "n_clusters": 6,
+    "num": 221,
+    "den": 248,
+    "percentile": [
+     0.6580310880829016,
+     0.985986842105263
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.49375839068076605,
+     0.9774242529582448
+    ],
+    "bca_note": "z0=-0.129 a=-0.0943 (ties split; p0=0.449)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.6223021582733813,
+    "n_clusters": 6,
+    "num": 173,
+    "den": 278,
+    "percentile": [
+     0.39351851851851855,
+     0.8188679245283019
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.4028436018957346,
+     0.8265682656826568
+    ],
+    "bca_note": "z0=0.009 a=0.0245 (ties split; p0=0.504)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.6486486486486487,
+    "n_clusters": 6,
+    "num": 264,
+    "den": 407,
+    "percentile": [
+     0.4131455399061033,
+     0.8326848249027238
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.3804972605471348,
+     0.8089887640449438
+    ],
+    "bca_note": "z0=-0.071 a=-0.0481 (ties split; p0=0.472)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.0687960687960688,
+    "n_clusters": 6,
+    "num": 28,
+    "den": 407,
+    "percentile": [
+     0.00906344410876133,
+     0.17962466487935658
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.015217391304347827,
+     0.23071842047958072
+    ],
+    "bca_note": "z0=0.130 a=0.1001 (ties split; p0=0.552)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.0,
+    "n_clusters": 6,
+    "num": 0,
+    "den": 407,
+    "percentile": [
+     0.0,
+     0.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.28255528255528256,
+    "n_clusters": 6,
+    "num": 115,
+    "den": 407,
+    "percentile": [
+     0.14989733059548255,
+     0.40782122905027934
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.1488095238095238,
+     0.40683599571732304
+    ],
+    "bca_note": "z0=0.012 a=-0.0127 (ties split; p0=0.505)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.7174447174447175,
+    "n_clusters": 6,
+    "num": 292,
+    "den": 407,
+    "percentile": [
+     0.5921787709497207,
+     0.8501026694045175
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5931640042826771,
+     0.8511904761904762
+    ],
+    "bca_note": "z0=-0.012 a=0.0127 (ties split; p0=0.495)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.6346153846153846,
+    "n_clusters": 6,
+    "num": 264,
+    "den": 416,
+    "percentile": [
+     0.3883248730964467,
+     0.8326848249027238
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.3381499698972528,
+     0.7974217311233885
+    ],
+    "bca_note": "z0=-0.092 a=-0.0620 (ties split; p0=0.463)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.7019230769230769,
+    "n_clusters": 6,
+    "num": 292,
+    "den": 416,
+    "percentile": [
+     0.554296100944166,
+     0.8445986219392985
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5421412300683371,
+     0.8368298368298368
+    ],
+    "bca_note": "z0=-0.050 a=-0.0162 (ties split; p0=0.480)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 278,
+     "correct": 222,
+     "one_off": 2,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 54,
+     "correct_share": 0.7985611510791367
+    },
+    "2": {
+     "n": 125,
+     "correct": 40,
+     "one_off": 25,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 60,
+     "correct_share": 0.32
+    },
+    "3": {
+     "n": 4,
+     "correct": 2,
+     "one_off": 1,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 1,
+     "correct_share": 0.5
+    }
+   },
+   "by_view": {
+    "0-30": {
+     "frames": 313,
+     "matched": 283,
+     "correct": 255,
+     "truth": 397,
+     "missed": 114,
+     "matched_correct": 0.901060070671378,
+     "truth_correct": 0.6423173803526449
+    },
+    "30-60": {
+     "frames": 20,
+     "matched": 9,
+     "correct": 9,
+     "truth": 10,
+     "missed": 1,
+     "matched_correct": 1.0,
+     "truth_correct": 0.9
+    }
+   },
+   "per_case": {
+    "17-1882": {
+     "frames_defined": 107,
+     "matched": 96,
+     "correct": 92,
+     "matched_correct": 0.9583333333333334
+    },
+    "17-1905": {
+     "frames_defined": 19,
+     "matched": 11,
+     "correct": 9,
+     "matched_correct": 0.8181818181818182
+    },
+    "18-0725": {
+     "frames_defined": 24,
+     "matched": 23,
+     "correct": 23,
+     "matched_correct": 1.0
+    },
+    "18-1109": {
+     "frames_defined": 90,
+     "matched": 64,
+     "correct": 63,
+     "matched_correct": 0.984375
+    },
+    "18-2799": {
+     "frames_defined": 38,
+     "matched": 36,
+     "correct": 15,
+     "matched_correct": 0.4166666666666667
+    },
+    "18-2800": {
+     "frames_defined": 55,
+     "matched": 62,
+     "correct": 62,
+     "matched_correct": 1.0
+    }
+   },
+   "truth_order_name_check": {
+    "named_bodies": 318,
+    "agree": 318,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 2,
+   "det_unmatched_in_defined_frames": 73
+  },
+  {
+   "arm": "dc_A_held_cios_fusion_s1",
+   "arm_label": "design A: styled + real S+E (one pose pool for every card), seed 1",
+   "set": "df_all6",
+   "target": "DeepFluoro, all six specimens",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/dc_A_held_cios_fusion_s1__df_all6__body__0.25.json",
+   "sources": [
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_cios_fusion_s1/eval_deepfluoro_train.json",
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_cios_fusion_s1/eval_deepfluoro_val.json",
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_cios_fusion_s1/eval_deepfluoro_test.json"
+   ],
+   "truth_check": {
+    "frames": 366,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 366,
+   "cases": 6,
+   "frames_no_truth_sacrum": 28,
+   "frames_with_truth_sacrum": 338,
+   "frames_defined": 332,
+   "truth_bodies_sacrum_frames": 416,
+   "truth_bodies_defined": 410,
+   "matched_bodies": 321,
+   "defined_share": {
+    "point": 0.9822485207100592,
+    "n_clusters": 6,
+    "num": 332,
+    "den": 338,
+    "percentile": [
+     0.9408866995073891,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9282296650717703,
+     1.0
+    ],
+    "bca_note": "z0=-0.091 a=-0.0252 (ties split; p0=0.464)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.9548192771084337,
+    "n_clusters": 6,
+    "num": 317,
+    "den": 332,
+    "percentile": [
+     0.8122521881261204,
+     0.997716894977169
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.7205882352941176,
+     0.9948453608247423
+    ],
+    "bca_note": "z0=-0.143 a=-0.0817 (ties split; p0=0.443)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.7975077881619937,
+    "n_clusters": 6,
+    "num": 256,
+    "den": 321,
+    "percentile": [
+     0.5958333333333333,
+     0.9346153846153846
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6,
+     0.9347258485639687
+    ],
+    "bca_note": "z0=0.011 a=0.0193 (ties split; p0=0.504)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 0.9937694704049844,
+    "n_clusters": 6,
+    "num": 319,
+    "den": 321,
+    "percentile": [
+     0.9845559845559846,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9845559845559846,
+     1.0
+    ],
+    "bca_note": "z0=-0.009 a=0.0064 (ties split; p0=0.496)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.7735849056603774,
+    "n_clusters": 6,
+    "num": 205,
+    "den": 265,
+    "percentile": [
+     0.5643153526970954,
+     0.9310373092142453
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5767189590027805,
+     0.9316004515284898
+    ],
+    "bca_note": "z0=0.034 a=0.0169 (ties split; p0=0.514)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.5611510791366906,
+    "n_clusters": 6,
+    "num": 156,
+    "den": 278,
+    "percentile": [
+     0.3488845651140684,
+     0.7108843537414966
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.3641304347826087,
+     0.7167758812643606
+    ],
+    "bca_note": "z0=0.031 a=0.0243 (ties split; p0=0.512)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.624390243902439,
+    "n_clusters": 6,
+    "num": 256,
+    "den": 410,
+    "percentile": [
+     0.42073170731707316,
+     0.7698924731182796
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.4294478527607362,
+     0.7738853503184714
+    ],
+    "bca_note": "z0=0.007 a=0.0230 (ties split; p0=0.503)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.15365853658536585,
+    "n_clusters": 6,
+    "num": 63,
+    "den": 410,
+    "percentile": [
+     0.053763440860215055,
+     0.29433650276259227
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.053763440860215055,
+     0.29640107474398913
+    ],
+    "bca_note": "z0=0.011 a=-0.0005 (ties split; p0=0.504)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.004878048780487805,
+    "n_clusters": 6,
+    "num": 2,
+    "den": 410,
+    "percentile": [
+     0.0,
+     0.011364283495547729
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.0,
+     0.011461318051575931
+    ],
+    "bca_note": "z0=0.022 a=0.0019 (ties split; p0=0.509)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.21707317073170732,
+    "n_clusters": 6,
+    "num": 89,
+    "den": 410,
+    "percentile": [
+     0.11737089201877934,
+     0.34055727554179566
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.12154696132596685,
+     0.3417032639320083
+    ],
+    "bca_note": "z0=0.036 a=0.0183 (ties split; p0=0.514)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.7829268292682927,
+    "n_clusters": 6,
+    "num": 321,
+    "den": 410,
+    "percentile": [
+     0.6594427244582043,
+     0.8826291079812206
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6582967360679916,
+     0.8784530386740331
+    ],
+    "bca_note": "z0=-0.036 a=-0.0183 (ties split; p0=0.486)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.6153846153846154,
+    "n_clusters": 6,
+    "num": 256,
+    "den": 416,
+    "percentile": [
+     0.4080717488789238,
+     0.7649572649572649
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.4158415841584158,
+     0.7732997481108312
+    ],
+    "bca_note": "z0=0.024 a=0.0228 (ties split; p0=0.510)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.7668269230769231,
+    "n_clusters": 6,
+    "num": 319,
+    "den": 416,
+    "percentile": [
+     0.6339869281045751,
+     0.8717948717948718
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6314132067820583,
+     0.8610701736336983
+    ],
+    "bca_note": "z0=-0.051 a=-0.0187 (ties split; p0=0.480)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 278,
+     "correct": 206,
+     "one_off": 34,
+     "off_more": 2,
+     "unranked": 0,
+     "missed": 36,
+     "correct_share": 0.7410071942446043
+    },
+    "2": {
+     "n": 127,
+     "correct": 48,
+     "one_off": 27,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 52,
+     "correct_share": 0.3779527559055118
+    },
+    "3": {
+     "n": 5,
+     "correct": 2,
+     "one_off": 2,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 1,
+     "correct_share": 0.4
+    }
+   },
+   "by_view": {
+    "0-30": {
+     "frames": 313,
+     "matched": 312,
+     "correct": 248,
+     "truth": 400,
+     "missed": 88,
+     "matched_correct": 0.7948717948717948,
+     "truth_correct": 0.62
+    },
+    "30-60": {
+     "frames": 19,
+     "matched": 9,
+     "correct": 8,
+     "truth": 10,
+     "missed": 1,
+     "matched_correct": 0.8888888888888888,
+     "truth_correct": 0.8
+    }
+   },
+   "per_case": {
+    "17-1882": {
+     "frames_defined": 107,
+     "matched": 114,
+     "correct": 108,
+     "matched_correct": 0.9473684210526315
+    },
+    "17-1905": {
+     "frames_defined": 16,
+     "matched": 8,
+     "correct": 7,
+     "matched_correct": 0.875
+    },
+    "18-0725": {
+     "frames_defined": 24,
+     "matched": 25,
+     "correct": 21,
+     "matched_correct": 0.84
+    },
+    "18-1109": {
+     "frames_defined": 90,
+     "matched": 66,
+     "correct": 37,
+     "matched_correct": 0.5606060606060606
+    },
+    "18-2799": {
+     "frames_defined": 40,
+     "matched": 47,
+     "correct": 26,
+     "matched_correct": 0.5531914893617021
+    },
+    "18-2800": {
+     "frames_defined": 55,
+     "matched": 61,
+     "correct": 57,
+     "matched_correct": 0.9344262295081968
+    }
+   },
+   "truth_order_name_check": {
+    "named_bodies": 318,
+    "agree": 318,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 0,
+   "det_unmatched_in_defined_frames": 140
+  },
+  {
+   "arm": "dc_B_held_cios_fusion",
+   "arm_label": "design B: styled + real S+E (each device's own poses), seed 0",
+   "set": "df_all6",
+   "target": "DeepFluoro, all six specimens",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/dc_B_held_cios_fusion__df_all6__body__0.25.json",
+   "sources": [
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_cios_fusion/eval_deepfluoro_train.json",
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_cios_fusion/eval_deepfluoro_val.json",
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_cios_fusion/eval_deepfluoro_test.json"
+   ],
+   "truth_check": {
+    "frames": 366,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 366,
+   "cases": 6,
+   "frames_no_truth_sacrum": 28,
+   "frames_with_truth_sacrum": 338,
+   "frames_defined": 336,
+   "truth_bodies_sacrum_frames": 416,
+   "truth_bodies_defined": 416,
+   "matched_bodies": 327,
+   "defined_share": {
+    "point": 0.9940828402366864,
+    "n_clusters": 6,
+    "num": 336,
+    "den": 338,
+    "percentile": [
+     0.9870960789766406,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9862100253501184,
+     1.0
+    ],
+    "bca_note": "z0=-0.060 a=-0.0239 (ties split; p0=0.476)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.9553571428571429,
+    "n_clusters": 6,
+    "num": 321,
+    "den": 336,
+    "percentile": [
+     0.7887323943661971,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.653179190751445,
+     1.0
+    ],
+    "bca_note": "z0=-0.140 a=-0.1017 (ties split; p0=0.444)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.8899082568807339,
+    "n_clusters": 6,
+    "num": 291,
+    "den": 327,
+    "percentile": [
+     0.8047529776183224,
+     0.9538461538461539
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.7936464450401476,
+     0.9501340664233989
+    ],
+    "bca_note": "z0=-0.029 a=-0.0301 (ties split; p0=0.488)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 1.0,
+    "n_clusters": 6,
+    "num": 327,
+    "den": 327,
+    "percentile": [
+     1.0,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.8703703703703703,
+    "n_clusters": 6,
+    "num": 235,
+    "den": 270,
+    "percentile": [
+     0.7562946797112395,
+     0.9440162361623615
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.7318435754189944,
+     0.9395080508019039
+    ],
+    "bca_note": "z0=-0.039 a=-0.0349 (ties split; p0=0.484)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.6466431095406361,
+    "n_clusters": 6,
+    "num": 183,
+    "den": 283,
+    "percentile": [
+     0.4745762711864407,
+     0.8362068965517241
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.46875,
+     0.8265359162174646
+    ],
+    "bca_note": "z0=-0.011 a=-0.0225 (ties split; p0=0.496)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.6995192307692307,
+    "n_clusters": 6,
+    "num": 291,
+    "den": 416,
+    "percentile": [
+     0.5862068965517241,
+     0.8551236749116607
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5862068965517241,
+     0.8541664095918524
+    ],
+    "bca_note": "z0=-0.027 a=0.0062 (ties split; p0=0.489)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.08653846153846154,
+    "n_clusters": 6,
+    "num": 36,
+    "den": 416,
+    "percentile": [
+     0.036734693877551024,
+     0.15
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.040515653775322284,
+     0.1581769436997319
+    ],
+    "bca_note": "z0=0.037 a=0.0246 (ties split; p0=0.515)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.0,
+    "n_clusters": 6,
+    "num": 0,
+    "den": 416,
+    "percentile": [
+     0.0,
+     0.0
+    ],
+    "resamples_used": 2000,
+    "bca": null,
+    "bca_note": "BCa undefined (p0=0.500, jackknife spread 0.0000); percentile only",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.21394230769230768,
+    "n_clusters": 6,
+    "num": 89,
+    "den": 416,
+    "percentile": [
+     0.07917888563049853,
+     0.30638801330881704
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.0901829432707198,
+     0.31203007518796994
+    ],
+    "bca_note": "z0=0.019 a=0.0359 (ties split; p0=0.508)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.7860576923076923,
+    "n_clusters": 6,
+    "num": 327,
+    "den": 416,
+    "percentile": [
+     0.693611986691183,
+     0.9208211143695014
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6879699248120301,
+     0.9098170567292797
+    ],
+    "bca_note": "z0=-0.019 a=-0.0359 (ties split; p0=0.492)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.6995192307692307,
+    "n_clusters": 6,
+    "num": 291,
+    "den": 416,
+    "percentile": [
+     0.5862068965517241,
+     0.8551236749116607
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5862068965517241,
+     0.8541664095918524
+    ],
+    "bca_note": "z0=-0.027 a=0.0062 (ties split; p0=0.489)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.7860576923076923,
+    "n_clusters": 6,
+    "num": 327,
+    "den": 416,
+    "percentile": [
+     0.693611986691183,
+     0.9208211143695014
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6879699248120301,
+     0.9098170567292797
+    ],
+    "bca_note": "z0=-0.019 a=-0.0359 (ties split; p0=0.492)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 283,
+     "correct": 235,
+     "one_off": 16,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 32,
+     "correct_share": 0.8303886925795053
+    },
+    "2": {
+     "n": 128,
+     "correct": 55,
+     "one_off": 19,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 54,
+     "correct_share": 0.4296875
+    },
+    "3": {
+     "n": 5,
+     "correct": 1,
+     "one_off": 1,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 3,
+     "correct_share": 0.2
+    }
+   },
+   "by_view": {
+    "0-30": {
+     "frames": 316,
+     "matched": 318,
+     "correct": 284,
+     "truth": 406,
+     "missed": 88,
+     "matched_correct": 0.8930817610062893,
+     "truth_correct": 0.6995073891625616
+    },
+    "30-60": {
+     "frames": 20,
+     "matched": 9,
+     "correct": 7,
+     "truth": 10,
+     "missed": 1,
+     "matched_correct": 0.7777777777777778,
+     "truth_correct": 0.7
+    }
+   },
+   "per_case": {
+    "17-1882": {
+     "frames_defined": 106,
+     "matched": 91,
+     "correct": 84,
+     "matched_correct": 0.9230769230769231
+    },
+    "17-1905": {
+     "frames_defined": 19,
+     "matched": 16,
+     "correct": 12,
+     "matched_correct": 0.75
+    },
+    "18-0725": {
+     "frames_defined": 24,
+     "matched": 33,
+     "correct": 31,
+     "matched_correct": 0.9393939393939394
+    },
+    "18-1109": {
+     "frames_defined": 90,
+     "matched": 67,
+     "correct": 59,
+     "matched_correct": 0.8805970149253731
+    },
+    "18-2799": {
+     "frames_defined": 42,
+     "matched": 56,
+     "correct": 41,
+     "matched_correct": 0.7321428571428571
+    },
+    "18-2800": {
+     "frames_defined": 55,
+     "matched": 64,
+     "correct": 64,
+     "matched_correct": 1.0
+    }
+   },
+   "truth_order_name_check": {
+    "named_bodies": 318,
+    "agree": 318,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 0,
+   "det_unmatched_in_defined_frames": 147
+  },
+  {
+   "arm": "dc_B_held_cios_fusion_s1",
+   "arm_label": "design B: styled + real S+E (each device's own poses), seed 1",
+   "set": "df_all6",
+   "target": "DeepFluoro, all six specimens",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/dc_B_held_cios_fusion_s1__df_all6__body__0.25.json",
+   "sources": [
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_cios_fusion_s1/eval_deepfluoro_train.json",
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_cios_fusion_s1/eval_deepfluoro_val.json",
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_cios_fusion_s1/eval_deepfluoro_test.json"
+   ],
+   "truth_check": {
+    "frames": 366,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 366,
+   "cases": 6,
+   "frames_no_truth_sacrum": 28,
+   "frames_with_truth_sacrum": 338,
+   "frames_defined": 335,
+   "truth_bodies_sacrum_frames": 416,
+   "truth_bodies_defined": 414,
+   "matched_bodies": 311,
+   "defined_share": {
+    "point": 0.9911242603550295,
+    "n_clusters": 6,
+    "num": 335,
+    "den": 338,
+    "percentile": [
+     0.9770992366412213,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9702970297029703,
+     1.0
+    ],
+    "bca_note": "z0=-0.090 a=-0.0772 (ties split; p0=0.464)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.9492537313432836,
+    "n_clusters": 6,
+    "num": 318,
+    "den": 335,
+    "percentile": [
+     0.7940245312098638,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6917808219178082,
+     1.0
+    ],
+    "bca_note": "z0=-0.143 a=-0.0777 (ties split; p0=0.443)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.752411575562701,
+    "n_clusters": 6,
+    "num": 234,
+    "den": 311,
+    "percentile": [
+     0.5983072252270639,
+     0.8686782786885241
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5834787577118508,
+     0.8599863566739994
+    ],
+    "bca_note": "z0=-0.036 a=-0.0359 (ties split; p0=0.486)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 0.9935691318327974,
+    "n_clusters": 6,
+    "num": 309,
+    "den": 311,
+    "percentile": [
+     0.9809523809523809,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9786096256684492,
+     1.0
+    ],
+    "bca_note": "z0=-0.081 a=-0.0357 (ties split; p0=0.468)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.7340823970037453,
+    "n_clusters": 6,
+    "num": 196,
+    "den": 267,
+    "percentile": [
+     0.5772357723577236,
+     0.8478260869565217
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5772357723577236,
+     0.8475836431226765
+    ],
+    "bca_note": "z0=-0.003 a=-0.0021 (ties split; p0=0.499)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.49466192170818507,
+    "n_clusters": 6,
+    "num": 139,
+    "den": 281,
+    "percentile": [
+     0.357487922705314,
+     0.7027027027027027
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.36900369003690037,
+     0.7561314076845405
+    ],
+    "bca_note": "z0=0.071 a=0.0730 (ties split; p0=0.528)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.5652173913043478,
+    "n_clusters": 6,
+    "num": 234,
+    "den": 414,
+    "percentile": [
+     0.46905537459283386,
+     0.730465996267883
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.48283384346392383,
+     0.802158273381295
+    ],
+    "bca_note": "z0=0.102 a=0.1033 (ties split; p0=0.541)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.18115942028985507,
+    "n_clusters": 6,
+    "num": 75,
+    "den": 414,
+    "percentile": [
+     0.09333333333333334,
+     0.3196480938416422
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.10181818181818182,
+     0.36363636363636365
+    ],
+    "bca_note": "z0=0.081 a=0.0514 (ties split; p0=0.532)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.004830917874396135,
+    "n_clusters": 6,
+    "num": 2,
+    "den": 414,
+    "percentile": [
+     0.0,
+     0.014502181994504555
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.0,
+     0.01702127659574468
+    ],
+    "bca_note": "z0=0.061 a=0.0246 (ties split; p0=0.524)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.24879227053140096,
+    "n_clusters": 6,
+    "num": 103,
+    "den": 414,
+    "percentile": [
+     0.09863013698630137,
+     0.36026200873362446
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.09863013698630137,
+     0.36026200873362446
+    ],
+    "bca_note": "z0=-0.017 a=0.0089 (ties split; p0=0.493)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.751207729468599,
+    "n_clusters": 6,
+    "num": 311,
+    "den": 414,
+    "percentile": [
+     0.6397379912663755,
+     0.9013698630136986
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6397379912663755,
+     0.9013698630136986
+    ],
+    "bca_note": "z0=0.017 a=-0.0089 (ties split; p0=0.507)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.5625,
+    "n_clusters": 6,
+    "num": 234,
+    "den": 416,
+    "percentile": [
+     0.46396396396396394,
+     0.7297297297297297
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.47692307692307695,
+     0.7968337730870713
+    ],
+    "bca_note": "z0=0.081 a=0.1002 (ties split; p0=0.532)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.7427884615384616,
+    "n_clusters": 6,
+    "num": 309,
+    "den": 416,
+    "percentile": [
+     0.6347813069513147,
+     0.8915023287907538
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6350806451612904,
+     0.8977272727272727
+    ],
+    "bca_note": "z0=0.032 a=-0.0012 (ties split; p0=0.513)",
+    "interval": "case bootstrap, 6 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 281,
+     "correct": 196,
+     "one_off": 48,
+     "off_more": 2,
+     "unranked": 0,
+     "missed": 35,
+     "correct_share": 0.697508896797153
+    },
+    "2": {
+     "n": 128,
+     "correct": 36,
+     "one_off": 27,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 65,
+     "correct_share": 0.28125
+    },
+    "3": {
+     "n": 5,
+     "correct": 2,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 3,
+     "correct_share": 0.4
+    }
+   },
+   "by_view": {
+    "0-30": {
+     "frames": 315,
+     "matched": 302,
+     "correct": 228,
+     "truth": 404,
+     "missed": 102,
+     "matched_correct": 0.7549668874172185,
+     "truth_correct": 0.5643564356435643
+    },
+    "30-60": {
+     "frames": 20,
+     "matched": 9,
+     "correct": 6,
+     "truth": 10,
+     "missed": 1,
+     "matched_correct": 0.6666666666666666,
+     "truth_correct": 0.6
+    }
+   },
+   "per_case": {
+    "17-1882": {
+     "frames_defined": 106,
+     "matched": 86,
+     "correct": 72,
+     "matched_correct": 0.8372093023255814
+    },
+    "17-1905": {
+     "frames_defined": 19,
+     "matched": 14,
+     "correct": 8,
+     "matched_correct": 0.5714285714285714
+    },
+    "18-0725": {
+     "frames_defined": 24,
+     "matched": 28,
+     "correct": 24,
+     "matched_correct": 0.8571428571428571
+    },
+    "18-1109": {
+     "frames_defined": 90,
+     "matched": 66,
+     "correct": 34,
+     "matched_correct": 0.5151515151515151
+    },
+    "18-2799": {
+     "frames_defined": 41,
+     "matched": 51,
+     "correct": 35,
+     "matched_correct": 0.6862745098039216
+    },
+    "18-2800": {
+     "frames_defined": 55,
+     "matched": 66,
+     "correct": 61,
+     "matched_correct": 0.9242424242424242
+    }
+   },
+   "truth_order_name_check": {
+    "named_bodies": 318,
+    "agree": 318,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 2,
+   "det_unmatched_in_defined_frames": 162
+  },
+  {
+   "arm": "lodo_cobra",
+   "arm_label": "real D+S frames only (COBRA never seen)",
+   "set": "cobra_test",
+   "target": "COBRA Elekta XVI test (27 patients)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/lodo_cobra__cobra_test__body__0.25.json",
+   "sources": [
+    "/rs/rs_grp_oschome/go2432/data/or_ready/lodo/sweeps/lodo_cobra__cobra_test.json"
+   ],
+   "truth_check": {
+    "frames": 648,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 648,
+   "cases": 27,
+   "frames_no_truth_sacrum": 39,
+   "frames_with_truth_sacrum": 609,
+   "frames_defined": 111,
+   "truth_bodies_sacrum_frames": 847,
+   "truth_bodies_defined": 149,
+   "matched_bodies": 76,
+   "defined_share": {
+    "point": 0.18226600985221675,
+    "n_clusters": 27,
+    "num": 111,
+    "den": 609,
+    "percentile": [
+     0.13439820895522386,
+     0.2351970737533592
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.13497868052705506,
+     0.2356766720767196
+    ],
+    "bca_note": "z0=-0.011 a=0.0096 (ties split; p0=0.495)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.7297297297297297,
+    "n_clusters": 27,
+    "num": 81,
+    "den": 111,
+    "percentile": [
+     0.5730260469867211,
+     0.8461538461538461
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5745919797206084,
+     0.8461538461538461
+    ],
+    "bca_note": "z0=0.008 a=-0.0018 (ties split; p0=0.503)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.7105263157894737,
+    "n_clusters": 27,
+    "num": 54,
+    "den": 76,
+    "percentile": [
+     0.5660172272354389,
+     0.803030303030303
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5774647887323944,
+     0.8064516129032258
+    ],
+    "bca_note": "z0=0.029 a=0.0194 (ties split; p0=0.511)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 0.9736842105263158,
+    "n_clusters": 27,
+    "num": 74,
+    "den": 76,
+    "percentile": [
+     0.9230519480519481,
+     1.0
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9046927602140008,
+     1.0
+    ],
+    "bca_note": "z0=-0.068 a=-0.0662 (ties split; p0=0.473)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.6851851851851852,
+    "n_clusters": 27,
+    "num": 37,
+    "den": 54,
+    "percentile": [
+     0.540527027027027,
+     0.7936507936507936
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.55,
+     0.8
+    ],
+    "bca_note": "z0=0.020 a=0.0158 (ties split; p0=0.508)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.3626373626373626,
+    "n_clusters": 27,
+    "num": 33,
+    "den": 91,
+    "percentile": [
+     0.24656480505795572,
+     0.4666666666666667
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.26744506707621246,
+     0.49468755258381014
+    ],
+    "bca_note": "z0=0.080 a=0.0643 (ties split; p0=0.532)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.3624161073825503,
+    "n_clusters": 27,
+    "num": 54,
+    "den": 149,
+    "percentile": [
+     0.2341480275285732,
+     0.46316748903508764
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.2482878380601047,
+     0.4714850491129238
+    ],
+    "bca_note": "z0=0.055 a=0.0337 (ties split; p0=0.522)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.1342281879194631,
+    "n_clusters": 27,
+    "num": 20,
+    "den": 149,
+    "percentile": [
+     0.08870432486440194,
+     0.1881259865116946
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.09090909090909091,
+     0.19247203722684986
+    ],
+    "bca_note": "z0=-0.009 a=0.0416 (ties split; p0=0.496)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.013422818791946308,
+    "n_clusters": 27,
+    "num": 2,
+    "den": 149,
+    "percentile": [
+     0.0,
+     0.03418803418803419
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.0,
+     0.04097735834127673
+    ],
+    "bca_note": "z0=0.071 a=0.0817 (ties split; p0=0.528)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.4899328859060403,
+    "n_clusters": 27,
+    "num": 73,
+    "den": 149,
+    "percentile": [
+     0.39654052843708015,
+     0.6095890410958904
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.391304347826087,
+     0.6036271789319375
+    ],
+    "bca_note": "z0=-0.023 a=-0.0220 (ties split; p0=0.491)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.5100671140939598,
+    "n_clusters": 27,
+    "num": 76,
+    "den": 149,
+    "percentile": [
+     0.3904109589041096,
+     0.6034594715629198
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.3963728210680625,
+     0.6086956521739131
+    ],
+    "bca_note": "z0=0.023 a=0.0220 (ties split; p0=0.509)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.06375442739079103,
+    "n_clusters": 27,
+    "num": 54,
+    "den": 847,
+    "percentile": [
+     0.032991773753455744,
+     0.09364026860744297
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.0362493669642771,
+     0.09950910278692773
+    ],
+    "bca_note": "z0=0.039 a=0.0494 (ties split; p0=0.515)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.08736717827626919,
+    "n_clusters": 27,
+    "num": 74,
+    "den": 847,
+    "percentile": [
+     0.051193084858827176,
+     0.12202102645392428
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.053340798967108284,
+     0.12562496855033145
+    ],
+    "bca_note": "z0=0.014 a=0.0371 (ties split; p0=0.505)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 91,
+     "correct": 37,
+     "one_off": 7,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 47,
+     "correct_share": 0.4065934065934066
+    },
+    "2": {
+     "n": 36,
+     "correct": 9,
+     "one_off": 10,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 17,
+     "correct_share": 0.25
+    },
+    "3": {
+     "n": 15,
+     "correct": 5,
+     "one_off": 2,
+     "off_more": 2,
+     "unranked": 0,
+     "missed": 6,
+     "correct_share": 0.3333333333333333
+    },
+    "4": {
+     "n": 7,
+     "correct": 3,
+     "one_off": 1,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 3,
+     "correct_share": 0.42857142857142855
+    }
+   },
+   "by_view": {
+    "0-30": {
+     "frames": 86,
+     "matched": 71,
+     "correct": 50,
+     "truth": 110,
+     "missed": 39,
+     "matched_correct": 0.704225352112676,
+     "truth_correct": 0.45454545454545453
+    },
+    "30-60": {
+     "frames": 21,
+     "matched": 5,
+     "correct": 4,
+     "truth": 30,
+     "missed": 25,
+     "matched_correct": 0.8,
+     "truth_correct": 0.13333333333333333
+    },
+    "60-90": {
+     "frames": 4,
+     "matched": 0,
+     "correct": 0,
+     "truth": 9,
+     "missed": 9,
+     "matched_correct": null,
+     "truth_correct": 0.0
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 829,
+    "agree": 829,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 0,
+   "det_unmatched_in_defined_frames": 54
+  },
+  {
+   "arm": "dc_A_held_elekta_xvi",
+   "arm_label": "design A: styled + real D+S (one pose pool for every card), seed 0",
+   "set": "cobra_test",
+   "target": "COBRA Elekta XVI test (27 patients)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/dc_A_held_elekta_xvi__cobra_test__body__0.25.json",
+   "sources": [
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_elekta_xvi/eval_cobra_elekta_test.json"
+   ],
+   "truth_check": {
+    "frames": 648,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 648,
+   "cases": 27,
+   "frames_no_truth_sacrum": 39,
+   "frames_with_truth_sacrum": 609,
+   "frames_defined": 280,
+   "truth_bodies_sacrum_frames": 847,
+   "truth_bodies_defined": 400,
+   "matched_bodies": 240,
+   "defined_share": {
+    "point": 0.45977011494252873,
+    "n_clusters": 27,
+    "num": 280,
+    "den": 609,
+    "percentile": [
+     0.41763404987198666,
+     0.5
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.4153064161089622,
+     0.49836601307189543
+    ],
+    "bca_note": "z0=-0.002 a=-0.0224 (ties split; p0=0.499)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.7428571428571429,
+    "n_clusters": 27,
+    "num": 208,
+    "den": 280,
+    "percentile": [
+     0.6485329698107757,
+     0.826438170218542
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6348173100127407,
+     0.8166252663819474
+    ],
+    "bca_note": "z0=-0.058 a=-0.0467 (ties split; p0=0.477)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.6625,
+    "n_clusters": 27,
+    "num": 159,
+    "den": 240,
+    "percentile": [
+     0.5743788643712066,
+     0.7489969135802468
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5748387931489117,
+     0.7498830706083166
+    ],
+    "bca_note": "z0=0.021 a=-0.0091 (ties split; p0=0.508)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 0.9666666666666667,
+    "n_clusters": 27,
+    "num": 232,
+    "den": 240,
+    "percentile": [
+     0.9480957623691187,
+     0.9872631621381923
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9454496644871864,
+     0.985781990521327
+    ],
+    "bca_note": "z0=-0.014 a=-0.0515 (ties split; p0=0.494)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.6166666666666667,
+    "n_clusters": 27,
+    "num": 111,
+    "den": 180,
+    "percentile": [
+     0.5064370804445912,
+     0.7171306517131754
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5050239956359796,
+     0.7150596970343468
+    ],
+    "bca_note": "z0=0.006 a=-0.0181 (ties split; p0=0.502)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.3629032258064516,
+    "n_clusters": 27,
+    "num": 90,
+    "den": 248,
+    "percentile": [
+     0.27073055588339434,
+     0.45660954255463554
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.27265044413872475,
+     0.459210413806026
+    ],
+    "bca_note": "z0=0.030 a=0.0048 (ties split; p0=0.512)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.3975,
+    "n_clusters": 27,
+    "num": 159,
+    "den": 400,
+    "percentile": [
+     0.31615594652174606,
+     0.48462574850299395
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.30336159062929996,
+     0.47427562307397064
+    ],
+    "bca_note": "z0=-0.035 a=-0.0474 (ties split; p0=0.486)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.1825,
+    "n_clusters": 27,
+    "num": 73,
+    "den": 400,
+    "percentile": [
+     0.13874261104543154,
+     0.22343324250681199
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.13317191283292978,
+     0.2199931182153445
+    ],
+    "bca_note": "z0=-0.051 a=-0.0204 (ties split; p0=0.479)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.02,
+    "n_clusters": 27,
+    "num": 8,
+    "den": 400,
+    "percentile": [
+     0.007159478349812479,
+     0.032727730707579575
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.0085778097783666,
+     0.03480407744431443
+    ],
+    "bca_note": "z0=0.043 a=0.0473 (ties split; p0=0.517)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.4,
+    "n_clusters": 27,
+    "num": 160,
+    "den": 400,
+    "percentile": [
+     0.3249277417973559,
+     0.4753211651552129
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.3351743108293057,
+     0.4906866414054896
+    ],
+    "bca_note": "z0=0.056 a=0.0534 (ties split; p0=0.522)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.6,
+    "n_clusters": 27,
+    "num": 240,
+    "den": 400,
+    "percentile": [
+     0.5246788348447871,
+     0.6750722582026442
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5093133585945103,
+     0.6648256891706943
+    ],
+    "bca_note": "z0=-0.056 a=-0.0534 (ties split; p0=0.478)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.18772136953955135,
+    "n_clusters": 27,
+    "num": 159,
+    "den": 847,
+    "percentile": [
+     0.14881063324989194,
+     0.22796863268308068
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.1455687476654102,
+     0.22586304197822743
+    ],
+    "bca_note": "z0=-0.016 a=-0.0262 (ties split; p0=0.493)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.27390791027154665,
+    "n_clusters": 27,
+    "num": 232,
+    "den": 847,
+    "percentile": [
+     0.23410430947701452,
+     0.31600656972521995
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.2308717032798836,
+     0.3124394473800569
+    ],
+    "bca_note": "z0=-0.041 a=-0.0218 (ties split; p0=0.483)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 248,
+     "correct": 123,
+     "one_off": 35,
+     "off_more": 1,
+     "unranked": 0,
+     "missed": 89,
+     "correct_share": 0.4959677419354839
+    },
+    "2": {
+     "n": 107,
+     "correct": 27,
+     "one_off": 22,
+     "off_more": 4,
+     "unranked": 0,
+     "missed": 54,
+     "correct_share": 0.2523364485981308
+    },
+    "3": {
+     "n": 34,
+     "correct": 8,
+     "one_off": 11,
+     "off_more": 2,
+     "unranked": 0,
+     "missed": 13,
+     "correct_share": 0.23529411764705882
+    },
+    "4": {
+     "n": 11,
+     "correct": 1,
+     "one_off": 5,
+     "off_more": 1,
+     "unranked": 0,
+     "missed": 4,
+     "correct_share": 0.09090909090909091
+    }
+   },
+   "by_view": {
+    "0-30": {
+     "frames": 185,
+     "matched": 197,
+     "correct": 132,
+     "truth": 262,
+     "missed": 65,
+     "matched_correct": 0.6700507614213198,
+     "truth_correct": 0.5038167938931297
+    },
+    "30-60": {
+     "frames": 78,
+     "matched": 43,
+     "correct": 27,
+     "truth": 119,
+     "missed": 76,
+     "matched_correct": 0.627906976744186,
+     "truth_correct": 0.226890756302521
+    },
+    "60-90": {
+     "frames": 17,
+     "matched": 0,
+     "correct": 0,
+     "truth": 19,
+     "missed": 19,
+     "matched_correct": null,
+     "truth_correct": 0.0
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 829,
+    "agree": 829,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 4,
+   "det_unmatched_in_defined_frames": 244
+  },
+  {
+   "arm": "dc_A_held_elekta_xvi_s1",
+   "arm_label": "design A: styled + real D+S (one pose pool for every card), seed 1",
+   "set": "cobra_test",
+   "target": "COBRA Elekta XVI test (27 patients)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/dc_A_held_elekta_xvi_s1__cobra_test__body__0.25.json",
+   "sources": [
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_elekta_xvi_s1/eval_cobra_elekta_test.json"
+   ],
+   "truth_check": {
+    "frames": 648,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 648,
+   "cases": 27,
+   "frames_no_truth_sacrum": 39,
+   "frames_with_truth_sacrum": 609,
+   "frames_defined": 237,
+   "truth_bodies_sacrum_frames": 847,
+   "truth_bodies_defined": 338,
+   "matched_bodies": 232,
+   "defined_share": {
+    "point": 0.3891625615763547,
+    "n_clusters": 27,
+    "num": 237,
+    "den": 609,
+    "percentile": [
+     0.3516653225806452,
+     0.42434830672993956
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.3507045062246047,
+     0.42406634296927675
+    ],
+    "bca_note": "z0=0.012 a=-0.0170 (ties split; p0=0.505)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.759493670886076,
+    "n_clusters": 27,
+    "num": 180,
+    "den": 237,
+    "percentile": [
+     0.648261250730567,
+     0.8603819635962492
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6125402606181012,
+     0.8487012905294146
+    ],
+    "bca_note": "z0=-0.047 a=-0.0618 (ties split; p0=0.481)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.7413793103448276,
+    "n_clusters": 27,
+    "num": 172,
+    "den": 232,
+    "percentile": [
+     0.6751407198933491,
+     0.8072928612385321
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6681559956666875,
+     0.8017538922064731
+    ],
+    "bca_note": "z0=-0.050 a=-0.0183 (ties split; p0=0.480)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 0.9698275862068966,
+    "n_clusters": 27,
+    "num": 225,
+    "den": 232,
+    "percentile": [
+     0.9466635220125786,
+     0.9894736842105263
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9411764705882353,
+     0.9859154929577465
+    ],
+    "bca_note": "z0=-0.082 a=-0.0642 (ties split; p0=0.468)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.7065868263473054,
+    "n_clusters": 27,
+    "num": 118,
+    "den": 167,
+    "percentile": [
+     0.618484120283172,
+     0.7933484848484847
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6123559493177235,
+     0.7878787878787878
+    ],
+    "bca_note": "z0=-0.018 a=-0.0236 (ties split; p0=0.493)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.45454545454545453,
+    "n_clusters": 27,
+    "num": 95,
+    "den": 209,
+    "percentile": [
+     0.35575478142076505,
+     0.5539936589232364
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.3570532369671985,
+     0.5570473121470132
+    ],
+    "bca_note": "z0=0.000 a=0.0125 (ties split; p0=0.500)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.5088757396449705,
+    "n_clusters": 27,
+    "num": 172,
+    "den": 338,
+    "percentile": [
+     0.4281674031114793,
+     0.5875183823529411
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.41965058766891344,
+     0.5789480615549892
+    ],
+    "bca_note": "z0=-0.040 a=-0.0266 (ties split; p0=0.484)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.15680473372781065,
+    "n_clusters": 27,
+    "num": 53,
+    "den": 338,
+    "percentile": [
+     0.10894845321107986,
+     0.20727383592017737
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.11247090388436799,
+     0.212483529771123
+    ],
+    "bca_note": "z0=0.038 a=0.0290 (ties split; p0=0.515)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.020710059171597635,
+    "n_clusters": 27,
+    "num": 7,
+    "den": 338,
+    "percentile": [
+     0.007272068511198946,
+     0.035618884540117406
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.009803836005014164,
+     0.039736601421905764
+    ],
+    "bca_note": "z0=0.102 a=0.0657 (ties split; p0=0.541)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.3136094674556213,
+    "n_clusters": 27,
+    "num": 106,
+    "den": 338,
+    "percentile": [
+     0.232915945423073,
+     0.4090909090909091
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.24193990938975654,
+     0.4222346817281978
+    ],
+    "bca_note": "z0=0.023 a=0.0476 (ties split; p0=0.509)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.6863905325443787,
+    "n_clusters": 27,
+    "num": 232,
+    "den": 338,
+    "percentile": [
+     0.5909090909090909,
+     0.767084054576927
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5777653182718023,
+     0.7580600906102435
+    ],
+    "bca_note": "z0=-0.023 a=-0.0476 (ties split; p0=0.491)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.20306965761511217,
+    "n_clusters": 27,
+    "num": 172,
+    "den": 847,
+    "percentile": [
+     0.1619526208611023,
+     0.2421209370922911
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.15812598035128694,
+     0.23811273164385507
+    ],
+    "bca_note": "z0=-0.048 a=-0.0193 (ties split; p0=0.481)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.26564344746162927,
+    "n_clusters": 27,
+    "num": 225,
+    "den": 847,
+    "percentile": [
+     0.21753011610737713,
+     0.3081026753636025
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.21079811158565256,
+     0.3033078043356599
+    ],
+    "bca_note": "z0=-0.045 a=-0.0391 (ties split; p0=0.482)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 209,
+     "correct": 121,
+     "one_off": 22,
+     "off_more": 3,
+     "unranked": 0,
+     "missed": 63,
+     "correct_share": 0.5789473684210527
+    },
+    "2": {
+     "n": 90,
+     "correct": 38,
+     "one_off": 18,
+     "off_more": 1,
+     "unranked": 0,
+     "missed": 33,
+     "correct_share": 0.4222222222222222
+    },
+    "3": {
+     "n": 29,
+     "correct": 9,
+     "one_off": 9,
+     "off_more": 3,
+     "unranked": 0,
+     "missed": 8,
+     "correct_share": 0.3103448275862069
+    },
+    "4": {
+     "n": 10,
+     "correct": 4,
+     "one_off": 4,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 2,
+     "correct_share": 0.4
+    }
+   },
+   "by_view": {
+    "0-30": {
+     "frames": 176,
+     "matched": 194,
+     "correct": 149,
+     "truth": 246,
+     "missed": 52,
+     "matched_correct": 0.7680412371134021,
+     "truth_correct": 0.6056910569105691
+    },
+    "30-60": {
+     "frames": 56,
+     "matched": 38,
+     "correct": 23,
+     "truth": 87,
+     "missed": 49,
+     "matched_correct": 0.6052631578947368,
+     "truth_correct": 0.26436781609195403
+    },
+    "60-90": {
+     "frames": 5,
+     "matched": 0,
+     "correct": 0,
+     "truth": 5,
+     "missed": 5,
+     "matched_correct": null,
+     "truth_correct": 0.0
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 829,
+    "agree": 829,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 1,
+   "det_unmatched_in_defined_frames": 187
+  },
+  {
+   "arm": "dc_B_held_elekta_xvi",
+   "arm_label": "design B: styled + real D+S (each device's own poses), seed 0",
+   "set": "cobra_test",
+   "target": "COBRA Elekta XVI test (27 patients)",
+   "status": "DEVICE-HELD-OUT",
+   "conf": 0.25,
+   "convention": "body",
+   "file": "SchwingNet/results/counting/dc_B_held_elekta_xvi__cobra_test__body__0.25.json",
+   "sources": [
+    "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_elekta_xvi/eval_cobra_elekta_test.json"
+   ],
+   "truth_check": {
+    "frames": 648,
+    "no_label_file": 0,
+    "count_disagrees": 0,
+    "boxes_mismatched": 0,
+    "no_meta_level": 0
+   },
+   "frames": 648,
+   "cases": 27,
+   "frames_no_truth_sacrum": 39,
+   "frames_with_truth_sacrum": 609,
+   "frames_defined": 278,
+   "truth_bodies_sacrum_frames": 847,
+   "truth_bodies_defined": 405,
+   "matched_bodies": 242,
+   "defined_share": {
+    "point": 0.45648604269293924,
+    "n_clusters": 27,
+    "num": 278,
+    "den": 609,
+    "percentile": [
+     0.40886491479163894,
+     0.5
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.4055927847524819,
+     0.496778381832666
+    ],
+    "bca_note": "z0=-0.038 a=-0.0122 (ties split; p0=0.485)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "anchor_correct_share": {
+    "point": 0.7769784172661871,
+    "n_clusters": 27,
+    "num": 216,
+    "den": 278,
+    "percentile": [
+     0.683811274509804,
+     0.8536853164139748
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.643875141631404,
+     0.8392541219531121
+    ],
+    "bca_note": "z0=-0.105 a=-0.0888 (ties split; p0=0.458)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.6487603305785123,
+    "n_clusters": 27,
+    "num": 157,
+    "den": 242,
+    "percentile": [
+     0.5649280676220332,
+     0.7382243135175734
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5609636477570081,
+     0.7308949904241214
+    ],
+    "bca_note": "z0=-0.008 a=-0.0298 (ties split; p0=0.497)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 0.9297520661157025,
+    "n_clusters": 27,
+    "num": 225,
+    "den": 242,
+    "percentile": [
+     0.8733731937077007,
+     0.9793825039243137
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8437588721634992,
+     0.9696000041986431
+    ],
+    "bca_note": "z0=-0.123 a=-0.1116 (ties split; p0=0.451)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.6379310344827587,
+    "n_clusters": 27,
+    "num": 111,
+    "den": 174,
+    "percentile": [
+     0.5365635888501743,
+     0.7371517857142856
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5242554486209234,
+     0.7246376811594203
+    ],
+    "bca_note": "z0=-0.029 a=-0.0370 (ties split; p0=0.488)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "frame_exact": {
+    "point": 0.3224489795918367,
+    "n_clusters": 27,
+    "num": 79,
+    "den": 245,
+    "percentile": [
+     0.2299386017033076,
+     0.4221155578690264
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.2329856227658934,
+     0.4245720596984583
+    ],
+    "bca_note": "z0=0.021 a=0.0047 (ties split; p0=0.508)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.38765432098765434,
+    "n_clusters": 27,
+    "num": 157,
+    "den": 405,
+    "percentile": [
+     0.33254098693877077,
+     0.4518957445615609
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.3320780376894128,
+     0.4512054893260068
+    ],
+    "bca_note": "z0=0.011 a=-0.0158 (ties split; p0=0.504)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_one_off_defined": {
+    "point": 0.16790123456790124,
+    "n_clusters": 27,
+    "num": 68,
+    "den": 405,
+    "percentile": [
+     0.11381921165183215,
+     0.2317468766464818
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.11411392181166194,
+     0.23400966115921334
+    ],
+    "bca_note": "z0=-0.006 a=0.0118 (ties split; p0=0.497)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_off_more_defined": {
+    "point": 0.04197530864197531,
+    "n_clusters": 27,
+    "num": 17,
+    "den": 405,
+    "percentile": [
+     0.012985335078358334,
+     0.07363443443996391
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.019390581717451522,
+     0.0916306782292384
+    ],
+    "bca_note": "z0=0.136 a=0.1188 (ties split; p0=0.554)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.4024691358024691,
+    "n_clusters": 27,
+    "num": 163,
+    "den": 405,
+    "percentile": [
+     0.34226118238557557,
+     0.4686903952240611
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.35263354657568924,
+     0.4863005649314855
+    ],
+    "bca_note": "z0=0.069 a=0.0745 (ties split; p0=0.527)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_recall_defined": {
+    "point": 0.5975308641975309,
+    "n_clusters": 27,
+    "num": 242,
+    "den": 405,
+    "percentile": [
+     0.5313096047759389,
+     0.6577388176144244
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5136994350685141,
+     0.6473664534243108
+    ],
+    "bca_note": "z0=-0.069 a=-0.0745 (ties split; p0=0.472)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.18536009445100354,
+    "n_clusters": 27,
+    "num": 157,
+    "den": 847,
+    "percentile": [
+     0.1545765710430923,
+     0.21621772273946188
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.15455442255144816,
+     0.2161021817663061
+    ],
+    "bca_note": "z0=0.009 a=-0.0055 (ties split; p0=0.503)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "truth_within_one_all_sacrum_frames": {
+    "point": 0.26564344746162927,
+    "n_clusters": 27,
+    "num": 225,
+    "den": 847,
+    "percentile": [
+     0.21881327398060166,
+     0.3098862616942201
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.21587104602996424,
+     0.30640160724671756
+    ],
+    "bca_note": "z0=-0.036 a=-0.0253 (ties split; p0=0.485)",
+    "interval": "case bootstrap, 27 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 245,
+     "correct": 120,
+     "one_off": 40,
+     "off_more": 3,
+     "unranked": 0,
+     "missed": 82,
+     "correct_share": 0.4897959183673469
+    },
+    "2": {
+     "n": 112,
+     "correct": 25,
+     "one_off": 22,
+     "off_more": 4,
+     "unranked": 0,
+     "missed": 61,
+     "correct_share": 0.22321428571428573
+    },
+    "3": {
+     "n": 36,
+     "correct": 10,
+     "one_off": 4,
+     "off_more": 6,
+     "unranked": 0,
+     "missed": 16,
+     "correct_share": 0.2777777777777778
+    },
+    "4": {
+     "n": 12,
+     "correct": 2,
+     "one_off": 2,
+     "off_more": 4,
+     "unranked": 0,
+     "missed": 4,
+     "correct_share": 0.16666666666666666
+    }
+   },
+   "by_view": {
+    "0-30": {
+     "frames": 171,
+     "matched": 177,
+     "correct": 113,
+     "truth": 239,
+     "missed": 62,
+     "matched_correct": 0.6384180790960452,
+     "truth_correct": 0.47280334728033474
+    },
+    "30-60": {
+     "frames": 73,
+     "matched": 65,
+     "correct": 44,
+     "truth": 116,
+     "missed": 51,
+     "matched_correct": 0.676923076923077,
+     "truth_correct": 0.3793103448275862
+    },
+    "60-90": {
+     "frames": 34,
+     "matched": 0,
+     "correct": 0,
+     "truth": 50,
+     "missed": 50,
+     "matched_correct": null,
+     "truth_correct": 0.0
+    }
+   },
+   "per_case": null,
+   "truth_order_name_check": {
+    "named_bodies": 829,
+    "agree": 829,
+    "share": 1.0,
+    "note": "geometric truth ordinal vs the conventional name (L5=1, L4=2, ...); a check of the ordering, not a score; disagreement is expected in an L6 spine"
+   },
+   "det_caudal_ignored": 2,
+   "det_unmatched_in_defined_frames": 286
+  }
+ ],
+ "pooled_across_devices": [
+  {
+   "family": "real-only LODO arms, each on its held-out device (lodo_carm on S, lodo_df on D, lodo_cobra on E)",
+   "conf": 0.25,
+   "status": "pooled",
+   "files": [
+    "SchwingNet/results/counting/lodo_carm__carm_test__outline__0.25.json",
+    "SchwingNet/results/counting/lodo_df__df_test__body__0.25.json",
+    "SchwingNet/results/counting/lodo_cobra__cobra_test__body__0.25.json"
+   ],
+   "frames": 808,
+   "cases": 56,
+   "frames_no_truth_sacrum": 53,
+   "frames_with_truth_sacrum": 755,
+   "frames_defined": 252,
+   "matched_bodies": 378,
+   "truth_bodies_defined": 479,
+   "defined_share": {
+    "point": 0.3337748344370861,
+    "n_clusters": 56,
+    "num": 252,
+    "den": 755,
+    "percentile": [
+     0.2043372667709538,
+     0.5046789248892052
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.22299727061353913,
+     0.5750442732293759
+    ],
+    "bca_note": "z0=0.103 a=0.1345 (ties split; p0=0.541)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.8095238095238095,
+    "n_clusters": 56,
+    "num": 306,
+    "den": 378,
+    "percentile": [
+     0.7570050847939096,
+     0.8581961183114438
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.7570965891872021,
+     0.8584279819416578
+    ],
+    "bca_note": "z0=0.021 a=-0.0080 (ties split; p0=0.508)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 0.9682539682539683,
+    "n_clusters": 56,
+    "num": 366,
+    "den": 378,
+    "percentile": [
+     0.9382233959481151,
+     0.9877800407331976
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9379310344827586,
+     0.9876565037191167
+    ],
+    "bca_note": "z0=0.003 a=-0.0103 (ties split; p0=0.501)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.7305389221556886,
+    "n_clusters": 56,
+    "num": 122,
+    "den": 167,
+    "percentile": [
+     0.6274509803921569,
+     0.7815761712690039
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6486058789921649,
+     0.7894736842105263
+    ],
+    "bca_note": "z0=0.023 a=0.0619 (ties split; p0=0.509)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.6388308977035491,
+    "n_clusters": 56,
+    "num": 306,
+    "den": 479,
+    "percentile": [
+     0.5514338485467095,
+     0.7127073991517558
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5536172208193101,
+     0.714085804564153
+    ],
+    "bca_note": "z0=0.016 a=0.0043 (ties split; p0=0.506)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.21085594989561587,
+    "n_clusters": 56,
+    "num": 101,
+    "den": 479,
+    "percentile": [
+     0.13999761526232116,
+     0.29560920348451103
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.137246661349472,
+     0.28861645870678415
+    ],
+    "bca_note": "z0=-0.031 a=-0.0277 (ties split; p0=0.487)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.25394190871369293,
+    "n_clusters": 56,
+    "num": 306,
+    "den": 1205,
+    "percentile": [
+     0.16960121095163966,
+     0.3703824898196625
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.1771361803433921,
+     0.3819018155268686
+    ],
+    "bca_note": "z0=0.045 a=0.0257 (ties split; p0=0.518)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 205,
+     "correct": 132,
+     "one_off": 24,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 49,
+     "correct_share": 0.6439024390243903
+    },
+    "2": {
+     "n": 95,
+     "correct": 59,
+     "one_off": 14,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 22,
+     "correct_share": 0.6210526315789474
+    },
+    "3": {
+     "n": 66,
+     "correct": 49,
+     "one_off": 6,
+     "off_more": 4,
+     "unranked": 0,
+     "missed": 7,
+     "correct_share": 0.7424242424242424
+    },
+    "4": {
+     "n": 58,
+     "correct": 41,
+     "one_off": 8,
+     "off_more": 5,
+     "unranked": 0,
+     "missed": 4,
+     "correct_share": 0.7068965517241379
+    },
+    "5": {
+     "n": 46,
+     "correct": 25,
+     "one_off": 7,
+     "off_more": 3,
+     "unranked": 0,
+     "missed": 11,
+     "correct_share": 0.5434782608695652
+    },
+    "6": {
+     "n": 9,
+     "correct": 0,
+     "one_off": 1,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 8,
+     "correct_share": 0.0
+    }
+   }
+  },
+  {
+   "family": "design A seed 0, each on its held-out device",
+   "conf": 0.25,
+   "status": "pooled",
+   "files": [
+    "SchwingNet/results/counting/dc_A_held_surgio_b51_dr__carm_test__outline__0.25.json",
+    "SchwingNet/results/counting/dc_A_held_cios_fusion__df_test__body__0.25.json",
+    "SchwingNet/results/counting/dc_A_held_elekta_xvi__cobra_test__body__0.25.json"
+   ],
+   "frames": 808,
+   "cases": 56,
+   "frames_no_truth_sacrum": 53,
+   "frames_with_truth_sacrum": 755,
+   "frames_defined": 416,
+   "matched_bodies": 510,
+   "truth_bodies_defined": 705,
+   "defined_share": {
+    "point": 0.5509933774834437,
+    "n_clusters": 56,
+    "num": 416,
+    "den": 755,
+    "percentile": [
+     0.4617363507205196,
+     0.6639685932258734
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.477511324330893,
+     0.7137304743746247
+    ],
+    "bca_note": "z0=0.092 a=0.1333 (ties split; p0=0.536)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.7529411764705882,
+    "n_clusters": 56,
+    "num": 384,
+    "den": 510,
+    "percentile": [
+     0.6673625167004008,
+     0.8285274397912343
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6777041942604857,
+     0.8424123764050777
+    ],
+    "bca_note": "z0=0.092 a=0.0454 (ties split; p0=0.537)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 0.9705882352941176,
+    "n_clusters": 56,
+    "num": 495,
+    "den": 510,
+    "percentile": [
+     0.950493934528588,
+     0.9862758501838236
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.9491767992567629,
+     0.9857397504456328
+    ],
+    "bca_note": "z0=-0.014 a=-0.0215 (ties split; p0=0.494)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.7007042253521126,
+    "n_clusters": 56,
+    "num": 199,
+    "den": 284,
+    "percentile": [
+     0.55702529975115,
+     0.8139872369147694
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5913461538461539,
+     0.8459712167337159
+    ],
+    "bca_note": "z0=0.118 a=0.1093 (ties split; p0=0.547)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.5446808510638298,
+    "n_clusters": 56,
+    "num": 384,
+    "den": 705,
+    "percentile": [
+     0.447114763235698,
+     0.6449021670523879
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.45627617961942646,
+     0.6641976028149768
+    ],
+    "bca_note": "z0=0.058 a=0.0295 (ties split; p0=0.523)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.2765957446808511,
+    "n_clusters": 56,
+    "num": 195,
+    "den": 705,
+    "percentile": [
+     0.20372820119225687,
+     0.3504005249343832
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.21032675408543036,
+     0.3537152361558631
+    ],
+    "bca_note": "z0=0.013 a=0.0203 (ties split; p0=0.505)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.31867219917012446,
+    "n_clusters": 56,
+    "num": 384,
+    "den": 1205,
+    "percentile": [
+     0.24237712094050945,
+     0.42553297766063725
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.25085933379228476,
+     0.4462147811602915
+    ],
+    "bca_note": "z0=0.065 a=0.0479 (ties split; p0=0.526)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 357,
+     "correct": 222,
+     "one_off": 39,
+     "off_more": 1,
+     "unranked": 0,
+     "missed": 95,
+     "correct_share": 0.6218487394957983
+    },
+    "2": {
+     "n": 161,
+     "correct": 70,
+     "one_off": 28,
+     "off_more": 4,
+     "unranked": 0,
+     "missed": 59,
+     "correct_share": 0.43478260869565216
+    },
+    "3": {
+     "n": 80,
+     "correct": 42,
+     "one_off": 21,
+     "off_more": 3,
+     "unranked": 0,
+     "missed": 14,
+     "correct_share": 0.525
+    },
+    "4": {
+     "n": 57,
+     "correct": 32,
+     "one_off": 15,
+     "off_more": 4,
+     "unranked": 0,
+     "missed": 6,
+     "correct_share": 0.5614035087719298
+    },
+    "5": {
+     "n": 42,
+     "correct": 18,
+     "one_off": 7,
+     "off_more": 3,
+     "unranked": 0,
+     "missed": 14,
+     "correct_share": 0.42857142857142855
+    },
+    "6": {
+     "n": 8,
+     "correct": 0,
+     "one_off": 1,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 7,
+     "correct_share": 0.0
+    }
+   }
+  },
+  {
+   "family": "design A seed 1, each on its held-out device",
+   "conf": 0.25,
+   "status": "pooled",
+   "files": [
+    "SchwingNet/results/counting/dc_A_held_surgio_b51_dr_s1__carm_test__outline__0.25.json",
+    "SchwingNet/results/counting/dc_A_held_cios_fusion_s1__df_test__body__0.25.json",
+    "SchwingNet/results/counting/dc_A_held_elekta_xvi_s1__cobra_test__body__0.25.json"
+   ],
+   "frames": 808,
+   "cases": 56,
+   "frames_no_truth_sacrum": 53,
+   "frames_with_truth_sacrum": 755,
+   "frames_defined": 374,
+   "matched_bodies": 495,
+   "truth_bodies_defined": 647,
+   "defined_share": {
+    "point": 0.495364238410596,
+    "n_clusters": 56,
+    "num": 374,
+    "den": 755,
+    "percentile": [
+     0.40220005140751885,
+     0.6212907254328677
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.4140229187151751,
+     0.6751901592293296
+    ],
+    "bca_note": "z0=0.097 a=0.1385 (ties split; p0=0.538)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "matched_correct": {
+    "point": 0.6828282828282828,
+    "n_clusters": 56,
+    "num": 338,
+    "den": 495,
+    "percentile": [
+     0.6337112104535119,
+     0.737798524655724
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.6289838045280991,
+     0.7337170308443605
+    ],
+    "bca_note": "z0=-0.013 a=-0.0383 (ties split; p0=0.495)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "matched_within_one": {
+    "point": 0.9191919191919192,
+    "n_clusters": 56,
+    "num": 455,
+    "den": 495,
+    "percentile": [
+     0.8779368938153419,
+     0.9483592275301292
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.8783783783783784,
+     0.9486034782309377
+    ],
+    "bca_note": "z0=-0.013 a=0.0119 (ties split; p0=0.495)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "frame_all_matched_correct": {
+    "point": 0.6145454545454545,
+    "n_clusters": 56,
+    "num": 169,
+    "den": 275,
+    "percentile": [
+     0.5488259564891222,
+     0.6880351681957186
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.5515262196398037,
+     0.689907791834503
+    ],
+    "bca_note": "z0=0.039 a=-0.0005 (ties split; p0=0.516)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_defined": {
+    "point": 0.5224111282843895,
+    "n_clusters": 56,
+    "num": 338,
+    "den": 647,
+    "percentile": [
+     0.4632987091272642,
+     0.5748810728537878
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.45958773713328027,
+     0.5719690807470514
+    ],
+    "bca_note": "z0=-0.028 a=-0.0209 (ties split; p0=0.489)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "truth_missed_defined": {
+    "point": 0.23493044822256567,
+    "n_clusters": 56,
+    "num": 152,
+    "den": 647,
+    "percentile": [
+     0.17358709176434783,
+     0.30634988521069395
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.17540058360840058,
+     0.30938034056293007
+    ],
+    "bca_note": "z0=0.025 a=0.0030 (ties split; p0=0.510)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "truth_correct_all_sacrum_frames": {
+    "point": 0.2804979253112033,
+    "n_clusters": 56,
+    "num": 338,
+    "den": 1205,
+    "percentile": [
+     0.22897325066811824,
+     0.3436676885562139
+    ],
+    "resamples_used": 2000,
+    "bca": [
+     0.22927751299617655,
+     0.3438123802505805
+    ],
+    "bca_note": "z0=0.003 a=0.0040 (ties split; p0=0.501)",
+    "interval": "case bootstrap, 56 clusters, 2000 resamples, seed 0"
+   },
+   "by_truth_ordinal": {
+    "1": {
+     "n": 319,
+     "correct": 197,
+     "one_off": 51,
+     "off_more": 4,
+     "unranked": 0,
+     "missed": 67,
+     "correct_share": 0.6175548589341693
+    },
+    "2": {
+     "n": 145,
+     "correct": 79,
+     "one_off": 23,
+     "off_more": 2,
+     "unranked": 0,
+     "missed": 41,
+     "correct_share": 0.5448275862068965
+    },
+    "3": {
+     "n": 76,
+     "correct": 32,
+     "one_off": 26,
+     "off_more": 7,
+     "unranked": 0,
+     "missed": 11,
+     "correct_share": 0.42105263157894735
+    },
+    "4": {
+     "n": 57,
+     "correct": 20,
+     "one_off": 11,
+     "off_more": 16,
+     "unranked": 0,
+     "missed": 10,
+     "correct_share": 0.3508771929824561
+    },
+    "5": {
+     "n": 42,
+     "correct": 10,
+     "one_off": 6,
+     "off_more": 11,
+     "unranked": 0,
+     "missed": 15,
+     "correct_share": 0.23809523809523808
+    },
+    "6": {
+     "n": 8,
+     "correct": 0,
+     "one_off": 0,
+     "off_more": 0,
+     "unranked": 0,
+     "missed": 8,
+     "correct_share": 0.0
+    }
+   }
+  },
+  {
+   "family": "design B seed 0, each on its held-out device",
+   "conf": 0.25,
+   "status": "incomplete: dc_B_held_surgio_b51_dr/carm_test/outline/0.25",
+   "files": [
+    "SchwingNet/results/counting/dc_B_held_cios_fusion__df_test__body__0.25.json",
+    "SchwingNet/results/counting/dc_B_held_elekta_xvi__cobra_test__body__0.25.json"
+   ]
+  },
+  {
+   "family": "design B seed 1, each on its held-out device",
+   "conf": 0.25,
+   "status": "incomplete: dc_B_held_elekta_xvi_s1/cobra_test/body/0.25",
+   "files": [
+    "SchwingNet/results/counting/dc_B_held_surgio_b51_dr_s1__carm_test__outline__0.25.json",
+    "SchwingNet/results/counting/dc_B_held_cios_fusion_s1__df_test__body__0.25.json"
+   ]
+  }
+ ]
+}

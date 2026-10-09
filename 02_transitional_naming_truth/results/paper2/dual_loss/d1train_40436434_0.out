@@ -1,0 +1,109 @@
+D1TRAIN_START seed=0 FV=v1 RV=v2 msa1 2026-09-24T12:10:59Z NVIDIA H200 NVL
+tag fig6_g3clean_dual_seed0  seed 0  FV v1  RV v2  host msa1  2026-09-24T12:10:59Z  job 40436434_0
+strata.json sha256 c7199d2d0b8e8bf94063fb6da33a49a07da88817bc21d6f8da4f403dd4d13e50 == frozen SHA256SUMS.json
+629f0e058649ca1d247bc08ea1e20747d83ecaa1abfc61d1f35dee3e731186d3  /rs/rs_grp_oschome/go2432/data/fig6/bank_g3_v2/runs/model_rung_1_g3clean_aug2.pt
+c7199d2d0b8e8bf94063fb6da33a49a07da88817bc21d6f8da4f403dd4d13e50  /rs/rs_grp_oschome/go2432/data/fig6/frozen_v1/strata.json
+65a57eb0c7a6e202207a9eb63307da37c6bac88f3e7f956e14543413af2bca71  /rs/rs_grp_oschome/go2432/data/fig6/frozen_v1/split_final.json
+f78dd1ee061ca9e3e949db78f67635948ec32f191eb485a0c72d9f7dc44f20dd  /rs/rs_grp_oschome/go2432/data/fig6/bank_g3_v2/meta.json
+-rw-r--r-- 1 go2432 oschome          0 2026-09-24 07:06:41.556395816 -0400 /rs/rs_grp_oschome/go2432/data/fig6/bank_g3_v2/READY
+-rw-r--r-- 1 go2432 oschome 5873082367 2026-09-24 07:54:02.625430026 -0400 /rs/rs_grp_oschome/go2432/data/fig6/bank_g3_v2/rung_1.npz
+-rw-r--r-- 1 go2432 oschome   44825818 2026-09-24 07:54:50.746308155 -0400 /rs/rs_grp_oschome/go2432/data/fig6/bank_g3_v2/runs/model_rung_1_g3clean_aug2.pt
+9d1a126002a2a9cd8c3bbaf2d6a78246fe59689e4c39c6d98d7ecc8e1afaf7b7  /rs/rs_grp_oschome/go2432/data/fig6/bank_g3_v2/BANK_CHECK.json
+f865bd02e6645b3dbf2eea711c4194d2  tools/head_dual.py
+fa9dd5208f8b02f34131b349d0791b2d  tools/score_m1_f1.py
+f8161a8a9dc1ae61f8baad7bcf8a5977  tools/head_mixed_length.py
+07f69d829982eac2098ff2c10ede74ac  tools/recurrent_order.py
+46399860912fd9b4e91157b7ee21125f  tools/make_context_crops.py
+0b00ccccef3f90ce53d68a53a3502ba5  tools/eval_gate.py
+c3dd999ddce5d5cc9ce7eb7aebd2bbb5  tools/night_loadmodel.py
+f7e08bf66701eb6d7e7cf4ac8f5f1949  tools/model_registry.py
+SELF-TEST PASSED: 37/37 checks
+census exit 0
+eval_gate: /rs/rs_grp_oschome/go2432/data/fig6/bank_g3_v2/runs/model_rung_1_g3clean_aug2.pt on /rs/rs_grp_oschome/go2432/data/fig6/bank_g3_v2/rung_1.npz#val: DECLARED NOT HELD OUT (development scoring: the heads score the G3 bank's val split, which selected the clean encoder's epoch); found overlap 1080, unresolved 0, unkeyed 0
+  resnet18  pretrained=True  classes=27
+  loaded model_rung_1_g3clean_aug2.pt as arch=resnet18 loss=ce freeze=0
+embedded 134975 crops into 512 dims
+18043 training films, 2580 validation films
+spine term: w=1.0, windows >= 4 bodies; training persons by subtype {'ordinary': 8856, 'sacralised_L5_fused': 14, 'castellvi_I_II': 16, 'lumbar_rib': 7, 'L6': 53, 'unassigned': 1, 'T13': 3}; expected windows/epoch {'ordinary': 17444, 'sacralised_L5_fused': 543, 'castellvi_I_II': 173, 'lumbar_rib': 43, 'L6': 9654, 'T13': 1634}
+inverse subtype frequency weights {"ordinary": 0.2818, "sacralised_L5_fused": 9.0519, "castellvi_I_II": 28.4114, "lumbar_rib": 114.3062, "L6": 0.5091, "T13": 3.0081}
+validation curve: 5179 windows drawn once (seed 0 + 104729), 1062 s4-drawn validation persons (15 transitional); read after every epoch, never used to select one
+  ep   0 windows   31888 loss 1.7122 level ce 0.7894 alphabet ce 0.3444 (11003) spine bce 0.5799 (22124 windows, 8888 transitional)
+        val: level ce 0.9850 acc 0.6964 (L6 0.8009, T13 0.0) alphabet ce 0.5716 spine bce 0.3381 (weighted 0.5545) | drawn persons AUROC 0.9445 spec@95%sens {'k': 893, 'n': 1042, 'rate': 0.857, 'wilson95': [0.8344, 0.877]}
+  ep   1 windows   31888 loss 1.0347 level ce 0.3899 alphabet ce 0.1760 (11003) spine bce 0.4689 (22157 windows, 8904 transitional)
+        val: level ce 1.1107 acc 0.6934 (L6 0.5973, T13 0.0) alphabet ce 0.6872 spine bce 0.432 (weighted 0.6338) | drawn persons AUROC 0.9417 spec@95%sens {'k': 905, 'n': 1042, 'rate': 0.8685, 'wilson95': [0.8466, 0.8877]}
+  ep   2 windows   31888 loss 0.9284 level ce 0.3376 alphabet ce 0.1482 (11003) spine bce 0.4430 (22207 windows, 8898 transitional)
+        val: level ce 1.1048 acc 0.7109 (L6 0.6261, T13 0.0132) alphabet ce 0.6142 spine bce 0.3737 (weighted 0.6399) | drawn persons AUROC 0.9402 spec@95%sens {'k': 694, 'n': 1042, 'rate': 0.666, 'wilson95': [0.6368, 0.694]}
+  ep   3 windows   31888 loss 0.8133 level ce 0.3065 alphabet ce 0.1345 (11002) spine bce 0.3706 (22127 windows, 8887 transitional)
+        val: level ce 1.0823 acc 0.7192 (L6 0.5973, T13 0.0132) alphabet ce 0.7595 spine bce 0.3188 (weighted 0.4384) | drawn persons AUROC 0.9473 spec@95%sens {'k': 854, 'n': 1042, 'rate': 0.8196, 'wilson95': [0.7951, 0.8417]}
+  ep   4 windows   31888 loss 0.7672 level ce 0.2954 alphabet ce 0.1325 (11004) spine bce 0.3390 (21997 windows, 8885 transitional)
+        val: level ce 1.0550 acc 0.7281 (L6 0.5973, T13 0.0197) alphabet ce 0.784 spine bce 0.2985 (weighted 0.5843) | drawn persons AUROC 0.9253 spec@95%sens {'k': 561, 'n': 1042, 'rate': 0.5384, 'wilson95': [0.508, 0.5685]}
+  ep   5 windows   31888 loss 0.6565 level ce 0.2748 alphabet ce 0.1222 (11004) spine bce 0.2604 (22026 windows, 8787 transitional)
+        val: level ce 1.0894 acc 0.7276 (L6 0.6084, T13 0.0) alphabet ce 0.7675 spine bce 0.2924 (weighted 0.4716) | drawn persons AUROC 0.9454 spec@95%sens {'k': 724, 'n': 1042, 'rate': 0.6948, 'wilson95': [0.6662, 0.722]}
+  ep   6 windows   31888 loss 0.6508 level ce 0.2723 alphabet ce 0.1159 (11004) spine bce 0.2613 (21986 windows, 8842 transitional)
+        val: level ce 1.0907 acc 0.7250 (L6 0.7345, T13 0.0) alphabet ce 0.6253 spine bce 0.2705 (weighted 0.544) | drawn persons AUROC 0.9443 spec@95%sens {'k': 617, 'n': 1042, 'rate': 0.5921, 'wilson95': [0.562, 0.6216]}
+  ep   7 windows   31888 loss 0.5859 level ce 0.2501 alphabet ce 0.1075 (11003) spine bce 0.2281 (22234 windows, 8950 transitional)
+        val: level ce 1.0993 acc 0.7353 (L6 0.7124, T13 0.0) alphabet ce 0.7334 spine bce 0.2947 (weighted 0.5173) | drawn persons AUROC 0.9572 spec@95%sens {'k': 842, 'n': 1042, 'rate': 0.8081, 'wilson95': [0.783, 0.8308]}
+  ep   8 windows   31888 loss 0.5499 level ce 0.2429 alphabet ce 0.1037 (11003) spine bce 0.2028 (22064 windows, 8916 transitional)
+        val: level ce 1.1631 acc 0.7343 (L6 0.5973, T13 0.0) alphabet ce 0.7715 spine bce 0.3086 (weighted 0.482) | drawn persons AUROC 0.9536 spec@95%sens {'k': 832, 'n': 1042, 'rate': 0.7985, 'wilson95': [0.773, 0.8217]}
+  ep   9 windows   31888 loss 0.4856 level ce 0.2285 alphabet ce 0.0987 (11003) spine bce 0.1582 (22149 windows, 8777 transitional)
+        val: level ce 1.1892 acc 0.7332 (L6 0.5, T13 0.0) alphabet ce 0.8867 spine bce 0.2863 (weighted 0.518) | drawn persons AUROC 0.964 spec@95%sens {'k': 928, 'n': 1042, 'rate': 0.8906, 'wilson95': [0.8702, 0.9081]}
+  ep  10 windows   31888 loss 0.5712 level ce 0.2372 alphabet ce 0.0976 (11002) spine bce 0.2379 (22165 windows, 8933 transitional)
+        val: level ce 1.2120 acc 0.7268 (L6 0.6571, T13 0.0) alphabet ce 0.9038 spine bce 0.3213 (weighted 0.5329) | drawn persons AUROC 0.9637 spec@95%sens {'k': 898, 'n': 1042, 'rate': 0.8618, 'wilson95': [0.8395, 0.8814]}
+  ep  11 windows   31888 loss 0.5143 level ce 0.2243 alphabet ce 0.0970 (11004) spine bce 0.1927 (22044 windows, 8844 transitional)
+        val: level ce 1.2295 acc 0.7226 (L6 0.6903, T13 0.0) alphabet ce 0.7785 spine bce 0.2612 (weighted 0.515) | drawn persons AUROC 0.9518 spec@95%sens {'k': 651, 'n': 1042, 'rate': 0.6248, 'wilson95': [0.595, 0.6536]}
+  ep  12 windows   31888 loss 0.4494 level ce 0.2115 alphabet ce 0.0880 (11002) spine bce 0.1496 (22127 windows, 8847 transitional)
+        val: level ce 1.1449 acc 0.7375 (L6 0.646, T13 0.0) alphabet ce 0.8047 spine bce 0.3457 (weighted 0.6808) | drawn persons AUROC 0.9413 spec@95%sens {'k': 711, 'n': 1042, 'rate': 0.6823, 'wilson95': [0.6534, 0.7099]}
+  ep  13 windows   31888 loss 0.4153 level ce 0.2012 alphabet ce 0.0870 (11002) spine bce 0.1272 (22138 windows, 8900 transitional)
+        val: level ce 1.1797 acc 0.7371 (L6 0.6106, T13 0.0) alphabet ce 0.8472 spine bce 0.3042 (weighted 0.6905) | drawn persons AUROC 0.9607 spec@95%sens {'k': 812, 'n': 1042, 'rate': 0.7793, 'wilson95': [0.7531, 0.8034]}
+  ep  14 windows   31888 loss 0.3986 level ce 0.1976 alphabet ce 0.0801 (11004) spine bce 0.1211 (21992 windows, 8865 transitional)
+        val: level ce 1.1561 acc 0.7386 (L6 0.5907, T13 0.0) alphabet ce 0.8203 spine bce 0.27 (weighted 0.5684) | drawn persons AUROC 0.9653 spec@95%sens {'k': 884, 'n': 1042, 'rate': 0.8484, 'wilson95': [0.8253, 0.8689]}
+  ep  15 windows   31888 loss 0.3878 level ce 0.1898 alphabet ce 0.0775 (11003) spine bce 0.1205 (22167 windows, 8857 transitional)
+        val: level ce 1.2367 acc 0.7352 (L6 0.5619, T13 0.0) alphabet ce 0.9228 spine bce 0.4671 (weighted 0.8486) | drawn persons AUROC 0.9507 spec@95%sens {'k': 847, 'n': 1042, 'rate': 0.8129, 'wilson95': [0.788, 0.8354]}
+  ep  16 windows   31888 loss 0.3714 level ce 0.1805 alphabet ce 0.0750 (11003) spine bce 0.1160 (22144 windows, 8852 transitional)
+        val: level ce 1.1862 acc 0.7434 (L6 0.5951, T13 0.0) alphabet ce 0.8747 spine bce 0.2755 (weighted 0.6338) | drawn persons AUROC 0.9603 spec@95%sens {'k': 809, 'n': 1042, 'rate': 0.7764, 'wilson95': [0.7501, 0.8006]}
+  ep  17 windows   31888 loss 0.3536 level ce 0.1769 alphabet ce 0.0747 (11002) spine bce 0.1018 (22117 windows, 8851 transitional)
+        val: level ce 1.2569 acc 0.7351 (L6 0.5487, T13 0.0) alphabet ce 0.9616 spine bce 0.3039 (weighted 0.6939) | drawn persons AUROC 0.9578 spec@95%sens {'k': 857, 'n': 1042, 'rate': 0.8225, 'wilson95': [0.7981, 0.8445]}
+  ep  18 windows   31888 loss 0.3228 level ce 0.1661 alphabet ce 0.0667 (11002) spine bce 0.0900 (22037 windows, 8829 transitional)
+        val: level ce 1.2263 acc 0.7409 (L6 0.6062, T13 0.0) alphabet ce 0.9262 spine bce 0.2685 (weighted 0.6815) | drawn persons AUROC 0.9689 spec@95%sens {'k': 885, 'n': 1042, 'rate': 0.8493, 'wilson95': [0.8263, 0.8698]}
+  ep  19 windows   31888 loss 0.3157 level ce 0.1636 alphabet ce 0.0645 (11003) spine bce 0.0875 (22150 windows, 8899 transitional)
+        val: level ce 1.2653 acc 0.7396 (L6 0.604, T13 0.0) alphabet ce 0.9563 spine bce 0.2849 (weighted 0.6393) | drawn persons AUROC 0.966 spec@95%sens {'k': 867, 'n': 1042, 'rate': 0.8321, 'wilson95': [0.8081, 0.8535]}
+  ep  20 windows   31888 loss 0.3097 level ce 0.1610 alphabet ce 0.0633 (11004) spine bce 0.0850 (22110 windows, 8842 transitional)
+        val: level ce 1.3010 acc 0.7353 (L6 0.531, T13 0.0) alphabet ce 1.0356 spine bce 0.3004 (weighted 0.7262) | drawn persons AUROC 0.9681 spec@95%sens {'k': 912, 'n': 1042, 'rate': 0.8752, 'wilson95': [0.8538, 0.8939]}
+  ep  21 windows   31888 loss 0.2959 level ce 0.1568 alphabet ce 0.0620 (11002) spine bce 0.0767 (22017 windows, 8901 transitional)
+        val: level ce 1.2786 acc 0.7410 (L6 0.5487, T13 0.0) alphabet ce 1.017 spine bce 0.3134 (weighted 0.7427) | drawn persons AUROC 0.9663 spec@95%sens {'k': 898, 'n': 1042, 'rate': 0.8618, 'wilson95': [0.8395, 0.8814]}
+  ep  22 windows   31888 loss 0.2824 level ce 0.1487 alphabet ce 0.0578 (11003) spine bce 0.0759 (22134 windows, 8909 transitional)
+        val: level ce 1.3103 acc 0.7372 (L6 0.5619, T13 0.0) alphabet ce 1.0454 spine bce 0.2937 (weighted 0.669) | drawn persons AUROC 0.9697 spec@95%sens {'k': 891, 'n': 1042, 'rate': 0.8551, 'wilson95': [0.8324, 0.8752]}
+  ep  23 windows   31888 loss 0.2802 level ce 0.1495 alphabet ce 0.0614 (11003) spine bce 0.0693 (22093 windows, 8871 transitional)
+        val: level ce 1.3058 acc 0.7392 (L6 0.6106, T13 0.0) alphabet ce 0.9695 spine bce 0.2952 (weighted 0.7274) | drawn persons AUROC 0.9722 spec@95%sens {'k': 901, 'n': 1042, 'rate': 0.8647, 'wilson95': [0.8426, 0.8841]}
+  ep  24 windows   31888 loss 0.2889 level ce 0.1468 alphabet ce 0.0586 (11003) spine bce 0.0838 (22125 windows, 8866 transitional)
+        val: level ce 1.3286 acc 0.7400 (L6 0.5796, T13 0.0) alphabet ce 1.0335 spine bce 0.279 (weighted 0.6834) | drawn persons AUROC 0.973 spec@95%sens {'k': 929, 'n': 1042, 'rate': 0.8916, 'wilson95': [0.8712, 0.909]}
+  ep  25 windows   31888 loss 0.2674 level ce 0.1429 alphabet ce 0.0546 (11002) spine bce 0.0699 (22067 windows, 8841 transitional)
+        val: level ce 1.3152 acc 0.7427 (L6 0.5863, T13 0.0) alphabet ce 0.9998 spine bce 0.2933 (weighted 0.6975) | drawn persons AUROC 0.9713 spec@95%sens {'k': 915, 'n': 1042, 'rate': 0.8781, 'wilson95': [0.8569, 0.8966]}
+  ep  26 windows   31888 loss 0.2635 level ce 0.1392 alphabet ce 0.0558 (11003) spine bce 0.0685 (22163 windows, 8826 transitional)
+        val: level ce 1.3063 acc 0.7417 (L6 0.5686, T13 0.0) alphabet ce 1.0264 spine bce 0.286 (weighted 0.6705) | drawn persons AUROC 0.972 spec@95%sens {'k': 906, 'n': 1042, 'rate': 0.8695, 'wilson95': [0.8477, 0.8886]}
+  ep  27 windows   31888 loss 0.2602 level ce 0.1385 alphabet ce 0.0530 (11002) spine bce 0.0683 (21944 windows, 8799 transitional)
+        val: level ce 1.3264 acc 0.7414 (L6 0.5664, T13 0.0) alphabet ce 1.031 spine bce 0.2915 (weighted 0.6838) | drawn persons AUROC 0.972 spec@95%sens {'k': 905, 'n': 1042, 'rate': 0.8685, 'wilson95': [0.8466, 0.8877]}
+  ep  28 windows   31888 loss 0.2661 level ce 0.1401 alphabet ce 0.0571 (11003) spine bce 0.0691 (22074 windows, 8838 transitional)
+        val: level ce 1.3175 acc 0.7416 (L6 0.5686, T13 0.0) alphabet ce 1.0251 spine bce 0.2925 (weighted 0.6999) | drawn persons AUROC 0.9722 spec@95%sens {'k': 902, 'n': 1042, 'rate': 0.8656, 'wilson95': [0.8436, 0.885]}
+  ep  29 windows   31888 loss 0.2628 level ce 0.1398 alphabet ce 0.0550 (11004) spine bce 0.0680 (22111 windows, 8889 transitional)
+        val: level ce 1.3182 acc 0.7416 (L6 0.5708, T13 0.0) alphabet ce 1.0268 spine bce 0.2911 (weighted 0.6938) | drawn persons AUROC 0.9721 spec@95%sens {'k': 904, 'n': 1042, 'rate': 0.8676, 'wilson95': [0.8456, 0.8868]}
+  3              overall 70.07%  real film 97.49% (n=4390)
+  5              overall 73.48%  real film 98.61% (n=4390)
+  7              overall 75.99%  real film 99.11% (n=4390)
+  9              overall 77.50%  real film 99.45% (n=4390)
+  random 2..9    overall 74.59%  real film 98.77% (n=4390)
+validation: 1062 persons drawn (15 transitional, 1042 ordinary), spine AUROC 0.9721; by source {"buu_full": {"transitional": 0, "ordinary": 331, "auroc": null}, "csxa": {"transitional": 0, "ordinary": 485, "auroc": null}, "ctsp_drr": {"transitional": 0, "ordinary": 25, "auroc": null}, "nhanes": {"transitional": 0, "ordinary": 35, "auroc": null}, "physics_drr": {"transitional": 4, "ordinary": 160, "auroc": 0.7203}, "physics_rare": {"transitional": 1, "ordinary": 0, "auroc": null}, "rare_class_ctsp_drr": {"transitional": 3, "ordinary": 0, "auroc": null}, "rare_class_verse_drr": {"transitional": 4, "ordinary": 0, "auroc": null}, "verse_drr": {"transitional": 3, "ordinary": 6, "auroc": 0.4444}}
+tau at 0.95 validation sensitivity: 0.012667 (sensitivity 15/15, specificity 904/1042) -> /rs/rs_grp_oschome/go2432/data/or_ready/dual_loss/g3clean_v2/tau/tau95_fig6_g3clean_dual_seed0.json
+tau at 0.97 validation sensitivity: 0.012667 (sensitivity 15/15, specificity 904/1042) -> /rs/rs_grp_oschome/go2432/data/or_ready/dual_loss/g3clean_v2/tau/tau97_fig6_g3clean_dual_seed0.json
+registered head_fig6_g3clean_dual_seed0 05ca6d6aebd3d2d6 (8 MB) -> /wsu/home/go/go24/go2432/model_registry/05ca6d6aebd3d2d6/head_fig6_g3clean_dual_seed0.pt; NOT mirrored
+wrote /rs/rs_grp_oschome/go2432/data/or_ready/dual_loss/g3clean_v2/heads/dual_fig6_g3clean_dual_seed0.json
+-rw-r--r-- 1 go2432 oschome  980126 Sep 24 08:58 dual_fig6_g3clean_dual_seed0.json
+-rw-r--r-- 1 go2432 oschome    1585 Sep 24 08:58 head_fig6_g3clean_dual_seed0.arch.json
+-rw-r--r-- 1 go2432 oschome 8476498 Sep 24 08:58 head_fig6_g3clean_dual_seed0.pt
+-rw-r--r-- 1 go2432 oschome    3932 Sep 24 08:58 spine_fig6_g3clean_dual_seed0.pt
+-rw-r--r-- 1 go2432 oschome  342899 Sep 24 08:58 val_spine_fig6_g3clean_dual_seed0.json
+-rw-r--r-- 1 go2432 oschome 1866 Sep 24 08:58 tau95_fig6_g3clean_dual_seed0.json
+-rw-r--r-- 1 go2432 oschome  101 Sep 24 08:58 tau95_fig6_g3clean_dual_seed0.json.sha256
+-rw-r--r-- 1 go2432 oschome 1866 Sep 24 08:58 tau97_fig6_g3clean_dual_seed0.json
+-rw-r--r-- 1 go2432 oschome  101 Sep 24 08:58 tau97_fig6_g3clean_dual_seed0.json.sha256
+D1TRAIN_END seed=0 rc=0 2026-09-24T12:58:27Z

@@ -1,0 +1,1107 @@
+{
+ "figure": "figure5",
+ "title": "Persons, views and angles: what accuracy follows in acquisition space",
+ "generated": "2026-09-25 13:41",
+ "tool": "SchwingNet/tools/fig_power.py",
+ "outputs": {
+  "pdf": "SchwingNet/figures/figure5.pdf",
+  "tif": "SchwingNet/figures/figure5.tif",
+  "tif_px": [
+   8400,
+   11280
+  ],
+  "tif_dpi": 1200,
+  "png": "SchwingNet/figures/figure5.png",
+  "png_px": [
+   2100,
+   2820
+  ],
+  "png_dpi": 300,
+  "caption": "SchwingNet/figures/figure5.caption.txt",
+  "numbers": "SchwingNet/results/power/power.json"
+ },
+ "caption": "Persons, views, angles. (a) Wilson 95 % lower bound by errors against transitional test persons; lines, targets. (b) Naming against training persons: film corpora and one C-arm by view (dashed, lateral-trained read on anteroposterior; x, both views). (c) Same-device detection against real frames; triangles, one-view arms (open, other view). (d) Render-only detectors at matched N against lateral angle.",
+ "caption_tex": "Persons, views, angles. (a) Wilson 95\\,\\% lower bound by errors against transitional test persons; lines, targets. (b) Naming against training persons: film corpora and one C-arm by view (dashed, lateral-trained read on anteroposterior; x, both views). (c) Same-device detection against real frames; triangles, one-view arms (open, other view). (d) Render-only detectors at matched N against lateral angle.",
+ "caption_words": 58,
+ "text_audit": {
+  "spans": 83,
+  "smallest_pt": 12.0,
+  "fonts": [
+   "Arial-BoldMT",
+   "ArialMT"
+  ],
+  "page_in": [
+   7.0,
+   9.4
+  ],
+  "pass": true
+ },
+ "palette": {
+  "blue": "#0072B2",
+  "green": "#009E73",
+  "vermillion": "#D55E00",
+  "ink": "#1f2d3d",
+  "grey": "#5d6b7c",
+  "validation": "dataviz six checks (Python twin of scripts/validate_palette.js, light surface, all pairs) 2026-09-25: blue/green/vermillion PASS (worst CVD dE 11.0 deutan; worst normal-vision dE 18.7; contrast >= 3:1); ink and grey are neutrals with their own marker shape (in b and c: lateral = ink circle, anteroposterior = grey square)"
+ },
+ "components": {
+  "a": "Wilson 95 % lower bound vs n for k = 0, 1, 2, 5 errors; dashed lines at the pre-stated 90 % (exact level) and 85 % (variant sensitivity) targets; markers where each k clears each line; the k = 0 crossings labelled (35, 22).",
+  "b": "Naming against training persons on one log axis (N = 0 at x = 2 left of a break). Film: exact-level naming on the v9 VAL films of the corpus against N training persons, render-only encoder fine-tuned per cell, seed mean with bars over the per-seed range (three seeds at N <= 25). C-arm: the v9 encoder and head fine-tuned per case-grouped fold on N C-ArmLSpine persons of one protocol and read on that protocol (lateral ink, anteroposterior grey, solid); the lateral-trained cells read on the anteroposterior test frames (ink dashed, open); the both-protocol cells at all persons (x). Reading: separated by view, each C-arm curve rises like film; the view not trained on stays where it was; training both views costs neither.",
+  "c": "Same-device detection: vertebra recall (body boxes, confidence 0.74) on the 28 C-ArmLSpine test cases against N real frames of the device added to a fixed background, both views of N/2 patients, read on the lateral (ink) and anteroposterior (grey) test frames with case-clustered intervals; one-view arms of 25 and 50 frames of one protocol read on it (filled triangles) and on the other (open triangles), two seeds pooled. Reading: the plateau from 24 frames is the same pooled or separated; frames of one view buy that view and not the other.",
+  "d": "Render-only detectors of the Surgio-B51 card at matched N (2,646 renders of 125 subjects) whose training poses are the real anteroposterior-lateral pool (vermillion), an arc (blue) or the real pool doubled (green), read at confidence 0.25 on 40 unseen subjects' renders per lateral angle (tilt 0); seed mean, per-seed range shaded; dotted verticals at the three trained angles. Reading: accuracy sits where the training poses sit; doubling the same poses raises those bins and not the gaps; the same N spread over the arc holds at every angle."
+ },
+ "numbers_on_figure": [
+  {
+   "panel": "a",
+   "quantity": "n at which 0 errors put the Wilson lower bound on the targets",
+   "value": {
+    "n_lower_bound_ge_90": 35,
+    "n_lower_bound_ge_85": 22
+   },
+   "source": "computed here (results/power/power.json#panel_a); 22 and 35 equal results/stats_review/recompute.json#R4_wilson/min_n_zero_errors"
+  },
+  {
+   "panel": "a",
+   "quantity": "n at which 1 errors put the Wilson lower bound on the targets",
+   "value": {
+    "n_lower_bound_ge_90": 53,
+    "n_lower_bound_ge_85": 34
+   },
+   "source": "computed here (results/power/power.json#panel_a); 22 and 35 equal results/stats_review/recompute.json#R4_wilson/min_n_zero_errors"
+  },
+  {
+   "panel": "a",
+   "quantity": "n at which 2 errors put the Wilson lower bound on the targets",
+   "value": {
+    "n_lower_bound_ge_90": 69,
+    "n_lower_bound_ge_85": 45
+   },
+   "source": "computed here (results/power/power.json#panel_a); 22 and 35 equal results/stats_review/recompute.json#R4_wilson/min_n_zero_errors"
+  },
+  {
+   "panel": "a",
+   "quantity": "n at which 5 errors put the Wilson lower bound on the targets",
+   "value": {
+    "n_lower_bound_ge_90": 113,
+    "n_lower_bound_ge_85": 74
+   },
+   "source": "computed here (results/power/power.json#panel_a); 22 and 35 equal results/stats_review/recompute.json#R4_wilson/min_n_zero_errors"
+  },
+  {
+   "panel": "a",
+   "quantity": "target lines, %",
+   "value": [
+    90.0,
+    85.0
+   ],
+   "source": "SchwingNet/results/power_table.json#targets_pct"
+  },
+  {
+   "panel": "b",
+   "quantity": "NHANES II: seed-mean accuracy (%) at N persons, per-seed range",
+   "value": {
+    "x_persons": [
+     0,
+     5,
+     10,
+     25,
+     50,
+     100,
+     200,
+     264
+    ],
+    "mean_pct": [
+     27.15,
+     77.78,
+     82.27,
+     87.79,
+     89.18,
+     89.62,
+     92.49,
+     92.72
+    ],
+    "range_pct": [
+     [
+      24.94,
+      28.26
+     ],
+     [
+      74.61,
+      81.02
+     ],
+     [
+      81.02,
+      84.11
+     ],
+     [
+      87.2,
+      88.3
+     ],
+     null,
+     null,
+     null,
+     null
+    ],
+    "pointers": [
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/0/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/5/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/10/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/25/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/50/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/100/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/200/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/all/points"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/0/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/5/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/10/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/25/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/50/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/100/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/200/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/nhanes/all/points"
+   ]
+  },
+  {
+   "panel": "b",
+   "quantity": "BUU-LSPINE: seed-mean accuracy (%) at N persons, per-seed range",
+   "value": {
+    "x_persons": [
+     0,
+     5,
+     10,
+     25,
+     50,
+     100,
+     200,
+     2967
+    ],
+    "mean_pct": [
+     10.3,
+     64.97,
+     70.32,
+     76.68,
+     81.16,
+     82.7,
+     85.06,
+     96.92
+    ],
+    "range_pct": [
+     [
+      6.87,
+      12.84
+     ],
+     [
+      62.2,
+      67.61
+     ],
+     [
+      67.15,
+      73.05
+     ],
+     [
+      75.6,
+      77.44
+     ],
+     null,
+     null,
+     null,
+     null
+    ],
+    "pointers": [
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/0/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/5/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/10/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/25/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/50/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/100/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/200/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/all/points"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/0/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/5/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/10/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/25/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/50/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/100/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/200/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/buu_full/all/points"
+   ]
+  },
+  {
+   "panel": "b",
+   "quantity": "CSXA: seed-mean accuracy (%) at N persons, per-seed range",
+   "value": {
+    "x_persons": [
+     0,
+     5,
+     10,
+     25,
+     50,
+     100,
+     200,
+     4114
+    ],
+    "mean_pct": [
+     3.23,
+     94.19,
+     93.02,
+     96.39,
+     97.28,
+     97.33,
+     98.0,
+     99.76
+    ],
+    "range_pct": [
+     [
+      1.84,
+      5.31
+     ],
+     [
+      93.86,
+      94.45
+     ],
+     [
+      90.73,
+      94.71
+     ],
+     [
+      95.59,
+      97.25
+     ],
+     null,
+     null,
+     null,
+     null
+    ],
+    "pointers": [
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/0/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/5/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/10/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/25/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/50/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/100/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/200/points",
+     "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/all/points"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/0/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/5/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/10/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/25/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/50/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/100/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/200/points",
+    "SchwingNet/results/coverage/film_ncurve/film_ncurve.json#/curves/csxa/all/points"
+   ]
+  },
+  {
+   "panel": "b",
+   "quantity": "C-ArmLSpine naming, whole frame, own_LAT: accuracy (%) at N persons with case-clustered 95 % intervals",
+   "value": {
+    "x_persons": [
+     0.0,
+     5.0,
+     10.0,
+     25.0,
+     50.0,
+     87.0
+    ],
+    "pct": [
+     93.74,
+     96.68,
+     96.47,
+     97.49,
+     98.07,
+     98.07
+    ],
+    "ci_pct": [
+     [
+      89.76,
+      97.02
+     ],
+     [
+      94.1,
+      98.79
+     ],
+     [
+      93.68,
+      98.77
+     ],
+     [
+      95.15,
+      99.36
+     ],
+     [
+      95.48,
+      100.0
+     ],
+     [
+      95.48,
+      100.0
+     ]
+    ],
+    "pointers": [
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/1",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/2",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/3",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/4",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/5",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/6"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/1",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/2",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/3",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/4",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/5",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/6"
+   ]
+  },
+  {
+   "panel": "b",
+   "quantity": "C-ArmLSpine naming, whole frame, own_AP: accuracy (%) at N persons with case-clustered 95 % intervals",
+   "value": {
+    "x_persons": [
+     0.0,
+     5.0,
+     10.0,
+     25.0,
+     50.0,
+     87.6
+    ],
+    "pct": [
+     33.81,
+     90.78,
+     94.68,
+     95.37,
+     95.42,
+     98.1
+    ],
+    "ci_pct": [
+     [
+      26.93,
+      40.64
+     ],
+     [
+      86.71,
+      94.26
+     ],
+     [
+      91.7,
+      97.15
+     ],
+     [
+      92.62,
+      97.63
+     ],
+     [
+      92.0,
+      98.44
+     ],
+     [
+      95.74,
+      99.84
+     ]
+    ],
+    "pointers": [
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/73",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/74",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/75",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/76",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/77",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/78"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/73",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/74",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/75",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/76",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/77",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/78"
+   ]
+  },
+  {
+   "panel": "b",
+   "quantity": "C-ArmLSpine naming, whole frame, lat_trained_on_ap: accuracy (%) at N persons with case-clustered 95 % intervals",
+   "value": {
+    "x_persons": [
+     0.0,
+     5.0,
+     10.0,
+     25.0,
+     50.0,
+     87.0
+    ],
+    "pct": [
+     32.23,
+     33.12,
+     36.02,
+     39.92,
+     51.03,
+     54.66
+    ],
+    "ci_pct": [
+     [
+      25.56,
+      39.24
+     ],
+     [
+      26.93,
+      39.76
+     ],
+     [
+      29.87,
+      42.67
+     ],
+     [
+      33.33,
+      46.69
+     ],
+     [
+      42.51,
+      59.28
+     ],
+     [
+      46.43,
+      62.77
+     ]
+    ],
+    "pointers": [
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/79",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/80",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/81",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/82",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/83",
+     "SchwingNet/results/indomain/name_fill.json#/figure5b/84"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/79",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/80",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/81",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/82",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/83",
+    "SchwingNet/results/indomain/name_fill.json#/figure5b/84"
+   ]
+  },
+  {
+   "panel": "b",
+   "quantity": "C-ArmLSpine naming, whole frame, both_LAT: accuracy (%) at N persons with case-clustered 95 % intervals",
+   "value": {
+    "x_persons": 87.6,
+    "pct": 98.07,
+    "ci_pct": [
+     95.48,
+     100.0
+    ],
+    "pointer": "SchwingNet/results/indomain/name_fill.json#/figure5b/13"
+   },
+   "source": "SchwingNet/results/indomain/name_fill.json#/figure5b/13"
+  },
+  {
+   "panel": "b",
+   "quantity": "C-ArmLSpine naming, whole frame, both_AP: accuracy (%) at N persons with case-clustered 95 % intervals",
+   "value": {
+    "x_persons": 87.6,
+    "pct": 97.0,
+    "ci_pct": [
+     94.14,
+     99.21
+    ],
+    "pointer": "SchwingNet/results/indomain/name_fill.json#/figure5b/85"
+   },
+   "source": "SchwingNet/results/indomain/name_fill.json#/figure5b/85"
+  },
+  {
+   "panel": "c",
+   "quantity": "both-view arm read on LAT: recall (%) at N real frames, 95 % intervals",
+   "value": {
+    "x_frames": [
+     0,
+     4,
+     10,
+     24,
+     50,
+     100,
+     200
+    ],
+    "pct": [
+     0.2,
+     71.7,
+     73.7,
+     84.1,
+     81.4,
+     80.4,
+     81.2
+    ],
+    "ci_pct": [
+     [
+      0.0,
+      0.7
+     ],
+     [
+      64.4,
+      78.3
+     ],
+     [
+      67.4,
+      79.8
+     ],
+     [
+      79.2,
+      89.2
+     ],
+     [
+      76.5,
+      86.5
+     ],
+     [
+      75.4,
+      85.4
+     ],
+     [
+      75.9,
+      86.6
+     ]
+    ],
+    "pointers": [
+     "SchwingNet/results/indomain/det_fill.json#/curves/carm/0/pooled/LAT/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/curves/carm/4/pooled/LAT/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/curves/carm/10/pooled/LAT/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/curves/carm/24/pooled/LAT/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/curves/carm/50/pooled/LAT/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/curves/carm/100/pooled/LAT/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/curves/carm/200/pooled/LAT/body/0.74"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/indomain/det_fill.json#/curves/carm/0/pooled/LAT/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/curves/carm/4/pooled/LAT/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/curves/carm/10/pooled/LAT/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/curves/carm/24/pooled/LAT/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/curves/carm/50/pooled/LAT/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/curves/carm/100/pooled/LAT/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/curves/carm/200/pooled/LAT/body/0.74"
+   ]
+  },
+  {
+   "panel": "c",
+   "quantity": "both-view arm read on AP: recall (%) at N real frames, 95 % intervals",
+   "value": {
+    "x_frames": [
+     0,
+     4,
+     10,
+     24,
+     50,
+     100,
+     200
+    ],
+    "pct": [
+     15.2,
+     74.4,
+     78.6,
+     84.6,
+     84.1,
+     85.0,
+     84.6
+    ],
+    "ci_pct": [
+     [
+      9.7,
+      21.3
+     ],
+     [
+      69.3,
+      79.0
+     ],
+     [
+      74.1,
+      82.6
+     ],
+     [
+      80.7,
+      88.3
+     ],
+     [
+      80.0,
+      88.2
+     ],
+     [
+      80.6,
+      89.3
+     ],
+     [
+      80.1,
+      89.1
+     ]
+    ],
+    "pointers": [
+     "SchwingNet/results/indomain/det_fill.json#/curves/carm/0/pooled/AP/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/curves/carm/4/pooled/AP/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/curves/carm/10/pooled/AP/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/curves/carm/24/pooled/AP/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/curves/carm/50/pooled/AP/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/curves/carm/100/pooled/AP/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/curves/carm/200/pooled/AP/body/0.74"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/indomain/det_fill.json#/curves/carm/0/pooled/AP/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/curves/carm/4/pooled/AP/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/curves/carm/10/pooled/AP/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/curves/carm/24/pooled/AP/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/curves/carm/50/pooled/AP/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/curves/carm/100/pooled/AP/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/curves/carm/200/pooled/AP/body/0.74"
+   ]
+  },
+  {
+   "panel": "c",
+   "quantity": "one-view arm N25_APonly: recall (%) on the trained protocol and on the other",
+   "value": {
+    "x_frames": 25,
+    "trained_on": "AP",
+    "own_pct": 85.7,
+    "own_ci": [
+     81.6,
+     89.6
+    ],
+    "other_pct": 0.4,
+    "other_ci": [
+     0.0,
+     1.1
+    ],
+    "pointers": [
+     "SchwingNet/results/indomain/det_fill.json#/protocol/N25_APonly/pooled/AP/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/protocol/N25_APonly/pooled/LAT/body/0.74"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/indomain/det_fill.json#/protocol/N25_APonly/pooled/AP/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/protocol/N25_APonly/pooled/LAT/body/0.74"
+   ]
+  },
+  {
+   "panel": "c",
+   "quantity": "one-view arm N25_LATonly: recall (%) on the trained protocol and on the other",
+   "value": {
+    "x_frames": 25,
+    "trained_on": "LAT",
+    "own_pct": 83.0,
+    "own_ci": [
+     78.5,
+     87.5
+    ],
+    "other_pct": 33.9,
+    "other_ci": [
+     28.0,
+     40.3
+    ],
+    "pointers": [
+     "SchwingNet/results/indomain/det_fill.json#/protocol/N25_LATonly/pooled/LAT/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/protocol/N25_LATonly/pooled/AP/body/0.74"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/indomain/det_fill.json#/protocol/N25_LATonly/pooled/LAT/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/protocol/N25_LATonly/pooled/AP/body/0.74"
+   ]
+  },
+  {
+   "panel": "c",
+   "quantity": "one-view arm N50_APonly: recall (%) on the trained protocol and on the other",
+   "value": {
+    "x_frames": 50,
+    "trained_on": "AP",
+    "own_pct": 86.4,
+    "own_ci": [
+     82.5,
+     90.1
+    ],
+    "other_pct": 0.0,
+    "other_ci": [
+     0.0,
+     0.0
+    ],
+    "pointers": [
+     "SchwingNet/results/indomain/det_fill.json#/protocol/N50_APonly/pooled/AP/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/protocol/N50_APonly/pooled/LAT/body/0.74"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/indomain/det_fill.json#/protocol/N50_APonly/pooled/AP/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/protocol/N50_APonly/pooled/LAT/body/0.74"
+   ]
+  },
+  {
+   "panel": "c",
+   "quantity": "one-view arm N50_LATonly: recall (%) on the trained protocol and on the other",
+   "value": {
+    "x_frames": 50,
+    "trained_on": "LAT",
+    "own_pct": 85.5,
+    "own_ci": [
+     81.2,
+     89.8
+    ],
+    "other_pct": 39.5,
+    "other_ci": [
+     32.5,
+     46.7
+    ],
+    "pointers": [
+     "SchwingNet/results/indomain/det_fill.json#/protocol/N50_LATonly/pooled/LAT/body/0.74",
+     "SchwingNet/results/indomain/det_fill.json#/protocol/N50_LATonly/pooled/AP/body/0.74"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/indomain/det_fill.json#/protocol/N50_LATonly/pooled/LAT/body/0.74",
+    "SchwingNet/results/indomain/det_fill.json#/protocol/N50_LATonly/pooled/AP/body/0.74"
+   ]
+  },
+  {
+   "panel": "c",
+   "quantity": "one-view arms: min and max on own / other protocol (quoted in Results)",
+   "value": {
+    "oneview_own_min_pct": 83.0,
+    "oneview_own_max_pct": 86.4,
+    "oneview_other_min_pct": 0.0,
+    "oneview_other_max_pct": 39.5,
+    "oneview_arms": [
+     "N25_APonly",
+     "N25_LATonly",
+     "N50_APonly",
+     "N50_LATonly"
+    ],
+    "rule": "min and max over the four one-view arms (25 and 50 frames x anteroposterior and lateral), each pooled over its two seeds, body boxes at confidence 0.74; 'own' = read on the protocol trained on, 'other' = read on the other protocol"
+   },
+   "source": "SchwingNet/results/power/power.json#/panel_c_detection/summary"
+  },
+  {
+   "panel": "d",
+   "quantity": "low arm: seed-mean recall (%) per lateral angle, per-seed range, means over trained and untrained bins",
+   "value": {
+    "lats": [
+     -90.0,
+     -80.0,
+     -70.0,
+     -60.0,
+     -50.0,
+     -40.0,
+     -30.0,
+     -20.0,
+     -10.0,
+     0.0,
+     10.0,
+     20.0,
+     30.0,
+     40.0,
+     50.0,
+     60.0,
+     70.0,
+     80.0,
+     90.0
+    ],
+    "seed_mean_pct": [
+     84.98,
+     83.33,
+     64.94,
+     34.02,
+     30.5,
+     23.65,
+     50.0,
+     70.83,
+     75.0,
+     80.62,
+     80.0,
+     66.88,
+     39.38,
+     26.14,
+     29.96,
+     37.4,
+     57.02,
+     75.62,
+     80.66
+    ],
+    "seed_range_pct": [
+     [
+      84.36,
+      83.13,
+      64.32,
+      28.22,
+      25.73,
+      17.84,
+      47.5,
+      70.42,
+      72.92,
+      79.17,
+      78.75,
+      63.75,
+      28.75,
+      16.18,
+      16.94,
+      30.17,
+      49.59,
+      72.73,
+      79.42
+     ],
+     [
+      85.6,
+      83.54,
+      65.56,
+      39.83,
+      35.27,
+      29.46,
+      52.5,
+      71.25,
+      77.08,
+      82.08,
+      81.25,
+      70.0,
+      50.0,
+      36.1,
+      42.98,
+      44.63,
+      64.46,
+      78.51,
+      81.89
+     ]
+    ],
+    "trained_bins_mean_pct": 82.1,
+    "untrained_bins_mean_pct": 52.8,
+    "pointers": [
+     "SchwingNet/results/coverage/experiment/runs/cov_surgio_b51_dr_low_s0/unseen/recall_vs_angle.json#/curves/cov_surgio_b51_dr_low_s0/surgio_b51_dr/0.25/body/0.0",
+     "SchwingNet/results/coverage/experiment/runs/cov_surgio_b51_dr_low_s1/unseen/recall_vs_angle.json#/curves/cov_surgio_b51_dr_low_s1/surgio_b51_dr/0.25/body/0.0"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/coverage/experiment/runs/cov_surgio_b51_dr_low_s0/unseen/recall_vs_angle.json#/curves/cov_surgio_b51_dr_low_s0/surgio_b51_dr/0.25/body/0.0",
+    "SchwingNet/results/coverage/experiment/runs/cov_surgio_b51_dr_low_s1/unseen/recall_vs_angle.json#/curves/cov_surgio_b51_dr_low_s1/surgio_b51_dr/0.25/body/0.0"
+   ]
+  },
+  {
+   "panel": "d",
+   "quantity": "high arm: seed-mean recall (%) per lateral angle, per-seed range, means over trained and untrained bins",
+   "value": {
+    "lats": [
+     -90.0,
+     -80.0,
+     -70.0,
+     -60.0,
+     -50.0,
+     -40.0,
+     -30.0,
+     -20.0,
+     -10.0,
+     0.0,
+     10.0,
+     20.0,
+     30.0,
+     40.0,
+     50.0,
+     60.0,
+     70.0,
+     80.0,
+     90.0
+    ],
+    "seed_mean_pct": [
+     86.83,
+     86.63,
+     84.23,
+     76.56,
+     74.48,
+     76.14,
+     79.58,
+     74.58,
+     69.79,
+     68.75,
+     74.79,
+     75.21,
+     77.5,
+     75.52,
+     75.41,
+     72.93,
+     79.34,
+     81.61,
+     86.63
+    ],
+    "seed_range_pct": [
+     [
+      86.01,
+      86.42,
+      83.82,
+      75.52,
+      74.27,
+      73.44,
+      78.33,
+      71.67,
+      67.92,
+      67.5,
+      74.58,
+      73.75,
+      76.25,
+      74.27,
+      74.38,
+      71.9,
+      77.69,
+      80.99,
+      85.6
+     ],
+     [
+      87.65,
+      86.83,
+      84.65,
+      77.59,
+      74.69,
+      78.84,
+      80.83,
+      77.5,
+      71.67,
+      70.0,
+      75.0,
+      76.67,
+      78.75,
+      76.76,
+      76.45,
+      73.97,
+      80.99,
+      82.23,
+      87.65
+     ]
+    ],
+    "trained_bins_mean_pct": 80.7,
+    "untrained_bins_mean_pct": 77.1,
+    "pointers": [
+     "SchwingNet/results/coverage/experiment/runs/cov_surgio_b51_dr_high_s0/unseen/recall_vs_angle.json#/curves/cov_surgio_b51_dr_high_s0/surgio_b51_dr/0.25/body/0.0",
+     "SchwingNet/results/coverage/experiment/runs/cov_surgio_b51_dr_high_s1/unseen/recall_vs_angle.json#/curves/cov_surgio_b51_dr_high_s1/surgio_b51_dr/0.25/body/0.0"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/coverage/experiment/runs/cov_surgio_b51_dr_high_s0/unseen/recall_vs_angle.json#/curves/cov_surgio_b51_dr_high_s0/surgio_b51_dr/0.25/body/0.0",
+    "SchwingNet/results/coverage/experiment/runs/cov_surgio_b51_dr_high_s1/unseen/recall_vs_angle.json#/curves/cov_surgio_b51_dr_high_s1/surgio_b51_dr/0.25/body/0.0"
+   ]
+  },
+  {
+   "panel": "d",
+   "quantity": "low2n arm: seed-mean recall (%) per lateral angle, per-seed range, means over trained and untrained bins",
+   "value": {
+    "lats": [
+     -90.0,
+     -80.0,
+     -70.0,
+     -60.0,
+     -50.0,
+     -40.0,
+     -30.0,
+     -20.0,
+     -10.0,
+     0.0,
+     10.0,
+     20.0,
+     30.0,
+     40.0,
+     50.0,
+     60.0,
+     70.0,
+     80.0,
+     90.0
+    ],
+    "seed_mean_pct": [
+     97.94,
+     96.91,
+     88.17,
+     54.98,
+     40.66,
+     35.06,
+     53.96,
+     80.83,
+     84.58,
+     88.54,
+     87.29,
+     71.88,
+     43.75,
+     31.95,
+     37.6,
+     54.96,
+     81.2,
+     93.18,
+     96.09
+    ],
+    "seed_range_pct": [
+     [
+      97.94,
+      96.71,
+      87.55,
+      50.62,
+      38.17,
+      30.71,
+      53.75,
+      80.0,
+      83.33,
+      86.67,
+      86.25,
+      70.83,
+      43.33,
+      30.71,
+      37.19,
+      54.55,
+      80.99,
+      92.98,
+      95.47
+     ],
+     [
+      97.94,
+      97.12,
+      88.8,
+      59.34,
+      43.15,
+      39.42,
+      54.17,
+      81.67,
+      85.83,
+      90.42,
+      88.33,
+      72.92,
+      44.17,
+      33.2,
+      38.02,
+      55.37,
+      81.4,
+      93.39,
+      96.71
+     ]
+    ],
+    "trained_bins_mean_pct": 94.2,
+    "untrained_bins_mean_pct": 64.8,
+    "pointers": [
+     "SchwingNet/results/coverage/experiment/runs/cov_surgio_b51_dr_low2n_s0/unseen/recall_vs_angle.json#/curves/cov_surgio_b51_dr_low2n_s0/surgio_b51_dr/0.25/body/0.0",
+     "SchwingNet/results/coverage/experiment/runs/cov_surgio_b51_dr_low2n_s1/unseen/recall_vs_angle.json#/curves/cov_surgio_b51_dr_low2n_s1/surgio_b51_dr/0.25/body/0.0"
+    ]
+   },
+   "source": [
+    "SchwingNet/results/coverage/experiment/runs/cov_surgio_b51_dr_low2n_s0/unseen/recall_vs_angle.json#/curves/cov_surgio_b51_dr_low2n_s0/surgio_b51_dr/0.25/body/0.0",
+    "SchwingNet/results/coverage/experiment/runs/cov_surgio_b51_dr_low2n_s1/unseen/recall_vs_angle.json#/curves/cov_surgio_b51_dr_low2n_s1/surgio_b51_dr/0.25/body/0.0"
+   ]
+  }
+ ],
+ "discrepancies_stated": [
+  "Panel (b) mixes evaluation sets: film cells are scored on the corpus's fixed VAL films (persons never in any cell's training), C-arm cells on five case-grouped test folds pooled (148 lateral / 149 anteroposterior cases; 623 / 633 vertebrae); a C-ArmLSpine case is an acquisition session, counted as a person. The C-arm N = 0 cell is the fine-tune recipe with no C-arm crop; the zero-shot run (no C-arm image at all: lateral 96.3 %, anteroposterior 43.9 %) is in power.json and not drawn.",
+  "Panel (b) draws no C-arm interval (the per-point case-clustered intervals are in power.json and the record; at N <= 25 three seeds are averaged, above one seed). The anteroposterior-trained cells read on the lateral test frames (93.4-95.3 %, not drawn) sit on the lateral own-view curve.",
+  "Panel (c): under the body rule the N = 0 floor (lateral 0.2 %, anteroposterior 15.2 %) is a box-convention artefact (det_fill.json 'reading'): arms without C-ArmLSpine frames draw whole-vertebra boxes, which the body rule scores as misses; the convention-free centre rule reads 70.5 % at N = 0. The curve from N = 4 upward is unaffected in shape.",
+  "Panel (c): the one-view arms at 25 frames use the same patients as the both-view arm at 50 frames and the same frame count as the both-view arm at 24; at 50 frames, the patients of the both-view 100 and the frame count of the both-view 50. Paired contrasts against both are in det_fill.json#contrasts.",
+  "Panel (d): the Surgio card renders thick laterals photon-starved (recall_vs_angle.md), so the +-90 degree bins conflate geometry with synthetic underexposure; the +-30 to 60 degree bins carry the comparison. Every subject is placed on one anchor, so another subject's truth boxes already score about 0.64-0.68 at every angle (supplement); the bins are read against that floor, not zero.",
+  "Panel (d) is renders at confidence 0.25 (the operating point every arm evaluator reports at), not the manuscript's detectors at 0.74; every render-only arm scores under 15 % on any real test set. The six Elekta XVI arms did not train (val mAP50 0.13-0.22) and are not drawn.",
+  "The pooled nested fit (delta AICc 26.0, g +20.0 points per unit H*; at confidence 0.74 g -0.7, delta AICc -3.1; trained-only g +24.2) is quoted in Results and no longer drawn; g is identified by the Surgio arms alone.",
+  "Film asymptotes: NHANES II and BUU-LSPINE are still rising at N = all (3.2 and 3.1 points below their fitted asymptotes); only CSXA plateaus (within 2 points from N = 200). The film cross-corpus transfer (dashed in the 10:26 build) is quoted in Results and no longer drawn."
+ ],
+ "reading": "At zero errors, 35 transitional persons put the Wilson lower bound at 90 % and 22 at 85 %. Film: NHANES II 77.8 % at N = 5 and 92.7 % at all 264; BUU-LSPINE 65.0 -> 96.9 % (2967); CSXA 94.2 -> 99.8 % (4114). C-arm naming: lateral 93.7 % at N = 0 -> 98.1 % at 50; anteroposterior 33.8 -> 90.8 % at 5 -> 98.1 % at all; lateral-trained on anteroposterior 54.7 % at all; both views 98.1 / 97.0 %. Detection (body, 0.74): both-view arm lateral 84.1 / anteroposterior 84.6 % at 24 frames, 81.2 / 84.6 % at 200; one-view arms 83.0-86.4 % on their own view, 0.0-39.5 % on the other. Angle (renders, 0.25): low arm 82.1 % at the trained angles and 52.8 % over the 16 others; 2N 94.2 / 64.8 %; arc 80.7 / 77.1 %."
+}

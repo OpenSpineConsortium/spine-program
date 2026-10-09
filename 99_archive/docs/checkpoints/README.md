@@ -1,0 +1,26 @@
+# Dated checkpoints (2026-09-14 to 2026-09-27)
+
+Session handoffs, resumes and reports of the C-arm and film programme, copied from spinesurg-ct-nnunet `docs/` at
+097933a and from the CTSpinoPelvic1K working copy (untracked). They are records of their day: the numbers in them were
+measured on banks later found leaky or replaced (`../../SUPERSEDED_NUMBERS.md`), and the plans in them were replaced by the
+2026-10-08 handoff (`../handoff/`). Read newest first; nothing here is quoted.
+
+| file | date | last commit | what it is | the trap it carries |
+|---|---|---|---|---|
+| `RESUME_2026-09-22_PM.md` (366,958 B at the source) | 2026-09-22 to 2026-09-27 18:05 EDT, newest block on top | 465bec6 | the last session checkpoint of the spine work: Greg's standing determination of 2026-09-23 (detect the transitional vertebra from C-arm exposures at parity), the FLAGSHIP_PLAN gates, every chain's job ids, the 2026-09-27 recipe and board, the per-level manifest | two mentions of the banned word were rewritten on copy; Greg's WSU e-mail, his PhysioNet username, one Hugging Face username, three first names (a collaborator, a TTO officer, a deck recipient) and the personal data of its 2026-09-25 12:40 block (home address, telephone, citizenship, inventorship and the reading of the employment agreement) were withheld; laptop session, transcript and scratchpad roots were replaced by `[laptop ... of the day]` tokens and the laptop Desktop prefix by the `Desktop/` key (`../../MANIFEST_LOCAL.md` section 3); the six history-only memory notes point into this file |
+| `HANDOFF_2026-09-21_PM.md` (66,295 B) | 2026-09-21 afternoon, with the overnight sections of 2026-09-22 at the bottom | fb14892 | the CT-to-fluoroscopy formation work: what was running, what was found, the exact next commands; Greg's words of 2026-09-21 13:30 ("make the DRR-to-physics in the live-person domain a little more fluoro-like"); "C-ArmLSpine is the project now"; the OR-readiness adversarial programme | its LODO numbers are the older generation (catalog C4.5 to C4.7, RECORD ONLY); the HOME quota was 93 % full that day; four researchers' e-mail addresses were replaced by `[address withheld; institution]` and one laptop session path by `[laptop session folder of the day]` (`../../MANIFEST_LOCAL.md` section 3) |
+| `HANDOFF_2026-09-21_PM_ctsp_audit_track.md` (1,551 B) | 2026-09-22 05:30 EDT | untracked in CTSpinoPelvic1K at 7ddfe38 | the audit-track block: splits disjoint, the initialisation exposure from `anchor_none_v2_17-1882`, two generations (76.9 % against 64.0 / 54.3 %), LODO C-ArmLSpine sacrum 83.9 % and vertebra 5.2 %, "DeepFluoro 100 % / 95.2 %", COBRA 13.3 %, 74,364 COBRA near-duplicate laterals | a different file from the spinesurg one (md5 812a2a00 against babaa09c), so both are kept; its "100 % sacrum on DeepFluoro" is a same-device number and is on the do-not-carry-forward list |
+| `RESUME_2026-09-22.md` (4,526 B) | 2026-09-22 03:10 EDT, updated 06:20 | 9f2af48 | the state of everything in flight: the resume procedure, the device track launched at 05:40 (jobs 40411904-07, 40411915), the RSNAI plan | "a fresh session must pick this up WITHOUT asking him anything": a procedure of its day |
+| `DAILY_REPORT_2026-09-22.md` (4,190 B) | 2026-09-21 to 22 | 9f2af48 | Greg's daily report: C-ArmLSpine found, registered and labelled; the first real-OR level test; the transfer problem measured | prints 98.2 % lateral exact level, 92.9 % at three vertebrae, 72.8 % at one, AP 96.7 %: the v2-lineage cross-validation (catalog A3.11), superseded by 601 / 617 = 97.4 % (A3.1) |
+| `MORNING_BRIEF_2026-09-16.md` (10,550 B) | 2026-09-16 | 6984446 | what changed overnight: resolution is not the lever for naming (-0.33 points, CI95 -0.88 to +0.22) but is for finding (60 to 39 empty panels); the X-ray gate; TTA plus monotone decode 95.09 to 98.80 %; 33 of 618 lumbar films shifted one level | v2-era banks (LEAKED); the FluoroCap panel numbers are agreements with weak labels, not accuracies |
+| `FLUOROCAP_MORNING_2026-09-14.md` (18,070 B) | 2026-09-14 | 0439616 | the overnight report on why the models degrade on published fluoroscopy: a scale problem in the detector, not image quality; the synthetic-fault suite on 300 annotated films | the films were the detector's own training corpus, so it measured fault sensitivity, not generalisation (the report says so) |
+
+Tokens in the copies: `[laptop session folder of the day]`, `[laptop scratchpad of the day]` and `[laptop home of the day]`
+stand where a laptop root with a session identifier stood; relative `scratchpad/...` paths name the same swept temporary
+folder of the day. Nothing in this folder depends on them: what mattered from them was committed to the repositories in
+`../../MANIFEST_CODE.md`, or is open (`../handoff/OPEN_QUESTIONS.md` F2). The path prefixes (`ssn:`, `ctsp:`, `Desktop/`,
+`~`) are keyed in `../handoff/PREFIX_KEY.md`.
+
+The FluoroCap protocol, README, QC and the pathology-source sweep are in `../fluorocap/`. The pipeline resume of
+2026-09-18 (`PIPELINE_RESUME.md`), `pipeline.md` and `troubleshooting.md` are copied into `01_carm_level_detection/docs/`;
+`ablations.md` and `xrsp1k_seg.md` into `03_ctspinopelvic1k_dataset/docs/` (`../../MANIFEST_LOCAL.md` section 2.2).

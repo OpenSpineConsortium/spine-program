@@ -1,0 +1,324 @@
+% SchwingNet supplement: what the six-figure main text moves out (wrap of 2026-09-23, figures rewired 2026-09-24).
+% Same style file as main.tex; built by slurm/compile.sh beside it (latexmk -xelatex).
+% Figure numbering here is by first citation in the main text and does NOT equal the figS<n> file names:
+%   S1 = flow of cases (figures/fig2_flow.*, CLAIM 2024 item 35; cited first, in Methods "Sources")
+%   S2 = corpus manifold (figures/figS1.*)          S3 = image-formation parameters (figures/figS2.*)
+%   S4 = which training source carries the detector (figures/figS3.*)
+%   S5 = detection against view angle on the real rotational acquisition (figures/figS4.*)
+% Captions are the figS<n>.caption.txt files verbatim, except that figS4's "arm names as in Figure S3" is printed
+% "Figure S4" here, because figS3 is Figure S4 in this numbering. fig_manifold and fig5_contribution are retired
+% (their restyles are S2 and S4). Table S1 = the device terms (tools/make_supp_device_table.py); Table S2 =
+% detection per held-out device and training arm (formerly main Table 2). Numbers: NUMBERS.md ("Detection with the
+% device held out", "Which source carries the detector", "Device cards and the modality boundary", "Statistical
+% revision" F6, F12, F13, "Supplement figures S2-S5"); every drawn number in figures/figS<n>.record.json.
+% Revision 2 (2026-09-24, manuscript-drive; REVISION_LOG2.md): card gain on the 12 patient-held-out folds and the
+% within-subject folds named (EVAL_LEAKS L6; closure MANUSCRIPT_CORRECTIONS.md 3b); film- vs render-trained detector
+% on the 17 NHANES II spines neither saw (L2; closure 3a); Holm P values recomputed with those members (closure 4:
+% sacrum and card .009); the convention of every detector number stated, body-convention values in brackets
+% (REVIEW2_RSNA section 3; results/indomain/INVENTORY.md "Corrections"); new section "Transitional crops in the
+% embedding" carries the never-seen L6 and fused-L5 detail moved out of the main text for length (every number as
+% it was printed there, results/figure2/figure2_metrics.json and figure2_transitional.json); Figure S3 legend per
+% closure 3b.
+% Revision 3 (2026-09-24, collect-and-submit-1; REVISION_LOG3.md): the section "Data completeness audit, summary"
+% became the first item of a new section "Data integrity and quality controls" (Greg's request: every audit and
+% quality-improvement tool documented here, one Methods sentence pointing to it): the patient-keyed evaluation gate
+% (tools/eval_gate.py, CHK-9, sha-stamped dumps, holdout.py), checkpoint lineage (306 checkpoints), the split builder
+% (make_split.py CHK-1..8; the cross-source key from leak_check.py), the SPINEPS-id guard (spineps_ids.py), the A28
+% box-convention rescore, the excluded-sources gate (excluded_sources.py) and the two release repairs (0533; COBRA
+% duplicates). Every number in it is a NUMBERS.md "Revision 3" row. (The automated-reference and pre-registration
+% paragraphs it also carried moved to paper 2 in the fill pass below.)
+% Revision 5 (2026-09-24, REVISION_LOG3.md section 8): the LevelCheck comparison is paper 2. Here: the "Figure 6"
+% pointer of the plain-film section, the section title "comparison arm" and the comparator commits of the
+% pre-registration paragraph moved to paper2_levelcheck/MOVED_FROM_PAPER1.md; "Table~4" -> "Table~3" (the naming
+% table now prints third).
+% Fill pass (2026-09-24 evening, REVISION_LOG3.md section 8 "Fill pass"): title line without the comparison clause;
+% Table S3 (age and sex by source) and Table S4 (corpus census), both written by tools/make_supp_census_tables.py from
+% results/age_sex_by_source.json and results/corpus_census.json; the G4 census section written from that file; the
+% real Surgio pool entropy quoted through \RESULT{coverage_hstar_lat_surgio_real}; the automated-reference paragraph
+% (PENDING G6) and the pre-registration paragraph moved to paper 2 (no paper-1 result uses the reference).
+% Length pass (2026-09-24 night, REVISION_LOG3.md section 8 "Supplement length"): the fill pass took the supplement
+% to 15 pages (build 40438373) against the journal's 12. Tables S3 and S4 merged into ONE landscape Table S3 "Corpus
+% by source" (tables/tabS3_corpus.tex, make_supp_census_tables.py --merged; the two detailed tables stay as
+% tables/tabS3_age_sex.md and tabS4_census.md); the main text's "Table~S3" references stand and no Table S4 exists.
+% Prose trimmed: the overview paragraph (it repeated the figure legends), the census paragraph (sides now in the
+% table), and "Data integrity and quality controls" to its essentials; no number and no tool name was removed.
+% Table S1 became a portrait 7 pt non-floating minipage (\captionof{table}; make_supp_device_table.py) input at the
+% end of the prose, so it shares a page with text instead of taking a float page (endfloat moves every table
+% environment to the end, one per page): 5 figure pages + Tables S2 and S3 leave five pages for prose + S1.
+\input{rsnastyle}
+
+\title{Supplemental material}
+% Double-anonymized review: no author or affiliation here; both are on the separate Full Title Page.
+\author{}
+\date{}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\begin{document}
+% emergency stretch: long names (CTSpinoPelvic1K, C-ArmLSpine) and DOIs otherwise overrun the line by 2-27 pt
+\setlength{\emergencystretch}{2em}
+% Revision 3 (2026-09-24, collect-and-submit-1): the supplement is single-spaced. The journal's double-spacing rule
+% (RSNA_AI_REQUIREMENTS.md, "Text file") governs the manuscript; the supplement's own rule is "at most 12 pages, one
+% Word document, not copy-edited". Double-spaced, the supplement reached 15 pages (build 40437793) once the section
+% "Data integrity and quality controls" was added; single-spaced it fits. The packet's supplement.docx must match.
+\singlespacing
+\maketitle
+
+% Tables are numbered S1-S3 from here (Table S1 is input inside the prose, after "Data integrity and quality controls").
+\renewcommand{\thetable}{S\arabic{table}}
+Supplemental material for \emph{\netname{}: a convolutional-recurrent network for level naming in spine surgery}. Figures S1--S5 (flow of cases; corpus manifold; image-formation parameters; which training source carries the detector; detection against view angle) and Tables S1--S3 (image-formation terms per device; detection per held-out device and training arm; corpus by source, with age and sex) are numbered by first citation in the main text; the last section documents the evaluation gate and every audit tool the study added. Every count is read from the file named in the repository's NUMBERS.md.
+
+\section*{Corpus manifold}
+A classifier telling films from fluoroscopy with one corpus held out (19 corpora, 7,311 frames) differed from the
+majority-class share of 71.8\,\% by $-0.7$ to 9.2 points across three feature spaces and two classifiers, no
+percentile interval excluding zero (two nearest-neighbour bias-corrected and accelerated intervals did). The
+probe drawn in Figure~S2b is a different one, films against C-arm and kilovoltage-imager frames with one source
+held out (5,797 frames): on image statistics it read 63.4\,\% (57.6, 69.2) against a majority share of 64.4\,\%,
+and on deep features 85.0\,\% (79.4, 90.0), so on those features the modalities are separable. Each device's styled
+renders remained separable from its real frames on the same features (Figure~S2c): 100\,\% (Cios Fusion, 736 frames),
+99.8\,\% (Surgio-B51, 666) and 99.0\,\% (Elekta XVI, 771; 98.1, 99.6), against majority shares of 50.3--64.7\,\%.
+Detectors are therefore held out by device, and no claim rests on the modalities being indistinguishable.
+
+\section*{Image-formation terms}
+Renders were styled through nine image-formation terms fitted per device, leave one group out, on up to 40 real
+frames (14 of 18 for the PIXIUM~4600) against uncalibrated physics (Figure~S3, Table~S1). On the two devices whose folds
+hold out patients (Cios Fusion and Elekta XVI; 12 folds, 701 frames), the fitted terms raised held-out coefficient of
+determination ($R^2$) by 0.019 (95\,\% confidence interval: 0.008, 0.033; frame-weighted 0.023; 0.010, 0.033), two
+folds negative (exact sign-flip over folds $P=.004$, Holm-adjusted $P=.009$). On the other two a fold holds out views
+or frames of the one object every fold was fitted on (the BV Pulsera phantom, the PIXIUM~4600 cadaver), so their
+gain, 0.056 (0.025, 0.088; 12 folds), is within-subject, not held out. The pre-stated criterion, a gain above zero with the interval excluding zero on every device,
+was not met: it held only on six-fold percentile bootstraps, and on six-fold $t$ intervals only the BV Pulsera
+gain excluded zero (Cios Fusion 0.015; $-0.003$, 0.034). A refit with image noise in the loss failed its
+own acceptance gate on every device it was run on, and the published parameters stand. Exposure draws were
+clipped to the central 60\,\% of each marginal, a defect not repaired.
+
+\section*{Which source carries the detector}
+Transfer to the held-out C-arm, scored against whole-vertebra boxes (the convention of the training sources),
+tracked the source whose frames span the gantry arc (Figure~S4): the radiotherapy imager alone read 86.8\,\% (249 of
+287) of held-out vertebrae, the cadaver C-arm alone 12.9\,\% (37) (against vertebral-body boxes, a box-convention
+reading, 11.1\,\% and 3.8\,\%). Adding the
+wide-arc source raised held-out recall by 71.8 points (63.4, 79.6; second training seed 67.6; 57.6, 76.8), adding
+the cadaver source changed it by $-2.1$ ($-6.0$, 1.4; second seed $-6.3$; $-9.8$, $-2.9$), and cutting the
+wide-arc frames from 2,640 to 240 dropped it by 47.7 points (41.8, 53.7; body boxes, $-8.0$, no paired
+interval). At the default confidence the
+same-device control found the sacrum on 55 of 56 frames (98.2\,\%), 14.3 points more than the held-out detector
+(5.4, 23.2; Holm-adjusted exact sign test $P=.009$). The sources differ in device, anatomy, frame count and angle
+together, and no arm isolates angle. Every detector trained on real frames alone, the reported one included, was
+fine-tuned from the render-trained detector. Renders alone found 31.7\,\% (91 of 287) at the default confidence
+(body boxes, 2.4\,\%) and one vertebra at 0.74; on 161 vertebral bodies of 17 real films whose patients neither
+detector trained or was selected on, a film-trained detector found 31.7 points more than a render-trained one at
+confidence 0.05 (99.4\,\% against 67.7\,\%; 21.0, 45.4; 16 of 17 films favouring the film-trained detector, none the
+other; Holm-adjusted $P<.001$).
+
+\section*{Plain-film naming on the selection split}
+On the patient-keyed validation split that also chose the encoder checkpoint (one seed), with random windows of two
+to nine bodies, the level model named 3,629 of 3,635 CSXA cervical vertebrae (99.8\,\%; 727 patients, three with an
+error; Wilson on the design-effect-adjusted count 99.5, 99.9; BCa 99.5, 99.9), 2,671 of 2,744 BUU-LSPINE lumbar
+vertebrae (97.3\,\%; 549 cases, 51; percentile 96.5, 98.0; BCa 96.4, 98.0) and 441 of 445 NHANES~II lateral vertebrae
+(99.1\,\%; 76 films of 52 patients, four; Wilson 97.8, 99.6; BCa 98.0, 99.8); with three bodies in view, 99.6\,\%,
+95.0\,\% and 94.6\,\%. Every annotated patient of the three corpora is in this encoder's training or selection split,
+so no held-out plain-film accuracy exists until a model trained from ImageNet weights on the split's training
+persons is scored on the test films of the person-disjoint split, which is not done here.
+
+\section*{Same-device frames and view angle}
+On the C-ArmLSpine test split (28 cases, 56 frames, 287 vertebral bodies on the repaired truth; body boxes, unlike
+Table~S2), a vertebra detector whose training held no frame of the device found 7.0\,\% (20 of 287; 95\,\%
+case-bootstrap interval 4.2, 10.1) at confidence 0.74 and 12.5\,\% (36 of 287; 9.0, 16.1) before its own-geometry
+renders were added. With 50 to 210 real frames it found 81.5--86.8\,\% (50 frames of 25 cases 82.9\,\%, 238 of 287;
+78.5, 87.2; all 210, 85.7\,\% from public weights and 85.0--86.8\,\% for the arms adding own-geometry renders, the
+other C-arms' frames, or both), every interval from 50 frames upward overlapping every other; at the default
+confidence 89.5--92.3\,\%. Trained on one view alone (two seeds pooled), arms of 25 or 50 frames found
+\RESULT{det_oneview_own_min_pct}--\RESULT{det_oneview_own_max_pct}\,\% of their own view's bodies and
+\RESULT{det_oneview_other_min_pct}--\RESULT{det_oneview_other_max_pct}\,\% of the other's, against
+\RESULT{det_both_n24_ap_pct} and \RESULT{det_both_n24_lat_pct}\,\% for both views at 24 frames (Figure~5c of the main
+text). The plateau is set by the truth: the arms at 24 to 200 frames miss the same vertebrae (30 of the 287 test
+bodies are missed by all ten arms, 208 found by all ten), and \RESULT{denom_dropped_n} of the 287 are not detectable
+bodies: \RESULT{denom_cut_n} cut by the cone-beam CT boundary (L1 or T12 strips at the top of the field),
+\RESULT{denom_fallback_n} whole-vertebra fallback boxes with no body instance, the rest with under 80\,\% of their
+points in the frame or a body box larger than its own outline. On the \RESULT{denom_repaired_n} that remain the
+held-out detector found \RESULT{det_heldout_repaired_pct}\,\% (\RESULT{det_heldout_repaired_kn};
+\RESULT{det_heldout_repaired_ci}; re-scored on the rebuilt truth, which reads \RESULT{det_heldout_rescored_released_kn}
+on the released denominator against the 231 of 287 of the main text, scored before the rebuild) and the both-view arms
+\RESULT{det_both_n24_repaired_all_pct}\,\% at 24 frames (\RESULT{det_both_n24_repaired_all_ci}) and
+\RESULT{det_both_n200_repaired_all_pct}\,\% at 200 (\RESULT{det_both_n200_repaired_all_ci}); no box was removed from
+the release. The subsets are nested and drawn by whole case, no test case or patient is in any list, and the styled renders of this device were posed on the registered geometry of all 148 cases, the 28 test
+cases included. The real pose pool of the device holds 148 anteroposterior (within 10$^\circ$) and 148 lateral
+exposures and no pose between: on an acquisition-space grid of 18 lateral-angle bins of 10$^\circ$ and six tilt bins,
+the registered poses occupy three lateral bins (normalised entropy \RESULT{coverage_hstar_lat_surgio_real}) and 6\,\% of the joint bins, against 83\,\%
+of the lateral bins for the one rotational acquisition. The learning-curve training sets occupy every lateral bin
+through their other-device frames and renders, and their joint coverage (37\,\%) and entropy (0.63) are the same at
+50, 100 and 200 C-ArmLSpine frames, so along that series the added frames re-sampled the same bins and count was
+never separated from coverage; the one-view arms separate the view, and the matched-count render arms of the main
+text (Figure~5d) the angle; no arc pose entered any training list. For the angle sweep, render pose pools were extended per device to an arc from
+$-90^\circ$ to $+90^\circ$ (592, 1,100 and 4,216 poses; tilt within about $\pm$13$^\circ$, 5th to 95th percentile).
+On 40 TotalSegmentator v3 subjects that no scored detector trained or was selected on, the pooled detector's body
+recall at the default confidence fell below 90\,\% of its anteroposterior value by $\pm$30$^\circ$ on both device
+cards, dipped to 0.69 at $-50^\circ$ on the Surgio card and recovered to 0.99 at the lateral; because every subject
+is placed on one anchor, another subject's truth boxes already score 0.64--0.68 at every angle, so those values are
+read against a floor of about 0.67, not zero, and the Surgio lateral is rendered photon-starved by its card. On one
+patient's real rotational acquisition, recall against view angle is drawn in Figure~S5; one patient admits no
+interval, and the reported detector's flat recall there is unexplained.
+
+\section*{Development learning curve of a split-trained level model}
+The recurrent head of a level model trained from ImageNet weights on the split's training persons (the arm a
+transitional test needs, Table~2 note~d of the main text) was also trained on nested fractions of those persons, 563, 1,121, 2,240, 4,477 and 8,950, three seeds
+each, and read on the validation side that chose its epoch; these are development numbers, and no test person is
+among them. On random windows of two to nine bodies, accuracy rose from 68.9\,\% to 74.0\,\% across the sixteen-fold
+range, the last doubling adding 0.6 points against a spread of 1.0 across seeds at full size. On real films it was
+98.2\,\% at 563 persons and 98.7\,\% at 8,950 (last doubling 0.1 points; with three bodies in view, 97.2--97.5\,\% at
+every size); on CT renders 59.6\,\% to 66.2\,\% (0.8); on rendered L6 bodies 51.8\,\% to 64.2\,\% (1.7 points, seed
+spread 3.4); rendered T13 bodies were named in none of the three full-size runs. The bank records no projection angle, source distance or magnification, so its acquisition-space
+coverage can be counted only over source, view and pose index; five lateral pose cells of the transitional
+CTSpinoPelvic1K renders occur on the validation side and not in training.
+
+\section*{Transitional crops in the embedding}
+Within single render sources of the checkpoint-selection split, the silhouette of L6 from L5 exceeded the L5-from-L4
+control in two, the VerSe renders (0.52; 95\,\% confidence interval: 0.45, 0.57; against 0.38; ten persons) and the
+transitional-enriched physics renders (0.24; 0.20, 0.29; against 0.16; eight persons), and fell below it in the third,
+the standard physics renders (0.14; 0.11, 0.20; against 0.21; five persons, 11 crops).
+
+Three C-ArmLSpine patients whose cone-beam CT one automatic labeller reads with a sixth lumbar vertebra, and the other
+as L1--L5, are in neither split of the level encoder; their crops were rendered under six device cards and embedded
+(Figure~2c of the main text, stars). Under the pre-specified whole-vertebra box, the body read as L6 sat nearer the
+validation L6 than the L5 cluster in each patient (two-cluster silhouette 0.10, 0.12 and 0.16; validation L6 left out
+by person, 0.34), their L3--L5 did not ($-0.09$ to $-0.01$), and 84 of its 180 crops were named L6. Under the secondary
+vertebral-body box the result vanished ($-0.07$; 13 of 180 named L6). The negative L3--L5 values are what the second
+reading (L2--L4) predicts, so apart from the disputed body the panel does not decide between the readings; the crops
+are three patients, not 180 observations.
+
+Four validation persons with a fused L5 left unlabelled (seven crops of the last free vertebra, which a count up from
+the sacrum names L5) were placed between the validation L4 and L5 clusters. The last free vertebra sat nearer L5 than
+L4 in two of them, one crop each ($-0.13$ and $-0.18$; ordinary L4, 0.24, with 70 of 1,066 crops below zero), and
+both crops were named L5, the name a count gives; the second of the two also had its L3 named L4. Their L3, the
+control, was also low (0.01 and $-0.26$; ordinary L3, 0.16), so four persons cannot separate a junction effect from a
+person-level shift.
+
+\section*{Corpus census}
+The corpus as built --- persons and primary images per source and split side, transitional persons, and age and sex
+where a release gives them --- is Table~\ref{tab:census}, computed from the person-disjoint split of 23 September
+2026, the transitional registry and each release's metadata (tools/corpus\_census.py, tools/age\_sex\_by\_source.py).
+Where it differs from Table~1 of the main text the two count different objects: Table~1 counts what each trained or
+scored component consumed, the census what the split places (record 0533, rebuilt after the banks were frozen, is in
+the census and in no bank; TotalSegmentator scans are folded by content hash to 1,867 groups against Table~1's 1,935;
+NHANES~II, VinDr-SpineXR and COBRA2026 enter the split whole; the 3,600 BUU-LSPINE anteroposterior films were in no
+level bank; the real-frame sides are the split's person-hash draw). Every printed cell of Table~2 reproduces from the
+subtype table it was drawn from; the registry of 24 September adds labeller-tier and read-tier calls no table counts
+until verified (TotalSegmentator 22 L6 and 26 unassigned, COBRA2026 three L6 and six unassigned, VerSe 12 lumbar ribs
+and 20 unassigned). One count remains unexplained: footnote~a of Table~1 gives 7,045 physics-styled renders against
+7,048 items in that root.
+
+\section*{Data integrity and quality controls}
+Each control was added after a defect was found and is implemented in the named file of the released code; a
+number a control removed was replaced or marked pending, never left. \textbf{Completeness audit:} every source
+release was audited against what is on disk and what each model consumed; of 99 gaps, 31 were held back by a written
+criterion, 28 came from software defects, 21 from unfinished jobs, four from download or compute cuts and 15 from
+causes nobody can establish; every gap touching a quoted number is footnoted in the tables, and the audit ships with
+the released corpus recipe. \textbf{Patient-keyed evaluation gate:}
+\texttt{tools/eval\_gate.py} runs before every quoted score and raises unless each item's patient key is absent from
+the training and checkpoint-selection persons of the checkpoint and of every checkpoint it was initialised from
+(public ImageNet or COCO weights the only exempt ancestor; a render inherits its CT subject; an unreadable link is an
+error), and stamps the verdict and the weights' SHA-256 into the result file.
+\textbf{Leak check CHK-9} of \texttt{tools/leak\_check.py}, over the 563 numbers then quoted
+(\texttt{results/eval\_gate/quoted\_results.json}), found 323 held out, 81 scored on a seen patient and 58 with an
+unreadable lineage (101 involve no checkpoint); each of the 81 and 58 was re-derived on unseen persons, replaced or
+marked pending (\texttt{results/eval\_gate/EVAL\_LEAKS.md}). \textbf{Checkpoint lineage:}
+\texttt{tools/checkpoint\_lineage.py} reads the stored training configuration of each of 306 checkpoints and writes
+the persons seen along its chain; 133 carry a link that cannot be read and certify nothing
+(\texttt{results/eval\_gate/LINEAGE.md}); every quoted zero-shot and fine-tuned number comes from an encoder whose
+whole chain was read (Table~3, note~g). \textbf{Patient keys and
+split builder:} \texttt{tools/make\_split.py} keys every item to one person, sends synthetic, warped and implant
+variants with their source patient, allocates transitional persons 50:10:40 per subtype with every real transitional
+subject on the test side, and runs checks CHK-1 to CHK-8 (item and person disjointness under two keyings, alias
+closure, real transitional subjects held out whole, near-duplicate images across sides, every item keyed), exiting
+non-zero on a failure; its cross-source patient key came from a defect \texttt{tools/leak\_check.py} found, one
+radiograph collection entered twice under two naming schemes with 48 of 54 validation patients twinned in training.
+
+\textbf{Label-identifier guard:} \texttt{tools/spineps\_ids.py} raises unless a segmentation tool's instance
+identifiers lie in the VerSe alphabet, run cranio-caudally and agree with the names written beside the mask; 2,437
+harvested masks carried raw identifiers 1 to N, which read as names had selected twelve TotalSegmentator spines as
+six-lumbar (a rib count confirmed four), and the 3,490 masks were relabelled beside the old
+(\texttt{results/spineps\_ids/}). \textbf{Results-driven build:} the numbers keyed in
+\texttt{numbers\_manifest.json} are read at compile time from the results files it names
+(\texttt{tools/results\_macros.py}), and a missing result prints as a pending marker, not a typed number.
+\textbf{Box convention:} all 69 quoted detector numbers were re-scored in both conventions, whole-vertebra outline
+and vertebral body, which cross on every device, so each printed detector number names its convention
+(\texttt{results/bodybox\_rescore/RESCORE.md}). \textbf{Excluded sources:} \texttt{tools/excluded\_sources.py}
+raises when a path from an excluded collection reaches a list, bank or probe (the Mendeley lumbar set, 500 of whose
+584 films re-encode BUU-LSPINE films already in training; the literature fluoroscopy panels, figures of published
+articles; Table~1). \textbf{Release repairs:} CTSpinoPelvic1K record 0533 was a truncated download (17,301,504 of
+250,067,995 bytes), rebuilt from the archive, verified by nine checks and replaced in the public release, and enters
+no reported number (\texttt{results/repairs/ct0533\_CHECK.md}); one detector arm had counted COBRA2026 frames up to
+four times through overlapping list roots (5,013 duplicate entries), and the bank registry now refuses an
+unregistered directory and checks split disjointness on disk (\texttt{tools/realxray\_train.py};
+\texttt{results/repairs/cobra-dup-leak\_CHECK.md}).
+
+% Table S1 prints here, at the end of the prose, as a non-floating minipage (\captionof{table}): rsnastyle's endfloat
+% would move a table environment to a page of its own (build 40438389, 13 pages), and here it shares the page with
+% the text. Tables S2 and S3 below are floats endfloat delays to the end, so the counter runs S1, S2, S3.
+\input{tables/tabS1_device_terms}
+
+% The paragraphs "Automated reference standard" (with its \PENDING{G6} calibration) and "Pre-registration" moved to
+% paper2_levelcheck/MOVED_FROM_PAPER1.md item 8 on 2026-09-24 (fill pass): no result paper 1 prints rests on the
+% automated reference (the COBRA2026 screen counts of Table 2 note e are the two-labeller count, not the three-reader
+% rule; the three C-ArmLSpine L6 are scored against one labeller's read). The calibration itself is frozen in
+% results/fig6/frozen/auto_reference.json (sha256 57782cad...) and the filled paragraph, with its manifest keys,
+% is in the moved file, ready to return if an ordinary-person real-frame result is printed here (PAPER1_SCOPE.md 3).
+
+\begin{figure}[tbh!]
+\centering
+\includegraphics[height=0.90\textheight,width=\linewidth,keepaspectratio]{figures/fig2_flow.pdf}
+\caption{Flow of cases. (a) Real C-arm frame sets, their splits and what each was used for. (b) CT collections and plain-film corpora behind the level model, with the patient-keyed film validation split and the caveat carried with every C-ArmLSpine number.\label{fig:flow}}
+\end{figure}
+
+% Figure S2 = figures/figS1.* (tools/figS_supplement.py s1; record figures/figS1.record.json)
+\begin{figure}[tbh!]
+\centering
+\includegraphics[height=0.90\textheight,width=\linewidth,keepaspectratio]{figures/figS1.pdf}
+\caption{Corpus manifold, ImageNet features. (a) t-SNE (t-distributed stochastic neighbour embedding) of 11,638 frames from 18 sources, one colour family per modality. (b) The same points by modality; below, a film-versus-C-arm classifier. (c) Each render family against its device's real frames: accuracy, 95\,\% case-cluster interval; diamonds, majority share. (d) Pairwise balanced accuracy; Mendeley only here.\label{fig:manifold}}
+\end{figure}
+
+% Figure S3 = figures/figS2.* (tools/figS_supplement.py s2; record figures/figS2.record.json)
+\begin{figure}[tbh!]
+\centering
+\includegraphics[height=0.90\textheight,width=\linewidth,keepaspectratio]{figures/figS2.pdf}
+\caption{Image-formation parameters. (a) Real frame per device above its styled render; bar, 50 mm; R², body-region fit. (b) Fitted terms within their bounds: fold median, range. (c) Per-fold R² gain over uncalibrated physics (Pulsera, PIXIUM within one object); bar, six-fold t interval. (d) A refit with image noise in the loss failed its own gate; published parameters stand.\label{fig:formation}}
+\end{figure}
+
+% Figure S4 = figures/figS3.* (tools/figS_supplement.py s3; record figures/figS3.record.json)
+\begin{figure}[tbh!]
+\centering
+\includegraphics[height=0.90\textheight,width=\linewidth,keepaspectratio]{figures/figS3.pdf}
+\caption{Which training source carries the detector. (a) Held-out vertebra recall per training arm and target device; hatched, arm trained on that device (same-device, not held out); blank, no run; dots, whole-vertebra truth, 95\,\% case-bootstrap interval; diamonds, vertebral-body truth. (b) Recall by view or gantry-angle band. (c) Recall change from adding one source, tested on the third; diamonds, body-truth difference.\label{fig:contribution}}
+\end{figure}
+
+% Figure S5 = figures/figS4.* (tools/figS_supplement.py s4; record figures/figS4.record.json); "Figure S3" of the
+% caption file printed as "Figure S4" (see the header).
+\begin{figure}[tbh!]
+\centering
+\includegraphics[height=0.90\textheight,width=\linewidth,keepaspectratio]{figures/figS4.pdf}
+\caption{Detection against view angle on one patient's real rotational C-arm acquisition (301 frames; no intervals). (a) Lateral (−90°, source at patient's right) to +45°; boxes, bodies projected from cone-beam CT; bar, 50 mm. (b, c) Bodies found per 10° bin; arm names as in Figure S4; the reported detector's flat 50\,\% is unexplained. (d) Registration quality.\label{fig:angle}}
+\end{figure}
+
+\par\medskip\noindent
+\textbf{Ablation of the rendered training rows.} Whether rendered CT raises ordinary-level naming on plain
+radiographs was asked separately from whether it supplies the rare classes, which it must: no released radiograph
+carries a human-read sixth lumbar or thirteenth thoracic vertebra, so renders are their only labelled source and stay
+in training whatever this test shows. Three arms differ only in the rendered data, with persons, seeds, epochs (15),
+learning rate ($10^{-4}$), augmentation, head and scoring held identical: the reported render-pretrained encoder; the
+same merged bank trained from ImageNet weights, which isolates the pretraining; and that bank with every rendered row
+removed, which isolates the renders altogether, the radiograph rows keeping their oversampled count and the selection
+crops staying as validation. The reading rule was fixed before the numbers: at 5 and 25 annotated persons per corpus,
+and at every person, renders help only if the render-pretrained arm's patient-clustered interval clears the film-only
+arm's on every seed. Table~\ref{tab:ablation} gives every cell, and the outcome in both directions
+(\texttt{tools/film\_ncurve\_ablation\_read.py}).
+
+% Tables S1-S4: S1 (generated by tools/make_supp_device_table.py from the released device parameter files) is input
+% inside the prose, after "Image-formation terms"; S2 is the former main Table 2 (tables/tab2_detection.tex,
+% unchanged rows; its label tab:detection resolves here); S3 (corpus by source: persons, images, transitional
+% persons, age and sex; labels tab:census and tab:agesex) is generated by tools/make_supp_census_tables.py --merged.
+% S4 (the film N-curve ablation, 2026-09-26, REVISION_LOG3.md section 13) is generated by
+% tools/make_supp_ablation_table.py from the three arms' film_ncurve.json and ablation_read.json.
+\input{tables/tab2_detection}
+\input{tables/tabS3_corpus}
+\input{tables/tabS4_ablation}
+
+\end{document}

@@ -1,0 +1,4286 @@
+{
+ "eval_gate": {
+  "gate_version": "eval_gate/2",
+  "held_out": true,
+  "not_held_out_reason": null,
+  "n_checks": 1,
+  "overlap": 0,
+  "unresolved": 0,
+  "checks": [
+   {
+    "gate": "tools/eval_gate.py",
+    "gate_version": "eval_gate/2",
+    "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+    "where": "tools/arc_recall_eval.py [cov_elekta_xvi_low_s0]",
+    "checked_at": "2026-09-25T05:41:41",
+    "host": "voh4",
+    "checkpoint": "/wsu/home/go/go24/go2432/spine-detector/runs/coverage/cov_elekta_xvi_low_s0/weights/best.pt",
+    "checkpoint_sha256": "98f0f5709649bb4b08843f1de0713149e4cfd536b5dc484352311a4ce85b14e0",
+    "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+    "lineage_match": "path + sha256 verified",
+    "ancestors": [],
+    "public_roots": [
+     "public:ultralytics/yolo11m.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco.yaml')"
+    ],
+    "eval_set": "/rs/rs_grp_oschome/go2432/data/devcorpus_arc/anglesweep_unseen/SET_INFO.json#subjects (the 40 scored)",
+    "n_items": 40,
+    "n_keys": 40,
+    "keys_by_corpus": {
+     "ts": 40
+    },
+    "n_unkeyed": 0,
+    "unkeyed": [],
+    "overlap": 0,
+    "overlap_keys": [],
+    "overlap_detail": [],
+    "unresolved": 0,
+    "unresolved_rows": [],
+    "unresolved_decided": [],
+    "pose_donor_overlap": 0,
+    "pose_donor_keys": [],
+    "also_seen": {},
+    "held_out": true,
+    "not_held_out_reason": null,
+    "eval_digest": "sha256:8fc4950ce2eef1a77d85ba6a8766b9157de030dbb906403d7d33b05040ec097b",
+    "eval_keys": [
+     "ts:s0086",
+     "ts:s0139",
+     "ts:s0178",
+     "ts:s0236",
+     "ts:s0243",
+     "ts:s0244",
+     "ts:s0355",
+     "ts:s0370",
+     "ts:s0550",
+     "ts:s0586",
+     "ts:s0657",
+     "ts:s0667",
+     "ts:s0669",
+     "ts:s0733",
+     "ts:s0830",
+     "ts:s0859",
+     "ts:s0869",
+     "ts:s0913",
+     "ts:s0979",
+     "ts:s0983",
+     "ts:s1111",
+     "ts:s1230",
+     "ts:s1294",
+     "ts:s1347",
+     "ts:s1364",
+     "ts:s1395",
+     "ts:s1404",
+     "ts:s1487",
+     "ts:s1540",
+     "ts:s1547",
+     "ts:s1574",
+     "ts:s1741",
+     "ts:s1807",
+     "ts:s1815",
+     "ts:s1868",
+     "ts:s1935",
+     "ts:s1949",
+     "ts:s1973",
+     "ts:s2021",
+     "ts:s2106"
+    ],
+    "also_seen_digest": {},
+    "checkpoint_sha256_from": "the lineage store row",
+    "overlap_by": {},
+    "problems": [],
+    "role": "cov_elekta_xvi_low_s0"
+   }
+  ]
+ },
+ "weights_sha256": {
+  "cov_elekta_xvi_low_s0": "98f0f5709649bb4b08843f1de0713149e4cfd536b5dc484352311a4ce85b14e0"
+ },
+ "set_root": "/rs/rs_grp_oschome/go2432/data/devcorpus_arc/anglesweep_unseen",
+ "set_info": {
+  "eval_gate": {
+   "gate_version": "eval_gate/1",
+   "held_out": true,
+   "not_held_out_reason": null,
+   "n_checks": 4,
+   "overlap": 0,
+   "unresolved": 0,
+   "checks": [
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/arc_angle_set.py (before rendering) [pooled]",
+     "checked_at": "2026-09-24T04:26:16",
+     "host": "voh7",
+     "checkpoint": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_P_pooled/weights/best.pt",
+     "checkpoint_sha256": "13f17d8c50491f3b8961060d7e91b58f722983483efeab44f33b3fec63dc3551",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "public_roots": [
+      "public:ultralytics/yolo11m.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco.yaml')"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/devcorpus_arc/anglesweep_unseen/SET_INFO.json#subjects",
+     "n_items": 40,
+     "n_keys": 40,
+     "keys_by_corpus": {
+      "ts": 40
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "pooled"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/arc_angle_set.py (before rendering) [lodoA]",
+     "checked_at": "2026-09-24T04:26:17",
+     "host": "voh7",
+     "checkpoint": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_A_held_surgio_b51_dr/weights/best.pt",
+     "checkpoint_sha256": "bfa05c731e9949ebd1fbcfced5c55d06818db6d41eaabb36c3e23277a0955467",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "public_roots": [
+      "public:ultralytics/yolo11m.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco.yaml')"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/devcorpus_arc/anglesweep_unseen/SET_INFO.json#subjects",
+     "n_items": 40,
+     "n_keys": 40,
+     "keys_by_corpus": {
+      "ts": 40
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "lodoA"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/arc_angle_set.py (before rendering) [lodoB]",
+     "checked_at": "2026-09-24T04:26:17",
+     "host": "voh7",
+     "checkpoint": "/wsu/home/go/go24/go2432/spine-detector/runs/devcorpus/dc_B_held_surgio_b51_dr_s1/weights/best.pt",
+     "checkpoint_sha256": "9f7f2ff55ededd4e98adab4069383fa31016bdd7937ccbb6349fd36bde0dcfd3",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [],
+     "public_roots": [
+      "public:ultralytics/yolo11m.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco.yaml')"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/devcorpus_arc/anglesweep_unseen/SET_INFO.json#subjects",
+     "n_items": 40,
+     "n_keys": 40,
+     "keys_by_corpus": {
+      "ts": 40
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "lodoB"
+    },
+    {
+     "gate": "tools/eval_gate.py",
+     "gate_version": "eval_gate/1",
+     "rule": "an evaluation item is HELD OUT for a checkpoint only if its patient key (tools/patient_keys.key_any; a render inherits its source CT subject) is in neither the train nor the val/selection set of that checkpoint nor of any ancestor in its initialisation chain; public ImageNet/COCO pretraining is the only exempt ancestor, and only when declared. An unresolved link is not clean.",
+     "where": "tools/arc_angle_set.py (before rendering) [real_lodo]",
+     "checked_at": "2026-09-24T04:26:18",
+     "host": "voh7",
+     "checkpoint": "/wsu/home/go/go24/go2432/spine-detector/runs/realxray/rx_lodo_carmlspine_1024/weights/best.pt",
+     "checkpoint_sha256": "f6fe6b9775a4d25a7c432337be71f73d0fbedfb525c33e76883b197281e5fcf8",
+     "lineage_store": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/touched.json",
+     "lineage_match": "path + sha256 verified",
+     "ancestors": [
+      "/wsu/home/go/go24/go2432/spine-detector/runs/pose/anchor_none_v2_17-1882/weights/best.pt"
+     ],
+     "public_roots": [
+      "public:ultralytics/yolo11m.pt (COCO release; verified at /wsu/home/go/go24/go2432/spine-detector/yolo11m.pt: train_args.data = '/ultralytics/ultralytics/cfg/datasets/coco.yaml')"
+     ],
+     "eval_set": "/rs/rs_grp_oschome/go2432/data/devcorpus_arc/anglesweep_unseen/SET_INFO.json#subjects",
+     "n_items": 40,
+     "n_keys": 40,
+     "keys_by_corpus": {
+      "ts": 40
+     },
+     "n_unkeyed": 0,
+     "unkeyed": [],
+     "overlap": 0,
+     "overlap_keys": [],
+     "overlap_detail": [],
+     "unresolved": 0,
+     "unresolved_rows": [],
+     "unresolved_decided": [],
+     "pose_donor_overlap": 0,
+     "pose_donor_keys": [],
+     "also_seen": {},
+     "held_out": true,
+     "not_held_out_reason": null,
+     "overlap_by": {},
+     "problems": [],
+     "role": "real_lodo"
+    }
+   ]
+  },
+  "pool": "/rs/rs_grp_oschome/go2432/data/devcorpus/poses/surgio_b51_dr.json",
+  "anchor_tag": "case29/AP",
+  "anchor_angles": {
+   "lat_deg": -0.18320270200893612,
+   "tilt_deg": -0.2846822933261115,
+   "roll_deg": -0.2170166952034846
+  },
+  "cards": [
+   "surgio_b51_dr",
+   "elekta_xvi"
+  ],
+  "lats": [
+   -90.0,
+   -80.0,
+   -70.0,
+   -60.0,
+   -50.0,
+   -40.0,
+   -30.0,
+   -20.0,
+   -10.0,
+   0.0,
+   10.0,
+   20.0,
+   30.0,
+   40.0,
+   50.0,
+   60.0,
+   70.0,
+   80.0,
+   90.0
+  ],
+  "tilts": [
+   -15.0,
+   0.0,
+   15.0
+  ],
+  "roll_deg": 0.0,
+  "down": 2,
+  "seed": 0,
+  "out_px": 1024,
+  "subjects": [
+   "s0086",
+   "s0139",
+   "s0178",
+   "s0236",
+   "s0243",
+   "s0244",
+   "s0355",
+   "s0370",
+   "s0550",
+   "s0586",
+   "s0657",
+   "s0667",
+   "s0669",
+   "s0733",
+   "s0830",
+   "s0859",
+   "s0869",
+   "s0913",
+   "s0979",
+   "s0983",
+   "s1111",
+   "s1230",
+   "s1294",
+   "s1347",
+   "s1364",
+   "s1395",
+   "s1404",
+   "s1487",
+   "s1540",
+   "s1547",
+   "s1574",
+   "s1741",
+   "s1807",
+   "s1815",
+   "s1868",
+   "s1935",
+   "s1949",
+   "s1973",
+   "s2021",
+   "s2106"
+  ],
+  "excluded": [],
+  "targets": {
+   "s0086": "vertebrae_L3",
+   "s0236": "vertebrae_L3",
+   "s0355": "vertebrae_L3",
+   "s0586": "vertebrae_L3",
+   "s0669": "vertebrae_L3",
+   "s0859": "vertebrae_L3",
+   "s0979": "vertebrae_L3",
+   "s1230": "vertebrae_L3",
+   "s1364": "vertebrae_L3",
+   "s1487": "vertebrae_L3",
+   "s1574": "vertebrae_L3",
+   "s1815": "vertebrae_L3",
+   "s1949": "vertebrae_L3",
+   "s2106": "vertebrae_L3",
+   "s0139": "vertebrae_L3",
+   "s0243": "vertebrae_L3",
+   "s0370": "vertebrae_L3",
+   "s0657": "vertebrae_L3",
+   "s0733": "vertebrae_L3",
+   "s0869": "vertebrae_L3",
+   "s0983": "vertebrae_L3",
+   "s1294": "vertebrae_L3",
+   "s1395": "vertebrae_L3",
+   "s1540": "vertebrae_L3",
+   "s1741": "vertebrae_L3",
+   "s1868": "vertebrae_L3",
+   "s1973": "vertebrae_L3",
+   "s0178": "vertebrae_L3",
+   "s0244": "vertebrae_L3",
+   "s0550": "vertebrae_L3",
+   "s0667": "vertebrae_L3",
+   "s0830": "vertebrae_L3",
+   "s0913": "vertebrae_L3",
+   "s1111": "vertebrae_L3",
+   "s1347": "vertebrae_L3",
+   "s1404": "vertebrae_L3",
+   "s1547": "vertebrae_L3",
+   "s1807": "vertebrae_L3",
+   "s1935": "vertebrae_L3",
+   "s2021": "vertebrae_L3"
+  },
+  "frames_per_card": 2280,
+  "convention": "pose_arc.py: lat 0 = source posterior (AP), +90 = source patient-left (RAO family), -90 = source patient-right (the real Surgio lateral); tilt + = beam cranial; no jitter, no wander",
+  "subjects_source": "/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/arc_unseen/subjects.txt",
+  "preview_subject": "s0086",
+  "shards": [
+   {
+    "file": "SET_INFO.shard0of3.json",
+    "subjects": [
+     "s0086",
+     "s0236",
+     "s0355",
+     "s0586",
+     "s0669",
+     "s0859",
+     "s0979",
+     "s1230",
+     "s1364",
+     "s1487",
+     "s1574",
+     "s1815",
+     "s1949",
+     "s2106"
+    ],
+    "frames_per_card": 798
+   },
+   {
+    "file": "SET_INFO.shard1of3.json",
+    "subjects": [
+     "s0139",
+     "s0243",
+     "s0370",
+     "s0657",
+     "s0733",
+     "s0869",
+     "s0983",
+     "s1294",
+     "s1395",
+     "s1540",
+     "s1741",
+     "s1868",
+     "s1973"
+    ],
+    "frames_per_card": 741
+   },
+   {
+    "file": "SET_INFO.shard2of3.json",
+    "subjects": [
+     "s0178",
+     "s0244",
+     "s0550",
+     "s0667",
+     "s0830",
+     "s0913",
+     "s1111",
+     "s1347",
+     "s1404",
+     "s1547",
+     "s1807",
+     "s1935",
+     "s2021"
+    ],
+    "frames_per_card": 741
+   }
+  ],
+  "files_checked": 9120
+ },
+ "weights": {
+  "cov_elekta_xvi_low_s0": "/wsu/home/go/go24/go2432/spine-detector/runs/coverage/cov_elekta_xvi_low_s0/weights/best.pt"
+ },
+ "confs": [
+  0.25,
+  0.74
+ ],
+ "min_inside": 0.25,
+ "exposure_by_lat": {
+  "elekta_xvi": [
+   {
+    "lat": -90.0,
+    "n": 120,
+    "exposed_mean": 0.681,
+    "thickness_cm_mean": 30.4,
+    "trunc_frac_mean": 0.009
+   },
+   {
+    "lat": -80.0,
+    "n": 120,
+    "exposed_mean": 0.691,
+    "thickness_cm_mean": 30.1,
+    "trunc_frac_mean": 0.008
+   },
+   {
+    "lat": -70.0,
+    "n": 120,
+    "exposed_mean": 0.695,
+    "thickness_cm_mean": 29.4,
+    "trunc_frac_mean": 0.006
+   },
+   {
+    "lat": -60.0,
+    "n": 120,
+    "exposed_mean": 0.698,
+    "thickness_cm_mean": 28.1,
+    "trunc_frac_mean": 0.001
+   },
+   {
+    "lat": -50.0,
+    "n": 120,
+    "exposed_mean": 0.707,
+    "thickness_cm_mean": 26.6,
+    "trunc_frac_mean": 0.001
+   },
+   {
+    "lat": -40.0,
+    "n": 120,
+    "exposed_mean": 0.68,
+    "thickness_cm_mean": 25.3,
+    "trunc_frac_mean": 0.005
+   },
+   {
+    "lat": -30.0,
+    "n": 120,
+    "exposed_mean": 0.692,
+    "thickness_cm_mean": 24.0,
+    "trunc_frac_mean": 0.01
+   },
+   {
+    "lat": -20.0,
+    "n": 120,
+    "exposed_mean": 0.709,
+    "thickness_cm_mean": 23.0,
+    "trunc_frac_mean": 0.013
+   },
+   {
+    "lat": -10.0,
+    "n": 120,
+    "exposed_mean": 0.689,
+    "thickness_cm_mean": 22.2,
+    "trunc_frac_mean": 0.015
+   },
+   {
+    "lat": 0.0,
+    "n": 120,
+    "exposed_mean": 0.684,
+    "thickness_cm_mean": 21.9,
+    "trunc_frac_mean": 0.015
+   },
+   {
+    "lat": 10.0,
+    "n": 120,
+    "exposed_mean": 0.68,
+    "thickness_cm_mean": 22.3,
+    "trunc_frac_mean": 0.015
+   },
+   {
+    "lat": 20.0,
+    "n": 120,
+    "exposed_mean": 0.681,
+    "thickness_cm_mean": 23.0,
+    "trunc_frac_mean": 0.013
+   },
+   {
+    "lat": 30.0,
+    "n": 120,
+    "exposed_mean": 0.672,
+    "thickness_cm_mean": 23.9,
+    "trunc_frac_mean": 0.009
+   },
+   {
+    "lat": 40.0,
+    "n": 120,
+    "exposed_mean": 0.698,
+    "thickness_cm_mean": 25.2,
+    "trunc_frac_mean": 0.005
+   },
+   {
+    "lat": 50.0,
+    "n": 120,
+    "exposed_mean": 0.686,
+    "thickness_cm_mean": 26.6,
+    "trunc_frac_mean": 0.005
+   },
+   {
+    "lat": 60.0,
+    "n": 120,
+    "exposed_mean": 0.691,
+    "thickness_cm_mean": 28.1,
+    "trunc_frac_mean": 0.01
+   },
+   {
+    "lat": 70.0,
+    "n": 120,
+    "exposed_mean": 0.675,
+    "thickness_cm_mean": 29.4,
+    "trunc_frac_mean": 0.012
+   },
+   {
+    "lat": 80.0,
+    "n": 120,
+    "exposed_mean": 0.685,
+    "thickness_cm_mean": 30.4,
+    "trunc_frac_mean": 0.012
+   },
+   {
+    "lat": 90.0,
+    "n": 120,
+    "exposed_mean": 0.697,
+    "thickness_cm_mean": 30.6,
+    "trunc_frac_mean": 0.012
+   }
+  ],
+  "surgio_b51_dr": [
+   {
+    "lat": -90.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 30.4,
+    "trunc_frac_mean": 0.009
+   },
+   {
+    "lat": -80.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 30.1,
+    "trunc_frac_mean": 0.008
+   },
+   {
+    "lat": -70.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 29.4,
+    "trunc_frac_mean": 0.006
+   },
+   {
+    "lat": -60.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 28.1,
+    "trunc_frac_mean": 0.001
+   },
+   {
+    "lat": -50.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 26.6,
+    "trunc_frac_mean": 0.001
+   },
+   {
+    "lat": -40.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 25.3,
+    "trunc_frac_mean": 0.005
+   },
+   {
+    "lat": -30.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 24.0,
+    "trunc_frac_mean": 0.01
+   },
+   {
+    "lat": -20.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 23.0,
+    "trunc_frac_mean": 0.013
+   },
+   {
+    "lat": -10.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 22.2,
+    "trunc_frac_mean": 0.015
+   },
+   {
+    "lat": 0.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 21.9,
+    "trunc_frac_mean": 0.015
+   },
+   {
+    "lat": 10.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 22.3,
+    "trunc_frac_mean": 0.015
+   },
+   {
+    "lat": 20.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 23.0,
+    "trunc_frac_mean": 0.013
+   },
+   {
+    "lat": 30.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 23.9,
+    "trunc_frac_mean": 0.009
+   },
+   {
+    "lat": 40.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 25.2,
+    "trunc_frac_mean": 0.005
+   },
+   {
+    "lat": 50.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 26.6,
+    "trunc_frac_mean": 0.005
+   },
+   {
+    "lat": 60.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 28.1,
+    "trunc_frac_mean": 0.01
+   },
+   {
+    "lat": 70.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 29.4,
+    "trunc_frac_mean": 0.012
+   },
+   {
+    "lat": 80.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 30.4,
+    "trunc_frac_mean": 0.012
+   },
+   {
+    "lat": 90.0,
+    "n": 120,
+    "exposed_mean": 1.0,
+    "thickness_cm_mean": 30.6,
+    "trunc_frac_mean": 0.012
+   }
+  ]
+ },
+ "imgsz": 1024,
+ "boot": 1000,
+ "seed": 0,
+ "subjects": [
+  "s0086",
+  "s0139",
+  "s0178",
+  "s0236",
+  "s0243",
+  "s0244",
+  "s0355",
+  "s0370",
+  "s0550",
+  "s0586",
+  "s0657",
+  "s0667",
+  "s0669",
+  "s0733",
+  "s0830",
+  "s0859",
+  "s0869",
+  "s0913",
+  "s0979",
+  "s0983",
+  "s1111",
+  "s1230",
+  "s1294",
+  "s1347",
+  "s1364",
+  "s1395",
+  "s1404",
+  "s1487",
+  "s1540",
+  "s1547",
+  "s1574",
+  "s1741",
+  "s1807",
+  "s1815",
+  "s1868",
+  "s1935",
+  "s1949",
+  "s1973",
+  "s2021",
+  "s2106"
+ ],
+ "n_subjects": 40,
+ "frames_per_card": {
+  "elekta_xvi": 2280,
+  "surgio_b51_dr": 2280
+ },
+ "iou": 0.5,
+ "denominator": "per (lat, tilt) cell: projected boxes with inside >= 0.25 pooled over 40 subjects; boxes below are ignored (not FPs), matching greedy descending-confidence at IoU >= 0.5 (realxray_eval conventions)",
+ "interval": "subject-clustered bootstrap, 1000 resamples, percentile 2.5-97.5",
+ "falloff_rule": "smallest |lat| where recall first drops below 0.9 x recall(lat 0), per curve",
+ "curves": {
+  "cov_elekta_xvi_low_s0": {
+   "elekta_xvi": {
+    "0.25": {
+     "body": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 251,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 250,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 249,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 249,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 249,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 250,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 251,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 252,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ]
+     },
+     "sacrum": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 33,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ]
+     }
+    },
+    "0.74": {
+     "body": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 251,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 250,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 249,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 249,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 249,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 250,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 251,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 252,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ]
+     },
+     "sacrum": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 33,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ]
+     }
+    }
+   },
+   "surgio_b51_dr": {
+    "0.25": {
+     "body": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 251,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 250,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 249,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 249,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 249,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 250,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 251,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 252,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ]
+     },
+     "sacrum": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 33,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ]
+     }
+    },
+    "0.74": {
+     "body": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 240,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 241,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 242,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 243,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 251,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 250,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 249,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 249,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 244,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 245,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 246,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 247,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 249,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 250,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 251,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 252,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ]
+     },
+     "sacrum": {
+      "-15.0": [
+       {
+        "lat": -90.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 34,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 31,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 30,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 32,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 33,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "0.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 21,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 22,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ],
+      "15.0": [
+       {
+        "lat": -90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -80.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -70.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -60.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -50.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -40.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -30.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -20.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": -10.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 0.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 10.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 20.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 30.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 40.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 50.0,
+        "n": 25,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 60.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 70.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 80.0,
+        "n": 24,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       },
+       {
+        "lat": 90.0,
+        "n": 23,
+        "recall": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      ]
+     }
+    }
+   }
+  }
+ },
+ "falloff": {
+  "cov_elekta_xvi_low_s0": {
+   "elekta_xvi": {
+    "0.25": {
+     "body": {
+      "-15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "0.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      }
+     },
+     "sacrum": {
+      "-15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "0.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      }
+     }
+    },
+    "0.74": {
+     "body": {
+      "-15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "0.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      }
+     },
+     "sacrum": {
+      "-15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "0.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      }
+     }
+    }
+   },
+   "surgio_b51_dr": {
+    "0.25": {
+     "body": {
+      "-15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "0.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      }
+     },
+     "sacrum": {
+      "-15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "0.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      }
+     }
+    },
+    "0.74": {
+     "body": {
+      "-15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "0.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      }
+     },
+     "sacrum": {
+      "-15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "0.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      },
+      "15.0": {
+       "r0": 0.0,
+       "threshold": 0.0,
+       "first_below_pos": null,
+       "first_below_neg": null,
+       "min_recall": 0.0,
+       "min_at": -90.0
+      }
+     }
+    }
+   }
+  }
+ }
+}

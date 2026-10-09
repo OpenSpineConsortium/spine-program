@@ -1,0 +1,436 @@
+% =====================================================================================================
+%  Radiology: Artificial Intelligence -- Original Research (focused clinical paper)
+%  Every number in this file is read from one of:
+%    docs/COUNTING_EVIDENCE.md         (all counting and naming arms, generated from the result JSONs)
+%    docs/WRONG_LEVEL_COST_EVIDENCE.md (rates, litigation, fiducial cost; each claim carries its vote)
+%    docs/WRONG_SITE_BURDEN_EVIDENCE.md(annual burden; extrapolations labelled)
+%    docs/SWEEP_TIME_EVIDENCE.md       (C-arm move times, exposure times, competitor latency)
+%    docs/SWEEP_PROTOCOL.md            (the protocol handed to the radiographer)
+%  Nothing is typed from memory. Arms still in flight are marked [PENDING] with the arm's name.
+% =====================================================================================================
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{setspace}\setstretch{1.15}
+\usepackage{graphicx,booktabs,array,amsmath,textcomp,microtype}
+\usepackage[labelfont=bf,font=small]{caption}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\begin{document}
+
+% ------------------------------------------------------------------------------------------- TITLE
+\begin{center}
+{\Large\bfseries Counting Made Exact: Registration-Free Confirmation of the Operative\\[2pt]
+Vertebral Level from a Short Fluoroscopic Sweep\par}
+\vspace{0.9em}
+{\normalsize Gregory Schwing, MD, PhD\par}
+{\small Department of Neurosurgery, Wayne State University School of Medicine /
+Detroit Medical Center, Detroit, MI\par}
+{\small \texttt{go2432@wayne.edu}\par}
+\end{center}
+
+\vspace{0.5em}
+\noindent\textbf{Article type:} Original Research. \textbf{Main text:} about 3{,}200 words.
+\textbf{Tables:} 3. \textbf{Figures:} 0. \textbf{Funding:} none declared.
+\textbf{Conflicts of interest:} the author has a commercial interest in a level-confirmation product
+under development.
+
+\medskip
+\noindent\textbf{Summary statement.} Linking a short series of overlapping fluoroscopic exposures into
+one chain, with no learned component in the count, placed the mark on the correct vertebra in 834 of 834
+walks from C2 on 76 whole-spine studies and in 99.66\,\% of 6{,}255 walks from the sacrum on 801
+abdominopelvic studies, using the annotation's vertebra boxes.
+
+% ------------------------------------------------------------------------------------------ ABSTRACT
+\section*{Abstract}
+
+\noindent\textbf{Background.} Wrong-level spine surgery persists under the Universal Protocol because
+the protocol verifies a site that has been \emph{marked}, and a vertebral level has no mark. The level is
+counted in theatre across several limited fluoroscopic fields, and each join between fields can be one
+body off.
+
+\noindent\textbf{Purpose.} To measure whether counting across overlapping exposures can be made exact
+without any learned component, and to locate the residual risk.
+
+\noindent\textbf{Materials and Methods.} Retrospective study of public data. Sweeps were simulated from
+labelled volumes and radiographs by the protocol a radiographer is handed: put the anchor (sacrum or C2)
+at the edge of the field, expose, move one field minus two vertebral bodies, expose again. Consecutive
+frames were linked by normalised cross-correlation restricted to the step the protocol commanded, which is
+what prevents the periodic column from aliasing one body. The target is the $k$-th node from the anchor;
+no vertebra is named and no network is loaded for the count. A walk is \emph{exact} when the mark lands on
+the body truly $k$ from the anchor, scored among walks that reached the target before the image ran out;
+both denominators are reported. \emph{All headline figures use the annotation's vertebra boxes}; arms
+using a detector's own boxes are labelled as such.
+
+\noindent\textbf{Results.} From C2 at three bodies of overlap, 834 of 834 walks on 76 whole-spine studies
+were exact at 2.24 exposures; at two bodies, 832 of 834. On 204 TotalSegmentator studies, 99.70\,\%
+(2{,}646/2{,}654 reached). From the sacrum on all 801 abdominopelvic studies, 99.66\,\% (2-body overlap,
+6{,}255 reached) and 99.76\,\% (3-body, 6{,}229 reached), at about two exposures. On real radiographs with
+the deployed film detector's own boxes, 95 of 95 walks on 16 spines were exact, and from C2 with the
+annotation's boxes, 110 of 110 on 24 spines. The residual risk is in the boxes: on the same 79 CT studies,
+true boxes gave 100\,\% and a render-trained detector 30.06\,\%, with the node the count started from being
+the true sacrum on 42.44\,\% of walks.
+
+\noindent\textbf{Conclusion.} Counting across overlapping fields is exact and needs no network; the
+uncertainty lives in finding the anchor, and in converting an ordinal into a name.
+
+% -------------------------------------------------------------------------------------- INTRODUCTION
+\section*{Introduction}
+
+The patient is prone and draped, the fascia is open, and the surgeon has placed a spinal needle in what
+should be the target interspace. The C-arm swings in for a lateral shot. On the monitor are three or four
+vertebral bodies and nothing else: no sacrum, no ribs, no odontoid. The surgeon counts back to the last
+exposure, which held three or four other bodies, and to the one before that, and arrives at a name for the
+body the needle is touching. Nothing in the picture confirms that name. If any join between exposures was
+made one body off, the needle is in the wrong interspace and every subsequent step of the operation is
+performed there.
+
+This is not a rare manoeuvre performed badly. It is the standard technique, unchanged for decades: needles
+placed every few levels and counted cephalad from the sacrum on lateral fluoroscopy, with surgeons
+disagreeing even on which structure to count---the pedicle for 67\,\% of respondents to a national survey
+and the spinous process for 49\,\% \citep{strong2021,mayer2008}. Half of responding neurosurgeons in two
+independent surveys report at least one wrong-level operation in their career \citep{mody2008,groff2013}.
+Self-reported incidence is one in 3{,}110 procedures \citep{mody2008}; a prospectively collected registry
+of 34{,}544 degenerative spine operations recorded 0.12\,\% (95\,\% CI 0.09--0.16), with the thoracic spine
+highest at 0.42\,\% (CI 0.16--1.08), three times the lumbar and eight times the cervical rate, and
+intraoperative disorientation the cause in 81\,\% of events \citep{furuya2026}.
+
+The Universal Protocol does not close this. Its three elements---verification, site marking, time-out---all
+assume the site can be identified on the patient before incision. For a limb that is true. For a vertebra
+it is not: there is no skin mark that names L4. Chart review of 13 insured wrong-site cases judged that the
+protocol, applied under ideal conditions, would have prevented eight of them, 62\,\% \citep{kwaan2006}; the
+single study to assess site-verification protocols in the spine found they failed to prevent about
+one-third of cases \citep{longo2012}; and the literature's recommended safeguard, imaging after exposure
+against a marked fixed structure \citep{devine2010}, is itself another count. Wrong-site procedures
+continued at a steady rate through the protocol era, with significant harm in 35.5\,\% of them
+\citep{stahel2010}. The Joint Commission received 127 reports of wrong surgery in 2024, nine of them
+wrong-level and seven of those spinal, from a voluntary system it states captures a small fraction of
+events \citep{jc2024}; NHS England recorded 185 wrong-site never events in a single year \citep{nhse2025}.
+
+What it costs to avoid counting is measurable, and it is paid in the thoracic spine. One quaternary centre
+placed 179 preoperative percutaneous gold fiducial markers over 38 months, 176 of them thoracic, at a mean
+of 51.9 minutes and 183\,mGy each, purely to mark a level for the surgeon; all 179 operations were at the
+correct level \citep{siminski2023}. At a hospital operating-room cost of \$33.78 per minute (median,
+FY2014, before physician fees) that is roughly \$1{,}750--\$1{,}950 of staffed procedural time per patient
+and about 155 hours across the series \citep{childers2018}---a valuation by proxy, since the marker is
+placed in a fluoroscopy or CT suite rather than a theatre. A second series puts the CT intervention itself
+at 14.3 minutes from scout to control scan \citep{keil2024}. With the marker in place, intraoperative
+localisation falls from about 15 minutes to about three \citep{mongardi2021,upadhyaya2012}. The profession
+has decided, in the region where counting is longest, that a second invasive procedure scheduled in advance
+is worth it.
+
+The obvious machine response is to name the vertebra in the picture. It is the wrong response, for a reason
+visible in the operating room rather than in a validation set. The surgeon is not attempting a
+classification and does not want one. The plan says ``L4--L5'', and the surgeon reaches it by counting from
+a landmark; a machine that asserts ``this is L4'' from morphology offers a second opinion of the same kind
+the surgeon already distrusts, formed from a picture in which adjacent vertebrae genuinely resemble one
+another. Worse, the name is not a property of the bone. A lumbosacral or thoracolumbar transitional
+vertebra changes how many bodies the column has, so two spines with identical local anatomy carry different
+names---and transitional spines are the population in which wrong-level surgery occurs. Registration-based
+systems side-step naming by importing it: they solve a pose between a preoperative CT and the radiograph
+and transfer the name a human read off the volume \citep{levelcheck2012,otake2015}. That requires a CT the
+patient may not have, and a miscounted CT propagates onto the radiograph faithfully.
+
+The intervention the operation actually needs is therefore not a classifier. It is a mechanism that makes
+the surgeon's own count exact across fields. This study measures one: overlapping exposures from an anchor,
+linked into a single chain, with the target defined as the $k$-th body from the anchor. No level name is
+formed and no network is loaded for the count.
+
+% ------------------------------------------------------------------------------------------- METHODS
+\section*{Materials and Methods}
+
+This retrospective study used public, de-identified data only; institutional review determined it not to be
+human-subjects research.
+
+\subsection*{The sweep, as a radiographer performs it}
+The protocol is written for the person at the C-arm \citep{strong2021}. Find the anchor and put it at the
+edge of the field: the sacral promontory at the bottom for lumbar and thoracolumbar work, C2 at the top for
+cervical and upper thoracic work. Expose. Move the C-arm toward the level of interest by one field minus
+two vertebral bodies, so that two bodies of the previous picture remain in view. Expose. Repeat until the
+level of interest is in the field, and stop---the sweep runs from the anchor to the work, not along the
+whole spine. The field size does not change during a sweep. The last move is a full move or none: a final
+frame that advances less than half a body is nearly the same picture twice, and cannot be distinguished
+from a step one whole body longer.
+
+\subsection*{Linking, and why the restriction matters}
+Consecutive frames are linked by normalised cross-correlation computed on the overlap band alone, never by
+a global transform, and the search is restricted to within 0.6 of a vertebral body of the step the protocol
+commanded. The restriction is the mechanism, not a tuning choice. The column is nearly periodic; an
+unrestricted correlation between two lumbar frames has a second peak one body away that is almost as strong
+as the correct one, and locking onto it is precisely the one-body-off error the surgeon makes. Because the
+protocol states the step, the software is asked only to refine a displacement it was told, which is what
+removes the aliasing.
+
+\subsection*{The count}
+The linked frames form one chain of vertebrae. Each node is identified by its ordinal from the anchor, and
+the target is the $k$-th node. Nothing is named, no alphabet is chosen, and no learned component is
+loaded. Two consequences follow. Variant anatomy cannot enter, because an ordinal is well defined on a
+column with five or six lumbar bodies alike. And because nothing is fitted, no spine has to be withheld:
+every study carrying the anchor is used, and there is no training-distribution question for the counting
+step.
+
+\subsection*{Data}
+Sweeps were cut from labelled long images, because serial sweeps of one patient exist in no public
+collection. Counting from the sacrum used all 801 abdominopelvic CT studies of CTSpinoPelvic1K
+\citep{ctsp1k} and the 522 TotalSegmentator studies that reach the sacrum; counting from C2 used 76
+whole-spine VerSe studies \citep{verse2021} and the 204 TotalSegmentator studies that hold C2.
+TotalSegmentator is routine clinical CT from another institution on which no model in this work has been
+trained. Real radiographs contributed 16 spines that reach the sacrum and 24 in which C2 is visible; these
+counts are small and are stated beside every percentage that rests on them.
+
+\subsection*{Scoring, and the two denominators}
+A walk is \emph{exact} when the mark lands on the body that is truly $k$ from the anchor. Walks are scored
+among those that \emph{reached} the target---that is, in which the target body entered a field before the
+image ran out. A walk that does not reach is a limitation of the field, not a counting error, and both
+denominators are reported in Table~\ref{tab:count}. \emph{Anchor held} is the share of walks in which the
+node the count started from really was the anchor; it is a diagnostic and never a gate.
+
+\subsection*{Boxes}
+Every headline figure uses the vertebra boxes supplied by the annotation, so that the only thing that can
+fail is the link. Two further conditions were run to locate the residual risk. On 79 CT studies held out
+from a render-trained detector, the same sweeps were run with that detector's boxes, taking the anchor to
+be the terminal node of the chain. On the 16 real radiographs, the sweeps were run with the deployed film
+detector's own boxes. Arms that identify the anchor by \emph{class} rather than by position are still in
+flight and are marked [PENDING] in Table~\ref{tab:boxes}: \textsc{sacrum, CTSP, detector boxes,
+anchor=class}; \textsc{sacrum o3, CTSP, detector boxes, anchor=class}; \textsc{sacrum, films, film
+detector, anchor=class}; and a C2-class anchor detector on real film.
+
+\subsection*{Naming, for contrast}
+A separate arm names the chain instead of counting it: a ResNet-18 encoder over fixed-scale vertebra crops
+with a recurrent head over the chain, decoded under the constraint that the chain is consecutive
+\citep{he2016,schwing2026ctx,schwing2026mixed}. It is reported here only to contrast where uncertainty
+lives, and its per-frame and per-walk compute is in Table~\ref{tab:time}.
+
+\subsection*{Not measured here}
+No hypothesis test was applied. The sweeps are simulated from single long images: each frame is degraded
+independently, so no two frames share pixels exactly, but parallax between exposures taken at different
+C-arm positions and patient motion during a sweep are not reproduced. Both act on the linking and neither
+on the count. A needle-confirmation arm---re-exposing with a metallic instrument in the field and placing
+the instrument tip on the chain---is specified but not measured [PENDING: needle confirmation].
+
+% ------------------------------------------------------------------------------------------- RESULTS
+\section*{Results}
+
+\subsection*{Counting is exact, at two to three exposures}
+Table~\ref{tab:count} gives every arm. Counting down from C2 on 76 whole-spine studies was exact on 834 of
+834 walks at three bodies of overlap, from a mean of 2.24 exposures, and on 832 of 834 at two bodies, from
+1.99; both failures fell in one spine. On 204 TotalSegmentator studies that hold C2, 2{,}646 of the 2{,}654
+walks that reached their target were exact (99.70\,\%) at two bodies of overlap and 99.62\,\% at three, the
+misses confined to two spines in each case.
+
+Counting up from the sacrum on all 801 abdominopelvic studies was exact on 99.66\,\% of the 6{,}255 reached
+walks at two bodies of overlap, from 1.98 exposures, and 99.76\,\% of 6{,}229 at three, from 2.42; the
+errors sat in six and five spines respectively. On the 522 TotalSegmentator studies that reach the sacrum
+the figure was 99.17\,\% of 7{,}228 reached walks from 2.96 exposures, with 60 errored walks in six spines.
+What does not reach is a limitation of the field rather than of the count: 97 of 6{,}352 walks on the
+abdominopelvic studies and 168 of 7{,}396 on TotalSegmentator ended before the target appeared.
+
+The residual errors are regional and they sit where the anchor is far away. From the sacrum on the
+abdominopelvic studies, lumbar targets were exact 99.73\,\% of the time and thoracic targets 95.45\,\%; from
+the sacrum on TotalSegmentator, lumbar 99.33\,\%, thoracic 97.41\,\% and cervical 83.84\,\%. From C2 the
+gradient runs the other way: cervical 100\,\% and thoracic 99.46\,\% on VerSe, lumbar 97.87\,\% and sacral
+97.67\,\% on TotalSegmentator. A sweep from the near anchor is the operating instruction that follows.
+
+On real radiographs, all 95 walks on 16 spines reaching the sacrum were exact, from 1.61 exposures, and all
+110 walks on 24 spines holding C2, from 1.15 exposures. Sixteen and 24 spines are thin, and the number is
+stated beside the percentage for that reason.
+
+\subsection*{The residual risk is in the boxes, and specifically in the anchor}
+Table~\ref{tab:boxes} isolates it on one set of cases. On 79 CT studies held out from a render-trained
+detector, the annotation's boxes gave 618 of 618 reached walks exact. The same sweeps run with that
+detector's boxes gave 30.06\,\%, with 435 errored walks spread across all 79 spines; at three bodies of
+overlap, 28.66\,\%. More overlap does not rescue bad boxes.
+
+The diagnostic says why. Taking the anchor to be the terminal node of the chain, that node really was the
+sacrum on 42.44\,\% of walks at two bodies of overlap and 39.77\,\% at three. A missed or spurious box at
+the bottom of the chain shifts every ordinal above it by one, which is the surgeon's own error
+reintroduced by a machine, delivered with the confidence of a computed result. Lumbar targets fell to
+39.29\,\% and thoracic to 13.60\,\% under these boxes---the further from the anchor, the longer the shift
+persists.
+
+The failure is not universal to detectors. With the deployed film detector's own boxes on the 16 real
+radiographs, all 95 walks were exact from 1.47 exposures, with the anchor diagnostic at 93.68\,\%. The
+render-trained detector is the arm that fails, and it fails in the render domain. The remedy the arms
+in flight test is to identify the anchor by class and refuse the walk when no anchor is found, rather than
+assume the end of the chain is one [PENDING: anchor-by-class arms].
+
+\subsection*{Naming is where the uncertainty is}
+Run as a naming problem instead, the same chains were named correctly on 96.25\,\% of 950 walks on the
+abdominopelvic studies (lumbar 94.98\,\%, thoracic 93.75\,\%) and 94.69\,\% of 7{,}405 walks on
+TotalSegmentator (cervical 80.35\,\%, lumbar 96.21\,\%, thoracic 91.58\,\%). Those are good figures for a
+classifier and they are three to five points worse than the count on the same corpora, which is the result
+this paper is built around. The walk sets are not identical---950 and 7{,}405 walks against 6{,}352 and
+7{,}396---so the comparison is between arms on the same studies, not between two readings of one walk.
+
+\subsection*{Time}
+Table~\ref{tab:time} places the compute against the manoeuvre. The encoder runs at 17--18\,ms per frame,
+linking at 0.29\,s per walk on the abdominopelvic sweeps and 0.10\,s on TotalSegmentator, and decoding at
+0.2\,ms. A C-arm move costs 36--49\,s in the only published time-motion measurements
+\citep{matthews2007,desilva2018}, and physical manipulation rather than beam-on time dominates that
+figure. At one to three exposures per walk, the compute is not the cost of this method and is not the
+argument for it.
+
+% ---------------------------------------------------------------------------------------- DISCUSSION
+\section*{Discussion}
+
+\subsection*{The division of labour}
+Counting is exact and needs no network. Naming is where uncertainty lives, and it lives there for a reason
+that no additional data removes: converting an ordinal into a name requires an alphabet, and transitional
+anatomy changes the alphabet. A spine with six lumbar bodies and a spine with five can present identical
+local morphology at the operative level and carry different names for the same bone. The network's proper
+job is therefore not to identify each vertebra from its shape. It is to decide which alphabet this patient
+has---and when the operative plan is stated relative to the anchor, that decision does not have to be made
+at all.
+
+This reframes what the machine is for. It does not tell the surgeon what the level is. It performs the
+surgeon's own count, across the same fields, without the join errors, and it declines when it cannot see
+the anchor. The output is auditable by eye, because the chain of overlapping images is on the screen and a
+reader can check a link by looking at the bodies two frames share. That is a different object from a
+classifier's posterior, which cannot be checked by inspection at all.
+
+\subsection*{Where it fits in the Universal Protocol}
+The protocol's gap in spine surgery is structural: it verifies a mark and the spine has none. The sweep
+supplies one. Verification enters the target level as an ordinal from a named anchor. Site marking becomes
+the sweep itself, which places a digital fiducial on the target body in the live image. The time-out
+compares that fiducial's count against the surgeon's own, and a disagreement is a stop rather than an
+override. This is an addition to the protocol, not a replacement for anyone's judgement, and its primary
+quality metric is the disagreement rate---a number no published study of intraoperative localisation
+reports, because the localisation \emph{process} has never been measured as a process.
+
+\subsection*{Confirming with an instrument}
+The same mechanism extends to the confirmation a surgeon already improvises. With the needle or a
+radiopaque instrument in the field, one further exposure from the same or a slightly different angle can be
+matched onto the chain, and the body the instrument tip lies over carries its ordinal from the anchor. This
+reproduces what optical navigation provides---an instrument localised on the patient's own anatomy---with a
+C-arm the hospital already owns and an embedded computer, and with no tracker, no preoperative CT and no
+line of sight to maintain. It has not been measured. The arm is specified and its results are not in this
+paper [PENDING: needle confirmation].
+
+\subsection*{Deployment}
+The case for deployment is not speed. The compute is negligible in both designs (Table~\ref{tab:time})
+against 36--49\,s per C-arm move, and registration-based labelling has been reported at 4.7\,s per image on
+a 2012 GPU and 17--72\,s in an operating-room deployment \citep{levelcheck2012,manbachi2018}. The case is
+that the count needs one learned component rather than two. Naming requires a detector to find the
+vertebrae and an encoder to name them; counting requires only the detector, and the anchor test it must
+pass. It needs no preoperative CT, which is what confines registration systems to the patients who have
+one, and no optical tracking hardware. A comparison against the capital cost of navigation suites is not
+made here: no verified figure for that cost was among the sources used for this paper, and one is not
+invented.
+
+\subsection*{What would be saved is bounded, not known}
+The burden this addresses cannot be stated as a worldwide or annual dollar figure from the evidence
+available. The often-quoted \$1.3 billion is 21 years of cumulative malpractice payments for all surgical
+never events, about \$62 million a year, of which wrong-site is roughly a quarter \citep{mehtsun2013}; the
+mean closed wrong-site claim in a 2013--2020 carrier series was \$136{,}453, with spine and disc surgery
+the commonest procedure type \citep{tan2023}; the median indemnity for a surgical never event reported to
+the National Practitioner Data Bank is \$75{,}220 (IQR \$28{,}847--\$215{,}003) \citep{bettis2026}; 978 NHS
+spinal-surgery claims over five years were valued at \pounds535.5 million \citep{machin2018}. Applying the
+two verified per-procedure rates to a United States volume of 1.3--1.6 million spine operations a year
+gives, as derived arithmetic on an unverified denominator, roughly 400--1{,}900 wrong-level operations and
+\$8--37 million of indemnity a year. Seventeen percent of self-reported wrong-level events led to legal
+action or settlement \citep{mody2008}, 55 of 68 litigated wrong-disc-level cases ended in a payment and
+surgeons prevailed in 42\,\% of those a jury decided \citep{goodkin2004}, and nearly one in five Spine
+Section respondents has been the subject of such a case \citep{groff2013}. No verified source gives a
+per-event hospital cost, and no defensible worldwide figure exists.
+
+\subsection*{Limitations}
+Every headline counting figure uses the annotation's vertebra boxes, so it measures the linker and not the
+whole system; the detector-box arms are what measure the whole system, and one of them fails badly. The
+real-film arms rest on 16 and 24 spines. The sweeps are simulated: parallax between exposures at different
+C-arm positions and patient motion within a sweep are not reproduced, and both make linking harder. The
+anchor-by-class arms that would answer the central failure are in flight and unreported, as is the
+needle-confirmation arm and the C2-class anchor detector for real film. The naming arms use models fitted
+on some of the same collections and are reported for contrast only. No reader study has been run: the
+honest comparison for a decision-support tool is against the count a surgeon would otherwise make, and that
+comparison is not in this paper.
+
+\subsection*{Conclusion}
+The operation does not need a machine that knows what a vertebra is called. It needs the surgeon's count to
+be exact across the fields the C-arm can show, and that is achievable with no learned component in the
+count: 834 of 834 walks from C2 on 76 whole-spine studies, 99.66\,\% from the sacrum on 801 abdominopelvic
+studies, at two to three exposures, with the annotation's boxes. What remains uncertain is finding the
+anchor, which is a detector problem with a safe failure mode---refuse---and naming, which is an alphabet
+problem that the plan can be written to avoid.
+
+% -------------------------------------------------------------------------------------------- TABLES
+\clearpage
+\section*{Tables}
+
+\begin{table}[htbp]\centering
+\caption{Counting arms, with the annotation's vertebra boxes. \emph{Reached} is the number of walks in
+which the target entered a field before the image ran out; \emph{exact} is scored on those.
+\emph{Anchor held} is a diagnostic, never a gate.}
+\label{tab:count}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrrrr}
+\toprule
+Anchor, overlap & Corpus & Spines & Reached/walks & Exact & Exposures & Anchor & Wrong (spines) \\
+\midrule
+C2, 2 bodies     & VerSe             &  76 & 834/834     & 99.76\,\% & 1.99 & 100\,\%    &  2 (1) \\
+C2, 3 bodies     & VerSe             &  76 & 834/834     & 100\,\%   & 2.24 & 100\,\%    &  0 (0) \\
+C2, 2 bodies     & TotalSegmentator  & 204 & 2{,}654/2{,}656 & 99.70\,\% & 2.05 & 100\,\% &  8 (2) \\
+C2, 3 bodies     & TotalSegmentator  & 204 & 2{,}650/2{,}656 & 99.62\,\% & 2.27 & 100\,\% & 10 (2) \\
+Sacrum, 2 bodies & CTSpinoPelvic1K   & 801 & 6{,}255/6{,}352 & 99.66\,\% & 1.98 & 100\,\% & 21 (6) \\
+Sacrum, 3 bodies & CTSpinoPelvic1K   & 801 & 6{,}229/6{,}352 & 99.76\,\% & 2.42 & 100\,\% & 15 (5) \\
+Sacrum, 2 bodies & TotalSegmentator  & 522 & 7{,}228/7{,}396 & 99.17\,\% & 2.96 & 99.35\,\% & 60 (6) \\
+Sacrum, 2 bodies & Real radiographs  &  16 & 95/95       & 100\,\%   & 1.61 & 100\,\%    &  0 (0) \\
+C2, 2 bodies     & Real radiographs  &  24 & 110/110     & 100\,\%   & 1.15 & 100\,\%    &  0 (0) \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[htbp]\centering
+\caption{The same cases under three box conditions. The count is unchanged; only the source of the
+vertebra boxes differs. The render-trained detector loses the anchor, and every ordinal above it shifts.}
+\label{tab:boxes}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrrr}
+\toprule
+Cases & Boxes, anchor rule & Spines & Reached/walks & Exact & Exposures & Anchor held \\
+\midrule
+CT, detector-held-out & Annotation                      & 79 & 618/625 & 100\,\%    & 1.98 & 100\,\% \\
+CT, same cases        & Detector, anchor = terminal node & 79 & 622/625 & 30.06\,\% & 1.72 & 42.44\,\% \\
+CT, same cases (3-body) & Detector, anchor = terminal node & 79 & 621/625 & 28.66\,\% & 1.91 & 39.77\,\% \\
+CT, same cases        & Detector, anchor = class         & \multicolumn{5}{l}{[PENDING]} \\
+Real film             & Film detector, anchor = terminal node & 16 & 95/95 & 100\,\% & 1.47 & 93.68\,\% \\
+Real film             & Film detector, anchor = class    & \multicolumn{5}{l}{[PENDING]} \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Where the time goes. Measurements of this system are marked; the rest are published figures for
+the manoeuvre and for the alternatives.}
+\label{tab:time}
+\small
+\begin{tabular}{p{7.6cm}p{4.0cm}p{3.4cm}}
+\toprule
+Quantity & Value & Source \\
+\midrule
+C-arm repositioning, per move & 46\,s (CI 41--51) and 49\,s (CI 44--53); 36.4 $\pm$ 33.2\,s &
+\citet{matthews2007}; \citet{desilva2018} \\
+Beam-on, per spot exposure & about 0.5\,s (phantom) & \citet{desilva2018} \\
+Exposures per walk & 1.15--2.96 & this study \\
+Encoder, per frame & 17--18\,ms & this study \\
+Linking, per walk & 0.29\,s; 0.10\,s & this study \\
+Decoding, per walk & 0.2\,ms & this study \\
+Registration-based labelling, per image & 4.7\,s (2012 GPU); 17--72\,s in theatre &
+\citet{levelcheck2012}; \citet{manbachi2018} \\
+Thoracic localisation by fluoroscopic counting & about 15\,min & \citet{mongardi2021,upadhyaya2012} \\
+The same with a preoperative fiducial & about 3\,min, plus 14.3\,min of CT intervention and a 51.9\,min,
+183\,mGy placement & \citet{mongardi2021}; \citet{keil2024}; \citet{siminski2023} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\bibliographystyle{unsrtnat}
+\bibliography{../../rsnai/refs}
+
+\end{document}

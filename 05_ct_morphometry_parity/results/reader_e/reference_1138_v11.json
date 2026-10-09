@@ -1,0 +1,23 @@
+{
+ "what": "CTSP 1138 v11 (ct 1138_ct.nii.gz, mask 1138_label.nii.gz, ordinary five-lumbar spine): the release's own rows on the same mask, for the J2 canal fix",
+ "source": "VBHa / VBHp / EPDu / EPDl: CTSpinoPelvic1K-1/morphometrics/ostk_level_morphometry.csv rows case=1138 (pre-1b7005c body cut). SCD: CTSpinoPelvic1K-1/morphometrics/surgical_morphometrics.csv canal_ap_mm_<level> case 1138 (closed-ring column recipe, LEVEL_MORPHOMETRY.md section 1); the release has no canal_ap at L2 / T11 / T12 on this record (its continuity gate rejected them) and those levels are not asserted. J1 (schema v2) read SCD 9.0 mm at L1 (n_column 4) against 20.3, 12.4 at L3 against 18.4, and 1.4-3.5 mm on the fallback rows T10-T12 / L2.",
+ "tol_mm": 1.0,
+ "tol_mm_by_key": {"SCD": 2.0},
+ "keys": ["VBHa", "VBHp", "EPDu", "EPDl", "SCD"],
+ "expected": {
+  "L1": {"VBHa": 25.67, "VBHp": 27.65, "EPDu": 20.94, "EPDl": 30.41, "SCD": 20.3, "source": "ostk_level_morphometry.csv 1138,L1; canal_ap_mm_L1"},
+  "L3": {"VBHa": 28.91, "VBHp": 32.29, "EPDu": 22.56, "EPDl": 30.43, "SCD": 18.4, "source": "ostk_level_morphometry.csv 1138,L3; canal_ap_mm_L3"},
+  "L4": {"VBHa": 29.16, "VBHp": 28.84, "EPDu": 25.42, "EPDl": 29.2, "SCD": 18.4, "source": "ostk_level_morphometry.csv 1138,L4; canal_ap_mm_L4"},
+  "L5": {"SCD": 20.3, "source": "canal_ap_mm_L5 (VBH / EPD not asserted on the lowest presacral: the release's L5 row carries EPWu 45 / EPWl 54, the shoulder tail)"}
+ },
+ "not_asserted": {
+  "T12": {"VBHa": 24.93, "VBHp": 26.92, "EPDu": 20.68, "EPDl": 28.08, "source": "ostk row; J1 body cut fell back to ostk_body_mask here (VBHp 42.6, EPDl 50.2: the 1b7005c corner)"},
+  "L2": {"VBHa": 25.75, "VBHp": 30.64, "EPDu": 23.04, "EPDl": 31.17, "source": "ostk row; no release canal_ap; J1 fallback row"},
+  "L5": {"VBHa": 31.17, "VBHp": 30.35, "EPDu": 28.38, "EPDl": 25.65, "source": "ostk row"}
+ },
+ "j1_schema_v2_values_for_contrast": {
+  "L1": {"SCD": 9.049, "n_column": 4}, "L3": {"SCD": 12.372, "n_column": 5}, "L4": {"SCD": 18.178, "n_column": 5}, "L5": {"SCD": 19.388, "n_column": 8},
+  "T10": {"SCD": 3.137, "body_cut": "ostk_body_mask_fallback"}, "T11": {"SCD": 1.398, "body_cut": "ostk_body_mask_fallback"}, "T12": {"SCD": 3.488, "body_cut": "ostk_body_mask_fallback"}, "L2": {"SCD": 1.974, "body_cut": "ostk_body_mask_fallback"},
+  "note": "features_j1.csv rows case 1138 family v11 (J1 40438897)"
+ }
+}
