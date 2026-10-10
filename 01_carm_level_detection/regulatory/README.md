@@ -28,3 +28,7 @@ Not copied, by path only (`../MANIFEST_LOCAL.md`): another investigator's approv
 template for Protocol 1 and another investigator's arthroplasty quality protocol used as a template; the signed
 invention-disclosure forms and the private filing package; `COMMERCIALIZATION.md` (the two-track rule; Greg-only); the
 personal CITI completion records and the co-investigators spreadsheet.
+
+## Added 2026-10-10
+
+- `HPR_2026-330_VinDr-SpineXR_supplement_2026-09-29.pdf`: WSU IRB HPR determination 2026-330, notice dated 29 September 2026, Not Human Participant Research, IRB review not required; the supplement to 2026-269 covering the secondary analysis of VinDr-SpineXR under the PhysioNet data use agreement. Closes the VinDr placeholder in paper 1 and OPEN_QUESTIONS A5. PhysioNet credentialing was approved in October 2026; the VinDr-SpineXR DUA still has to be signed on its PhysioNet page, and the PhysioNet LLM guidance applies (no credentialed image or record through a hosted model service).
