@@ -11,6 +11,8 @@ guides, the recipe, the templates and the tutorials are student-safe; the compli
 material (`docs/beethoven/store/`, `docs/beethoven_vscode/LICENSING.md`, `legal/`, `research/`, the six notes) is
 not handed out.
 
+[`STUDENT_ENV.md`](STUDENT_ENV.md): the python a student uses on the grid and how code reaches the Beethoven worker.
+
 ## What this project is
 
 A medical student with a Wayne State grid account, a Claude Pro or Max subscription, Chrome and Google Authenticator
