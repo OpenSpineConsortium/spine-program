@@ -186,9 +186,10 @@ must be restated.
   *Note of 2026-10-12.* The text above is as written on 2026-09-23. The copied dossier
   (`results/schwingnet/inputs/headers_dossier.json`, copied 2026-10-08) later carried the case134/ori values: in
   its `dumps` section, the console Patient's Name and Patient ID of that sweep and the private (0029,0016)
-  values of the dumped frames; whether that section existed on 2026-09-23 is not recorded. They were redacted to
-  `[withheld]` on 2026-10-12 (issue #67), with every other Patient's Name in the file; `MANIFEST_LOCAL.md`
-  records the change by kind.
+  values of the dumped frames; whether that section existed on 2026-09-23 is not recorded. Those 13 values (1
+  Patient's Name line, 2 Patient ID lines, 10 (0029,0016) values) were redacted to `[withheld]` on 2026-10-12
+  (issue #67); the other 760 Patient's Name values in the file (746 in `cases`, 14 in `dumps`) are the release's
+  `caseN` labels and stay as written. `MANIFEST_LOCAL.md` records the change by kind.
 - **F9 — "main.tex's second reason is false" is itself too strong.** `SchwingNet/main.tex:66` says *"One
   C-ArmLSpine directory carrying a residual patient identifier was excluded and reported to the dataset
   authors."* `case134/ori/` is a directory, it is excluded, and the code's own comments say it carries a real
