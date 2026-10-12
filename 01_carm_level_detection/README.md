@@ -79,8 +79,9 @@ and the sample size written before the first frame is scored. The ordered steps 
 
 ## How it relates to the other projects
 
-- **10 data platform**: migration batches B10 (the `~/carm_*` fold banks) and B11 (the identity tables) are not started;
-  the grid checkout is behind the laptop and cannot fetch (`MANIFEST_GRID.md`).
+- **10 data platform**: migration batches B10 (the `~/carm_*` fold banks) and B11 (the identity tables); their state is
+  `../10_data_platform_grid/MANIFEST_GRID.md` section 2. The grid checkout is behind the laptop and cannot fetch
+  (`MANIFEST_GRID.md`).
 - **02 transitional naming truth**: any transitional claim at the hospital, the paper 2 "H1 seen" ledger, and the
   real-frame truth file; `LEVELCHECK_MODEL.md`, `paper2_levelcheck/`, `results/fig6`, `auto_reference/`, `rare_class/`,
   `dual_loss/`, `learning/` live there.

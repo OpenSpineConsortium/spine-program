@@ -47,7 +47,7 @@ it:
 | MLHC 2026 | rejected; never "under review" (`docs/ctsp/ROADMAP.md` still says in review: stale) | `manuscripts/mlhc_2026_rejected/`; `docs/handoff/EXTRACTS.md` M8 |
 | CNS 2026 talk (2 November) | the public v12 deck is the only deck to show; whether the slides were submitted to the meeting is not recorded | `manuscripts/talks/cns2026/`; `memory/cns-deck-v2-2026-09-25.md` |
 | measurements | v11 spinopelvic over 756 records: PI 52.1 +/- 11.1, SS 36.6 +/- 10.6, PT 15.5 +/- 7.9 against Veilleux 52.1 / 36.5 / 15.6 (`ctsp:morphometrics/surgical_morphometrics.csv`); four CSVs still on v10 labels | `STATUS.md` F.21, F.44 |
-| grid | the only copy of the 802 CTs and v11 labels is on Ceph, batch B02 VERIFIED; the HOME original is kept until FINALIZE | `MANIFEST_GRID.md` |
+| grid | the only copy of the 802 CTs and v11 labels is on Ceph, batch B02 VERIFIED; the state of B02 and every other batch since is `../10_data_platform_grid/MANIFEST_GRID.md` section 2 | `MANIFEST_GRID.md` |
 
 ## Success criteria
 

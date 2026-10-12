@@ -76,11 +76,22 @@ Two notes the manifest carries with these rows:
   `vindr_spinexr`, `buu_lspine_3600`, `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and
   `spine_detector_corpus`, because every approved student holds the PhysioNet credential and the
   VinDr and BUU agreements.
-- **The one closed path is
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.**
+- **On 2026-10-12 the VinDr and BUU items inside those folders opened too.** Until then the
+  plan's `restricted` flag still closed them item by item, mode `drwx--S---` (`vindr/raw`,
+  `buu_full`, `buu_v1`, BUU-LSPINE 2000, the VinDr and BUU banks of B10 and B11,
+  `dis_renders`); the script was fixed (spinesurg-ct-nnunet d9b388d) and visibility jobs
+  40599886 (the B04, B05, B10 and B14 folders) and 40599867 (after B13's finalize, every chain
+  folder including `multisource_banks`) open them (issue #65).
+- **Two paths stay closed (owner-only):**
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`,
+  private build material and not a dataset, and
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`, until Greg reads its
+  Zenodo upload scripts for a token (issue #65;
+  `../10_data_platform_grid/code/data_platform/plan/publish_visibility.sh`, from
+  spinesurg-ct-nnunet d9b388d).
 - Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students; items
-  still there are being moved to the Ceph volume by the data-platform plan (batches B05, B10,
-  B11, B13 running on 2026-10-12). Every HOME row above is marked
+  still there are moved to the Ceph volume by the data-platform plan, whose batch-by-batch state
+  is `../10_data_platform_grid/MANIFEST_GRID.md` section 2. Every HOME row above is marked
   'on HOME, not reachable until migrated'.
 - Approved means a named ACL entry `user:<AccessID>:rwx` on `/rs/rs_grp_oschome`.
 
@@ -96,8 +107,12 @@ account. Approved means a named ACL entry `user:<AccessID>:rwx` on `/rs/rs_grp_o
 The two access facts, again, because everything above depends on them:
 
 - every folder under `/rs/rs_grp_oschome/go2432/data/` is readable by approved students (named
-  ACL entry on the volume root; other-read bits on folders and files), the one closed path being
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`;
+  ACL entry on the volume root; other-read bits on folders and files), and since 2026-10-12 the
+  VinDr and BUU items inside them; two paths stay closed,
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`
+  (private build material, not a dataset) and
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` (until Greg reads its
+  Zenodo upload scripts for a token);
 - nothing on `/wsu/home/go/go24/go2432` is readable by students until the data-platform plan has
   moved it to Ceph.
 

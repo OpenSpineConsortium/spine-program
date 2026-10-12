@@ -37,12 +37,21 @@ they are in the laptop's WSL home (`MANIFEST_GRID.md` header and section 3).
   volume root, other-read bits on folders and files. That includes `vindr_spinexr`, `buu_lspine_3600`,
   `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and `spine_detector_corpus`, because every approved student holds the
   PhysioNet credential and the VinDr and BUU agreements.
-- The one closed path is `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.
-  This folder uses nothing under it.
-- Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students. Items still there are being
-  moved to the Ceph volume by the data-platform plan (batches B05, B10, B11, B13 running on 2026-10-12). Every such
-  item below is marked **on HOME, not reachable until migrated**; where no batch is recorded for an item, the mark
-  says so. Greg runs those check lines until the batches land.
+- On 2026-10-12 the VinDr and BUU items inside those folders opened too. Until then the plan's `restricted` flag
+  still closed them item by item, mode `drwx--S---` (`vindr/raw`, `buu_full`, `buu_v1`, BUU-LSPINE 2000, the VinDr and
+  BUU banks of B10 and B11, `dis_renders`); the script was fixed (spinesurg-ct-nnunet d9b388d) and visibility jobs
+  40599886 (the B04, B05, B10 and B14 folders) and 40599867 (after B13's finalize, every chain folder including
+  `multisource_banks`) open them (issue #65).
+- Two paths stay closed (owner-only):
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, private build material
+  and not a dataset, and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`, until Greg reads
+  its Zenodo upload scripts for a token (issue #65;
+  `../10_data_platform_grid/code/data_platform/plan/publish_visibility.sh`, from spinesurg-ct-nnunet d9b388d). This
+  folder uses nothing under either.
+- Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students. Items still there are moved to
+  the Ceph volume by the data-platform plan, whose batch-by-batch state is `../10_data_platform_grid/MANIFEST_GRID.md`
+  section 2. Every such item below is marked **on HOME, not reachable until migrated**; where no batch is recorded for
+  an item, the mark says so. Greg runs those check lines until the batches land.
 - Two Ceph paths of this folder sit outside `data/`: `/rs/rs_grp_oschome/go2432/model_night` and
   `/rs/rs_grp_oschome/go2432/tmp/fluorocap_audit/AUDIT.json`. The facts above speak of `data/` only, so whether a
   student can read these two is not recorded; the mode their check line prints settles it.
@@ -66,10 +75,13 @@ The two access facts again, because they decide what a check line can answer:
 - Every folder under `/rs/rs_grp_oschome/go2432/data/` is readable by approved students (named ACL entry on the
   volume root; other-read bits on folders and files), including `vindr_spinexr`, `buu_lspine_3600`,
   `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and `spine_detector_corpus`, because every approved student holds the
-  PhysioNet credential and the VinDr and BUU agreements; the one closed path is
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.
+  PhysioNet credential and the VinDr and BUU agreements, and since 2026-10-12 the VinDr and BUU items inside them; two
+  paths stay closed, `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`
+  (private build material, not a dataset) and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`
+  (until Greg reads its Zenodo upload scripts for a token).
 - Nothing on `/wsu/home/go/go24/go2432` is readable by students; items still there are marked **on HOME, not
-  reachable until migrated** below, and Greg runs the HOME check lines until batches B05, B10, B11 and B13 land.
+  reachable until migrated** below, and Greg runs the HOME check lines until the data-platform batches move them
+  (`../10_data_platform_grid/MANIFEST_GRID.md` section 2).
 
 ## 3. Grid paths this project uses (`MANIFEST_GRID.md` section 1)
 
@@ -83,11 +95,11 @@ The two access facts again, because they decide what a check line can answer:
 | `/wsu/home/go/go24/go2432/model_night` and `/wsu/home/go/go24/go2432/model_night/count_walk` | HOME | SchwingNet experiment roots (directory dated 2026-09-22 17:29, GRIDLS line 922); `count_walk` is in the head of the `~/model_night` listing (GRIDLS line 2813); `tools/fiducial_walk.py` / `slurm/fiducial_walk.sh` wrote the fiducial-walk results to `~/model_night/fiducial/` and `count_walk/*/fiducial.json` (`spinesurg-ct-nnunet` `docs/CONTINUANCE_2026-09-19.md` lines 89 to 99) | not sized; batch not recorded (`~/model_night` was to stay on HOME while jobs ran, `memory/grid-ceph-volume-oschome.md`); **on HOME, not reachable until migrated** (no batch recorded); owned by `01_carm_level_detection`, read-only here | (Greg) `ls -ld /wsu/home/go/go24/go2432/model_night /wsu/home/go/go24/go2432/model_night/count_walk` |
 | `~/model_night/fiducial/` | HOME | the source of "94.5 % of 950 walks" and "92.2 % of 7,405 walks" in `manuscripts/qi_universal_protocol/main.tex`; quoted only after 01's evaluation gate passes them (`CLAUDE.md` rule 5) | not seen: the `~/model_night` listing was truncated (`10_data_platform_grid`, grid manifest section 7), so whether it exists is not known; **on HOME, not reachable until migrated** (no batch recorded) | (Greg) `ls -ld /wsu/home/go/go24/go2432/model_night/fiducial` (either answer is news; record it) |
 | `/rs/rs_grp_oschome/go2432/model_night` | Ceph, outside `data/` | the Ceph root for new SchwingNet experiment roots (GRIDLS line 1369) | not sized; exists; whether students can read it is not recorded (section 1) | `ls -ld /rs/rs_grp_oschome/go2432/model_night` (the mode shown settles it) |
-| `/wsu/home/go/go24/go2432/FluoroCap` | HOME | the literature harvest FluoroCap: `releases/` (two releases, 2026-09-13), `articles.jsonl`, `captions_*.jsonl`, `annotate/`, `archives/`, `commons/`, `PROTOCOL.md`, `README.md`, the weights `anchor_det_v1.pt`, `anchor_det_c2_v1.pt`; `youtube/` 181.0 GB, `pdf/` 19.8 GB, `panels/` 4.7 GB, `raw/` 2.3 GB (`DATA_MANIFEST.md` FluoroCap card; GRIDLS); the parent harvest of the review's fluoroscopy arm and of the `fluorocap.py` search (`QUERY_EXTRA`, line 58) | 316.0 GB (`plan/batch_items/B09.tsv`); B09, flagged irreplaceable, candidate; copying at 22:20 UTC 2026-10-08 (job 40580673 per `_plan/PLAN.md` folder 10; no STATUS yet); B09's state on 2026-10-11 is not recorded (B09 is not among the four batches of section 1); **on HOME, not reachable until migrated** | (Greg) `ls -ld /wsu/home/go/go24/go2432/FluoroCap` |
-| `/rs/rs_grp_oschome/go2432/data/fluorocap/raw/FluoroCap` (inside `$RS/data/fluorocap/raw`) | Ceph, under `data/`: readable by approved students once the copy is there | the B09 target of the row above | `$RS/data/fluorocap/raw` existed with one entry on 2026-10-08; whether the copy is complete is not recorded (no B09 STATUS) | `ls -ld /rs/rs_grp_oschome/go2432/data/fluorocap/raw /rs/rs_grp_oschome/go2432/data/fluorocap/raw/FluoroCap` (an absent or partial answer while B09 has not finished is admissible) |
+| `/wsu/home/go/go24/go2432/FluoroCap` | HOME | the literature harvest FluoroCap: `releases/` (two releases, 2026-09-13), `articles.jsonl`, `captions_*.jsonl`, `annotate/`, `archives/`, `commons/`, `PROTOCOL.md`, `README.md`, the weights `anchor_det_v1.pt`, `anchor_det_c2_v1.pt`; `youtube/` 181.0 GB, `pdf/` 19.8 GB, `panels/` 4.7 GB, `raw/` 2.3 GB (`DATA_MANIFEST.md` FluoroCap card; GRIDLS); the parent harvest of the review's fluoroscopy arm and of the `fluorocap.py` search (`QUERY_EXTRA`, line 58) | 316.0 GB (`plan/batch_items/B09.tsv`); B09, flagged irreplaceable, candidate; copying at 22:20 UTC 2026-10-08 (job 40580673 per `_plan/PLAN.md` folder 10; no STATUS yet); B09 was finalized on 2026-10-11 (`../10_data_platform_grid/MANIFEST_GRID.md` section 2); **on HOME, not reachable until migrated** (read the Ceph target, next row) | (Greg) `ls -ld /wsu/home/go/go24/go2432/FluoroCap` |
+| `/rs/rs_grp_oschome/go2432/data/fluorocap/raw/FluoroCap` (inside `$RS/data/fluorocap/raw`) | Ceph, under `data/`: readable by approved students once the copy is there | the B09 target of the row above | `$RS/data/fluorocap/raw` existed with one entry on 2026-10-08; B09 was finalized on 2026-10-11 (`../10_data_platform_grid/MANIFEST_GRID.md` section 2); its STATUS lines are not in this folder | `ls -ld /rs/rs_grp_oschome/go2432/data/fluorocap/raw /rs/rs_grp_oschome/go2432/data/fluorocap/raw/FluoroCap` |
 | `/rs/rs_grp_oschome/go2432/tmp/fluorocap_audit/AUDIT.json` | Ceph `tmp/`, outside `data/` | the FluoroCap completeness audit written by job 40416374 (`DATA_MANIFEST.md` FluoroCap card, citing `docs/DATA_COMPLETENESS_AUDIT.md`); background for the review's "fluoroscopy corpus of 158,955 records" sentence (`PROTOCOL_...md` section 4) | not sized; whether students can read it is not recorded (section 1) | `head -c 200 /rs/rs_grp_oschome/go2432/tmp/fluorocap_audit/AUDIT.json` |
 | `/wsu/home/go/go24/go2432/.fluorocap/` | HOME | the credentials file `credentials.env` that `review_abstracts.py` reads for the Semantic Scholar key (its docstring) | 1 directory, contents never read; `MIGRATION_PLAN.md` B09 says the credentials are not migrated; never reachable by students; rotation is Greg's (`_plan/PLAN.md` section 6) | (Greg) `ls -ld /wsu/home/go/go24/go2432/.fluorocap` only; never `ls` its contents, never `head`, never copy |
-| `/wsu/home/go/go24/go2432/mambaforge/envs/spineps/bin/python` | HOME | the Python environment with nibabel and scipy used in jobs (`memory/no-jobs-on-login-node.md`) | not sized; **on HOME, not reachable until migrated** (no batch recorded); what python a student uses instead is not recorded | (Greg) `ls -ld /wsu/home/go/go24/go2432/mambaforge/envs/spineps/bin/python` (an executable: `ls -ld`, not `head`; never run it on the login node) |
+| `/wsu/home/go/go24/go2432/mambaforge/envs/spineps/bin/python` | HOME | the Python environment with nibabel and scipy used in jobs (`memory/no-jobs-on-login-node.md`) | not sized; **on HOME, not reachable until migrated** (no batch recorded); a student's environment is `../11_students_grid_access/STUDENT_ENV.md` (issue #66) | (Greg) `ls -ld /wsu/home/go/go24/go2432/mambaforge/envs/spineps/bin/python` (an executable: `ls -ld`, not `head`; never run it on the login node) |
 
 Partition `reqp` with `--qos=requeue` for CPU work; `sbatch -D <dir>`; `afterany`; outputs to Ceph
 (`MANIFEST_GRID.md` section 1; `docs/handoff/README.md` section 5 rule 7).
@@ -177,8 +189,8 @@ expects is not recorded in this folder.
 **The job** (`CLAUDE.md` rule 7). One `sbatch -D <dir>` job on `--partition=reqp --qos=requeue`, chained after 05's
 step 3 with `--dependency=afterany:<id>`, never `afterok`; IPC under `/dev/shm`; outputs on Ceph under
 `/rs/rs_grp_oschome/go2432/`, never HOME (which Ceph directory is not recorded in this folder). The recorded python is
-`/wsu/home/go/go24/go2432/mambaforge/envs/spineps/bin/python`, on HOME, which a student cannot read; what python a
-student uses instead is not recorded. The label-only extractors take 15 to 30 minutes at 20 workers
+`/wsu/home/go/go24/go2432/mambaforge/envs/spineps/bin/python`, on HOME, which a student cannot read; a student's
+environment is `../11_students_grid_access/STUDENT_ENV.md` (issue #66). The label-only extractors take 15 to 30 minutes at 20 workers
 (`docs/handoff/RECIPES.md` section 9 item 3). Each extractor exits non-zero when a median leaves its published range
 while still writing a good CSV, so the log's `*** N measure(s) outside the plausible range` line is read, not the exit
 code (same item). Submit, estimate the wall time, write the job ids and the ETA down, stop.
@@ -209,14 +221,14 @@ edited off `data/v5_final`.
 
 ## 8. Not recorded
 
-The state of any grid path after 2026-10-08 beyond the access facts of 2026-10-11 (section 1); the outcome of batches
-B05, B10, B11 and B13 said to run on 2026-10-12, and B09's state on 2026-10-11 (no STATUS for any of them is in this
-folder); whether students can read the two Ceph paths outside `data/` (`/rs/rs_grp_oschome/go2432/model_night`,
+The state of any grid path after 2026-10-08 beyond the access facts of 2026-10-11 and 2026-10-12 (section 1); the
+STATUS lines of the batches finalized since 2026-10-08 (their state is `../10_data_platform_grid/MANIFEST_GRID.md`
+section 2; no STATUS for any of them is in this folder); the outcome of visibility jobs 40599886 and 40599867; whether students can read the two Ceph paths outside `data/` (`/rs/rs_grp_oschome/go2432/model_night`,
 `/rs/rs_grp_oschome/go2432/tmp/fluorocap_audit/AUDIT.json`); whether `/wsu/home/go/go24/go2432/model_night/fiducial`
 exists; the sizes marked "not sized" above; whether `surgical_morphometrics.csv` at 2232bde was computed on v11 labels
 (05's `MANIFEST_GRID.md` section 2 records a `surgical_morphometrics.csv` in the v11 build workspace, written under job
 40198880 "v11_morph"; whether it is the committed file is not recorded here); whether the extractors at 7ddfe38 call
-`labels_for`; the Ceph output directory of the recompute; what python a student uses; how a student puts a checkout of
+`labels_for`; the Ceph output directory of the recompute; how a student puts a checkout of
 `CTSpinoPelvic1K` at 7ddfe38 on the grid; which published series sets the spread check; why the v5 figure counts 789
 of 802 records; the Ceph path of the review corpora (Greg approves it, `TODO.md` step 0); whether `~/FluoroCap_lstv2`
 feeds the review; the terms of every path section 6 does not name.

@@ -25,9 +25,9 @@ expected to answer "No such file or directory"; that answer is the check.
 **Migration words** (`MANIFEST_GRID.md` header, from `MIGRATION_PLAN.md` section 3): VERIFIED = copied and checked; cut
 over = the HOME path is a symlink into Ceph with a `<path>.pre-ceph` twin beside it; FINALIZE (deleting the twin) had
 run on no batch as of 2026-10-08. The states below are those of the read-only pass of 2026-10-08 22:20 UTC: **B00 and
-B06 VERIFIED; B07 and B09 copying; B10 and B11 not started**. Greg's note of 2026-10-11 (issue #14) says batches B05,
-B10, B11 and B13 are running on 2026-10-12; no STATUS file for any batch after 2026-10-08 is in this folder. Truth for
-a batch is its STATUS file, `data_platform/plan/runs/<B>/STATUS`, read in a job or with `cat`.
+B06 VERIFIED; B07 and B09 copying; B10 and B11 not started**. The state of each batch since is
+`../10_data_platform_grid/MANIFEST_GRID.md` section 2; no STATUS file for any batch after 2026-10-08 is in this folder.
+Truth for a batch is its STATUS file, `data_platform/plan/runs/<B>/STATUS`, read in a job or with `cat`.
 
 ## 1. Access on 2026-10-11 (Greg, issue #14)
 
@@ -35,11 +35,20 @@ a batch is its STATUS file, `data_platform/plan/runs/<B>/STATUS`, read in a job 
   volume root, other-read bits on folders and files. That includes `vindr_spinexr`, `buu_lspine_3600`,
   `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and `spine_detector_corpus`, because every approved student holds the
   PhysioNet credential and the VinDr and BUU agreements.
-- The one closed path is `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.
-- Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students. Items still there are being
-  moved to the Ceph volume by the data-platform plan (batches B05, B10, B11, B13 running on 2026-10-12). Every such
-  item in section 3 is marked **on HOME, not reachable until migrated**; Greg runs those check lines until the
-  batches land.
+- On 2026-10-12 the VinDr and BUU items inside those folders opened too. Until then the plan's `restricted` flag
+  still closed them item by item, mode `drwx--S---` (`vindr/raw`, `buu_full`, `buu_v1`, BUU-LSPINE 2000, the VinDr and
+  BUU banks of B10 and B11, `dis_renders`); the script was fixed (spinesurg-ct-nnunet d9b388d) and visibility jobs
+  40599886 (the B04, B05, B10 and B14 folders) and 40599867 (after B13's finalize, every chain folder including
+  `multisource_banks`) open them (issue #65).
+- Two paths stay closed (owner-only):
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, private build material
+  and not a dataset, and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`, until Greg reads
+  its Zenodo upload scripts for a token (issue #65;
+  `../10_data_platform_grid/code/data_platform/plan/publish_visibility.sh`, from spinesurg-ct-nnunet d9b388d).
+- Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students. Items still there are moved to
+  the Ceph volume by the data-platform plan, whose batch-by-batch state is `../10_data_platform_grid/MANIFEST_GRID.md`
+  section 2. Every such item in section 3 is marked **on HOME, not reachable until migrated**; Greg runs those check
+  lines until the batches land.
 - `$RS/model_night` sits at the Ceph root, not under `data/`, and the access facts above do not speak for it: whether
   a student can read it is not recorded. If its check is refused, Greg runs it.
 
@@ -57,10 +66,14 @@ The two access facts again, because they decide what a check line can answer:
 
 - Every folder under `/rs/rs_grp_oschome/go2432/data/` is readable by approved students (named ACL entry on the
   volume root; other-read bits on folders and files), including `vindr_spinexr`, `buu_lspine_3600`,
-  `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and `spine_detector_corpus`; the one closed path is
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.
+  `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and `spine_detector_corpus` and, since 2026-10-12, the VinDr and BUU
+  items inside them; two paths stay closed,
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private` (private build material,
+  not a dataset) and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` (until Greg reads its
+  Zenodo upload scripts for a token).
 - Nothing on `/wsu/home/go/go24/go2432` is readable by students; items still there are marked **on HOME, not
-  reachable until migrated** below, and Greg runs the HOME check lines until batches B05, B10, B11 and B13 land.
+  reachable until migrated** below, and Greg runs the HOME check lines until the data-platform batches move them
+  (`../10_data_platform_grid/MANIFEST_GRID.md` section 2).
 
 Every computation this folder sends to the grid is an `sbatch -D <dir>` job on a compute node, chained with
 `afterany`, with the job id and a timestamp written to the project's `JOBS.txt` (`docs/handoff/RECIPES.md` section 0
@@ -86,7 +99,7 @@ Every row is **on HOME, not reachable until migrated**, except where the item is
 | `~/cut_v1`, `~/cut_v2` | HOME | the CUT training runs (`G_last.pt`, previews); v1 invalid (MRI slices and photographs in the target domain); v2 restricted to classifier-verified spine panels | not sized | on HOME, not reachable until migrated; B11; not started | `ls -ld $H/{cut_v1,cut_v2}` |
 | `~/fluorogen` | HOME | FluoroGen: env clone, LoRA `lora_v1`, `dataset_v1`, `synth_v1`, `synth_rare` (12,929 restyled renders over 2,844 cases; in no bank), `synth_rare_lowstrength/preview` | `synth_rare` 9.0 GB; the rest not sized | on HOME, not reachable until migrated; B09 -> `$RS/data/fluorocap/raw` and `fluorogen_synthetic` (absent at 22:20); copying | `ls -ld $H/fluorogen` |
 | `~/exp3_fluoro`, `~/exp3_radiograph`, `~/exp3_ctx_fluoro`, `~/exp3_ctx_radiograph` | HOME | exp3 renders: 1,058 over 120 cases, and their context banks | not sized | on HOME, not reachable until migrated; B10 -> `$RS/data/ctspinopelvic1k/derived/exp3_*`; not started | `ls -ld $H/{exp3_fluoro,exp3_radiograph,exp3_ctx_fluoro,exp3_ctx_radiograph}` |
-| `~/film_style_ds` | HOME | the film-style dataset; **restricted: real film pixels** | not sized | on HOME, not reachable until migrated; B11 -> `$RS/data/multisource_banks/derived/film_style_ds` (restricted); not started | `ls -ld $H/film_style_ds` |
+| `~/film_style_ds` | HOME | the film-style dataset; **restricted: real film pixels** | not sized | on HOME, not reachable until migrated; B11 -> `$RS/data/multisource_banks/derived/film_style_ds` (restricted in the plan; readable by approved students after job 40599867); not started | `ls -ld $H/film_style_ds` |
 | `~/polypose` (2026-09-23) | HOME | the PolyPose HOME working directory | not sized | on HOME, not reachable until migrated; B10 -> `$RS/data/polypose/derived/polypose_home`; not started | `ls -ld $H/polypose` |
 | `~/deepfluoro` -> `$RS/data/deepfluoro_h5/raw/deepfluoro` | HOME link to Ceph | the DeepFluoro H5 release (76 files; `unpacked_full` 2.54 GB) | 5,272,150,583 B (STATUS) | B00 **VERIFIED** 76/76, 76 sampled; cut over 2026-10-08 05:52. The HOME link is not readable by students; its target, under `data/`, is | `ls -ld $RS/data/deepfluoro_h5/raw/deepfluoro` |
 | `~/data/TotalSegmentator` (dir 2026-09-14, 1,230 entries) | HOME | TotalSegmentator v2.0.1, 1,228 CTs, zip + unpacked | 82.0 GB (du, B07.tsv) | on HOME, not reachable until migrated; B07 -> `$RS/data/totalsegmentator_v201/raw/TotalSegmentator` (candidate); copying; `$RS/data/totalsegmentator_v201` absent at 22:20 | `ls -ld $H/data/TotalSegmentator` |
@@ -145,7 +158,8 @@ access is not recorded.
   DeepFluoro and COBRA are non-commercial"). That covers `~/deepfluoro`, `$RS/data/deepfluoro_vendor`,
   `$RS/data/deepfluoro_h5`, the Hugging Face re-host under `$RS/data/polypose/hf/hub`, and the Cios Fusion card fitted
   on it; COBRA, the source of the Elekta XVI card's frames, is non-commercial by the same line.
-- **`~/film_style_ds` holds real film pixels** and is restricted (`MANIFEST_GRID.md` section 1).
+- **`~/film_style_ds` holds real film pixels** and is restricted in the plan (`MANIFEST_GRID.md` section 1); its B11
+  copy was owner-only until 2026-10-12 and is readable by approved students after visibility job 40599867 (section 1).
 - Recorded for the other card sources: the Geneva hip gold standard is CC BY-SA 4.0, though its paper says BY-NC
   (`dataset_landscape_by_task.md` line 179); SpineSAC has no data licence (`docs/handoff/DATASET_USAGE.md` line 133);
   VerSe is "CC BY-SA 4.0 or CC BY 4.0, quoted both ways" (`dataset_landscape_by_task.md` line 104). FluoroCap is
@@ -213,7 +227,7 @@ One `sbatch -D <dir>` job on `reqp --qos=requeue` (`docs/handoff/RECIPES.md` sec
   line 287).
 - **Who runs it.** `~/spine-detector/runs/devcorpus`, the grid checkout's cards and the python named below are on
   HOME, so Greg runs it until those paths move; the `$RS/data/or_ready` reads alone would answer for an approved
-  student.
+  student, whose environment is `../11_students_grid_access/STUDENT_ENV.md` (issue #66).
 - **Against** `MODEL_CARD.md` section 4.6 (`ssn:docs/MODEL_CARD.md`, read 2026-09-22; the rows whose `status` is
   `DEVICE-HELD-OUT`):
 
@@ -325,8 +339,9 @@ bootstrap) waits on the convention.
 
 ## 8. Not recorded
 
-The state of any batch after the read-only pass of 2026-10-08 (no STATUS for B07, B09, B10, B11 or B13 after that
-date is in this folder; the outcome of the batches said to run on 2026-10-12); whether a student can read
+The STATUS lines of any batch after the read-only pass of 2026-10-08 (no STATUS for B07, B09, B10, B11 or B13 after
+that date is in this folder; their state is `../10_data_platform_grid/MANIFEST_GRID.md` section 2); the outcome of
+visibility jobs 40599886 and 40599867; whether a student can read
 `$RS/model_night`; the sizes marked "not sized" above, and which of the two sizes is right for `anchor_drr`,
 `anchor_drr_c2` and `$RS/data/devcorpus`; the eight entry names of `$RS/data/or_ready/devices` and the run count under
 `~/spine-detector/runs/devcorpus` (19 against 21; `TODO.md` step 25); the licence of TotalSegmentator v3.0.0 and of
