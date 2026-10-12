@@ -108,6 +108,28 @@ waits on 01's packaged service. Support, operational. First step: `git pull` the
 **99 Archive.** Superseded, refuted and dormant work, dated, with the reason each item is here and what replaced it, so
 nobody repeats it; never a source of a quotable number. First step: none to run; add dated records as later work supersedes more.
 
+## How a student starts
+
+A student given this repository starts from this page alone. Clone `OpenSpineConsortium/spine-program`, open the folder
+in Claude Code, and trust it when asked. Run `claude plugin install symphony@symphony-marketplace --scope project` once:
+the committed `.claude/settings.json` names the plugin but does not download it, so this one command fetches it. Then,
+in a new session, run `/symphony:board` to read the board, pick from its Queue an unclaimed issue labelled todo, and
+claim it with `/symphony:claim`. Work on the branch `claude/<issue>`, open the draft pull request at once, and never
+push to main.
+
+An issue belongs to the project folder named in its title. Before the first change, read that folder's `CLAUDE.md`,
+`README.md`, `TODO.md` and `MANIFEST_GRID.md`.
+
+The data lives on the Wayne State grid and is reached through the Beethoven app
+(https://openspineconsortium.com/beethoven/). Approved students pass a named-user gate on the Ceph volume. Three
+datasets carry terms of use — VinDr-SpineXR, BUU-LSPINE and Mendeley 5jdfdgp762 — and need those credentials. Each
+project's `DATA.md` gives the paths; a folder without one yet records them in its `MANIFEST_GRID.md`.
+
+How work is claimed is [docs/agents/PROTOCOL.md](docs/agents/PROTOCOL.md). Four labels drive it: todo marks the queue,
+and an issue labelled todo that the board shows unclaimed is free to take. Claimed means an account has pushed its
+branch, and the account's own label goes on with it. In-review means the pull request is ready, so the owner merges it
+and the merge closes the issue. Blocker means the issue stops everyone until it is done.
+
 ## How to start a Claude Code project from a folder
 
 1. Open the folder (for example `01_carm_level_detection/`) as the project root.
