@@ -23,8 +23,9 @@ seen in a listing and nothing more. Sizes are bytes where a STATUS file measured
 Vocabulary (plan section 3): VERIFIED / ABSENT / RSYNC_FAILED / VERIFY_FAILED / DST_EXISTS per item; "cut over" = the
 HOME original renamed `<path>.pre-ceph` and a symlink left at the old path; FINALIZE = a second comparison, then the
 `.pre-ceph` copy deleted (the only step that frees HOME quota). **Every batch with data was finalized on 2026-10-11;
-B05, B10, B11 and B13 were running on 2026-10-12** (the paragraph below; on 2026-10-08 every cut-over item still had
-its `.pre-ceph` twin in the HOME listing, GRIDLS "ls HOME", "ls ~/data", "ls ~/CTSpinoPelvic1K/data").
+on 2026-10-12 B05 and B10 were finalized, and B11 and B13 were cut over with their finalize running** (the two
+paragraphs below; on 2026-10-08 every cut-over item still had its `.pre-ceph` twin in the HOME listing, GRIDLS
+"ls HOME", "ls ~/data", "ls ~/CTSpinoPelvic1K/data").
 
 **State on 2026-10-11 (Greg's data-platform record).** Greg's record of 2026-10-11 (issue #49). Every batch with data
 is copied, verified, cut over and FINALIZED, the `.pre-ceph` originals deleted after a full comparison: B00, B01, B02
@@ -38,8 +39,25 @@ finalize, after which the Ceph target of each item in `batch_items/B05`, `B10`, 
 (Mendeley twice) was refused on 1,412 read-only files and is to be rerun after a chmod; the A04 and A13 removals and
 A07 wait on Greg; the guarded deletion job for the TotalSegmentator release zips and the NHANES extracted pickles was
 submitted on 2026-10-11. Visibility as of 2026-10-11: every folder under `/rs/rs_grp_oschome/go2432/data/` is readable
-by approved students, including the VinDr, BUU, Mendeley and `spine_detector_corpus` folders; the one closed path is
-`/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.
+by approved students, including the VinDr, BUU, Mendeley and `spine_detector_corpus` folders (at folder level; the
+items inside them are the next paragraph).
+
+**State on 2026-10-12 (read on the grid, issue #65).** B05 (BUU-LSPINE 2000): 3/3 VERIFY_OK, cut over, finalized.
+B10: 64/64, cut over, finalized. B11: 64/64, cut over; its finalize was running at 03:30 EDT. B13: two items verified
+(`/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/nnunet/results` 299 GB, `/wsu/home/go/go24/go2432/ablate` 202 GB), cut
+over, finalize running; the state of `/wsu/home/go/go24/go2432/bench`, B13's third item in the plan, is not recorded.
+HOME held 1,334 GB of the 4,295 GB soft limit; Ceph `oschome` 9 of 20 TB. Visibility: until 2026-10-12 the plan's
+`restricted` flag (`code/data_platform/plan/batch_items/`) still closed, item by item, the VinDr and BUU items inside the
+folders opened on 2026-10-11 (`vindr/raw`, `buu_full`, `buu_v1`, BUU-LSPINE 2000, the VinDr and BUU banks of B10 and B11,
+`dis_renders`), mode `drwx--S---`. `publish_visibility.sh` was fixed (spinesurg-ct-nnunet d9b388d; the copy here is
+`code/data_platform/plan/publish_visibility.sh`), and two visibility jobs open those items: 40599886 (the B04, B05, B10
+and B14 folders) and 40599867 (after B13's finalize, every chain folder including `multisource_banks`); their outcome is
+not recorded here. Two paths stay owner-only:
+`/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private` (private build material, not a
+dataset) and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` (until Greg reads its Zenodo
+upload scripts for a token).
+
+The table is the 2026-10-08 pass; its STATUS and state columns are superseded by the two paragraphs above.
 
 | batch | HOME source (full path) | Ceph target (full path) | STATUS on the grid | size | state | verified |
 |---|---|---|---|---|---|---|
@@ -169,5 +187,6 @@ Zenodo v11 (no network); (9) why the grid can no longer fetch the private reposi
 Flags: `/wsu/home/go/go24/go2432/github` (rotate and delete); `/wsu/home/go/go24/go2432/CTSpinoPelvic1K/.token` and `/wsu/home/go/go24/go2432/XRSpinoPelvic1K/*.ica` inside checkouts;
 `/rs/rs_grp_oschome/go2432/data/ctsp_april` world-writable; the stray `"\` directory in `/wsu/home/go/go24/go2432/CTSpinoPelvic1K`; the
 registry ledger's 17-line `orientation_net_v2` loop; `/rs/rs_grp_oschome/go2432/archive` empty against its README; `/rs/rs_grp_oschome/go2432/data/morphdef`
-three empty folders; B13 and 1,590.3 GB of deletion candidates await decisions; no batch is finalized, so HOME stays
-at 94 % until Greg says FINALIZE.
+three empty folders; 1,590.3 GB of deletion candidates await decisions. The 2026-10-08 flag "no batch is finalized"
+no longer holds: every batch with data was finalized on 2026-10-11, B05 and B10 on 2026-10-12, and B11 and B13 were
+finalizing on 2026-10-12, when HOME held 1,334 GB of the 4,295 GB soft limit (section 2).

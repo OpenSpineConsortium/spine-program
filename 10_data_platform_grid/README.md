@@ -28,17 +28,17 @@ Three things live here, each with its record of origin:
    read-only pass over both volumes on 2026-10-08 22:20 UTC with the laptop copies of the storage census
    (`docs/grid_read_2026-10-08/`), and the grid notes in `memory/`.
 
-## State on 2026-10-08 (every number from the file named)
+## State on 2026-10-12 (every number from the file named; 2026-10-08 where nothing later is recorded)
 
 | measure | value | file |
 |---|---|---|
-| HOME used | 4,050.75 GB of a 4,294.97 GB soft limit (8,589.93 hard); 2,921,043 files of 10,000,000 | `docs/grid_read_2026-10-08/grid_ls_2026-10-08.out` "pan_quota" |
-| Ceph used | 7 TB of 20 TB (39.39 %); `/rs/rs_grp_oschome/go2432/data` alone 5,333.691 GB, 4,579,361 files | same file "df-ceph"; `docs/grid_read_2026-10-08/census/census_merged_partial.tsv` (job 40580051) |
-| batches VERIFIED and cut over | B00 (76/76 files), B02 (2,417/2,417 files, 196,195,055,488 B, 200 sampled; 25 build-tree items ABSENT), B06 (14/14), B08 (2/2), B14 (9/9); B01 three metadata files VERIFIED, the two raw trees ABSENT; B03 both items ABSENT | `plan/runs/<B>/STATUS` on the grid, captured in `grid_ls_2026-10-08.out` "STATUS files" |
-| batches copying at 22:20 UTC | B04, B07, B09: jobs 40580669, 40580671, 40580673 RUNNING 12:28:51 of 4-00:00:00 on `reqp` (batch assignment inferred by elimination, not read from the logs) | same file "squeue" |
-| not started | B05 (after B04), B10 (64 items), B11 (64 items incl. the identity tables); B12 dropped; B13 (627.4 GB of results) awaits Greg | `code/data_platform/MIGRATION_PLAN.md` section 5 |
-| finalized | none: every cut-over path keeps its `.pre-ceph` twin; `pan_quota` unchanged from 2026-10-07 | `grid_ls_2026-10-08.out` "ls HOME", "ls ~/data" |
-| holding index | not built: `/rs/rs_grp_oschome/go2432/data/_index` does not exist | same file "ls RS/data/_index" |
+| HOME used | 1,334 GB of the 4,295 GB soft limit on 2026-10-12; 4,050.75 GB of a 4,294.97 GB soft limit (8,589.93 hard), 2,921,043 files of 10,000,000, on 2026-10-08 | read on the grid 2026-10-12 (issue #65); `docs/grid_read_2026-10-08/grid_ls_2026-10-08.out` "pan_quota" |
+| Ceph used | `oschome` 9 of 20 TB on 2026-10-12; 7 TB of 20 TB (39.39 %) on 2026-10-08, `/rs/rs_grp_oschome/go2432/data` alone 5,333.691 GB, 4,579,361 files | issue #65; `grid_ls_2026-10-08.out` "df-ceph"; `docs/grid_read_2026-10-08/census/census_merged_partial.tsv` (job 40580051) |
+| finalized | every batch with data on 2026-10-11: B00, B01, B02, B04, B06, B07, B08, B09, B14 (B03 had nothing to move; B12 dropped); on 2026-10-12 B05 (3/3 VERIFY_OK) and B10 (64/64), each cut over and finalized | `MANIFEST_GRID.md` section 2 (Greg's record of 2026-10-11, issue #49; issue #65) |
+| finalizing on 2026-10-12 | B11 (64/64, cut over; finalize running at 03:30 EDT); B13 (two items verified, `nnunet/results` 299 GB and `ablate` 202 GB; cut over; finalize running; `bench` not recorded) | issue #65; `MANIFEST_GRID.md` section 2 |
+| what the 2026-10-08 STATUS files measured | B00 76/76 files; B02 2,417/2,417 files, 196,195,055,488 B, 200 sampled, 25 build-tree items ABSENT; B06 14/14; B08 2/2; B14 9/9; B01 three metadata files VERIFIED, the two raw trees ABSENT; B03 both items ABSENT | `plan/runs/<B>/STATUS` on the grid, captured in `grid_ls_2026-10-08.out` "STATUS files" |
+| student access | every folder under `/rs/rs_grp_oschome/go2432/data/` readable by approved students (2026-10-11); the VinDr and BUU items inside them, owner-only until 2026-10-12, opened by visibility jobs 40599886 and 40599867 after `publish_visibility.sh` was fixed (spinesurg-ct-nnunet d9b388d); two paths stay owner-only: `.../ctspinopelvic1k_build_tree/derived/build_archive_private` (private build material, not a dataset) and `.../ctspinopelvic1k_build_tree/derived/s1v11` (until Greg reads its Zenodo upload scripts for a token) | `DATA.md` section 1; issue #65 |
+| holding index | not built: `/rs/rs_grp_oschome/go2432/data/_index` does not exist (2026-10-08; nothing later recorded) | `grid_ls_2026-10-08.out` "ls RS/data/_index" |
 | deletion candidates | 1,590.3 GB (plan) plus, from the duplicate census, 353.7 GB now and 218.3 GB once a condition is met; decisions reserved to Greg | `MIGRATION_PLAN.md` section 8; `code/data_platform/dedup/DEDUP_PLAN.md` "The totals" |
 | the contradiction | B01 "cut over" against the TCIA CT Colonography raw DICOM (721 GB) and NIfTI (336 GB) on neither volume, nothing recording their deletion | `docs/handoff/OPEN_QUESTIONS.md` B30; `STATUS.md` here |
 

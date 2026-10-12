@@ -13,8 +13,8 @@ rsync or `du` on the login node (`CLAUDE.md` rule 7 of this folder). A directory
 spaces. A check on an ABSENT path is expected to answer "No such file or directory" — that answer is the check.
 
 **Volumes.** HOME = `/wsu/home/go/go24/go2432` (Panasas). Ceph = `/rs/rs_grp_oschome/go2432` (CephFS, 20 TB, group
-`oschome`). `.pre-ceph` beside a cut-over path is the HOME original, kept until FINALIZE; every batch with data was
-finalized on 2026-10-11; B05, B10, B11 and B13 were running on 2026-10-12 (`MANIFEST_GRID.md` section 2).
+`oschome`). `.pre-ceph` beside a cut-over path is the HOME original until that batch's FINALIZE deletes it; which
+batches are finalized is `MANIFEST_GRID.md` section 2 (the state of 2026-10-12 is in section 1 below).
 
 **State on 2026-10-11 (Greg's data-platform record).** Greg's record of 2026-10-11 (issue #49). Every batch with data
 is copied, verified, cut over and FINALIZED, the `.pre-ceph` originals deleted after a full comparison: B00, B01, B02
@@ -28,20 +28,31 @@ finalize, after which the Ceph target of each item in `batch_items/B05`, `B10`, 
 (Mendeley twice) was refused on 1,412 read-only files and is to be rerun after a chmod; the A04 and A13 removals and
 A07 wait on Greg; the guarded deletion job for the TotalSegmentator release zips and the NHANES extracted pickles was
 submitted on 2026-10-11. Visibility as of 2026-10-11: every folder under `/rs/rs_grp_oschome/go2432/data/` is readable
-by approved students, including the VinDr, BUU, Mendeley and `spine_detector_corpus` folders; the one closed path is
-`/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.
+by approved students, including the VinDr, BUU, Mendeley and `spine_detector_corpus` folders (at folder level; section 1
+gives the items inside them and the two closed paths as of 2026-10-12).
 
-## 1. Access on 2026-10-11 (Greg, issue #4)
+## 1. Access on 2026-10-11 (Greg, issue #4) and 2026-10-12 (issue #65)
 
 - Every folder under `/rs/rs_grp_oschome/go2432/data/` is readable by approved students: a named ACL entry on the
   volume root, other-read bits on folders and files. That includes `vindr_spinexr`, `buu_lspine_3600`,
   `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and `spine_detector_corpus`, because every approved student holds the
   PhysioNet credential and the VinDr and BUU agreements.
-- The one closed path is `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.
-- Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students. Items still there are being
-  moved to the Ceph volume by the data-platform plan (batches B05, B10, B11, B13 running on 2026-10-12). Every such
-  item in the tables below is marked **on HOME, not reachable until migrated**; a cut-over item's data is already
-  readable at its Ceph target, and only the HOME symlink and its `.pre-ceph` twin are out of reach.
+- On 2026-10-12 the VinDr and BUU items inside those folders opened too. Until then the plan's `restricted` flag
+  still closed them item by item, mode `drwx--S---` (`vindr/raw`, `buu_full`, `buu_v1`, BUU-LSPINE 2000, the VinDr and
+  BUU banks of B10 and B11, `dis_renders`); the script was fixed (spinesurg-ct-nnunet d9b388d) and visibility jobs
+  40599886 (the B04, B05, B10 and B14 folders) and 40599867 (after B13's finalize, every chain folder including
+  `multisource_banks`) open them (issue #65).
+- 2026-10-12: the copy `code/data_platform/plan/publish_visibility.sh` in this folder was replaced by the file of
+  spinesurg-ct-nnunet d9b388d (issue #65).
+- Two paths stay closed (owner-only):
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, private build material
+  and not a dataset, and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`, until Greg reads
+  its Zenodo upload scripts for a token (issue #65; `code/data_platform/plan/publish_visibility.sh`).
+- Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students. Items still there are moved to
+  the Ceph volume by the data-platform plan; on 2026-10-12 B05 and B10 were finalized and B11 and B13 were cut over
+  with their finalize running (`MANIFEST_GRID.md` section 2). Every such item in the tables below is marked **on HOME,
+  not reachable until migrated**; a cut-over item's data is already readable at its Ceph target, and only the HOME
+  symlink (and, until its batch's FINALIZE, the `.pre-ceph` twin) is out of reach.
 
 ## 2. Through Beethoven
 
@@ -57,8 +68,10 @@ The two access facts again, because they decide what a check line can answer:
 
 - Every folder under `/rs/rs_grp_oschome/go2432/data/` is readable by approved students (named ACL entry on the volume
   root; other-read bits on folders and files), including `vindr_spinexr`, `buu_lspine_3600`, `buu_lspine_v1_smoke`,
-  `mendeley_5jdfdgp762` and `spine_detector_corpus`; the one closed path is
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.
+  `mendeley_5jdfdgp762` and `spine_detector_corpus` and, since 2026-10-12, the VinDr and BUU items inside them; two
+  paths stay closed, `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`
+  (private build material, not a dataset) and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`
+  (until Greg reads its Zenodo upload scripts for a token).
 - Nothing on `/wsu/home/go/go24/go2432` is readable by students; items still there are marked **on HOME, not reachable
   until migrated** below, and Greg runs the HOME check lines until the batches land.
 
@@ -81,7 +94,7 @@ State words are the manifest's: VERIFIED, copying, not started, ABSENT (plus "cu
 | `/wsu/home/go/go24/go2432/CTSpinoPelvic1K/data/0816_label_v4.nii.gz` | HOME | one repaired label file, 1,106,588 B (STATUS) | B02 | VERIFIED (row 025), cut over; FINALIZED 2026-10-11; the Ceph path is the only copy | `ls -ld /wsu/home/go/go24/go2432/CTSpinoPelvic1K/data/0816_label_v4.nii.gz` |
 | `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/0816_label_v4.nii.gz` | Ceph | the verified copy | B02 | VERIFIED | `head -c 200 /rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/0816_label_v4.nii.gz` |
 | `/wsu/home/go/go24/go2432/build_archive`, `build_archive_private`, `build_archive_stage` | HOME | the staging of Zenodo 22647933: 13 files 6,236,530,062 B; 1 file 592 B; 2,474 files 3,035,170,658 B (STATUS) | B02 | VERIFIED (rows 027-029), cut over; FINALIZED 2026-10-11; the Ceph path is the only copy | `ls -ld /wsu/home/go/go24/go2432/{build_archive,build_archive_private,build_archive_stage}` |
-| `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive*` | Ceph | the verified copies; `.../derived/build_archive_private` is **the one closed path** (section 1) | B02 | VERIFIED | `ls -ld /rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive*` (`build_archive_private` answers "Permission denied" for a student: that answer is the check) |
+| `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive*` | Ceph | the verified copies; `.../derived/build_archive_private` is one of **the two closed paths** (section 1) | B02 | VERIFIED | `ls -ld /rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive*` (`build_archive_private` answers "Permission denied" for a student: that answer is the check) |
 | 25 build-tree folders (STATUS rows 002-024, 026, 030) under `/wsu/home/go/go24/go2432/CTSpinoPelvic1K/data/` (`hf_export_osc`, `placed`, `hf_export_v6/v5/v4/v2`, `zenodo_v6`, `zenodo_v7`, `v5_final`, `zenodo_upload`, `s1_recarve`, `hardware_fix`, `hf_export_v2_work`, `fix_0816*`, `hip_crossover_backup`, `hf_export_v3_work`, `v5_smoke`, `hardware_final_predust`, `hardware_final`, `hip_transpose_backup`, `thoracic_fix`, `fix_0816_pseudo_work`) | HOME | were the CTSP build intermediates, 64.1 GB net of shared bytes (plan); the reclaim phases ran; what replaces them is Zenodo build archive 22647933 and its Ceph staging | B02 | ABSENT; `hf_export` and `/wsu/home/go/go24/go2432/CTSpinoPelvic1K/data/hf_export_v3` also gone (`layout_map.csv` rows 98, 102), which is why `/wsu/home/go/go24/go2432/XRSpinoPelvic1K/data/{ct,labels}` dangle; the folder now holds json/txt remnants, `qc_dashboard/` and three symlinks (GRIDLS) | `ls -la /wsu/home/go/go24/go2432/CTSpinoPelvic1K/data` |
 | `/wsu/home/go/go24/go2432/CTSpinoPelvic1K/data/ctspine1k` | HOME | was a HOME copy of CTSpine1K, 190 GB (du 2026-09-01) | B03 | ABSENT | `ls -ld /wsu/home/go/go24/go2432/CTSpinoPelvic1K/data/ctspine1k` (expect: no such file) |
 | `/rs/rs_grp_oschome/go2432/data/ctspine1k/raw/home_copy` | Ceph | STATUS target, never filled; CTSpine1K stands beside it (next row) | B03 | ABSENT | `ls -ld /rs/rs_grp_oschome/go2432/data/ctspine1k/raw/home_copy` (expect: no such file) |
@@ -91,11 +104,11 @@ State words are the manifest's: VERIFIED, copying, not started, ABSENT (plus "cu
 | `/rs/rs_grp_oschome/go2432/data/ctpelvic1k_clinic` | Ceph | CTPelvic1K datasets 6-7, 14.832 GB (census) | — | standing | `ls -ld /rs/rs_grp_oschome/go2432/data/ctpelvic1k_clinic` |
 | `/wsu/home/go/go24/go2432/spine-detector/data/raw/{aasce, buu_full, buu_v1, cm_spine, csxa, lateral_236, mendeley_716, nhanes_annotated, nhanes_full, spinal_ai2024, vindr}` (`buu_2000` is a symlink to `/wsu/home/go/go24/go2432/XRSpinoPelvic1K/data/BUU-LSPINE`) | HOME | the raw film datasets of the detector corpus | B04 | copying (job running at 22:20 UTC); sources still real directories (GRIDLS); on HOME, not reachable until migrated; FINALIZED 2026-10-11; the Ceph path is the only copy | `ls -ld /wsu/home/go/go24/go2432/spine-detector/data/raw/{aasce,buu_full,buu_v1,cm_spine,csxa,lateral_236,mendeley_716,nhanes_annotated,nhanes_full,spinal_ai2024,vindr}` |
 | `spine-detector/data/{interim, yolo, yolo_dr_*, yolo_hw*, yolo_v2..v6f}` (one hard-link group; under `/wsu/home/go/go24/go2432/spine-detector/data`) | HOME | the detector working trees | B04 | copying; on HOME, not reachable until migrated; FINALIZED 2026-10-11; the Ceph path is the only copy | `ls -la /wsu/home/go/go24/go2432/spine-detector/data` |
-| `/rs/rs_grp_oschome/go2432/data/{nhanes2_zenodo_landmarks, nhanes2_cdc_films, vindr_spinexr, spinal_ai2024, ieee_dataport_lateral_fullspine_236, csxa_cervical_xray_atlas, buu_lspine_3600, buu_lspine_v1_smoke, aasce2019_boostnet, cm_spine_drive_file, spine_detector_corpus, mendeley_5jdfdgp762}` | Ceph | the B04 targets | B04 | copying; targets absent on 2026-10-08 except `mendeley_5jdfdgp762/raw` (filled by B14); readable by approved students on 2026-10-11 (section 1); FINALIZED 2026-10-11; the Ceph path is the only copy | `ls -ld /rs/rs_grp_oschome/go2432/data/{nhanes2_zenodo_landmarks,nhanes2_cdc_films,vindr_spinexr,spinal_ai2024,ieee_dataport_lateral_fullspine_236,csxa_cervical_xray_atlas,buu_lspine_3600,buu_lspine_v1_smoke,aasce2019_boostnet,cm_spine_drive_file,spine_detector_corpus,mendeley_5jdfdgp762}` |
+| `/rs/rs_grp_oschome/go2432/data/{nhanes2_zenodo_landmarks, nhanes2_cdc_films, vindr_spinexr, spinal_ai2024, ieee_dataport_lateral_fullspine_236, csxa_cervical_xray_atlas, buu_lspine_3600, buu_lspine_v1_smoke, aasce2019_boostnet, cm_spine_drive_file, spine_detector_corpus, mendeley_5jdfdgp762}` | Ceph | the B04 targets | B04 | copying; targets absent on 2026-10-08 except `mendeley_5jdfdgp762/raw` (filled by B14); readable by approved students on 2026-10-11, the VinDr and BUU items inside them after job 40599886 (section 1); FINALIZED 2026-10-11; the Ceph path is the only copy | `ls -ld /rs/rs_grp_oschome/go2432/data/{nhanes2_zenodo_landmarks,nhanes2_cdc_films,vindr_spinexr,spinal_ai2024,ieee_dataport_lateral_fullspine_236,csxa_cervical_xray_atlas,buu_lspine_3600,buu_lspine_v1_smoke,aasce2019_boostnet,cm_spine_drive_file,spine_detector_corpus,mendeley_5jdfdgp762}` |
 | `/rs/rs_grp_oschome/go2432/data/_staging/B04` | Ceph | the transient landing of B04's hard-link group, 2 entries | B04 | copying; removed by the job when the group is in place; FINALIZED 2026-10-11; the Ceph path is the only copy | `ls -ld /rs/rs_grp_oschome/go2432/data/_staging/B04` |
-| `/wsu/home/go/go24/go2432/XRSpinoPelvic1K/data/{BUU-LSPINE, dataset2024.zip (4,023,726,207 B), xrsp1k DRRs}` | HOME | the BUU-LSPINE 2000 release, its zip, the xrsp1k DRRs; `data/ct` and `data/labels` there dangle (links to the deleted `hf_export_v3`, GRIDLS) | B05 | not started on 2026-10-08 (depends on B04); chain running 2026-10-12 (issue #4); on HOME, not reachable until migrated | `ls -ld /wsu/home/go/go24/go2432/XRSpinoPelvic1K/data` then `ls -ld /wsu/home/go/go24/go2432/XRSpinoPelvic1K/data/{BUU-LSPINE,dataset2024.zip}` |
-| `/rs/rs_grp_oschome/go2432/data/buu_lspine_2000` | Ceph | B05 target | B05 | not started (absent on 2026-10-08); chain running 2026-10-12 | `ls -ld /rs/rs_grp_oschome/go2432/data/buu_lspine_2000` |
-| `/rs/rs_grp_oschome/go2432/data/xrspinopelvic1k/derived` | Ceph | B05 target | B05 | not started (absent on 2026-10-08); chain running 2026-10-12 | `ls -ld /rs/rs_grp_oschome/go2432/data/xrspinopelvic1k/derived` |
+| `/wsu/home/go/go24/go2432/XRSpinoPelvic1K/data/{BUU-LSPINE, dataset2024.zip (4,023,726,207 B), xrsp1k DRRs}` | HOME | the BUU-LSPINE 2000 release, its zip, the xrsp1k DRRs; `data/ct` and `data/labels` there dangle (links to the deleted `hf_export_v3`, GRIDLS) | B05 | not started on 2026-10-08 (depends on B04); 3/3 VERIFY_OK, cut over and FINALIZED 2026-10-12 (issue #65); on HOME, not reachable until migrated (read the Ceph targets); the Ceph path is the only copy | `ls -ld /wsu/home/go/go24/go2432/XRSpinoPelvic1K/data` then `ls -ld /wsu/home/go/go24/go2432/XRSpinoPelvic1K/data/{BUU-LSPINE,dataset2024.zip}` |
+| `/rs/rs_grp_oschome/go2432/data/buu_lspine_2000` | Ceph | B05 target | B05 | not started (absent on 2026-10-08); FINALIZED 2026-10-12 (issue #65) | `ls -ld /rs/rs_grp_oschome/go2432/data/buu_lspine_2000` |
+| `/rs/rs_grp_oschome/go2432/data/xrspinopelvic1k/derived` | Ceph | B05 target | B05 | not started (absent on 2026-10-08); FINALIZED 2026-10-12 (issue #65) | `ls -ld /rs/rs_grp_oschome/go2432/data/xrspinopelvic1k/derived` |
 | `/wsu/home/go/go24/go2432/implant_verse`; `VerSeFusion/data`; `vf_813`; `ctsp_drr_obl`; `ctsp_drr_obl2`; `obl2_fov96_ctx`; `verse_drr`; `verse_drr_film`; `verse_drr_obl`; `verse_drr_obl2`; `verse_only_ctx`; `verse_soft_drr`; `vf_813_probe`; `vf_v10` (all HOME-root entries except `VerSeFusion/data`; full spellings in `code/data_platform/LAYOUT.md` rows 267-283) | HOME | the VerSe-derived corpus: `implant_verse` 2,254 files 159,368,901,079 B; `VerSeFusion/data` 6,951 files 194,191,642,435 B; `vf_813` 1,130 files 49,427,512,778 B; eleven render banks and probes (per-item bytes in `MANIFEST_GRID.md` section 2 row B06) | B06 | VERIFIED 14/14, cut over (each HOME path a symlink with a `.pre-ceph` twin); on HOME, not reachable until migrated (read the Ceph target); FINALIZED 2026-10-11; the Ceph path is the only copy | `ls -ld /wsu/home/go/go24/go2432/{implant_verse,VerSeFusion/data,vf_813,ctsp_drr_obl,ctsp_drr_obl2,obl2_fov96_ctx,verse_drr,verse_drr_film,verse_drr_obl,verse_drr_obl2,verse_only_ctx,verse_soft_drr,vf_813_probe,vf_v10}` |
 | `/rs/rs_grp_oschome/go2432/data/versefusion/{raw,derived}/...` | Ceph | the verified B06 copies | B06 | VERIFIED | `ls -ld /rs/rs_grp_oschome/go2432/data/versefusion/{raw,derived}` then `ls /rs/rs_grp_oschome/go2432/data/versefusion/derived` |
 | `/wsu/home/go/go24/go2432/data/TotalSegmentator` (v2.0.1 zip + tree), `data/TotalSegmentator_v3` (v3.0.0), their DRR banks (`/wsu/home/go/go24/go2432/ts_drr`, `/wsu/home/go/go24/go2432/ts_drr_v3`, `code/data_platform/LAYOUT.md` rows 287-288), `implant_ts` (`/wsu/home/go/go24/go2432/implant_ts`) | HOME | the TotalSegmentator releases and their derived banks; 210.8 GB sized, 2 unsized (plan); `ts_subjects` is a hashed root (plan) | B07 | copying (job running at 22:20 UTC); HOME trees still real (GRIDLS); on HOME, not reachable until migrated; FINALIZED 2026-10-11; the Ceph path is the only copy | `ls -ld /wsu/home/go/go24/go2432/data/{TotalSegmentator,TotalSegmentator_v3} /wsu/home/go/go24/go2432/{ts_drr,ts_drr_v3,implant_ts}` |
@@ -109,15 +122,15 @@ State words are the manifest's: VERIFIED, copying, not started, ABSENT (plus "cu
 | FluoroGen (the manifest's spelling; `~/fluorogen`, i.e. `/wsu/home/go/go24/go2432/fluorogen`, per `code/data_platform/LAYOUT.md` row 301) | HOME | FluoroGen synthetic frames and the film-look LoRA | B09 | copying; on HOME, not reachable until migrated; FINALIZED 2026-10-11; the Ceph path is the only copy | `ls -ld /wsu/home/go/go24/go2432/fluorogen` |
 | `/rs/rs_grp_oschome/go2432/data/fluorocap/raw` | Ceph | B09 target; existed with 1 entry on 2026-10-08 | B09 | copying; FINALIZED 2026-10-11; the Ceph path is the only copy | `ls -ld /rs/rs_grp_oschome/go2432/data/fluorocap/raw` |
 | `/rs/rs_grp_oschome/go2432/data/fluorogen_synthetic` | Ceph | B09 target | B09 | copying; absent on 2026-10-08; FINALIZED 2026-10-11; the Ceph path is the only copy | `ls -ld /rs/rs_grp_oschome/go2432/data/fluorogen_synthetic` |
-| 64 single-source banks on HOME (CT renders, film banks, C-arm fold banks; the manifest spells only `/wsu/home/go/go24/go2432/nhanes_pseudo`, 74 GB; the per-item list is `code/data_platform/LAYOUT.md`) | HOME | the single-source derived banks, 79.7 GB sized, 61 unsized (plan) | B10 | not started on 2026-10-08 (after B02, B04, B06, B07); chain running 2026-10-12 (issue #4); on HOME, not reachable until migrated | `ls -ld /wsu/home/go/go24/go2432/nhanes_pseudo` |
-| `/rs/rs_grp_oschome/go2432/data/<source>/derived/<bank>` (`carmlspine/derived`, `ctspinopelvic1k/derived`, `nhanes2_*`, `vindr_spinexr`, ...) | Ceph | B10 targets | B10 | not started; targets absent on 2026-10-08; chain running 2026-10-12 | `ls -ld /rs/rs_grp_oschome/go2432/data/carmlspine/derived /rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/derived` |
-| 64 multi-source banks, review packs, the `/wsu/home/go/go24/go2432/lstv_flag` render folders, `/wsu/home/go/go24/go2432/allspine_*`, `/wsu/home/go/go24/go2432/films_*`, `/wsu/home/go/go24/go2432/scaling`, and the identity tables (section 7 below) | HOME | the multi-source banks and the identity tables; 176.2 GB sized, 59 unsized, 129.2 GB candidates (plan); **back the identity tables up to Ceph with SHA-256 before this batch**; `slurm/allspine_v9_bank.sh` line 21 `rm -rf` means never rerun a bank in place | B11 | not started on 2026-10-08 (after B10); chain running 2026-10-12 (issue #4); on HOME, not reachable until migrated | `ls -ld /wsu/home/go/go24/go2432/lstv_flag /wsu/home/go/go24/go2432/scaling` |
-| `/rs/rs_grp_oschome/go2432/data/multisource_banks/...` | Ceph | B11 target | B11 | not started; absent on 2026-10-08; chain running 2026-10-12 | `ls -ld /rs/rs_grp_oschome/go2432/data/multisource_banks` |
+| 64 single-source banks on HOME (CT renders, film banks, C-arm fold banks; the manifest spells only `/wsu/home/go/go24/go2432/nhanes_pseudo`, 74 GB; the per-item list is `code/data_platform/LAYOUT.md`) | HOME | the single-source derived banks, 79.7 GB sized, 61 unsized (plan) | B10 | not started on 2026-10-08 (after B02, B04, B06, B07); 64/64, cut over and FINALIZED 2026-10-12 (issue #65); on HOME, not reachable until migrated (read the Ceph targets); the Ceph path is the only copy | `ls -ld /wsu/home/go/go24/go2432/nhanes_pseudo` |
+| `/rs/rs_grp_oschome/go2432/data/<source>/derived/<bank>` (`carmlspine/derived`, `ctspinopelvic1k/derived`, `nhanes2_*`, `vindr_spinexr`, ...) | Ceph | B10 targets | B10 | not started; targets absent on 2026-10-08; FINALIZED 2026-10-12 (issue #65) | `ls -ld /rs/rs_grp_oschome/go2432/data/carmlspine/derived /rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/derived` |
+| 64 multi-source banks, review packs, the `/wsu/home/go/go24/go2432/lstv_flag` render folders, `/wsu/home/go/go24/go2432/allspine_*`, `/wsu/home/go/go24/go2432/films_*`, `/wsu/home/go/go24/go2432/scaling`, and the identity tables (section 7 below) | HOME | the multi-source banks and the identity tables; 176.2 GB sized, 59 unsized, 129.2 GB candidates (plan); **back the identity tables up to Ceph with SHA-256 before this batch**; `slurm/allspine_v9_bank.sh` line 21 `rm -rf` means never rerun a bank in place | B11 | not started on 2026-10-08 (after B10); 64/64, cut over 2026-10-12, finalize running at 03:30 EDT (issue #65); on HOME, not reachable until migrated | `ls -ld /wsu/home/go/go24/go2432/lstv_flag /wsu/home/go/go24/go2432/scaling` |
+| `/rs/rs_grp_oschome/go2432/data/multisource_banks/...` | Ceph | B11 target | B11 | not started; absent on 2026-10-08; cut over 2026-10-12, finalize running (issue #65) | `ls -ld /rs/rs_grp_oschome/go2432/data/multisource_banks` |
 | `/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/nnunet/raw` | HOME | nnU-Net raw; fifteen slurm scripts bind it into containers with no Ceph path (plan section 5) | B12 | dropped 2026-10-08: stays on HOME; not reachable by students | `ls -ld /wsu/home/go/go24/go2432/spinesurg-ct-nnunet/nnunet/raw` |
-| `/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/nnunet/results` (348.6 GB), `/wsu/home/go/go24/go2432/ablate` (234.8 GB), `/wsu/home/go/go24/go2432/bench` (44 GB) | HOME | results, not imaging; Greg decides | B13 | not run on 2026-10-08; chain running 2026-10-12 (issue #4); on HOME, not reachable until migrated | `ls -ld /wsu/home/go/go24/go2432/spinesurg-ct-nnunet/nnunet/results /wsu/home/go/go24/go2432/{ablate,bench}` |
-| `/rs/rs_grp_oschome/go2432/results/` | Ceph | B13 target | B13 | did not exist on 2026-10-08 (GRIDLS); chain running 2026-10-12 | `ls -ld /rs/rs_grp_oschome/go2432/results` |
+| `/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/nnunet/results` (348.6 GB), `/wsu/home/go/go24/go2432/ablate` (234.8 GB), `/wsu/home/go/go24/go2432/bench` (44 GB) | HOME | results, not imaging; Greg decides | B13 | not run on 2026-10-08; on 2026-10-12 `nnunet/results` (299 GB) and `ablate` (202 GB) verified, cut over, finalize running; `bench` not recorded (issue #65); on HOME, not reachable until migrated | `ls -ld /wsu/home/go/go24/go2432/spinesurg-ct-nnunet/nnunet/results /wsu/home/go/go24/go2432/{ablate,bench}` |
+| `/rs/rs_grp_oschome/go2432/results/` | Ceph | B13 target | B13 | did not exist on 2026-10-08 (GRIDLS); cut over 2026-10-12, finalize running (issue #65) | `ls -ld /rs/rs_grp_oschome/go2432/results` |
 | `/wsu/home/go/go24/go2432/qc.tar.gz`; `/wsu/home/go/go24/go2432/dis_renders`; `/wsu/home/go/go24/go2432/pitest`; `/wsu/home/go/go24/go2432/pdwtest`; `/wsu/home/go/go24/go2432/ostk_level_morphometry.csv`; `/wsu/home/go/go24/go2432/pdw_why.py`; `/wsu/home/go/go24/go2432/pi_ostk2.csv`; `/wsu/home/go/go24/go2432/s1v11`; `/wsu/home/go/go24/go2432/data/spondy_landmark` | HOME | nine loose items (bytes per item in `MANIFEST_GRID.md` section 2 row B14); `s1v11` is restricted and irreplaceable; three entries stayed inspect-only (two 2022 download leftovers and `/wsu/home/go/go24/go2432/spinopelvic-seg/nnunet/raw`) | B14 | VERIFIED 9/9, cut over (nine symlinks in GRIDLS); on HOME, not reachable until migrated (read the Ceph targets); FINALIZED 2026-10-11; the Ceph path is the only copy | `ls -ld /wsu/home/go/go24/go2432/{qc.tar.gz,dis_renders,pitest,pdwtest,ostk_level_morphometry.csv,pdw_why.py,pi_ostk2.csv,s1v11} /wsu/home/go/go24/go2432/data/spondy_landmark` |
-| into the folders of their sources (`ctspinopelvic1k_build_tree`, `xrspinopelvic1k/derived/dis_renders`, `mendeley_5jdfdgp762/raw`, ...) | Ceph | the nine verified B14 copies | B14 | VERIFIED | `ls -ld /rs/rs_grp_oschome/go2432/data/xrspinopelvic1k/derived/dis_renders /rs/rs_grp_oschome/go2432/data/mendeley_5jdfdgp762/raw` |
+| into the folders of their sources (`ctspinopelvic1k_build_tree`, `xrspinopelvic1k/derived/dis_renders`, `mendeley_5jdfdgp762/raw`, ...) | Ceph | the nine verified B14 copies; `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` is one of the two closed paths (owner-only, `drwx--S---`, read 2026-10-12, until Greg reads its Zenodo upload scripts for a token; section 1); `dis_renders` opens with job 40599886 | B14 | VERIFIED | `ls -ld /rs/rs_grp_oschome/go2432/data/xrspinopelvic1k/derived/dis_renders /rs/rs_grp_oschome/go2432/data/mendeley_5jdfdgp762/raw` |
 
 ## 4. The platform's own records on the grid (`MANIFEST_GRID.md` section 3)
 
@@ -158,7 +171,7 @@ This project owns `/wsu/home/go/go24/go2432/model_registry` and its ledger (sett
 
 | path | volume | holds | batch | state on 2026-10-08 | check, from the Beethoven worker |
 |---|---|---|---|---|---|
-| `/wsu/home/go/go24/go2432/mambaforge/envs/{spineps, fluorogen, spinedet, nextflow}` | HOME | the CPU env (`spineps`, Python 3.11, the working MLflow SQLite backend), the GPU env (`fluorogen`), the detector env (`spinedet`); 14 GB du; YAML exports in `code/env/` | — | on HOME, not reachable by students | `ls -ld /wsu/home/go/go24/go2432/mambaforge/envs/{spineps,fluorogen,spinedet,nextflow}` |
+| `/wsu/home/go/go24/go2432/mambaforge/envs/{spineps, fluorogen, spinedet, nextflow}` | HOME | the CPU env (`spineps`, Python 3.11, the working MLflow SQLite backend), the GPU env (`fluorogen`), the detector env (`spinedet`); 14 GB du; YAML exports in `code/env/` | — | on HOME, not reachable by students; a student's environment is `../11_students_grid_access/STUDENT_ENV.md` (issue #66) | `ls -ld /wsu/home/go/go24/go2432/mambaforge/envs/{spineps,fluorogen,spinedet,nextflow}` |
 | `/rs/rs_grp_oschome/go2432/envs/{acq, fluoroclip, spineps212 (10.8 GB), spineps_cu128 (10.8), tsv3 (9.2), u251_drug, ytdl}` | Ceph | Ceph-side environments, 39.923 GB (census) | — | standing | `ls -ld /rs/rs_grp_oschome/go2432/envs/{acq,fluoroclip,spineps212,spineps_cu128,tsv3,u251_drug,ytdl}` |
 | `/rs/rs_grp_oschome/go2432/singularity_cache`; `/wsu/home/go/go24/go2432/singularity_cache` (2026-09-26) | Ceph; HOME | container caches; 17.040 GB on Ceph (census); the HOME one not recorded | — | standing; the HOME one not reachable by students | `ls -ld /rs/rs_grp_oschome/go2432/singularity_cache /wsu/home/go/go24/go2432/singularity_cache` |
 | `/wsu/home/go/go24/go2432/.cache` | HOME | pip/torch/huggingface caches, 10.484 GB (census) | — | on HOME, not reachable by students | `ls -ld /wsu/home/go/go24/go2432/.cache` |
@@ -169,10 +182,10 @@ This project owns `/wsu/home/go/go24/go2432/model_registry` and its ledger (sett
 
 | path | volume | holds | batch | state on 2026-10-08 | check, from the Beethoven worker |
 |---|---|---|---|---|---|
-| `/wsu/home/go/go24/go2432/patient_keys_final.json` (+ `patient_keys.json`, `patient_keys_v9.json`, two dated copies) | HOME | one key per person across every naming scheme (`code/tools/patient_keys.py`); 5,913,937 B; 803,531 B; 803,566 B | B11 | irreplaceable; on HOME, not reachable until migrated (B11 chain running 2026-10-12, issue #4) | `ls -l /wsu/home/go/go24/go2432/{patient_keys_final.json,patient_keys.json,patient_keys_v9.json}` |
-| `/wsu/home/go/go24/go2432/split_final.json` | HOME | the G3 person split (FROZEN 2026-09-23 20:18:48, job 40426793; never redraw: `docs/handoff/RECIPES.md` section 10); 8,065,646 B | B11 | on HOME, not reachable until migrated; chain running 2026-10-12 | `ls -l /wsu/home/go/go24/go2432/split_final.json` |
-| `/wsu/home/go/go24/go2432/bank_splits.json` | HOME | split lists recovered after the 2026-09-20 deletions; 2,807,421 B | B11 | on HOME, not reachable until migrated; chain running 2026-10-12 | `ls -l /wsu/home/go/go24/go2432/bank_splits.json` |
-| `/wsu/home/go/go24/go2432/{ctsp_patient_crosswalk.csv, ctsp_vid2patient.json, fluorocap_patient_keys.json}` | HOME | the CTSP token crosswalk and the FluoroCap keys; 115,094 B; 30,821 B; 112,088 B | B11 | on HOME, not reachable until migrated; chain running 2026-10-12 | `ls -l /wsu/home/go/go24/go2432/{ctsp_patient_crosswalk.csv,ctsp_vid2patient.json,fluorocap_patient_keys.json}` |
+| `/wsu/home/go/go24/go2432/patient_keys_final.json` (+ `patient_keys.json`, `patient_keys_v9.json`, two dated copies) | HOME | one key per person across every naming scheme (`code/tools/patient_keys.py`); 5,913,937 B; 803,531 B; 803,566 B | B11 | irreplaceable; on HOME, not reachable until migrated (B11 cut over 2026-10-12, finalize running, issue #65) | `ls -l /wsu/home/go/go24/go2432/{patient_keys_final.json,patient_keys.json,patient_keys_v9.json}` |
+| `/wsu/home/go/go24/go2432/split_final.json` | HOME | the G3 person split (FROZEN 2026-09-23 20:18:48, job 40426793; never redraw: `docs/handoff/RECIPES.md` section 10); 8,065,646 B | B11 | on HOME, not reachable until migrated; B11 cut over 2026-10-12, finalize running (issue #65) | `ls -l /wsu/home/go/go24/go2432/split_final.json` |
+| `/wsu/home/go/go24/go2432/bank_splits.json` | HOME | split lists recovered after the 2026-09-20 deletions; 2,807,421 B | B11 | on HOME, not reachable until migrated; B11 cut over 2026-10-12, finalize running (issue #65) | `ls -l /wsu/home/go/go24/go2432/bank_splits.json` |
+| `/wsu/home/go/go24/go2432/{ctsp_patient_crosswalk.csv, ctsp_vid2patient.json, fluorocap_patient_keys.json}` | HOME | the CTSP token crosswalk and the FluoroCap keys; 115,094 B; 30,821 B; 112,088 B | B11 | on HOME, not reachable until migrated; B11 cut over 2026-10-12, finalize running (issue #65) | `ls -l /wsu/home/go/go24/go2432/{ctsp_patient_crosswalk.csv,ctsp_vid2patient.json,fluorocap_patient_keys.json}` |
 | `/rs/rs_grp_oschome/go2432/data/or_ready/data_accounting/` | Ceph | the content-hash chain's output | — | does not exist; never run on the real corpus (`docs/handoff/LEAKAGE.md` section 7 item 1) | `ls -ld /rs/rs_grp_oschome/go2432/data/or_ready/data_accounting` (expect: no such file) |
 | `/rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/{touched.json, chk9/}` | Ceph | the evaluation gate's record of every file every job touched; CHK-9 reports; `touched.json` 55.3 MB on the laptop copy | — | standing | `ls -ld /rs/rs_grp_oschome/go2432/data/or_ready/eval_gate/{touched.json,chk9}` |
 | `/rs/rs_grp_oschome/go2432/data/inventory/films/` (`nhanes_film_manifest.csv`, `FILM_CORPUS_INVENTORY.md`) | Ceph | per-image film manifests (job 40416535); size not recorded | — | standing | `ls -l /rs/rs_grp_oschome/go2432/data/inventory/films` |
@@ -195,8 +208,9 @@ This project owns `/wsu/home/go/go24/go2432/model_registry` and its ledger (sett
 
 For every other path above, this file repeats no terms: `code/data_platform/sources.json` carries a licence field per
 source card, and where that card too is silent, the terms are not recorded in the folder. Banks holding VinDr or BUU
-pixels stay owner-only in their visibility pass (`CLAUDE.md` rule 9;
-`code/data_platform/plan/publish_visibility.sh`).
+pixels were owner-only in their visibility pass until 2026-10-12 (`CLAUDE.md` rule 9); the copy of
+`code/data_platform/plan/publish_visibility.sh` from spinesurg-ct-nnunet d9b388d no longer closes them, and visibility
+jobs 40599886 and 40599867 open them (section 1).
 
 ## 9. Credential files on HOME (`MANIFEST_GRID.md` section 7; by name only)
 
@@ -215,8 +229,11 @@ files by the jobs that need them, never echoed, never on a command line or in `s
 
 ## 10. First experiment (`TODO.md` step 1): read the migration's per-batch STATUS files
 
-Once jobs 40580669, 40580671 and 40580673 have ended, read
-`/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/data_platform/plan/runs/{B04,B07,B09}/STATUS`.
+Jobs 40580669, 40580671 and 40580673 have ended: B04, B07 and B09 were copied, verified, cut over and finalized on
+2026-10-11 (Greg's record, issue #49), and on 2026-10-12 B05 and B10 were finalized and B11 and B13 cut over with their
+finalize running (issue #65; `MANIFEST_GRID.md` section 2). The per-item lines behind those states are not in this
+folder: read `/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/data_platform/plan/runs/<B>/STATUS` for B04, B05, B07, B09,
+B10, B11 and B13.
 
 First re-read `/wsu/home/go/go24/go2432/spinesurg-ct-nnunet/data_platform/plan/runs/B02/STATUS` and confirm it still
 reads: VERIFIED, 2,417 / 2,417 files, 196,195,055,488 B, 200 sampled (`STATUS.md` M.5).
@@ -229,7 +246,9 @@ names it (on 2026-10-08 the batch-to-job assignment was by elimination, `MANIFES
 
 ## 11. Not recorded
 
-The outcome of jobs 40580669, 40580671 and 40580673 (no STATUS for B04, B07, B09 is in this folder yet; section 10 is
-how it arrives); which `dp_migrate` job carried which batch (inferred by elimination only); the state of any path after
-2026-10-08 beyond the access facts of issue #4 (2026-10-11); the sizes marked "not recorded" above; whether
+The per-item STATUS lines of B04, B05, B07, B09, B10, B11 and B13 (none is in this folder; section 10 is how they
+arrive); whether the finalize of B11 and B13 completed after 2026-10-12, and the state of
+`/wsu/home/go/go24/go2432/bench`, B13's third item; the outcome of visibility jobs 40599886 and 40599867; which
+`dp_migrate` job carried which batch (inferred by elimination only); the state of any path after 2026-10-08 beyond the
+facts of issue #4 (2026-10-11) and issue #65 (2026-10-12); the sizes marked "not recorded" above; whether
 `/wsu/home/go/go24/go2432/model_night/heads_mixed/` exists; the live state of the HF mirror and Zenodo v11.

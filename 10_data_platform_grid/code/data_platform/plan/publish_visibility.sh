@@ -34,10 +34,27 @@ DRY=${DRY:-0}
 case "$(hostname -s)" in warrior*) echo "REFUSING: not on the login node"; exit 97;; esac
 [ -n "${SLURM_JOB_ID:-}" ] || { echo "REFUSING: run as an sbatch job"; exit 98; }
 # whole folders closed whatever the plan says (on Ceph before the plan; VinDr's DUA and BUU's EULA)
-FIXED_RESTRICTED="vindr vindr_spinexr buu_lspine buu buu_lspine_3600 buu_lspine_2000"
-# exact paths closed whatever the plan says: private material that is not a dataset
-FIXED_RESTRICTED_PATHS="$DATA/ctspinopelvic1k_build_tree/derived/build_archive_private"
-restricted_paths_from_plan() { # the exact destination path of every item flagged restricted
+# Until 2026-10-11 the BUU-LSPINE folders, VinDr-SpineXR, mendeley_5jdfdgp762 (a redistribution of BUU and VinDr,
+# dedup/DEDUP_PLAN.md C08) and spine_detector_corpus (holds BUU films, dedup A21) were owner-only under the BUU EULA and
+# the PhysioNet DUA. On 2026-10-11 Greg stated that all approved students hold the PhysioNet credential and these
+# agreements ("all the students also have credentials for these"), so they open to the approved-student gate like the
+# rest; the gate (named-user ACL entries on the volume root) still keeps every other grid user out. Put a folder back
+# in this list to close it again.
+FIXED_RESTRICTED=""
+# exact paths closed whatever the plan says. Two items stay owner-only for reasons that are not VinDr or BUU:
+#  build_archive_private  private build material, not a dataset;
+#  s1v11                  the CTSpinoPelvic1K v11 build workspace with the Zenodo upload scripts and state, owner-only
+#                         until zenodo_v11.py, upload_zip.sh, zenodo_v11_state.json and upload_reply.json are read for a
+#                         token (MIGRATION_PLAN.md section 8). Drop it from this list after that check.
+FIXED_RESTRICTED_PATHS="$DATA/ctspinopelvic1k_build_tree/derived/build_archive_private $DATA/ctspinopelvic1k_build_tree/derived/s1v11"
+# The plan's `restricted` flag (LAYOUT.md rule 8) marks VinDr-SpineXR, BUU-LSPINE and every bank that holds their
+# pixels (33 rows across B04, B05, B10, B11 and B14 on 2026-10-08). On 2026-10-11 Greg stated that every approved student
+# holds the PhysioNet credential and the VinDr and BUU agreements, so the flag no longer closes anything. Until
+# 2026-10-12 it still did, at item level, which left vindr/raw, buu_full and the VinDr/BUU banks owner-only inside
+# folders that were already open. Set HONOUR_PLAN_RESTRICTED=1 to close the flagged items again.
+HONOUR_PLAN_RESTRICTED=${HONOUR_PLAN_RESTRICTED:-0}
+restricted_paths_from_plan() { # the exact destination path of every item flagged restricted, when honoured
+  [ "$HONOUR_PLAN_RESTRICTED" = 1 ] || return 0
   awk -F'\t' 'FNR>1 && $0 !~ /^#/ && $4 ~ /restricted/ { print $2 }' "$HERE"/batch_items/B*.tsv 2>/dev/null | sort -u
 }
 RESTRICTED_PATHS=$( { restricted_paths_from_plan; printf '%s
