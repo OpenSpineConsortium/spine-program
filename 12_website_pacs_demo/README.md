@@ -89,6 +89,10 @@ make), `regulatory/` (no IRB determination bears on a public static site).
 
 ## How to start
 
-Open this folder as a Claude Code project. Read `CLAUDE.md`, then this file, `STATUS.md` and `TODO.md`. Clone the site
-repository (`MANIFEST_CODE.md` section 1), run `git pull`, then `python -X utf8 tools/build_site.py --check-only`. The
-first real step is `TODO.md` step 1.
+Open the clone's top folder (the root of `spine-program`), never this folder, as the Claude Code project or as a
+Project's repository; this folder is the project when the claimed issue's title names it (the root `README.md`,
+"Choosing a project"). Before the first change read `CLAUDE.md`, then this file, `DATA.md`, `TODO.md`, `STATUS.md` and
+`MANIFEST_GRID.md`. Work starts from the claimed issue's acceptance lines, not from `TODO.md` step 1; a TODO step with no
+issue gets a todo issue, which Greg opens, before work starts. The site lives in another repository: clone it
+(`MANIFEST_CODE.md` section 1), run `git pull`, then `python -X utf8 tools/build_site.py --check-only`. A change to it, or
+to any other repository, lands as `12_website_pacs_demo/patches/<N>-<slug>.patch` in the claim's pull request.
