@@ -85,9 +85,10 @@ workers. No finding is expected from this project; its product is students produ
   folder is SchwingNet, and nothing from the private repository beyond its handoff files is copied here. Students
   work in grid checkouts of the public repositories; how a student gets private code onto the grid is not recorded.
 - Use all of a public dataset; fix or justify every truncation.
-- Network goes through WSL (`wsl -e bash -lc '...'`) for git push, ssh and rsync; tokens are read from files only
-  and never echoed, never on a command line, never in a job file. Commit only when Greg asks, directly to `main` or
-  `master` as each repository does it.
+- On Greg's laptop, network goes through WSL (`wsl -e bash -lc '...'`) for git push, ssh and rsync; tokens are read
+  from files only and never echoed, never on a command line, never in a job file. In the code repositories this folder
+  names, commit only when Greg asks, directly to `main` or `master` as each repository does it; in spine-program itself
+  the account doing the work pushes only its claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10).
 - Ashley Schehr is a person (senior scientist and co-PI, first author of the medical-education study, annotation
   lead, the first tester); she is never renamed and never a product name. The product is Beethoven. Student names
   and usernames, researcher e-mail addresses and Greg's personal e-mail appear nowhere in this folder's text;
@@ -134,9 +135,14 @@ workers. No finding is expected from this project; its product is students produ
   real client input only, so keep-alive frames do not count; a terminal `hpcworker claude login` in the OnDemand shell
   works. `reqp --qos=requeue` (priority 100) preempts running workers; `secp --qos=secondary` (priority 200, 90-day
   MaxWall) is where workers should live; the switch is lines 8 to 11 of `wayne.json` and is Greg's call.
-- **The student's `~` is not Greg's.** Every handoff recipe writes `~` for `/wsu/home/go/go24/go2432`; a student who
-  copies a command must first set `GH=/wsu/home/go/go24/go2432` or point it at their own copy, and `go2432/` below
-  the Ceph gate stays closed to students (`docs/handoff/RECIPES.md` section 0 item 9).
+- **The student's `~` is not Greg's.** Every handoff recipe writes `~` for `/wsu/home/go/go24/go2432`
+  (`docs/handoff/RECIPES.md` section 0 item 9), and nothing under `/wsu/home/go/go24/go2432` is readable by students: a
+  recipe step that reads Greg's HOME waits until its item is migrated to Ceph. Every folder under
+  `/rs/rs_grp_oschome/go2432/data/` is readable by approved students except
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private` and
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` (Greg's access facts of 2026-10-11, issue
+  #5 and `DATA.md`; the `s1v11` exception, issue #62; the paths as `03_ctspinopelvic1k_dataset/MANIFEST_GRID.md` spells
+  them).
 - **The review Spaces.** Each per-task Space has its own ledger (`anonymous-mlhc/CTSpinoPelvic1K-reviews-<slug>`,
   slugs spine, ribs, nerve, ili, classfix, triaged); pointing a tool at the wrong one returns 0 cases with no error;
   a plain Restart can reseed from a cached old index, Factory reboot forces a fresh download (`docs/handoff/

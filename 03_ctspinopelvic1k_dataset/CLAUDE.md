@@ -117,9 +117,11 @@ lineage, the CNS 2026 deck) is the record that makes those three defensible.
    leaked initialisation is retrained, never disclosed as a caveat (`memory/data-directives-2026-09-23.md`,
    `memory/no-unexplained-subsets-fix-not-disclose.md`). Identity comes from metadata first and the
    file name last (`memory/key-patients-from-metadata-not-filenames.md`).
-10. **Git, network, credentials.** Commit directly to master, no feature branches, and push to both
-    `origin` and `osc` (`memory/commit-directly-to-master.md`, `memory/push-both-github-remotes.md`); commit
-    only when Greg asks. Network (git push, ssh, Hugging Face, Zenodo) goes through
+10. **Git, network, credentials.** In CTSpinoPelvic1K, commit directly to master, no feature branches,
+    and push to both `origin` and `osc` (`memory/commit-directly-to-master.md`,
+    `memory/push-both-github-remotes.md`); commit only when Greg asks. In spine-program itself the account
+    doing the work pushes only its claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10).
+    On Greg's laptop, network (git push, ssh, Hugging Face, Zenodo) goes through
     `wsl -e bash -lc '...'`; the one exception is `manuscripts/mpda/make_submission.py`, which shells out
     to `wsl` and runs from Windows. Tokens are read from files only (`~/.zenodo_token`, the Hugging Face
     token files), never echoed, never on a command line. Write scripts as files and run them by path;

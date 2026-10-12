@@ -77,16 +77,21 @@ B30). This is support work, not a hypothesis. Every other project folder depends
 9. **Data.** Use all of a public dataset; a download budget is not a criterion; every truncation is fixed or justified
    in writing before a rerun; a leak is fixed by retraining, never disclosed as a caveat; VinDr-SpineXR (DUA) and
    BUU-LSPINE (EULA) and every bank holding their pixels stay owner-only (`code/data_platform/plan/publish_visibility.sh`).
-10. **Network and credentials.** Network goes through WSL (`wsl -e bash -lc '...'`). Tokens are read from files, never
+10. **Network and credentials.** On Greg's laptop, network goes through WSL (`wsl -e bash -lc '...'`). Tokens are read from files, never
     echoed, never on a command line or in `sbatch --export`; this folder names credential files (for example
-    `/wsu/home/go/go24/go2432/github`, `/wsu/home/go/go24/go2432/CTSpinoPelvic1K/.token`) only so that Greg rotates and deletes them. Commit only when Greg asks;
-    push CTSpinoPelvic1K to both `origin` and `osc`.
+    `/wsu/home/go/go24/go2432/github`, `/wsu/home/go/go24/go2432/CTSpinoPelvic1K/.token`) only so that Greg rotates and deletes them. In the code repositories
+    this folder names, commit only when Greg asks; push CTSpinoPelvic1K to both `origin` and `osc`. In spine-program itself
+    the account doing the work pushes only its claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10).
 
 ## Traps that bind this project
 
-- **Nothing is finalized.** Every cut-over item still has its `<path>.pre-ceph` twin beside the symlink, so HOME is
-  unchanged at 4,050.75 GB; only `cutover.sh` with `FINALIZE=1`, after Greg looks, frees quota (`MIGRATION_PLAN.md`
-  section 3 step g). Do not delete a `.pre-ceph` copy by hand.
+- **The migration as of 2026-10-12.** Every batch with data was copied, verified, cut over and finalized on 2026-10-11
+  (B00, B01, B02, B04, B06, B07, B08, B09, B14; B03 had nothing to move; B12 was dropped; HOME went from 4,051 GB to
+  1,902 GB: `MANIFEST_GRID.md` section 2, Greg's record in issue #49). B05, B10 and B11 were copied, verified, cut over
+  and finalized on 2026-10-12; B13 is cut over and finalizing (Greg, issue #62). HOME's size after the 2026-10-12
+  finalizes is not recorded. The `.pre-ceph` twins and the 4,050.75 GB of the 2026-10-08 listing are history. Only
+  `cutover.sh` with `FINALIZE=1`, after Greg looks, frees quota (`MIGRATION_PLAN.md` section 3 step g); do not delete a
+  `.pre-ceph` copy by hand.
 - **"B01 cut over" means three metadata files.** The 721 GB raw DICOM and 336 GB NIfTI are ABSENT in
   `plan/runs/B01/STATUS` and `/rs/rs_grp_oschome/go2432/data/tcia_ct_colonography` holds `meta/` only; nothing records
   what removed them (`/wsu/home/go/go24/go2432/cleanup_v1v3_tcia.sh`, 1,136 B, 2026-09-01, is the likely script, unread). Re-acquisition route

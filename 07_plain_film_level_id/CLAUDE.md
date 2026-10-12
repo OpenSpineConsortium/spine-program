@@ -126,8 +126,10 @@ use its path prefixes. In this folder they resolve to repositories, never to a l
    identity comes from metadata first and the file name last; FluoroCap is out of training. BUU-LSPINE
    images and crops are never redistributed (DATA_MANIFEST card `buu_lspine_3600`, quoted in
    `MANIFEST_LOCAL.md`); VinDr-SpineXR stays on the grid under its DUA.
-10. **Git, network, credentials.** Network through `wsl -e bash -lc '...'`. Tokens are read from
-    files, never echoed, never on a command line. Commit only when Greg asks. Write scripts as files
+10. **Git, network, credentials.** On Greg's laptop, network through `wsl -e bash -lc '...'`. Tokens
+    are read from files, never echoed, never on a command line. In the code repositories this folder
+    names, commit only when Greg asks; in spine-program itself the account doing the work pushes only its
+    claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10). Write scripts as files
     and run them by path (heredocs collapse backslashes).
 
 ## Traps that bind this project

@@ -46,8 +46,9 @@ The ordered steps, gates and deciders are in `TODO.md`; the results in hand are 
 - **The grid.** `/wsu/home/go/go24/go2432/OpenSpineToolkit` (rsync copy, `ostk/` + `pyproject.toml`,
   no `.git`, carries 1b7005c's closing; verified 2026-10-09 00:12 UTC), `~/ostk.tgz`, `~/ostk_run`,
   `~/ostk_shards`, `~/ostk_morph_out` and the `logs_ostk*`, `logs_ped*`, `logs_rheight_*` of the
-  2026-09-10 run; the v11 labels under `~/data/CTSpinoPelvic1K/labels`; the Python for CPU jobs is
-  `~/mambaforge/envs/spineps/bin/python`. Every path with what it holds: `MANIFEST_GRID.md`.
+  2026-09-10 run; the v11 labels under `~/data/CTSpinoPelvic1K/labels`; Greg's Python for CPU jobs is
+  `~/mambaforge/envs/spineps/bin/python`, in his HOME, which students cannot read; a student's environment is
+  `11_students_grid_access/STUDENT_ENV.md` (written by issue #66). Every path with what it holds: `MANIFEST_GRID.md`.
 
 ## Rules that bind this project (the standing rules, restated)
 
@@ -86,8 +87,10 @@ The ordered steps, gates and deciders are in `TODO.md`; the results in hand are 
    what goes into it is research and education material only.
 9. **Data.** Use all of a public dataset; every truncation is fixed or justified in writing before a
    rerun; identity comes from metadata first and the file name last.
-10. **Git, network, credentials.** ostk commits go to `main` and are pushed to both remotes; commit
-    only when Greg asks. Network (push, ssh, rsync) goes through `wsl -e bash -lc '...'`. Tokens are
+10. **Git, network, credentials.** In OpenSpineToolkit, ostk commits go to `main` and are pushed to both
+    remotes; commit only when Greg asks. In spine-program itself the account doing the work pushes only its
+    claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10). On Greg's laptop, network
+    (push, ssh, rsync) goes through `wsl -e bash -lc '...'`. Tokens are
     read from files only, never echoed, never on a command line. Write scripts as files and run them
     by path (heredocs collapse backslashes). Ashley Schehr is a person, never a product name. The
     affiliation is General Surgery (Wayne State University School of Medicine / Detroit Medical

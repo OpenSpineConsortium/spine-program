@@ -75,8 +75,10 @@ that is 549 contact-sheet tiles (`contact_sheets/index.csv`, by path in `MANIFES
     whole repository is private and the student-safe label is about hand-outs only.
 11. **Use all of a public dataset.** Every truncation is fixed or justified in writing before a rerun
     (`memory/data-directives-2026-09-23.md`, `memory/no-unexplained-subsets-fix-not-disclose.md`).
-12. **Network through WSL** (`wsl -e bash -lc '...'` for git push, ssh, rsync). **Tokens are read from files only**,
-    never echoed, never on a command line or in `sbatch --export`. **Commit only when Greg asks.**
+12. **Network through WSL on Greg's laptop** (`wsl -e bash -lc '...'` for git push, ssh, rsync). **Tokens are read
+    from files only**, never echoed, never on a command line or in `sbatch --export`. **In the code repositories this
+    folder names, commit only when Greg asks**; in spine-program itself the account doing the work pushes only its claim
+    branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10).
 13. **People.** Ashley Schehr is a person, never a product name; usernames are never written. The affiliation is
     General Surgery, Wayne State University School of Medicine / Detroit Medical Center, never Neurosurgery.
 

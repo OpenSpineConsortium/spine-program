@@ -70,10 +70,11 @@ hold is on the grid (`MANIFEST_GRID.md`) or in a repository (`MANIFEST_CODE.md`)
 9. **Data directives.** Use all of a public dataset; fix or justify every truncation in writing before a rerun; identity
    from metadata first, file name last (`memory/data-directives-2026-09-23.md`,
    `memory/no-unexplained-subsets-fix-not-disclose.md`, `memory/key-patients-from-metadata-not-filenames.md`).
-10. **Network, tokens, git.** Network through `wsl -e bash -lc '...'` (`memory/wsl-for-network.md`). Tokens are read
-    from files, never echoed, never on a command line; the Semantic Scholar key the review tools use lives in a
-    credentials file on the grid and the laptop and is never copied (`MANIFEST_GRID.md`). Commit only when Greg asks;
-    Greg pushes. Write scripts as files and run them by path (`memory/bash-heredoc-backslashes.md`); never name a scratch
+10. **Network, tokens, git.** On Greg's laptop, network through `wsl -e bash -lc '...'` (`memory/wsl-for-network.md`).
+    Tokens are read from files, never echoed, never on a command line; the Semantic Scholar key the review tools use
+    lives in a credentials file on the grid and the laptop and is never copied (`MANIFEST_GRID.md`). In the code
+    repositories this folder names, commit only when Greg asks; Greg pushes. In spine-program itself the account doing
+    the work pushes only its claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10). Write scripts as files and run them by path (`memory/bash-heredoc-backslashes.md`); never name a scratch
     script `numbers.py`, `io.py` or `pdb.py` (`memory/scratchpad-shadows-stdlib.md`).
 11. **Personal data.** No student name or username, no researcher or personal e-mail address enters any file here; the
     copies in this folder were redacted by kind and `MANIFEST_LOCAL.md` records each redaction.
