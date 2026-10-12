@@ -118,3 +118,9 @@ Check against something outside the computation. When a tidy explanation present
 Say plainly what is not known; `ctsp:docs/SPINOPELVIC_ESTIMATOR.md` records an unexplained failure in 128 records rather
 than a guess at its cause, and that is the preferred form. Render the mask: twice in this programme one render settled
 what two or three rounds of reasoning from numbers got wrong.
+
+## How work is claimed
+
+@docs/agents/PROTOCOL.md
+
+Before any work: fetch, read the board with `git fetch origin board && git show origin/board:STATE.md`, and check the claim on the issue you mean to take. One issue, one branch `claude/<issue>`, one pull request. Never push to the default branch or to another account's claim branch.
