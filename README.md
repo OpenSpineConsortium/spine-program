@@ -130,6 +130,29 @@ and an issue labelled todo that the board shows unclaimed is free to take. Claim
 branch, and the account's own label goes on with it. In-review means the pull request is ready, so the owner merges it
 and the merge closes the issue. Blocker means the issue stops everyone until it is done.
 
+### From a claude.ai Project
+
+At https://claude.ai/code make a Project and link this repository as its only resource, leaving its instructions, description
+and memory blank: the goal, the memory, the board and the rules are read from the clone in every thread. Each thread starts
+from a fresh clone of main and is shown the board. The Claude GitHub App must already be installed on the repository by the
+organization owner, and the student must have Write on it. To choose a project: the board's Queue lists the open issues
+labelled todo, and the folder named in an issue's title is the project; read that folder's `CLAUDE.md`, `README.md`,
+`TODO.md`, `MANIFEST_GRID.md` and, where it exists, `DATA.md` before the first change; a folder whose `CLAUDE.md` names
+Greg as its only reader is taken only after he confirms a hand-out. Add these two lines to a cloud-session prompt (the
+label `account:<GitHub login>` is made by Greg for each student; the main account's label is `account:main`):
+
+```
+gh issue and gh pr are refused here, so add the labels, post the plan and open the draft pull request with your GitHub tools or gh api (repos/OpenSpineConsortium/spine-program/issues/N/labels, repos/OpenSpineConsortium/spine-program/issues/N/comments, repos/OpenSpineConsortium/spine-program/pulls). Mark the pull request ready with your GitHub tool update_pull_request (draft false), not gh api, which cannot change a draft; if you have no such tool, say so and stop before you delete the claim file.
+My account label is account:<login> and the claim file's Account line is <login>.
+```
+
+One ready-to-paste prompt for a Project thread, followed by the two lines above:
+
+```
+Claim issue N with the claim skill and carry it to a ready pull request, as docs/agents/PROTOCOL.md says; work on the branch claude/N, not this session's own branch. If the push of claude/N is refused, another session holds the issue: say so in one line and stop. Do not merge.
+```
+The claim, remember and checkpoint skills and the board command are committed under `.claude/`; the symphony plugin brings the same skills to a local session, so a local user sees each twice, which is harmless.
+
 ## How to start a Claude Code project from a folder
 
 1. Open the folder (for example `01_carm_level_detection/`) as the project root.
