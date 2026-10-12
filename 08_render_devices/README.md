@@ -40,7 +40,7 @@ the exact-pose renders that projects 05 and 01 ask for. The folder is not expect
 
 | line | state | the number | file |
 |---|---|---|---|
-| physics render banks | built; on HOME; migration batches B10 and B11 not started | 7,045 + 1,482 annotations; a second count of 7,048 unexplained | `docs/handoff/DATASET_USAGE.md` 3.1; `docs/handoff/OPEN_QUESTIONS.md` B12 |
+| physics render banks | built; on HOME, in migration batches B10 and B11, whose state since is `../10_data_platform_grid/MANIFEST_GRID.md` section 2 | 7,045 + 1,482 annotations; a second count of 7,048 unexplained | `docs/handoff/DATASET_USAGE.md` 3.1; `docs/handoff/OPEN_QUESTIONS.md` B12 |
 | device cards | four shipped, two grid-only; held-out gain positive but criterion C3 not met | R^2 card vs physics: Cios 0.905 vs 0.899, Pulsera 0.952 vs 0.917, Elekta 0.974 vs 0.964, PIXIUM 0.679 vs 0.650; 12-fold gain +0.019 [0.008, 0.033] | `docs/handoff/RESULTS_CATALOG.md` A12.1, A12.2, A12.4 |
 | exposure clip | defect known, not repaired; the clip is the default | 1.7 to 5.1 % of the joint reached; 94.9 to 98.3 % of frames pinned | `docs/DEVICE_SPREAD_SWEEP.md`; A12.6 |
 | styled-corpus detectors | pre-stated 97 % met on no held-out device; primary criterion never run; box convention of the rows not recorded | Cios 0.9157 to 0.9398; Elekta 0.3024 to 0.3270; Surgio 0.1429 to 0.1498 vertebra recall | `docs/handoff/RESULTS_CATALOG.md` A6.13, C4.6; `docs/handoff/OPEN_QUESTIONS.md` B10, C14 |

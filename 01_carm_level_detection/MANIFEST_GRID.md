@@ -9,9 +9,11 @@ are those a file or the pass recorded; "not recorded" otherwise. Migration state
 `docs/handoff/OPEN_QUESTIONS.md` B30; the state of each batch is `../10_data_platform_grid/MANIFEST_GRID.md` section 2,
 and the per-batch truth is `plan/runs/<B>/STATUS` on the grid (`docs/handoff/README.md` section 3).
 
-Rules that apply to every path here: nothing runs on the login node; read a bank only inside a job; `go2432/` below the
-Ceph gate stays closed to students, and every bank holding VinDr or BUU pixels is owner-only
-(`docs/handoff/INFRASTRUCTURE.md` sections 2.2, 4). The case134 headers under `CEPH/data/carmlspine` carry a real
+Rules that apply to every path here: nothing runs on the login node; read a bank only inside a job. What a student can
+read is `DATA.md` section "Access": every folder under `CEPH/data/`, nothing on HOME; the banks holding VinDr or BUU pixels,
+owner-only until 2026-10-12 (`docs/handoff/INFRASTRUCTURE.md` sections 2.2, 4), are readable by approved students after
+visibility jobs 40599886 and 40599867, and two paths stay owner-only, `CEPH/data/ctspinopelvic1k_build_tree/derived/
+build_archive_private` and `CEPH/data/ctspinopelvic1k_build_tree/derived/s1v11` (issue #65). The case134 headers under `CEPH/data/carmlspine` carry a real
 PatientID: never print a header field.
 
 ## 1. The reported stack: weights (HOME)
