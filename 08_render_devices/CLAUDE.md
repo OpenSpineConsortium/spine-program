@@ -99,9 +99,10 @@ member and a faculty member named by their roles, a staff contact withheld; `MAN
 9. **Data.** Use all of a public dataset; fix or justify in writing every truncation before a rerun; a leaked
    initialisation is fixed by retraining, never disclosed as a caveat; identity comes from metadata first and the
    file name last; FluoroCap is out of training.
-10. **Network, tokens, git.** Network goes through `wsl -e bash -lc '...'`. Tokens are read from files, never
-    echoed, never on a command line or in `sbatch --export`; nothing under the vendor key folder is read. Commit
-    only when Greg asks. Write scripts as files and run them by path (heredocs collapse backslashes).
+10. **Network, tokens, git.** On Greg's laptop, network goes through `wsl -e bash -lc '...'`. Tokens are read from
+    files, never echoed, never on a command line or in `sbatch --export`; nothing under the vendor key folder is read.
+    In the code repositories this folder names, commit only when Greg asks; in spine-program itself the account doing
+    the work pushes only its claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10). Write scripts as files and run them by path (heredocs collapse backslashes).
 
 ## Traps that bind this project
 

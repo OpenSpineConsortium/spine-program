@@ -11,6 +11,8 @@ traps. Nothing here is imaging data or a weight; the grid and the named reposito
 - The folder's `CLAUDE.md`, `README.md`, `STATUS.md`, `TODO.md`.
 - `<folder>/docs/handoff/README.md` section 5 (the ten rules as the handoff wrote them) and
   `<folder>/docs/handoff/RESULTS_CATALOG.md` "How to read a row" (every folder carries the student-readable handoff files).
+- `<folder>/DATA.md` (every grid path the folder uses, who may read it, a read-only check line); its access facts of
+  2026-10-11 supersede older statements in the `docs/handoff` copies.
 
 ## The map
 
@@ -73,9 +75,11 @@ service client while 12 waits on 01 S2.
    rsync, node, pip and conda by name; no container command on warrior and nothing of ours under its `/tmp`. `sbatch -D <dir>`
    (a relative `--output` resolves against the submit directory); `afterany`, not `afterok`; IPC under `/dev/shm` (compute-node
    `/tmp` is swept); large outputs on Ceph `/rs/rs_grp_oschome/go2432/`, not HOME; record a job before cancelling it; write grid
-   bash for bash 4.2; partition `reqp --qos=requeue` for CPU, `gmsap` / `gvohp` for GPU; the python with nibabel and scipy is
-   `~/mambaforge/envs/spineps/bin/python`. Submit, estimate the wall time, write the job ids and the ETA to the resume file,
-   stop. (`ctsp:CLAUDE.md` "Grid", `memory/no-jobs-on-login-node.md`, `memory/submit-and-sleep-orchestration.md`.)
+   bash for bash 4.2; partition `reqp --qos=requeue` for CPU, `gmsap` / `gvohp` for GPU; Greg's python with nibabel and
+   scipy is `~/mambaforge/envs/spineps/bin/python`, in his HOME, which students cannot read; a student's environment is
+   `11_students_grid_access/STUDENT_ENV.md` (written by issue #66). Submit, estimate the wall time, write the job ids and
+   the ETA to the resume file, stop. (`ctsp:CLAUDE.md` "Grid", `memory/no-jobs-on-login-node.md`,
+   `memory/submit-and-sleep-orchestration.md`.)
 8. **What stays private.** SchwingNet and all level-identification code, text, figures and weights; FluoroCap; the
    `spinesurg-ct-nnunet` and `XRSpinoPelvic1K` repositories; this repository. Nothing about them goes public until Greg says
    so; run `ssn:tools/disclosure_audit.py` before any talk, upload or submission; for the CNS talk use only
@@ -85,10 +89,15 @@ service client while 12 waits on 01 S2.
    FluoroCap is out of training (a test set at most); identity comes from metadata first and the file name last; the IRB
    umbrella (HPR 2026-269) covers only public, de-identified data downloadable without an agreement.
    (`memory/no-unexplained-subsets-fix-not-disclose.md`, `memory/data-directives-2026-09-23.md`.)
-10. **Git, network, credentials.** `CTSpinoPelvic1K`: commit directly to master, push to `origin` and `osc`;
-    `OpenSpineToolkit`: branch `main`, both remotes; this repository: commit only when Greg asks, and Greg pushes. Network
-    (git push, ssh, rsync, Hugging Face) goes through `wsl -e bash -lc '...'`; `ctsp:paper/mpda/make_submission.py` is the
-    one exception and runs from Windows. Tokens are read from files, never echoed, never on a command line or in
+10. **Git, network, credentials.** In spine-program the account doing the work commits and pushes only its own branch
+    `claude/<issue>`, as `docs/agents/PROTOCOL.md` says; it never commits to or pushes `main`; Greg merges. The claim push
+    is a plain `git push -u origin claude/<N>` in the Bash tool, never wrapped in `wsl`. In the code repositories
+    (`CTSpinoPelvic1K`, `OpenSpineToolkit`, `spinesurg-ct-nnunet`, `XRSpinoPelvic1K`, `openspineconsortium.github.io`,
+    `beethoven`) and on Greg's laptop: commit only when Greg asks; `CTSpinoPelvic1K` commits directly to master, no
+    feature branches, and pushes to `origin` and `osc`; `OpenSpineToolkit`: branch `main`, both remotes. The WSL network rule is Greg's Windows laptop's: there, network (git push, ssh, rsync, Hugging Face)
+    goes through `wsl -e bash -lc '...'`, and `ctsp:paper/mpda/make_submission.py` is the one exception and runs from
+    Windows. The git clauses of the folder `CLAUDE.md` files mean the repositories those folders name, never this one.
+    Tokens are read from files, never echoed, never on a command line or in
     `sbatch --export`; nothing under the laptop vendor folder is read. Write scripts as files and run them by path (inline
     heredocs collapse backslashes); never name a scratch script `numbers.py`, `io.py` or `pdb.py`.
     (`memory/wsl-for-network.md`, `memory/bash-heredoc-backslashes.md`, `memory/scratchpad-shadows-stdlib.md`.)
@@ -100,7 +109,9 @@ service client while 12 waits on 01 S2.
     of authorship; Greg's to confirm, `_plan/PLAN.md` section 5), Greg's own institutional corresponding-author address in
     his manuscript sources and package metadata, and the maintainer addresses printed in third-party template files
     (`neurips_2026.sty`, `medphy.bst`). Role mailboxes (`hpc@`, `IRBQuestions@`) and the ssh login `go2432@grid.wayne.edu` are
-    not personal data and stay.
+    not personal data and stay. The account handle the claim protocol needs (the `account:<login>` label, the claim
+    file's `- Account:` line, the board) is working metadata like commit authorship, not the personal data this rule is
+    about.
 
 ## Prefixes and markers in the copied documents
 
@@ -119,14 +130,18 @@ Say plainly what is not known; `ctsp:docs/SPINOPELVIC_ESTIMATOR.md` records an u
 than a guess at its cause, and that is the preferred form. Render the mask: twice in this programme one render settled
 what two or three rounds of reasoning from numbers got wrong.
 
+## What a cloud session reaches
+
+A claude.ai Project thread or a cloud session has this clone and GitHub, through its proxy, and nothing else: no grid,
+no ssh, no `sbatch`, no `wsl`, no access to Greg's HOME and no clone of the other repositories. Grid steps run from the
+Beethoven worker or by Greg, and their job ids and outputs come back to the claim branch. A change to another repository
+lands as `<folder>/patches/<N>-<slug>.patch` (`git format-patch` against the commit `MANIFEST_CODE.md` names) in the
+claim's pull request, and Greg applies it.
+
 ## How work is claimed
 
 @docs/agents/PROTOCOL.md
 
-Before any work: fetch, read the board with `git fetch origin board && git show origin/board:STATE.md`, and check the claim on the issue you mean to take. One issue, one branch `claude/<issue>`, one pull request. Never push to the default branch or to another account's claim branch.
+@docs/memory/MEMORY.md
 
-<!-- cswap:checkpoint:begin -->
-## Session checkpoint (kept by cswap)
-
-No checkpoint yet.
-<!-- cswap:checkpoint:end -->
+Before any work: fetch, read the board with `git fetch origin +refs/heads/board:refs/remotes/origin/board && git show origin/board:STATE.md` (or `/board`), and check the claim on the issue you mean to take. One issue, one branch `claude/<issue>`, one pull request. Never push to the default branch or to another account's claim branch. This repository has no CI check yet; the push guard is the symphony plugin's and runs in local sessions only.
