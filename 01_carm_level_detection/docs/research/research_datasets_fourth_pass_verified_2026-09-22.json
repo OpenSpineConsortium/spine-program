@@ -322,7 +322,7 @@
     "confidence": "high"
    },
    {
-    "item": "Demographics and site tags are placeholders — do not use them. PatientSize is 1.80 and PatientWeight 0 in every frame; PatientBirthDate equals the study date on frames and is 20200101 on CBCT slices; there is no PatientAge; PatientSex reads F 83, M 62, non-standard 'W' 3 and 'O' 1, and all 38 cases of 2023-11-18 are M. PatientName is caseN, PatientIdentityRemoved YES, DeidentificationMethod 'Basic Application Confidentiality Profile'. InstitutionName is 'SMU' everywhere; InstitutionAddress is '江苏南通' on the XA frames and 'Pudong, SH' on the CT slices — both matching the manufacturer's own Nantong and Shanghai sites, so they are probably vendor or de-identifier defaults, not the acquisition site. One residual identifier survives: the raw sweep in case134/ori keeps PatientID '1895112604_20231111.151002.079', and that prefix recurs across days in private (0029,0016), so it is most likely a device key plus timestamp.",
+    "item": "Demographics and site tags are placeholders — do not use them. PatientSize is 1.80 and PatientWeight 0 in every frame; PatientBirthDate equals the study date on frames and is 20200101 on CBCT slices; there is no PatientAge; PatientSex reads F 83, M 62, non-standard 'W' 3 and 'O' 1, and all 38 cases of 2023-11-18 are M. PatientName is caseN, PatientIdentityRemoved YES, DeidentificationMethod 'Basic Application Confidentiality Profile'. InstitutionName is 'SMU' everywhere; InstitutionAddress is '江苏南通' on the XA frames and 'Pudong, SH' on the CT slices — both matching the manufacturer's own Nantong and Shanghai sites, so they are probably vendor or de-identifier defaults, not the acquisition site. One residual identifier survives: the raw sweep in case134/ori keeps PatientID '[withheld]', and that prefix recurs across days in private (0029,0016), so it is most likely a device key plus timestamp.",
     "source": "Per-file header survey",
     "confidence": "high"
    },
@@ -444,7 +444,7 @@
      "confidence": "high"
     },
     {
-     "fact": "Demographic tags are mostly placeholders. Frames give PatientSex F (83 cases), M (62), the non-standard 'W' (3) and 'O' (case134); all 38 cases of 2023-11-18 are M. PatientSize is 1.80 in every frame that has it, PatientWeight 0, and PatientBirthDate equals the study date. CBCT headers have PatientSex empty and BirthDate 20200101. No PatientAge is present. PatientName = caseN, PatientIdentityRemoved YES, DeidentificationMethod 'Basic Application Confidentiality Profile'. The C-arm/ frames' PatientID is empty, but the raw sweep in case134/ori keeps PatientID '1895112604_20231111.151002.079' (a prefix that recurs across days in private tag (0029,0016), so probably a device key plus timestamp, not a patient identifier).",
+     "fact": "Demographic tags are mostly placeholders. Frames give PatientSex F (83 cases), M (62), the non-standard 'W' (3) and 'O' (case134); all 38 cases of 2023-11-18 are M. PatientSize is 1.80 in every frame that has it, PatientWeight 0, and PatientBirthDate equals the study date. CBCT headers have PatientSex empty and BirthDate 20200101. No PatientAge is present. PatientName = caseN, PatientIdentityRemoved YES, DeidentificationMethod 'Basic Application Confidentiality Profile'. The C-arm/ frames' PatientID is empty, but the raw sweep in case134/ori keeps PatientID '[withheld]' (a prefix that recurs across days in private tag (0029,0016), so probably a device key plus timestamp, not a patient identifier).",
      "source_url": "https://zenodo.org/api/records/22768651/files/C-ArmLSpine.zip/content",
      "confidence": "high"
     },
@@ -578,7 +578,7 @@
      "confidence": "high"
     },
     {
-     "fact": "The C-ArmLSpine 2-D DICOM headers read Manufacturer '一影医疗', ManufacturerModelName 'Surgio-B51', StationName 'YiYing_3DCarm' and SoftwareVersions 'OR01-00.012.001' (Nov 2023) or 'OR01-00.012.002' (Dec 2023). SOP class is X-Ray Angiographic Image Storage (1.2.840.10008.5.1.4.1.1.12.1), Modality XA, SeriesDescription 'DR', ApplicationName '单帧摄影' (single-frame radiography), RadiationMode PULSED, RadiationSetting SC, RecommendedDisplayFrameRate 30. Private (0029,0016) begins '1895112604_' on 287 of 297 radiographs, which is consistent with a single unit.",
+     "fact": "The C-ArmLSpine 2-D DICOM headers read Manufacturer '一影医疗', ManufacturerModelName 'Surgio-B51', StationName 'YiYing_3DCarm' and SoftwareVersions 'OR01-00.012.001' (Nov 2023) or 'OR01-00.012.002' (Dec 2023). SOP class is X-Ray Angiographic Image Storage (1.2.840.10008.5.1.4.1.1.12.1), Modality XA, SeriesDescription 'DR', ApplicationName '单帧摄影' (single-frame radiography), RadiationMode PULSED, RadiationSetting SC, RecommendedDisplayFrameRate 30. Private (0029,0016) begins with one shared prefix ([withheld]) on 287 of 297 radiographs, which is consistent with a single unit.",
      "source_url": "https://zenodo.org/records/22768651",
      "confidence": "high"
     },

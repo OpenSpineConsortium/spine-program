@@ -1787,3 +1787,10 @@ The acknowledgement string of the v5 to v12 generators also listed the ten stude
 ### The two CNS decks: core properties emptied; the acknowledgement slide kept for Greg
 
 `manuscripts/talks/cns2026/CNS2026_Schwing_LSTV.pptx` and `CNS2026_Schwing_NotAllSpines_public_v12.pptx` were re-written in place in the final pass with `docProps/core.xml` creator and lastModifiedBy emptied (the second carried a third party's name, the template's author). Both decks' acknowledgement slide names the ten student annotators beside the published co-author and the two radiology residents; the slide text was not changed. DELIBERATE KEEP for Greg (PLAN.md section 5, co-author names): the deck is the one he presents, and a redacted deck is his call, as with the two decks in `11_students_grid_access/manuscripts/talks/`. The salvaged co-author review files in `manuscripts/mpda/coauthor_review/` carry the article's 14-author list in their body as any copy of the manuscript does; same keep, same owner of the decision.
+
+## Redactions of 2026-10-12 (issue #67)
+
+A C&IT administrator's username is replaced by "a C&IT administrator" (one occurrence in each file below). The history of main before this change still holds the username; whether to rewrite it is Greg's decision (issue #71). Where a table above gives one of these files' bytes or sha1, it is the file before this edit.
+
+- `memory/grid-ceph-volume-oschome.md`
+- `docs/handoff/INFRASTRUCTURE.md`

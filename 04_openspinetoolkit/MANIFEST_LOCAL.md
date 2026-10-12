@@ -210,3 +210,10 @@ Rows added by the final pass; the sections above are the first build and the ver
 The one Hugging Face handle quoted beside a published co-author's name was withheld in some folders and kept in others for the same source line (the critic's finding). It now reads `(HF username withheld)` everywhere (one occurrence per file below); the person's name stays (a person, never renamed). Greg may restore it; it is his decision (PLAN.md section 5).
 
 - `docs/handoff/RECIPES.md`
+
+## Redactions of 2026-10-12 (issue #67)
+
+A C&IT administrator's username is replaced by "a C&IT administrator" (one occurrence in each file below). The history of main before this change still holds the username; whether to rewrite it is Greg's decision (issue #71). Where a table above gives one of these files' bytes or sha1, it is the file before this edit.
+
+- `memory/grid-ceph-volume-oschome.md`
+- `docs/handoff/INFRASTRUCTURE.md`

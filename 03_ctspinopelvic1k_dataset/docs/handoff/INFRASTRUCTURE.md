@@ -96,7 +96,7 @@ Google account the private-listing invitation went to, Google Authenticator, Glo
 **The approved list.** Approval is given in the access service (`admin.mjs approve <id>` or `grant <id> extension`;
 `admin.mjs roster` prints approved AccessIDs). On the grid "approved" means a named ACL entry `user:<AccessID>:rwx` on
 `/rs/rs_grp_oschome` (`drwxrws--T`, `other::---`, sticky). Group `oschome` is NOT the list (C&IT owns it; it holds
-go2432 and ab5188). Below the gate, `shared/` and `shared/beethoven` are other-readable; `shared/access` and `go2432/`
+go2432 and a C&IT administrator). Below the gate, `shared/` and `shared/beethoven` are other-readable; `shared/access` and `go2432/`
 stay closed. `bth:tools/grid_access.sh` (from WSL, or the Windows scheduled task "Beethoven grid access") keeps the ACL list
 equal to the roster about every fifteen minutes while Greg's PC is on. By hand: `setfacl -m u:<id>:rwx /rs/rs_grp_oschome/`,
 remove with `setfacl -x u:<id>`. A student not yet on the list sees exit 126 "Permission denied" on
