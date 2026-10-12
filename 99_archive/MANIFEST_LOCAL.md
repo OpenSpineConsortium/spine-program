@@ -281,3 +281,10 @@ The critic's tree-wide scan still found laptop spellings in copied files of this
 ### The TechFair deck: core properties emptied
 
 `manuscripts/talks/TechFair_LSTV_Schwing.pptx` was re-written in place in the final pass with `docProps/core.xml` creator and lastModifiedBy emptied (they carried Greg's name, kept nowhere else in metadata for uniformity). The deck's slide text carries Greg's institutional address (a recorded keep: his own corresponding address) and no student name.
+
+## Redactions of 2026-10-12 (issue #67)
+
+A C&IT administrator's username is replaced by "a C&IT administrator" (one occurrence in each file below). This settles one of the keeps that section 3 records as pending Greg's decision (the administrator's AccessID). The history of main before this change still holds the username; whether to rewrite it is Greg's decision (issue #71). Where a table above gives one of these files' bytes or sha1, it is the file before this edit.
+
+- `memory/grid-ceph-volume-oschome.md`
+- `docs/handoff/INFRASTRUCTURE.md`

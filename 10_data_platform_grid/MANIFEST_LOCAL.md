@@ -999,3 +999,7 @@ The critic's tree-wide scan still found laptop spellings in copied files of this
 | `code/data_platform/plan/path_refs_files.csv` | 12 | 0 |
 | `code/spine_data_review/run_all.sh` | 2 | 0 |
 | `code/tools/stats_compare.py` | 1 | 0 |
+
+## Redactions of 2026-10-12 (issue #67)
+
+`docs/PATIENT_IDENTITY_SPEC.md`: three header values of the C-ArmLSpine release replaced by `[withheld]`, the example (0029,0016) value in the carmlspine row of the identity table, and the case134/ori console Patient ID and Patient's Name in collision 16; kinds only, never values. The history of main before this change still holds the values; whether to rewrite it is Greg's decision (issue #71). The byte count section 2 gives for this file is the file before this edit.

@@ -569,3 +569,11 @@ The one Hugging Face handle quoted beside a published co-author's name was withh
 
 - `docs/handoff/RECIPES.md`
 - `docs/handoff/working_notes/topic2_scaling_samples_anomaly_power.md`
+
+## Redactions of 2026-10-12 (issue #67)
+
+A C&IT administrator's username is replaced by "a C&IT administrator" (one occurrence in each file below). This reverses the keep recorded after the table of section 2 ("Kept on purpose"). The history of main before this change still holds the username; whether to rewrite it is Greg's decision (issue #71). Where a table above gives one of these files' bytes or sha1, it is the file before this edit.
+
+- `memory/grid-ceph-volume-oschome.md`
+- `docs/handoff/INFRASTRUCTURE.md`
+- `docs/handoff/working_notes/topic5_operating_here.md`

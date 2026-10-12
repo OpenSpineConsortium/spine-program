@@ -109,7 +109,7 @@ the grid code, GlobalProtect once (`bth/docs/guides/INSTALL.md` "What you need";
 **The approved list.** Approval is given in the access service (`admin.mjs approve <id>` or `grant <id> extension`;
 `admin.mjs roster` prints the approved AccessIDs). On the grid, "approved" means a named ACL entry
 `user:<AccessID>:rwx` on the volume root `/rs/rs_grp_oschome` (`drwxrws--T`, `other::---`, sticky). Group `oschome`
-is NOT the list (C&IT owns it; it holds go2432 and ab5188). Below the gate, `shared/` and `shared/beethoven` are
+is NOT the list (C&IT owns it; it holds go2432 and a C&IT administrator). Below the gate, `shared/` and `shared/beethoven` are
 other-readable; `shared/access` and `go2432/` stay closed. `bth/tools/grid_access.sh` (run from WSL, or the Windows
 scheduled task "Beethoven grid access" via `tools/grid_access_task.ps1 -Install`) keeps the ACL list equal to the
 roster about every fifteen minutes while Greg's PC is on. A lab-only approval (`approve-lab`) does not open the grid

@@ -2541,3 +2541,14 @@ What the rule does not allow to remove, and why the folder stays above the cap: 
 ### Student presenters withheld in the CNS 2026 abstract table
 
 The abstract table (section 12 of `MANUSCRIPTS.md` and its twin in topic 4) still named student presenters in four rows; each author cell now reads `[n student names withheld]` as 02's copy already did. Files: `docs/handoff/MANUSCRIPTS.md`, `docs/handoff/working_notes/topic4_manuscripts.md`.
+
+## Redactions of 2026-10-12 (issue #67)
+
+The readiness review of 2026-10-12 found header values of the C-ArmLSpine release printed in two files of this folder, against the rule "never print a header field" (`CLAUDE.md`). Each value is replaced in place by `[withheld]`; this section gives kinds and counts, never values. The history of main before this change still holds the values; whether to rewrite it is Greg's decision (issue #71). Where a table above gives one of these files' bytes or sha1, it is the file before this edit.
+
+| file | withheld | kept |
+|---|---|---|
+| `results/schwingnet/inputs/headers_dossier.json` | in `dumps`: the console Patient's Name (1 line) and Patient ID (2 lines) of the case134/ori sweep, and the private (0029,0016) value of 10 dumped frames; every other Patient's Name in the file, the release's `case<N>` pseudonyms (746 `PatientName` fields in `cases` and 14 lines in `dumps`; before the edit each equalled its case's key or folder, 746 of 746 and 14 of 14) | the 746 empty `PatientID` fields and the 14 empty Patient ID lines (nothing to withhold) and every other field; the file still parses as JSON |
+| `docs/research/research_datasets_fourth_pass_verified_2026-09-22.json` | the case134/ori console Patient ID (2 places) and the prefix shared by the (0029,0016) values (1 place) | the Patient's Name and Patient ID values this file quotes from other datasets' headers and query URLs, among them the personal name in one phantom CT header that the file itself flags, and the burned-in patient IDs and folder names it quotes for one public C-arm collection (not header values); issue #67 names the C-ArmLSpine values only, so these are left for Greg's decision; the file still parses as JSON |
+
+`results/schwingnet/repairs/carm-cases_CHECK.md` keeps its 2026-09-23 text under F8 and gains one dated note: the copied dossier later carried the case134/ori values, redacted 2026-10-12.

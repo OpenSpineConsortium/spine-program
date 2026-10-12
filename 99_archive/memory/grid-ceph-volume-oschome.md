@@ -9,7 +9,7 @@ metadata:
   modified: 2026-09-21T16:33:05.410Z
 ---
 
-**The volume** (admin ab5188 created it 2026-09-21): `/rs/rs_grp_oschome` → CephFS, quota 20 TB, group
+**The volume** (a C&IT administrator created it 2026-09-21): `/rs/rs_grp_oschome` → CephFS, quota 20 TB, group
 `oschome` (go2432 is a member; setgid dirs). Usage: `df-ceph oschome`. The home directory
 (`/wsu/home/go/go24/go2432`, Panasas) was at 4,002 GB of a 4,295 GB soft limit that day.
 
