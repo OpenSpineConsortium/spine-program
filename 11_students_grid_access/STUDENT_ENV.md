@@ -39,8 +39,8 @@ What is recorded:
   were not other-readable, so a student's import can fail until Greg makes the environment readable.
 - The job record says `env_spineps212.sh` built it; its GPU smoke, job 40480757, was recorded PENDING and then cancelled
   on 2026-09-27 (`../10_data_platform_grid/docs/grid_records/JOBS_RECORD_2026-09-27_1544.md`;
-  `../_plan/GRID_MANIFEST_2026-10-08.md`). No smoke result of this environment is recorded. Where `env_spineps212.sh` lives, the environment's full package list
-  and whether its torch is a CUDA build are not recorded.
+  `../_plan/GRID_MANIFEST_2026-10-08.md`). No smoke result of this environment is recorded. Where `env_spineps212.sh`
+  lives, the environment's full package list and whether its torch is a CUDA build are not recorded.
 
 **Greg's step, once.** One `chmod`, as a job, never on the login node:
 
