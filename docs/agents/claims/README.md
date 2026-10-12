@@ -8,7 +8,7 @@ The template, with N the issue's number:
 # Claim: #N
 
 - Issue: https://github.com/OpenSpineConsortium/spine-program/issues/N
-- Account: main
+- Account: <your account label without account:>
 - Branch: claude/N
 
 ## Plan
