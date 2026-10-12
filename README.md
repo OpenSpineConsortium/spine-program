@@ -52,94 +52,117 @@ level encoder, the recurrent head, the count from the sacrum, alphabet coupling 
 on the grid to a packaged service, a measured latency, a pre-registered hospital protocol and a test on real fluoroscopy
 from patients at the hospital where Greg works. The engineering steps (freeze and register the stack, measure uncontended
 latency, package the service) are likely within weeks; the hospital number waits on a C-arm whose make is not yet known,
-a faculty sponsor and IRB lead time. First step: TODO S0, register the reference stack with its metrics.
+a faculty sponsor and IRB lead time. First step: TODO S0, register the reference stack with its metrics. Open issues:
+#31, #32.
 
 **02 Transitional naming truth.** Name the level correctly on a transitional spine (L6, T13, sacralised L5, four-lumbar)
 from C-arm exposures at parity with an ordinary spine, or write "not at parity" with its number. The folder owns the
 real-frame transitional truth file, the reader protocol and the power table that 01's hospital plan needs. Unlikely to
 reach its pre-stated bounds from the current holding; likely to return a decisive screen number from a one-hour render.
-First step: the one-hour COBRA coverage render.
+First step: the one-hour COBRA coverage render. Open issues: #33, #34.
 
 **03 CTSpinoPelvic1K dataset.** Close out the public dataset: the Medical Physics dataset article, the accepted NeurIPS 2026
 Evaluations and Datasets paper 3474 (camera-ready with 134 `[pending]` slots), the Zenodo v11 deposit and the Hugging Face
 mirror still at v10. The most likely folder to return a finished result, because two papers already exist; what remains is
 editing, one rebuild measured by `build.sh --reprint`, and Greg's answers. First step: ask Greg the questions no file answers.
+Open issues: #21, #22.
 
 **04 OpenSpineToolkit.** Keep the public measurement library correct for release v11: the canal-closing regression that
 inflates two measures by 10-17 mm on about one vertebra in seven, the retired identifier 29, the empty pedicle-width column.
-Every defect has a one-hour test with a number; this folder blocks 05. First step: CT-1, the canal-closing fix.
+Every defect has a one-hour test with a number; this folder blocks 05. First step: CT-1, the canal-closing fix. Open
+issues: #23, #24.
 
 **05 CT morphometry and parity.** Make the measurements of CTSpinoPelvic1K right and extend them: the spinopelvic
 estimator's three open items, the level atlas with its withheld L5 columns, and whether a 2-D render reproduces the 3-D
 measure (parity). A number within days is likely; PAR-1 is one laptop hour. First step: PAR-1, the single-vertebra 3-D target.
+Open issues: #25, #26.
 
 **06 Transitional CT census.** Find enough transitional people across every public CT to test naming: the harvest over 18
 collections, the registry, the ruleclass arms and the review tree. The machine side is nearly done; the result needs human
 readers, and none of the 446 registry review cases has a verdict yet. First step: one read-only job that answers the five
-open counting questions.
+open counting questions. Open issues: #27, #28.
 
 **07 Plain-film level identification.** The line the C-arm work grew out of: the radiograph corner detector (held-out
 numbers real), XRSpinoPelvic1K and the film-naming experiments whose quoted numbers are leaked or from the wrong bank. The
 venue windows that motivated it have passed. First step: purge the tracked junk from XRSpinoPelvic1K's history, then
-rebuild its data from v11 labels.
+rebuild its data from v11 labels. Open issues: #35, #36.
 
 **08 Render devices.** The rendering side that feeds every 2-D model: the DRR banks, the nine-term device cards, PolyPose
 and the synthetic-to-real attempts. As a claim it is low (the styled corpora failed the pre-stated 97 % on two of three
 devices); as support for 01 and 05 it is medium. First step: a read-only job that settles two open questions about the
-refitted cards and the box convention.
+refitted cards and the box convention. Open issues: #37, #38.
 
 **09 Wrong-level surgery and QI.** The clinical argument and its three instruments: the iliac-crest paper (a v5-era
 number), the scoping review (protocol v1.0, manuscript v0.4, no number yet) and the QI protocol that waits on 01. Medium-low
-near term. First step: recompute the iliac-crest statistic on v11 labels with `labels_for`.
+near term. First step: recompute the iliac-crest statistic on v11 labels with `labels_for`. Open issues: #39, #40.
 
 **10 Data platform and grid.** One record of where every imaging source came from, where it sits (HOME versus Ceph), its
 migration and verification state batch by batch, the identity and leakage rules every bank must pass, the model registry
-and the grid operating rules. Support, mechanical and high; nearly everything else depends on it. First step: when the
-three running migration jobs end, read their STATUS files and cut each batch over.
+and the grid operating rules. Support, mechanical and high; nearly everything else depends on it. On 2026-10-12 (Greg,
+issue #63): every batch with data was finalized on 2026-10-11; B05, B10 and B11 were finalized on 2026-10-12 and B13 was
+finalizing; HOME stood at 1,334 GB of the 4,295 GB soft limit; every folder under `/rs/rs_grp_oschome/go2432/data/` was
+readable by approved students except `ctspinopelvic1k_build_tree/derived/build_archive_private` and
+`ctspinopelvic1k_build_tree/derived/s1v11` (owner-only until its Zenodo upload scripts are read for a token). First step:
+build the holding index (`TODO.md` step 3); the folder's `TODO.md` still words steps 1 and 2 as they stood on
+2026-10-08. Open issues: #17, #18.
 
 **11 Students and grid access.** Keep the path by which students reach the grid and do a project working: Beethoven
 (release 14.0.0 in field use, two unfixed field failures), the onboarding one-liner, the lab recipe and board, and the
 medical-education record. Support, operational. First step: redact and copy the six Beethoven notes and the access-gate
-note.
+note. Open issues: #19, #20.
 
 **12 Website and PACS demo.** Maintain the public site, the NiiVue PACS demo (1,360 ms) and the level-service client, which
 waits on 01's packaged service. Support, operational. First step: `git pull` the site clone, which was ten commits behind.
+Open issues: #29, #30.
 
 **99 Archive.** Superseded, refuted and dormant work, dated, with the reason each item is here and what replaced it, so
 nobody repeats it; never a source of a quotable number. First step: none to run; add dated records as later work supersedes more.
+Open issues: #41, #42.
 
 ## How a student starts
 
-A student given this repository starts from this page alone. Clone `OpenSpineConsortium/spine-program`, open the folder
-in Claude Code, and trust it when asked. Run `claude plugin install symphony@symphony-marketplace --scope project` once:
-the committed `.claude/settings.json` names the plugin but does not download it, so this one command fetches it. Then,
-in a new session, run `/symphony:board` to read the board, pick from its Queue an unclaimed issue labelled todo, and
-claim it with `/symphony:claim`. Work on the branch `claude/<issue>`, open the draft pull request at once, and never
-push to main.
+A student given this repository starts from this page alone. There are two ways in, a claude.ai Project and Claude Code
+on the student's own computer, and the four paragraphs below hold for both.
 
-An issue belongs to the project folder named in its title. Before the first change, read that folder's `CLAUDE.md`,
-`README.md`, `TODO.md` and `MANIFEST_GRID.md`.
-
-The data lives on the Wayne State grid and is reached through the Beethoven app
-(https://openspineconsortium.com/beethoven/). Approved students pass a named-user gate on the Ceph volume. Three
-datasets carry terms of use — VinDr-SpineXR, BUU-LSPINE and Mendeley 5jdfdgp762 — and need those credentials. Each
-project's `DATA.md` gives the paths; a folder without one yet records them in its `MANIFEST_GRID.md`.
+Greg first gives the student Write on `OpenSpineConsortium/spine-program` (a collaborator invite) and makes the label
+`account:<GitHub login>`; the claim file's Account line is that login. GitHub Write gives read access to every folder,
+the Greg-only folders included: "Greg-only" governs claiming and hand-outs, not reading. An issue labelled `greg-first`,
+or one whose folder's `CLAUDE.md` names Greg as its reader, is claimed by a student only after Greg hands it out with a
+comment on the issue naming the student's login.
 
 How work is claimed is [docs/agents/PROTOCOL.md](docs/agents/PROTOCOL.md). Four labels drive it: todo marks the queue,
 and an issue labelled todo that the board shows unclaimed is free to take. Claimed means an account has pushed its
 branch, and the account's own label goes on with it. In-review means the pull request is ready, so the owner merges it
 and the merge closes the issue. Blocker means the issue stops everyone until it is done.
 
+The skills named on this page are the committed, unprefixed ones under `.claude/`: `/claim`, `/remember`, `/checkpoint`
+and `/board`. The symphony plugin's `/symphony:*` copies name files this repository does not have (`scripts/check.sh`,
+`.claude/rules/`), so a local session uses the unprefixed ones.
+
+The data lives on the Wayne State grid and is reached through the Beethoven app
+(https://openspineconsortium.com/beethoven/). Approved students pass a named-user gate on the Ceph volume. Three
+datasets carry terms of use — VinDr-SpineXR, BUU-LSPINE and Mendeley 5jdfdgp762 — and need those credentials. Each
+project's `DATA.md` gives the paths; what students could read on 2026-10-12 is in "The grid in one paragraph" below.
+
+### From Claude Code locally
+
+Clone `OpenSpineConsortium/spine-program`, open the clone's top folder in Claude Code, and trust it when asked. Run
+`claude plugin install symphony@symphony-marketplace --scope project` once: the committed `.claude/settings.json` names
+the plugin but does not download it, so this one command fetches it. On Windows, `python3 --version` must print a
+version in Git Bash (the Microsoft Store alias is not Python), or the plugin's push guard silently does nothing; the
+claim push runs in Claude Code's Bash tool, never through `wsl`. Then, in a new session, run `/board` to read the board,
+pick from its Queue an unclaimed issue labelled todo, and claim it with `/claim`. Work on the branch `claude/<issue>`,
+open the draft pull request at once, and never push to main.
+
 ### From a claude.ai Project
 
-At https://claude.ai/code make a Project and link this repository as its only resource, leaving its instructions, description
-and memory blank: the goal, the memory, the board and the rules are read from the clone in every thread. Each thread starts
-from a fresh clone of main and is shown the board. The Claude GitHub App must already be installed on the repository by the
-organization owner, and the student must have Write on it. To choose a project: the board's Queue lists the open issues
-labelled todo, and the folder named in an issue's title is the project; read that folder's `CLAUDE.md`, `README.md`,
-`TODO.md`, `MANIFEST_GRID.md` and, where it exists, `DATA.md` before the first change; a folder whose `CLAUDE.md` names
-Greg as its only reader is taken only after he confirms a hand-out. Add these two lines to a cloud-session prompt (the
-label `account:<GitHub login>` is made by Greg for each student; the main account's label is `account:main`):
+Projects are on Pro and Max plans only. At https://claude.ai/code make a Project and link this repository as its only
+resource, leaving its instructions, description and memory blank: the goal, the memory, the board and the rules are read
+from the clone in every thread. Each thread starts from a fresh clone of main. Add the symphony plugin under the
+Project's settings where it is offered; otherwise run `/board` first in each thread. The Claude GitHub App must already
+be installed on the repository by the organization owner. The issue is chosen as "Choosing a project" below says. Add
+these two lines to a cloud-session prompt (the label `account:<GitHub login>` is made by Greg for each student; the main
+account's label is `account:main`):
 
 ```
 gh issue and gh pr are refused here, so add the labels, post the plan and open the draft pull request with your GitHub tools or gh api (repos/OpenSpineConsortium/spine-program/issues/N/labels, repos/OpenSpineConsortium/spine-program/issues/N/comments, repos/OpenSpineConsortium/spine-program/pulls). Mark the pull request ready with your GitHub tool update_pull_request (draft false), not gh api, which cannot change a draft; if you have no such tool, say so and stop before you delete the claim file.
@@ -151,23 +174,32 @@ One ready-to-paste prompt for a Project thread, followed by the two lines above:
 ```
 Claim issue N with the claim skill and carry it to a ready pull request, as docs/agents/PROTOCOL.md says; work on the branch claude/N, not this session's own branch. If the push of claude/N is refused, another session holds the issue: say so in one line and stop. Do not merge.
 ```
-The claim, remember and checkpoint skills and the board command are committed under `.claude/`; the symphony plugin brings the same skills to a local session, so a local user sees each twice, which is harmless.
 
-## How to start a Claude Code project from a folder
+A Project thread cannot reach the grid, ssh or `sbatch`, Greg's HOME `/wsu/home/go/go24/go2432`, or the other
+repositories (the code repositories each folder's `MANIFEST_CODE.md` names). For an issue that needs any of them, paste
+this prompt instead, followed by the same two lines:
 
-1. Open the folder (for example `01_carm_level_detection/`) as the project root.
-2. Read its `CLAUDE.md` first (the working context: goal, rules, traps, where things are), then `README.md`, `STATUS.md`
-   (the results in hand, each with its number, file and rigor mark) and `TODO.md` (the ordered steps with gate, pre-stated
-   number, dependency and who decides).
-3. Load `MEMORY.md`, which indexes `memory/`; every note carries its status (CURRENT, DATED, PARTLY SUPERSEDED, SUPERSEDED,
-   LEAKED, RECORD ONLY, DORMANT) carried over from the handoff index.
-4. Check `MANIFEST_GRID.md` against the grid before trusting any path: it lists every grid path the folder uses or
-   produced, HOME and Ceph, with what it holds, its size where known, its migration state and whether it was verified on
-   2026-10-08. `MANIFEST_CODE.md` gives every repository with URL, branch, commit and the files that matter;
-   `MANIFEST_LOCAL.md` gives every file copied into the folder, where it came from, and every valuable file that was not
-   copied, with the reason.
-5. Start at `TODO.md` step 1. The only references outside a folder are grid paths, code repositories and sibling folders
-   of this repository.
+```
+Claim issue N with the claim skill, write the plan, the job script and the draft pull request, then stop at the first step that needs the grid or another repository and say exactly what to run where. Do not merge.
+```
+
+## Choosing a project
+
+Always open the clone's top folder, in Claude Code or as a Project's repository; a numbered folder is never opened as
+the project root. The project is the folder named in the claimed issue's title. Before the first change, read that
+folder's `CLAUDE.md` (the working context: goal, rules, traps, where things are), `README.md`, `DATA.md` (the grid paths,
+reached through Beethoven), `TODO.md` (the ordered steps with gate, pre-stated number, dependency and who decides),
+`STATUS.md` (the results in hand, each with its number, file and rigor mark) and `MANIFEST_GRID.md` (every grid path the
+folder uses or produced, HOME and Ceph, with what it holds, its size where known and its migration state; check it
+against the grid before trusting a path). Work starts from the claimed issue's acceptance lines, not from `TODO.md` step
+1; a TODO step with no issue gets a todo issue, which Greg opens, before work starts. A change to another repository
+lands as `<folder>/patches/<N>-<slug>.patch` in the claim's pull request.
+
+The folder's `MEMORY.md` indexes `memory/`; every note carries its status (CURRENT, DATED, PARTLY SUPERSEDED, SUPERSEDED,
+LEAKED, RECORD ONLY, DORMANT) carried over from the handoff index. `MANIFEST_CODE.md` gives every repository with URL,
+branch, commit and the files that matter; `MANIFEST_LOCAL.md` gives every file copied into the folder, where it came
+from, and every valuable file that was not copied, with the reason. The only references outside a folder are grid
+paths, code repositories and sibling folders of this repository.
 
 ## The rules that bind every folder
 
@@ -180,9 +212,10 @@ schemes exist and mixing them does not raise, so call `ostk.labels.labels_for(vo
 by the checkpoint or any ancestor, every quoted score passes the evaluation gate, the leaked banks are never quoted;
 pre-register, then score; nothing runs on the login node (`sbatch -D`, `afterany`, `/dev/shm`, Ceph for large outputs, bash
 4.2); SchwingNet and all level-identification code, text and weights stay private; use all of a public dataset and fix or
-justify every truncation; network through WSL; tokens read from files only; commit only when Greg asks; Ashley Schehr is a
-person; the affiliation is General Surgery (Wayne State University School of Medicine / Detroit Medical Center), never
-Neurosurgery.
+justify every truncation; network through WSL, except the claim push, which runs in Claude Code's Bash tool; tokens read
+from files only; in spine-program, claim branches and pull requests only, and "commit only when Greg asks" means the code
+repositories; Ashley Schehr is a person; the affiliation is General Surgery (Wayne State University School of Medicine /
+Detroit Medical Center), never Neurosurgery.
 
 ## What is deliberately not here, and where it lives
 
@@ -197,13 +230,20 @@ every inventory row and where it went is `_plan/DISPOSITION.tsv`.
 
 ## The grid in one paragraph
 
-HOME `/wsu/home/go/go24/go2432` stood at 4,050.75 GB of a 4,294.97 GB soft limit on 2026-10-08; Ceph
-`/rs/rs_grp_oschome/go2432` at 7 of 20 TB. Migration batches B00, B02, B06, B08 and B14 were verified and cut over; B01 and
-B03 absent or meta-only; B04, B07 and B09 copying at 22:20 UTC; B10 and B11 not started; B12 dropped; B13 not run; no batch
-finalized. The per-batch truth is `~/spinesurg-ct-nnunet/data_platform/plan/runs/<B>/STATUS` on the grid. Known losses:
-the TCIA CT Colonography raw and NIfTI trees (1,057 GB) are on neither volume; CTPelvic1K datasets 1-5 are absent; the
-`allspine_v2..v5c` banks were deleted on 2026-09-20. All of this is from `10_data_platform_grid/MANIFEST_GRID.md` and
-`_plan/inventories/grid_manifest.md`.
+The grid as it stood on 2026-10-12 (Greg, issue #63). Every migration batch with data was finalized on 2026-10-11 (B00,
+B01, B02, B04, B06, B07, B08, B09 and B14, each `.pre-ceph` original deleted after a full comparison; B03 had nothing to
+move; B12 was dropped; `10_data_platform_grid/DATA.md`, Greg's record of 2026-10-11, issue #49). B05, B10 and B11,
+submitted with B13 as one chain on 2026-10-11, were finalized on 2026-10-12, and B13 was finalizing. HOME
+`/wsu/home/go/go24/go2432` stood at 1,334 GB of the 4,295 GB soft limit (4,050.75 GB of 4,294.97 GB on 2026-10-08,
+`10_data_platform_grid/MANIFEST_GRID.md`); Ceph `/rs/rs_grp_oschome/go2432` held 7 of 20 TB on 2026-10-08, and its use on
+2026-10-12 is not recorded. Every folder under `/rs/rs_grp_oschome/go2432/data/` was readable by approved students except
+`ctspinopelvic1k_build_tree/derived/build_archive_private` and `ctspinopelvic1k_build_tree/derived/s1v11`, which stays
+owner-only until its Zenodo upload scripts are read for a token (`03_ctspinopelvic1k_dataset/DATA.md`); nothing on HOME is
+readable by students (`10_data_platform_grid/DATA.md` section 1). The per-batch truth is
+`~/spinesurg-ct-nnunet/data_platform/plan/runs/<B>/STATUS` on the grid. Known losses, as recorded on 2026-10-08: the TCIA
+CT Colonography raw and NIfTI trees (1,057 GB) are on neither volume; CTPelvic1K datasets 1-5 are absent; the
+`allspine_v2..v5c` banks were deleted on 2026-09-20 (`10_data_platform_grid/MANIFEST_GRID.md`,
+`_plan/inventories/grid_manifest.md`).
 
 ## Where the plan is
 
