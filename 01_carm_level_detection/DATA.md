@@ -52,7 +52,8 @@ records it, and every check is (Greg only).
   alias `allspine_v9_fov96_ctx_rung_1_aug2`, sha256 prefix 188f9fcbfa3c6de1. Not in a recorded batch.
   Check (Greg only): `ls -ld /wsu/home/go/go24/go2432/allspine_v9_fov96_ctx/runs/model_rung_1_aug2.pt`.
 - `HOME/allspine_v9_fov96_ctx/rung_1.npz`, `meta.json` — HOME (Panasas). The v9 level bank the encoder, the film N-curve
-  and the fold banks read; **holds BUU pixels, owner-only**; 5,449,315,625 B and 73,837 B.
+  and the fold banks read; **holds BUU pixels** (batch B11, restricted in the plan; owner-only until 2026-10-12, then
+  readable by approved students after visibility job 40599867, issue #65); 5,449,315,625 B and 73,837 B.
   Check (Greg only): `ls -ld /wsu/home/go/go24/go2432/allspine_v9_fov96_ctx/rung_1.npz` — the byte count above.
 - `HOME/model_night/heads_mixed/head_allspine_v9_mixed_kmax4_seed0.pt` (+ `.arch.json`) — HOME (Panasas). The recurrent
   head (Linear 512 to 256 + GELU, two-layer BiGRU(256), Linear 512 to 27; runs of 2 to 9 bodies; no alphabet loss);
@@ -63,10 +64,10 @@ records it, and every check is (Greg only).
   fold encoders behind Table 3 (v9init); the banks beside them hold 2,632 VinDr and 2,100 FluoroCap crops
   (`docs/handoff/DATASET_USAGE.md` 3.2); 3.37 to 3.41 GB per folder; aliases exist
   (`carm_cvmix0_fov96_ctx_rung_1_ft_cv0_v9init_aug2`), no sha256 (S0). Batch **B10** (`~/carm_*` to
-  `CEPH/data/carmlspine/derived/`, `LAYOUT.md` L306-324), not started at the 2026-10-08 pass; B10 is among the batches
-  running on 2026-10-12 (issue #11).
+  `CEPH/data/carmlspine/derived/`, `LAYOUT.md` L306-324), not started at the 2026-10-08 pass; B10's state since is
+  `../10_data_platform_grid/MANIFEST_GRID.md` section 2 (finalized 2026-10-12).
   Check (Greg only): `ls -ld /wsu/home/go/go24/go2432/carm_cvmix0_fov96_ctx/runs/model_rung_1_ft_cv0_v9init_aug2.pt` —
-  the same line with k = 1 to 4 checks the other four. Once B10 lands, a student's check is
+  the same line with k = 1 to 4 checks the other four. With B10 finalized, a student's check is
   `ls -ld /rs/rs_grp_oschome/go2432/data/carmlspine/derived`.
 - `HOME/carm_cvmix{0..4}_fov96_ctx/runs/model_rung_1_ft_cv{k}_aug2.pt` (un-suffixed) — HOME (Panasas). v2-initialised
   fold models; **the evaluation gate refuses them (bank deleted). Do not use.** Size not recorded. Batch B10.
@@ -169,8 +170,8 @@ facts make readable by approved students; the HOME rows at the end are not reach
   `surgio_b51_dr/raw/display`, `varian_halcyon`), `lodo/` (`rescore_outline.md` is the 90.6 / 83.9 % source), `audit/`,
   `eval_gate/`, `indomain/`, `lcurve/`, `arc/`, `coverage/`, `crossdev/`, `devlodo/`, `devpool/`, `fig3_detection*`,
   `fig4_pairs*`, `film_ncurve/`, `learning*`, `corpus_manifold/`, `auto_reference/`; 867.951 GB. The **B13** results
-  move (627 GB) is Greg's decision (`docs/handoff/OPEN_QUESTIONS.md` A26); B13 is among the batches running on
-  2026-10-12 (issue #11).
+  move (627 GB) is Greg's decision (`docs/handoff/OPEN_QUESTIONS.md` A26); B13's state since is
+  `../10_data_platform_grid/MANIFEST_GRID.md` section 2.
   Check: `ls -ld /rs/rs_grp_oschome/go2432/data/or_ready` — a readable directory.
 - `CEPH/data/or_ready/cine/` — **ABSENT** at the 2026-10-08 listing: no cine inference, tracking or latency run has ever
   happened. S1 and S2 write it.
@@ -207,8 +208,8 @@ facts make readable by approved students; the HOME rows at the end are not reach
   Check (Greg only): `ls -ld /wsu/home/go/go24/go2432/bench/runtime_cost.json` — the expected result today is "No such
   file or directory".
 - `HOME/split_final.json`, `HOME/patient_keys*.json` — HOME (Panasas). The identity tables (one split over people);
-  8,065,646 B (`split_final.json`). Batch **B11**, not started at the 2026-10-08 pass; B11 is among the batches running
-  on 2026-10-12 (issue #11). **Owner: project 10** (its `MANIFEST_GRID.md` section 6, "owned here, read by every model
+  8,065,646 B (`split_final.json`). Batch **B11**, not started at the 2026-10-08 pass; B11's state since is
+  `../10_data_platform_grid/MANIFEST_GRID.md` section 2. **Owner: project 10** (its `MANIFEST_GRID.md` section 6, "owned here, read by every model
   folder"); read here, never redrawn. **On HOME, not reachable until migrated.**
   Check (Greg only): `ls -ld /wsu/home/go/go24/go2432/split_final.json` — a read check only; the tables are read in
   jobs, never printed.
@@ -256,11 +257,19 @@ facts make readable by approved students; the HOME rows at the end are not reach
   volume root; other-read bits on folders and files), **including** `vindr_spinexr`, `buu_lspine_3600`,
   `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and `spine_detector_corpus`, because every approved student holds the
   PhysioNet credential and the VinDr and BUU agreements.
-- **The one closed path is**
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.
-  **Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students**; items still there are being
-  moved to the Ceph volume by the data-platform plan (batches B05, B10, B11, B13 running on 2026-10-12), and every such
-  item above is marked "on HOME, not reachable until migrated".
+- **On 2026-10-12 the VinDr and BUU items inside those folders opened too.** Until then the plan's `restricted` flag
+  still closed them item by item, mode `drwx--S---` (`vindr/raw`, `buu_full`, `buu_v1`, BUU-LSPINE 2000, the VinDr and
+  BUU banks of B10 and B11, `dis_renders`); the script was fixed (spinesurg-ct-nnunet d9b388d) and visibility jobs
+  40599886 (the B04, B05, B10 and B14 folders) and 40599867 (after B13's finalize, every chain folder including
+  `multisource_banks`) open them (issue #65).
+- **Two paths stay closed (owner-only):**
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, private build material
+  and not a dataset, and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`, until Greg reads
+  its Zenodo upload scripts for a token (issue #65;
+  `../10_data_platform_grid/code/data_platform/plan/publish_visibility.sh`, from spinesurg-ct-nnunet d9b388d).
+  **Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students**; items still there are moved
+  to the Ceph volume by the data-platform plan, whose batch-by-batch state is `../10_data_platform_grid/MANIFEST_GRID.md`
+  section 2, and every such item above is marked "on HOME, not reachable until migrated".
 
 These facts are newer than this folder's records and supersede the `MANIFEST_GRID.md` header rule where they disagree
 (it says, as of 2026-10-08 and citing `docs/handoff/INFRASTRUCTURE.md` sections 2.2 and 4, that `go2432/` below the Ceph
@@ -283,9 +292,12 @@ means a named ACL entry `user:<AccessID>:rwx` on `/rs/rs_grp_oschome` (issue #11
 
 The two access facts, repeated: every folder under `/rs/rs_grp_oschome/go2432/data/` is readable by an approved student
 (the named ACL entry on the volume root; other-read bits on folders and files), including the VinDr and BUU folders,
-because every approved student holds the PhysioNet credential and the VinDr and BUU agreements; the one closed path is
-`/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, and nothing on
-`/wsu/home/go/go24/go2432` is readable by students until the data-platform batches move it to Ceph.
+because every approved student holds the PhysioNet credential and the VinDr and BUU agreements, and since 2026-10-12
+the VinDr and BUU items inside them; two paths stay closed,
+`/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private` (private build material, not
+a dataset) and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` (until Greg reads its Zenodo
+upload scripts for a token); and nothing on `/wsu/home/go/go24/go2432` is readable by students until the data-platform
+batches move it to Ceph.
 
 ## First experiment: S1, the latency of the reported stack (S0, the registration, comes first)
 
@@ -300,7 +312,8 @@ sha256; `git status` clean for the C-arm tools. S0 depends on nothing; S1 depend
 1. Write the `docs/MODEL_CARD.md` section 6.6 job **as a file**, `slurm/runtime_cost.sh`, never `--wrap` (the card
    records how a multi-line `--wrap` body silently runs python with no arguments). The card's block: partition
    `gvohp,galhp`, qos `gpu`, one GPU, 16 CPUs, 64 G, `--time 08:00:00`, output under
-   `/wsu/home/go/go24/go2432/model_night/logs/`, python `$HOME/mambaforge/envs/spinedet/bin/python`, submitted
+   `/wsu/home/go/go24/go2432/model_night/logs/`, python `$HOME/mambaforge/envs/spinedet/bin/python` (Greg's, in his
+   HOME; a student's environment is `../11_students_grid_access/STUDENT_ENV.md`, issue #66), submitted
    `sbatch -D ~/spinesurg-ct-nnunet` — a batch job, nothing on the login node.
 2. The job runs `eval_runtime_cost.py --selftest` first (inside the job; it stops a run that would time a wrong
    architecture), then the GPU run with `--out $HOME/bench/runtime_cost.json`

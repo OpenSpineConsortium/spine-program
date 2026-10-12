@@ -6,8 +6,8 @@ afterwards. "Verified" means read with `ls`, `head -c` or `wc -l` through `wsl -
 (the pass is recorded in `../10_data_platform_grid/`, PLAN.md section 2 rule 8); nothing was written on the grid. Sizes
 are those a file or the pass recorded; "not recorded" otherwise. Migration states come from
 `spinesurg-ct-nnunet:data_platform/LAYOUT.md`, `MIGRATION_PLAN.md`, `DATA_MANIFEST.md` and
-`docs/handoff/OPEN_QUESTIONS.md` B30 (last recorded: B00, B01, B02, B03, B06, B08, B14 cut over; B04, B07, B09 copying);
-the per-batch truth is `plan/runs/<B>/STATUS` on the grid (`docs/handoff/README.md` section 3).
+`docs/handoff/OPEN_QUESTIONS.md` B30; the state of each batch is `../10_data_platform_grid/MANIFEST_GRID.md` section 2,
+and the per-batch truth is `plan/runs/<B>/STATUS` on the grid (`docs/handoff/README.md` section 3).
 
 Rules that apply to every path here: nothing runs on the login node; read a bank only inside a job; `go2432/` below the
 Ceph gate stays closed to students, and every bank holding VinDr or BUU pixels is owner-only

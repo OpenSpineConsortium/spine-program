@@ -31,10 +31,11 @@ these on the login node warrior, which kills python, rsync, node, md5sum and oth
   `head -c 300 /rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/README.md`
   returns the deposit README.
 - `/wsu/home/go/go24/go2432/data/CTSpinoPelvic1K.pre-ceph` — HOME; 196 GB (census). The HOME original
-  of the v11 working copy, kept until FINALIZE, which is Greg's call (`OPEN_QUESTIONS.md` A26).
-  **On HOME, not reachable until migrated** (the readable copy is the Ceph path above).
-  Check (Greg only): `ls -ld /wsu/home/go/go24/go2432/data/CTSpinoPelvic1K.pre-ceph` — a directory;
-  a student's `ls` is refused.
+  of the v11 working copy. FINALIZE deletes a `.pre-ceph` copy, and B02 was finalized on 2026-10-11
+  (`../10_data_platform_grid/MANIFEST_GRID.md` section 2), so it is expected absent and the Ceph path
+  above is the only copy. **On HOME, not reachable until migrated.**
+  Check (Greg only): `ls -ld /wsu/home/go/go24/go2432/data/CTSpinoPelvic1K.pre-ceph` — expected to
+  answer "No such file or directory".
 - `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive` — Ceph; 13 files,
   6,236,530,062 B (B02 STATUS). Staging of the published build archive, Zenodo 10.5281/zenodo.22647933
   (tag `v10-build-archive`; `docs/ctsp/BUILD_CHAIN.md`); a deletion candidate in the migration plan but
@@ -45,8 +46,9 @@ these on the login node warrior, which kills python, rsync, node, md5sum and oth
   Check: `ls -ld /rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_stage`
   — a readable directory (the 2,474 is the B02 STATUS recursive count).
 - `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private` — Ceph;
-  one file, 592 B. Owner-only (`LAYOUT.md` rule 8). **The one closed path** under
-  `/rs/rs_grp_oschome/go2432/data/` (Greg, 2026-10-11, issue #6).
+  one file, 592 B. Owner-only (`LAYOUT.md` rule 8). One of **the two closed paths** under
+  `/rs/rs_grp_oschome/go2432/data/`: private build material, not a dataset (Greg, 2026-10-11, issue #6;
+  issue #65).
   Check: `ls -ld /rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`
   — owner-only mode; a student's `ls` of its contents is refused, and that refusal is the expected result.
 - `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` — Ceph; 835 files,
@@ -54,10 +56,10 @@ these on the login node warrior, which kills python, rsync, node, md5sum and oth
   `out/v11_labels` is the release labels byte for byte (dedup A07: 802 identical, 1.19 GB). The folder
   records it as restricted: it stays owner-only until its upload scripts are read for a token — a
   reason other than VinDr or BUU — and opening it is Greg's decision (`MANIFEST_GRID.md` section 1;
-  `OPEN_QUESTIONS.md` A26). Greg's 2026-10-11 facts name `build_archive_private` as the one closed
-  path; whether `s1v11` was opened between 2026-10-08 and 2026-10-11 is not recorded in the folder.
-  Check: `ls -ld /rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` — the mode
-  shown settles which statement holds today.
+  `OPEN_QUESTIONS.md` A26). **Owner-only (`drwx--S---`, read 2026-10-12) until Greg reads the upload
+  scripts**: the second of the two closed paths (issue #65; Access, below).
+  Check: `ls -ld /rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` — owner-only
+  mode; a student's `ls` of its contents is refused, and that refusal is the expected result.
 - `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/qc_2026-06-12.tar.gz` — Ceph;
   196,147,947 B (B14 STATUS). Pelvis-propagation QC renders of 2026-06-12; possibly the only copy
   (`MIGRATION_PLAN.md` section 8; the laptop twin was not copied). `~/qc.tar.gz` in Greg's HOME is a
@@ -178,9 +180,9 @@ of them is refused today.
   `manuscripts/neurips_camera_ready/CAMERA_READY_CHANGES.md` item 22).
 - `/rs/rs_grp_oschome/go2432/data/ctsp_april` is **world-writable** (`drwxrwxrwx`) — a flag for Greg
   (`MANIFEST_GRID.md` section 1; `DATA_MANIFEST.md` family A hazard 5).
-- The folder records **`s1v11` as restricted**: owner-only until its upload scripts are read for a
-  token — a reason other than VinDr or BUU — with opening it Greg's decision (`MANIFEST_GRID.md`
-  section 1; `OPEN_QUESTIONS.md` A26).
+- The folder records **`s1v11` as restricted**: owner-only (`drwx--S---`, read 2026-10-12, issue #65)
+  until Greg reads its upload scripts for a token — a reason other than VinDr or BUU — with opening it
+  Greg's decision (`MANIFEST_GRID.md` section 1; `OPEN_QUESTIONS.md` A26).
 - Any other terms question is **not recorded in the folder**.
 
 ## Access — Greg's facts of 2026-10-11 (issue #6)
@@ -189,11 +191,23 @@ of them is refused today.
   ACL entry on the volume root; other-read bits on folders and files), **including** `vindr_spinexr`,
   `buu_lspine_3600`, `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and `spine_detector_corpus`, because
   every approved student holds the PhysioNet credential and the VinDr and BUU agreements.
-- **The one closed path is**
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.
+- **On 2026-10-12 the VinDr and BUU items inside those folders opened too.** Until then the plan's
+  `restricted` flag still closed them item by item, mode `drwx--S---` (`vindr/raw`, `buu_full`,
+  `buu_v1`, BUU-LSPINE 2000, the VinDr and BUU banks of B10 and B11, `dis_renders`); the script was
+  fixed (spinesurg-ct-nnunet d9b388d) and visibility jobs 40599886 (the B04, B05, B10 and B14 folders)
+  and 40599867 (after B13's finalize, every chain folder including `multisource_banks`) open them
+  (issue #65).
+- **Two paths stay closed (owner-only):**
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, private
+  build material and not a dataset, and
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`, until Greg reads its
+  Zenodo upload scripts for a token (issue #65;
+  `../10_data_platform_grid/code/data_platform/plan/publish_visibility.sh`, from spinesurg-ct-nnunet
+  d9b388d).
   **Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students**; items still
-  there are being moved to the Ceph volume by the data-platform plan (batches B05, B10, B11, B13
-  running on 2026-10-12), and each such item above is marked "on HOME, not reachable until migrated".
+  there are moved to the Ceph volume by the data-platform plan, whose batch-by-batch state is
+  `../10_data_platform_grid/MANIFEST_GRID.md` section 2, and each such item above is marked "on HOME,
+  not reachable until migrated".
 
 These facts are newer than the folder's records and supersede two of them where they disagree:
 `docs/handoff/RECIPES.md` section 0 item 9 ("`go2432/` below the Ceph gate stays closed to students",
@@ -217,9 +231,12 @@ or Max subscription, and Chrome on the invited Google account
 The two access facts, repeated: every folder under `/rs/rs_grp_oschome/go2432/data/` is readable by an
 approved student (the named ACL entry on the volume root; other-read bits on folders and files),
 including the VinDr and BUU folders, because every approved student holds the PhysioNet credential and
-the VinDr and BUU agreements; the one closed path is
-`/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, and nothing
-on `/wsu/home/go/go24/go2432` is readable by students until the data-platform batches move it to Ceph.
+the VinDr and BUU agreements, and since 2026-10-12 the VinDr and BUU items inside them; two paths stay
+closed, `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`
+(private build material, not a dataset) and
+`/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` (until Greg reads its Zenodo
+upload scripts for a token); and nothing on `/wsu/home/go/go24/go2432` is readable by students until the
+data-platform batches move it to Ceph.
 
 ## First experiment: the two release gates on the v11 labels
 
@@ -252,7 +269,8 @@ with a cleanup trap; write each job id with a timestamp into the project's `JOBS
 estimate the wall time, record the ids and the ETA, stop (`docs/handoff/RECIPES.md` section 0 items
 3-4; `CLAUDE.md` rule 7). The recorded python is `~/mambaforge/envs/spineps/bin/python` with
 `PYTHONNOUSERSITE=1` — in Greg's HOME (`docs/handoff/RECIPES.md` section 0 item 5), which the
-2026-10-11 facts leave unreadable to students; what python a student uses instead is not recorded.
+2026-10-11 facts leave unreadable to students; a student's environment is
+`../11_students_grid_access/STUDENT_ENV.md` (issue #66).
 The gates' own wall time is not recorded (the label-only extractors of the same chain run 15-30
 minutes at 20 workers, RECIPES.md section 9 item 3).
 
