@@ -22,8 +22,24 @@ seen in a listing and nothing more. Sizes are bytes where a STATUS file measured
 
 Vocabulary (plan section 3): VERIFIED / ABSENT / RSYNC_FAILED / VERIFY_FAILED / DST_EXISTS per item; "cut over" = the
 HOME original renamed `<path>.pre-ceph` and a symlink left at the old path; FINALIZE = a second comparison, then the
-`.pre-ceph` copy deleted (the only step that frees HOME quota). **No batch is finalized**: every cut-over item still has
-its `.pre-ceph` twin in the HOME listing (GRIDLS "ls HOME", "ls ~/data", "ls ~/CTSpinoPelvic1K/data").
+`.pre-ceph` copy deleted (the only step that frees HOME quota). **Every batch with data was finalized on 2026-10-11;
+B05, B10, B11 and B13 were running on 2026-10-12** (the paragraph below; on 2026-10-08 every cut-over item still had
+its `.pre-ceph` twin in the HOME listing, GRIDLS "ls HOME", "ls ~/data", "ls ~/CTSpinoPelvic1K/data").
+
+**State on 2026-10-11 (Greg's data-platform record).** Greg's record of 2026-10-11 (issue #49). Every batch with data
+is copied, verified, cut over and FINALIZED, the `.pre-ceph` originals deleted after a full comparison: B00, B01, B02
+(5 items), B04 (27), B06 (14), B07 (5), B08, B09 (7; FluoroCap 316 GB), B14 (9); B03 had nothing to move; B12 was
+dropped. HOME went from 4,051 GB to 1,902 GB of the 4,295 GB soft limit. B05 (BUU-LSPINE 2000), B10 and B11 (the
+banks) and B13 (results, 627 GB) were submitted as one chain on 2026-10-11 (migrate, cut over, finalize, visibility)
+and were running on 2026-10-12; their HOME items are "on HOME, not reachable until migrated" until that chain's
+finalize, after which the Ceph target of each item in `batch_items/B05`, `B10`, `B11`, `B13`
+(`code/data_platform/plan/batch_items/`) is the readable path. Dedup links were applied on 2026-10-11 for groups A01
+(185 VerSe'19 files, 8.4 GB), A05 (1,226 TotalSegmentator v2.0.1 CTs, 22.5 GB), A06 (3), A11 (77) and A15 (965); A14
+(Mendeley twice) was refused on 1,412 read-only files and is to be rerun after a chmod; the A04 and A13 removals and
+A07 wait on Greg; the guarded deletion job for the TotalSegmentator release zips and the NHANES extracted pickles was
+submitted on 2026-10-11. Visibility as of 2026-10-11: every folder under `/rs/rs_grp_oschome/go2432/data/` is readable
+by approved students, including the VinDr, BUU, Mendeley and `spine_detector_corpus` folders; the one closed path is
+`/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.
 
 | batch | HOME source (full path) | Ceph target (full path) | STATUS on the grid | size | state | verified |
 |---|---|---|---|---|---|---|
