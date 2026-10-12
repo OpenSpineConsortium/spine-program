@@ -54,7 +54,7 @@ marked **on HOME, not reachable until migrated**, with its migration state besid
 ## 3. The roots of the superseded numbers (`MANIFEST_GRID.md` section 3; names only)
 
 Every row is on HOME, not reachable until migrated. Only three are in a batch: `bench` and `ablate` are B13 and
-`scaling` is B11, part of the chain running on 2026-10-12 (`batch_items/B13.tsv`, `B11.tsv`). B13 lands under
+`scaling` is B11 (`batch_items/B13.tsv`, `B11.tsv`; the state of both batches is folder 10, section 2). B13 lands under
 `/rs/rs_grp_oschome/go2432/results/` (folder 10, section 2, row B13), not under `/rs/rs_grp_oschome/go2432/data/`;
 whether students can read that folder is not recorded. Of `lstv_flag`, B11 moves only `renders`, `renders_verse`,
 `renders_ctrl` and `smoke`, not the result files named below. The other rows are in no batch.
@@ -112,11 +112,19 @@ These paths get no check line. They are never read, listed into a file, or copie
   volume root, other-read bits on folders and files. That includes `vindr_spinexr`, `buu_lspine_3600`,
   `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and `spine_detector_corpus`, because every approved student holds the
   PhysioNet credential and the VinDr and BUU agreements.
-- **The one closed path is
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.**
-- **Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students.** Items still there are being
-  moved to the Ceph volume by the data-platform plan (batches B05, B10, B11 and B13 running on 2026-10-12). Every HOME
-  row above is marked 'on HOME, not reachable until migrated'.
+- **On 2026-10-12 the VinDr and BUU items inside those folders opened too.** Until then the plan's `restricted` flag
+  still closed them item by item, mode `drwx--S---` (`vindr/raw`, `buu_full`, `buu_v1`, BUU-LSPINE 2000, the VinDr and
+  BUU banks of B10 and B11, `dis_renders`); the script was fixed (spinesurg-ct-nnunet d9b388d) and visibility jobs
+  40599886 (the B04, B05, B10 and B14 folders) and 40599867 (after B13's finalize, every chain folder including
+  `multisource_banks`) open them (issue #65).
+- **Two paths stay closed (owner-only):**
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, private build material
+  and not a dataset, and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`, until Greg reads
+  its Zenodo upload scripts for a token (issue #65;
+  `10_data_platform_grid/code/data_platform/plan/publish_visibility.sh`, from spinesurg-ct-nnunet d9b388d).
+- **Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students.** Items still there are moved
+  to the Ceph volume by the data-platform plan, whose batch-by-batch state is folder 10, section 2. Every HOME row above
+  is marked 'on HOME, not reachable until migrated'.
 
 For this folder that means: the two Ceph paths under `/rs/rs_grp_oschome/go2432/data/` (the RSNA archive and the
 FluoroCap landing folder) are readable by approved students; `/rs/rs_grp_oschome/go2432/private_ip` is not under
@@ -134,8 +142,10 @@ Authenticator grid code, Claude Pro or Max, and Chrome on the invited Google acc
 The two access facts again, because every row above depends on them:
 
 - every folder under `/rs/rs_grp_oschome/go2432/data/` is readable by approved students (a named ACL entry on the
-  volume root; other-read bits on folders and files), and the one closed path is
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`;
+  volume root; other-read bits on folders and files), and since 2026-10-12 the VinDr and BUU items inside them; two
+  paths stay closed, `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`
+  (private build material, not a dataset) and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`
+  (until Greg reads its Zenodo upload scripts for a token);
 - nothing on `/wsu/home/go/go24/go2432` is readable by students until the data-platform plan has moved it to Ceph.
 
 Run the check lines above from the Beethoven worker. This folder submits no job (`CLAUDE.md`, "The standing rules").

@@ -21,11 +21,20 @@ check.
   volume root, other-read bits on folders and files. That includes `vindr_spinexr`, `buu_lspine_3600`,
   `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and `spine_detector_corpus`, because every approved student holds the
   PhysioNet credential and the VinDr and BUU agreements.
-- The one closed path is `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.
-- Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students. Items still there are being
-  moved to the Ceph volume by the data-platform plan (batches B05, B10, B11, B13 running on 2026-10-12). Every such
-  item in the tables below is marked **on HOME, not reachable until migrated**; Greg runs those check lines until the
-  batches land.
+- On 2026-10-12 the VinDr and BUU items inside those folders opened too. Until then the plan's `restricted` flag
+  still closed them item by item, mode `drwx--S---` (`vindr/raw`, `buu_full`, `buu_v1`, BUU-LSPINE 2000, the VinDr and
+  BUU banks of B10 and B11, `dis_renders`); the script was fixed (spinesurg-ct-nnunet d9b388d) and visibility jobs
+  40599886 (the B04, B05, B10 and B14 folders) and 40599867 (after B13's finalize, every chain folder including
+  `multisource_banks`) open them (issue #65).
+- Two paths stay closed (owner-only):
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, private build material
+  and not a dataset, and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`, until Greg reads
+  its Zenodo upload scripts for a token (issue #65;
+  `../10_data_platform_grid/code/data_platform/plan/publish_visibility.sh`, from spinesurg-ct-nnunet d9b388d).
+- Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students. Items still there are moved to
+  the Ceph volume by the data-platform plan, whose batch-by-batch state is `../10_data_platform_grid/MANIFEST_GRID.md`
+  section 2. Every such item in the tables below is marked **on HOME, not reachable until migrated**; Greg runs those
+  check lines until the batches land.
 - `/rs/rs_grp_oschome/go2432/ruleclass` and `/rs/rs_grp_oschome/go2432/cns2026_posterior` sit at the Ceph root, not
   under `data/`, and the access facts above do not speak for them: whether a student can read them is not recorded.
   If a check there is refused, Greg runs it (issue #9).
@@ -44,10 +53,14 @@ The two access facts again, because they decide what a check line can answer:
 
 - Every folder under `/rs/rs_grp_oschome/go2432/data/` is readable by approved students (named ACL entry on the
   volume root; other-read bits on folders and files), including `vindr_spinexr`, `buu_lspine_3600`,
-  `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and `spine_detector_corpus`; the one closed path is
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.
+  `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and `spine_detector_corpus` and, since 2026-10-12, the VinDr and BUU
+  items inside them; two paths stay closed,
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private` (private build material,
+  not a dataset) and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` (until Greg reads its
+  Zenodo upload scripts for a token).
 - Nothing on `/wsu/home/go/go24/go2432` is readable by students; items still there are marked **on HOME, not
-  reachable until migrated** below, and Greg runs the HOME check lines until batches B05, B10, B11 and B13 land.
+  reachable until migrated** below, and Greg runs the HOME check lines until the data-platform batches move them
+  (`../10_data_platform_grid/MANIFEST_GRID.md` section 2).
 
 ## 3. The ruleclass census (`MANIFEST_GRID.md` section 1; Ceph, at the volume root, not under `data/`)
 
@@ -90,7 +103,7 @@ The two access facts again, because they decide what a check line can answer:
 | `/rs/rs_grp_oschome/go2432/data/ctpelvic1k_clinic` | Ceph | CTPelvic1K datasets 6-7 (172 CTs); 14.832 GB | Ceph-native; CTPelvic1K datasets 1-5 are on neither volume (B03 row 002 ABSENT): re-download in a job if needed | `ls -ld /rs/rs_grp_oschome/go2432/data/ctpelvic1k_clinic` |
 | `/rs/rs_grp_oschome/go2432/data/csi2014` | Ceph | CSI 2014, 20 CTs; 6.641 GB | Ceph-native | `ls -ld /rs/rs_grp_oschome/go2432/data/csi2014` |
 | `/rs/rs_grp_oschome/go2432/data/spineps` | Ceph | SPINEPS harvest masks; 8.834 GB census | Ceph-native; masks before commit 147428d carry raw ids (section 7 below; `memory/spineps-ids-can-be-scrambled.md`) | `ls -ld /rs/rs_grp_oschome/go2432/data/spineps` |
-| `/rs/rs_grp_oschome/go2432/data/validation_ts` | Ceph | the 70 externally labelled TotalSegmentator CTs as links into `~/data/TotalSegmentator`; 0 (links) | Ceph-native, but the link targets sit on HOME until B07 lands (`MANIFEST_GRID.md` section 4): the links resolve for no student until then | `ls -ld /rs/rs_grp_oschome/go2432/data/validation_ts` |
+| `/rs/rs_grp_oschome/go2432/data/validation_ts` | Ceph | the 70 externally labelled TotalSegmentator CTs as links into `~/data/TotalSegmentator`; 0 (links) | Ceph-native, but the links point into `~/data/TotalSegmentator` on HOME (`MANIFEST_GRID.md` section 4); B07 cut that tree over to Ceph and was finalized on 2026-10-11 (`../10_data_platform_grid/MANIFEST_GRID.md` section 2); whether the links now resolve for a student is not recorded | `ls -ld /rs/rs_grp_oschome/go2432/data/validation_ts` |
 | `/rs/rs_grp_oschome/go2432/data/rare_class` | Ceph | rare-class renders (MAXIMIZE); 5.797 GB census | Ceph-native (`STATUS.md` D.10) | `ls -ld /rs/rs_grp_oschome/go2432/data/rare_class` |
 | `/rs/rs_grp_oschome/go2432/data/d815_repair` | Ceph | the Dataset815 flag repair of 2026-09-23; 0.001 GB | Ceph-native (`TODO.md` step 11) | `ls -ld /rs/rs_grp_oschome/go2432/data/d815_repair` |
 
@@ -102,7 +115,7 @@ The two access facts again, because they decide what a check line can answer:
 | `/rs/rs_grp_oschome/go2432/data/versefusion/derived/vf_813` | Ceph | the Dataset815 input conversion (C1-T9 sent to ignore); 49,427,512,778 B STATUS (1,130 files) | B06 cut over, VERIFIED; never for whole-spine work (`MEMORY.md`) | `ls -ld /rs/rs_grp_oschome/go2432/data/versefusion/derived/vf_813` |
 | `/rs/rs_grp_oschome/go2432/data/versefusion/derived/vf_813_probe` | Ceph | unknown probe output of 2026-09-12; 139,428,370 B STATUS (4 files) | B06 cut over, VERIFIED; role not recorded | `ls -ld /rs/rs_grp_oschome/go2432/data/versefusion/derived/vf_813_probe` |
 | `/rs/rs_grp_oschome/go2432/data/versefusion/derived/verse_drr` | Ceph | VerSe renders; holds 13 `glgl*` byte twins; 477,053,118 B (1,492 files) | B06 cut over, VERIFIED; `STATUS.md` D.25; dedup A04 removal_preferred | `ls -ld /rs/rs_grp_oschome/go2432/data/versefusion/derived/verse_drr` |
-| `/wsu/home/go/go24/go2432/VerSeFusion` | HOME | the VerSeFusion pipeline checkout (`.git`); `data` is a symlink to `/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data` since 2026-10-08 10:39; `data.pre-ceph` still present (no batch is finalized); checkout small, `data.pre-ceph` 139 GB | B06 cut over, not finalized; **on HOME, not reachable until migrated** (the data itself is readable at the Ceph target above) | `ls -ld /wsu/home/go/go24/go2432/VerSeFusion` (Greg runs it) |
+| `/wsu/home/go/go24/go2432/VerSeFusion` | HOME | the VerSeFusion pipeline checkout (`.git`); `data` is a symlink to `/rs/rs_grp_oschome/go2432/data/versefusion/raw/VerSeFusion_data` since 2026-10-08 10:39; `data.pre-ceph` (139 GB) was present on 2026-10-08 and went with B06's FINALIZE of 2026-10-11 (`../10_data_platform_grid/MANIFEST_GRID.md` section 2); checkout small | B06 cut over and finalized; **on HOME, not reachable until migrated** (the data itself is readable at the Ceph target above) | `ls -ld /wsu/home/go/go24/go2432/VerSeFusion` (Greg runs it) |
 | `/wsu/home/go/go24/go2432/VerseFusion` (file, 24,769 B) and `/wsu/home/go/go24/go2432/VerSeFusion.tar.gz` | HOME | unknown; contents not recorded | **on HOME, not reachable until migrated** | `head -c 200 /wsu/home/go/go24/go2432/VerseFusion; head -c 200 /wsu/home/go/go24/go2432/VerSeFusion.tar.gz` (Greg runs it) |
 
 ## 6. Labellers, weights and benches (`MANIFEST_GRID.md` section 4; all on HOME)
@@ -113,15 +126,15 @@ named, none is recorded.
 
 | path (as the manifest spells it) | volume | holds | state | check, from the Beethoven worker |
 |---|---|---|---|---|
-| `/wsu/home/go/go24/go2432/bench_ts` | HOME | SPINEPS+VERIDAH over 1,228 TS v2 + 374 VerSe CTs (`cases.csv`, `spineps/native/`); 1.511 GB census; 31 "relabelled" masks are links back to raw masks (`docs/handoff/RECIPES.md` section 3.5) | B11 not started on 2026-10-08; running on 2026-10-12 (issue #9); on HOME, not reachable until migrated | `ls -ld /wsu/home/go/go24/go2432/bench_ts` |
+| `/wsu/home/go/go24/go2432/bench_ts` | HOME | SPINEPS+VERIDAH over 1,228 TS v2 + 374 VerSe CTs (`cases.csv`, `spineps/native/`); 1.511 GB census; 31 "relabelled" masks are links back to raw masks (`docs/handoff/RECIPES.md` section 3.5) | B11 not started on 2026-10-08; B11's state since is `../10_data_platform_grid/MANIFEST_GRID.md` section 2; on HOME, not reachable until migrated | `ls -ld /wsu/home/go/go24/go2432/bench_ts` |
 | `/wsu/home/go/go24/go2432/totalseg_weights` | HOME | TotalSegmentator weights (labeller B); not sized | on HOME, not reachable until migrated; batch not recorded | `ls -ld /wsu/home/go/go24/go2432/totalseg_weights` |
 | `/wsu/home/go/go24/go2432/spineps_models` | HOME | SPINEPS model weights (labeller A); not sized | on HOME, not reachable until migrated; batch not recorded | `ls -ld /wsu/home/go/go24/go2432/spineps_models` |
 | `/wsu/home/go/go24/go2432/rib-segmentation` | HOME | the Moller rib nnU-Net checkout (Zenodo 14864106, folds 0-2; arm B); not sized | on HOME, not reachable until migrated; batch not recorded | `ls -ld /wsu/home/go/go24/go2432/rib-segmentation` |
 | `/wsu/home/go/go24/go2432/model_night/anomaly_manifest` | HOME | `anomaly_manifest.csv`, `spine_classes.json`, `summary.json` (2026-09-17; `STATUS.md` D.1); not sized | on HOME, not reachable until migrated; batch not recorded | `ls -ld /wsu/home/go/go24/go2432/model_night/anomaly_manifest` |
-| `/wsu/home/go/go24/go2432/lstv_flag` | HOME | `LEARNING_CURVE.md`, `LSTV_FLAG_RESULTS.md`, `ANOMALY_INVENTORY.md`, `_lstv_phenotypes.csv`, `models/` (registered flag models), the master flag table `lstv_flag_labels_v2.csv` (not seen in the `head -30` of the pass); not sized | B11; running on 2026-10-12 (issue #9); on HOME, not reachable until migrated | `ls -ld /wsu/home/go/go24/go2432/lstv_flag` |
+| `/wsu/home/go/go24/go2432/lstv_flag` | HOME | `LEARNING_CURVE.md`, `LSTV_FLAG_RESULTS.md`, `ANOMALY_INVENTORY.md`, `_lstv_phenotypes.csv`, `models/` (registered flag models), the master flag table `lstv_flag_labels_v2.csv` (not seen in the `head -30` of the pass); not sized | B11, whose state is `../10_data_platform_grid/MANIFEST_GRID.md` section 2; on HOME, not reachable until migrated | `ls -ld /wsu/home/go/go24/go2432/lstv_flag` |
 | `/wsu/home/go/go24/go2432/data/TotalSegmentator` (the v2 release, 1,228 CTs), `/wsu/home/go/go24/go2432/data/TotalSegmentator_v3` (1,939) | HOME | the two TS releases; 82.0 / 89.8 GB du (B07.tsv); `/rs/rs_grp_oschome/go2432/data/validation_ts/raw/*` links point into the v2 tree | B07 copying on 2026-10-08 (no STATUS yet); on HOME, not reachable until migrated | `ls -ld /wsu/home/go/go24/go2432/data/{TotalSegmentator,TotalSegmentator_v3}` |
 | `/wsu/home/go/go24/go2432/lstv-detector` | HOME | the MRI lstv-detector tree; its results survive only in `results/aaca_lstv_mri/` | **ABSENT** on 2026-10-08 | `ls -ld /wsu/home/go/go24/go2432/lstv-detector` (expect: no such file — that answer is the check; Greg runs it) |
-| `/wsu/home/go/go24/go2432/split_final.json`, `split_leak_report.json` | HOME | the frozen G3 person split (apply 2026-09-23 20:18:48, seed 0, job 40426793); leak audit PASS; never rerun in place (`docs/handoff/RECIPES.md` section 3.1 step 4); small | B11; running on 2026-10-12 (issue #9); on HOME, not reachable until migrated | `head -c 200 /wsu/home/go/go24/go2432/{split_final.json,split_leak_report.json}` (Greg runs it) |
+| `/wsu/home/go/go24/go2432/split_final.json`, `split_leak_report.json` | HOME | the frozen G3 person split (apply 2026-09-23 20:18:48, seed 0, job 40426793); leak audit PASS; never rerun in place (`docs/handoff/RECIPES.md` section 3.1 step 4); small | B11, whose state is `../10_data_platform_grid/MANIFEST_GRID.md` section 2; on HOME, not reachable until migrated | `head -c 200 /wsu/home/go/go24/go2432/{split_final.json,split_leak_report.json}` (Greg runs it) |
 | `/wsu/home/go/go24/go2432/spinesurg-ct-nnunet` | HOME | the grid checkout, behind the laptop (4e3fe93 against 097933a) and unable to fetch; ship by `git archive \| ssh tar` (`docs/handoff/RECIPES.md` section 0) | on HOME, not reachable by students; the repository itself is private (root `CLAUDE.md` rule 8) | `ls -ld /wsu/home/go/go24/go2432/spinesurg-ct-nnunet` |
 
 ## 7. Terms, where the folder records them
@@ -162,8 +175,9 @@ answers open questions B1 to B5:
 Whether a student can read `/rs/rs_grp_oschome/go2432/ruleclass` and `/rs/rs_grp_oschome/go2432/cns2026_posterior`
 (the access facts of 2026-10-11 cover `data/` only; section 1); the state of any grid path after the dates the
 manifest records (the read-only pass of 2026-10-08, the arm A STATUS of 2026-09-29) beyond the access facts of
-2026-10-11; what arm B finished after 2026-09-27 and whether the Moller full configuration finished; the contents of
-`arms/pelvis/<collection>` and PANORAMA's row counts (the first experiment reads them); the cause of the 33-CT gap
-and of the census table's one-high counts (OQ B3, B5); the sizes marked "not sized" in section 6; the outcome of
-batches B05, B10, B11 and B13 said to run on 2026-10-12 (no STATUS for them is in this folder); the terms of every
-path section 7 does not name.
+2026-10-11 and 2026-10-12; what arm B finished after 2026-09-27 and whether the Moller full configuration finished;
+the contents of `arms/pelvis/<collection>` and PANORAMA's row counts (the first experiment reads them); the cause of
+the 33-CT gap and of the census table's one-high counts (OQ B3, B5); the sizes marked "not sized" in section 6; the
+STATUS lines of the batches finalized since 2026-10-08 (their state is `../10_data_platform_grid/MANIFEST_GRID.md`
+section 2; no STATUS for them is in this folder); the outcome of visibility jobs 40599886 and 40599867; the terms of
+every path section 7 does not name.

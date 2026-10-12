@@ -38,8 +38,9 @@ All four sit under `/rs/rs_grp_oschome/go2432`, which the manifest records as cl
 
 Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students (access facts of 2026-10-11,
 issue #5). Each path below is therefore marked **on HOME, not reachable until migrated**; whether any one of them
-moves in the data-platform batches B05, B10, B11 or B13 (running on 2026-10-12) is not recorded in this folder, and
-the manifest's header records that none of its paths was a batch item as of 2026-10-08 (`MANIFEST_GRID.md` header).
+moves in a data-platform batch is not recorded in this folder (the state of each batch is
+`../10_data_platform_grid/MANIFEST_GRID.md` section 2), and the manifest's header records that none of its paths was a
+batch item as of 2026-10-08 (`MANIFEST_GRID.md` header).
 A student's check line on these paths tests the closure itself; the exact error a student sees is not recorded.
 
 | path | volume | what it holds | who may read it | read-only check (from the Beethoven worker) |
@@ -78,10 +79,19 @@ section B; `docs/handoff/OPEN_QUESTIONS.md` B34).
   volume root; other-read bits on folders and files), including `vindr_spinexr`, `buu_lspine_3600`,
   `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and `spine_detector_corpus`, because every approved student holds
   the PhysioNet credential and the VinDr and BUU agreements.
-- The one closed path is `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`.
-  Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students; items still there are being
-  moved to the Ceph volume by the data-platform plan (batches B05, B10, B11, B13 running on 2026-10-12), and this
-  file marks each such item "on HOME, not reachable until migrated" (sections 3 and 4 above).
+- On 2026-10-12 the VinDr and BUU items inside those folders opened too. Until then the plan's `restricted` flag
+  still closed them item by item, mode `drwx--S---` (`vindr/raw`, `buu_full`, `buu_v1`, BUU-LSPINE 2000, the VinDr
+  and BUU banks of B10 and B11, `dis_renders`); the script was fixed (spinesurg-ct-nnunet d9b388d) and visibility
+  jobs 40599886 (the B04, B05, B10 and B14 folders) and 40599867 (after B13's finalize, every chain folder including
+  `multisource_banks`) open them (issue #65).
+- Two paths stay closed (owner-only):
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, private build material
+  and not a dataset, and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`, until Greg reads
+  its Zenodo upload scripts for a token (issue #65;
+  `../10_data_platform_grid/code/data_platform/plan/publish_visibility.sh`, from spinesurg-ct-nnunet d9b388d).
+  Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students; items still there are moved to
+  the Ceph volume by the data-platform plan, whose batch-by-batch state is `../10_data_platform_grid/MANIFEST_GRID.md`
+  section 2, and this file marks each such item "on HOME, not reachable until migrated" (sections 3 and 4 above).
 
 The manifest's row of 2026-10-02 records `go2432/` itself as closed (`drwxr-s---`; `MANIFEST_GRID.md` section 1);
 the mode that lets a student pass through `go2432/` to `data/` on 2026-10-11 is not recorded in this folder.
@@ -99,9 +109,12 @@ invited Google account. Approved means a named ACL entry `user:<AccessID>:rwx` o
   `vindr_spinexr`, `buu_lspine_3600`, `buu_lspine_v1_smoke`, `mendeley_5jdfdgp762` and `spine_detector_corpus`,
   because every approved student holds the PhysioNet credential and the VinDr and BUU agreements (2026-10-11,
   issue #5).
-- The one closed path is `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`,
-  and nothing on `/wsu/home/go/go24/go2432` is readable by students; what is still there is marked "on HOME, not
-  reachable until migrated" (2026-10-11, issue #5).
+- Since 2026-10-12 the VinDr and BUU items inside those folders are open too (visibility jobs 40599886 and
+  40599867, issue #65). Two paths stay closed,
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private` (private build material,
+  not a dataset) and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` (until Greg reads its
+  Zenodo upload scripts for a token), and nothing on `/wsu/home/go/go24/go2432` is readable by students; what is still
+  there is marked "on HOME, not reachable until migrated" (2026-10-11, issue #5; 2026-10-12, issue #65).
 
 ## First experiment: the first week
 
