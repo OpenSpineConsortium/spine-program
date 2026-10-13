@@ -25,10 +25,10 @@ TotalSegmentator reaches the level bank, and the oblique arc is the only route t
 
 ## Reader
 
-Greg-only until Greg confirms (`../_plan/PLAN.md` section 3, project 08 "Reader"): the sweep and physics
+Greg-only for claiming and hand-outs (`../_plan/PLAN.md` section 3, project 08 "Reader"): the sweep and physics
 documents describe invention aspects, the render banks derive from NC-licensed data, and one memory note was
 redacted by hand (`memory/learned-formation-refuted-calibrate-instead.md`: two clinicians' names struck, a staff
-member and a faculty member named by their roles, a staff contact withheld; `MANIFEST_LOCAL.md` section 3). The whole `spine-program` repository is private; "Greg-only" is about hand-outs.
+member and a faculty member named by their roles, a staff contact withheld; `MANIFEST_LOCAL.md` section 3). The whole `spine-program` repository is private; "Greg-only" is about hand-outs. Every Write holder may read this folder, and a student takes an issue here only after Greg hands it out, with a comment naming the student's login or by removing the label `greg-first` (Greg's answer of 2026-10-12, issue #68).
 
 ## Where things are
 

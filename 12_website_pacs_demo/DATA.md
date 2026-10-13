@@ -82,13 +82,12 @@ Two notes the manifest carries with these rows:
   `dis_renders`); the script was fixed (spinesurg-ct-nnunet d9b388d) and visibility jobs
   40599886 (the B04, B05, B10 and B14 folders) and 40599867 (after B13's finalize, every chain
   folder including `multisource_banks`) open them (issue #65).
-- **Two paths stay closed (owner-only):**
+- **One path stays closed (owner-only):**
   `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`,
-  private build material and not a dataset, and
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`, until Greg reads its
-  Zenodo upload scripts for a token (issue #65;
-  `../10_data_platform_grid/code/data_platform/plan/publish_visibility.sh`, from
-  spinesurg-ct-nnunet d9b388d).
+  whose one file is the annotator map, students' personal data rather than a dataset or a token
+  (Greg, issue #69). `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`
+  opened on 2026-10-12 without the token check (spinesurg-ct-nnunet 0ab783f; visibility job
+  40602925, issue #69).
 - Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students; items
   still there are moved to the Ceph volume by the data-platform plan, whose batch-by-batch state
   is `../10_data_platform_grid/MANIFEST_GRID.md` section 2. Every HOME row above is marked
@@ -108,11 +107,10 @@ The two access facts, again, because everything above depends on them:
 
 - every folder under `/rs/rs_grp_oschome/go2432/data/` is readable by approved students (named
   ACL entry on the volume root; other-read bits on folders and files), and since 2026-10-12 the
-  VinDr and BUU items inside them; two paths stay closed,
+  VinDr and BUU items inside them and
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`; one path stays closed,
   `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`
-  (private build material, not a dataset) and
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` (until Greg reads its
-  Zenodo upload scripts for a token);
+  (the annotator map, students' personal data);
 - nothing on `/wsu/home/go/go24/go2432` is readable by students until the data-platform plan has
   moved it to Ceph.
 
@@ -143,6 +141,6 @@ cloned, pulled and built where it is edited. Nothing in this experiment touches 
    gallery meshes under `assets/gallery/`. What the counts are at a17ea39 is not recorded in the
    folder; a pull that changes them is read before it is trusted.
 
-The folder is student-safe (the site is public and its names are there by design); a hand-out
-waits on Greg's answers to `docs/handoff/OPEN_QUESTIONS.md` A29 and A30 (`README.md`;
-`TODO.md` step 14).
+The folder is student-safe (the site is public and its names are there by design); Greg answered
+`docs/handoff/OPEN_QUESTIONS.md` A29 on 2026-10-12: every Write holder may read all 13 folders
+(issue #68; `TODO.md` step 14).

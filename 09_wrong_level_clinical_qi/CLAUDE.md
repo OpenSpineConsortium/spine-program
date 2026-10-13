@@ -9,7 +9,9 @@ level reached, transitional anatomy; `manuscripts/qi_universal_protocol/main.tex
 hospital test in `01_carm_level_detection` needs at its steps S5 and S8. Nothing in this folder runs a model. Every piece
 starts only with Greg's go-ahead (`docs/handoff/MANUSCRIPTS.md` section 21 item 8).
 
-**Reader: Greg-only.** The QI manuscript describes the sweep from the sacrum and the persistent digital fiducial, which
+**Reader: Greg-only**, for claiming and hand-outs, not for reading: every Write holder may read this folder, and a
+student takes an issue here only after Greg hands it out, with a comment naming the student's login or by removing the
+label `greg-first` (Greg's answer of 2026-10-12, issue #68). The QI manuscript describes the sweep from the sacrum and the persistent digital fiducial, which
 are invention aspects, and stays private until Greg confirms the provisional is filed (`docs/handoff/MANUSCRIPTS.md`
 section 5). The review and the clinical paper may be split into a student-safe folder once Greg names the first author
 (`_plan/PLAN.md` section 3, folder 09). Built 2026-10-08 from `spinesurg-ct-nnunet` 097933a and `CTSpinoPelvic1K`

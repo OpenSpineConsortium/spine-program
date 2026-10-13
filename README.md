@@ -40,7 +40,7 @@ transitional and 01's hospital plan cannot be written without 02's truth file (`
 | 07 | `07_plain_film_level_id` | Plain-film level identification and the radiograph corner detector | Greg-only | medium: held-out corner numbers are real; the film naming numbers are leaked or wrong-bank; venue windows passed | 10, 03, 01, 04 |
 | 08 | `08_render_devices` | Image formation: DRR banks, device cards, PolyPose and synthetic-to-real | Greg-only | low as a claim (styled corpora failed the pre-stated 97 % on two of three devices), medium as support for 01 and 05 | 10, 03, 02 |
 | 09 | `09_wrong_level_clinical_qi` | Wrong-level surgery: the iliac-crest paper, the scoping review and the QI protocol | Greg-only | medium-low near term: the iliac-crest number is v5-era, the review needs human charting, the QI protocol waits on 01 | 05, 01, Greg |
-| 10 | `10_data_platform_grid` | The data platform: 211 sources, the Ceph migration, identity and leakage, grid operations | student-safe after Greg confirms OQ A29 | support; mechanical and high (three migration jobs were running on 2026-10-08) | Greg's per-batch decisions |
+| 10 | `10_data_platform_grid` | The data platform: 211 sources, the Ceph migration, identity and leakage, grid operations | student-safe | support; mechanical and high (three migration jobs were running on 2026-10-08) | Greg's per-batch decisions |
 | 11 | `11_students_grid_access` | Students on the grid: Beethoven, onboarding, the lab recipe and the med-ed record | Greg-only until the Beethoven notes are redacted; the guides student-safe | support; operational (release 14.0.0 in field use) with two unfixed field failures | 10 |
 | 12 | `12_website_pacs_demo` | The public site, the PACS demo and the level-service client | student-safe | support; operational (PACS demo 1,360 ms); the level service is not live | 01, 04, 05, 11 |
 | 99 | `99_archive` | Archive: superseded, refuted and dormant work kept as a record | Greg-only | not a project to work; a record with the reason each item is here | none |
@@ -99,10 +99,11 @@ near term. First step: recompute the iliac-crest statistic on v11 labels with `l
 **10 Data platform and grid.** One record of where every imaging source came from, where it sits (HOME versus Ceph), its
 migration and verification state batch by batch, the identity and leakage rules every bank must pass, the model registry
 and the grid operating rules. Support, mechanical and high; nearly everything else depends on it. On 2026-10-12 (Greg,
-issue #63): every batch with data was finalized on 2026-10-11; B05, B10 and B11 were finalized on 2026-10-12 and B13 was
-finalizing; HOME stood at 1,334 GB of the 4,295 GB soft limit; every folder under `/rs/rs_grp_oschome/go2432/data/` was
-readable by approved students except `ctspinopelvic1k_build_tree/derived/build_archive_private` and
-`ctspinopelvic1k_build_tree/derived/s1v11` (owner-only until its Zenodo upload scripts are read for a token). First step:
+issue #68) the migration chain completed at 08:41 EDT: every batch with data is copied, verified, cut over and
+finalized; HOME stood at 520 GB of the 4,295 GB soft limit; every folder under `/rs/rs_grp_oschome/go2432/data/` is
+readable by approved students except `ctspinopelvic1k_build_tree/derived/build_archive_private` (its one file is the
+annotator map, students' personal data), `ctspinopelvic1k_build_tree/derived/s1v11` included since visibility job
+40602925 (issue #69). First step:
 build the holding index (`TODO.md` step 3); the folder's `TODO.md` still words steps 1 and 2 as they stood on
 2026-10-08. Open issues: #17, #18.
 
@@ -125,10 +126,11 @@ A student given this repository starts from this page alone. There are two ways 
 on the student's own computer, and the four paragraphs below hold for both.
 
 Greg first gives the student Write on `OpenSpineConsortium/spine-program` (a collaborator invite) and makes the label
-`account:<GitHub login>`; the claim file's Account line is that login. GitHub Write gives read access to every folder,
-the Greg-only folders included: "Greg-only" governs claiming and hand-outs, not reading. An issue labelled `greg-first`,
-or one whose folder's `CLAUDE.md` names Greg as its reader, is claimed by a student only after Greg hands it out with a
-comment on the issue naming the student's login.
+`account:<GitHub login>`; the claim file's Account line is that login. Write means the student may read all 13 folders,
+the Greg-only ones included (Greg's answer of 2026-10-12, issue #68): "Greg-only" and the label `greg-first` govern
+claiming and hand-outs, not reading. An issue labelled `greg-first`, or one in a folder marked Greg-only, is claimed by a
+student only after Greg hands it out, either with a comment on the issue naming the student's login or by removing the
+label `greg-first`.
 
 How work is claimed is [docs/agents/PROTOCOL.md](docs/agents/PROTOCOL.md). Four labels drive it: todo marks the queue,
 and an issue labelled todo that the board shows unclaimed is free to take. Claimed means an account has pushed its
@@ -230,16 +232,21 @@ every inventory row and where it went is `_plan/DISPOSITION.tsv`.
 
 ## The grid in one paragraph
 
-The grid as it stood on 2026-10-12 (Greg, issue #63). Every migration batch with data was finalized on 2026-10-11 (B00,
-B01, B02, B04, B06, B07, B08, B09 and B14, each `.pre-ceph` original deleted after a full comparison; B03 had nothing to
-move; B12 was dropped; `10_data_platform_grid/DATA.md`, Greg's record of 2026-10-11, issue #49). B05, B10 and B11,
-submitted with B13 as one chain on 2026-10-11, were finalized on 2026-10-12, and B13 was finalizing. HOME
-`/wsu/home/go/go24/go2432` stood at 1,334 GB of the 4,295 GB soft limit (4,050.75 GB of 4,294.97 GB on 2026-10-08,
-`10_data_platform_grid/MANIFEST_GRID.md`); Ceph `/rs/rs_grp_oschome/go2432` held 7 of 20 TB on 2026-10-08, and its use on
-2026-10-12 is not recorded. Every folder under `/rs/rs_grp_oschome/go2432/data/` was readable by approved students except
-`ctspinopelvic1k_build_tree/derived/build_archive_private` and `ctspinopelvic1k_build_tree/derived/s1v11`, which stays
-owner-only until its Zenodo upload scripts are read for a token (`03_ctspinopelvic1k_dataset/DATA.md`); nothing on HOME is
-readable by students (`10_data_platform_grid/DATA.md` section 1). The per-batch truth is
+The grid as it stood on 2026-10-12 (Greg, issues #68 and #72; `10_data_platform_grid/MANIFEST_GRID.md` section 2).
+Every migration batch with data was finalized on 2026-10-11 (B00, B01, B02, B04, B06, B07, B08, B09 and B14, each
+`.pre-ceph` original deleted after a full comparison; B03 had nothing to move; B12 was dropped; Greg's record of
+2026-10-11, issue #49). B05, B10, B11 and B13, submitted as one chain on 2026-10-11, completed at 08:41 EDT on
+2026-10-12: every batch with data is copied, verified, cut over and finalized (B13 3/3), with no refusal. Visibility job
+40599867 opened the VinDr and BUU banks in `multisource_banks`; dedup group A14 linked 1,413 files; job 40599718 deleted
+the TotalSegmentator v3.0.0 zip (37.4 GB) and the NHANES extracted pickles (159 GB), and job 40602927 deletes the v2.0.1
+zip (23.58 GB). HOME `/wsu/home/go/go24/go2432` stood at 520 GB of the 4,295 GB soft limit (4,050.75 GB of 4,294.97 GB
+on 2026-10-08); Ceph `/rs/rs_grp_oschome/go2432` held 9 of 20 TB. Every folder under `/rs/rs_grp_oschome/go2432/data/`
+is readable by approved students, `ctspinopelvic1k_build_tree/derived/s1v11` included (opened without the token check by
+visibility job 40602925, issue #69), except `ctspinopelvic1k_build_tree/derived/build_archive_private`, whose one file is
+the annotator map (students' personal data, not a dataset or a token). Job 40602926 opened
+`/rs/rs_grp_oschome/go2432/envs/spineps212` and `/rs/rs_grp_oschome/go2432/results` to approved students
+(`11_students_grid_access/STUDENT_ENV.md`); nothing on HOME is readable by students (`10_data_platform_grid/DATA.md`
+section 1). The per-batch truth is
 `~/spinesurg-ct-nnunet/data_platform/plan/runs/<B>/STATUS` on the grid. Known losses, as recorded on 2026-10-08: the TCIA
 CT Colonography raw and NIfTI trees (1,057 GB) are on neither volume; CTPelvic1K datasets 1-5 are absent; the
 `allspine_v2..v5c` banks were deleted on 2026-09-20 (`10_data_platform_grid/MANIFEST_GRID.md`,

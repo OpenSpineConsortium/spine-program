@@ -1,9 +1,10 @@
 # 11_students_grid_access: working context
 
 Students on the grid: Beethoven, onboarding, the lab recipe and the medical-education record. Rank 11 of 12 in
-`spine-program` (a support project, not a hypothesis). Reader: Greg-only until Greg confirms the redacted Beethoven
-notes may stay (PLAN section 5); student-safe afterwards for the guides, the recipe and the tutorials, never for the
-compliance, licensing and roster material.
+`spine-program` (a support project, not a hypothesis). Reader: every Write holder may read this
+folder (Greg's answer of 2026-10-12 to OPEN_QUESTIONS A29, issue #68). Hand-outs: Greg-only until Greg confirms the
+redacted Beethoven notes may stay (PLAN section 5); student-safe afterwards for the guides, the recipe and the
+tutorials, never for the compliance, licensing and roster material.
 
 ## The goal in one paragraph
 
@@ -139,10 +140,12 @@ workers. No finding is expected from this project; its product is students produ
   (`docs/handoff/RECIPES.md` section 0 item 9), and nothing under `/wsu/home/go/go24/go2432` is readable by students: a
   recipe step that reads Greg's HOME waits until its item is migrated to Ceph. Every folder under
   `/rs/rs_grp_oschome/go2432/data/` is readable by approved students except
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private` and
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` (Greg's access facts of 2026-10-11, issue
-  #5 and `DATA.md`; the `s1v11` exception, issue #62; the paths as `03_ctspinopelvic1k_dataset/MANIFEST_GRID.md` spells
-  them).
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, whose one file is the
+  annotator map, students' personal data (Greg's access facts of 2026-10-11, issue #5 and `DATA.md`; the paths as
+  `03_ctspinopelvic1k_dataset/MANIFEST_GRID.md` spells them). The `s1v11` exception of issue #62 ended on 2026-10-12:
+  visibility job 40602925 opened `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` without
+  the token check (Greg, issue #69). Job 40602926 opened `/rs/rs_grp_oschome/go2432/envs/spineps212` and
+  `/rs/rs_grp_oschome/go2432/results` the same day (`STUDENT_ENV.md`).
 - **The review Spaces.** Each per-task Space has its own ledger (`anonymous-mlhc/CTSpinoPelvic1K-reviews-<slug>`,
   slugs spine, ribs, nerve, ili, classfix, triaged); pointing a tool at the wrong one returns 0 cases with no error;
   a plain Restart can reseed from a cached old index, Factory reboot forces a fresh download (`docs/handoff/
@@ -165,5 +168,6 @@ workers. No finding is expected from this project; its product is students produ
 Say plainly what is not known: whether the two Beethoven commits are pushed, whether 10.0.0 or any later build was
 ever submitted to the Chrome Web Store, whether Beethoven for VS Code 4.0.0 reached the Marketplace, the current
 roster, and whether `git` survives on warrior are all "not recorded" on 2026-10-08. Prefer a measurement on the grid
-to a reading of the panel. Before any student receives this folder, Greg confirms the reader split (OPEN_QUESTIONS
-A29, A30) and whether the six Beethoven notes stay.
+to a reading of the panel. Greg answered the reader split (OPEN_QUESTIONS A29) on 2026-10-12: every Write holder may
+read this folder (issue #68). Before any student receives a hand-out cut from it, Greg confirms whether the six
+Beethoven notes stay.

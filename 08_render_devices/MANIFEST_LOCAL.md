@@ -507,7 +507,7 @@ The abstract table (section 12 of `MANUSCRIPTS.md` and its twin in topic 4) stil
 
 ## Redactions of 2026-10-12 (issue #67)
 
-The values of private tag (0029,0016) in the Surgio-B51 header census of the C-ArmLSpine release are replaced by `[withheld]`; this section gives kinds and counts, never values. The history of main before this change still holds the values; whether to rewrite it is Greg's decision (issue #71). Where a table above gives one of these files' bytes or sha1, it is the file before this edit.
+The values of private tag (0029,0016) in the Surgio-B51 header census of the C-ArmLSpine release are replaced by `[withheld]`; this section gives kinds and counts, never values. The history of main before this change still holds the values, and it stays: Greg chose on 2026-10-12 to keep the history of main as it is, with no rewrite (issue #71, option (a)). Where a table above gives one of these files' bytes or sha1, it is the file before this edit.
 
 - `results/devices/census/surgio_b51__headers.json`: the six listed (0029,0016) values replaced by `[withheld]`, the header count beside each kept; the file still parses as JSON.
 - `results/devices/census/surgio_b51__headers.md`: the four listed (0029,0016) values replaced by `[withheld]` and their count.

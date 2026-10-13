@@ -12,6 +12,8 @@ NOT RECORDED = known to have run, result in no file on the laptop; SUPERSEDED = 
 **Rigor marks**: [AUTO-TRUTH] the truth is two labellers agreeing or one labeller's read, not a human read;
 [WORDING] a printed sentence overstates the file; [E] an expectation (prior times probability), not an observation.
 
+**2026-10-12, who reads what.** Greg answered OPEN_QUESTIONS A29 on issue #68, option (a): every Write holder may read all 13 folders; "Greg-only" and the label `greg-first` govern claiming and hand-outs, not reading. The `docs/handoff` copies keep their older wording.
+
 ## 1. The anomaly scan (catalog Part D)
 
 | id | claim | file | status |

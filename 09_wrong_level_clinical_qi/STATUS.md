@@ -4,6 +4,8 @@ Every number names its file. Rigor marks and status words are those of `docs/han
 read a row"): CURRENT, SUPERSEDED, RECORD ONLY, OPEN; [LEAK], [SEL-SPLIT], [THR]. Rows without a catalog id were not
 catalogued on 2026-10-08 and say so. Where a file and the catalog disagree, the catalog wins.
 
+**2026-10-12, who reads what.** Greg answered OPEN_QUESTIONS A29 on issue #68, option (a): every Write holder may read all 13 folders; "Greg-only" and the label `greg-first` govern claiming and hand-outs, not reading. The `docs/handoff` copies keep their older wording.
+
 ## 1. The iliac-crest clinical paper
 
 | id | claim with its number | file | status |

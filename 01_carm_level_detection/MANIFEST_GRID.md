@@ -12,8 +12,9 @@ and the per-batch truth is `plan/runs/<B>/STATUS` on the grid (`docs/handoff/REA
 Rules that apply to every path here: nothing runs on the login node; read a bank only inside a job. What a student can
 read is `DATA.md` section "Access": every folder under `CEPH/data/`, nothing on HOME; the banks holding VinDr or BUU pixels,
 owner-only until 2026-10-12 (`docs/handoff/INFRASTRUCTURE.md` sections 2.2, 4), are readable by approved students after
-visibility jobs 40599886 and 40599867, and two paths stay owner-only, `CEPH/data/ctspinopelvic1k_build_tree/derived/
-build_archive_private` and `CEPH/data/ctspinopelvic1k_build_tree/derived/s1v11` (issue #65). The case134 headers under `CEPH/data/carmlspine` carry a real
+visibility jobs 40599886 and 40599867, and one path stays owner-only, `CEPH/data/ctspinopelvic1k_build_tree/derived/
+build_archive_private` (issue #65); `CEPH/data/ctspinopelvic1k_build_tree/derived/s1v11` opened on 2026-10-12 (visibility
+job 40602925, issue #69). The case134 headers under `CEPH/data/carmlspine` carry a real
 PatientID: never print a header field.
 
 ## 1. The reported stack: weights (HOME)

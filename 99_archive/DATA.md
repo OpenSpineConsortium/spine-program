@@ -56,7 +56,8 @@ marked **on HOME, not reachable until migrated**, with its migration state besid
 Every row is on HOME, not reachable until migrated. Only three are in a batch: `bench` and `ablate` are B13 and
 `scaling` is B11 (`batch_items/B13.tsv`, `B11.tsv`; the state of both batches is folder 10, section 2). B13 lands under
 `/rs/rs_grp_oschome/go2432/results/` (folder 10, section 2, row B13), not under `/rs/rs_grp_oschome/go2432/data/`;
-whether students can read that folder is not recorded. Of `lstv_flag`, B11 moves only `renders`, `renders_verse`,
+job 40602926 opened that folder to approved students on 2026-10-12 (Greg, issue #72), and B13 was finalized the same
+day (issue #68). Of `lstv_flag`, B11 moves only `renders`, `renders_verse`,
 `renders_ctrl` and `smoke`, not the result files named below. The other rows are in no batch.
 
 | path | volume | catalog row | what it was | status word | check line |
@@ -117,11 +118,11 @@ These paths get no check line. They are never read, listed into a file, or copie
   BUU banks of B10 and B11, `dis_renders`); the script was fixed (spinesurg-ct-nnunet d9b388d) and visibility jobs
   40599886 (the B04, B05, B10 and B14 folders) and 40599867 (after B13's finalize, every chain folder including
   `multisource_banks`) open them (issue #65).
-- **Two paths stay closed (owner-only):**
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, private build material
-  and not a dataset, and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`, until Greg reads
-  its Zenodo upload scripts for a token (issue #65;
-  `10_data_platform_grid/code/data_platform/plan/publish_visibility.sh`, from spinesurg-ct-nnunet d9b388d).
+- **One path stays closed (owner-only):**
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, whose one file is the
+  annotator map, students' personal data rather than a dataset or a token (Greg, issue #69).
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` opened on 2026-10-12 without the token
+  check (spinesurg-ct-nnunet 0ab783f; visibility job 40602925, issue #69).
 - **Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students.** Items still there are moved
   to the Ceph volume by the data-platform plan, whose batch-by-batch state is folder 10, section 2. Every HOME row above
   is marked 'on HOME, not reachable until migrated'.
@@ -142,10 +143,10 @@ Authenticator grid code, Claude Pro or Max, and Chrome on the invited Google acc
 The two access facts again, because every row above depends on them:
 
 - every folder under `/rs/rs_grp_oschome/go2432/data/` is readable by approved students (a named ACL entry on the
-  volume root; other-read bits on folders and files), and since 2026-10-12 the VinDr and BUU items inside them; two
-  paths stay closed, `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`
-  (private build material, not a dataset) and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`
-  (until Greg reads its Zenodo upload scripts for a token);
+  volume root; other-read bits on folders and files), and since 2026-10-12 the VinDr and BUU items inside them and
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`; one path stays closed,
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private` (the annotator map,
+  students' personal data);
 - nothing on `/wsu/home/go/go24/go2432` is readable by students until the data-platform plan has moved it to Ceph.
 
 Run the check lines above from the Beethoven worker. This folder submits no job (`CLAUDE.md`, "The standing rules").

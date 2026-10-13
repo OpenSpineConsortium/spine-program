@@ -2544,7 +2544,7 @@ The abstract table (section 12 of `MANUSCRIPTS.md` and its twin in topic 4) stil
 
 ## Redactions of 2026-10-12 (issue #67)
 
-The readiness review of 2026-10-12 found header values of the C-ArmLSpine release printed in two files of this folder, against the rule "never print a header field" (`CLAUDE.md`). Each value is replaced in place by `[withheld]`; this section gives kinds and counts, never values. The history of main before this change still holds the values; whether to rewrite it is Greg's decision (issue #71). Where a table above gives one of these files' bytes or sha1, it is the file before this edit.
+The readiness review of 2026-10-12 found header values of the C-ArmLSpine release printed in two files of this folder, against the rule "never print a header field" (`CLAUDE.md`). Each value is replaced in place by `[withheld]`; this section gives kinds and counts, never values. The history of main before this change still holds the values, and it stays: Greg chose on 2026-10-12 to keep the history of main as it is, with no rewrite (issue #71, option (a)). Where a table above gives one of these files' bytes or sha1, it is the file before this edit.
 
 | file | withheld | kept |
 |---|---|---|

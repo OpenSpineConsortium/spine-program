@@ -38,7 +38,7 @@ protocol are frozen.
 | A18 | Who is the stage-2 reader "Dr Tech"; the co-investigator's full name and spelling | S3, S5 need named people; the Protocol 1 draft writes "[Dr To]" |
 | A19 | Keep or delete the RSNA 2022 cervical archive (237 GB of HOME); is it covered by HPR 2026-269? | quota and IRB scope |
 | A26 | Migration decisions: deletions (1,590.3 GB candidates), the B13 results move (627 GB), DUA / EULA folder permissions | `CEPH/data/or_ready` (868 GB) and `HOME/scaling` (129 GB) are this project's |
-| A29, A30 | Confirm the reader split; keep, redact or delete the withheld personal data before any commit | this folder is Greg-only; nothing here goes to a student |
+| A29, A30 | Answered by Greg on 2026-10-12 (issue #68): every Write holder may read all 13 folders, this one included; the withheld personal data stays out (root `CLAUDE.md` rule 12) | this folder stays Greg-only for claiming and hand-outs: a student takes an issue here only after Greg hands it out, with a comment naming the student's login or by removing the label `greg-first` |
 | (RD) | The BUU licence: may weights trained with BUU laterals leave the grid? | the v9 bank holds 3,603 BUU laterals; S2 ships weights off the grid to the private HF repository: Greg decides first |
 | (PLAN) | Which track the hospital test is on: a research study on the research track is consistent with the two-track rule | the commercial goal appears in no student-facing document |
 

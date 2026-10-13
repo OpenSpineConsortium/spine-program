@@ -5,8 +5,8 @@ them (its sources are the one read-only grid pass of 2026-10-08 22:20 UTC and th
 count below comes from that manifest). The access facts are Greg's, dated 2026-10-11, given in issue #8; where they and an
 older recorded statement disagree, both are shown with their dates. What no file records is written "not recorded".
 
-Reader: this folder is student-safe once Greg confirms the reader split (`CLAUDE.md` first paragraph;
-`docs/handoff/OPEN_QUESTIONS.md` A29, A30).
+Reader: this folder is student-safe; Greg answered the reader split (`CLAUDE.md` first paragraph;
+`docs/handoff/OPEN_QUESTIONS.md` A29) on 2026-10-12: every Write holder may read all 13 folders (issue #68).
 
 Conventions. `HOME` = `/wsu/home/go/go24/go2432` (Greg's home directory, the Panasas volume, 4.3 TB soft quota);
 `RS` = `/rs/rs_grp_oschome/go2432` (the Ceph volume, CephFS, 20 TB, group `oschome`) (`MANIFEST_GRID.md` header). In a
@@ -88,11 +88,10 @@ refusal, and the item is marked **on HOME, not reachable until migrated**.
   audit script copies, the logs of jobs 40198228 (s1_v11), 40198880 (v11_morph), 40309073 (verify_v11), 40309160
   (package_v11), `out/v11_labels`, `out/s1_carve_audit.csv`, `morphometrics/surgical_morphometrics.csv`,
   `out/dataset_labels_v11.json`, and the Zenodo v11 upload scripts and state. 835 files, 1,189,924,200 B. VERIFIED: B14
-  item 008, sampled 200; restricted, irreplaceable. **Owner-only (`drwx--S---`, read 2026-10-12, issue #65) until Greg
-  reads its upload scripts for a token** (see Terms): one of the two closed paths (Access, below); a student's `ls` of
-  its contents is refused, and that refusal is the expected result.
-  Check: `ls -ld /rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` — owner-only bits are the
-  expected answer.
+  item 008, sampled 200; irreplaceable. Owner-only (`drwx--S---`) when read on 2026-10-12 (issue #65); **readable by
+  approved students since visibility job 40602925 of 2026-10-12**, opened without the token check (Greg, issue #69;
+  see Terms).
+  Check: `ls -ld /rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` — a readable directory.
 - `RS/data/ctspinopelvic1k_build_tree/derived/qc_2026-06-12.tar.gz` — Ceph. Pelvis-propagation QC renders (03's; listed
   because it sits beside the scratch); 196,147,947 B. VERIFIED: B14 item 001.
   Check: `head -c 200 /rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/qc_2026-06-12.tar.gz` — gzip
@@ -162,9 +161,8 @@ refusal, and the item is marked **on HOME, not reachable until migrated**.
 - The release is **CTSpinoPelvic1K v11, CC BY-NC-SA 4.0** (issue #8; `docs/handoff/INFRASTRUCTURE.md` line 54:
   CTSpine1K and everything derived from it, CTSpinoPelvic1K included, is CC BY-NC-SA; Zenodo 10.5281/zenodo.22797014,
   `README.md` "What this is").
-- **03 records `s1v11` as restricted** until its upload scripts are read for a token (issue #8; this folder's
-  `MANIFEST_GRID.md` section 2: owner-only `drwx--S---` until its upload scripts are read for a token, Greg's step;
-  still owner-only when read on 2026-10-12, issue #65).
+- **`s1v11` is open**: owner-only `drwx--S---` when read on 2026-10-12 (issue #65), it was opened to approved students
+  the same day without the token check, by Greg's decision (visibility job 40602925, issue #69).
 - **The Ljubljana specimen of `TODO.md` step 4 is read-only under its ND licence** (issue #8; `TODO.md` step 4 names it
   as an n-1 check at gold pose, read-only under its ND licence; the specimen is the PIXIUM 4600 cadaver, 18 frames, one
   cadaver L1-L5, parameters only, `docs/handoff/DATASET_USAGE.md` section 2.3 and `docs/handoff/GLOSSARY.md`).
@@ -184,11 +182,11 @@ refusal, and the item is marked **on HOME, not reachable until migrated**.
   BUU banks of B10 and B11, `dis_renders`); the script was fixed (spinesurg-ct-nnunet d9b388d) and visibility jobs
   40599886 (the B04, B05, B10 and B14 folders) and 40599867 (after B13's finalize, every chain folder including
   `multisource_banks`) open them (issue #65).
-- **Two paths stay closed (owner-only):**
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, private build material
-  and not a dataset, and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`, until Greg reads
-  its Zenodo upload scripts for a token (issue #65;
-  `../10_data_platform_grid/code/data_platform/plan/publish_visibility.sh`, from spinesurg-ct-nnunet d9b388d).
+- **One path stays closed (owner-only):**
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, whose one file is the
+  annotator map, students' personal data rather than a dataset or a token (Greg, issue #69).
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` opened on 2026-10-12 without the token
+  check (spinesurg-ct-nnunet 0ab783f; visibility job 40602925, issue #69).
   **Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students**; items still there are moved
   to the Ceph volume by the data-platform plan, whose batch-by-batch state is `../10_data_platform_grid/MANIFEST_GRID.md`
   section 2, and every such item above is marked "on HOME, not reachable until migrated".
@@ -212,10 +210,9 @@ means a named ACL entry `user:<AccessID>:rwx` on `/rs/rs_grp_oschome` (issue #8;
 The two access facts, repeated: every folder under `/rs/rs_grp_oschome/go2432/data/` is readable by an approved student
 (the named ACL entry on the volume root; other-read bits on folders and files), including the VinDr and BUU folders,
 because every approved student holds the PhysioNet credential and the VinDr and BUU agreements, and since 2026-10-12
-the VinDr and BUU items inside them; two paths stay closed,
-`/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private` (private build material, not
-a dataset) and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` (until Greg reads its Zenodo
-upload scripts for a token); and nothing on `/wsu/home/go/go24/go2432` is readable by students until the data-platform
+the VinDr and BUU items inside them and `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`;
+one path stays closed, `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private` (the
+annotator map, students' personal data); and nothing on `/wsu/home/go/go24/go2432` is readable by students until the data-platform
 batches move it to Ceph.
 
 ## First experiment: PAR-1, the ratio-only single-vertebra separability test

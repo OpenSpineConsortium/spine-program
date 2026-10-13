@@ -7,6 +7,8 @@ by the item named); **NOT RECORDED** (no file on the laptop or the grid says). T
 `12_website_pacs_demo`. Nothing here is a model score and nothing here went through the evaluation gate, because
 nothing here is a model.
 
+**2026-10-12, who reads what.** Greg answered OPEN_QUESTIONS A29 on issue #68, option (a): every Write holder may read all 13 folders; "Greg-only" and the label `greg-first` govern claiming and hand-outs, not reading. The `docs/handoff` copies keep their older wording. The same day job 40602926 opened `/rs/rs_grp_oschome/go2432/envs/spineps212` and `/rs/rs_grp_oschome/go2432/results` to approved students (`STUDENT_ENV.md`, issue #72).
+
 ## A. Beethoven, the browser edition and the framework
 
 | item | value | file | mark |

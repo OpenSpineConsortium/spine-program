@@ -1,9 +1,9 @@
 # STUDENT_ENV.md: the python a student uses on the grid, and how code reaches the worker
 
-One page for a student with an approved grid account: which python to run on the grid, how to build one's own until
-the shared one is open, and how code gets from a laptop clone to the Beethoven worker. Written for issue #66 (the
-readiness review of 2026-10-12, findings F7 and S4, and a read-only grid check of 2026-10-12). Like the rest of this
-folder, it is handed to students once Greg confirms the reader split (`CLAUDE.md` "Reader"; OPEN_QUESTIONS A29, A30).
+One page for a student with an approved grid account: which python to run on the grid, how to build one's own, and
+how code gets from a laptop clone to the Beethoven worker. Written for issue #66 (the readiness review of 2026-10-12,
+findings F7 and S4, and a read-only grid check of 2026-10-12). Every Write holder may read it, like the rest of this
+repository (Greg's answer of 2026-10-12 to OPEN_QUESTIONS A29, issue #68; `CLAUDE.md` "Reader").
 
 Two rules hold for everything below. Nothing runs on the login node (warrior): building an environment, importing a
 package and downloading are `sbatch` jobs, and warrior kills python, pip and conda by name (`CLAUDE.md` "Standing
@@ -14,7 +14,7 @@ rules"; `docs/handoff/RECIPES.md` section 0 item 1). A job script is a file save
 
 | interpreter | what it is | can a student use it on 2026-10-12 | source |
 |---|---|---|---|
-| `/rs/rs_grp_oschome/go2432/envs/spineps212/bin/python` | the lab's shared environment on Ceph (section 1) | not yet: 209 files under its site-packages are not readable by others until Greg's one step is done | issue #66 |
+| `/rs/rs_grp_oschome/go2432/envs/spineps212/bin/python` | the lab's shared environment on Ceph (section 1) | yes: job 40602926 opened it to approved students on 2026-10-12; confirm with the check job of section 1 | issues #66, #72 |
 | `/rs/rs_grp_oschome/<AccessID>/envs/spineps/bin/python` | your own environment, built from `10_data_platform_grid/code/env/spineps.yml` (section 2) | yes, once the build job has written its `ENV_OK` marker | this page |
 | `/wsu/home/go/go24/go2432/mambaforge/envs/spineps/bin/python` | Greg's interpreter; the handoff recipes write it as `~/mambaforge/envs/spineps/bin/python` | no: it is on Greg's HOME, which students cannot read | `../10_data_platform_grid/DATA.md`; issue #66 |
 
@@ -36,13 +36,16 @@ What is recorded:
   40580051, `../10_data_platform_grid/docs/grid_read_2026-10-08/census/ceph/census.tsv`).
 - Read on the grid on 2026-10-12 (issue #66): python 3.11; nibabel, scipy, numpy, SimpleITK, torch and spineps present;
   the folders and the interpreter are readable and executable by others, but 209 files under its site-packages (depth 2)
-  were not other-readable, so a student's import can fail until Greg makes the environment readable.
+  were not other-readable, so a student's import could fail.
+- Job 40602926 opened `/rs/rs_grp_oschome/go2432/envs/spineps212` and `/rs/rs_grp_oschome/go2432/results` to approved
+  students on 2026-10-12 (`o+rX`, default ACL `o::r-x`; Greg, issue #72). No student check job after it is recorded.
 - The job record says `env_spineps212.sh` built it; its GPU smoke, job 40480757, was recorded PENDING and then cancelled
   on 2026-09-27 (`../10_data_platform_grid/docs/grid_records/JOBS_RECORD_2026-09-27_1544.md`;
   `../_plan/GRID_MANIFEST_2026-10-08.md`). No smoke result of this environment is recorded. Where `env_spineps212.sh`
   lives, the environment's full package list and whether its torch is a CUDA build are not recorded.
 
-**Greg's step, once.** One `chmod`, as a job, never on the login node:
+**Greg's step, done on 2026-10-12 by job 40602926** (issue #72). As this page first wrote it, one `chmod`, as a job,
+never on the login node:
 
 ```bash
 sbatch -D /rs/rs_grp_oschome/go2432/envs --job-name=chmod_spineps212 --partition=reqp --qos=requeue \
@@ -50,7 +53,8 @@ sbatch -D /rs/rs_grp_oschome/go2432/envs --job-name=chmod_spineps212 --partition
 ```
 
 The last `chmod -R o+rX` of this kind, on 34,000 files of the shared Beethoven tree, took 23 s (`MANIFEST_GRID.md`
-section 1); half an hour is a margin, not a measurement. State on 2026-10-12: not run (issue #66).
+section 1); half an hour is a margin, not a measurement. State on 2026-10-12: done by job 40602926, which also set the
+default ACL `o::r-x` (issue #72); whether it ran this exact command and how long it took are not recorded.
 
 **A student's check.** Save this file as `/rs/rs_grp_oschome/<AccessID>/envs/check_spineps212.sbatch`:
 
@@ -74,11 +78,12 @@ echo "exit=$?"
 Submit it with
 `sbatch -D /rs/rs_grp_oschome/<AccessID>/envs /rs/rs_grp_oschome/<AccessID>/envs/check_spineps212.sbatch`
 and read `check_spineps212_<jobid>.out` in the same folder. `exit=0` means the shared environment works for you. A
-`PermissionError` or an `ImportError` with a non-zero exit means Greg's step is not done yet: use section 2.
+`PermissionError` or an `ImportError` with a non-zero exit means it does not work for your account, although job
+40602926 opened it: say so on your issue, with the output file, and use section 2 meanwhile.
 `PYTHONNOUSERSITE=1` keeps a package in your own user site from shadowing the environment
 (`../10_data_platform_grid/code/env/README.md`).
 
-## 2. Until then: build your own from `spineps.yml`
+## 2. Or: build your own from `spineps.yml`
 
 `10_data_platform_grid/code/env/` holds four files copied unchanged from the `env/` folder of `spinesurg-ct-nnunet`
 (`../10_data_platform_grid/MANIFEST_LOCAL.md` section 2): `spineps.yml` (the CPU environment `spineps`, exported without

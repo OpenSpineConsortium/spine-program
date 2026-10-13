@@ -26,14 +26,17 @@ traps. Nothing here is imaging data or a weight; the grid and the named reposito
 07_plain_film_level_id       Greg-only   the radiograph corner detector, XRSpinoPelvic1K, the film-naming line
 08_render_devices            Greg-only   DRR banks, device cards, PolyPose, synthetic-to-real; serves 01 and 05
 09_wrong_level_clinical_qi   Greg-only   the iliac-crest paper, the scoping review, the QI protocol (01's per-case form)
-10_data_platform_grid        student*    211 sources, the Ceph migration, identity and leakage, the registry, grid rules; the dependency of all
+10_data_platform_grid        student     211 sources, the Ceph migration, identity and leakage, the registry, grid rules; the dependency of all
 11_students_grid_access      mixed       Beethoven, onboarding, the lab recipe, the med-ed record; waits on 10
 12_website_pacs_demo         student     the public site, the PACS demo, the level-service client; waits on 01 S2, 04, 05
 99_archive                   Greg-only   superseded, refuted, dormant; never run, never quoted
 _plan/                                   the division, the disposition of every row, the exclusions, the inventories, the build record
 ```
-`student` means a hand-out can be cut from the folder after the redactions it records; `student*` after Greg confirms
-`OPEN_QUESTIONS.md` A29. The repository itself is private whatever the label.
+Every Write holder may read all 13 folders (Greg's answer of 2026-10-12 to `OPEN_QUESTIONS.md` A29, issue #68); the
+label governs claiming and hand-outs, not reading. `Greg-only` means Greg works the folder first, and a student takes an
+issue there only after Greg hands it out (his comment on the issue naming the student's login, or the label
+`greg-first` removed); `student` means a hand-out can be cut from the folder after the redactions it records. The
+repository itself is private whatever the label.
 
 **How the folders relate.** 10 is the dependency of all (data, identity tables, the registry, the access gate). 04 blocks
 05. 02 feeds 01's PREREG and consumes 06. 08 serves 01 and 05. 09's per-case form is 01's S5 / S8 scaffold. 12 waits on 01

@@ -52,18 +52,18 @@ or a comparison fails for the wrong reason (`TODO.md` step 5 gate).
 | path | volume | what it holds | access today | check line |
 |---|---|---|---|---|
 | HOME`/data/CTSpinoPelvic1K/labels` | spelled on HOME; resolves to Ceph | the v11 release labels (802 `NNNN_label.nii.gz`, ids zero-padded), `labels_v10/` beside them, CT at HOME`/data/CTSpinoPelvic1K/ct`; 1.19 GB. `~/data/CTSpinoPelvic1K` is a HOME symlink; its Ceph target, from `03_ctspinopelvic1k_dataset/MANIFEST_GRID.md` section 1, is `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K` (batch B02 cut over 2026-10-08) | the Ceph target is readable by approved students; the HOME spelling resolves only for Greg | `ls -ld $C/data/ctspinopelvic1k/converted/CTSpinoPelvic1K/labels` |
-| Ceph`/data/ctspinopelvic1k_build_tree/derived/s1v11/` | Ceph | the v11 build workspace (835 files, 1,189,924,200 B); batch B14 VERIFIED | owner-only (`drwx--S---`, read 2026-10-12, issue #65) until Greg reads its Zenodo upload scripts for a token; see "Terms" below | `ls -ld $C/data/ctspinopelvic1k_build_tree/derived/s1v11` (expect owner-only bits) |
+| Ceph`/data/ctspinopelvic1k_build_tree/derived/s1v11/` | Ceph | the v11 build workspace (835 files, 1,189,924,200 B); batch B14 VERIFIED | readable by approved students since visibility job 40602925 of 2026-10-12, opened without the token check (Greg, issue #69); owner-only (`drwx--S---`) when read earlier that day (issue #65); see "Terms" below | `ls -ld $C/data/ctspinopelvic1k_build_tree/derived/s1v11` (expect a readable directory) |
 | HOME`/mambaforge/envs/spineps/bin/python` | HOME (Panasas) | the CPU-tool interpreter (nibabel, scipy, numpy) ostk jobs run with; `~/mambaforge` is 14 GB; export `PYTHONNOUSERSITE=1` in every job | on HOME, not reachable until migrated; the manifest records it staying on HOME. A student's environment is `../11_students_grid_access/STUDENT_ENV.md` (issue #66) | `head -c 200 $H/mambaforge/envs/spineps/bin/python` (a binary; expect ELF bytes) |
-| Ceph`/envs/` | Ceph | conda environments `acq`, `fluoroclip`, `spineps212`, `spineps_cu128`, `tsv3`, `u251_drug`, `ytdl`; 39.923 GB | beside Ceph `/data/`, not under it, so the student-access fact below does not cover it; whether students can read it is not recorded | `ls -ld $C/envs` |
+| Ceph`/envs/` | Ceph | conda environments `acq`, `fluoroclip`, `spineps212`, `spineps_cu128`, `tsv3`, `u251_drug`, `ytdl`; 39.923 GB | beside Ceph `/data/`, not under it, so the student-access fact below does not cover it; job 40602926 opened `spineps212` to approved students on 2026-10-12 (Greg, issue #72; `../11_students_grid_access/STUDENT_ENV.md`); whether students can read the others is not recorded | `ls -ld $C/envs/spineps212` |
 
 ## Terms
 
 - The labels are **CTSpinoPelvic1K v11, CC BY-NC-SA 4.0 on Zenodo**
   (`03_ctspinopelvic1k_dataset/docs/release/README.md` "Sources and licence"; the v11 record is
   10.5281/zenodo.22797014, `03_ctspinopelvic1k_dataset/docs/handoff/EXTRACTS.md`).
-- `s1v11`: 03 records it as restricted — "stays owner-only until its upload scripts are read
-  for a token"; owner-only (`drwx--S---`) when read on 2026-10-12 (issue #65); when it opens to
-  students is Greg's decision (`03_ctspinopelvic1k_dataset/MANIFEST_GRID.md` section 1).
+- `s1v11`: owner-only (`drwx--S---`) when read on 2026-10-12 (issue #65); Greg opened it to
+  approved students the same day without the token check (visibility job 40602925, issue #69;
+  `03_ctspinopelvic1k_dataset/MANIFEST_GRID.md` section 1).
 - The ostk code itself is public, Apache-2.0 (this folder's `CLAUDE.md` rule 8).
 - For everything else in sections 1 to 3 (the run scratch, the logs, the probe scripts, the
   environments): not recorded in the folder.
@@ -81,13 +81,12 @@ or a comparison fails for the wrong reason (`TODO.md` step 5 gate).
   `dis_renders`); the script was fixed (spinesurg-ct-nnunet d9b388d) and visibility jobs
   40599886 (the B04, B05, B10 and B14 folders) and 40599867 (after B13's finalize, every chain
   folder including `multisource_banks`) open them (issue #65).
-- **Two paths stay closed (owner-only):**
+- **One path stays closed (owner-only):**
   `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`,
-  private build material and not a dataset, and
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`, until Greg reads its
-  Zenodo upload scripts for a token (issue #65;
-  `../10_data_platform_grid/code/data_platform/plan/publish_visibility.sh`, from
-  spinesurg-ct-nnunet d9b388d).
+  whose one file is the annotator map, students' personal data rather than a dataset or a token
+  (Greg, issue #69). `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`
+  opened on 2026-10-12 without the token check (spinesurg-ct-nnunet 0ab783f; visibility job
+  40602925, issue #69).
 - Nothing on Greg's home directory `/wsu/home/go/go24/go2432` is readable by students; items
   still there are moved to the Ceph volume by the data-platform plan, whose batch-by-batch state
   is `../10_data_platform_grid/MANIFEST_GRID.md` section 2. Every HOME row above is marked
@@ -107,11 +106,10 @@ The two access facts, again, because everything below depends on them:
 
 - every folder under `/rs/rs_grp_oschome/go2432/data/` is readable by approved students (named
   ACL entry on the volume root; other-read bits on folders and files), and since 2026-10-12 the
-  VinDr and BUU items inside them; two paths stay closed,
+  VinDr and BUU items inside them and
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11`; one path stays closed,
   `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`
-  (private build material, not a dataset) and
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` (until Greg reads its
-  Zenodo upload scripts for a token);
+  (the annotator map, students' personal data);
 - nothing on `/wsu/home/go/go24/go2432` is readable by students until the data-platform plan
   has moved it to Ceph.
 

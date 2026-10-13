@@ -1,7 +1,8 @@
 # 10_data_platform_grid: working context
 
-**Reader.** Student-safe once Greg confirms the reader split (`docs/handoff/OPEN_QUESTIONS.md` A29) and the
-withheld contact data (A30); until then Greg-only. Credential names may appear here, never values.
+**Reader.** Student-safe. Greg answered the reader split (`docs/handoff/OPEN_QUESTIONS.md` A29) on 2026-10-12:
+every Write holder may read all 13 folders (issue #68); the contact data withheld under A30 stays out (root `CLAUDE.md`
+rule 12). Credential names may appear here, never values.
 
 ## The goal in one paragraph
 

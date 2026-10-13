@@ -1,8 +1,10 @@
 # 02_transitional_naming_truth: working context
 
-Project 2 of `spine-program` (rank 2 of 12; `../_plan/PLAN.md` section 3, "02"). Reader: Greg only. This folder
-holds SchwingNet and level-identification content and is never handed to a student; the reader-protocol documents
-may go to the readers.
+Project 2 of `spine-program` (rank 2 of 12; `../_plan/PLAN.md` section 3, "02"). Reader: Greg only, for claiming
+and hand-outs, not for reading: every Write holder may read this folder, and a student takes an issue here only after
+Greg hands it out, with a comment naming the student's login or by removing the label `greg-first` (Greg's answer of
+2026-10-12, issue #68). It holds SchwingNet and level-identification content, which stays private (root `CLAUDE.md`
+rule 8); the reader-protocol documents may go to the readers.
 
 ## The goal, in one paragraph
 

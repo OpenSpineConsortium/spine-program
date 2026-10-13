@@ -9,6 +9,8 @@ rows without one come from this folder's own files and say so. Grid paths are sp
 `MANIFEST_GRID.md`; `sn:` below means `SchwingNet/` inside `spinesurg-ct-nnunet` 097933a.
 `~` is `/wsu/home/go/go24/go2432`, the grid HOME, wherever a path below is abbreviated.
 
+**2026-10-12, who reads what.** Greg answered OPEN_QUESTIONS A29 on issue #68, option (a): every Write holder may read all 13 folders; "Greg-only" and the label `greg-first` govern claiming and hand-outs, not reading. The `docs/handoff` copies keep their older wording.
+
 ## 1. The held-out numbers (quotable: through `eval_gate.py`, in the catalog)
 
 ### A10. Plain-film naming against training persons, and the render ablation (Figure 5b film, Table S4)

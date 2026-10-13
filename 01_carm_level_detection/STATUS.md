@@ -14,6 +14,8 @@ human (`docs/MODEL_CARD.md` section 5.1). PRE truth = the export before the 2026
 number); REP truth = after. Every naming row carries [AUTO-TRUTH]. The 149 released cases (148 scored, 141 to 142 with
 whole-frame naming) are acquisitions on five dates, not known persons (OQ E1).
 
+**2026-10-12, who reads what.** Greg answered OPEN_QUESTIONS A29 on issue #68, option (a): every Write holder may read all 13 folders; "Greg-only" and the label `greg-first` govern claiming and hand-outs, not reading. The `docs/handoff` copies keep their older wording.
+
 ## 1. The model (`docs/handoff/DATASET_USAGE.md` section 1)
 
 Naming detector `detector_v5z_final` (conf 0.35); sacrum / vertebra detector `rx_lodo_carmlspine_1024` (conf 0.74
