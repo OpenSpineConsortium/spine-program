@@ -41,12 +41,12 @@ case "$(hostname -s)" in warrior*) echo "REFUSING: not on the login node"; exit 
 # rest; the gate (named-user ACL entries on the volume root) still keeps every other grid user out. Put a folder back
 # in this list to close it again.
 FIXED_RESTRICTED=""
-# exact paths closed whatever the plan says. Two items stay owner-only for reasons that are not VinDr or BUU:
-#  build_archive_private  private build material, not a dataset;
-#  s1v11                  the CTSpinoPelvic1K v11 build workspace with the Zenodo upload scripts and state, owner-only
-#                         until zenodo_v11.py, upload_zip.sh, zenodo_v11_state.json and upload_reply.json are read for a
-#                         token (MIGRATION_PLAN.md section 8). Drop it from this list after that check.
-FIXED_RESTRICTED_PATHS="$DATA/ctspinopelvic1k_build_tree/derived/build_archive_private $DATA/ctspinopelvic1k_build_tree/derived/s1v11"
+# exact paths closed whatever the plan says. On 2026-10-12 Greg stated "anyone can read anything, dont worry about
+# tokens", so s1v11 (the v11 build workspace with its Zenodo upload scripts) is open without the token check.
+# One path stays owner-only:
+#  build_archive_private  its one file, annotator_map.json, maps annotator usernames to people: students' personal
+#                         data (no student name or username is shared), not a dataset and not a token.
+FIXED_RESTRICTED_PATHS="$DATA/ctspinopelvic1k_build_tree/derived/build_archive_private"
 # The plan's `restricted` flag (LAYOUT.md rule 8) marks VinDr-SpineXR, BUU-LSPINE and every bank that holds their
 # pixels (33 rows across B04, B05, B10, B11 and B14 on 2026-10-08). On 2026-10-11 Greg stated that every approved student
 # holds the PhysioNet credential and the VinDr and BUU agreements, so the flag no longer closes anything. Until

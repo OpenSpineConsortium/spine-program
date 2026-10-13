@@ -1,0 +1,8 @@
+#!/bin/bash
+# gh for headless sessions on Windows: the token comes from git's credential manager for this one call and is never
+# written anywhere; everything else is passed to the real gh.exe.
+if [ -z "${GH_TOKEN:-}" ]; then
+  GH_TOKEN=$(GCM_INTERACTIVE=never GIT_TERMINAL_PROMPT=0 git credential fill <<<$'protocol=https\nhost=github.com\n' 2>/dev/null | sed -n 's/^password=//p')
+  export GH_TOKEN
+fi
+exec "$(dirname "$0")/../bin/gh.exe" "$@"

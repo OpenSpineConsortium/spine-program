@@ -56,8 +56,8 @@ files. HOME held 520 GB of the 4,295 GB soft limit (4,051 GB on 2026-10-08); Cep
   annotator map, students' personal data rather than a dataset or a token (Greg, issue #69).
 - `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` opened to approved students on 2026-10-12
   without the token check: spinesurg-ct-nnunet 0ab783f drops it from `FIXED_RESTRICTED_PATHS`, and visibility job
-  40602925 opened it (Greg, issue #69). The copy `code/data_platform/plan/publish_visibility.sh` here is still the
-  file of d9b388d and still lists it.
+  40602925 opened it (Greg, issue #69). On 2026-10-12 the copy `code/data_platform/plan/publish_visibility.sh` here
+  was replaced by the file of 0ab783f, which no longer lists it (issue #80).
 - Job 40602926 opened `/rs/rs_grp_oschome/go2432/envs/spineps212` and `/rs/rs_grp_oschome/go2432/results` to approved
   students on 2026-10-12 (issue #72; `../11_students_grid_access/STUDENT_ENV.md`); both sit beside
   `/rs/rs_grp_oschome/go2432/data/`, not under it.
