@@ -6,8 +6,8 @@ volume, what it holds, who may read it, and one read-only check line. Run every 
 worker (a compute-node job): nothing runs on the login node (`CLAUDE.md` "Standing rules"). The two volumes are
 Ceph, `/rs/rs_grp_oschome` (20 TB, group `oschome`), and Greg's HOME, `/wsu/home/go/go24/go2432` (Panasas, 4.3 TB
 soft quota) (`MANIFEST_GRID.md` header). Modes and sizes carry the manifest's dates (measured 2026-10-02, census
-and listing 2026-10-08); the access facts of 2026-10-11 are Greg's, from issue #5. Like the rest of the folder,
-this file is Greg-only until Greg confirms the reader split (`CLAUDE.md` "Reader"; OPEN_QUESTIONS A29, A30).
+and listing 2026-10-08); the access facts of 2026-10-11 are Greg's, from issue #5. Every Write holder may read this
+file, like the rest of the folder (Greg's answer of 2026-10-12 to OPEN_QUESTIONS A29, issue #68; `CLAUDE.md` "Reader").
 
 ## 1. The lab's shared Beethoven tree (Ceph)
 

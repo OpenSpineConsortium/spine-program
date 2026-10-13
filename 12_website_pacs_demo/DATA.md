@@ -141,6 +141,6 @@ cloned, pulled and built where it is edited. Nothing in this experiment touches 
    gallery meshes under `assets/gallery/`. What the counts are at a17ea39 is not recorded in the
    folder; a pull that changes them is read before it is trusted.
 
-The folder is student-safe (the site is public and its names are there by design); a hand-out
-waits on Greg's answers to `docs/handoff/OPEN_QUESTIONS.md` A29 and A30 (`README.md`;
-`TODO.md` step 14).
+The folder is student-safe (the site is public and its names are there by design); Greg answered
+`docs/handoff/OPEN_QUESTIONS.md` A29 on 2026-10-12: every Write holder may read all 13 folders
+(issue #68; `TODO.md` step 14).

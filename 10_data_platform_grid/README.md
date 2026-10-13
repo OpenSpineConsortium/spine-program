@@ -4,8 +4,9 @@ The data platform: 211 imaging sources, the HOME-to-Ceph migration, identity and
 environments and the grid operating rules. Rank 10 of 12 in the triage of `../_plan/PLAN.md`: a support project, not
 a hypothesis, on which every other project folder depends.
 
-**Reader.** Student-safe once Greg confirms the reader split (`docs/handoff/OPEN_QUESTIONS.md` A29) and the
-withheld contact data (A30); until then Greg-only. Credential names only, never values.
+**Reader.** Student-safe. Greg answered the reader split (`docs/handoff/OPEN_QUESTIONS.md` A29) on 2026-10-12:
+every Write holder may read all 13 folders (issue #68); the withheld contact data (A30) stays out (root `CLAUDE.md`
+rule 12). Credential names only, never values.
 
 ## What it is
 

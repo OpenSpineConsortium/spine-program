@@ -5,8 +5,8 @@ them (its sources are the one read-only grid pass of 2026-10-08 22:20 UTC and th
 count below comes from that manifest). The access facts are Greg's, dated 2026-10-11, given in issue #8; where they and an
 older recorded statement disagree, both are shown with their dates. What no file records is written "not recorded".
 
-Reader: this folder is student-safe once Greg confirms the reader split (`CLAUDE.md` first paragraph;
-`docs/handoff/OPEN_QUESTIONS.md` A29, A30).
+Reader: this folder is student-safe; Greg answered the reader split (`CLAUDE.md` first paragraph;
+`docs/handoff/OPEN_QUESTIONS.md` A29) on 2026-10-12: every Write holder may read all 13 folders (issue #68).
 
 Conventions. `HOME` = `/wsu/home/go/go24/go2432` (Greg's home directory, the Panasas volume, 4.3 TB soft quota);
 `RS` = `/rs/rs_grp_oschome/go2432` (the Ceph volume, CephFS, 20 TB, group `oschome`) (`MANIFEST_GRID.md` header). In a

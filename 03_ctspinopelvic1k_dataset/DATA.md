@@ -6,8 +6,9 @@ migration STATUS files). The access facts are Greg's, dated 2026-10-11, given in
 and an older recorded statement disagree, both are shown with their dates. What no file records is
 written "not recorded".
 
-Reader: this folder is student-safe after the redactions in `MANIFEST_LOCAL.md`; hand-outs wait on
-Greg's confirmation of the reader split (`README.md` "Reader"; `docs/handoff/OPEN_QUESTIONS.md` A29, A30).
+Reader: this folder is student-safe after the redactions in `MANIFEST_LOCAL.md`; Greg answered the
+reader split (`docs/handoff/OPEN_QUESTIONS.md` A29) on 2026-10-12: every Write holder may read all 13
+folders (issue #68).
 
 Conventions. HOME = `/wsu/home/go/go24/go2432` (Greg's home directory); Ceph = the volume under
 `/rs/rs_grp_oschome/go2432`. Write full paths: in a student's shell `~` is the student's own HOME, and
