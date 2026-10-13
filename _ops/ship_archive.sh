@@ -14,7 +14,7 @@
 set -eu
 
 COMMIT=55971971cd6bba0bd2dda034665f415162924c90   # main on 2026-10-13, the last commit that holds the files in its tree
-HOST=${GRID_HOST:-wsu-grid}                        # the ssh alias of grid.wayne.edu (RECIPES.md); override with GRID_HOST
+HOST=${GRID_HOST:-wsu-grid}                        # the ssh alias of the grid (RECIPES.md); override with GRID_HOST
 DEST=/rs/rs_grp_oschome/shared/spine-program/archive
 
 cd "$(git rev-parse --show-toplevel)"
@@ -32,5 +32,5 @@ ssh "$HOST" "mkdir -p '$DEST'"
 git archive --format=tar "$COMMIT" "${paths[@]}" \
     | ssh "$HOST" "tar -xf - -C '$DEST' && echo '$COMMIT' >> '$DEST/SHIPPED_COMMITS.txt'"
 ssh "$HOST" "cd '$DEST' && sbatch --partition=reqp --qos=requeue --time=00:15:00 -D '$DEST' -o open_read_bits.out \
-    --wrap 'chmod -R u+rwX,go+rX $DEST && find $DEST -type f | wc -l > FILE_COUNT.txt'"
-echo "shipped; the job writes FILE_COUNT.txt in $DEST when the read bits are open (expected 4379 files plus the two records)"
+    --wrap 'chmod -R u+rwX,go+rX $DEST && find $DEST -type f ! -name FILE_COUNT.txt ! -name SHIPPED_COMMITS.txt ! -name open_read_bits.out | wc -l > FILE_COUNT.txt'"
+echo "shipped; the job writes FILE_COUNT.txt in $DEST when the read bits are open (expected: 4379)"

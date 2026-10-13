@@ -36,10 +36,10 @@ still that path: on the grid through the link, in git history at the commit abov
 ## How to read a file
 
 - **On the grid** (a Beethoven session, or any clone under your grid account): the symlink resolves, so
-  `01_carm_level_detection/results/JOBS.txt` reads as before, once `_ops/ship_archive.sh` has run (below) and your
+  `01_carm_level_detection/results/schwingnet/JOBS.txt` reads as before, once `_ops/ship_archive.sh` has run (below) and your
   AccessID is on the lab volume's access list. `ls -l 01_carm_level_detection/results` shows where the link points.
 - **Anywhere else** (a claude.ai Project thread, a laptop clone): the link dangles, and the file is read from history:
-  `git show 5597197:01_carm_level_detection/results/JOBS.txt`, or `git ls-tree -r --name-only 5597197
+  `git show 5597197:01_carm_level_detection/results/schwingnet/JOBS.txt`, or `git ls-tree -r --name-only 5597197
   01_carm_level_detection/results` to list a folder. A single-branch clone, as a cloud session's is, has the commit as
   main's ancestor already; otherwise `git fetch origin main` brings it.
 - On a Windows checkout without `core.symlinks`, git writes each link as a small text file holding the grid path. That is
