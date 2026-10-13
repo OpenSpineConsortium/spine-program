@@ -19,5 +19,7 @@ there, not here. This file indexes only the facts that hold for the repository a
 
 ## Cross-project facts
 
-None yet. A session that learns one adds a file to docs/memory/ and an index line here, as
-.claude/skills/remember/SKILL.md says: `- [title](file-name.md): one line`, in alphabetical order of file name.
+One line per fact, `- [title](file-name.md): one line`, in alphabetical order of file name, added with the remember
+skill (.claude/skills/remember/SKILL.md) in the same pull request as the change it came from.
+
+- [The claim protocol updates itself](the-claim-protocol-updates-itself.md): tools/sdlc_protocol is symphony-protocol at the release tools/VENDORED records, and .github/workflows/protocol.yml brings each later release in as a pull request from the branch symphony-protocol/sync; how to vendor by hand, and what of the template's worker machinery is not here.
