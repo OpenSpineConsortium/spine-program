@@ -11,8 +11,8 @@ The claim protocol is a vendored release of OpenSpineConsortium/symphony-protoco
   workflow's helper.
 - A protocol-only adoption gets no such workflow, so the copy stayed at 0.2.0 until pull request #86 added it. By hand,
   the same step is `python3 <symphony-protocol at the tag>/scripts/vendor.py <this clone> --consumer
-  OpenSpineConsortium/symphony-template` and a pull request; `python3 -m sdlc_protocol verify-vendored tools` (run in
-  the clone's root with `tools` as the folder) holds the copy to the record.
+  OpenSpineConsortium/symphony-template` and a pull request; `cd tools && python3 -m sdlc_protocol verify-vendored .` holds
+  the copy to the record.
 - The template's workers' registry, workers.yml and coordinator.yml, which the protocol text names, are not here: every
   worker is a person's sessions, named by the GitHub login, and the board's own run releases idle claims and tells
   overlapping work.

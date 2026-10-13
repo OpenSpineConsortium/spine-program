@@ -21,7 +21,7 @@ read -r -d '' PROMPT <<PEOF
 $FIRST Read the issue first (gh issue view $N): its Goal, Acceptance and "Files likely touched" define the whole job; do that and nothing else, and touch no other file. Your worker name is your GitHub login, Gregory-Schwing-MD-PhD (label worker:Gregory-Schwing-MD-PhD; claim file Worker line: Gregory-Schwing-MD-PhD).
 
 Facts about this machine and this repository:
-- You are in a detached worktree at origin/main; step 2 of the skill (git switch -c claude/$N origin/main) works from here.
+- You are in a detached worktree at origin/main; step 2 of the skill (git switch -c claude/$N --no-track origin/main) works from here.
 - Network calls to GitHub take about 15 seconds each here; that is normal. Run every gh and git call in the foreground and wait for it to finish; never run one in the background, and never retry a call that merely took long.
 - gh and python3 are on PATH. The push guard runs before every Bash call; it refuses what the protocol forbids.
 - This repository has no scripts/check.sh and no CI check yet. Before marking the pull request ready, check by hand: the claim file docs/agents/claims/$N.md is deleted in the pull request, the body says "Closes #$N", every acceptance line of the issue is met, and only the files the issue names changed.
