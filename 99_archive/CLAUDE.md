@@ -1,7 +1,8 @@
 # 99_archive: working context
 
 Written 2026-10-08 for `spine-program/99_archive/`. Reader: Greg only (this folder holds SchwingNet deck history and
-private draft history). Nothing in this folder is run, trained, scored or quoted.
+private draft history), for claiming and hand-outs, not for reading: every Write holder may read this folder (Greg's
+answer of 2026-10-12, issue #68). Nothing in this folder is run, trained, scored or quoted.
 
 ## The goal in one paragraph
 

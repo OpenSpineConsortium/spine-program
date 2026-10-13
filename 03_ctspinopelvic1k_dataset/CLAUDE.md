@@ -46,7 +46,8 @@ lineage, the CNS 2026 deck) is the record that makes those three defensible.
   The only grid copy of the 802 CTs and the v11 labels is
   `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k/converted/CTSpinoPelvic1K` (196,195,055,488 B, 2,417
   files, batch B02 VERIFIED). The v11 build workspace with the Zenodo upload state is
-  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` (restricted). The public
+  `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/s1v11` (readable by approved students since
+  visibility job 40602925 of 2026-10-12, opened without the token check; Greg, issue #69). The public
   repository checkout `/wsu/home/go/go24/go2432/CTSpinoPelvic1K` is at a0c5139, behind the laptop's
   7ddfe38.
 - **Repositories** (`MANIFEST_CODE.md`). `CTSpinoPelvic1K` (public; `origin` =

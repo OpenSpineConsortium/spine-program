@@ -1,8 +1,8 @@
 # 05_ct_morphometry_parity: working context
 
 CT morphometry of CTSpinoPelvic1K, the spinopelvic estimator, and 3-D to 2-D parity. Rank 5 of the spine programme
-(`../_plan/PLAN.md` section 1). Reader: student-safe, once Greg confirms the reader split (`docs/handoff/OPEN_QUESTIONS.md`
-A29, A30). Built 2026-10-08. The project folder is self-contained: everything it does not hold is on the grid
+(`../_plan/PLAN.md` section 1). Reader: student-safe; Greg answered the reader split (`docs/handoff/OPEN_QUESTIONS.md`
+A29) on 2026-10-12: every Write holder may read all 13 folders (issue #68). Built 2026-10-08. The project folder is self-contained: everything it does not hold is on the grid
 (`MANIFEST_GRID.md`), in a code repository at a named commit (`MANIFEST_CODE.md`), or recorded as not copied
 (`MANIFEST_LOCAL.md`).
 

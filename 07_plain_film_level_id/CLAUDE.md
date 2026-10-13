@@ -2,7 +2,9 @@
 
 Plain-film level identification and the radiograph corner detector, the line the intraoperative
 C-arm work (folder `01_carm_level_detection`) grew out of. Reader: **Greg-only** (level-identification
-code, a private repository, regulatory drafts that name roles). This folder is one project of the
+code, a private repository, regulatory drafts that name roles), for claiming and hand-outs, not for reading: every
+Write holder may read this folder, and a student takes an issue here only after Greg hands it out, with a comment
+naming the student's login or by removing the label `greg-first` (Greg's answer of 2026-10-12, issue #68). This folder is one project of the
 `spine-program` repository; `_plan/PLAN.md` section 3, project 07, is the division it was built from
 on 2026-10-08.
 

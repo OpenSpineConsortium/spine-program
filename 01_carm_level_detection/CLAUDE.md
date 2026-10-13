@@ -1,6 +1,9 @@
 # 01 C-arm level detection: working context
 
 Project 01 of the spine programme (`../_plan/PLAN.md` section 3, rank 1; reader Greg-only). Built 2026-10-08.
+Greg-only governs claiming and hand-outs, not reading: every Write holder may read this folder, and a student takes an
+issue here only after Greg hands it out, with a comment naming the student's login or by removing the label
+`greg-first` (Greg's answer of 2026-10-12, issue #68).
 Hospital = Wayne State University School of Medicine / Detroit Medical Center, Department of General Surgery.
 Never Neurosurgery: four superseded manuscript drafts and one data-request placeholder in this folder say Neurosurgery; `MANIFEST_LOCAL.md` section 3 names each.
 

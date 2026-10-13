@@ -1,8 +1,9 @@
 # 06_transitional_ct_census — working context
 
 Project 6 of 12 in `spine-program` (one private repository; rank 6 of the triage in `../_plan/PLAN.md` section 1).
-Reader: student-safe after the redactions recorded in `MANIFEST_LOCAL.md` and after Greg confirms the reader split
-(`docs/handoff/OPEN_QUESTIONS.md` A29, A30). Built 2026-10-08.
+Reader: student-safe after the redactions recorded in `MANIFEST_LOCAL.md`; Greg answered the reader split
+(`docs/handoff/OPEN_QUESTIONS.md` A29) on 2026-10-12: every Write holder may read all 13 folders (issue #68). Built
+2026-10-08.
 
 ## The goal in one paragraph
 
