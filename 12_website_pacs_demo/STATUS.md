@@ -4,6 +4,8 @@ Every number names its file. Rigor marks follow `docs/handoff/RESULTS_CATALOG.md
 RECORD ONLY, SUPERSEDED. This project scores nothing: its numbers are latencies, counts and dates, not accuracies, and
 none of them goes through the evaluation gate because none is a model claim.
 
+**2026-10-12, who reads what.** Greg answered OPEN_QUESTIONS A29 on issue #68, option (a): every Write holder may read all 13 folders; "Greg-only" and the label `greg-first` govern claiming and hand-outs, not reading. The `docs/handoff` copies keep their older wording.
+
 ## Results in hand
 
 | id | claim | file | mark |

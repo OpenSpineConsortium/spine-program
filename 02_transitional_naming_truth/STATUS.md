@@ -13,6 +13,8 @@ planning accuracies of 95-99 % that no transitional measurement supports; 0 veri
 against 22 carriers, 35 at-risk persons or paper 2's 19 (RC E.14; `docs/handoff/literature_state/power.md`
 section 6).
 
+**2026-10-12, who reads what.** Greg answered OPEN_QUESTIONS A29 on issue #68, option (a): every Write holder may read all 13 folders; "Greg-only" and the label `greg-first` govern claiming and hand-outs, not reading. The `docs/handoff` copies keep their older wording.
+
 ## 1. Transitional persons, the split and the sample-size argument (RC A16)
 
 | id | result | file | status |

@@ -6,6 +6,8 @@ against spinesurg-ct-nnunet 097933a unless stated) and its status with the rigor
 row" ([THR], [SEL-REP], [WRONG-BANK], [LEAK], [SEL-SPLIT], [ONE-SEED], [AUTO-TRUTH], [DERIVED], [WORDING]). Nothing
 below is quotable; the replacement, where one exists, is in `SUPERSEDED_NUMBERS.md`.
 
+**2026-10-12, who reads what.** Greg answered OPEN_QUESTIONS A29 on issue #68, option (a): every Write holder may read all 13 folders; "Greg-only" and the label `greg-first` govern claiming and hand-outs, not reading. The `docs/handoff` copies keep their older wording.
+
 ## 1. The C-arm and film programme before SchwingNet (RC Part C, 2026-09-12 to 2026-09-22; the archive's own header)
 
 ### 1.1 Plain-film level identification and the early level models (RC C1)

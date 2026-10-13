@@ -8,6 +8,8 @@ by the row named), **RECORD** (history, not quotable). Where this folder's docum
 disagree, the result file wins. The measurement rows F.21-F.45 belong to project 05 and are listed in
 section 6 only where this folder's documents depend on them.
 
+**2026-10-12, who reads what.** Greg answered OPEN_QUESTIONS A29 on issue #68, option (a): every Write holder may read all 13 folders; "Greg-only" and the label `greg-first` govern claiming and hand-outs, not reading. The `docs/handoff` copies keep their older wording. The same day `s1v11` opened to approved students without the token check (visibility job 40602925, issue #69).
+
 ## 1. The release
 
 | id | claim | file | status |

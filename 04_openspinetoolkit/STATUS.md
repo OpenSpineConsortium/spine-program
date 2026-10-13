@@ -7,6 +7,8 @@ from committed rows or captured files, not by a committed tool (the catalog's de
 CURRENT, OPEN (a known defect), DATED (a state at its date), prototype, unexplained, SUPERSEDED (do not
 quote), RECORD ONLY (history).
 
+**2026-10-12, who reads what.** Greg answered OPEN_QUESTIONS A29 on issue #68, option (a): every Write holder may read all 13 folders; "Greg-only" and the label `greg-first` govern claiming and hand-outs, not reading. The `docs/handoff` copies keep their older wording. The same day `s1v11` opened to approved students without the token check (visibility job 40602925, issue #69).
+
 ## Part G of the catalog, as it stands
 
 | id | claim | file | status | checked 2026-10-08 |

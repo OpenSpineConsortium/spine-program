@@ -9,6 +9,8 @@ after a result was seen; [LEAK] trained or selected on a leaked bank; [SEL-SPLIT
 `sn:` its `SchwingNet/`, `~` grid HOME `/wsu/home/go/go24/go2432`, `$RS` `/rs/rs_grp_oschome/go2432`.
 Nothing here was re-run; a grid file was not re-verified.
 
+**2026-10-12, who reads what.** Greg answered OPEN_QUESTIONS A29 on issue #68, option (a): every Write holder may read all 13 folders; "Greg-only" and the label `greg-first` govern claiming and hand-outs, not reading. The `docs/handoff` copies keep their older wording.
+
 ## 1. The render banks (DATASET_USAGE 3.1, 3.3; LITERATURE_STATE 1.6; OQ B12, B22, G1)
 
 | id | claim | file | status |
