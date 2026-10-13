@@ -77,3 +77,7 @@ them as the repositories of `MANIFEST_CODE.md` at the stated commits and as `mem
 The Greg-only handoff files (`MANUSCRIPTS.md`, `CONTEXT_EXPORT.md`, `RESEARCH_DIRECTIONS.md`, `LITERATURE_STATE.md`,
 `working_notes/`) are not copied whole; the sections that bear on this project are extracted with their section ids
 under `docs/handoff/extracts/` and folded into `STATUS.md` and `TODO.md`.
+
+## On the grid
+
+Since 2026-10-13 (issue #87) `results/` of this folder is a symlink to the same path under `/rs/rs_grp_oschome/shared/spine-program/archive/` on the grid, where the files are read through the link; everywhere else they are read from git history at main 5597197. `../ARCHIVE.md` says how, and how a task that must change one of them brings it back into its branch. The counts and sizes in `MANIFEST_LOCAL.md` describe the folder as it was built on 2026-10-08.

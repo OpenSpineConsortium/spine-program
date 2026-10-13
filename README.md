@@ -198,7 +198,9 @@ reached through Beethoven), `TODO.md` (the ordered steps with gate, pre-stated n
 folder uses or produced, HOME and Ceph, with what it holds, its size where known and its migration state; check it
 against the grid before trusting a path). Work starts from the claimed issue's acceptance lines, not from `TODO.md` step
 1; a TODO step with no issue gets a todo issue, which Greg opens, before work starts. A change to another repository
-lands as `<folder>/patches/<N>-<slug>.patch` in the claim's pull request.
+lands as `<folder>/patches/<N>-<slug>.patch` in the claim's pull request. The folder's `results/`, `figures/`, `manuscripts/` and
+`regulatory/` are symlinks to the grid, where the salvaged record lives since 2026-10-13: a Project thread reads one of their
+files from git history, and a task that must change one brings it back into its branch first (`ARCHIVE.md`).
 
 The folder's `MEMORY.md` indexes `memory/`; every note carries its status (CURRENT, DATED, PARTLY SUPERSEDED, SUPERSEDED,
 LEAKED, RECORD ONLY, DORMANT) carried over from the handoff index. `MANIFEST_CODE.md` gives every repository with URL,

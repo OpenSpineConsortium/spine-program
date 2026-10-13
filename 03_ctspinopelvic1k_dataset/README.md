@@ -149,3 +149,7 @@ one are listed in `MANIFEST_LOCAL.md` section 3.6 with the line to change, and n
 
 - `manuscripts/neurips_as_submitted_2026-05/`: the anonymised LaTeX source (`main.tex`, `bib.tex`) and PDF of the paper as it was scored and accepted as NeurIPS 2026 Evaluations and Datasets 3474; the camera-ready in `manuscripts/neurips_camera_ready/` is the later working copy.
 - `manuscripts/mpda/coauthor_review/`: the co-author's revision notes with the sources behind each change, and the reviewed draft they were made on (`.docx` metadata scrubbed; `MANIFEST_LOCAL.md`, final pass). `TODO.md` step 3 reads them before the rebuild.
+
+## On the grid
+
+Since 2026-10-13 (issue #87) `results/`, `figures/` and `manuscripts/` of this folder are symlinks to the same path under `/rs/rs_grp_oschome/shared/spine-program/archive/` on the grid, where the files are read through the link; everywhere else they are read from git history at main 5597197. `../ARCHIVE.md` says how, and how a task that must change one of them brings it back into its branch. The counts and sizes in `MANIFEST_LOCAL.md` describe the folder as it was built on 2026-10-08.

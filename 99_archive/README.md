@@ -165,3 +165,7 @@ not quote as current; each note's home folder is in `../_plan/DISPOSITION.tsv`):
 ## Added in the final pass of 2026-10-08
 
 - `manuscripts/talks/PRESENTATIONS_RECORD_2026-08-17.md`: the redacted record of the programme's oral and poster presentations (venue, date, placing), extracted from a laptop Word file that the inventory had misclassified; `11_students_grid_access/STATUS.md` section E cites it for the student symposium placings.
+
+## On the grid
+
+Since 2026-10-13 (issue #87) `manuscripts/` of this folder is a symlink to the same path under `/rs/rs_grp_oschome/shared/spine-program/archive/` on the grid, where the files are read through the link; everywhere else they are read from git history at main 5597197. `../ARCHIVE.md` says how, and how a task that must change one of them brings it back into its branch. The counts and sizes in `MANIFEST_LOCAL.md` describe the folder as it was built on 2026-10-08.

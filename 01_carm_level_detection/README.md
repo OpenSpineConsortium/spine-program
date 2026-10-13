@@ -127,3 +127,7 @@ folder on the laptop; its notes are the copies in `docs/handoff/context/`), `lap
 ## Size and shape
 
 1,994 files (this folder complete, `MANIFEST_LOCAL.md` included), 397 MB, counted on 2026-10-08 after the fix pass (`MANIFEST_LOCAL.md` section 1): `results/` 244 MB, `manuscripts/` 85 MB, `figures/` 46 MB, `regulatory/` 12 MB, `docs/` 8 MB, `code/` 1.5 MB, `memory/` 0.2 MB (of which `results/schwingnet/coverage/experiment/` is 30 MB after the 29 per-run evaluation JSONs over 2 MB, 154,258,881 B in all, were removed as byte-identical copies of tracked repository files; `MANIFEST_LOCAL.md` section 7 lists each with its sha256). Nothing over 25 MB, no imaging data (the five real radiograph frames the window probe had mirrored from the grid, 776,553 B, were removed on the fix pass and are listed by grid path in `MANIFEST_LOCAL.md` section 2.1), no weights, no `.tif` export, no `.eml` draft (each recorded by path in `MANIFEST_LOCAL.md` section 2).
+
+## On the grid
+
+Since 2026-10-13 (issue #87) `results/`, `figures/`, `manuscripts/` and `regulatory/` of this folder are symlinks to the same path under `/rs/rs_grp_oschome/shared/spine-program/archive/` on the grid, where the files are read through the link; everywhere else they are read from git history at main 5597197. `../ARCHIVE.md` says how, and how a task that must change one of them brings it back into its branch. The counts and sizes in `MANIFEST_LOCAL.md` describe the folder as it was built on 2026-10-08.

@@ -23,3 +23,4 @@ One line per fact, `- [title](file-name.md): one line`, in alphabetical order of
 skill (.claude/skills/remember/SKILL.md) in the same pull request as the change it came from.
 
 - [The claim protocol updates itself](the-claim-protocol-updates-itself.md): tools/sdlc_protocol is symphony-protocol at the release tools/VENDORED records, and .github/workflows/protocol.yml brings each later release in as a pull request from the branch symphony-protocol/sync; how to vendor by hand, and what of the template's worker machinery is not here.
+- [The record material is on the grid](the-record-material-is-on-the-grid.md): each folder's results/, figures/, manuscripts/ and regulatory/ are symlinks to /rs/rs_grp_oschome/shared/spine-program/archive/ since 2026-10-13, the files stay in git history at main 5597197, and ARCHIVE.md says how to read or bring one back.

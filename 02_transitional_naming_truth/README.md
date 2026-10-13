@@ -124,3 +124,7 @@ Greg Schwing (resident physician, Department of General Surgery, Wayne State Uni
 Detroit Medical Center; grid account `go2432`; signs every freeze). Ashley Schehr (senior scientist and co-PI;
 stage-1 screener of the transitional review; a person, never a product name). "Dr Tech" (senior clinical PI;
 stage-2 confirmer; full name and e-mail recorded nowhere on disk, `docs/handoff/OPEN_QUESTIONS.md` A18).
+
+## On the grid
+
+Since 2026-10-13 (issue #87) `results/` and `manuscripts/` of this folder are symlinks to the same path under `/rs/rs_grp_oschome/shared/spine-program/archive/` on the grid, where the files are read through the link; everywhere else they are read from git history at main 5597197. `../ARCHIVE.md` says how, and how a task that must change one of them brings it back into its branch. The counts and sizes in `MANIFEST_LOCAL.md` describe the folder as it was built on 2026-10-08.
