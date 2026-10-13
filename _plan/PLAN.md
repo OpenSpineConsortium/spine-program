@@ -988,8 +988,8 @@ banner); on the grid `~/github` (41 B, mode 600), `~/CTSpinoPelvic1K/.token` (38
 still live is not recorded.
 
 **Greg's answer, 2026-10-12** (issue #70: "dont worry about tokens"): no rotation is planned; the credentials stay where
-the list above puts them, and no rotation date is recorded for any of them. No secret value is in this repository (the
-readiness review's scan of 2026-10-12, issue #70).
+the list above puts them, and no rotation date is recorded for any of them. The readiness review's scan of 2026-10-12
+found no secret value committed (issue #70).
 
 ## 7. Unknowns this division leaves (from the inventories, not re-derived)
 
