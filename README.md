@@ -1,5 +1,7 @@
 # spine-program
 
+`HANDOFF.md` gives any Claude session the state of this repository, the board and the grid on 2026-10-12; read it first.
+
 One private repository that seeds a set of Claude Code projects, one per numbered folder, dividing the spine imaging
 programme of the Open Spine Consortium (Department of General Surgery, Wayne State University School of Medicine /
 Detroit Medical Center) into self-contained units. It was built on 2026-10-08 from the laptop folders, the memory notes
