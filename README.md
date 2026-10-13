@@ -127,21 +127,23 @@ Open issues: #41, #42.
 A student given this repository starts from this page alone. There are two ways in, a claude.ai Project and Claude Code
 on the student's own computer, and the four paragraphs below hold for both.
 
-Greg first gives the student Write on `OpenSpineConsortium/spine-program` (a collaborator invite) and makes the label
-`account:<GitHub login>`; the claim file's Account line is that login. Write means the student may read all 13 folders,
+Greg first gives the student Write on `OpenSpineConsortium/spine-program` (a collaborator invite). The student works as
+the worker named by their GitHub login: the claim skill makes the label `worker:<GitHub login>` the first time it needs
+it, and the claim file's Worker line is that login. Write means the student may read all 13 folders,
 the Greg-only ones included (Greg's answer of 2026-10-12, issue #68): "Greg-only" and the label `greg-first` govern
 claiming and hand-outs, not reading. An issue labelled `greg-first`, or one in a folder marked Greg-only, is claimed by a
 student only after Greg hands it out, either with a comment on the issue naming the student's login or by removing the
 label `greg-first`.
 
 How work is claimed is [docs/agents/PROTOCOL.md](docs/agents/PROTOCOL.md). Four labels drive it: todo marks the queue,
-and an issue labelled todo that the board shows unclaimed is free to take. Claimed means an account has pushed its
-branch, and the account's own label goes on with it. In-review means the pull request is ready, so the owner merges it
+and an issue labelled todo that the board shows unclaimed is free to take. Claimed means a worker has pushed its
+branch, and the worker's own label goes on with it; a claim with no commit for 24 hours is released by the board's own
+run. In-review means the pull request is ready, so the owner merges it
 and the merge closes the issue. Blocker means the issue stops everyone until it is done.
 
 The skills named on this page are the committed, unprefixed ones under `.claude/`: `/claim`, `/remember`, `/checkpoint`
-and `/board`. The symphony plugin's `/symphony:*` copies name files this repository does not have (`scripts/check.sh`,
-`.claude/rules/`), so a local session uses the unprefixed ones.
+and `/board`, kept in the repository so a cloud session, which loads no plugin, has them; the symphony plugin's
+`/symphony:*` copies are the same procedures, and a local session may use either.
 
 The data lives on the Wayne State grid and is reached through the Beethoven app
 (https://openspineconsortium.com/beethoven/). Approved students pass a named-user gate on the Ceph volume. Three
@@ -165,12 +167,11 @@ resource, leaving its instructions, description and memory blank: the goal, the 
 from the clone in every thread. Each thread starts from a fresh clone of main. Add the symphony plugin under the
 Project's settings where it is offered; otherwise run `/board` first in each thread. The Claude GitHub App must already
 be installed on the repository by the organization owner. The issue is chosen as "Choosing a project" below says. Add
-these two lines to a cloud-session prompt (the label `account:<GitHub login>` is made by Greg for each student; the main
-account's label is `account:main`):
+these two lines to a cloud-session prompt (the label `worker:<GitHub login>` is made by the claim skill, not by Greg):
 
 ```
 gh issue and gh pr are refused here, so add the labels, post the plan and open the draft pull request with your GitHub tools or gh api (repos/OpenSpineConsortium/spine-program/issues/N/labels, repos/OpenSpineConsortium/spine-program/issues/N/comments, repos/OpenSpineConsortium/spine-program/pulls). Mark the pull request ready with your GitHub tool update_pull_request (draft false), not gh api, which cannot change a draft; if you have no such tool, say so and stop before you delete the claim file.
-My account label is account:<login> and the claim file's Account line is <login>.
+My worker name is my GitHub login, <login>: the label worker:<login> and the claim file's Worker line.
 ```
 
 One ready-to-paste prompt for a Project thread, followed by the two lines above:

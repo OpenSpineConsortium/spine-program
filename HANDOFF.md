@@ -26,8 +26,9 @@ Detroit time unless marked UTC).
   start it; the label `in-review` does. Read it with
   `git fetch origin +refs/heads/board:refs/remotes/origin/board && git show origin/board:STATE.md`, or `/board`.
 - **Never edit main by hand, never push to main, never merge.** Every change is: an issue labelled `todo`; a claim (first
-  push of branch `claude/<N>` whose only commit adds `docs/agents/claims/<N>.md`); the labels `claimed` and the account's
-  label (`account:main` is Greg's) on the issue and the claim file posted as a comment
+  push of branch `claude/<N>` whose only commit adds `docs/agents/claims/<N>.md`); the labels `claimed` and the worker's
+  label (`worker:<GitHub login>`, which the claim skill makes; since 2026-10-13, in place of `account:main`, which the
+  board still reads) on the issue and the claim file posted as a comment
   (`gh issue comment N --body-file docs/agents/claims/N.md`); a draft pull request with "Closes #N"; the work; the claim
   file deleted; the pull request marked ready; the label `in-review`. Greg merges. GitHub does not enforce that: the
   ruleset needs a pull request but zero approvals and no check, auto-merge is allowed, and a session on Greg's machine acts
@@ -39,8 +40,10 @@ Detroit time unless marked UTC).
 - Committed under `.claude/` so a cloud session has them: the skills `/claim`, `/remember` and `/checkpoint` (posts a
   comment on the claim's pull request) in `.claude/skills/`, and the command `/board` in `.claude/commands/board.md`. The
   `symphony` plugin (`claude plugin install symphony@symphony-marketplace --scope project`; already installed at user
-  scope on Greg's machine) adds the board at session start and a push guard; use the unprefixed skills, not
-  `/symphony:*`, whose copies name files this repository does not have.
+  scope on Greg's machine) adds the board at session start and a push guard; the committed skills are the plugin's
+  own, with this repository's cloud-session fallbacks, so `/claim` and `/symphony:claim` do the same thing.
+- Since 2026-10-13 (pull request #86) the copy is symphony-protocol 0.4.1 and `.github/workflows/protocol.yml` brings each
+  later release in as a pull request from the branch `symphony-protocol/sync`; `tools/VENDORED` records the release.
 - No CI check exists. `docs/agents/PROTOCOL.md` describes a required check that is not here; trust the root `CLAUDE.md`.
   Before marking a pull request ready, check by hand: claim file deleted, "Closes #N", every acceptance line met, only the
   issue's files changed.
@@ -58,7 +61,7 @@ Detroit time unless marked UTC).
     05 (#25, #26), 06 (#27, #28), 12 (#29, #30), 01 (#31, #32), 02 (#33, #34), 07 (#35, #36), 08 (#37, #38),
     09 (#39, #40), 99 (#41, #42). #31 to #42 carry `greg-first`.
   - #72, Greg's (`greg-first`): install the Claude GitHub App on the repository, uninstall the Symphony Setup App,
-    invite each student with Write and make their `account:<login>` label, try the student route once, and record what
+    invite each student with Write (the label `worker:<login>` is made by the claim skill since 2026-10-13, so that step is gone), try the student route once, and record what
     is done in `11_students_grid_access/STATUS.md`. Its python-environment step is done (job 40602926) though its box is
     unticked. No student has Write or a pending invitation yet. Whether either App is installed cannot be read with the
     stored token (it lacks `admin:org`).

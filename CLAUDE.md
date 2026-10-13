@@ -92,8 +92,9 @@ service client while 12 waits on 01 S2.
    FluoroCap is out of training (a test set at most); identity comes from metadata first and the file name last; the IRB
    umbrella (HPR 2026-269) covers only public, de-identified data downloadable without an agreement.
    (`memory/no-unexplained-subsets-fix-not-disclose.md`, `memory/data-directives-2026-09-23.md`.)
-10. **Git, network, credentials.** In spine-program the account doing the work commits and pushes only its own branch
-    `claude/<issue>`, as `docs/agents/PROTOCOL.md` says; it never commits to or pushes `main`; Greg merges. The claim push
+10. **Git, network, credentials.** In spine-program the worker doing the work, a person's sessions under the person's
+    GitHub login, commits and pushes only its own branch `claude/<issue>`, as `docs/agents/PROTOCOL.md` says; it never
+    commits to or pushes `main`; Greg merges. The claim push
     is a plain `git push -u origin claude/<N>` in the Bash tool, never wrapped in `wsl`. In the code repositories
     (`CTSpinoPelvic1K`, `OpenSpineToolkit`, `spinesurg-ct-nnunet`, `XRSpinoPelvic1K`, `openspineconsortium.github.io`,
     `beethoven`) and on Greg's laptop: commit only when Greg asks; `CTSpinoPelvic1K` commits directly to master, no
@@ -112,9 +113,8 @@ service client while 12 waits on 01 S2.
     of authorship; Greg's to confirm, `_plan/PLAN.md` section 5), Greg's own institutional corresponding-author address in
     his manuscript sources and package metadata, and the maintainer addresses printed in third-party template files
     (`neurips_2026.sty`, `medphy.bst`). Role mailboxes (`hpc@`, `IRBQuestions@`) and the ssh login `go2432@grid.wayne.edu` are
-    not personal data and stay. The account handle the claim protocol needs (the `account:<login>` label, the claim
-    file's `- Account:` line, the board) is working metadata like commit authorship, not the personal data this rule is
-    about.
+    not personal data and stay. The worker name the claim protocol needs (the `worker:<login>` label, the claim file's
+    `- Worker:` line, the board) is working metadata like commit authorship, not the personal data this rule is about.
 
 ## Prefixes and markers in the copied documents
 
@@ -147,4 +147,6 @@ claim's pull request, and Greg applies it.
 
 @docs/memory/MEMORY.md
 
-Before any work: fetch, read the board with `git fetch origin +refs/heads/board:refs/remotes/origin/board && git show origin/board:STATE.md` (or `/board`), and check the claim on the issue you mean to take. One issue, one branch `claude/<issue>`, one pull request. Never push to the default branch or to another account's claim branch. This repository has no CI check yet; the push guard is the symphony plugin's and runs in local sessions only.
+Before any work: fetch, read the board with `git fetch origin +refs/heads/board:refs/remotes/origin/board && git show origin/board:STATE.md` (or `/board`), and check the claim on the issue you mean to take. One issue, one branch `claude/<issue>`, one pull request. Never push to the default branch or to another worker's claim branch. This repository has no CI check yet; the push guard is the symphony plugin's and runs in local sessions only.
+
+The protocol is the release of OpenSpineConsortium/symphony-protocol that `tools/VENDORED` records, vendored under `tools/sdlc_protocol`; `.github/workflows/protocol.yml` brings each later release in, weekly and by hand, as a pull request from the branch `symphony-protocol/sync` (or an issue linking one where GitHub Actions may not open a pull request), and nobody vendors by hand. Every worker here is a person's sessions, named by the GitHub login: the registry under `.github/symphony/workers/`, the workers' and the coordinator's workflows that PROTOCOL.md names are the template's and are not here; the board's own run releases idle claims and tells overlapping work.
