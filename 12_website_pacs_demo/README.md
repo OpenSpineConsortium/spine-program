@@ -96,3 +96,7 @@ Project's repository; this folder is the project when the claimed issue's title 
 issue gets a todo issue, which Greg opens, before work starts. The site lives in another repository: clone it
 (`MANIFEST_CODE.md` section 1), run `git pull`, then `python -X utf8 tools/build_site.py --check-only`. A change to it, or
 to any other repository, lands as `12_website_pacs_demo/patches/<N>-<slug>.patch` in the claim's pull request.
+
+## On the grid
+
+Since 2026-10-13 (issue #87) `figures/` of this folder is a symlink to the same path under `/rs/rs_grp_oschome/shared/spine-program/archive/` on the grid, where the files are read through the link; everywhere else they are read from git history at main 5597197. `../ARCHIVE.md` says how, and how a task that must change one of them brings it back into its branch. The counts and sizes in `MANIFEST_LOCAL.md` describe the folder as it was built on 2026-10-08.

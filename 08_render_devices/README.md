@@ -99,3 +99,7 @@ figures/         fig_device_params.png, fig_device_spread.png (and the second pa
 memory/          40 notes with their status headers
 code/            nothing copied; README.md points at MANIFEST_CODE.md
 ```
+
+## On the grid
+
+Since 2026-10-13 (issue #87) `results/` and `figures/` of this folder are symlinks to the same path under `/rs/rs_grp_oschome/shared/spine-program/archive/` on the grid, where the files are read through the link; everywhere else they are read from git history at main 5597197. `../ARCHIVE.md` says how, and how a task that must change one of them brings it back into its branch. The counts and sizes in `MANIFEST_LOCAL.md` describe the folder as it was built on 2026-10-08.

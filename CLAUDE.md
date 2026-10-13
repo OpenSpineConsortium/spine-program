@@ -3,7 +3,7 @@
 This is one private repository that seeds a set of Claude Code projects, one per numbered folder; each folder is
 self-contained (its own `CLAUDE.md`, `README.md`, `STATUS.md`, `TODO.md`, `MEMORY.md` + `memory/`, three manifests and the
 salvaged material). Open the folder's `CLAUDE.md` first: the rules below bind everywhere, and the folder adds its own
-traps. Nothing here is imaging data or a weight; the grid and the named repositories hold those.
+traps. Nothing here is imaging data or a weight; the grid and the named repositories hold those. Since 2026-10-13 the salvaged record, each folder's `results/`, `figures/`, `manuscripts/` and `regulatory/`, lives on the grid too, under `/rs/rs_grp_oschome/shared/spine-program/archive/`, and the folders in the tree are symlinks to it: `ARCHIVE.md` says how a session reads a file from either place and how a task brings one back into its branch (issue #87).
 
 ## Read first
 
@@ -136,7 +136,8 @@ what two or three rounds of reasoning from numbers got wrong.
 ## What a cloud session reaches
 
 A claude.ai Project thread or a cloud session has this clone and GitHub, through its proxy, and nothing else: no grid,
-no ssh, no `sbatch`, no `wsl`, no access to Greg's HOME and no clone of the other repositories. Grid steps run from the
+no ssh, no `sbatch`, no `wsl`, no access to Greg's HOME and no clone of the other repositories. The record folders the symlinks
+point at are on the grid, so such a session reads one of their files from git history (`ARCHIVE.md`). Grid steps run from the
 Beethoven worker or by Greg, and their job ids and outputs come back to the claim branch. A change to another repository
 lands as `<folder>/patches/<N>-<slug>.patch` (`git format-patch` against the commit `MANIFEST_CODE.md` names) in the
 claim's pull request, and Greg applies it.

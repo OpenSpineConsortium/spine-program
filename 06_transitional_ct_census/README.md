@@ -89,3 +89,7 @@ A16.5), and a Castellvi grade on all 802 CTSpinoPelvic1K records (33 graded toda
 
 - `code/aaca_lstv_mri/lstv_fusion/`: the SPINEPS + uncertainty-detection fusion pipeline behind the AACA 2026 LSTV result and the two tables in `results/aaca_lstv_mri/` (repository lstv-fusion 3c8f5c1; `MANIFEST_CODE.md` section 6b).
 - Lineage note: the first synthesis of a transitional vertebra from a normal mask in this programme was the March-April 2026 sacralisation-synthesis line of SpineSurg-CT at 0051074; its scripts and its one QC result now sit in `../08_render_devices/code/spinesurg_ct_0051074/` and `../08_render_devices/results/superseded/sacralization_synthesis_2026-04/`. CTSpinoPelvic1K-Syn (this folder) replaced it; nothing from it is quotable.
+
+## On the grid
+
+Since 2026-10-13 (issue #87) `results/` and `figures/` of this folder are symlinks to the same path under `/rs/rs_grp_oschome/shared/spine-program/archive/` on the grid, where the files are read through the link; everywhere else they are read from git history at main 5597197. `../ARCHIVE.md` says how, and how a task that must change one of them brings it back into its branch. The counts and sizes in `MANIFEST_LOCAL.md` describe the folder as it was built on 2026-10-08.

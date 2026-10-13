@@ -96,3 +96,7 @@ owning folder's `memory/`); `HOME` or `~` = `/wsu/home/go/go24/go2432`; `$RS` = 
 path, the copy here carries a marker instead (`<laptop Desktop>/`, `<laptop home>/`, `<laptop memory folder>/`,
 `<laptop vendor folder, never read>`, `<laptop Temp scratchpad, swept>/`); `docs/handoff/ABOUT_THESE_COPIES.md` and
 `MANIFEST_LOCAL.md` section 2 list every substitution. No laptop path remains in this folder outside `MANIFEST_LOCAL.md`.
+
+## On the grid
+
+Since 2026-10-13 (issue #87) `results/` and `figures/` of this folder are symlinks to the same path under `/rs/rs_grp_oschome/shared/spine-program/archive/` on the grid, where the files are read through the link; everywhere else they are read from git history at main 5597197. `../ARCHIVE.md` says how, and how a task that must change one of them brings it back into its branch. The counts and sizes in `MANIFEST_LOCAL.md` describe the folder as it was built on 2026-10-08.
