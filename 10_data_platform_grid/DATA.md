@@ -50,7 +50,8 @@ files. HOME held 520 GB of the 4,295 GB soft limit (4,051 GB on 2026-10-08); Cep
   40599886 (the B04, B05, B10 and B14 folders) and 40599867 (after B13's finalize, every chain folder including
   `multisource_banks`) open them (issue #65).
 - 2026-10-12: the copy `code/data_platform/plan/publish_visibility.sh` in this folder was replaced by the file of
-  spinesurg-ct-nnunet d9b388d (issue #65).
+  spinesurg-ct-nnunet d9b388d (issue #65), and later the same day by the file of 0ab783f, which it is now (issue #80,
+  pull request #82).
 - One path stays closed (owner-only):
   `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, whose one file is the
   annotator map, students' personal data rather than a dataset or a token (Greg, issue #69).
@@ -221,9 +222,10 @@ This project owns `/wsu/home/go/go24/go2432/model_registry` and its ledger (sett
 
 For every other path above, this file repeats no terms: `code/data_platform/sources.json` carries a licence field per
 source card, and where that card too is silent, the terms are not recorded in the folder. Banks holding VinDr or BUU
-pixels were owner-only in their visibility pass until 2026-10-12 (`CLAUDE.md` rule 9); the copy of
-`code/data_platform/plan/publish_visibility.sh` from spinesurg-ct-nnunet d9b388d no longer closes them, and visibility
-jobs 40599886 and 40599867 open them (section 1).
+pixels were owner-only in their visibility pass until 2026-10-12 (`CLAUDE.md` rule 9); spinesurg-ct-nnunet d9b388d
+stopped closing them, visibility jobs 40599886 and 40599867 opened them (section 1), and the copy of
+`code/data_platform/plan/publish_visibility.sh` here, the file of 0ab783f since 2026-10-12 (issue #80), does not close
+them either.
 
 ## 9. Credential files on HOME (`MANIFEST_GRID.md` section 7; by name only)
 

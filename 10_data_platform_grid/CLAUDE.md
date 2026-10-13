@@ -77,7 +77,12 @@ B30). This is support work, not a hypothesis. Every other project folder depends
    models; it names them only as registry entries.
 9. **Data.** Use all of a public dataset; a download budget is not a criterion; every truncation is fixed or justified
    in writing before a rerun; a leak is fixed by retraining, never disclosed as a caveat; VinDr-SpineXR (DUA) and
-   BUU-LSPINE (EULA) and every bank holding their pixels stay owner-only (`code/data_platform/plan/publish_visibility.sh`).
+   BUU-LSPINE (EULA) and every bank holding their pixels are readable by approved students since 2026-10-11 (their
+   folders) and 2026-10-12 (the items and banks inside them), because every approved student holds the PhysioNet
+   credential and the VinDr and BUU agreements (Greg, 2026-10-11; `DATA.md` section 1);
+   `code/data_platform/plan/publish_visibility.sh` (spinesurg-ct-nnunet 0ab783f) closes only
+   `/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, the annotator map;
+   `../HANDOFF.md` section 4 has the current state.
 10. **Network and credentials.** On Greg's laptop, network goes through WSL (`wsl -e bash -lc '...'`). Tokens are read from files, never
     echoed, never on a command line or in `sbatch --export`; this folder names credential files (for example
     `/wsu/home/go/go24/go2432/github`, `/wsu/home/go/go24/go2432/CTSpinoPelvic1K/.token`) only so that Greg rotates and deletes them. In the code repositories
