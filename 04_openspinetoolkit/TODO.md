@@ -50,7 +50,8 @@ the handoff's `OPEN_QUESTIONS.md` (OQ), `RESEARCH_DIRECTIONS.md` (RD, Greg-only,
 - Deletions on the grid (step 13; OQ A26) and of `~/ostk.tgz`.
 - Whether level-identification code of any kind may enter ostk (the standing answer is no; handoff
   `INFRASTRUCTURE.md` section 1.1).
-- Whether this folder may be handed to students (student-safe once Greg confirms the reader split, OQ A29/A30).
+- Whether this folder may be handed to students: answered by Greg on 2026-10-12 (OQ A29; issue #68), every Write
+  holder may read all 13 folders, and this folder is student-safe.
 
 ## Closed by this build (2026-10-08), for the handoff's record
 

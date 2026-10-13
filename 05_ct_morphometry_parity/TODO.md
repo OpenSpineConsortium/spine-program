@@ -49,8 +49,9 @@ Before any grid step: `docs/handoff/RECIPES.md` section 0; `sbatch -D <dir>`, `r
 
 ## Greg decides (before any hand-out or any real-data arm)
 
-- The reader split of this folder and the withheld personal data (`OPEN_QUESTIONS.md` A29, A30); this folder is
-  student-safe by the plan once confirmed.
+- The reader split of this folder and the withheld personal data (`OPEN_QUESTIONS.md` A29, A30): answered by Greg on
+  2026-10-12 (issue #68), every Write holder may read all 13 folders, so this folder is student-safe; the withheld
+  personal data stays out (root `CLAUDE.md` rule 12).
 - Whether `morphometrics/annotator_names.csv` (student names, tracked in the public CTSpinoPelvic1K repository) leaves that
   repository (`../_plan/PLAN.md` section 5); it was not copied here.
 - PAR-5, PAR-6 and every V1-V4 variant (a real-data arm or a new training arm each needs his decision; the standing rule is

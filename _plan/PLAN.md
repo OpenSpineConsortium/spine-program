@@ -962,6 +962,18 @@ may delete them); whether Ashley Schehr's name appears in folder text (a publish
 usernames never); whether `CASE_HIEBER` holds a cervical case report Greg wants kept (excluded: it holds patient documents);
 whether `morphometrics/annotator_names.csv` and `spine_tampering.csv` leave the public repository; the credentials of section 6.
 
+**Answered by Greg on 2026-10-12** (his comments on issues #68 to #72; recorded by the pull request of #68). A29: option
+(a), every Write holder may read all 13 folders; "Greg-only" and the label `greg-first` govern claiming and hand-outs,
+not reading, and a hand-out is Greg's comment on an issue naming the student's login, or the label `greg-first` removed.
+A30 has no separate answer; the withheld personal data stays out of the repository (root `CLAUDE.md` rule 12). A26,
+`~/s1v11`: opened to approved students without the token check (spinesurg-ct-nnunet 0ab783f drops it from
+`FIXED_RESTRICTED_PATHS`; visibility job 40602925, issue #69); the one path still owner-only is
+`/rs/rs_grp_oschome/go2432/data/ctspinopelvic1k_build_tree/derived/build_archive_private`, because its one file is the
+annotator map, students' personal data rather than a dataset or a token. A26, B13: finalized; the migration chain
+completed at 08:41 EDT on 2026-10-12 (`10_data_platform_grid/MANIFEST_GRID.md` section 2). The credentials of section 6:
+no rotation planned (section 6, issue #70). The history of main with the redacted values: kept as it is (issue #71;
+`MANIFEST_LOCAL.md` of 01, 08 and 10).
+
 ## 6. Credentials to rotate (paths only, never contents; from the four laptop inventories and `grid_manifest.md` section 3.10)
 
 `ctsp:LATERAL_ATLAS/key.txt` (an AWS key pair; its first two lines were printed into a tool output on 2026-10-08: treat as
@@ -974,6 +986,10 @@ banner); on the grid `~/github` (41 B, mode 600), `~/CTSpinoPelvic1K/.token` (38
 `~/.hf_osc_token`, `~/.zenodo_token`, `~/.fluorocap/`, `~/.kaggle/`, `~/.netrc`, `~/.gdrive_token`, `~/.geo_ftp_pass`, `~/pass_file`,
 `~/private`, `~/.certs`; `C:/Users/grego/.beethoven-vendor` (never read). Whether the GitHub token and the Firebase key are
 still live is not recorded.
+
+**Greg's answer, 2026-10-12** (issue #70: "dont worry about tokens"): no rotation is planned; the credentials stay where
+the list above puts them, and no rotation date is recorded for any of them. No secret value is in this repository (the
+readiness review's scan of 2026-10-12, issue #70).
 
 ## 7. Unknowns this division leaves (from the inventories, not re-derived)
 

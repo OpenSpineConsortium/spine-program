@@ -46,4 +46,5 @@ Nothing here runs on the login node; every step is an `sbatch -D` job with its i
 
 - Revoke the Firebase service-account key that sat beside the AACA line (excluded from every copy; `../_plan/PLAN.md` section 6). Greg.
 - The 26 contact sheets (17 MB), the per-stream review-queue renders and the 374 VerSeFusion QC PNGs are by path only (`MANIFEST_LOCAL.md`); regenerate with `make qc-slurm` (VerSeFusion) or `transitional_registry.py` when needed.
-- Confirm the reader split for this folder (OQ A29, A30) before it is handed to a student. Greg decides.
+- The reader split for this folder (OQ A29, A30): answered by Greg on 2026-10-12 (issue #68), every Write holder may
+  read all 13 folders; a hand-out follows the redactions recorded in `MANIFEST_LOCAL.md`.
