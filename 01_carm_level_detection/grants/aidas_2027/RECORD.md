@@ -12,8 +12,8 @@ grid and are read here from git history at main 5597197 (`ARCHIVE.md`). Row ids 
 
 | number in the packet | file |
 |---|---|
-| 0.12 % wrong-level surgery in a 27-hospital registry of 34,544 degenerative operations, 0.42 % thoracic [1] | `09_wrong_level_clinical_qi/docs/WRONG_LEVEL_COST_EVIDENCE.md` (Furuya 2026) |
-| about half of responding US spine surgeons report a wrong-level operation [2,3] | the same file (Mody 2008; Groff 2013) |
+| 0.12 % wrong-level surgery in a 27-hospital Japanese registry of 34,544 patients having degenerative spine surgery, 0.42 % thoracic [1] | `09_wrong_level_clinical_qi/docs/WRONG_LEVEL_COST_EVIDENCE.md` (Furuya 2026) |
+| about half of responding US neurosurgeons report a wrong-level operation [2,3] | the same file (Mody 2008; Groff 2013); both surveyed neurosurgical societies, and Groff's "almost 50 %" is of lumbar surgery |
 | 12.9 % of 550 surgical patients had a transitional vertebra; miscounted in clinic in 54 % [4] | `02_transitional_naming_truth/docs/LEVELCHECK_CLAIM.md` (Nakagawa 2017) |
 | LevelCheck registers the preoperative CT to each image [5], 17 to 72 s in an operating room [6], against the 20 s to one minute surgeons said they would wait [7] | `01_carm_level_detection/docs/MODEL_CARD.md` section 6 (`levelcheck2012`, `manbachi2018`, `desilva2016`) |
 | CTSpinoPelvic1K: 802 CTs, release 11, Zenodo 10.5281/zenodo.22797014 [8] | `03_ctspinopelvic1k_dataset/README.md` |
@@ -26,21 +26,21 @@ grid and are read here from git history at main 5597197 (`ARCHIVE.md`). Row ids 
 | YOLO11m detector; ResNet-18 encoder; two-layer bidirectional GRU over the run of 2 to 9 bodies; 27 levels | `01_carm_level_detection/docs/MODEL_CARD.md` (the model table); Figure 3a is `figures/schwingnet/fig1c_arch.pdf` at 5597197 |
 | SID 1,140 mm and SOD 745 mm, so 1.53 times larger on the detector (Figure 3b) | `01_carm_level_detection/docs/MODEL_CARD.md` section 6.1 |
 | the sixth lumbar vertebra in a labeled CT, its render and another person's radiograph; white bars 20 mm (Figure 1c) | `01_carm_level_detection/figures/schwingnet/figure1.png` and `figure1.record.json` ("bar, 20 mm") at 5597197 |
-| 96.4 % of the 617 lateral bodies the detector finds, with no C-arm frame in training (595 / 617, [92.3, 98.4]) | row A2.1 |
+| 96.4 % of the 617 lateral bodies the film-trained detector finds, with no C-arm frame in training (595 / 617, [92.3, 98.4]) | row A2.1 (the naming boxes come from the film-trained keypoint body detector, `detector_v5z_final` at 0.35; the A2 rows' header) |
 | 88.0 % of all 676 lateral bodies with agreed truth (595 / 676; the detector finds 617 of them) | rows A2.6, A2.7 |
 | 43.7 % of 631 AP bodies (276 / 631, [34.9, 51.9]) | row A2.2 |
-| AP fine-tuned on five cases' frames, 90.8 %; on all of the device's cases, 98.1 %; test cases held out | row A9.2 (on the catalog's REP truth, 633 AP bodies, where the same encoder's starting point is 33.8 %; Figure 4a sets it beside A2.2's zero-shot 43.7 % on 631 agreed bodies) |
+| AP fine-tuned on five cases' frames, 90.8 % [86.7, 94.3]; on all the other cases of each fold, 98.1 % [95.7, 99.8]; test cases held out | row A9.2 (on the catalog's REP truth, 633 AP bodies, where the same encoder's starting point is 33.8 %; Figure 4a sets it beside A2.2's zero-shot 43.7 % on 631 agreed bodies); the intervals are those of `results/schwingnet/indomain/name_fill.json` at 5597197, the file the A9 header names (figure5b, AP to AP, N = 5 and N = all; a case-clustered percentile bootstrap over 142 cases) |
 | on the 233 frames where the sacrum is found, 81.5 % of the 286 that show one | row A6.6 |
 | count and shape coupled, 98.2 % of 1,009 bodies (991 / 1,009, [96.5, 99.5]) | row A5.1 |
-| the stack abstains on 9.9 % of those 233 frames and catches 5 of the 6 that err | row A5.3 |
-| detector on the held-out C-ArmLSpine at 0.74: 80.5 % of vertebrae (231 / 287, [74.1, 86.8]), 76.8 % of sacra (43 / 56) | row A6.1 |
+| the stack abstains on 9.9 % of those 233 frames (13 where count and shape disagree, 10 where the name is unsure) and catches 5 of the 6 that err | row A5.3 |
+| the C-arm detector, trained on COBRA's and DeepFluoro's real frames, on the held-out C-ArmLSpine at 0.74: 80.5 % of vertebrae (231 / 287, [74.1, 86.8]), 76.8 % of sacra (43 / 56) | row A6.1 (`rx_lodo_carmlspine_1024`, a YOLO11m; 56 frames of 28 cases) |
 | the same at 0.25: 90.6 % (260 / 287, [84.3, 94.5]), sacra 83.9 % (47 / 56) | row A6.2 |
-| 93.9 % of the 214 vertebrae whose truth is complete and at least 80 % visible (201 / 214) | row A6.5; the repaired denominator's rule is in `docs/handoff/GLOSSARY.md` |
+| on rebuilt truth, 82.2 % of the 287 (236 / 287) and 93.9 % of the 214 vertebrae whose truth is complete and at least 80 % visible (201 / 214) | row A6.5, "both printed" (`results/schwingnet/indomain/DENOMINATOR_REPAIR.md` at 5597197); the repaired denominator's rule is in `docs/handoff/GLOSSARY.md`; A6.1's 80.5 % is on the truth before the rebuild |
 | styled renders added to two devices' real frames: 63.1 % (181 / 287, [54.8, 71.0]) at 0.74, 87.8 % at 0.25 | rows A6.11, A7.8 |
 | renders only: 0.3 % (1 / 287) at 0.74, 31.7 % (91 / 287) at 0.25 | row A6.12 |
 | the 97 % set in advance, met by no held-out cell | row A6.13 (`ssn:docs/RSNAI_PLAN.md` C7) |
 | styled renders 99 to 100 % separable from real frames | row A13.3 |
-| for the R21: 35 patients all named correctly give a Wilson lower bound of 90 %; 99 patients give 80 % power for it at a true 97 % | rows E.2 and E.4 (E.4's planning values have no transitional measurement behind them) |
+| for the R21: 99 patients give 80 % power for a Wilson lower bound of 90 % at a true 97 % (exactly 82 %; 98 give 66 %, so the number is exactly 99) | row E.4 (its planning values have no transitional measurement behind them) |
 | the Co-PI's four high-performance computing papers with the clinical collaborator (2021 to 2024); the PI's Gaussian-splatting and implicit-surface papers (CVPR 2025 and 2026, NeurIPS 2024); the PI's PhD of November 2017 and appointment since January 2021 | the two biosketches (submitted with the packet, not committed) |
 
 No number in the packet comes from a row marked LEAKED, SUPERSEDED or RECORD ONLY (root CLAUDE.md rule 5). The
@@ -81,18 +81,23 @@ page before submitting.
 | the grid's compute is free to WSU researchers | https://services.wayne.edu/TDClient/277/Portal/KB/Article/20229/Grid-FAQs |
 | the Body Bequest donor authorization permits de-identified images | https://bodybequest.med.wayne.edu/docs/bbp_brochure.pdf |
 | the C-arm in Room 0312 Elliman; dosimetry badges at DLAR's director 15 business days ahead | https://research.wayne.edu/oehs/rad-safety/xray-imaging |
-| Magewell USB Capture AIO, $619 list | https://www.fullcompass.com/prod/600750-magewell-usb-capture-aio-usb-capture-aio |
+| Magewell USB Capture AIO, $619 retail | https://www.fullcompass.com/prod/600750-magewell-usb-capture-aio-usb-capture-aio |
 | an OEC 9900's live output is BNC; its DVI output carries review images | https://www.blockimaging.com/oec-9900-how-to-add-an-extra-real-time-image-monitor |
 | a mid-level regulatory consultant, about $200 to $400 an hour (the packet uses $300) | https://seed.nih.gov/sites/default/files/2024-12/Regulatory-and-Manufacturing-Consulting-for-Life-Sciences.pdf |
-| the Claude Team plan for scientists: Premium seats at $15 a month for a verified PI's group, "Annual billing available ($0 / $180 per seat)"; card payment only | https://claude.com/programs/team-plan-for-scientists and https://support.claude.com/en/articles/12997503 (both read directly) |
+| the Claude Team plan for scientists: Premium seats at $15 a month for a verified PI's group, "Annual billing available ($0 / $180 per seat)", the price held for 12 months from sign-up; card payment only | https://claude.com/programs/team-plan-for-scientists and https://support.claude.com/en/articles/16634237-claude-team-plan-for-scientists (the 12 months); https://support.claude.com/en/articles/12997503 (cards only) |
 | Claude Pro at $20 a month | https://claude.com/pricing (read directly) |
-| Anthropic's AI for Science program: up to $20,000 in API credits for six months | https://support.claude.com/en/articles/11199177-anthropics-ai-for-science-program (read directly) |
+| Anthropic's AI for Science program: up to $50,000 in API credits per project, any researcher eligible (the help article's older "up to $20,000 ... for a 6-month period" predates it; no duration is given for the new ceiling); the program's terms ask the institution to let Anthropic use data made with the credits, model training included | https://www.anthropic.com/news/expanding-support-for-scientists (August 27, 2026) and https://support.claude.com/en/articles/11199177-anthropics-ai-for-science-program |
 | poster at $6 a square foot, School of Medicine Medical Communications | https://medcom.med.wayne.edu/large-format-substrates |
 
 
-References [10] to [16] (SWE-bench, MLE-bench, RE-Bench, X-Gaussian, R2-Gaussian, DeepDRR and SyntheX's journal
-paper) were written from memory and not checked against the papers; so was the sentence that SyntheX matched
-real-data training for hip landmarks in cadaver X-rays. Check them before submitting.
+References [1] to [16] and the claims tied to them were checked on 2026-10-14 against search excerpts and the
+repository's earlier full-text readings (`01_carm_level_detection/docs/research/BIB_RESOLVE_2026-09-22.json`): [12]
+now cites ICML 2025; DeepDRR [15] is credited with the physics and SyntheX [16] with the strong domain randomization,
+whose hip-landmark parity rests on 366 cadaver images from six specimens; [1] counts patients, not operations; [2]
+and [3] surveyed neurosurgical societies; the cohort's ten abstracts were submitted, not reported accepted. Still to
+check by hand: the first author's initial in [4] and the Zenodo page of [8]. The FICA rate of line A2 is the
+employer's statutory share, Social Security 6.2 % and Medicare 1.45 % (IRS Publication 15,
+https://www.irs.gov/publications/p15).
 
 ## 3. What only the team can supply (the red [DATA NEEDED] marks)
 
@@ -141,11 +146,17 @@ real-data training for hip landmarks in cadaver X-rays. Check them before submit
 - **The Gaussian renderer** is framed as built on the PI's Gaussian-splatting work; the PI should confirm that
   framing and references [13] and [14].
 - **Line E** asks Anthropic's AI for Science program for API credits; the laboratory works without API keys, so the
-  credits would run only the benchmark's extra repeats, on the program's terms.
+  credits would run only the benchmark's extra repeats, on the program's terms. Those terms ask the institution to
+  let Anthropic use data made with the credits, model training included, so the repeats would run only tasks whose
+  data agreements allow it (the packet says "on tasks its data terms allow").
+- **The R21's mechanism.** The parent R21 (PA-25-304) allows no clinical trial and NIBIB's EBRG (PAR-25-321) makes one
+  optional, so a validation that reaches patients' care fits PAR-25-321; earlier Trailblazer calls discouraged
+  preliminary data, which the alignment page plans to bring.
 - **Reference [9]** is cited without its author list, since rule 12 keeps student names out of this repository; add
   the authors in Overleaf if wanted.
-- **Federal wording.** EO 14434 (September 29, 2026) has agencies write "Super Intelligence" and "SI" in place of
-  "AI" in official documents; the AIDaS packet is internal and keeps "AI", but the CAREER and R21 drafts may need it.
+- **Federal wording.** EO 14434 (September 29, 2026), "Inaugurating the Era of Super Intelligence", has agencies
+  write "Super Intelligence" and "SI" in place of "AI" in their own documents. It binds agencies, not applicants, so
+  the AIDaS packet keeps "AI" and the CAREER and R21 drafts may echo a solicitation's own words without having to.
 - **The figures.** Figure 2a is redrawn as vector boxes from the labels of the extension's own store diagram, and
   Figure 2b crops the popup's top half, which shows no grid login; the VS Code edition's diagrams have labels that
   overlap at print size and are not used.

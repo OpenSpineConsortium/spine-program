@@ -24,11 +24,13 @@ structure carried into 2-D C-arm images at low latency (Health). The call is
 | `autonomous_spine_agent.py` | the execution skeleton of Aim 1: a grid simulator with the WSU grid's partitions and refusals, a mock model that drafts and repairs jobs, the agent loop with gates registered by hash, a placeholder evaluation. `python3 autonomous_spine_agent.py --selftest`; run it on a laptop or as an sbatch job, never on the grid's login node |
 | `REVIEW_2026-10-14.md` | the five reviewers' findings on the packet merged in #91, applied in the pull request for issue #94, except where `RECORD.md` section 4 says a change was made another way by design |
 | `HANDOFF_2026-10-14c.md` | the checkpoint that set that work |
+| `HANDOFF_2026-10-14e.md` | where the work for #94 stopped when the owner's usage ran low: the next steps to Friday's deadline, how to build the submission and the Overleaf zip, and what waits on the owner |
+| `review/` | the second review round's writing edits, not yet applied (`r6_line_edits.patch`, then `r6_hidden_check.patch`), the reviewer's report, and `page_slack.py`, which prints the room left at the foot of each page |
 
 ## Building it
 
 - **On Overleaf:** upload the zip of `latex/` with `contacts.tex`, `biosketch_han.pdf` and `biosketch_schwiebert.pdf`
-  beside `main.tex` (the zip the thread for issue #94 delivered has all of them), set the compiler to pdfLaTeX and
+  beside `main.tex` (`HANDOFF_2026-10-14e.md` says how to make it), set the compiler to pdfLaTeX and
   compile `main.tex`: 10 pages.
 - **Here:** `bash build_pdf.sh` writes the 8-page draft; put the three files in `latex/` to get the 10-page
   submission, which it builds only once every [DATA NEEDED] mark is filled. After a figure changes, run

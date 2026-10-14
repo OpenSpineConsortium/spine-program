@@ -8,8 +8,8 @@ Figure 4  the held-out results: naming the level, and detection on a device neve
 
 Every number drawn here is typed once, in NAMING, DETECTION, TARGET, COHORT and GEOMETRY
 below, beside the file it comes from; RECORD.md lists the same rows. figures/sources/SOURCES.md says where
-each image came from. Every label is set at 6.8 pt or more at print size. Run it on a laptop or as an
-sbatch job, never on a login node:
+each image came from. Every label drawn here is set at 6.8 pt or more at print size; the Figure 2b screenshot
+prints its own text at about 6 pt. Run it on a laptop or as an sbatch job, never on a login node:
 
     python3 make_figures.py            # writes latex/figures/*.pdf for the packet and a 300 dpi preview
                                        # of each in figures/*.png
@@ -49,15 +49,16 @@ GREY_PALE = "#f2f1ec"
 DOT_BEFORE = "#9a978e"
 
 # Held-out results, docs/handoff/RESULTS_CATALOG.md of 01_carm_level_detection (row id in each entry): the label with
-# the count where the row gives one, the value in percent, the 95 % case-clustered interval as the row gives it
-# (None where it gives none), and the row. Each point is the stronger of the record's results for its question, as
+# the count where the row gives one, the value in percent, the 95 % case-clustered interval as the row gives it, or,
+# for A9.2, as the file the catalog's A9 header names gives it (results/schwingnet/indomain/name_fill.json at
+# 5597197, figure5b, AP to AP, N = 5 and N = all), and the row. Each point is the stronger of the record's results for its question, as
 # the owner asked on 2026-10-14: the tuned points are the fine-tunes of the v9 encoder (A9), the coupled point the
 # fold models' (A5), whose training banks hold VinDr and FluoroCap crops (RECORD.md section 4).
 NAMING = [
     ("Lateral,\nzero-shot\n595 / 617", 96.4, (92.3, 98.4), "A2.1"),
     ("AP,\nzero-shot\n276 / 631", 43.7, (34.9, 51.9), "A2.2"),
-    ("AP, tuned\non 5 of its\ncases", 90.8, None, "A9.2"),
-    ("AP, tuned\non all of\nits cases", 98.1, None, "A9.2"),
+    ("AP, tuned\non 5 of its\ncases", 90.8, (86.7, 94.3), "A9.2"),
+    ("AP, tuned\non all its\nother cases", 98.1, (95.7, 99.8), "A9.2"),
     ("Count and\nshape coupled\n991 / 1,009", 98.2, (96.5, 99.5), "A5.1"),
 ]
 # Detection on C-ArmLSpine, held out of detector training: each arm at the 0.74 cross-device threshold (with its
@@ -178,12 +179,11 @@ def draw_gated_loop(ax, top):
     box(ax, left, write, w, h, "Write the Slurm job")
     box(ax, left, submit, w, h, "Submit; read the scheduler\nand the job's log")
     box(ax, left, gate, w, h, "Does the gate pass?", weight="bold")
-    box(ax, left, done, w, h, "Pull request\nfor the trainee", face=TEAL_PALE, edge=TEAL)
+    box(ax, left, done, w, h, "It passes: a pull request\nfor the trainee", face=TEAL_PALE, edge=TEAL)
     centre = left + w / 2
     for upper, lower in ((task, write), (write, submit), (submit, gate)):
         arrow(ax, (centre, upper), (centre, lower + h))
     arrow(ax, (centre, gate), (centre, done + h), color=TEAL)
-    note(ax, centre + 0.06, (gate + done + h) / 2, "passes", color=TEAL)
 
     arrow(ax, (1.16, task + h / 2), (left, task + h / 2))
     note(ax, 1.19, task + h / 2 - 0.05, "a task\nand its\ngate", color=MUTED, va="top")
@@ -216,7 +216,7 @@ def figure_beethoven():
     fig, ax = new_canvas(WIDTH, height)
     top = height - 0.14
     draw_route(ax, top)
-    panel_title(ax, 2.58, top, "b", "One click starts the worker")
+    panel_title(ax, 2.58, top, "b", "One click opens the session")
     place_image(ax, open_image("beethoven_popup_top.png"), 2.62, 0.02, 1.44)
     panel_title(ax, 5.02, top, "c", "2026 cohort, n = 16")
     note(ax, 5.19, top - 0.2, "grey dots before, green after", size=SMALL)
@@ -336,18 +336,28 @@ def figure_results():
     fig.text(0.0, title_y, "a", fontsize=10, fontweight="bold")
     fig.text(0.17 / WIDTH, title_y, "Naming the level on C-ArmLSpine", fontsize=8, fontweight="bold")
     fig.text(3.62 / WIDTH, title_y, "b", fontsize=10, fontweight="bold")
-    fig.text(3.79 / WIDTH, title_y, "Finding vertebrae on a device never trained on", fontsize=8,
-             fontweight="bold")
+    fig.text(3.79 / WIDTH, title_y, "Finding vertebrae on a new device", fontsize=8, fontweight="bold")
     draw_naming(naming)
     draw_detection(detection)
+    # The key shares the panel title's line, above the plot, so it cannot be read as data.
+    key_y = ((height - 0.14) - 0.46) / 0.78 * 108 + 3.5
+    draw_detection_key(detection, key_y)
     return fig
+
+
+def interval_bar(ax, x, interval, color):
+    """A 95 % interval as a line with short caps, so that one narrower than its point still shows its ends."""
+    low, high = interval
+    ax.plot([x, x], [low, high], color=color, lw=1.0, solid_capstyle="butt", zorder=2)
+    for end in (low, high):
+        ax.plot([x - 0.06, x + 0.06], [end, end], color=color, lw=0.8, solid_capstyle="butt", zorder=2)
 
 
 def draw_naming(ax):
     for x, (_, value, interval, _) in enumerate(NAMING):
         if interval:
-            ax.plot([x, x], interval, color=TEAL, lw=1.3, solid_capstyle="butt", zorder=2)
-        ax.scatter([x], [value], s=14, color=TEAL, zorder=3, linewidths=0)
+            interval_bar(ax, x, interval, TEAL)
+        ax.scatter([x], [value], s=9, color=TEAL, zorder=3, linewidths=0)
         ax.text(x + 0.12, value, f"{value:.1f} %", fontsize=SMALL, va="center", ha="left")
     style_axes(ax, [label for label, *_ in NAMING], "exact level, %")
 
@@ -357,20 +367,24 @@ def draw_detection(ax):
     for x, (_, value, interval, _, _, value_low, interval_low, _) in enumerate(DETECTION):
         for centre, bar in ((x - 0.13, interval), (x + 0.13, interval_low)):
             if bar:
-                ax.plot([centre, centre], bar, color=ORANGE, lw=1.3, solid_capstyle="butt", zorder=2)
-        ax.scatter([x - 0.13], [value], s=14, color=ORANGE, zorder=3, linewidths=0)
-        ax.scatter([x + 0.13], [value_low], s=16, facecolors="white", edgecolors=ORANGE, linewidths=0.9, zorder=3)
+                interval_bar(ax, centre, bar, ORANGE)
+        ax.scatter([x - 0.13], [value], s=9, color=ORANGE, zorder=3, linewidths=0, clip_on=False)
+        ax.scatter([x + 0.13], [value_low], s=12, facecolors="white", edgecolors=ORANGE, linewidths=0.9, zorder=3,
+                   clip_on=False)
         ax.text(x - 0.21, value, f"{value:.1f} %", fontsize=SMALL, va="center", ha="right")
         # A label is kept clear of the target's dashed line above it.
         ax.text(x + 0.21, min(value_low, TARGET - 9), f"{value_low:.1f} %", fontsize=SMALL, va="center", ha="left")
-    ax.scatter([1.72], [76], s=14, color=ORANGE, linewidths=0)
-    ax.text(1.8, 76, "threshold 0.74", fontsize=SMALL, va="center", ha="left")
-    ax.scatter([1.72], [62], s=16, facecolors="white", edgecolors=ORANGE, linewidths=0.9)
-    ax.text(1.8, 62, "threshold 0.25", fontsize=SMALL, va="center", ha="left")
     ax.axhline(TARGET, color=INK, lw=0.6, ls=(0, (3, 2)), zorder=1)
     ax.text(len(DETECTION) - 0.45, TARGET + 2.5, "97 % set in advance", fontsize=SMALL, ha="right",
             va="bottom")
     style_axes(ax, [label for label, *_ in DETECTION], "vertebrae found, %", left=-0.75)
+
+
+def draw_detection_key(ax, y):
+    ax.scatter([1.5], [y], s=9, color=ORANGE, linewidths=0, clip_on=False)
+    ax.text(1.57, y, "threshold 0.74", fontsize=SMALL, va="center", ha="left", clip_on=False)
+    ax.scatter([2.55], [y], s=12, facecolors="white", edgecolors=ORANGE, linewidths=0.9, clip_on=False)
+    ax.text(2.62, y, "0.25", fontsize=SMALL, va="center", ha="left", clip_on=False)
 
 
 def style_axes(ax, labels, ylabel, left=-0.35):

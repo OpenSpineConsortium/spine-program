@@ -1,0 +1,27 @@
+--- a/01_carm_level_detection/grants/aidas_2027/latex/main.tex
++++ b/01_carm_level_detection/grants/aidas_2027/latex/main.tex
+@@ -157,13 +157,13 @@
+ at a pinned model version, run by a model-agnostic
+ test harness with no intervention (no human edit or resubmission). \emph{Approach.} The benchmark holds 40 tasks (10 for development, 30 sealed until the final run) from
+ Aim 3's experiments and the consortium's task lists (render banks, detector fine-tunes, figure rebuilds), each
+-with a gate shown to pass on a reference solution and to fail on a planted error. Three arms share one model and one
++with a gate shown to pass on a reference solution and to fail on a planted error. A hidden check on each sealed task, seen by no arm, catches gamed gates. Three arms share one model and one
+ budget per task (six repairs, two GPU-hours, one queued job at a time): one shot; a repair loop that stops at a clean
+ exit; and the gated loop, which stops only when the gate passes. Each arm runs each task three times
+ (360 runs), with pass rates by task type. \emph{Preliminary work.} The consortium's agents already run through Beethoven as jobs under Slurm, the
+ grid's scheduler, and our prototype runs the loop against a simulated scheduler
+ with the grid's partitions and refusals, a design check, not a result. \emph{H1:} the gated loop passes at least 80\pct{} of the
+-30 sealed tasks with no intervention and no rule violation, against under half in one shot, and more than the repair loop, whose
++30 sealed tasks with no intervention, no rule violation and no failed hidden check, against under half in one shot, and more than the repair loop, whose
+ clean exits may fail their gate (false successes).
+ 
+ \aim{Aim 2 (Education and Workforce): medical trainees drive the agent.} \emph{Approach.} Eight medical students and
+@@ -248,7 +248,7 @@
+ 1 & 40 tasks from the consortium's lists and Aim 3 (10 for development, 30 sealed), each gate checked on a reference solution
+   and a planted error &
+   pass rate by task type; repairs; interventions; rule violations (a job run on the shared login node,
+-a wrong QoS, a credential in a file); GPU-hours per pass; false successes &
++a wrong QoS, a credential in a file); GPU-hours per pass; false successes; gamed gates &
+   three arms, one model, one budget per task; three repeats; paired bootstrap over tasks\\
+ 2 & 8 trainees in two waves \tbd{confirm}; two matched starter tasks each &
+   starter gates passed without a mentor's edit; hours to each task's first passing GPU job; comfort (secondary) &

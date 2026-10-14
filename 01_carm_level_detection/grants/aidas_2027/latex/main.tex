@@ -92,10 +92,11 @@ Request & \$18,568 for 12 months, January 1 to December 31, 2027. No award funds
 an intraoperative X-ray from a C-arm, the operating room's mobile fluoroscope, and the count fails in patients with
 an extra or missing lumbar segment and on images that show too few vertebrae. The Open Spine Consortium at Wayne
 State has built the parts of an automated check: 802 CTs with every vertebra labeled, a renderer that turns them into
-simulated C-arm images, and a model that names the level of 96.4\pct{} of the lateral vertebrae it detects on a
-public C-arm dataset (88.0\pct{} of all of them) without having seen a C-arm image in training. One gap stands
-between that model and a device: on a C-arm it never trained on, its vertebra detector finds 80.5\pct{} of
-vertebrae (90.6\pct{} at a lower confidence threshold), against the 97\pct{} set in advance. Closing the gap takes
+simulated C-arm images, and a level model that, without having seen a C-arm image in training, names the level of
+96.4\pct{} of the lateral vertebrae a film-trained detector finds on a public C-arm dataset (88.0\pct{} counting
+those it misses). Detection is the gap this project closes first: a second detector, trained on two other devices'
+frames, finds 80.5\pct{} of the vertebrae on that dataset's C-arm (90.6\pct{} at a lower confidence threshold),
+against the 97\pct{} set in advance. Closing the gap takes
 hundreds of GPU experiments on a shared computing cluster, which a person now writes, submits and repairs by hand,
 and which the medical trainees who hold the clinical questions cannot write at all. Aim 1 builds and benchmarks an AI
 agent that writes, submits and repairs its own cluster jobs and accepts a result only when a pass/fail test fixed
@@ -116,9 +117,9 @@ an FDA Pre-Submission, and NSF CAREER and NIH R21 proposals.
 
 \subsection*{1. Significance and innovation}
 Surgeons confirm the level of a spine operation by counting vertebrae on an X-ray from a C-arm, the operating room's
-mobile fluoroscope, and the count fails often enough to matter: a 27-hospital Japanese registry of 34,544 degenerative
-spine operations recorded wrong-level surgery in 0.12\pct{} of them (0.42\pct{} in the thoracic spine) [1], and about
-half of responding US spine surgeons report at least one wrong-level operation [2,3]. It fails most on unusual
+mobile fluoroscope, and the count fails often enough to matter: a 27-hospital Japanese registry of 34,544 patients
+having degenerative spine surgery recorded wrong-level surgery in 0.12\pct{} (0.42\pct{} in the thoracic spine) [1],
+and about half of responding US neurosurgeons report at least one wrong-level operation [2,3]. It fails most on unusual
 anatomy: 12.9\pct{} of 550 surgical patients had a lumbosacral transitional vertebra, and their levels were
 miscounted in clinic in 54\pct{} of them [4]. The best-studied aid, LevelCheck, registers the patient's preoperative
 CT to each image [5] in 17 to 72\,s in an operating room [6], inside or at the edge of the 20\,s to one minute that
@@ -126,13 +127,13 @@ surgeons said they would wait [7].
 
 The Open Spine Consortium at Wayne State has built the parts of a check that reads the C-arm image alone:
 CTSpinoPelvic1K, an open dataset of 802 CTs with every vertebra, the sacrum and the hips labeled [8]; a physics
-renderer that turns them into C-arm images; and a detector and level model (Figure~3a) that, with no C-arm image in
-training, name the level of 96.4\pct{} of the lateral vertebrae they detect on a public C-arm dataset (Figure~4a).
-The detector does not yet carry to a new C-arm: on a device held out of its training it finds 80.5\pct{} of
-vertebrae (90.6\pct{} at a lower threshold), short of the 97\pct{} set in advance (Figure~4b). Closing that gap takes
-hundreds of GPU jobs written, refused and repaired on a shared cluster (one figure of its C-arm study took 250
-fine-tunes), and the consortium's 2026 trainee program hit the same wall, its success resting on mentors expert in
-Python, imaging software and Slurm [9].
+renderer that turns them into C-arm images; and a level model (Figure~3a) that, with no C-arm image in training,
+names the level of 96.4\pct{} of the lateral vertebrae a film-trained detector finds on a public C-arm dataset
+(Figure~4a). Detection does not yet carry to a new C-arm: on a device held out of its training, the stack's C-arm
+detector finds 80.5\pct{} of vertebrae (90.6\pct{} at a lower threshold), short of the 97\pct{} set in advance
+(Figure~4b). Closing that gap takes hundreds of GPU jobs written, refused and repaired on a shared cluster (one
+results figure took 250 fine-tunes), and the consortium's 2026 trainee program hit the same wall, its success resting
+on mentors expert in Python, imaging and Slurm [9].
 
 Our premise is that the bottleneck has moved from the model to the experiments, and that an agent can run them if it
 treats the cluster's refusals as errors to repair and accepts no result until a test fixed in advance passes. Three
@@ -174,15 +175,16 @@ assistant, the trainee submitting the jobs), in counterbalanced order. The 2026 
 and after each wave, and an IRB determination is requested in month 1, as in 2026.
 \emph{Preliminary work} [9]: in 2026, 16 students, seven with no coding and eleven with no imaging experience, worked
 on ten sub-projects with Claude as a coding assistant and mentors expert in Slurm; all six domains improved on
-retrospective before-and-after ratings (Figure~2c), and all ten sub-projects went to a national meeting as
-abstracts. The report names what it lacked: a control group and objective measures. \emph{H2:} with
-the agent, trainees pass more starter gates without a mentor's edit and reach their first passing GPU job sooner;
+retrospective before-and-after ratings (Figure~2c), and all ten sub-projects were submitted as abstracts to a
+national meeting. The report names what it lacked: a control group and objective measures. \emph{H2:} with
+the agent, trainees pass more starter gates without a mentor's edit and reach each task's first passing GPU job in
+fewer hours;
 with eight trainees this is an estimate with 95\pct{} intervals that sizes the CyberTraining Pilot; comfort is
 secondary.
 
 \placefigure{\linewidth}{figures/fig2_beethoven.pdf}{Beethoven, the trainee's door to the grid. (a) The trainee asks
 in claude.ai; the Claude Code worker runs as a Slurm job on the WSU grid and sends the heavy lifting to H200 GPUs.
-(b) One click starts the worker. (c) The 2026 cohort's mean comfort, before and after (n = 16) [9].}
+(b) One click opens the session. (c) The 2026 cohort's mean comfort, before and after (n = 16) [9].}
 
 \par\smallskip\noindent
 \begin{minipage}[t]{4.3in}
@@ -195,7 +197,7 @@ in claude.ai; the Claude Code worker runs as a Slurm job on the WSU grid and sen
 \end{minipage}
 \par\vspace{1pt}\noindent
 \begin{minipage}{\linewidth}
-\captionof{figure}{The level model, and how a CT labels the image. (a) The detector boxes the bodies and the sacrum,
+\captionof{figure}{The level model, and how a CT labels the image. (a) The C-arm detector boxes the bodies and the sacrum,
 and the level model names each body among 27 levels. (b) Each labeled body and its corners project to the image; a
 transitional one in orange.}
 \end{minipage}\par\smallskip
@@ -206,20 +208,21 @@ device-styled corpus of 142 TotalSegmentator spines; real frames of three device
 cases, each a cone-beam CT with AP and lateral frames, truth automatic: two CT labelers agreeing), DeepFluoro
 (cadaver pelvis fluoroscopy) and COBRA (Elekta radiotherapy imaging). \emph{Model} (Figure~3a): a detector finds each
 body and the sacrum, a level model names each body, a count up from the sacrum checks the names, and the stack
-abstains where count and shape disagree. New here, the cross-device detector learns each body's four corners,
-labeled for free by projecting the CT body's corners at the device's geometry (Figure~3b), as the consortium's film
-detector already does. \emph{Preliminary results} (Figure~4). With no C-arm image in training,
-the level model names 96.4\pct{} of the 617 lateral bodies its detector finds on C-ArmLSpine (88.0\pct{} of all 676
-with agreed truth) but 43.7\pct{} of the 631 AP bodies; fine-tuned on the AP frames of five cases it names
-90.8\pct{}, and 98.1\pct{} with all cases, each test case held out. On the 233 frames where the sacrum is found
+abstains where count and shape disagree or the name is unsure. New here, the cross-device detector learns each
+body's four corners, as the film detector does, from labels made by projecting the CT body's corners at the device's
+geometry (Figure~3b), exact on renders. \emph{Preliminary results} (Figure~4). With no C-arm image in training,
+the level model names 96.4\pct{} of the 617 lateral bodies the film-trained detector finds on C-ArmLSpine
+(88.0\pct{} of all 676 with agreed truth) but 43.7\pct{} of the 631 AP bodies; fine-tuned on the AP frames of five
+cases it names 90.8\pct{}, and 98.1\pct{} with all other cases, each test case held out. On the 233 frames where the sacrum is found
 (81.5\pct{} of the 286 that show one), checking each name against the count names 98.2\pct{} of 1,009 bodies, and
 the stack abstains on 9.9\pct{} of those frames, catching five of the six it would have named wrongly. Detection
-does not carry: trained on two other devices' real frames, the detector finds 80.5\pct{} of C-ArmLSpine's
-vertebrae and 76.8\pct{} of its sacra at the cross-device threshold of 0.74 (90.6\pct{} and 83.9\pct{} at 0.25), and
-93.9\pct{} of the 214 vertebrae whose truth is complete and at least 80\pct{} visible. \emph{Closing the gap.}
+does not carry: trained on two other devices' real frames, the C-arm detector finds 80.5\pct{} of C-ArmLSpine's
+vertebrae and 76.8\pct{} of its sacra at the cross-device threshold of 0.74 (90.6\pct{} and 83.9\pct{} at 0.25); on
+rebuilt truth it finds 82.2\pct{} of the 287 and 93.9\pct{} of the 214 whose truth is complete and at least 80\pct{}
+visible. \emph{Closing the gap.}
 Today's renders hurt: added to real frames, styled renders lower detection from 80.5 to 63.1\pct{} at 0.74
 (90.6 to 87.8\pct{} at 0.25), and a classifier tells them from real frames 99 to 100\pct{} of the time. Physics
-simulation with strong domain randomization (DeepDRR [15]) has matched real-data training for hip landmarks in
+simulation (DeepDRR [15]) with strong domain randomization has matched real-data training for hip landmarks in
 cadaver X-rays (SyntheX [16]); we randomize devices' geometry and spectra likewise, hold out each device in turn, and
 fit the Gaussian renderer to a subset of the labeled CTs, learning only spectrum, scatter and detector response until
 that classifier fails, so the anatomy and its labels stay exact. The agent runs every Aim 3 job; GPU-hours and human
@@ -248,7 +251,7 @@ Aim & Data & Metrics & Design and analysis\\
   file); GPU-hours per pass; false successes &
   three arms, one model, one budget per task; three repeats; paired bootstrap over tasks\\
 2 & 8 trainees in two waves \tbd{confirm}; two matched starter tasks each &
-  starter gates passed without a mentor's edit; days to the first passing GPU job; comfort (secondary) &
+  starter gates passed without a mentor's edit; hours to each task's first passing GPU job; comfort (secondary) &
   within-trainee crossover, order counterbalanced; plan registered before enrollment\\
 3 & C-ArmLSpine, DeepFluoro and COBRA frames; the render banks; the sealed cadaver set &
   vertebra and sacrum recall at 0.74 and 0.25, with false detections; exact level; abstention; corner error (mm);
@@ -270,7 +273,7 @@ and faculty time come in kind, and the Gaussian renderer is a feasibility fit, i
 the R21. \emph{Quarter 1:} agent version 1, gates sealed, IRB determination, recruitment, bookings. \emph{Quarter 2:}
 benchmark run, wave 1 (months 4--7), cadaver imaging, transfer and latency results, Pre-Submission. \emph{Quarter
 3:} CAREER, wave 2 (months 8--11), the renderer's fit. \emph{Quarter 4:} R21, final report, symposium.
-\emph{Risks.} An agent not ready by month 4 starts wave 1 on the 2026 setup; a
+\emph{Risks.} An agent not ready by month 4 starts wave 1 on the 2026 setup, leaving the crossover to wave 2; a
 delayed specimen leaves the held-out devices as the test; a transfer result under 97\pct{} becomes the R21's first
 aim; budgets cap each task's cost.
 
@@ -286,12 +289,12 @@ aim; budgets cap each task's cost.
 [5] Otake Y, et al. Phys Med Biol 2012;57(17):5485-508.
 [6] Manbachi A, et al. Ann Biomed Eng 2018;46(10):1548-57.
 [7] De Silva T, et al. Spine 2016;41(20):E1249-56.
-[8] Open Spine Consortium. CTSpinoPelvic1K, release 11. Zenodo, doi:10.5281/zenodo.22797014.
+[8] Open Spine Consortium. CTSpinoPelvic1K, release 11. Zenodo 2026, doi:10.5281/zenodo.22797014.
 [9] OpenSpineConsortium: an open-source framework for medical student engagement in computational spine imaging
 research. Cureus 2026;18(7):e112661.
 [10] Jimenez CE, et al. SWE-bench. ICLR 2024.
 [11] Chan JS, et al. MLE-bench. ICLR 2025.
-[12] Wijk H, et al. RE-Bench. arXiv:2411.15114, 2024.
+[12] Wijk H, et al. RE-Bench. ICML 2025; arXiv:2411.15114.
 [13] Cai Y, et al. X-Gaussian. ECCV 2024.
 [14] Zha R, et al. R$^2$-Gaussian. NeurIPS 2024.
 [15] Unberath M, et al. DeepDRR. MICCAI 2018.
@@ -309,7 +312,7 @@ research. Cureus 2026;18(7):e112661.
   agent and its trainees: Aim 1's gate-conditioned agent as the research plan, Aim 2's trainees as the education
   plan. Deadline July 28, 2027; eligibility is judged at the deadline (an untenured Assistant Professor with no
   earlier CAREER award) \tbd{the PI's tenure timing and earlier CAREER competitions}. If the PI is not eligible, the
-  same plan goes to IIS's core programs (NSF 25-543).
+  same plan goes to IIS's core research under CISE's Future CoRe solicitation (NSF 25-543).
 \item \textbf{NIH R21 at NIBIB}, carrying the device: the Trailblazer Award for New and Early Stage Investigators if
   NIBIB reissues it (forecast FOR-EB-26-001), or else NIBIB's Exploratory/Developmental Bioengineering Research Grant
   (PAR-25-321) or the parent R21 (PA-25-304), both open through October 2027. Submitted October 18, 2027, the
@@ -325,7 +328,7 @@ research. Cureus 2026;18(7):e112661.
 America's AI Action Plan (July 2025) asks for investment in AI-enabled science and, in its worker-first agenda, for
 AI skills in the workforce, which Aim 2 builds in Michigan's medical trainees. Executive Order 14363 (November 2025)
 launches the Genesis Mission, which joins AI agents to national computing, and NSF's Dear Colleague Letter 26-023
-invites proposals to existing programs that support it, as NIH's Bio Genesis Mission does for biomedicine. Aim 1 is
+invites proposals to existing programs that support it, and NIH's Bio Genesis Mission carries it into biomedicine. Aim 1 is
 that agenda at a university's scale: an agent that runs science on shared computing and is held to verifiable gates.
 Executive Order 14303, Restoring Gold Standard Science (May 2025), and OSTP's guidance under it (June 2025) ask
 agencies to promote pre-registration of study protocols and transparent reporting of null results; every gate in this
@@ -411,7 +414,8 @@ F & AIDaS symposium poster & 36 by 48 in at \$6 per sq ft & \$72\\
   \$5,000 capital threshold and becomes WSU property.
 \item \textbf{C1, C2.} Anthropic's Team plan for scientists lets a verified PI add Premium seats at \$15 a month,
   \$180 a year billed annually: four for the trainees, passed from wave 1 to wave 2, and two for the benchmark and
-  development \tbd{P-card route and the PI's verification}. The WSU grid's compute is free to WSU researchers and given
+  development, bought in January 2027, since the price holds 12 months from sign-up \tbd{P-card route and the PI's
+  verification}. The WSU grid's compute is free to WSU researchers and given
   in kind. Storage holds the render banks, the cadaver set and every benchmark run's logs for the award year; the data
   go to Zenodo at its end.
 \item \textbf{D.} FDA charges no fee for a Pre-Submission filed before October 1, 2027, when a fee proposed for fiscal
@@ -419,8 +423,8 @@ F & AIDaS symposium poster & 36 by 48 in at \$6 per sq ft & \$72\\
   is the right intended use; whether the held-out-device and cadaver tests suffice as analytical validation; and what
   clinical study the R21 should plan. The consultant, at a mid-level regulatory rate, reviews the PI's package in
   months 1 to 3.
-\item \textbf{E, F.} AI for Science awards up to \$20,000 in API credits for six months and charges nothing to apply;
-  credits would add benchmark repeats. Presenting at an AIDaS symposium is an award expectation; the poster is printed
+\item \textbf{E, F.} AI for Science takes applications for up to \$50,000 in API credits per project and charges
+  nothing; credits would add benchmark repeats, on tasks its data terms allow. Presenting at an AIDaS symposium is an award expectation; the poster is printed
   at the School of Medicine's Medical Communications.
 \item \textbf{Not requested.} PI and Co-PI salary, travel, tuition, capital equipment and indirect costs \tbd{confirm
   AIDaS applies no F\&A}.
