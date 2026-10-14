@@ -113,6 +113,7 @@ and the sample size written before the first frame is scored. The ordered steps 
 | `figures/` | the 2026-09-21 C-ArmLSpine figures; `schwingnet/` main and supplement figures with caption and record sidecars |
 | `manuscripts/` | `schwingnet/` (source, ledgers, tables, atlas cards, `packet/` with the two 2026-09-27 PDFs), `superseded/` (rsnai, focused), `talks/` (CNS deck v10, private) |
 | `regulatory/` | `hpr_2026-144/`, `hpr_2026-269/`, `vindr_2026-09-25/`, `protocols_2026-09/`, `protocol_2026-03/`, `wsu_dmc_forms/`, `carm_validation_plan_2026-09-21/`, `DUA_advisory_text.pdf`; `README.md` describes each file |
+| `grants/aidas_2027/` | the AIDaS SEED 2026-2027 proposal packet of 2026-10-14 (one markdown and its PDF, the Aim 1 execution skeleton, the two figures and their scripts); its `README.md` lists what is left before submission |
 
 ## Path prefixes used inside the copied documents
 
