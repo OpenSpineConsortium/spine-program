@@ -18,12 +18,13 @@ in git history at main 5597197 (ARCHIVE.md), beside the earlier C-arm validation
 | `make_reference_docx.py` | writes the reference .docx for pandoc (Liberation Sans 10 pt, 0.7 inch margins, a page break before each top-level heading) and, with `--page`, gives the built .docx its page size and margins |
 | `autonomous_spine_agent.py` | the execution skeleton of Aim 1: a grid simulator with the WSU grid's partitions, QoS rules and refusals; a mock language model that drafts and repairs job scripts; the agent loop with pre-registered gates; a placeholder evaluation loop with the C-arm projection matrix (Dice, IoU, corner error, exact level with a Wilson interval). `python3 autonomous_spine_agent.py --selftest`, then `--tasks 6 --seed 0 --root <repository> --out run.json` |
 | `make_key_idea_figure.py` | draws `figures/fig_key_idea.svg` (Figure 1, the key idea) with the standard library; render it with `soffice --headless --convert-to pdf` then `pdftoppm -r 300 -png` |
-| `make_preliminary_figure.py` | composes `figures/fig_preliminary_data.png` (Figure 2) from the three record figures with Pillow |
+| `make_preliminary_figure.py` | composes `figures/fig_preliminary_data.png` (Figure 2, full page width) from the two record panels beside it and draws the results chart with Pillow; run it on a laptop or as an sbatch job, never on the login node |
 | `figures/fig_key_idea.svg`, `figures/fig_key_idea.png` | Figure 1, source and 300 dpi render |
-| `figures/fig_preliminary_data.png` | Figure 2 |
-| `figures/fig_spine_cartoon_typical_vs_t13.png` | `figures/schwingnet/fig1_row2_anatomy.png` at 5597197: the spine cartoon, a typical column against one with a thirteenth thoracic body |
-| `figures/fig_corpus_tsne_manifold.png` | `figures/schwingnet/figS1.png` at 5597197: the corpus manifold, t-SNE of 11,638 frames from 18 sources |
-| `figures/fig_problem_count_off_by_one.png` | `figures/schwingnet/fig1a_problem.png` at 5597197: the off-by-one count |
+| `figures/fig_preliminary_data.png` | Figure 2: the off-by-one cartoon, the corpus manifold by source, the held-out results chart |
+| `figures/fig_problem_count_off_by_one.png` | `figures/schwingnet/fig1a_problem.pdf` at 5597197 rendered at 600 dpi: the off-by-one count |
+| `figures/fig_corpus_tsne_by_source.png` | panel (a) of `figures/schwingnet/figS1.pdf` at 5597197 (the corpus manifold, t-SNE of 11,638 frames from 18 sources), rendered at 600 dpi and cropped |
+| `REVIEW_2026-10-14.md` | the five reviewers' findings of 2026-10-14, consolidated and not yet applied; the next session's first task |
+| `HANDOFF_2026-10-14c.md` | the checkpoint of 2026-10-14: what is done, what the owner asked for next, how to work it, and what to put in a new account's Project |
 
 ## Before submission
 
@@ -39,4 +40,6 @@ in git history at main 5597197 (ARCHIVE.md), beside the earlier C-arm validation
 5. Rebuild with `bash build_pdf.sh` and check that the page count is still 7.
 
 Every number in the packet names its file in the appendix; none is quoted from a LEAKED or SUPERSEDED row. The
-mock run's numbers in the appendix are simulated and appear nowhere in the narrative as results.
+mock run's numbers are simulated and are not results; REVIEW_2026-10-14.md item 12 removes the one sentence of the
+narrative that still quotes them. The contacts and any personal detail are filled in the submitted copy only and never
+committed (root CLAUDE.md rule 12).

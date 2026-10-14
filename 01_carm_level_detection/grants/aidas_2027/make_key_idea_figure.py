@@ -4,7 +4,7 @@
 The figure has three panels, one per Specific Aim, read left to right: (a) the autonomous agent loop that writes
 and repairs grid jobs until a pre-stated gate passes, (b) the medical trainee who drives that loop from a Claude
 Code worker running as a Slurm job in the trainee's own grid account, and (c) the anatomy-aware C-arm pipeline
-that the agents extend, from labelled CT through a rendered exposure to a level name or an abstention. One
+that the agents extend, from labeled CT through a rendered exposure to a level name or an abstention. One
 sentence under the panels says how the aims feed each other.
 
 Usage:  python3 make_key_idea_figure.py [--out figures/fig_key_idea.svg]
@@ -149,8 +149,8 @@ def panel_b(x: float) -> str:
                    BLUE_FILL, 36))
     out.append(arrow(cx, 484, cx, 544))
     out.append(side_note(cx + 20, 524, "the agent loop of (a)"))
-    out.append(box(cx - bw / 2, 544, bw, 150, ["WSU grid: 4 nodes x 4 H200 GPUs", "CPU partition reqp; GPU partitions",
-                                               "gmsap, gvohp, galhp; Ceph volume"], GREY_FILL, 34))
+    out.append(box(cx - bw / 2, 544, bw, 150, ["WSU grid: 4 nodes x 4 H200 GPUs", "CPU and GPU partitions;",
+                                               "the shared research volume"], GREY_FILL, 34))
     out.append(arrow(cx, 694, cx, 754))
     out.append(side_note(cx + 20, 734, "job ids, logs, a result file"))
     out.append(box(cx - bw / 2, 754, bw, 112, ["Pull request on the board", "mentor review, then the merge"],
@@ -168,10 +168,10 @@ def panel_c(x: float) -> str:
     cx = x + PANEL_W / 2
     bw, bh = 580, 112
     out = []
-    out.append(box(cx - bw / 2, 200, bw, bh, ["802 labelled CTs (CTSpinoPelvic1K)", "every vertebra, the sacrum, the hips"],
+    out.append(box(cx - bw / 2, 200, bw, bh, ["802 labeled CTs (CTSpinoPelvic1K)", "every vertebra, the sacrum, the hips"],
                    GREY_FILL, 34))
     out.append(arrow(cx, 312, cx, 372))
-    out.append(side_note(cx + 20, 352, "device-card render"))
+    out.append(side_note(cx + 20, 352, "physics render"))
     fx, fy, fw, fh = cx - bw / 2, 372, bw, 236
     out.append(f'<rect x="{fx}" y="{fy}" width="{fw}" height="{fh}" rx="18" ry="18" fill="#1a1a1a" '
                f'stroke="{GREY_EDGE}" stroke-width="4"/>')
@@ -195,8 +195,8 @@ def panel_c(x: float) -> str:
                    GREY_FILL, 36, "bold"))
     out.append(arrow(cx, 990, cx, 1050))
     out.append(box(cx - bw / 2, 1050, bw, 154,
-                   ["Pre-stated gates on a held-out device:", "97 % detection; under 1 s per exposure;",
-                    "paired cadaver CT and X-ray as the sealed test"], GREY_FILL, 31))
+                   ["Gates written before the runs:", "97 % detection on a held-out device;",
+                    "under 1 s per exposure; cadaver CT as truth"], GREY_FILL, 31))
     return "\n".join(out)
 
 
