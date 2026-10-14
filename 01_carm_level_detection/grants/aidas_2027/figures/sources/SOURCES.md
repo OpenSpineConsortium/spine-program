@@ -1,19 +1,27 @@
 # Where each figure source came from
 
 `make_figures.py` beside the packet draws Figures 1, 2, 3b and 4 from these files; `latex/main.tex` places
-`network_architecture.pdf` as Figure 3a. Nothing here was redrawn by hand. Paths are relative to each repository's root.
+`network_architecture.pdf` as Figure 3a. No image here was retouched by hand. Paths are relative to each repository's
+root.
 
 | file | origin | how it was made |
 |---|---|---|
-| `beethoven_route.png` | OpenSpineConsortium/beethoven-extension at e900bae, `extension/store-assets/src/` (`store.css`, `diagram.css`, `diagram.js`, `common.js`): the Chrome Web Store diagram behind `release/20.0.0/store-kit/07-screenshot-1-your-grid.png` | rendered in Chromium (Playwright) at device scale 3 on a 1236 x 532 px canvas, with the diagram's own label sizes scaled for print by CSS overrides (class `t-node` x1.1, `t-arrow` x1.65, `t-me` x1.3), the `t-lift` label ("the heavy lifting") wrapped at 5.2 em and the `t-pm` label moved 30 px left; then cropped to its content with a 30 px margin (40 px on the right) |
-| `beethoven_popup.png` | the same folder, `shot-04.html` (store screenshot 4, "click once") | Chromium at device scale 3, viewport 1280 x 800, clip x 640 to 1160, y 95 to 720 |
-| `beethoven_worker_settings.png` | the same folder, `shot-05.html` (store screenshot 5, "your worker, your rules") | Chromium at device scale 3, viewport 1280 x 800, clip x 635 to 1255, y 65 to 635 |
-| `l6_labeled_ct.png`, `l6_render.png`, `l6_film.png` | spine-program at 5597197, `01_carm_level_detection/figures/schwingnet/figure1.png` (the paper's Figure 1, a sixth lumbar vertebra in a labeled CT, its physics render, and another person's film) | cropped with Pillow at (89, 149, 551, 842), (89, 858, 551, 1551) and (89, 1567, 551, 2260) |
-| `network_architecture.pdf` | spine-program at 5597197, `01_carm_level_detection/figures/schwingnet/fig1c_arch.pdf` | copied unchanged |
+| `beethoven_popup_top.png` (Figure 2b) | OpenSpineConsortium/beethoven-extension at e900bae, `extension/store-assets/raw-20/04-home-panel.png`, the extension's popup as the 20.0.0 store kit captured it | cropped with Pillow at (20, 12, 700, 476): the popup's top half, from its name to the session buttons, which shows no grid login |
+| `l6_labeled_ct.png`, `l6_render.png`, `l6_film.png` (Figure 1c) | spine-program at 5597197, `01_carm_level_detection/figures/schwingnet/figure1.png` (the paper's Figure 1, a sixth lumbar vertebra in a labeled CT, its physics render, and another person's film; its white bars are 20 mm, `figure1.record.json` "bar, 20 mm") | cropped with Pillow at (89, 149, 551, 842), (89, 858, 551, 1551) and (89, 1567, 551, 2260) |
+| `network_architecture.pdf` (Figure 3a) | spine-program at 5597197, `01_carm_level_detection/figures/schwingnet/fig1c_arch.pdf` | copied unchanged (sha256 804e18f0...) |
 
-The popup's grid login `st1234` is the mock portal's demo user that the extension's own store listing and contract
-vectors use (`docs/STORE_LISTING.md`), not a person. The store screenshots carry no student name.
+Figures 1a, 1b and 2a are drawn as vector boxes in `make_figures.py` itself. Figure 2a follows the extension's own
+store diagram (`extension/store-assets/src/diagram.js` at e900bae: claude.ai, "a chat" to Claude servers, "a Code
+session" to "your Claude Code worker" on the Wayne State grid, "the model", "the heavy lifting" to an H200 GPU), and
+names the grid's H200 partition as `11_students_grid_access/docs/handoff/EXTRACTS_11.md` records it (gmsap, 4 nodes
+of 4).
 
-The numbers in Figures 2c and 4 are typed once in `make_figures.py` (`COHORT`, `NAMING`, `DETECTION`) beside the file
-each comes from: the 2026 cohort's Table 1 (Cureus 2026;18(7):e112661) and `01_carm_level_detection/docs/handoff/RESULTS_CATALOG.md`
-rows A2.1, A2.2, A3.2, A5.1, A6.1, A6.11, A6.12, A6.13 and A13.3.
+Every number drawn is typed once in `make_figures.py`, beside the file it comes from:
+
+| constant | figure | file |
+|---|---|---|
+| `NAMING` | 4a | `01_carm_level_detection/docs/handoff/RESULTS_CATALOG.md` rows A2.1, A2.2, A9.2 and A5.1 |
+| `DETECTION` | 4b | the same catalog, rows A6.1, A6.2, A6.11, A7.8 and A6.12 |
+| `TARGET` | 4b | row A6.13 (the 97 % set in advance, `ssn:docs/RSNAI_PLAN.md` C7) |
+| `COHORT` | 2c | the 2026 cohort's Table 1, Cureus 2026;18(7):e112661 |
+| `GEOMETRY` | 3b | `01_carm_level_detection/docs/MODEL_CARD.md` section 6.1 (source to detector 1,140 mm, to object 745 mm) |

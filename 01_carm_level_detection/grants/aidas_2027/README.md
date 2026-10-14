@@ -15,14 +15,14 @@ structure carried into 2-D C-arm images at low latency (Health). The call is
 |---|---|
 | `latex/main.tex` | the packet: cover (1 page), narrative with four figures and the evaluation table (3), alignment (1), budget and justification (1), then the biosketches; compiles with pdflatex alone |
 | `latex/figures/` | the figure PDFs the packet places, written by `make_figures.py`; Figure 3a, `network_architecture.pdf`, is the archived drawing copied unchanged |
-| `latex/contacts.example.tex` | the cover's placeholder contact lines; the filled `contacts.tex` and the two biosketch PDFs go beside `main.tex` in the Overleaf copy only, never into git (`latex/.gitignore`; root CLAUDE.md rule 12) |
-| `AIDaS_SEED_2027_packet.pdf` | the committed draft build: 7 pages, contacts and biosketches as placeholders |
-| `build_pdf.sh` | builds the packet with pdflatex in a temporary directory; with `contacts.tex` and both biosketches in `latex/` it writes the 10-page `AIDaS_SEED_2027_submission.pdf` instead, which git ignores; it fails when a section spills onto an extra page |
+| `latex/contacts.example.tex` | the cover's placeholder contact lines, with how to escape `%`, `_` and `&`; the filled `contacts.tex` and the two biosketch PDFs go beside `main.tex` in the Overleaf copy only, never into git (`latex/.gitignore` and `.gitignore`; root CLAUDE.md rule 12) |
+| `AIDaS_SEED_2027_packet.pdf` | the committed draft build: 8 pages, the contacts as placeholders and one placeholder page for each biosketch |
+| `build_pdf.sh` | builds the packet with pdflatex in a temporary directory and fails when a section spills onto an extra page; with `contacts.tex` and both biosketches in `latex/` it writes the 10-page `AIDaS_SEED_2027_submission.pdf` instead, which git ignores, and refuses while one of the three is missing, a biosketch is not two pages or a [DATA NEEDED] mark is left |
 | `make_figures.py` | draws Figures 1, 2, 3b and 4 (matplotlib and Pillow) into `latex/figures/`, with a 300 dpi preview of each in `figures/` |
-| `figures/sources/` | the images the figures are made from, each with its origin in `SOURCES.md`: the Beethoven browser extension's store artwork, three crops of the record's sixth-lumbar figure, the network drawing |
+| `figures/sources/` | the images the figures are made from, each with its origin in `SOURCES.md`: a crop of the Beethoven browser extension's popup, three crops of the record's sixth-lumbar figure, the network drawing |
 | `RECORD.md` | the file behind every number, the values found on the web with their links, the [DATA NEEDED] list, the open items and caveats; not submitted |
 | `autonomous_spine_agent.py` | the execution skeleton of Aim 1: a grid simulator with the WSU grid's partitions and refusals, a mock model that drafts and repairs jobs, the agent loop with gates registered by hash, a placeholder evaluation. `python3 autonomous_spine_agent.py --selftest`; run it on a laptop or as an sbatch job, never on the grid's login node |
-| `REVIEW_2026-10-14.md` | the five reviewers' findings on the packet of #93, applied in the pull request for issue #94 |
+| `REVIEW_2026-10-14.md` | the five reviewers' findings on the packet merged in #91, applied in the pull request for issue #94, except where `RECORD.md` section 4 says a change was made another way by design |
 | `HANDOFF_2026-10-14c.md` | the checkpoint that set that work |
 
 ## Building it
@@ -30,8 +30,9 @@ structure carried into 2-D C-arm images at low latency (Health). The call is
 - **On Overleaf:** upload the zip of `latex/` with `contacts.tex`, `biosketch_han.pdf` and `biosketch_schwiebert.pdf`
   beside `main.tex` (the zip the thread for issue #94 delivered has all of them), set the compiler to pdfLaTeX and
   compile `main.tex`: 10 pages.
-- **Here:** `bash build_pdf.sh` writes the 7-page draft; put the three files in `latex/` to get the 10-page
-  submission. After a figure changes, run `python3 make_figures.py` first.
+- **Here:** `bash build_pdf.sh` writes the 8-page draft; put the three files in `latex/` to get the 10-page
+  submission, which it builds only once every [DATA NEEDED] mark is filled. After a figure changes, run
+  `python3 make_figures.py` first.
 
 ## Before submission
 

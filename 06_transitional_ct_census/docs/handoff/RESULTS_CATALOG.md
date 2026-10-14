@@ -124,7 +124,8 @@ three folds (66 / 43 / 40 cases, `sn:results/carmlspine_day_groups.json`); PRE t
 (`sn:results/eval_gate/closure/cv_v9/CV_V9.md`). **The fold banks behind every row were built from `allspine_v7` and
 hold 2,632 VinDr crops, 2,100 FluoroCap crops and both NHANES copies** (`ssn:docs/MODEL_CARD.md` §3.2;
 `DATASET_USAGE.md` §3): no quoted number scores NHANES with them, but the composition breaks directive D1 and the IRB
-scope.
+scope. Settled by Greg on 2026-10-14: every dataset is permitted, its data use agreement filed, so these rows may
+be quoted; FluoroCap still stays out of new training (root CLAUDE.md rule 9).
 
 | id | claim | status | feeds |
 |---|---|---|---|
