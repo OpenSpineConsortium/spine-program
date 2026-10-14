@@ -1,45 +1,45 @@
 # AIDaS SEED 2026-2027 proposal packet
 
-The Wayne State AIDaS Seed Grant proposal (PI Zhizhong Han, Co-PI Loren Schwiebert; $10,000 to $20,000 for one
-year; deadline October 16, 2026, 11:59 p.m. ET, one PDF to the AIDaS office) written from this repository's record
-on 2026-10-14. It addresses three of the call's four strategic areas with three aims: an autonomous code-generating
-agent that writes and repairs grid jobs under pre-registered gates (Foundational AI), medical trainees driving that
-agent on the WSU grid (Education and Workforce Training), and CT-trained 3-D structure carried into 2-D C-arm
-fluoroscopy at low latency (Health). The call itself is `../../regulatory/carm_validation_plan_2026-09-21/AIDaS_Seed_Grant_Program.pdf`
-in git history at main 5597197 (ARCHIVE.md), beside the earlier C-arm validation roadmap this packet draws on.
+The Wayne State AIDaS Seed Grant proposal: PI Zhizhong Han, Co-PI Loren Schwiebert, clinical collaborator Gregory
+Schwing (General Surgery); $18,568 for January to December 2027; due October 16, 2026, 11:59 p.m. ET, as one PDF to
+the AIDaS office (aidas@wayne.edu). Three aims across three of the call's four strategic areas: a self-repairing
+agent that writes and repairs its own Slurm jobs on the WSU grid under gates written before each run (Foundational
+AI), medical trainees driving that agent through Beethoven (Education and Workforce Training), and CT-labeled 3-D
+structure carried into 2-D C-arm images at low latency (Health). The call is
+`../../regulatory/carm_validation_plan_2026-09-21/AIDaS_Seed_Grant_Program.pdf`, read from git history at main 5597197
+(`ARCHIVE.md`).
 
 ## Files
 
 | file | holds |
 |---|---|
-| `AIDaS_SEED_2027_packet.md` | the whole packet in one markdown: cover page, the three-page narrative with the evaluation section and two figures, the alignment page, the budget page with its justification, the biosketch placeholder; then, after the marker `end of the submitted packet`, an appendix that the PDF leaves out: the execution skeleton, the file behind every number, and the open items |
-| `AIDaS_SEED_2027_packet.pdf` | the export of the submitted part: 7 pages (cover 1, narrative 3, alignment 1, budget 1, biosketches 1) |
-| `build_pdf.sh` | rebuilds the PDF: the markdown up to the marker, pandoc to .docx with the reference document, LibreOffice to PDF; prints the page count |
-| `make_reference_docx.py` | writes the reference .docx for pandoc (Liberation Sans 10 pt, 0.7 inch margins, a page break before each top-level heading) and, with `--page`, gives the built .docx its page size and margins |
-| `autonomous_spine_agent.py` | the execution skeleton of Aim 1: a grid simulator with the WSU grid's partitions, QoS rules and refusals; a mock language model that drafts and repairs job scripts; the agent loop with pre-registered gates; a placeholder evaluation loop with the C-arm projection matrix (Dice, IoU, corner error, exact level with a Wilson interval). `python3 autonomous_spine_agent.py --selftest`, then `--tasks 6 --seed 0 --root <repository> --out run.json` |
-| `make_key_idea_figure.py` | draws `figures/fig_key_idea.svg` (Figure 1, the key idea) with the standard library; render it with `soffice --headless --convert-to pdf` then `pdftoppm -r 300 -png` |
-| `make_preliminary_figure.py` | composes `figures/fig_preliminary_data.png` (Figure 2, full page width) from the two record panels beside it and draws the results chart with Pillow; run it on a laptop or as an sbatch job, never on the login node |
-| `figures/fig_key_idea.svg`, `figures/fig_key_idea.png` | Figure 1, source and 300 dpi render |
-| `figures/fig_preliminary_data.png` | Figure 2: the off-by-one cartoon, the corpus manifold by source, the held-out results chart |
-| `figures/fig_problem_count_off_by_one.png` | `figures/schwingnet/fig1a_problem.pdf` at 5597197 rendered at 600 dpi: the off-by-one count |
-| `figures/fig_corpus_tsne_by_source.png` | panel (a) of `figures/schwingnet/figS1.pdf` at 5597197 (the corpus manifold, t-SNE of 11,638 frames from 18 sources), rendered at 600 dpi and cropped |
-| `REVIEW_2026-10-14.md` | the five reviewers' findings of 2026-10-14, consolidated and not yet applied; the next session's first task |
-| `HANDOFF_2026-10-14c.md` | the checkpoint of 2026-10-14: what is done, what the owner asked for next, how to work it, and what to put in a new account's Project |
+| `latex/main.tex` | the packet: cover (1 page), narrative with four figures and the evaluation table (3), alignment (1), budget and justification (1), then the biosketches; compiles with pdflatex alone |
+| `latex/figures/` | the figure PDFs the packet places, written by `make_figures.py`; Figure 3a, `network_architecture.pdf`, is the archived drawing copied unchanged |
+| `latex/contacts.example.tex` | the cover's placeholder contact lines; the filled `contacts.tex` and the two biosketch PDFs go beside `main.tex` in the Overleaf copy only, never into git (`latex/.gitignore`; root CLAUDE.md rule 12) |
+| `AIDaS_SEED_2027_packet.pdf` | the committed draft build: 7 pages, contacts and biosketches as placeholders |
+| `build_pdf.sh` | builds the packet with pdflatex in a temporary directory; with `contacts.tex` and both biosketches in `latex/` it writes the 10-page `AIDaS_SEED_2027_submission.pdf` instead, which git ignores; it fails when a section spills onto an extra page |
+| `make_figures.py` | draws Figures 1, 2, 3b and 4 (matplotlib and Pillow) into `latex/figures/`, with a 300 dpi preview of each in `figures/` |
+| `figures/sources/` | the images the figures are made from, each with its origin in `SOURCES.md`: the Beethoven browser extension's store artwork, three crops of the record's sixth-lumbar figure, the network drawing |
+| `RECORD.md` | the file behind every number, the values found on the web with their links, the [DATA NEEDED] list, the open items and caveats; not submitted |
+| `autonomous_spine_agent.py` | the execution skeleton of Aim 1: a grid simulator with the WSU grid's partitions and refusals, a mock model that drafts and repairs jobs, the agent loop with gates registered by hash, a placeholder evaluation. `python3 autonomous_spine_agent.py --selftest`; run it on a laptop or as an sbatch job, never on the grid's login node |
+| `REVIEW_2026-10-14.md` | the five reviewers' findings on the packet of #93, applied in the pull request for issue #94 |
+| `HANDOFF_2026-10-14c.md` | the checkpoint that set that work |
+
+## Building it
+
+- **On Overleaf:** upload the zip of `latex/` with `contacts.tex`, `biosketch_han.pdf` and `biosketch_schwiebert.pdf`
+  beside `main.tex` (the zip the thread for issue #94 delivered has all of them), set the compiler to pdfLaTeX and
+  compile `main.tex`: 10 pages.
+- **Here:** `bash build_pdf.sh` writes the 7-page draft; put the three files in `latex/` to get the 10-page
+  submission. After a figure changes, run `python3 make_figures.py` first.
 
 ## Before submission
 
-1. Fill every `[DATA NEEDED]` tag; the appendix of the packet lists them: ranks, department codes, contacts, AIDaS
-   membership, New Investigator and NIH Early Stage Investigator status, the IRB number, the cohort size, the
-   specimen count and imaging site, every placeholder fee and the fringe rate, the seat count, the solicitation numbers
-   and dates, the OSTP citation, the F&A rule.
-2. Ask the AIDaS office whether the cadaver lines (B1 to B5) and the FDA Pre-Submission line (D) are allowable; the
-   call lists graduate student support, computing, invited collaborator travel and data management.
-3. Append the two biosketches, two pages each.
-4. Run the disclosure audit this repository requires before any submission (CLAUDE.md rule 8): the narrative quotes
-   level-identification results from `docs/handoff/RESULTS_CATALOG.md`.
-5. Rebuild with `bash build_pdf.sh` and check that the page count is still 7.
-
-Every number in the packet names its file in the appendix; none is quoted from a LEAKED or SUPERSEDED row. The
-mock run's numbers are simulated and are not results; REVIEW_2026-10-14.md item 12 removes the one sentence of the
-narrative that still quotes them. The contacts and any personal detail are filled in the submitted copy only and never
-committed (root CLAUDE.md rule 12).
+1. Fill each red [DATA NEEDED] mark; `RECORD.md` section 3 lists them, and section 2 links every value taken from the
+   web, most of them from search excerpts that need a click-through.
+2. Ask the AIDaS office whether lines B (the cadaver set), D (the FDA Pre-Submission consultant) and F (the poster)
+   are allowable and how line A may be hired; `RECORD.md` section 4 gives the totals without them.
+3. Run the disclosure audit (root CLAUDE.md rule 8): the packet shows SchwingNet's architecture and quotes its
+   held-out results.
+4. Decide the MIT release of the agent and its benchmark, and the caveats in `RECORD.md` section 4.
+5. Build with the contacts and biosketches, check the page count is 10, and send the one PDF.
