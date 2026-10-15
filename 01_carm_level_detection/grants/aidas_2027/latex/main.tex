@@ -144,7 +144,7 @@ Our premise is that the bottleneck has moved from the model to the experiments, 
 if strict frameworks, not the model, decide which results count. Three aims test it (Figure~1). \aim{Aim 1} has the
 agent iterate the scientific method inside the consortium's frameworks. Beethoven runs Claude Code on the grid and
 keeps the grid's profile as checked data and its job rules in writing; beethoven-qa checks the agent's code;
-beethoven-research holds protocols from the REFORMS [10] and CLAIM [11] checklists for machine-learning science and
+beethoven-research holds REFORMS [10] rules for machine-learning science and plans the CLAIM [11] checklist for
 imaging AI; and Symphony gives each piece of work to one agent. The methodological contribution
 measures \emph{framework-bound scientific iteration}: how many wrong but plausible results a research agent
 submits when the rules are only written, and when checks enforce them. Benchmarks score agents' finished code
@@ -161,8 +161,8 @@ a sixth lumbar vertebra (arrow) in a labeled CT, its render and another person's
 
 \subsection*{2. Aims, approach and preliminary work}
 \aim{Aim 1 (Foundational AI): semi-autonomous research under strict frameworks.} The agent is Claude Code at a
-pinned model version. Semi-autonomous: a person sets each task's question and gate, a pass/fail
-test sealed by hash before the first job that the agent can read but not change, and merges each result; any other
+pinned model version. Semi-autonomous: a person sets each task's question and gate (a pass/fail
+test, sealed by hash before the first job, that the agent can read but not change) and merges each result; any other
 step a person takes, blind to faults, is a logged intervention. The agent iterates: it seals each hypothesis
 with its criterion, runs jobs under Beethoven's rules, counts a result only from code beethoven-qa passed
 (contracts searched for counterexamples by CrossHair and Z3) and keeps its REFORMS record, until the gate passes or
@@ -173,8 +173,8 @@ not write them plants a fault, a patient in both training and test sets, the wro
 threshold tuned on the test set, a typed number, or a run that does not reproduce. Both arms keep the model,
 Beethoven, the written rules and eight GPU-hours a task, reruns included; one adds the checks (sealed hypotheses,
 beethoven-qa, split and rerun checks); each runs each copy once, in its own repository (80 runs).
-\emph{Preliminary work.} Built: Beethoven's grid profile and its Claude Code worker, a Slurm job, beethoven-qa's
-gate on beethoven-agents and -research, the patient-split check, and Symphony (public, MIT), whose tests catch all
+\emph{Preliminary work.} Built: Beethoven's grid profile and its Claude Code worker (a Slurm scheduler job),
+beethoven-qa's gate on Beethoven's agent and research code, the patient-split check, and Symphony (public, MIT), whose tests catch all
 93 mutated rules. The consortium builds the other REFORMS checks, the CLAIM checklist and one-command
 reruns of gated code in kind. \emph{H1:} the checks cut wrong results on faulted copies from over half to under
 20\pct{}, with no fewer passes on clean copies, and each accepted number reruns within a sealed
@@ -367,7 +367,7 @@ plants the faults and keeps the grid measures, and has four such papers with the
 (2021--2024). The clinical collaborator leads the Open Spine
 Consortium, whose dataset, models, Beethoven, Symphony and trainee program [9] this proposal builds on, builds the
 missing checks in kind, and runs the cohort, the IRB determination, the imaging session, the literature index and
-the pending protocol. Beethoven and its frameworks are the clinical collaborator's proprietary software, given in
+the pending protocol. Beethoven's repositories are the clinical collaborator's proprietary software, given in
 kind; no award funds go to them. Line A's researcher checks Aim 1's runs and curates the cadaver set. Effort: PI \tbd{\%}, Co-PI \tbd{\%}, in kind.
 
 \subsection*{Timeline for external submission}
@@ -379,7 +379,7 @@ When & Milestone\\
 January--March 2027 (months 1--3) & One-page concepts to the NSF IIS and NIBIB program officers; Aim 1's tasks and gates
   sealed; the Pre-Submission package written and reviewed\\
 April 2027 (month 4) & FDA Pre-Submission filed; written feedback due within 70 days\\
-July 28, 2027 (month 7) & NSF CAREER submitted, with Aim 1's results and Aim 2's first wave\\
+July 28, 2027 (month 7) & NSF CAREER submitted, with Aim 1's early results and Aim 2's first wave\\
 September 2027 (month 9) & The sealed cadaver set opened, once, for the R21\\
 October 18, 2027 (month 10) & NIH R21 submitted, with the cadaver set, the latency and FDA's feedback\\
 December 2027 (month 12) & Project ends; AIDaS final report and symposium\\
@@ -423,7 +423,7 @@ graduate student support), or else a post-baccalaureate researcher: 520 hours, m
   2027 (MCL 408.934) \tbd{WSU's job category and scale}. Temporary employees and students are not benefit-eligible,
   so A2 is FICA alone: 7.65\pct{} for a hire who is not an enrolled student; hiring a student, at
 WSU's composite rate of 1.7\pct{}, would buy about 30 more hours. Aim 1's hours check 80 runs against
-  their hidden checks and records, two hours each, and seal the known answers in 20; Aim 2's go to the cohort's accounts and measures; Aim 3's are 100 curating the cadaver set
+  their hidden checks and records, two hours each, and seal the known answers in 20 hours; Aim 2's go to the cohort's accounts and measures; Aim 3's are 100 curating the cadaver set
   (de-identifying, labeling, sealing by hash) and 80 checking the agent's leave-one-device-out and latency runs
   against their gates. At \$18 an hour the total would be \$20,247, over the cap unless the hours fall to 507.
 \item \textbf{B1 to B5.} No public dataset we know of pairs a diagnostic CT of the thoracolumbar spine with C-arm
