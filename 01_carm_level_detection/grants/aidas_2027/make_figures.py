@@ -59,7 +59,7 @@ NAMING = [
     ("AP,\nzero-shot\n276 / 631", 43.7, (34.9, 51.9), "A2.2"),
     ("AP, tuned\non 5 of its\ncases", 90.8, (86.7, 94.3), "A9.2"),
     ("AP, tuned\non all its\nother cases", 98.1, (95.7, 99.8), "A9.2"),
-    ("Count and\nshape coupled\n991 / 1,009", 98.2, (96.5, 99.5), "A5.1"),
+    ("Checked\nby the count\n991 / 1,009", 98.2, (96.5, 99.5), "A5.1"),
 ]
 # Detection on C-ArmLSpine, held out of detector training: each arm at the 0.74 cross-device threshold (with its
 # interval and count) and at 0.25 (with its interval where the row gives one).
@@ -175,11 +175,11 @@ def draw_gated_loop(ax, top):
     panel_title(ax, 1.36, top, "b", "Aim 1: the gate-conditioned repair loop")
     left, w, h = 1.5, 1.5, 0.27
     task, write, submit, gate, done = 1.46, 1.1, 0.74, 0.38, 0.02
-    box(ax, left, task, w, h, "Task and its gate, written\nby people, hashed", face=GREY_PALE)
+    box(ax, left, task, w, h, "Task and its pass/fail gate,\nwritten by people, sealed", face=GREY_PALE)
     box(ax, left, write, w, h, "Write the Slurm job")
     box(ax, left, submit, w, h, "Submit; read the scheduler\nand the job's log")
     box(ax, left, gate, w, h, "Does the gate pass?", weight="bold")
-    box(ax, left, done, w, h, "It passes: a pull request\nfor the trainee", face=TEAL_PALE, edge=TEAL)
+    box(ax, left, done, w, h, "It passes: the result goes\nto the trainee for review", face=TEAL_PALE, edge=TEAL)
     centre = left + w / 2
     for upper, lower in ((task, write), (write, submit), (submit, gate)):
         arrow(ax, (centre, upper), (centre, lower + h))
@@ -201,7 +201,7 @@ def draw_gated_loop(ax, top):
 
 def draw_three_images(ax, top):
     """Panel c: a sixth lumbar vertebra in a labeled CT, its physics render and another person's radiograph."""
-    panel_title(ax, 4.63, top, "c", "Aim 3: labeled 3-D into 2-D")
+    panel_title(ax, 4.63, top, "c", "Aim 3: from labeled CT to X-ray")
     note(ax, 7.08, top - 0.2, "white bars, 20 mm", color=MUTED, ha="right")
     tile_h, gap, x = 1.18, 0.03, 4.68
     labels = ("labeled CT", "physics render", "real radiograph")
@@ -219,7 +219,7 @@ def figure_beethoven():
     panel_title(ax, 2.58, top, "b", "One click opens the session")
     place_image(ax, open_image("beethoven_popup_top.png"), 2.62, 0.02, 1.44)
     panel_title(ax, 5.02, top, "c", "2026 cohort, n = 16")
-    note(ax, 5.19, top - 0.2, "grey dots before, green after", size=SMALL)
+    note(ax, 5.19, top - 0.2, "gray: before (recalled); green: after", size=SMALL)
     plot = fig.add_axes([6.13 / WIDTH, 0.33 / height, 0.9 / WIDTH, 1.0 / height])
     draw_cohort(plot)
     return fig
@@ -231,7 +231,7 @@ def draw_route(ax, top):
     box(ax, 0.02, 0.45, 0.86, 0.6, "claude.ai in the\ntrainee's browser,\nwith Beethoven")
     box(ax, 1.4, 1.06, 1.0, 0.36, "Claude servers:\nthe model")
     box(ax, 1.4, 0.5, 1.0, 0.44, "WSU grid: the\ntrainee's Claude\nCode worker", face=TEAL_PALE, edge=TEAL)
-    box(ax, 1.4, 0.02, 1.0, 0.34, "H200 GPUs, 4 nodes\nof 4 (partition gmsap)")
+    box(ax, 1.4, 0.02, 1.0, 0.34, "H200 GPUs,\n4 nodes of 4")
     arrow(ax, (0.88, 0.95), (1.4, 1.24), rad=-0.2)
     note(ax, 1.0, 1.2, "a chat", color=MUTED, ha="center", va="bottom")
     arrow(ax, (0.88, 0.72), (1.4, 0.72))
@@ -239,7 +239,7 @@ def draw_route(ax, top):
     arrow(ax, (1.9, 0.94), (1.9, 1.06))
     note(ax, 1.95, 1.0, "the model", color=MUTED)
     arrow(ax, (1.9, 0.5), (1.9, 0.36), color=ORANGE)
-    note(ax, 1.85, 0.43, "the heavy lifting", color=ORANGE, ha="right")
+    note(ax, 1.85, 0.43, "GPU jobs", color=ORANGE, ha="right")
 
 
 def draw_cohort(ax):
@@ -300,10 +300,10 @@ def figure_projection():
     ax.plot(*source, marker="o", ms=4, color=INK, zorder=4)
     note(ax, 0.0, source[1] + 0.09, "source", va="bottom", size=LABEL)
     ax.plot([detector_x, detector_x], [0.2, 1.44], color=INK, lw=1.6, zorder=4)
-    note(ax, detector_x, 1.48, "detector", ha="center", va="bottom", size=LABEL)
+    note(ax, detector_x, 1.48, "X-ray panel", ha="center", va="bottom", size=LABEL)
 
-    measure(ax, source[0], object_x, 0.26, f"{GEOMETRY['sod_mm']:,.0f} mm")
-    measure(ax, source[0], detector_x, 0.06, f"{GEOMETRY['sid_mm']:,.0f} mm: {magnification:.2f} times larger")
+    measure(ax, source[0], object_x, 0.26, f"{GEOMETRY['sod_mm']:,.0f} mm to the spine")
+    measure(ax, source[0], detector_x, 0.06, f"{GEOMETRY['sid_mm']:,.0f} mm to the panel: {magnification:.2f} times larger")
     return fig
 
 
