@@ -157,7 +157,7 @@ a sixth lumbar vertebra (arrow) in a labeled CT, its render and another person's
 at a pinned model version, run by a model-agnostic
 test harness with no intervention (no human edit or resubmission). \emph{Approach.} The benchmark holds 40 tasks (10 for development, 30 sealed until the final run) from
 Aim 3's experiments and the consortium's task lists (render banks, detector fine-tunes, figure rebuilds), each
-with a gate shown to pass on a reference solution and to fail on a planted error. A hidden check on each sealed task, seen by no arm, catches gamed gates. Three arms share one model and one
+with a gate shown to pass on a reference solution and to fail on a planted error. A hidden check on each sealed task, unseen by the agent, catches gamed gates. Three arms share one model and one
 budget per task (six repairs, two GPU-hours, one queued job at a time): one shot; a repair loop that stops at a clean
 exit; and the gated loop, which stops only when the gate passes. Each arm runs each task three times
 (360 runs), with pass rates by task type. \emph{Preliminary work.} The consortium's agents already run through Beethoven as jobs under Slurm, the
@@ -208,7 +208,7 @@ device-styled corpus of 142 TotalSegmentator spines; real frames of three device
 cases, each a cone-beam CT with AP (front-to-back) and lateral frames, truth automatic: two CT labelers agreeing), DeepFluoro
 (cadaver pelvis fluoroscopy) and COBRA (Elekta radiotherapy imaging). \emph{Model} (Figure~3a): a detector finds each
 body and the sacrum, a level model names each body, a count up from the sacrum checks the names, and the stack
-abstains where count and shape disagree or the name is unsure. New here, the C-arm detector learns each body's four corners,
+abstains where count and shape disagree or the name is unsure. New here, the C-arm detector will learn each body's four corners,
 as the film detector does, from labels made by projecting
 the CT's corners at the device's geometry (Figure~3b), exact on renders. \emph{Preliminary results} (Figure~4). With no C-arm image in training,
 the level model names 96.4\pct{} of the 617 lateral bodies the film-trained detector finds on C-ArmLSpine
@@ -261,7 +261,7 @@ a wrong QoS, a credential in a file); GPU-hours per pass; false successes; gamed
 \bottomrule
 \end{tabular}}
 
-H1 to H3 are written before any run. None is a powered test; each sizes the CAREER, CyberTraining or R21 proposal.
+H1 to H3 are written before any run; none is a powered test. H1 and H2 size the CAREER and CyberTraining proposals.
 
 \subsection*{4. Expected outcomes, deliverables and timeline}
 Within the award: the agent, benchmark and three-arm report; the cohort's outcomes; the cadaver set,
@@ -309,7 +309,7 @@ research. Cureus 2026;18(7):e112661.
 \begin{enumerate}[leftmargin=1.3em]
 \item \textbf{NSF CAREER} (NSF 22-586; CISE, Division of Information and Intelligent Systems), PI Han, built on Aims 1 and 2:
 the gate-conditioned agent as the research
-plan, the trainees as the education plan. Aim 1's tasks come from the 3-D-to-2-D experiments the PI leads in Aim 3,
+plan, the trainees as the education plan. Aim 1's tasks include the 3-D-to-2-D experiments the PI leads in Aim 3,
   so the agent serves the PI's own vision program. Deadline July 28, 2027; eligibility is judged at the deadline (an untenured Assistant Professor with no
   earlier CAREER award) \tbd{the PI's tenure timing and earlier CAREER competitions}. If the PI is not eligible, the
   same plan goes to IIS's core research under CISE's Future CoRe solicitation (NSF 25-543).
@@ -409,7 +409,7 @@ WSU's composite rate of 1.7\pct{} (fiscal year 2025), would buy about 30 more ho
   DeepFluoro pairs cadaver CTs with fluoroscopy of the pelvis. The cadaver set
 adds WSU's own C-arm. The Body Bequest Program's donor authorization permits de-identified images
   \tbd{the program's terms for public release}. Each C-arm user enrolls in WSU's dosimetry program and files the training form of OEHS, WSU's safety
-office, both with the director of DLAR, which books the room, 15 business days before the session. The frame grabber records what the C-arm shows, the input
+office, both with the director of DLAR 15 business days before the session. The frame grabber records what the C-arm shows, the input
 a deployed tool would read \tbd{the C-arm's model and video output}; at \$619 it is far under WSU's
   \$5,000 capital threshold and becomes WSU property.
 \item \textbf{C1, C2.} Anthropic's Team plan for scientists lets a verified PI add Premium seats at \$15 a month,

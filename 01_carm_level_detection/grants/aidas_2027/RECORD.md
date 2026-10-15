@@ -150,7 +150,14 @@ https://www.irs.gov/publications/p15).
   and leaves out COBRA's Elekta imaging (6.2 %, row A6.9), a hypothesis for after Aim 3's work, not a result; and
   the note under the evaluation table was cut to one line ("None is a powered test; each sizes the CAREER,
   CyberTraining or R21 proposal") to give page 4 a line of room, which drops the clause that the cadaver set tests
-  real anatomy against CT truth, said in Aim 3 already. A8 is added to the CAREER item.
+  real anatomy against CT truth, said in Aim 3 already. A8 is added to the CAREER item. The adversarial review of
+  those edits (2026-10-15) found every number matching this record and changed wording only: the hidden check is
+  "unseen by the agent" (arm was used before its definition); the C-arm detector "will learn" corners (the
+  existing one boxes bodies); A8 says Aim 1's tasks "include" Aim 3's experiments (the benchmark also draws on the
+  consortium's lists); the note under the table no longer says H3 sizes the R21 (its 99 patients come from planning
+  values, row E.4); "DLAR, which books the room" is dropped, since no file records who books it; Figure 3b's
+  magnification label moved off the panel's line; Figure 1c says "scale bars" (the radiograph's is black); Figure 4b's
+  title says "a new C-arm", as its caption does.
 - **The Gaussian renderer** is framed as built on the PI's Gaussian-splatting work; the PI should confirm that
   framing and references [13] and [14].
 - **Line E** asks Anthropic's AI for Science program for API credits; the laboratory works without API keys, so the

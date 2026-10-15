@@ -202,7 +202,7 @@ def draw_gated_loop(ax, top):
 def draw_three_images(ax, top):
     """Panel c: a sixth lumbar vertebra in a labeled CT, its physics render and another person's radiograph."""
     panel_title(ax, 4.63, top, "c", "Aim 3: from labeled CT to X-ray")
-    note(ax, 7.08, top - 0.2, "white bars, 20 mm", color=MUTED, ha="right")
+    note(ax, 7.08, top - 0.2, "scale bars, 20 mm", color=MUTED, ha="right")
     tile_h, gap, x = 1.18, 0.03, 4.68
     labels = ("labeled CT", "physics render", "real radiograph")
     for name, label in zip(("l6_labeled_ct.png", "l6_render.png", "l6_film.png"), labels):
@@ -303,7 +303,8 @@ def figure_projection():
     note(ax, detector_x, 1.48, "X-ray panel", ha="center", va="bottom", size=LABEL)
 
     measure(ax, source[0], object_x, 0.26, f"{GEOMETRY['sod_mm']:,.0f} mm to the spine")
-    measure(ax, source[0], detector_x, 0.06, f"{GEOMETRY['sid_mm']:,.0f} mm to the panel: {magnification:.2f} times larger")
+    measure(ax, source[0], detector_x, 0.06, f"{GEOMETRY['sid_mm']:,.0f} mm to the panel")
+    note(ax, detector_x + 0.05, 0.085, f"{magnification:.2f} times larger", va="bottom", size=SMALL)
     return fig
 
 
@@ -336,7 +337,7 @@ def figure_results():
     fig.text(0.0, title_y, "a", fontsize=10, fontweight="bold")
     fig.text(0.17 / WIDTH, title_y, "Naming the level on C-ArmLSpine", fontsize=8, fontweight="bold")
     fig.text(3.62 / WIDTH, title_y, "b", fontsize=10, fontweight="bold")
-    fig.text(3.79 / WIDTH, title_y, "Finding vertebrae on a new device", fontsize=8, fontweight="bold")
+    fig.text(3.79 / WIDTH, title_y, "Finding vertebrae on a new C-arm", fontsize=8, fontweight="bold")
     draw_naming(naming)
     draw_detection(detection)
     # The key shares the panel title's line, above the plot, so it cannot be read as data.
