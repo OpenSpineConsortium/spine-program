@@ -46,4 +46,7 @@ structure carried into 2-D C-arm images at low latency (Health). The call is
 3. Run the disclosure audit (root CLAUDE.md rule 8): the packet shows SchwingNet's architecture and quotes its
    held-out results.
 4. Decide the MIT release of the agent and its benchmark, and the caveats in `RECORD.md` section 4.
-5. Build with the contacts and biosketches, check the page count is 10, and send the one PDF.
+5. Confirm that Elsevier has enabled the Scopus APIs on the key and ask the library for the text and data mining
+   amendment to WSU's ScienceDirect agreement; the packet states both as they stood on 2026-10-15 (`RECORD.md`
+   section 6), as it states the IRB protocol IRB-26-03-8648 as pending.
+6. Build with the contacts and biosketches, check the page count is 10, and send the one PDF.
