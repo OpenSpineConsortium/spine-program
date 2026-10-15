@@ -25,7 +25,7 @@ grid and are read here from git history at main 5597197 (`ARCHIVE.md`). Row ids 
 | C-ArmLSpine: 149 public lumbar cases, each a cone-beam CT with AP and lateral frames; automatic truth from two CT labelers agreeing | `01_carm_level_detection/docs/handoff/DATASET_USAGE.md` section 2.3 (149 is the released count; `MODEL_CARD.md` section 5.1 scores 148) and `MODEL_CARD.md` section 5.1 ([AUTO-TRUTH]) |
 | YOLO11m detector; ResNet-18 encoder; two-layer bidirectional GRU over the run of 2 to 9 bodies; 27 levels | `01_carm_level_detection/docs/MODEL_CARD.md` (the model table); Figure 3a is `figures/schwingnet/fig1c_arch.pdf` at 5597197 |
 | SID 1,140 mm and SOD 745 mm, so 1.53 times larger on the detector (Figure 3b) | `01_carm_level_detection/docs/MODEL_CARD.md` section 6.1 |
-| the sixth lumbar vertebra in a labeled CT, its render and another person's radiograph; white bars 20 mm (Figure 1c) | `01_carm_level_detection/figures/schwingnet/figure1.png` and `figure1.record.json` ("bar, 20 mm") at 5597197 |
+| the sixth lumbar vertebra in a labeled CT, its render and another person's radiograph; scale bars 20 mm, white on the CT and the render and black on the radiograph (Figure 1c) | `01_carm_level_detection/figures/schwingnet/figure1.png` and `figure1.record.json` ("bar, 20 mm") at 5597197 |
 | 96.4 % of the 617 lateral bodies the film-trained detector finds, with no C-arm frame in training (595 / 617, [92.3, 98.4]) | row A2.1 (the naming boxes come from the film-trained keypoint body detector, `detector_v5z_final` at 0.35; the A2 rows' header) |
 | 88.0 % of all 676 lateral bodies with agreed truth (595 / 676; the detector finds 617 of them) | rows A2.6, A2.7 |
 | 43.7 % of 631 AP bodies (276 / 631, [34.9, 51.9]) | row A2.2 |
