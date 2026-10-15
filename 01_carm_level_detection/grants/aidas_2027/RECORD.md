@@ -172,6 +172,29 @@ https://www.irs.gov/publications/p15).
 - **Federal wording.** EO 14434 (September 29, 2026), "Inaugurating the Era of Super Intelligence", has agencies
   write "Super Intelligence" and "SI" in place of "AI" in their own documents. It binds agencies, not applicants, so
   the AIDaS packet keeps "AI" and the CAREER and R21 drafts may echo a solicitation's own words without having to.
+- **The literature grounding and the pending protocol** (added 2026-10-15, section 6). The packet says Scopus is
+  confirmed and ScienceDirect waits on an amendment: ask the library to add the text and data mining amendment to
+  WSU's ScienceDirect agreement with Elsevier's account manager, and confirm before sending that Elsevier has enabled
+  the Scopus APIs on the key. The key is one person's; the agent queries the index on the grid, never the API, and
+  the index stays outside the MIT release. The protocol IRB-26-03-8648 is in draft on the IRB's side (pre-reviewed
+  2026-09-28, expedited review requested): the packet calls it pending and promises nothing from it within the award;
+  if it is approved or submitted before the deadline, say so on the cover and the alignment page. The protocol's own
+  text calls the consortium's benchmark neurosurgical in two places; the packet does not (root CLAUDE.md rule 1).
+  The correspondence also told Elsevier the index sits in storage only the key holder reads; the trainees read the
+  answers inside WSU, which "nothing shared outside WSU" allows, but ask Elsevier if that reading is in doubt.
+- **The panel review of 2026-10-15.** After the two elements went in, a five-reviewer AIDaS panel read the packet
+  again and a verifier kept 13 of its proposals; 11 were applied. Aim 1's one-shot arm now retries from scratch within
+  the same budget, so H1 tests repair, not more attempts. Aim 2's starter tasks lie outside the agent's development
+  set and benchmark, task and order counterbalanced, and the preliminary work says the 2026 mentors were expert in
+  Slurm. A wrong QoS is no longer counted a rule violation, since the scheduler refuses it and the agent repairs it.
+  The literature answers are measured (a misquoted passage fails a gate; the mentor marks one that does not support
+  the answer), come from Scopus abstracts, and come from a language model on the grid (section 6). The cover's AI for
+  Health line states the intended use and that the stack withholds a label when its checks disagree; the abstract no
+  longer promises to close the detection gap; the R21 item says FDA's feedback shapes the validation, not the
+  protocol; budget line D asks FDA about the reference standard; the team paragraph states the PI's lead. Not
+  applied: tying New Investigator status to federal targets on the cover (no room, and said on page 5) and moving the
+  CAREER row (it would contradict the risk fallback on page 4). To fit 10 pages, the H2 sentence no longer repeats
+  that comfort is secondary (the table says so) and the table's Aim 2 design reads "plan preregistered".
 - **The figures.** Figure 2a is redrawn as vector boxes from the labels of the extension's own store diagram, and
   Figure 2b crops the popup's top half, which shows no grid login; the VS Code edition's diagrams have labels that
   overlap at print size and are not used.
@@ -185,3 +208,37 @@ agent loop with gates registered by hash; and a placeholder evaluation with the 
 `python3 autonomous_spine_agent.py --selftest`, then `--tasks 6 --seed 0 --root <repository> --out run.json`, on a
 laptop or as an sbatch job, never on the login node. Its numbers are simulated and appear nowhere in the packet as
 results.
+
+## 6. The two sources of 2026-10-15, kept out of git
+
+Both were given to the grant thread on 2026-10-15 and neither enters the repository (root CLAUDE.md rule 12: the
+correspondence carries addresses, the form a CV); the facts the packet takes from them are these.
+
+- **Elsevier's answer on text and data mining** (correspondence of 2026-10-15). What was asked: non-commercial
+  academic research on spinal disease; a retrieval-augmented system in which spine-related articles are split into
+  passages and indexed, a question retrieves the most relevant passages, shown as short verbatim quotations with the
+  full citation and a DOI link to the version of record, and a language model uses them as context beside the output
+  of the consortium's own X-ray models; no Elsevier content trains, fine-tunes or improves any model; everything hosted
+  on WSU's grid in access-controlled storage, nothing shared outside WSU, only brief quotations with citation and DOI
+  in anything published; the index and the full text deleted when the project ends or the key lapses. The answer:
+  Scopus approved, WSU's Scopus agreement including text and data mining and AI usage rights, the Scopus Search,
+  Abstract Retrieval and Citation Overview APIs being enabled on the institutional key; ScienceDirect not yet, since
+  WSU's ScienceDirect agreement has no text and data mining amendment, which the library or procurement adds with
+  Elsevier's account manager. In the packet: the cover's area 3 line, the abstract, Aim 2's grounding sentence,
+  the evaluation table's Aim 2 metrics and the clinical collaborator's roles. The packet sends the trainees'
+  literature questions to a language model on the grid, never to the agent, since the agent's model runs on Claude's
+  servers (Figure 2a) and the correspondence told Elsevier that no outside AI service receives its content.
+- **The pending IRB protocol** (the IRB form's print view of 2026-10-15, protocol IRB-26-03-8648, Wayne State IRB):
+  "Creation of a Secure Multimodal Clinical and Radiographic Spine Surgery Dataset for Case-Control Research and
+  Locally Hosted AI Development"; study type medical, expedited review requested; "Date Submitted: Draft", created
+  2026-03-23, department certification 2026-03-30, pre-reviewed 2026-09-28; the clinical collaborator as Principal
+  Investigator with a faculty sponsor, co-investigators the consortium's members; no funding; proposed 2026-05-01 to
+  2029-05-01; retrospective, a waiver of consent and of HIPAA authorization requested; about 4,000 adult patients who
+  had spine surgery at a Detroit Medical Center facility in the last ten years, with imaging (primarily CT) in PACS and
+  operative notes, clinical notes and radiology reports in the EMR; coded data with the key in REDCap, NIfTI
+  conversion, all 18 identifiers removed from the final dataset, storage on the WSU grid, kept seven years; 15 percent
+  (about 600) double-coded; pseudolabels verified by supervised medical students; a locally hosted multimodal model
+  trained only on the grid; a de-identified restricted-access release under a data use agreement. In the packet: the
+  abstract, section 4's sentence on the R21's clinical data, and the alignment page's R21 item and team paragraph,
+  each saying "about 4,000", "ten years", "de-identified CT paired with operative notes and radiology reports" and
+  "pending", nothing more.
