@@ -41,6 +41,12 @@ grid and are read here from git history at main 5597197 (`ARCHIVE.md`). Row ids 
 | the 97 % set in advance, met by no held-out cell | row A6.13 (`ssn:docs/RSNAI_PLAN.md` C7) |
 | styled renders 99 to 100 % separable from real frames | row A13.3 |
 | for the R21: 99 patients give 80 % power for a Wilson lower bound of 90 % at a true 97 % (exactly 82 %; 98 give 66 %, so the number is exactly 99) | row E.4 (its planning values have no transitional measurement behind them) |
+| Beethoven holds the grid's job rules as checked data and runs Claude Code workers as Slurm jobs from a checked profile of the grid (the significance, Aim 1, Figure 2a) | `OpenSpineConsortium/beethoven-sites` at 83f34e8, `sites/wayne/site.json`: Slurm, the login node, the CPU and GPU partitions with their QoS, the login node's 20-process cap and `scheduler_in_worker` (the host's Slurm client bound into the worker's container, measured on the grid on 2026-09-28), held to the module schema by the repository's checker and 53 tests; the launcher that composes the profile and starts the worker is `OpenSpineConsortium/hpcworker`, which this session could not read, and Figure 2a, from the extension's own store diagram |
+| beethoven-qa's gate: contracts on every public function, searched for counterexamples by CrossHair and Z3, required on the agents' and the research code | `OpenSpineConsortium/beethoven-qa` at 85f0e1c, `README.md` (the gate; most conditions are searched within a 20-second bound rather than proven, which the packet's "checked" allows and "proven" would not); `beethoven-agents` at a40a71a and `beethoven-research` at 7e8fd69 each carry its release 3.0.0, hash-checked, and run the gate as a required check |
+| beethoven-research holds the protocols for reproducible studies (REFORMS [10]) and their reporting (CLAIM [11]); the patient-split check is built; the award builds the other REFORMS checks, the CLAIM checklist and one-command reruns | `OpenSpineConsortium/beethoven-research` at 7e8fd69: `CLAUDE.md` writes the rules (result rows, one command that reruns every number, run records, the REFORMS record, the CLAIM checklist), each marked not built yet or left to a later goal, but the split rule; `src/beethoven_research/splits.py`, with 9 tests and a CrossHair check in its required gate, refuses an evaluation case that shares a patient, study, cadaver or CT source volume with a training case |
+| Symphony: each task an issue held by one agent, a person merging; public under MIT; its validation harness catches each of 93 deliberate rule mutations | `OpenSpineConsortium/symphony-protocol` at a3a5b4d (2026-10-15): `spec/PROTOCOL.md`, `LICENSE`, `validation/README.md` (93 mutants, each caught on the shortest trace); release 0.4.1 of 2026-10-13, vendored in this repository as `tools/sdlc_protocol` |
+| the five planted faults: a patient in both training and test sets, the wrong one of two label schemes, a threshold tuned on the test set, a typed number, a run that does not reproduce | the failures this programme guards against, root `CLAUDE.md` rules 3 to 6 (numbers wrong but plausible, two label schemes, held out means held out, pre-register then score) and `01_carm_level_detection/CLAUDE.md` (the threshold 0.74 is cross-device, never pre-stated; a number enters a manuscript only through a manifest key; resume is not reproduce) |
+| Aim 1's design: 30 tasks, 10 for development and 20 sealed, half of those with a planted fault; two arms; eight GPU-hours per task; two runs each (80 runs); H1's under 20 % against over half | chosen on 2026-10-15 for issue #100 (section 4); no file stands behind them, and H1's two thresholds are a hypothesis written before any run, not a result |
 | the Co-PI's four high-performance computing papers with the clinical collaborator (2021 to 2024); the PI's Gaussian-splatting and implicit-surface papers (CVPR 2025 and 2026, NeurIPS 2024); the PI's PhD of November 2017 and appointment since January 2021 | the two biosketches (submitted with the packet, not committed) |
 
 No number in the packet comes from a row marked LEAKED, SUPERSEDED or RECORD ONLY (root CLAUDE.md rule 5). The
@@ -91,8 +97,11 @@ page before submitting.
 
 
 References [1] to [16] and the claims tied to them were checked on 2026-10-14 against search excerpts and the
-repository's earlier full-text readings (`01_carm_level_detection/docs/research/BIB_RESOLVE_2026-09-22.json`): [12]
-now cites ICML 2025; DeepDRR [15] is credited with the physics and SyntheX [16] with the strong domain randomization,
+repository's earlier full-text readings (`01_carm_level_detection/docs/research/BIB_RESOLVE_2026-09-22.json`). Since
+issue #100 the list is [1] to [18]: [10] REFORMS (Science Advances 10(18), eadk3452, May 2024) and [11] the CLAIM
+2024 update (Radiology: Artificial Intelligence 6(4), e240300) were checked on 2026-10-15 against search excerpts,
+[14] the AI Scientist (arXiv 2408.06292) was not, RE-Bench is no longer cited, and the old [10], [11] and [13] to [16]
+are [12], [13] and [15] to [18]. DeepDRR [17] is credited with the physics and SyntheX [18] with the strong domain randomization,
 whose hip-landmark parity rests on 366 cadaver images from six specimens; [1] counts patients, not operations; [2]
 and [3] surveyed neurosurgical societies; the cohort's ten abstracts were submitted, not reported accepted. Still to
 check by hand: the first author's initial in [4] and the Zenodo page of [8]. The FICA rate of line A2 is the
@@ -134,8 +143,9 @@ https://www.irs.gov/publications/p15).
 - **Disclosure** (root CLAUDE.md rule 8). The packet describes SchwingNet: Figure 3a is its architecture and the
   narrative quotes its held-out results; paper 1 is held pending the technology-transfer office. Run
   `ssn:tools/disclosure_audit.py` before sending, and decide what the AIDaS reviewers may see.
-- **The MIT release** of the agent and its benchmark is the owner's call, with only the tasks a disclosure review
-  clears.
+- **The MIT release** of Aim 1's tasks, records and report is the owner's call, with only the tasks a disclosure
+  review clears. Beethoven's repositories (beethoven-sites, -base, -qa, -agents, -research) are private and
+  proprietary and are not released; Symphony is public under MIT already.
 - **Changes made by design**, against the letter of a review finding: H2 is a within-trainee crossover on two
   matched starter tasks, estimated with 95 % intervals, in place of `REVIEW_2026-10-14.md` item 26's six one-tailed
   tests, which eight trainees would pass together with a probability of about a third; Figure 1 drops the
@@ -159,11 +169,12 @@ https://www.irs.gov/publications/p15).
   magnification label moved off the panel's line; Figure 1c says "scale bars" (the radiograph's is black); Figure 4b's
   title says "a new C-arm", as its caption does.
 - **The Gaussian renderer** is framed as built on the PI's Gaussian-splatting work; the PI should confirm that
-  framing and references [13] and [14].
-- **Line E** asks Anthropic's AI for Science program for API credits; the laboratory works without API keys, so the
-  credits would run only the benchmark's extra repeats, on the program's terms. Those terms ask the institution to
-  let Anthropic use data made with the credits, model training included, so the repeats would run only tasks whose
-  data agreements allow it (the packet says "on tasks its data terms allow").
+  framing and references [15] and [16].
+- **Line E**, an application to Anthropic's AI for Science program for API credits, was dropped on 2026-10-15 (issue
+  #100): Beethoven and the consortium's frameworks use no API key and no usage credit, every agent running on a plan
+  held in a person's own name, and the program's terms would let Anthropic use data made with the credits. The
+  request is unchanged, since line E asked for $0; line F keeps its letter. Put it back only with a way to run the
+  credits outside Beethoven.
 - **The R21's mechanism.** The parent R21 (PA-25-304) allows no clinical trial and NIBIB's EBRG (PAR-25-321) makes one
   optional, so a validation that reaches patients' care fits PAR-25-321; earlier Trailblazer calls discouraged
   preliminary data, which the alignment page plans to bring.
@@ -173,7 +184,8 @@ https://www.irs.gov/publications/p15).
   write "Super Intelligence" and "SI" in place of "AI" in their own documents. It binds agencies, not applicants, so
   the AIDaS packet keeps "AI" and the CAREER and R21 drafts may echo a solicitation's own words without having to.
 - **The literature grounding and the pending protocol** (added 2026-10-15, section 6). The packet says Scopus is
-  confirmed and ScienceDirect waits on an amendment: ask the library to add the text and data mining amendment to
+  confirmed and quotes Scopus abstracts only (since issue #100 it no longer says, for room, that ScienceDirect's full
+  text waits on an amendment): ask the library to add the text and data mining amendment to
   WSU's ScienceDirect agreement with Elsevier's account manager, and confirm before sending that Elsevier has enabled
   the Scopus APIs on the key. The key is one person's; the agent queries the index on the grid, never the API, and
   the index stays outside the MIT release. The protocol IRB-26-03-8648 is in draft on the IRB's side (pre-reviewed
@@ -195,13 +207,41 @@ https://www.irs.gov/publications/p15).
   applied: tying New Investigator status to federal targets on the cover (no room, and said on page 5) and moving the
   CAREER row (it would contradict the risk fallback on page 4). To fit 10 pages, the H2 sentence no longer repeats
   that comfort is secondary (the table says so) and the table's Aim 2 design reads "plan preregistered".
+- **Aim 1 rewritten around the consortium's frameworks** (issue #100, 2026-10-15). The owner, 2026-10-15: "so Aim 1
+  is slightly wrong, the beethoven-base and beethoven-site repos already hold all the protocols for writing grid jobs
+  on WSU cluster. The LLM doesnt have to learn how to do that, further the beethoven-research repo contains protocols
+  for writing repreducible CLAIM/REFORMS compliant workflows, all claude will do is iterate the scientific method and
+  perform semi-autonomous AI research under a set of strict frameworks to ensure quality", and "theres also
+  beethoven-qa for checkign the autonomously written code, beethoven-agents, and the entire symphony-protocol for
+  coordinating multi-agentic workl essentially it is the culmination of all my work thus far". The title, the cover's
+  area 1 line, the abstract, the keywords, the significance, Figure 1b and its caption, the Aim 1 paragraph, the
+  evaluation table's Aim 1 row, section 4, the CAREER item, the team paragraph, the timeline and the budget's lines A,
+  C1, C2 and E now say so: Claude Code iterates hypotheses inside Beethoven (the grid's rules), beethoven-qa (the
+  code), beethoven-research (REFORMS and CLAIM) and Symphony (several agents), a person setting each task's question
+  and gate and merging what is accepted. Defaults taken without asking, each the owner's to change: the methodological
+  contribution is a planted-fault study (how often an agent doing research accepts a wrong but plausible result, and
+  which checks fixed in advance stop it), with two arms, with and without the frameworks' checks, since a benchmark of
+  job repair no longer fits; the faults are the five kinds this programme guards against (section 1); 30 tasks, 80
+  runs, eight GPU-hours per task, and line A's 180 Aim 1 hours re-based on checking runs and writing reference answers;
+  the PI "designs Aim 1" and the Co-PI builds "the evaluation harness and grid measures" (both asked of them by
+  e-mail); the agents run attended until the grid clears unattended agents, which `beethoven-research/CLAUDE.md`
+  requires first. What is built and what the award builds is said in the Aim 1 paragraph itself: the grid profile,
+  the code gate, the patient-split check and Symphony exist; the other REFORMS checks, the CLAIM checklist, the
+  one-command reruns and the orchestration of several agents' Slurm jobs (specified in `beethoven-agents`, not
+  built) do not. The consortium's coordination experiment of 2026-10-15 is kept out of the packet, as the owner
+  asked on 2026-10-15 ("hold off on getting the data into the grant until i run the full benchmark suite"). The
+  execution skeleton (section 5) and RE-Bench went with the old Aim 1. To fit 10
+  pages, Aim 2's literature sentence lost its ScienceDirect clause, section 4 points to the alignment page for the
+  protocol IRB-26-03-8648's details, and the team paragraph is shorter.
 - **The figures.** Figure 2a is redrawn as vector boxes from the labels of the extension's own store diagram, and
   Figure 2b crops the popup's top half, which shows no grid login; the VS Code edition's diagrams have labels that
   overlap at print size and are not used.
 
 ## 5. The execution skeleton
 
-`autonomous_spine_agent.py` beside this file is the mock of Aim 1, standard library only: a grid simulator with the
+`autonomous_spine_agent.py` beside this file was the mock of the earlier Aim 1, an agent that repaired its own
+Slurm jobs; since issue #100 Aim 1 iterates research inside the consortium's frameworks, which hold the grid's rules
+the simulator re-created by hand, so it is kept only as a record. It is standard library only: a grid simulator with the
 WSU grid's partitions and quality-of-service rules that refuses what the real scheduler refuses; a mock language
 model that drafts a job with a planted mistake and repairs it from the scheduler's message or the traceback; the
 agent loop with gates registered by hash; and a placeholder evaluation with the C-arm projection matrix. Run

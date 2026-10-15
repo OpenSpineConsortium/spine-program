@@ -22,7 +22,7 @@
 \usepackage{pdfpages}
 \usepackage{multicol}
 \usepackage[hidelinks]{hyperref}
-\hypersetup{pdftitle={Self-Repairing AI Agents on the Wayne State Grid: AIDaS Seed Grant 2026-2027}}
+\hypersetup{pdftitle={Semi-Autonomous AI Research on the Wayne State Grid: AIDaS Seed Grant 2026-2027}}
 
 \definecolor{ink}{HTML}{1D1D1B}
 \definecolor{teal}{HTML}{0F5F55}
@@ -62,14 +62,14 @@
 % ---------------------------------------------------------------- cover page
 \begin{center}
 {\bfseries 2026--2027 AIDaS Seed Grant Program}\par\smallskip
-{\Large\bfseries Self-Repairing AI Agents on the Wayne State Grid:\\[1pt]
+{\Large\bfseries Semi-Autonomous AI Research on the Wayne State Grid:\\[1pt]
 From Labeled CT to C-Arm Level Localization,\\[1pt] with Medical Trainees Driving the Agents\par}
 \end{center}
 \vspace{4pt}
 
 \begin{tabularx}{\linewidth}{@{}>{\bfseries\raggedright\arraybackslash}p{1.55in}X@{}}
-Strategic areas & Foundational AI (area 1, primary; Aim 1): the reliability of agentic systems, studied in an agent held to
-pass/fail tests fixed before each run and to the cluster's safety rules. AI for Education and Workforce Training
+Strategic areas & Foundational AI (area 1, primary; Aim 1): the reliability of agentic systems, studied in agents doing
+research held to sealed tests, verified code and reproducible records. AI for Education and Workforce Training
 (area 3; Aim 2): medical trainees doing computational research, with literature answers grounded in verbatim, cited quotations. AI for Health (area 4; Aim 3): intraoperative imaging decision support, an advisory level label per C-arm
 image that the surgeon confirms and the stack withholds when its checks disagree.\\[2pt]
 Principal Investigator & Zhizhong Han, PhD, Assistant Professor, Department of Computer Science, College of
@@ -98,22 +98,22 @@ simulated C-arm images, and a level model. Never trained on a C-arm image, it na
 those it misses). Detection is the gap this project attacks first: a second detector, trained on two other devices'
 frames, finds 80.5\pct{} of the vertebrae on that dataset's C-arm (90.6\pct{} at a lower confidence threshold),
 against the 97\pct{} set in advance. Closing the gap takes
-hundreds of GPU experiments on a shared computing cluster, which a person now writes, submits and repairs by hand,
-and which the medical trainees who hold the clinical questions cannot write at all. Aim 1 builds and benchmarks an AI
-agent that writes, submits and repairs its own cluster jobs and accepts a result only when a pass/fail test fixed before the run
-passes. We expect it to finish at least 80\pct{} of 30 unseen tasks without human help, against under
-half for the same model working in one shot. Aim 2 gives the agent to eight medical trainees and measures, task
+hundreds of GPU experiments on a shared computing cluster, more than one person can run. Aim 1 has an AI agent
+iterate the scientific method inside frameworks the consortium has built (the cluster's job rules, a gate on its
+code, reproducibility and reporting protocols, coordination of several agents), and a result counts only when a test
+sealed before the run passes and a person accepts it. With planted faults, we expect it to accept a wrong result in
+under a fifth of runs, against over half without the frameworks. Aim 2 gives the agent to eight medical trainees and measures, task
 against matched task, what it adds over a coding assistant, the 2026 program's setup. Their literature questions go to a language model on
 the grid, which quotes Scopus abstracts verbatim, with citation and DOI, under Elsevier's text and data mining terms,
 and no passage reaches an outside AI service. Aim 3 turns the agent on the
 detection gap, with learned X-ray simulation, and tests the result on CT-paired cadaver images taken at WSU. For the
 clinical validation after the award, an IRB protocol awaiting submission would add about 4,000 Detroit Medical Center
 spine surgery patients' CTs, operative notes and radiology reports, with any transitional vertebra recorded.
-Deliverables: the agent and its benchmark (MIT license, with the tasks an invention-disclosure review clears), the cadaver set,
+Deliverables: Aim 1's tasks, records and report (MIT license, as an invention-disclosure review clears), the cadaver set,
 an FDA Pre-Submission, and NSF CAREER and NIH R21 proposals.
 
 \vspace{4pt}
-{\bfseries Keywords.} agentic systems; code generation; high-performance computing; medical education; fluoroscopy;
+{\bfseries Keywords.} agentic systems; AI for science; reproducibility; high-performance computing; medical education; fluoroscopy;
 3-D Gaussian splatting; domain transfer; spine surgery
 
 \clearpage
@@ -140,54 +140,59 @@ its training, our C-arm detector finds 80.5\pct{} of vertebrae (90.6\pct{} at a 
 results figure took 250 fine-tunes). The consortium's 2026 trainee program hit the same wall: it
 relied on mentors expert in Python, imaging and cluster computing [9].
 
-Our premise is that the bottleneck has moved from the model to the experiments, and that an agent can run them if it
-treats the cluster's refusals as errors to repair and accepts no result until a test fixed in advance passes. Three
-aims test it (Figure~1). \aim{Aim 1} builds an agent that writes, submits and repairs its own jobs on the WSU grid. Its
-methodological contribution is a \emph{gate-conditioned repair loop that treats the scheduler as part of the runtime}. Cluster refusals
-(a wrong quality-of-service, or QoS, setting; a job killed for memory) and code errors enter one loop that
-edits and resubmits the job. The loop stops not at a clean run but when the job's gate
-passes; a gate is a pass/fail test, sealed by hash before the first job, that the agent can read but not change. Agent benchmarks score code edits (SWE-bench [10]) or machine-learning
-engineering on a dedicated machine (MLE-bench [11], RE-Bench [12]). None we know of scores an agent against a shared
-scheduler's refusals and queue, under a fixed GPU budget, with gates fixed in advance. \aim{Aim 2} puts the agent in
-medical trainees' hands through Beethoven, the consortium's browser extension (Figure~2). \aim{Aim 3} turns it on the detection gap, with a paired
+Our premise is that the bottleneck has moved from the model to the experiments, and that an AI agent can run them
+if strict frameworks, not the model, decide which results count. Three aims test it (Figure~1). \aim{Aim 1} has the
+agent iterate the scientific method inside frameworks the consortium has built. Beethoven, which runs
+Claude Code on the grid, holds the grid's job rules as checked data, so the agent uses them rather than learning them;
+beethoven-qa checks the code it writes; beethoven-research holds the protocols for reproducible studies (REFORMS [10])
+and their reporting (CLAIM [11]); and the Symphony protocol coordinates several agents in one repository. The
+methodological contribution measures \emph{framework-bound scientific iteration}: how often an agent doing research
+accepts a wrong but plausible result, and which checks fixed in advance stop it. Agent benchmarks score finished
+work, as code edits [12], machine-learning engineering [13] or whole papers [14]; none we know of plants the faults
+that make a wrong result look right and counts how many an agent accepts. \aim{Aim 2} puts the agent in
+medical trainees' hands through Beethoven (Figure~2). \aim{Aim 3} turns it on the detection gap, with a paired
 CT and C-arm cadaver set imaged at WSU and a differentiable 3-D
-Gaussian X-ray renderer, like those of [13,14], built on the PI's Gaussian-splatting work.
+Gaussian X-ray renderer, like those of [15,16], built on the PI's Gaussian-splatting work.
 
-\placefigure{0.90\linewidth}{figures/fig1_overview.pdf}{One loop, three aims. (a) Beethoven starts the trainee's agent. (b) The agent writes, submits and repairs the
-job until its gate passes or its budget runs out. (c) Why counting fails:
+\placefigure{0.90\linewidth}{figures/fig1_overview.pdf}{One loop, three aims. (a) Beethoven starts the trainee's agent. (b) The agent iterates hypotheses inside the
+frameworks until a sealed gate passes or its budget runs out. (c) Why counting fails:
 a sixth lumbar vertebra (arrow) in a labeled CT, its render and another person's radiograph.}
 
 \subsection*{2. Aims, approach and preliminary work}
-\aim{Aim 1 (Foundational AI): a self-repairing agent for the grid.} The agent is Claude Code, an AI coding agent,
-at a pinned model version, run by a model-agnostic
-test harness with no intervention (no human edit or resubmission). \emph{Approach.} The benchmark holds 40 tasks (10 for development, 30 sealed until the final run) from
-Aim 3's experiments and the consortium's task lists (render banks, detector fine-tunes, figure rebuilds), each
-with a gate shown to pass on a reference solution and to fail on a planted error. A hidden check on each sealed task, unseen by the agent, catches gamed gates. Three arms share one model and one
-budget per task (six repairs, two GPU-hours, one queued job at a time): one shot, retried from scratch within the budget; a repair loop that stops at a clean
-exit; and the gated loop, which stops only when the gate passes. Each arm runs each task three times
-(360 runs). \emph{Preliminary work.} The consortium's agents run through Beethoven as jobs under Slurm, the
-grid's scheduler; our prototype runs the loop on a simulated one
-with the grid's partitions and refusals, a design check, not a result. \emph{H1:} the gated loop passes at least 80\pct{} of the
-30 sealed tasks with no intervention, no rule violation and no failed hidden check, against under half in one shot, and more than fresh retries or the repair loop, whose
-clean exits may fail their gate (false successes).
+\aim{Aim 1 (Foundational AI): semi-autonomous research under strict frameworks.} The agent is Claude Code, an AI
+coding agent, at a pinned model version. A person sets each task's question and gate, a pass/fail test sealed by hash
+before the first job, which the agent can read but not change. The agent iterates (Figure~1b): each hypothesis is
+sealed with its criterion, its code runs only once beethoven-qa's gate passes (contracts checked by CrossHair and
+Z3), its jobs follow Beethoven's rules and each result, null or not, keeps its REFORMS record, until the gate passes
+or the budget is spent. Each task is a Symphony issue held by one agent; a person merges what is accepted.
+\emph{Approach.} Of 30 tasks from Aim 3 and the consortium's lists (10 for development), the 20 sealed each have a
+hidden check, a reference answer unseen by the agent, and half hide a planted fault: a patient in both training and
+test sets, the wrong one of two label schemes, a threshold tuned on the test set, a typed number, or a run that does
+not reproduce. Two arms, with and without the frameworks' checks, share the model, the grid's rules and eight
+GPU-hours per task, and run each sealed task twice (80 runs). \emph{Preliminary work.} Beethoven runs Claude Code
+workers as Slurm jobs from a checked profile of the grid; beethoven-qa's gate guards the agents' and research code;
+the patient-split check is built, and the award builds the other REFORMS checks, the CLAIM checklist and one-command
+reruns; Symphony's validation harness catches each of 93 deliberate rule mutations. \emph{H1:} with the frameworks
+the agent accepts a wrong result in under 20\pct{} of faulted runs, against over half without them, and each accepted
+number reruns from its record to the same value.
 
 \aim{Aim 2 (Education and Workforce): medical trainees drive the agent.} \emph{Approach.} Eight medical students and
 residents in two waves of four \tbd{confirm} each receive a grid account, Beethoven and a gated sub-project, their own
-or from Aim 3's list. The agent writes and repairs the jobs; the trainee
-owns the question and the result; a mentor reviews the code. Trainees' literature questions go to a language model on the grid
-that quotes verbatim, with citation and DOI, from an index of spine-related Scopus abstracts, under the text and data
-mining and AI rights Elsevier approved for WSU (full text awaits a ScienceDirect amendment); no passage
+or from Aim 3's list. The agent runs the experiments inside the frameworks; the
+trainee owns the question and the result; a mentor reviews the result. Literature questions go to a language model on the grid
+that quotes verbatim, with citation and DOI, from indexed spine-related Scopus abstracts, under the text and data
+mining and AI rights Elsevier approved for WSU; no passage
 trains a model or reaches an outside AI service, Claude included; a misquoted passage fails a gate, and
 the mentor marks any quotation that does not support the answer. In week 1 each trainee does two matched starter
-tasks outside the agent's development and benchmark: one with the agent, one with the 2026 setup (Claude as a coding
-assistant, the trainee submitting the jobs), task and order counterbalanced. The 2026 comfort survey is given before
-and after each wave; an IRB determination is requested in month 1, as in 2026.
+tasks, none of Aim 1's: one with the agent, one with the 2026 setup (Claude as a coding
+assistant, the trainee submitting the jobs), task and order counterbalanced. The 2026 comfort survey runs before
+and after each wave; an IRB determination is requested in month 1.
 \emph{Preliminary work} [9]: in 2026, 16 students, seven with no coding and eleven with no imaging experience, worked
 on ten sub-projects in that setup, with mentors expert in Slurm. All six domains improved on
 retrospective before-and-after ratings (Figure~2c), and all ten sub-projects went to a national meeting as
 abstracts. The report names what it lacked: a control group and objective measures. Aim 2 adds both. \emph{H2:} with
-the agent, trainees pass more starter gates without a mentor's edit and reach each task's first passing GPU job sooner;
-with eight trainees an estimate with 95\pct{} intervals that sizes the NSF CyberTraining proposal.
+the agent, trainees pass more starter gates without a mentor's edit and reach each task's first passing gate sooner;
+with eight trainees an estimate with 95\pct{} intervals that sizes the CyberTraining proposal.
 
 \placefigure{0.90\linewidth}{figures/fig2_beethoven.pdf}{Beethoven, the trainee's door to the grid. (a) The trainee asks
 in claude.ai; the Claude Code worker runs as a Slurm job on the WSU grid and sends GPU jobs to H200s. (b) One click opens the session. (c)
@@ -229,11 +234,11 @@ rebuilt after that scoring it finds 82.2\pct{} of the 287 and 93.9\pct{} of the 
 visible. \emph{Closing the gap.}
 Today's renders hurt: added to real frames, styled renders lower detection from 80.5 to 63.1\pct{} at 0.74
 (90.6 to 87.8\pct{} at 0.25), and a classifier tells them from real frames 99 to 100\pct{} of the time. Physics
-simulation (DeepDRR [15]) with strong domain randomization has matched real-data training for hip landmarks in
-cadaver X-rays (SyntheX [16]). We randomize devices' geometry and spectra likewise and hold
+simulation (DeepDRR [17]) with strong domain randomization has matched real-data training for hip landmarks in
+cadaver X-rays (SyntheX [18]). We randomize devices' geometry and spectra likewise and hold
 out each device in turn. We also fit the Gaussian renderer to a subset of the labeled CTs, learning only spectrum, scatter and sensor
-response until that classifier is at chance, so the anatomy and its labels stay exact. The agent runs every Aim 3 job; GPU-hours and human
-hours per passed gate are Aim 1's field measures. \emph{Cadaver set.} Two specimens from WSU's Body Bequest Program
+response until that classifier is at chance, so the anatomy and its labels stay exact. The agents run these experiments; GPU-hours
+and logged interventions per accepted result are Aim 1's field measures. \emph{Cadaver set.} Two specimens from WSU's Body Bequest Program
 are CT-scanned and imaged AP and lateral at lumbar and thoracic positions on WSU's C-arm.
 A frame grabber records the video output, the set is sealed by hash before any
 model sees it, and registering each specimen's CT to its frames [5] projects the CT's labels onto every frame. The intended use is an advisory level label
@@ -252,13 +257,13 @@ where recorded. (a) Level named exactly: zero-shot points never saw C-ArmLSpine,
 \toprule
 Aim & Data & Metrics & Design and analysis\\
 \midrule
-1 & 40 tasks from the consortium's lists and Aim 3 (10 for development, 30 sealed), each gate checked on a reference solution
-  and a planted error &
-  pass rate by task type; repairs; interventions; rule violations (a job run on the shared login node,
-a credential in a file); GPU-hours per pass; false successes; gamed gates &
-  three arms, one model, one budget per task; three repeats; paired bootstrap over tasks\\
+1 & 30 tasks from the consortium's lists and Aim 3 (10 for development, 20 sealed), each with a sealed gate and a
+  hidden check; 10 with a planted fault &
+  wrong results accepted; planted faults caught, by kind; accepted numbers that rerun; interventions; GPU-hours per
+  accepted result; rule violations (a job on the login node, a credential in a file) &
+  with and without the frameworks, one model and budget; two repeats; paired by task\\
 2 & 8 trainees in two waves \tbd{confirm}; two matched starter tasks each &
-  starter gates passed without a mentor's edit; hours to each task's first passing GPU job; misquoted or unsupported
+  starter gates passed without a mentor's edit; hours to each task's first passing gate; misquoted or unsupported
   quotations; comfort (secondary) &
   within-trainee crossover, task and order counterbalanced; plan preregistered\\
 3 & C-ArmLSpine, DeepFluoro and COBRA frames; the render banks; the sealed cadaver set &
@@ -272,18 +277,17 @@ a credential in a file); GPU-hours per pass; false successes; gamed gates &
 H1 to H3 are written before any run; none is a powered test. H1 and H2 size the CAREER and CyberTraining proposals.
 
 \subsection*{4. Expected outcomes, deliverables and timeline}
-Within the award: the agent, benchmark and three-arm report; the cohort's outcomes; the cadaver set,
+Within the award: the frameworks' missing checks and Aim 1's report; the cohort's outcomes; the cadaver set,
 deposited beside CTSpinoPelvic1K as the Body Bequest Program's terms allow, and a transfer and latency manuscript;
-an FDA Pre-Submission; and the CAREER and R21. The R21's clinical data come from the consortium's pending protocol
-IRB-26-03-8648: about 4,000 DMC spine surgery patients over ten years, de-identified CT paired with operative notes and
-radiology reports, built outside the award. The seed buys what does not exist yet:
-the researcher's hours, the agents' subscriptions, the cadaver set and regulatory review. The trainee program, grid, pipelines and
+an FDA Pre-Submission; and the CAREER and R21. The R21 draws on the pending protocol
+IRB-26-03-8648. The seed buys what does not exist yet:
+the researcher's hours, subscriptions, the cadaver set and regulatory review. The trainee program, grid, Beethoven, Symphony, pipelines and
 faculty time come in kind; the Gaussian renderer is fitted only as a
-feasibility test, its full build left to the R21. \emph{Quarter 1:} agent version 1, gates sealed, IRB determination, recruitment, bookings. \emph{Quarter 2:}
-benchmark run, wave 1 (months 4--7), cadaver imaging, transfer and latency results, Pre-Submission. \emph{Quarter
+feasibility test, its full build left to the R21. \emph{Quarter 1:} missing checks built, tasks and gates sealed, IRB determination, recruitment, bookings. \emph{Quarter 2:}
+Aim 1's runs, wave 1 (months 4--7), cadaver imaging, transfer and latency results, Pre-Submission. \emph{Quarter
 3:} CAREER, wave 2 (months 8--11), the renderer's fit. \emph{Quarter 4:} R21, final report, symposium.
-\emph{Risks.} If the agent is not ready by month 4, wave 1 starts on the 2026 setup and the crossover moves to wave 2; a
-delayed specimen leaves the held-out devices as the test; a transfer result under 97\pct{} becomes the R21's first
+\emph{Risks.} If the frameworks are not ready by month 4, wave 1 starts on the 2026 setup and the crossover moves to
+wave 2; agents run attended until the grid clears unattended runs; a delayed specimen leaves the held-out devices as the test; a transfer result under 97\pct{} becomes the R21's first
 aim; budgets cap each task's cost.
 
 \vspace{2pt}
@@ -301,13 +305,15 @@ aim; budgets cap each task's cost.
 [8] Open Spine Consortium. CTSpinoPelvic1K, release 11. Zenodo 2026, doi:10.5281/zenodo.22797014.
 [9] OpenSpineConsortium: an open-source framework for medical student engagement in computational spine imaging
 research. Cureus 2026;18(7):e112661.
-[10] Jimenez CE, et al. SWE-bench. ICLR 2024.
-[11] Chan JS, et al. MLE-bench. ICLR 2025.
-[12] Wijk H, et al. RE-Bench. ICML 2025; arXiv:2411.15114.
-[13] Cai Y, et al. X-Gaussian. ECCV 2024.
-[14] Zha R, et al. R$^2$-Gaussian. NeurIPS 2024.
-[15] Unberath M, et al. DeepDRR. MICCAI 2018.
-[16] Gao C, et al. Nat Mach Intell 2023;5:294-308.
+[10] Kapoor S, et al. REFORMS. Sci Adv 2024;10(18):eadk3452.
+[11] Tejani AS, et al. CLAIM 2024. Radiol Artif Intell 2024;6(4):e240300.
+[12] Jimenez CE, et al. SWE-bench. ICLR 2024.
+[13] Chan JS, et al. MLE-bench. ICLR 2025.
+[14] Lu C, et al. The AI Scientist. arXiv:2408.06292.
+[15] Cai Y, et al. X-Gaussian. ECCV 2024.
+[16] Zha R, et al. R$^2$-Gaussian. NeurIPS 2024.
+[17] Unberath M, et al. DeepDRR. MICCAI 2018.
+[18] Gao C, et al. Nat Mach Intell 2023;5:294-308.
 \end{multicols}}
 
 \clearpage
@@ -318,7 +324,7 @@ research. Cureus 2026;18(7):e112661.
 \subsection*{Target agencies, programs and solicitations}
 \begin{enumerate}[leftmargin=1.3em]
 \item \textbf{NSF CAREER} (NSF 22-586; CISE, Division of Information and Intelligent Systems), PI Han, built on Aims 1 and 2:
-the gate-conditioned agent as the research
+framework-bound agents as the research
 plan, the trainees as the education plan. Aim 1's tasks include the 3-D-to-2-D experiments the PI leads in Aim 3,
   so the agent serves the PI's own vision program. Deadline July 28, 2027; eligibility is judged at the deadline (an untenured Assistant Professor with no
   earlier CAREER award) \tbd{the PI's tenure timing and earlier CAREER competitions}. If the PI is not eligible, the
@@ -348,15 +354,15 @@ Data Science 2025--2030 ask for data others can reuse, as CTSpinoPelvic1K is and
 terms allow. FDA's Q-Submission program gives Aim 3 written feedback on its validation plan within the award.
 
 \subsection*{Team, expertise and roles}
-The PI directs the project, writes the FDA Pre-Submission, leads the CAREER and R21 proposals, and builds the agent
-and the 3-D-to-2-D model, including the Gaussian X-ray renderer;
+The PI directs the project, writes the FDA Pre-Submission, leads the CAREER and R21 proposals, designs Aim 1
+and builds the 3-D-to-2-D model, including the Gaussian X-ray renderer;
 a computer vision researcher, the PI leads the Machine Perception Lab and publishes on
 3-D Gaussian splatting and neural implicit surfaces (CVPR 2025 and 2026, NeurIPS 2024). The PI's part in the consortium's work so far: \tbd{the PI's role, and since when}. The
-Co-PI, a high-performance computing researcher who accelerates scientific codes on GPUs, builds the benchmark harness
-and grid integration; the Co-PI and the clinical collaborator have published
+Co-PI, a high-performance computing researcher who accelerates scientific codes on GPUs, builds the evaluation harness
+and grid measures; the Co-PI and the clinical collaborator have published
 four high-performance computing papers together (2021--2024). The clinical collaborator leads the Open Spine
-Consortium, whose dataset, models and 2026 trainee program [9] this proposal builds on, and runs the cohort, the IRB
-determination, the imaging session, the literature index and the pending protocol. Line A's part-time researcher runs the benchmark, logs the measures and curates
+Consortium, whose dataset, models, Beethoven, Symphony and trainee program [9] this proposal builds on, and runs the cohort, the IRB
+determination, the imaging session, the literature index and the pending protocol. Line A's researcher runs Aim 1's evaluation, logs the measures and curates
 the cadaver set. Effort: PI \tbd{\%}, Co-PI \tbd{\%}, in kind.
 
 \subsection*{Timeline for external submission}
@@ -365,10 +371,10 @@ the cadaver set. Effort: PI \tbd{\%}, Co-PI \tbd{\%}, in kind.
 \toprule
 When & Milestone\\
 \midrule
-January--March 2027 (months 1--3) & One-page concepts to the NSF IIS and NIBIB program officers; benchmark and gates
+January--March 2027 (months 1--3) & One-page concepts to the NSF IIS and NIBIB program officers; Aim 1's tasks and gates
   sealed; the Pre-Submission package written and reviewed\\
 April 2027 (month 4) & FDA Pre-Submission filed; written feedback due within 70 days\\
-July 28, 2027 (month 7) & NSF CAREER submitted, with Aim 1's benchmark and Aim 2's first wave\\
+July 28, 2027 (month 7) & NSF CAREER submitted, with Aim 1's results and Aim 2's first wave\\
 September 2027 (month 9) & The sealed cadaver set opened, once, for the R21\\
 October 18, 2027 (month 10) & NIH R21 submitted, with the cadaver set, the latency and FDA's feedback\\
 December 2027 (month 12) & Project ends; AIDaS final report and symposium\\
@@ -397,10 +403,9 @@ B3 & C-arm session, 0312 Elliman, through DLAR & 4 h at a placeholder \$300 \tbd
   takes human specimens} & \$1,200\\
 B4 & Dosimetry and OEHS review & placeholder \tbd{OEHS fee} & \$300\\
 B5 & Frame grabber for the C-arm's video output & Magewell USB Capture AIO, retail price & \$619\\
-C1 & Claude Team Premium seats for the agents & 6 seats billed annually at \$180 each & \$1,080\\
+C1 & Claude Team Premium seats, in their users' names & 6 seats billed annually at \$180 each & \$1,080\\
 C2 & Data management and storage & 2 TB of C\&IT storage at \$400 per TB-year; Zenodo free & \$800\\
 D & FDA Pre-Submission: regulatory consultant & 10 h at \$300; FDA charges no fee & \$3,000\\
-E & Anthropic AI for Science application & no fee; written by the PI, in kind & \$0\\
 F & AIDaS symposium poster & 36 by 48 in at \$6 per sq ft & \$72\\
 \midrule
 & \textbf{Total requested} & & \textbf{\$18,568}\\
@@ -412,8 +417,8 @@ F & AIDaS symposium poster & 36 by 48 in at \$6 per sq ft & \$72\\
 graduate student support), or else a post-baccalaureate researcher: ten hours a week for 52 weeks at \$15.00, Michigan's minimum wage from January 1,
   2027 (MCL 408.934) \tbd{WSU's job category and scale}. Temporary employees and students are not benefit-eligible,
   so A2 is FICA alone: 7.65\pct{} for a hire who is not an enrolled student; hiring a student, at
-WSU's composite rate of 1.7\pct{} (fiscal year 2025), would buy about 30 more hours. Aim 1's hours are 360 runs at
-  half an hour; Aim 2's go to the cohort's accounts and measures; Aim 3's are 100 curating the cadaver set
+WSU's composite rate of 1.7\pct{} (fiscal year 2025), would buy about 30 more hours. Aim 1's hours check 80 runs against
+  their hidden checks and records, two hours each, and write the reference answers in 20; Aim 2's go to the cohort's accounts and measures; Aim 3's are 100 curating the cadaver set
   (de-identifying, labeling, sealing by hash) and 80 checking the agent's leave-one-device-out and latency runs
   against their gates. At \$18 an hour the total would be \$20,247, over the cap unless the hours fall to 507.
 \item \textbf{B1 to B5.} No public dataset we know of pairs a diagnostic CT of the thoracolumbar spine with C-arm
@@ -425,18 +430,17 @@ office, both with the director of DLAR 15 business days before the session. The 
 a deployed tool would read \tbd{the C-arm's model and video output}; at \$619 it is far under WSU's
   \$5,000 capital threshold and becomes WSU property.
 \item \textbf{C1, C2.} Anthropic's Team plan for scientists lets a verified PI add Premium seats at \$15 a month,
-  \$180 a year billed annually: four for the trainees, passed from wave 1 to wave 2, and two for the benchmark and development. All six
+  \$180 a year billed annually: four for the trainees, passed from wave 1 to wave 2, and two for Aim 1's runs; the frameworks use no API key. All six
 are bought in January 2027, since the price holds 12 months from sign-up \tbd{P-card route and the PI's
   verification}. The WSU grid's compute is free to WSU researchers and given
-  in kind. Storage holds the render banks, the cadaver set and every benchmark run's logs for the award year; the data
+  in kind. Storage holds the render banks, the cadaver set and every Aim 1 run's records for the award year; the data
   go to Zenodo at its end.
 \item \textbf{D.} FDA charges no fee for a Pre-Submission filed before October 1, 2027, when a fee proposed for fiscal
   year 2028 would begin. The filing asks FDA whether an advisory level label on each C-arm image,
 which the surgeon confirms, is the right intended use; whether the held-out-device and
 cadaver tests suffice as analytical validation; and what clinical study, against what reference standard, the R21
 should plan. A mid-level consultant reviews the PI's package in months 1 to 3.
-\item \textbf{E, F.} Anthropic's AI for Science program takes applications for up to \$50,000 in API credits per project and charges
-  nothing; credits would add benchmark repeats, on tasks its data terms allow. Presenting at an AIDaS symposium is an award expectation; the poster is printed
+\item \textbf{F.} Presenting at an AIDaS symposium is an award expectation; the poster is printed
   at the School of Medicine's Medical Communications.
 \item \textbf{Not requested.} PI and Co-PI salary, travel, tuition, capital equipment and indirect costs \tbd{confirm
   AIDaS applies no F\&A}.
@@ -444,7 +448,7 @@ should plan. A mid-level consultant reviews the PI's package in months 1 to 3.
   and data storage: lines A and A2 (with a graduate student assistant), C1 and C2, \$10,277 in all, above the call's
   smallest award of \$10,000. Lines B, D and F are research costs outside those headings \tbd{the AIDaS office's
   answer}; B2 to B5 depend on B1. Without B the request is \$13,349: Aim 3 tests on the
-held-out devices' frames, and its 100 cadaver hours go to benchmark repeats; without B and D, \$10,349; without B, D and F, \$10,277.
+held-out devices' frames, and its 100 cadaver hours go to Aim 1 repeats; without B and D, \$10,349; without B, D and F, \$10,277.
 \end{itemize}
 
 \clearpage
