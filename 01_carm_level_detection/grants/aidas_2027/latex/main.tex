@@ -79,13 +79,17 @@ Co-Principal Investigator & Loren Schwiebert, PhD, Professor, Department of Comp
   Wayne State University; AIDaS affiliated member. \SchwiebertContact\\[2pt]
 Clinical collaborator & Gregory Schwing, MD, PhD, General Surgery, Wayne State University School of Medicine /
   Detroit Medical Center; leads the Open Spine Consortium. Receives no award funds.\\[2pt]
-New Investigator status & The PI is a New Investigator: an Assistant Professor at Wayne State since January 2021
-  \tbd{confirm that the appointment is tenure-track}, and an NIH Early Stage Investigator until November 2027, ten
-  years after the PI's PhD of November 2017 \tbd{confirm the end date in eRA Commons}. The Co-PI is a Professor and
+New Investigator status & The PI is a New Investigator: an tenure-track Assistant Professor at Wayne State since January 2021,
+  %\tbd{confirm that the appointment is tenure-track}, 
+  and an NIH Early Stage Investigator until November 2027, ten
+  years after the PI's PhD of November 2017. 
+  %\tbd{confirm the end date in eRA Commons}. 
+  The Co-PI is a Professor and
   not a New Investigator.\\[2pt]
 Request & \$18,568 for 12 months, January 1 to December 31, 2027. No award funds go to an external collaborator:
   lines B2, B5, C1 and D buy goods and services, and Aim 3 uses WSU's own C-arm. The PI leads no other AIDaS
-  proposal this cycle \tbd{confirm}.\\
+  proposal this cycle.\\
+  % \tbd{confirm}.\\
 \end{tabularx}
 
 \vspace{6pt}
@@ -133,7 +137,7 @@ surgeons said they would wait [7].
 The Open Spine Consortium at Wayne State has built the parts of a check that needs no CT, only the C-arm image:
 CTSpinoPelvic1K, an open dataset of 802 CTs with every vertebra and the sacrum labeled [8]; a physics
 renderer that turns them into C-arm images; and a level model (Figure~3a). With no
-C-arm image in training, it names the level of 96.4\pct{} of the lateral vertebrae a film-trained detector finds on a public C-arm dataset
+C-arm image in training, it names the level of 96.4\pct{} of the lateral vertebrae, a film-trained detector finds on a public C-arm dataset
 (Figure~4a). Detection does not yet carry to a new C-arm: on one held out of
 its training, our C-arm detector finds 80.5\pct{} of vertebrae (90.6\pct{} at a lower threshold), short of the 97\pct{} set in advance
 (Figure~4b). Closing that gap takes hundreds of GPU jobs run, checked and recorded on a shared cluster (one
@@ -240,7 +244,9 @@ Today's renders hurt: added to real frames, styled renders lower detection from 
 (90.6 to 87.8\pct{} at 0.25), and a classifier tells them from real frames 99 to 100\pct{} of the time. Physics
 simulation (DeepDRR [19]) with strong domain randomization has matched real-data training for hip landmarks in
 cadaver X-rays (SyntheX [20]). We randomize devices' geometry and spectra likewise and hold
-out each device in turn. We also fit the Gaussian renderer to a subset of the labeled CTs, learning only spectrum, scatter and sensor
+out each device in turn. 
+% We also fit the Gaussian renderer to a subset of the labeled CTs, 
+We also train 3D Gaussians to fit each one sample in a subset of the labeled CTs,  fit learning only spectrum, scatter and sensor
 response until that classifier is at chance, so the anatomy and its labels stay exact. \emph{Cadaver set.} Two specimens from WSU's Body Bequest Program
 are CT-scanned and imaged AP and lateral at lumbar and thoracic positions on WSU's C-arm.
 A frame grabber records the video output, the set is sealed by hash before any
