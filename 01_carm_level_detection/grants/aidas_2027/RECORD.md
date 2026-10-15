@@ -180,6 +180,21 @@ https://www.irs.gov/publications/p15).
   2026-09-28, expedited review requested): the packet calls it pending and promises nothing from it within the award;
   if it is approved or submitted before the deadline, say so on the cover and the alignment page. The protocol's own
   text calls the consortium's benchmark neurosurgical in two places; the packet does not (root CLAUDE.md rule 1).
+  The correspondence also told Elsevier the index sits in storage only the key holder reads; the trainees read the
+  answers inside WSU, which "nothing shared outside WSU" allows, but ask Elsevier if that reading is in doubt.
+- **The panel review of 2026-10-15.** After the two elements went in, a five-reviewer AIDaS panel read the packet
+  again and a verifier kept 13 of its proposals; 11 were applied. Aim 1's one-shot arm now retries from scratch within
+  the same budget, so H1 tests repair, not more attempts. Aim 2's starter tasks lie outside the agent's development
+  set and benchmark, task and order counterbalanced, and the preliminary work says the 2026 mentors were expert in
+  Slurm. A wrong QoS is no longer counted a rule violation, since the scheduler refuses it and the agent repairs it.
+  The literature answers are measured (a misquoted passage fails a gate; the mentor marks one that does not support
+  the answer), come from Scopus abstracts, and come from a language model on the grid (section 6). The cover's AI for
+  Health line states the intended use and that the stack withholds a label when its checks disagree; the abstract no
+  longer promises to close the detection gap; the R21 item says FDA's feedback shapes the validation, not the
+  protocol; budget line D asks FDA about the reference standard; the team paragraph states the PI's lead. Not
+  applied: tying New Investigator status to federal targets on the cover (no room, and said on page 5) and moving the
+  CAREER row (it would contradict the risk fallback on page 4). To fit 10 pages, the H2 sentence no longer repeats
+  that comfort is secondary (the table says so) and the table's Aim 2 design reads "plan preregistered".
 - **The figures.** Figure 2a is redrawn as vector boxes from the labels of the extension's own store diagram, and
   Figure 2b crops the popup's top half, which shows no grid login; the VS Code edition's diagrams have labels that
   overlap at print size and are not used.
@@ -209,8 +224,10 @@ correspondence carries addresses, the form a CV); the facts the packet takes fro
   Scopus approved, WSU's Scopus agreement including text and data mining and AI usage rights, the Scopus Search,
   Abstract Retrieval and Citation Overview APIs being enabled on the institutional key; ScienceDirect not yet, since
   WSU's ScienceDirect agreement has no text and data mining amendment, which the library or procurement adds with
-  Elsevier's account manager. In the packet: the cover's strategic-areas line and abstract, Aim 2's grounding
-  sentence, and the clinical collaborator's roles.
+  Elsevier's account manager. In the packet: the cover's area 3 line, the abstract, Aim 2's grounding sentence,
+  the evaluation table's Aim 2 metrics and the clinical collaborator's roles. The packet sends the trainees'
+  literature questions to a language model on the grid, never to the agent, since the agent's model runs on Claude's
+  servers (Figure 2a) and the correspondence told Elsevier that no outside AI service receives its content.
 - **The pending IRB protocol** (the IRB form's print view of 2026-10-15, protocol IRB-26-03-8648, Wayne State IRB):
   "Creation of a Secure Multimodal Clinical and Radiographic Spine Surgery Dataset for Case-Control Research and
   Locally Hosted AI Development"; study type medical, expedited review requested; "Date Submitted: Draft", created
