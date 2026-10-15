@@ -2,9 +2,10 @@
 
 The Wayne State AIDaS Seed Grant proposal: PI Zhizhong Han, Co-PI Loren Schwiebert, clinical collaborator Gregory
 Schwing (General Surgery); $18,568 for January to December 2027; due October 16, 2026, 11:59 p.m. ET, as one PDF to
-the AIDaS office (aidas@wayne.edu). Three aims across three of the call's four strategic areas: a self-repairing
-agent that writes and repairs its own Slurm jobs on the WSU grid under gates written before each run (Foundational
-AI), medical trainees driving that agent through Beethoven (Education and Workforce Training), and CT-labeled 3-D
+the AIDaS office (aidas@wayne.edu). Three aims across three of the call's four strategic areas: Claude Code
+iterating the scientific method on the WSU grid inside the consortium's frameworks, Beethoven, beethoven-qa,
+beethoven-research and Symphony, under tests sealed before each run (Foundational AI), medical trainees driving that
+agent through Beethoven (Education and Workforce Training), and CT-labeled 3-D
 structure carried into 2-D C-arm images at low latency (Health). The call is
 `../../regulatory/carm_validation_plan_2026-09-21/AIDaS_Seed_Grant_Program.pdf`, read from git history at main 5597197
 (`ARCHIVE.md`).
@@ -22,7 +23,7 @@ structure carried into 2-D C-arm images at low latency (Health). The call is
 | `make_figures.py` | draws Figures 1, 2, 3b and 4 (matplotlib and Pillow) into `latex/figures/`, with a 300 dpi preview of each in `figures/` |
 | `figures/sources/` | the images the figures are made from, each with its origin in `SOURCES.md`: a crop of the Beethoven browser extension's popup, three crops of the record's sixth-lumbar figure, the network drawing |
 | `RECORD.md` | the file behind every number, the values found on the web with their links, the [DATA NEEDED] list, the open items and caveats; not submitted |
-| `autonomous_spine_agent.py` | the execution skeleton of Aim 1: a grid simulator with the WSU grid's partitions and refusals, a mock model that drafts and repairs jobs, the agent loop with gates registered by hash, a placeholder evaluation. `python3 autonomous_spine_agent.py --selftest`; run it on a laptop or as an sbatch job, never on the grid's login node |
+| `autonomous_spine_agent.py` | a record of the earlier Aim 1, kept since issue #100 rewrote it (`RECORD.md` section 5): a grid simulator with the WSU grid's partitions and refusals, a mock model that drafts and repairs jobs, the agent loop with gates registered by hash, a placeholder evaluation. `python3 autonomous_spine_agent.py --selftest`; run it on a laptop or as an sbatch job, never on the grid's login node |
 | `REVIEW_2026-10-14.md` | the five reviewers' findings on the packet merged in #91, applied in the pull request for issue #94, except where `RECORD.md` section 4 says a change was made another way by design |
 | `HANDOFF_2026-10-14c.md` | the checkpoint that set that work |
 | `HANDOFF_2026-10-14e.md` | where the work for #94 stopped when the owner's usage ran low: the next steps to Friday's deadline, how to build the submission and the Overleaf zip, and what waits on the owner; its 2026-10-15 updates record #95's merge and the build of the zip and the 10-page PDF with the biosketches |
@@ -45,7 +46,7 @@ structure carried into 2-D C-arm images at low latency (Health). The call is
    are allowable and how line A may be hired; `RECORD.md` section 4 gives the totals without them.
 3. Run the disclosure audit (root CLAUDE.md rule 8): the packet shows SchwingNet's architecture and quotes its
    held-out results.
-4. Decide the MIT release of the agent and its benchmark, and the caveats in `RECORD.md` section 4.
+4. Decide the MIT release of Aim 1's tasks, records and report, and the caveats in `RECORD.md` section 4.
 5. Confirm that Elsevier has enabled the Scopus APIs on the key and ask the library for the text and data mining
    amendment to WSU's ScienceDirect agreement; the packet states both as they stood on 2026-10-15 (`RECORD.md`
    section 6), as it states the IRB protocol IRB-26-03-8648 as pending.

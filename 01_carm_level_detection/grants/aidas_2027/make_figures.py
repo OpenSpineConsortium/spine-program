@@ -1,6 +1,6 @@
 """Draw the figures of the AIDaS seed packet, at print width, from the files in figures/sources.
 
-Figure 1  one loop in three aims: the trainee, the gate-conditioned repair loop, the CT-to-X-ray problem
+Figure 1  one loop in three aims: the trainee, one research iteration held to the frameworks, the CT-to-X-ray problem
 Figure 2  Beethoven, the trainee's door to the grid, and what the 2026 cohort reported
 Figure 3  panel b only (the projection from a labeled CT to the C-arm image); panel a is the archived
           network drawing, figures/sources/network_architecture.pdf, placed beside it by latex/main.tex
@@ -152,7 +152,7 @@ def figure_overview():
     fig, ax = new_canvas(WIDTH, height)
     top = height - 0.14
     draw_trainee(ax, top)
-    draw_gated_loop(ax, top)
+    draw_research_loop(ax, top)
     draw_three_images(ax, top)
     return fig
 
@@ -170,16 +170,16 @@ def draw_trainee(ax, top):
         arrow(ax, (left + w / 2, upper), (left + w / 2, lower + h))
 
 
-def draw_gated_loop(ax, top):
-    """Panel b: the gate-conditioned repair loop, with its budget and the two arms it is compared with."""
-    panel_title(ax, 1.36, top, "b", "Aim 1: the gate-conditioned repair loop")
+def draw_research_loop(ax, top):
+    """Panel b: one research iteration held to the frameworks, and the arm it is compared with."""
+    panel_title(ax, 1.36, top, "b", "Aim 1: research held to the frameworks")
     left, w, h = 1.5, 1.5, 0.27
     task, write, submit, gate, done = 1.46, 1.1, 0.74, 0.38, 0.02
-    box(ax, left, task, w, h, "Task and its pass/fail gate,\nwritten by people, sealed", face=GREY_PALE)
-    box(ax, left, write, w, h, "Write the Slurm job")
-    box(ax, left, submit, w, h, "Submit; read the scheduler\nand the job's log")
-    box(ax, left, gate, w, h, "Does the gate pass?", weight="bold")
-    box(ax, left, done, w, h, "It passes: the result goes\nto the trainee for review", face=TEAL_PALE, edge=TEAL)
+    box(ax, left, task, w, h, "Question and its pass/fail\ngate, set by a person, sealed", face=GREY_PALE)
+    box(ax, left, write, w, h, "Hypothesis and its criterion,\nsealed before its job")
+    box(ax, left, submit, w, h, "beethoven-qa checks the code;\nBeethoven runs the Slurm jobs")
+    box(ax, left, gate, w, h, "REFORMS record kept;\ndoes the gate pass?", weight="bold")
+    box(ax, left, done, w, h, "It passes: a pull request\nthat a person merges", face=TEAL_PALE, edge=TEAL)
     centre = left + w / 2
     for upper, lower in ((task, write), (write, submit), (submit, gate)):
         arrow(ax, (centre, upper), (centre, lower + h))
@@ -193,9 +193,9 @@ def draw_gated_loop(ax, top):
         ax.plot([left + w, loop_x], [y, y], color=ORANGE, lw=1.0, zorder=2)
     ax.plot([loop_x, loop_x], [gate + h / 2, write + h / 2], color=ORANGE, lw=1.0, zorder=2)
     arrow(ax, (loop_x, write + h / 2), (left + w, write + h / 2), color=ORANGE, lw=1.0)
-    note(ax, loop_x + 0.08, 1.25, "Repair from the message:\nrefused, out of memory,\na traceback, or the\ngate fails", va="top")
-    note(ax, loop_x + 0.08, 0.76, "At most 6 repairs and\n2 GPU-hours, then the\ntask counts as failed", va="top")
-    note(ax, loop_x + 0.08, 0.33, "Compared with one shot\nand with a loop that stops\nat a clean exit", va="top",
+    note(ax, loop_x + 0.08, 1.25, "Not yet: the result, null\nor not, is kept, and the\nagent revises its\nhypothesis", va="top")
+    note(ax, loop_x + 0.08, 0.76, "Symphony: each task is an\nissue one agent holds;\nagents work in parallel", va="top")
+    note(ax, loop_x + 0.08, 0.33, "Scored by a hidden check,\nwith and without the\nchecks, on one budget", va="top",
          color=MUTED)
 
 
