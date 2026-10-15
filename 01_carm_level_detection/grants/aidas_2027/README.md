@@ -18,19 +18,20 @@ structure carried into 2-D C-arm images at low latency (Health). The call is
 | `latex/contacts.example.tex` | the cover's placeholder contact lines, with how to escape `%`, `_` and `&`; the filled `contacts.tex` and the two biosketch PDFs go beside `main.tex` in the Overleaf copy only, never into git (`latex/.gitignore` and `.gitignore`; root CLAUDE.md rule 12) |
 | `AIDaS_SEED_2027_packet.pdf` | the committed draft build: 8 pages, the contacts as placeholders and one placeholder page for each biosketch |
 | `build_pdf.sh` | builds the packet with pdflatex in a temporary directory and fails when a section spills onto an extra page; with `contacts.tex` and both biosketches in `latex/` it writes the 10-page `AIDaS_SEED_2027_submission.pdf` instead, which git ignores, and refuses while one of the three is missing, a biosketch is not two pages or a [DATA NEEDED] mark is left |
+| `make_overleaf_zip.sh` | makes the Overleaf zip from the tracked files under `latex/` and the three local files beside `main.tex`, refuses while one is missing or a biosketch is not two pages, and keeps the zip only when an unzipped copy compiles to 10 pages; the zip carries e-mail addresses, so it is written outside the tree by default and git ignores it |
 | `make_figures.py` | draws Figures 1, 2, 3b and 4 (matplotlib and Pillow) into `latex/figures/`, with a 300 dpi preview of each in `figures/` |
 | `figures/sources/` | the images the figures are made from, each with its origin in `SOURCES.md`: a crop of the Beethoven browser extension's popup, three crops of the record's sixth-lumbar figure, the network drawing |
 | `RECORD.md` | the file behind every number, the values found on the web with their links, the [DATA NEEDED] list, the open items and caveats; not submitted |
 | `autonomous_spine_agent.py` | the execution skeleton of Aim 1: a grid simulator with the WSU grid's partitions and refusals, a mock model that drafts and repairs jobs, the agent loop with gates registered by hash, a placeholder evaluation. `python3 autonomous_spine_agent.py --selftest`; run it on a laptop or as an sbatch job, never on the grid's login node |
 | `REVIEW_2026-10-14.md` | the five reviewers' findings on the packet merged in #91, applied in the pull request for issue #94, except where `RECORD.md` section 4 says a change was made another way by design |
 | `HANDOFF_2026-10-14c.md` | the checkpoint that set that work |
-| `HANDOFF_2026-10-14e.md` | where the work for #94 stopped when the owner's usage ran low: the next steps to Friday's deadline, how to build the submission and the Overleaf zip, and what waits on the owner |
+| `HANDOFF_2026-10-14e.md` | where the work for #94 stopped when the owner's usage ran low: the next steps to Friday's deadline, how to build the submission and the Overleaf zip, and what waits on the owner; its 2026-10-15 updates record #95's merge and the build of the zip and the 10-page PDF with the biosketches |
 | `review/` | the second review round's writing edits (`r6_line_edits.patch`, then `r6_hidden_check.patch` and `r6_figure_edits.patch`), applied to `main.tex` and `make_figures.py` on 2026-10-15 with the choices `RECORD.md` section 4 records; the reviewer's report `r6_panel_writing.md`; and `page_slack.py`, which prints the room left at the foot of each page |
 
 ## Building it
 
 - **On Overleaf:** upload the zip of `latex/` with `contacts.tex`, `biosketch_han.pdf` and `biosketch_schwiebert.pdf`
-  beside `main.tex` (`HANDOFF_2026-10-14e.md` says how to make it), set the compiler to pdfLaTeX and
+  beside `main.tex` (`bash make_overleaf_zip.sh` makes it), set the compiler to pdfLaTeX and
   compile `main.tex`: 10 pages.
 - **Here:** `bash build_pdf.sh` writes the 8-page draft; put the three files in `latex/` to get the 10-page
   submission, which it builds only once every [DATA NEEDED] mark is filled. After a figure changes, run
