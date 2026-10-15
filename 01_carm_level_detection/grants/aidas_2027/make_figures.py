@@ -195,7 +195,7 @@ def draw_research_loop(ax, top):
     arrow(ax, (loop_x, write + h / 2), (left + w, write + h / 2), color=ORANGE, lw=1.0)
     note(ax, loop_x + 0.08, 1.25, "Not yet: the result, null\nor not, is kept, and the\nagent revises its\nhypothesis", va="top")
     note(ax, loop_x + 0.08, 0.76, "Symphony: each task is an\nissue one agent holds;\nagents work in parallel", va="top")
-    note(ax, loop_x + 0.08, 0.33, "Compared with the same\nagent and budget without\nthe frameworks", va="top",
+    note(ax, loop_x + 0.08, 0.33, "Scored by a hidden check,\nwith and without the\nchecks, on one budget", va="top",
          color=MUTED)
 
 

@@ -41,12 +41,12 @@ grid and are read here from git history at main 5597197 (`ARCHIVE.md`). Row ids 
 | the 97 % set in advance, met by no held-out cell | row A6.13 (`ssn:docs/RSNAI_PLAN.md` C7) |
 | styled renders 99 to 100 % separable from real frames | row A13.3 |
 | for the R21: 99 patients give 80 % power for a Wilson lower bound of 90 % at a true 97 % (exactly 82 %; 98 give 66 %, so the number is exactly 99) | row E.4 (its planning values have no transitional measurement behind them) |
-| Beethoven holds the grid's job rules as checked data and runs Claude Code workers as Slurm jobs from a checked profile of the grid (the significance, Aim 1, Figure 2a) | `OpenSpineConsortium/beethoven-sites` at 83f34e8, `sites/wayne/site.json`: Slurm, the login node, the CPU and GPU partitions with their QoS, the login node's 20-process cap and `scheduler_in_worker` (the host's Slurm client bound into the worker's container, measured on the grid on 2026-09-28), held to the module schema by the repository's checker and 53 tests; the launcher that composes the profile and starts the worker is `OpenSpineConsortium/hpcworker`, which this session could not read, and Figure 2a, from the extension's own store diagram |
-| beethoven-qa's gate: contracts on every public function, searched for counterexamples by CrossHair and Z3, required on the agents' and the research code | `OpenSpineConsortium/beethoven-qa` at 85f0e1c, `README.md` (the gate; most conditions are searched within a 20-second bound rather than proven, which the packet's "checked" allows and "proven" would not); `beethoven-agents` at a40a71a and `beethoven-research` at 7e8fd69 each carry its release 3.0.0, hash-checked, and run the gate as a required check |
-| beethoven-research holds the protocols for reproducible studies (REFORMS [10]) and their reporting (CLAIM [11]); the patient-split check is built; the award builds the other REFORMS checks, the CLAIM checklist and one-command reruns | `OpenSpineConsortium/beethoven-research` at 7e8fd69: `CLAUDE.md` writes the rules (result rows, one command that reruns every number, run records, the REFORMS record, the CLAIM checklist), each marked not built yet or left to a later goal, but the split rule; `src/beethoven_research/splits.py`, with 9 tests and a CrossHair check in its required gate, refuses an evaluation case that shares a patient, study, cadaver or CT source volume with a training case |
-| Symphony: each task an issue held by one agent, a person merging; public under MIT; its validation harness catches each of 93 deliberate rule mutations | `OpenSpineConsortium/symphony-protocol` at a3a5b4d (2026-10-15): `spec/PROTOCOL.md`, `LICENSE`, `validation/README.md` (93 mutants, each caught on the shortest trace); release 0.4.1 of 2026-10-13, vendored in this repository as `tools/sdlc_protocol` |
-| the five planted faults: a patient in both training and test sets, the wrong one of two label schemes, a threshold tuned on the test set, a typed number, a run that does not reproduce | the failures this programme guards against, root `CLAUDE.md` rules 3 to 6 (numbers wrong but plausible, two label schemes, held out means held out, pre-register then score) and `01_carm_level_detection/CLAUDE.md` (the threshold 0.74 is cross-device, never pre-stated; a number enters a manuscript only through a manifest key; resume is not reproduce) |
-| Aim 1's design: 30 tasks, 10 for development and 20 sealed, half of those with a planted fault; two arms; eight GPU-hours per task; two runs each (80 runs); H1's under 20 % against over half | chosen on 2026-10-15 for issue #100 (section 4); no file stands behind them, and H1's two thresholds are a hypothesis written before any run, not a result |
+| Beethoven keeps the grid's profile as checked data and its job rules in writing, and runs Claude Code workers as Slurm jobs (the significance, Aim 1, Figure 2) | `OpenSpineConsortium/beethoven-sites` at 83f34e8, `sites/wayne/site.json`: Slurm, the login node, the CPU partition and its QoS (secp, secondary), the GPU partitions by name only (gmsap, gvohp; the schema has no field for a GPU QoS or a GPU request, which only `11_students_grid_access/docs/handoff/EXTRACTS_11.md` records: QoS gpu, `--gres=gpu:1`, gmsap 4 nodes of 4 H200), the login node's 20-process cap and `scheduler_in_worker` (the host's Slurm client bound into the worker's container, measured on the grid on 2026-09-28), held to the module schema by the repository's checker and 53 tests; the launcher that composes the profile and starts the worker is `OpenSpineConsortium/hpcworker`, which this session could not read, and Figure 2a, from the extension's own store diagram. The job rules are prose, not data: "Grid etiquette" in `beethoven-agents/CLAUDE.md` and `beethoven-research/CLAUDE.md`, and the workspace guide the worker is given (follow a job at most once a minute, cancel only its own jobs, container temp on node-local disk); in code, the engine's guard caps arrays at 200 and refuses a secret in `sbatch --export`, and checks no partition, QoS or wall time. The worker has run as a Slurm job on a CPU node, reached from claude.ai (jobs 40496445 and 40501099, `11_students_grid_access/docs/beethoven/WAYNE_STATE_PILOT.md`), but no worker has yet submitted a real job, GPU or not, only `sbatch --test-only`, so Figure 2's caption says the worker is built to send GPU jobs to H200s |
+| beethoven-qa's gate: contracts on every public function, searched for counterexamples by CrossHair and Z3, required on the agents' and the research code | `OpenSpineConsortium/beethoven-qa` at 85f0e1c, `README.md` (the gate; most conditions are searched within a 20-second bound rather than proven, which the packet's "checked" allows and "proven" would not); `beethoven-agents` at a40a71a and `beethoven-research` at 7e8fd69 each carry its release 3.0.0, hash-checked, and run the gate as a required check on `main` (their `.github/rulesets/main.json`; GitHub's live settings not checked; organization admins may bypass). The gate governs what lands on `main`, not what a job runs: tying each result to code that passed it is specified, not built, so the packet lists "one-command reruns of gated code" among what the consortium builds. The gate covers neither the C-arm code of Aim 3 nor anything outside those two repositories |
+| beethoven-research holds the protocols for reproducible studies (REFORMS [10]) and their reporting (CLAIM [11]); the patient-split check is built; the award builds the other REFORMS checks, the CLAIM checklist and one-command reruns | `OpenSpineConsortium/beethoven-research` at 7e8fd69: `CLAUDE.md` writes the rules (result rows, one command that reruns every number, run records, the REFORMS record, the CLAIM checklist), each marked not built yet or left to a later goal, but the split rule; `src/beethoven_research/splits.py`, with 9 tests and a CrossHair check in its required gate, refuses an evaluation case that shares a patient, study, cadaver or CT source volume with a training case. Specified there and not built: result rows that carry the run, the commit and a clean-tree flag, refusing a row from a dirty tree; the log of every human intervention, written when it happens; and each run's compute and quota record (Slurm job ids, GPU-hours, tokens) |
+| Symphony: each task an issue held by one agent, a person merging; public under MIT; its tests catch all 93 mutated rules | `OpenSpineConsortium/symphony-protocol` at a3a5b4d (2026-10-15): `spec/PROTOCOL.md` (one worker per claim, since GitHub refuses a second push of the branch; the owner merges under the default policy, a registered worker may land by auto-merge), `LICENSE`, `validation/README.md` and `tests/test_validation_mutants.py` (93 mutants, each one rule of the library broken on purpose, each caught in the required check on a recorded trace the unbroken library passes; the full search runs outside the required check). The 93 are on `main` after release 0.4.1, not yet released; this repository vendors 0.4.1 as `tools/sdlc_protocol` and uses its claims and board, and no Beethoven repository uses Symphony yet |
+| the five planted faults: a patient in both training and test sets, the wrong label scheme, a threshold tuned on the test set, a typed number, a run that does not reproduce | the failures this programme guards against, root `CLAUDE.md` rules 3 to 6 (numbers wrong but plausible, two label schemes, held out means held out, pre-register then score) and `01_carm_level_detection/CLAUDE.md` (the threshold 0.74 is cross-device, never pre-stated; a number enters a manuscript only through a manifest key; resume is not reproduce) |
+| Aim 1's design: 30 tasks, 10 for development and 20 sealed, each with a hidden check and a clean and a faulted copy; two arms, with and without the checks; eight GPU-hours per task, reruns included; each arm runs each copy once (80 runs); H1's under 20 % against over half, with no fewer passes on clean copies | chosen on 2026-10-15 for issue #100 and revised the same day after review (section 4); no file stands behind them, and H1's thresholds are a hypothesis written before any run, not a result |
 | the Co-PI's four high-performance computing papers with the clinical collaborator (2021 to 2024); the PI's Gaussian-splatting and implicit-surface papers (CVPR 2025 and 2026, NeurIPS 2024); the PI's PhD of November 2017 and appointment since January 2021 | the two biosketches (submitted with the packet, not committed) |
 
 No number in the packet comes from a row marked LEAKED, SUPERSEDED or RECORD ONLY (root CLAUDE.md rule 5). The
@@ -98,10 +98,14 @@ page before submitting.
 
 References [1] to [16] and the claims tied to them were checked on 2026-10-14 against search excerpts and the
 repository's earlier full-text readings (`01_carm_level_detection/docs/research/BIB_RESOLVE_2026-09-22.json`). Since
-issue #100 the list is [1] to [18]: [10] REFORMS (Science Advances 10(18), eadk3452, May 2024) and [11] the CLAIM
-2024 update (Radiology: Artificial Intelligence 6(4), e240300) were checked on 2026-10-15 against search excerpts,
-[14] the AI Scientist (arXiv 2408.06292) was not, RE-Bench is no longer cited, and the old [10], [11] and [13] to [16]
-are [12], [13] and [15] to [18]. DeepDRR [17] is credited with the physics and SyntheX [18] with the strong domain randomization,
+issue #100 the list is [1] to [20]: [10] REFORMS (Science Advances 10(18), eadk3452, May 2024), [11] the CLAIM
+2024 update (Radiology: Artificial Intelligence 6(4), e240300), [14] the AI Scientist (arXiv 2408.06292, no
+peer-reviewed venue found), [15] Luo, Kasirzadeh and Shah, "The more you automate, the less you see: hidden pitfalls
+of AI scientist systems" (arXiv 2509.08713; a NeurIPS 2025 workshop paper, so cited as arXiv) and [16] Atinafu and
+Cohen, "RewardHackingAgents" (ICDE Workshops 2026, pp. 27-34, doi:10.1109/ICDEW71238.2026.00009) were checked on
+2026-10-15 against search excerpts; RE-Bench is no longer cited, and the old [10], [11] and [13] to [16] are [12],
+[13] and [17] to [20]. For room, [10] and [11] carry no system name (the text names REFORMS and CLAIM), [15] no
+title and [8] no "Zenodo 2026" (its doi is Zenodo's). DeepDRR [19] is credited with the physics and SyntheX [20] with the strong domain randomization,
 whose hip-landmark parity rests on 366 cadaver images from six specimens; [1] counts patients, not operations; [2]
 and [3] surveyed neurosurgical societies; the cohort's ten abstracts were submitted, not reported accepted. Still to
 check by hand: the first author's initial in [4] and the Zenodo page of [8]. The FICA rate of line A2 is the
@@ -169,7 +173,7 @@ https://www.irs.gov/publications/p15).
   magnification label moved off the panel's line; Figure 1c says "scale bars" (the radiograph's is black); Figure 4b's
   title says "a new C-arm", as its caption does.
 - **The Gaussian renderer** is framed as built on the PI's Gaussian-splatting work; the PI should confirm that
-  framing and references [15] and [16].
+  framing and references [17] and [18].
 - **Line E**, an application to Anthropic's AI for Science program for API credits, was dropped on 2026-10-15 (issue
   #100): Beethoven and the consortium's frameworks use no API key and no usage credit, every agent running on a plan
   held in a person's own name, and the program's terms would let Anthropic use data made with the credits. The
@@ -222,9 +226,9 @@ https://www.irs.gov/publications/p15).
   contribution is a planted-fault study (how often an agent doing research accepts a wrong but plausible result, and
   which checks fixed in advance stop it), with two arms, with and without the frameworks' checks, since a benchmark of
   job repair no longer fits; the faults are the five kinds this programme guards against (section 1); 30 tasks, 80
-  runs, eight GPU-hours per task, and line A's 180 Aim 1 hours re-based on checking runs and writing reference answers;
-  the PI "designs Aim 1" and the Co-PI builds "the evaluation harness and grid measures" (both asked of them by
-  e-mail); the agents run attended until the grid clears unattended agents, which `beethoven-research/CLAUDE.md`
+  runs, eight GPU-hours per task, and line A's 180 Aim 1 hours re-based on checking runs and sealing known answers;
+  the PI "designs Aim 1" and the Co-PI "builds the evaluation harness, plants the faults and keeps the grid
+  measures" (both asked of them by e-mail); the agents run attended until the grid clears unattended agents, which `beethoven-research/CLAUDE.md`
   requires first. What is built and what the award builds is said in the Aim 1 paragraph itself: the grid profile,
   the code gate, the patient-split check and Symphony exist; the other REFORMS checks, the CLAIM checklist, the
   one-command reruns and the orchestration of several agents' Slurm jobs (specified in `beethoven-agents`, not
@@ -233,6 +237,41 @@ https://www.irs.gov/publications/p15).
   execution skeleton (section 5) and RE-Bench went with the old Aim 1. To fit 10
   pages, Aim 2's literature sentence lost its ScienceDirect clause, section 4 points to the alignment page for the
   protocol IRB-26-03-8648's details, and the team paragraph is shorter.
+- **The review of the rewritten Aim 1** (issue #100, 2026-10-15). Three reviewers read the packet as an AIDaS
+  panel would, and a source check read the Beethoven repositories, symphony-protocol and the new references; what
+  survived was applied. The design now gives each sealed task a clean and a faulted copy, the fault planted after the
+  checks freeze by someone who did not write them, and each arm runs each copy once in its own repository, so H1
+  also asks for no fewer passes on clean copies and reruns within a sealed tolerance; a person merges each result and
+  every other step a person takes, blind to faults, is a logged intervention. The text says what is built (rows above)
+  and that the consortium builds the rest in kind. Figure 2's caption says the worker is "built to send GPU jobs to
+  H200s", since no worker has submitted a real job; the agents run attended, a person approving each command, until
+  the grid clears unattended runs: the engine image is not yet built on the grid, its managed settings lock out
+  Claude Code's bypass mode, a non-interactive step refuses any command not allowed and no rule allows `sbatch`
+  (`beethoven-agents/containers/`, `beethoven-agents/CLAUDE.md`; inferred from the documented behaviour, not seen on
+  the grid), and the first unattended run waits on the cluster's written position on autonomous agents. The related
+  work cites [15] and [16]; line A's Aim 1 hours check 80 runs at two hours each and seal the known answers in 20; the
+  team paragraph says Beethoven and its frameworks are the clinical collaborator's proprietary software, given in
+  kind, with no award funds going to them. To fit 10 pages: the alignment page lost its FDA Q-Submission sentence (the
+  R21 item and the timeline name the Pre-Submission) and says the Co-PI's four papers with the clinical collaborator
+  in fewer words; section 4 no longer names the R21's protocol (the alignment page does); Aim 3 no longer says the
+  agents run its experiments (the significance turns the agent on the detection gap, and the CAREER item says Aim 1's
+  agent runs them); the evaluation table and the references are shorter.
+- **The owner's calls from that review.** (1) Line C1 buys Claude Team Premium seats, but `beethoven-agents`
+  decision D1 ("a flat-rate Claude plan held in the student's own name", marked settled) and `docs/ACCOUNTS.md` ask
+  for a plan in the person's own name, and the 2026 pilot asked for Pro or Max: a Team plan is the organisation's.
+  A seat moved to the next trainee, who signs in with their own account, shares no account; but either D1 is amended
+  or C1 changes to Pro plans, an amount the owner sets. On Team, keep usage credits off and have an Owner turn on
+  Remote Control. (2) `beethoven-research` merges by GitHub's auto-merge with no human click once its checks are
+  green, `SKIP_GATE=1` skips the pre-push gate and organization admins bypass the required checks
+  (`beethoven-research/CLAUDE.md`, `.github/workflows/automerge.yml`, `.github/rulesets/main.json`): the packet's
+  "a person merges each result" holds for Aim 1's own task repositories, which must be set up that way (Symphony's
+  default policy), not for `beethoven-research` itself. (3) `beethoven-research/CLAUDE.md` keeps CTSpinoPelvic1K out
+  of any data split until its patient-identity audit closes, a written rule with no check in code: tasks drawn from
+  Aim 3 that train or evaluate on CTSpinoPelvic1K wait on that audit or use other corpora. (4) Conflict of interest:
+  every Beethoven repository names the clinical collaborator as its vendor under the trade name OpenSpineConsortium;
+  the packet says so in the team paragraph, and the WSU conflict-of-interest check is the owner's. (5) Symphony's 93
+  mutants are on `main` after release 0.4.1; the packet says "Symphony's tests", which holds of the development
+  version whether or not 0.5.0 is released by the deadline.
 - **The figures.** Figure 2a is redrawn as vector boxes from the labels of the extension's own store diagram, and
   Figure 2b crops the popup's top half, which shows no grid login; the VS Code edition's diagrams have labels that
   overlap at print size and are not used.
