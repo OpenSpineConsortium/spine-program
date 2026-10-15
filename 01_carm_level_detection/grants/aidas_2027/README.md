@@ -25,7 +25,7 @@ structure carried into 2-D C-arm images at low latency (Health). The call is
 | `REVIEW_2026-10-14.md` | the five reviewers' findings on the packet merged in #91, applied in the pull request for issue #94, except where `RECORD.md` section 4 says a change was made another way by design |
 | `HANDOFF_2026-10-14c.md` | the checkpoint that set that work |
 | `HANDOFF_2026-10-14e.md` | where the work for #94 stopped when the owner's usage ran low: the next steps to Friday's deadline, how to build the submission and the Overleaf zip, and what waits on the owner |
-| `review/` | the second review round's writing edits, not yet applied (`r6_line_edits.patch`, then `r6_hidden_check.patch` and `r6_figure_edits.patch`), the reviewer's report `r6_panel_writing.md`, and `page_slack.py`, which prints the room left at the foot of each page |
+| `review/` | the second review round's writing edits (`r6_line_edits.patch`, then `r6_hidden_check.patch` and `r6_figure_edits.patch`), applied to `main.tex` and `make_figures.py` on 2026-10-15 with the choices `RECORD.md` section 4 records; the reviewer's report `r6_panel_writing.md`; and `page_slack.py`, which prints the room left at the foot of each page |
 
 ## Building it
 

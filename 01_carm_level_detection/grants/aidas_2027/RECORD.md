@@ -143,6 +143,14 @@ https://www.irs.gov/publications/p15).
   Foundational AI stays the primary area, framed as the reliability of agentic systems, where the compliance
   review of 2026-10-14 suggested leading with AI for Health; and line E is written by the PI in kind, where item 35
   gave it 8 of Aim 1's hours.
+- **The writing review's edits** (`review/r6_panel_writing.md`), applied 2026-10-15, with three taken another way:
+  N6n keeps the catalog's word, "on truth rebuilt after that scoring", since no file records that the rebuild of
+  the C-ArmLSpine truth corrected labels (row A6.5 says only "re-scored on the rebuilt truth"); H3x is applied,
+  so H3 promises 97 % "on each held-out C-arm", which still covers DeepFluoro (74.7 % at 0.74 today, row A6.10)
+  and leaves out COBRA's Elekta imaging (6.2 %, row A6.9), a hypothesis for after Aim 3's work, not a result; and
+  the note under the evaluation table was cut to one line ("None is a powered test; each sizes the CAREER,
+  CyberTraining or R21 proposal") to give page 4 a line of room, which drops the clause that the cadaver set tests
+  real anatomy against CT truth, said in Aim 3 already. A8 is added to the CAREER item.
 - **The Gaussian renderer** is framed as built on the PI's Gaussian-splatting work; the PI should confirm that
   framing and references [13] and [14].
 - **Line E** asks Anthropic's AI for Science program for API credits; the laboratory works without API keys, so the
