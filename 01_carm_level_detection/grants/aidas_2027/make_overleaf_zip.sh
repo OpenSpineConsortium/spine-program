@@ -33,9 +33,8 @@ pages_of() {
   pdfinfo "$1" | awk '/^Pages:/ {print $2}'
 }
 
-# A relative zip path is taken from where the script was called, not from the temporary directory. The name must
-# end in .zip, since zip itself adds .zip to a name whose last part has no dot and would write another file than
-# the one checked and reported here.
+# A relative zip path is taken from where the script was called, not from the temporary directory. The name ends
+# in .zip, the extension Overleaf's Upload Project and a reader expect of the archive.
 case "$out" in
   /*) ;;
   *) out="$PWD/$out" ;;
@@ -57,6 +56,11 @@ done
 
 work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
+# The checked zip reaches its path by a rename inside its own directory, which is atomic, where a move from the
+# temporary directory across filesystems is a copy that a failure could leave half written; the temporary name
+# beside the path is made now, so a directory that does not exist fails here, before any build.
+tmp_out="$(mktemp "$(dirname "$out")/.$(basename "$out").XXXXXX")"
+trap 'rm -rf "$work" "$tmp_out"' EXIT
 mkdir -p "$work/stage" "$work/test"
 # The tracked files, with the latex/ prefix dropped so that main.tex sits at the zip's root, where Overleaf looks.
 git -C "$here" ls-files -z -- latex | while IFS= read -r -d '' path; do
@@ -69,7 +73,7 @@ cp "$contacts" "${biosketches[@]}" "$work/stage/"
 (cd "$work/stage" && zip -q -r -X "$work/out.zip" .)
 
 # What Overleaf does with the upload: unzip it and run pdfLaTeX, twice for the references. The zip is still in the
-# temporary directory, which the trap removes, so a failure or an interruption here writes nothing to the path.
+# temporary directory, which the trap removes, so a failure or an interruption here leaves nothing at the path.
 (cd "$work/test" && unzip -q "$work/out.zip")
 for pass in 1 2; do
   if ! (cd "$work/test" && pdflatex -interaction=nonstopmode -halt-on-error main.tex > build.log 2>&1); then
@@ -83,6 +87,8 @@ pages="$(pages_of "$work/test/main.pdf")"
 if [[ "$pages" != "$expected" ]]; then
   fail "the zip's copy built $pages pages where $expected were expected; no zip was written"
 fi
-mv "$work/out.zip" "$out"
+cp "$work/out.zip" "$tmp_out"
+chmod 644 "$tmp_out"
+mv -f "$tmp_out" "$out"
 files="$(unzip -Z -1 "$out" | grep -c -v '/$')"
 echo "wrote $out: $files files; its copy builds $pages pages"
