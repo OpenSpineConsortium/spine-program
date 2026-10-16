@@ -7,7 +7,7 @@ import re
 import subprocess
 import sys
 
-TEXT_BLOCK_BOTTOM = 792 - 0.7 * 72  # letter paper with 0.7 inch margins, in points
+TEXT_BLOCK_BOTTOM = 792 - 0.65 * 72  # letter paper with the packet's 0.65 inch margins, in points
 
 
 def lowest_text_per_page(pdf):
