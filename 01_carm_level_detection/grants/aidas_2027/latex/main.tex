@@ -17,12 +17,12 @@
 \usepackage{xcolor}
 \usepackage{enumitem}
 \usepackage{titlesec}
-\usepackage[font=footnotesize,labelfont=bf,labelsep=period,skip=2pt,hypcap=false]{caption}
+\usepackage[font=footnotesize,labelfont=bf,labelsep=period,skip=1pt,hypcap=false]{caption}
 \usepackage{microtype}
 \usepackage{pdfpages}
 \usepackage{multicol}
 \usepackage[hidelinks]{hyperref}
-\hypersetup{pdftitle={Semi-Autonomous AI Research on the Wayne State Grid: AIDaS Seed Grant 2026-2027}}
+\hypersetup{pdftitle={Semi-Autonomous AI Research on the Wayne State Grid: Building a Customizable Spine RAG-LLM in One Year}}
 
 \definecolor{ink}{HTML}{1D1D1B}
 \definecolor{teal}{HTML}{0F5F55}
@@ -63,7 +63,7 @@
 \begin{center}
 {\bfseries 2026--2027 AIDaS Seed Grant Program}\par\smallskip
 {\Large\bfseries Semi-Autonomous AI Research on the Wayne State Grid:\\[1pt]
-From Labeled CT to C-Arm Level Localization,\\[1pt] with Medical Trainees Driving the Agents\par}
+Building a Customizable Spine RAG-LLM in One Year,\\[1pt] with Medical Trainees Driving the Agents\par}
 \end{center}
 \vspace{4pt}
 
@@ -72,8 +72,9 @@ Strategic areas & Foundational AI (area 1, primary) and AI for Science (area 2),
 agentic systems, studied in agents doing research held to sealed tests, checked code and reproducible records. AI for
 Education and Workforce Training
 (area 3; Aim 2): medical trainees doing computational research, with literature answers grounded in verbatim, cited
-quotations. AI for Health (area 4; Aim 3): intraoperative imaging decision support, an advisory level label per C-arm
-image that the surgeon confirms and the stack withholds when its checks disagree.\\[2pt]
+quotations. AI for Health (area 4; Aim 3): a customizable, locally hosted spine RAG-LLM that reads the image through the
+consortium's detectors and answers with cited quotations, and an advisory level label per C-arm image that the surgeon
+confirms.\\[2pt]
 Principal Investigator & Zhizhong Han, PhD, Assistant Professor, Department of Computer Science, College of
   Engineering, Wayne State University; founding director of the Machine Perception Lab; AIDaS affiliated member.
   \HanContact\\[2pt]
@@ -89,53 +90,56 @@ New Investigator status & The PI is a New Investigator: a tenure-track Assistant
   The Co-PI is a Professor and
   not a New Investigator.\\[2pt]
 Request & \$18,568 for 12 months, January 1 to December 31, 2027. No award funds go to an external collaborator:
-  lines B2, B5, C1 and D buy goods and services, and Aim 3 uses WSU's own C-arm. The PI leads no other AIDaS
+  lines B to D buy goods and services from WSU units and vendors, and Aim 3 uses WSU's own C-arm. The PI leads no other AIDaS
   proposal this cycle.\\
   % \tbd{confirm}.\\
 \end{tabularx}
 
 \vspace{5pt}
+{\small
 {\bfseries Abstract.} Wrong-level spine surgery is a never event, unpaid by Medicare since 2009 [21] and reported to the
 Joint Commission 9 times in 2024, 7 of them spinal [22]; paid US malpractice claims for surgical never events reached
 \$1.3 billion over 1990--2010 [23]. It persists because surgeons confirm the level by counting vertebrae on an X-ray
 from a C-arm, the operating room's mobile fluoroscope, and the count fails in patients with an extra or missing lumbar
-segment and on images that show too few vertebrae. The Open Spine Consortium at Wayne State has built the parts of an
-automated check on an imaging platform mined for the problem (211 catalogued sources, 5.3 TB on the WSU grid: a census
-of 21,622 public CTs screened for the anatomy on which counting fails, 39,705 plain radiographs, COBRA's 692
-radiotherapy cone-beam cases with 375,618 projections): 802 CTs with every vertebra labeled (CTSpinoPelvic1K, a NeurIPS 2026 benchmark), a physics renderer that turns them into simulated C-arm
-images, and a level model that, never trained on a C-arm image, names the level of 96.4\pct{} of the lateral
-vertebrae a film-trained detector finds on a public C-arm dataset. Detection is the gap this project attacks first: a second detector, trained on two other devices' frames, finds 80.5\pct{} of the
-vertebrae on that dataset's C-arm (90.6\pct{} at a lower confidence threshold), against the 97\pct{} set in advance,
-and the frames that carry it that far come from 145 of COBRA's 692 cases. Closing it takes hundreds of GPU experiments
-on a shared cluster. Aim 1 has an AI agent iterate the scientific method
-inside the consortium's frameworks (the cluster's job rules, a code gate, reporting protocols, multi-agent
-coordination on GitHub), a result counting only when a test sealed before the run passes
-and a person merges it: on tasks with a planted fault we expect it to submit a wrong result in under a fifth of runs,
-against over half without the checks. From the same records Aim 1 measures the agents: what each run costs in tokens,
-tool calls and context, and Symphony's claim protocol against the worktree and framework orchestrators it competes
-with, on CooperBench's pairs first and SWE-bench after. Aim 2 gives the agent to eight medical trainees and measures, task against matched
-task, what it adds over a coding assistant; their literature questions go to a language model on the grid that quotes
-Scopus abstracts verbatim, with citation and DOI. Aim 3 turns the agent on the detection gap, with the 372,000 COBRA
-projections no model has seen, learned X-ray simulation and a CT-paired cadaver set imaged at WSU; an IRB protocol
-awaiting submission would add about 4,000 Detroit Medical Center spine surgery patients for the validation after the
-award. Deliverables: Aim 1's tasks, records, benchmark suites and report (MIT license, as an
-invention-disclosure review clears), the cadaver set, an FDA Pre-Submission, and NSF CAREER and NIH R21 proposals.
+segment and on images that show too few vertebrae. This project's goal is a customizable, locally hosted
+retrieval-augmented language model for spine care (a RAG-LLM): a multimodal model on the WSU grid that reads the image
+through the Open Spine Consortium's own X-ray detector and level model, retrieves from the consortium's index of Scopus
+and ScienceDirect spine literature (text, images and multimedia, under WSU's text and data mining rights) and answers
+with verbatim, cited quotations; fine-tuned, in its second release, on images paired with clinical charts under the consortium's pending IRB protocol (about 4,000 Detroit Medical Center spine surgery patients; amended as the work requires); compared with OpenEvidence's clinical evidence service through a Claude plug-in [31]; and customizable in that a lab swaps in its
+own corpus, detectors and records. The consortium's spine program is the case example of what an organized,
+AI-assisted workflow builds in a short time: an imaging platform mined for the problem (211 catalogued sources, 115 on the grid at 5.3 TB: a census of 21,622 public CTs mined for the anatomy on which counting fails, 39,705 plain radiographs,
+COBRA's 692 radiotherapy cone-beam cases with 375,618 projections); 802 CTs with every vertebra labeled
+(CTSpinoPelvic1K, a NeurIPS 2026 benchmark); a physics renderer; and a level model that, never trained on a C-arm
+image, names the level of 96.4\pct{} of the lateral vertebrae a film-trained detector finds on a public C-arm dataset,
+while detection on that C-arm stays at 80.5\pct{} (90.6\pct{} at a lower threshold) against the 97\pct{} set in
+advance, 145 of COBRA's 692 cases among the frames that carry it that far. Aim 1 studies the workflow: an AI
+agent iterates the scientific method inside the consortium's frameworks (the cluster's job rules, a code gate,
+reporting protocols, multi-agent coordination on GitHub), a result counting only when a test sealed before the run
+passes and a person merges it, on tasks with a planted fault submitting a wrong result, we expect, in under a fifth of
+runs against over half without the checks; from the same records Aim 1 measures what each run costs in tokens, tool
+calls and context, and Symphony's claim protocol against the worktree and framework orchestrators it competes with, on
+CooperBench's pairs first and SWE-bench after. Aim 2 gives the agent to eight medical trainees and measures, task
+against matched task, what it adds over a coding assistant; their literature questions go to the RAG-LLM's text half
+on the grid. Aim 3 builds the case example through to the RAG-LLM: the detection gap closed with the 372,000 COBRA
+projections no model has seen, learned X-ray simulation and a CT-paired cadaver set imaged at WSU, then the multimodal
+model that reads the image and the chart. Deliverables: Aim 1's tasks, records, benchmark suites and report (MIT
+license, as WSU's technology-transfer review clears), the RAG-LLM's first release on the public corpus with its graded
+question set, the cadaver set, an FDA Pre-Submission, and NSF CAREER and NIH R21 proposals.
 
-\vspace{3pt}
-{\bfseries Keywords.} agentic systems; AI for science; reproducibility; agent benchmarking; coordination protocols;
-high-performance computing; medical education; fluoroscopy; 3-D Gaussian splatting; domain transfer; spine surgery
+\vspace{2pt}
+{\bfseries Keywords.} agentic systems; AI for science; reproducibility; coordination protocols; retrieval-augmented
+generation; multimodal models; high-performance computing; medical education; fluoroscopy; spine surgery}
 
 \clearpage
 % ---------------------------------------------------------------- narrative, three pages, set in \small (9 pt)
-\begingroup\fontsize{8.8}{10}\selectfont\setlength{\parskip}{1pt}\setlength{\textfloatsep}{8pt}
+\begingroup\fontsize{8.8}{9.7}\selectfont\setlength{\parskip}{0.5pt}\setlength{\textfloatsep}{4pt}
 \section*{Project narrative}
 
 \subsection*{1. Significance and innovation}
 Surgeons confirm the level of a spine operation by counting vertebrae on an X-ray from a C-arm, the operating room's
 mobile fluoroscope. The count fails often enough to matter: a 27-hospital Japanese registry recorded wrong-level
 surgery in 0.12\pct{} of 34,544 patients having degenerative spine surgery [1]; US
-neurosurgeons reported 418 wrong-level operations in about 1.3 million, one in 3,110, 17\pct{} followed by legal
-action, and about half of respondents report at least one [2,3]. It fails most on a transitional vertebra, part
+neurosurgeons reported 418 wrong-level operations in about 1.3 million, one in 3,110, 17\pct{} followed by legal action or a settlement, and about half of respondents report at least one [2,3]. It fails most on a transitional vertebra, part
 lumbar and part sacral: 12.9\pct{} of 550 surgical patients had one, and their levels were miscounted in clinic in
 54\pct{} of them [4]. On 62 hard intraoperative images, surgeons' median naming error was 30.4\pct{}
 unaided and 2.4\pct{} with LevelCheck [6], which registers the preoperative CT to each image [5] in 17 to 72\,s, at
@@ -144,31 +148,25 @@ written in rules: wrong-site surgery is a serious reportable event, unpaid by Me
 Joint Commission's 2024 review of voluntarily reported sentinel events holds 127 wrong surgeries, 9
 wrong-level, 7 of those spinal, 36\pct{} with severe permanent harm [22]; paid US malpractice claims for surgical never
 events totaled \$1.3 billion over 9,744 claims in 1990--2010 [23], 978 English spinal negligence claims over five
-years \pounds535.5 million [24], and one US insurer's 68 wrong-site claims closed in 2013--2020 averaged \$136,453,
-60.3\pct{} settled, spine the commonest procedure [25].
+years \pounds535.5 million [24], and one US insurer's 68 wrong-site claims closed in 2013--2020 averaged \$136,453, spine the
+commonest procedure [25].
 
 The Open Spine Consortium at Wayne State has built the parts of a check that needs no CT, only the C-arm image, and
-the data platform under it: a card for each of 211 imaging sources (5.3 TB on the grid), every item keyed to a
-person, which closed the two cross-naming leaks its identity checks found, nine leakage checks, and 563 quoted numbers
-audited against their models' training persons. Its CT census, 21,622 CTs from 21,603 persons, was mined for the
-anatomy on which counting fails: two automatic labelers chosen to fail differently screened 18 public collections (843
-GPU-hours) into a registry of 6,108 persons holding 146 with a sixth lumbar vertebra, 103 on an expert read, and 14
-with a thirteenth thoracic, under a stopping rule fixed before any download that turned 29,479 chest CTs away; when one
-labeler called a thirteenth rib-bearing vertebra in 9.3\pct{} of 367 chest CTs, five to fifteen times the published
-rate, requiring a rib on the named body brought it to 1.4\pct{}, the check outside the computation that this project's
-gates make routine. From the platform come CTSpinoPelvic1K, 802 CTs with every vertebra and the sacrum labeled [8],
+the data platform under it: a card for each of 211 imaging sources, 115 of them on the grid (5.3 TB), every item keyed to a person, nine leakage checks (seven run on the frozen split), and 563 quoted numbers audited against their models' training persons. Its CT census, 21,622 CTs from 21,603 persons, was mined for the anatomy on which counting fails: two automatic labelers chosen to fail differently filled a registry of 6,108 persons from the collections then in hand, 146 of them with a sixth lumbar vertebra, 103 on an expert read, and 14 with a thirteenth thoracic, and screened 18 further public collections (843 GPU-hours) under a stopping rule, fixed before any download, that turned 29,479 mostly chest CTs away. A labeler's 9.3\pct{} rate of thirteenth rib-bearing vertebrae in 367 chest CTs fell to 1.4\pct{} (5 of 367) once a rib on the named body was required, the check outside the computation that this project's gates make routine. From the platform come CTSpinoPelvic1K, 802 CTs with every vertebra and the sacrum labeled [8],
 whose benchmark paper is a NeurIPS 2026 poster; 39,705 plain radiographs, 12,709 of which train a film detector that
-finds 98.8\pct{} of 161 lumbar vertebrae on 17 spines it never saw; the physics renders and real frames of Aim 3,
+finds 98.8\pct{} (at 0.25) of 161 lumbar vertebrae on 17 spines it never saw; the physics renders and real frames of Aim 3,
 COBRA's 692 cases among them [29]; and a level model (Figure~3a) that names 96.4\pct{} of the lateral vertebrae the
 film detector finds on a public C-arm it never saw (Figure~4a), while detection on a C-arm held out of training stays
-at 80.5\pct{} (90.6\pct{} at a lower threshold), short of the 97\pct{} set in advance (Figure~4b). Closing that gap takes
-hundreds of GPU jobs run, checked and recorded on a shared cluster; the
+at 80.5\pct{} (90.6\pct{} at a lower threshold), short of the 97\pct{} set in advance (Figure~4b). Closing that gap takes many GPU jobs run, checked and recorded on a shared cluster; the
 consortium's 2026 trainee program hit the same wall, relying on mentors expert in Python, imaging and cluster
 computing [9].
 
 Our premise is that the bottleneck has moved from the model to the experiments; that an AI agent can run them if
-strict frameworks, not the model, decide which results count; and that the same frameworks, which record every run,
-let us measure the agents. Three aims test it (Figure~1). \aim{Aim 1} has the agent iterate the scientific method
+strict frameworks, not the model, decide which results count; that the same frameworks, which record every run,
+let us measure the agents; and that what such a workflow builds in a year is best shown on one case, this spine program,
+whose end product is a customizable, locally hosted RAG-LLM: the consortium's detectors reading the image, its indexed
+literature answering with cited quotations, a multimodal model fine-tuned on images paired with charts (a stated purpose of the pending protocol), compared with OpenEvidence's evidence service through a Claude plug-in [31], with no
+indexed passage and no patient record leaving the grid. Three aims test it (Figure~1). \aim{Aim 1} has the agent iterate the scientific method
 inside the consortium's frameworks: Beethoven runs Claude Code on the grid and keeps the grid's profile as checked data
 and its job rules in writing; beethoven-qa checks the agent's code; beethoven-research holds REFORMS [10] rules for
 machine-learning science and plans the CLAIM [11] checklist for imaging AI; and Symphony (public, MIT) gives each
@@ -181,10 +179,11 @@ agents probe their leakage and tampering [15,16]; CooperBench found two agents i
 talking only by message, passing 183 of 652 feature pairs against 315 for one (GPT-5), most failures duplicated or
 incompatible work [27]. We plant the faults an agent inherits from a lab's data and code, count those it passes on,
 and meter the coordination. \aim{Aim 2} puts the agent in medical trainees' hands through Beethoven (Figure~2).
-\aim{Aim 3} turns it on the detection gap, with COBRA's unused projections, a paired CT and C-arm cadaver set imaged
-at WSU and a differentiable 3-D Gaussian X-ray renderer, as in [17,18], built on the PI's Gaussian-splatting work.
+\aim{Aim 3} builds the case example: it turns the agent on the detection gap, with COBRA's unused projections, a paired
+CT and C-arm cadaver set imaged at WSU and a differentiable 3-D Gaussian X-ray renderer, as in [17,18], built on the
+PI's Gaussian-splatting work, and then on the multimodal model that reads the image and the chart.
 
-\placefigure{0.58\linewidth}{figures/fig1_overview.pdf}{One loop, three aims. (a) Beethoven starts the trainee's agent. (b) The agent iterates hypotheses inside the
+\placefigure{0.50\linewidth}{figures/fig1_overview.pdf}{One loop, three aims. (a) Beethoven starts the trainee's agent. (b) The agent iterates hypotheses inside the
 frameworks until a sealed gate passes or its budget runs out. (c) Why counting fails:
 a sixth lumbar vertebra (arrow) in a labeled CT, its render and another person's radiograph.}
 
@@ -201,32 +200,25 @@ check, a known answer the agent cannot read, and a clean and a faulted copy: onc
 not write them plants a fault, a patient in both training and test sets, the wrong label scheme, a threshold tuned on
 the test set, a typed number, or a run that does not reproduce. Both arms keep the model, Beethoven, the written rules
 and eight GPU-hours a task, reruns included; one adds the checks (sealed hypotheses, beethoven-qa, split and rerun
-checks); each runs each copy once, in its own repository (80 runs). \emph{1b, the cost of the agent.} Symphony records
-what each run cost (a usage trailer on every commit, a usage artifact per Actions run, aggregated by its metrics
-workflow); 1b adds a profiler (agentprof's hooks [28], system-call tracing) that logs every tool call, file read and
+checks); each runs each copy once (80 runs). \emph{1b, the cost of the agent.} Symphony records
+what each run cost (a usage trailer on every commit, a usage artifact per Actions run); 1b adds a profiler (agentprof's hooks [28], system-call tracing) that logs every tool call, file read and
 token to a reproducible trace, and has the agent run, as sealed tasks whose gate is the same tests passing at lower
 cost, four economies: context compression, fewer tool calls, less code reading (a content-hashed index of the
-repository and retrieval over it) and profiled prompts, a standing routine proposing the
-next experiment from the last record: continuous, autonomous research under the gates. \emph{1c, the protocol
+repository and retrieval over it) and profiled prompts; and a standing routine proposes the next experiment from the last record: continuous, autonomous research under the gates. \emph{1c, the protocol
 against its competitors.} The alternative to a claim protocol is an orchestrator: a script that fans tasks out to
-agents in git worktrees, merges, reviews adversarially and verifies, as the consortium's own first attempt did; frameworks
-that make it durable (LangGraph's fan-out with checkpointing, Temporal's sagas, OpenHands sandboxes, schema-validated
-outputs); or a shared workspace with optimistic concurrency, which raised a worktree baseline from 63.8 to 82.5\pct{}
+agents in git worktrees, merges, reviews adversarially and verifies, as the consortium's own first attempt did; frameworks that make such a script durable (LangGraph's checkpointed fan-out, Temporal's sagas, OpenHands sandboxes, typed outputs); or a shared workspace with optimistic concurrency, which raised a worktree baseline from 63.8 to 82.5\pct{}
 on Commit0-Lite [26]. 1c runs Symphony, the worktree orchestrator and one framework orchestrator on the same suites in
 the same Actions environment, coordbench on CooperBench's pairs first [27], then SWE-bench instances [12] and Aim 3's
 tasks, scoring pass rate, tokens, dollars, wall time, conflicts and duplicated work, and places each system, with
-gh-aw's work queue, unsorry, Copilot's cloud agent and Claude Code's agent teams, on the twelve-axis taxonomy written
-for the comparison (who pays, how a claim is kept, what decides acceptance). Compute is GitHub's free standard runners
+gh-aw's work queue, unsorry, Copilot's cloud agent and Claude Code's agent teams, on the twelve-axis taxonomy written for the comparison. Compute is GitHub's free standard runners
 on public repositories and the grid; inference is line C1's seats, no API key. \emph{1d, the
-control plane.} A web control panel driven by Claude's own browser (add a repository; watch the board, CI and tasks;
-add a worker; edit its prompts) that shows each run's cost beside the same work on unsorry or Copilot's cloud agent; a
-wizard that stores a lab's Claude tokens as saved environment secrets; Beethoven as
-the bridge from Actions to the grid, a worker in Actions submitting the Slurm job and posting results and logs back to
-the pull request; and the extension's one click, today from Claude Code, brought to the claude.ai Project each trainee
-works in. \emph{Preliminary work.} Built: Beethoven's grid profile and Claude Code worker (a Slurm job),
+control plane.} A web control panel driven by Claude's own browser (repositories, board, CI, tasks, workers, prompts)
+showing each run's cost beside the same work on unsorry or Copilot's cloud agent; a wizard storing a lab's Claude
+tokens as saved environment secrets; Beethoven bridging Actions to the grid, a worker in Actions submitting the Slurm
+job and posting its results and logs back to the pull request; and the extension's one click brought from Claude Code
+to the claude.ai Project each trainee works in. \emph{Preliminary work.} Built: Beethoven's grid profile and Claude Code worker (a Slurm job),
 beethoven-qa's gate on Beethoven's agent and research code, the patient-split check, Symphony (its tests catch all 93
-mutated rules; its protocol library is checked over every interleaving of a few workers against an oracle written from
-its spec), coordbench and the taxonomy. The consortium builds the other
+mutated rules; every interleaving of a few workers is checked against an oracle from its spec), coordbench and the taxonomy. The consortium builds the other
 REFORMS checks, the CLAIM checklist, one-command reruns of gated code, the profiler hooks, the control panel, the
 wizard and the bridge in kind. \emph{H1:} the checks
 cut wrong results on faulted copies from over half to under 20\pct{}, with no fewer passes on clean copies, and each
@@ -239,35 +231,36 @@ suite.
 
 \aim{Aim 2 (Education and Workforce): medical trainees drive the agent.} \emph{Approach.} Eight medical students and
 residents in two waves of four \tbd{confirm} each receive a grid account, Beethoven and a gated sub-project; the agent runs the experiments inside the frameworks, the trainee owns the question and the
-result, and a mentor reviews it. Literature questions go to a language model on the grid that quotes verbatim, with
-citation and DOI, from indexed spine-related Scopus abstracts under the text and data mining and AI rights Elsevier
-approved for WSU; no passage trains a model or reaches an outside AI service; a misquoted passage fails a gate, and the mentor marks any quotation that does not support the answer. In week 1 each trainee does two
+result, and a mentor reviews it. Literature questions go to the RAG-LLM's text half, a language model on the grid that quotes verbatim, with
+citation and DOI, from the consortium's index of spine literature (Scopus, and ScienceDirect's text, images and
+multimedia) under WSU's text and data mining and AI rights from Elsevier; no passage trains a model or
+reaches an outside AI service; a misquoted passage fails a gate, and the mentor marks any quotation that does not support the answer. In week 1 each trainee does two
 matched starter tasks, none of Aim 1's: one with the agent, one with the 2026 setup (Claude as a coding assistant, the
 trainee submitting the jobs), task and order counterbalanced; the comfort survey runs before and after each wave; an
 IRB determination is requested in month 1. \emph{Preliminary work} [9]: in 2026, 16 students, seven with no
-coding and eleven with no imaging experience, worked on ten sub-projects in that setup with mentors expert in Slurm;
-all six domains improved on retrospective before-and-after ratings (Figure~2c), all ten went to a national meeting as
-abstracts, and the report names what it lacked, a control group and objective measures, which Aim 2 adds. \emph{H2:}
+coding and eleven with no imaging experience, worked on ten sub-projects in that setup; all six domains improved on
+retrospective ratings (Figure~2c), all ten were submitted to a national meeting as abstracts, and the report's own limits, no
+control group and no objective measure, are what Aim 2 adds. \emph{H2:}
 with the agent, trainees pass more starter gates without a mentor's edit and reach each task's first passing gate
 sooner; with eight trainees an estimate with 95\pct{} intervals that sizes the CyberTraining proposal.
 \emph{Measures:} H2's two, misquoted or unsupported quotations and comfort (secondary), in a preregistered
 within-trainee crossover.
 
 \begin{figure}[t]\centering
-\includegraphics[width=0.54\linewidth]{figures/fig2_beethoven.pdf}
+\includegraphics[width=0.46\linewidth]{figures/fig2_beethoven.pdf}
 \caption{Beethoven, the trainee's door to the grid. (a) The trainee asks
 in claude.ai; the Claude Code worker runs as a Slurm job on the WSU grid, built to send GPU jobs to H200s. (b) One click opens the session. (c)
 The 2026 cohort's mean comfort, before (recalled) and after (n = 16) [9].}
 \end{figure}
 
 \begin{figure}[t]\centering
-\begin{minipage}[t]{2.80in}
+\begin{minipage}[t]{2.55in}
   \vspace{0pt}\paneltitle{a}{The detector and the level model}\par\vspace{3pt}
-  \includegraphics[width=2.80in]{figures/network_architecture.pdf}
-\end{minipage}\hspace{0.45in}%
+  \includegraphics[width=2.55in]{figures/network_architecture.pdf}
+\end{minipage}\hspace{0.6in}%
 \begin{minipage}[t]{2.05in}
   \vspace{0pt}\paneltitle{b}{From the labeled CT to the image}\par\vspace{1pt}
-  \includegraphics[width=1.71in]{figures/fig3b_projection.pdf}
+  \includegraphics[width=1.56in]{figures/fig3b_projection.pdf}
 \end{minipage}
 \par\vspace{1pt}
 \caption{The level model, and how a CT labels the image. (a) The C-arm detector boxes the vertebral bodies and the sacrum,
@@ -275,7 +268,7 @@ and the level model names each body among 27 levels. (b) Each labeled body and i
 transitional one in orange.}
 \end{figure}
 
-\aim{Aim 3 (AI for Health): labeled 3-D structure into 2-D fluoroscopy, at low latency.} \emph{Data.} Physics renders
+\aim{Aim 3 (AI for Health): the case example, from labeled 3-D structure to 2-D fluoroscopy to a spine RAG-LLM.} \emph{Data.} Physics renders
 of CTSpinoPelvic1K, VerSe and TotalSegmentator CTs (7,045 standard and 1,482 transitional annotated frames) and a
 device-styled corpus of 142 TotalSegmentator spines; real frames of three devices: C-ArmLSpine (149 public lumbar
 cases, each a cone-beam CT with AP and lateral frames; truth automatic, two CT labelers agreeing) [30], DeepFluoro (cadaver pelvis fluoroscopy) and COBRA (radiotherapy imaging) [29]. \emph{Model} (Figure~3a): a
@@ -290,19 +283,14 @@ with agreed truth) but 43.7\pct{} of the 631 AP bodies. Fine-tuned on the AP fra
 bodies, and the stack abstains on 9.9\pct{} of those frames, catching five of the six it would have named wrongly.
 Detection does not carry: trained on two other devices' real frames, the C-arm detector finds 80.5\pct{} of
 C-ArmLSpine's vertebrae and 76.8\pct{} of its sacra at 0.74, a cross-device threshold chosen on other devices
-(90.6\pct{} and 83.9\pct{} at 0.25); on truth rebuilt after that scoring it finds 82.2\pct{} of the 287 and 93.9\pct{}
-of the 214 whose truth is complete and at least 80\pct{} visible. \emph{What COBRA adds.} COBRA is 692 radiotherapy
-cone-beam cases (467 Elekta XVI, 225 Varian OBI), 375,618 projections, each case with its exact acquisition geometry
-and a registered planning CT [29]; 145 Elekta cases, 24 frames each, are in any training bank, and 322 Elekta and all
-225 Varian cases train nothing. Those frames carry detection today: Elekta frames and their styled renders alone find
+(90.6\pct{} and 83.9\pct{} at 0.25). \emph{What COBRA adds.} COBRA is 692 radiotherapy
+cone-beam cases (467 Elekta XVI, 225 Varian OBI), 375,618 projections, each case with its acquisition geometry and a registered planning CT [29]; 145 Elekta cases, 24 frames each, are in any frame bank (110 of them, 2,640 frames, train the detector), and 322 Elekta and all 225 Varian cases train nothing. Those frames carry detection today: Elekta frames and their styled renders alone find
 86.8\pct{} (249 of 287 [81.1, 91.8]) of the held-out C-arm's vertebrae at 0.25 on outline truth, cadaver C-arm frames
-alone 12.9\pct{}, and cutting the Elekta frames from 2,640 to 240 costs 47.7 points [$-$53.7, $-$41.8]. The 372,000
-unseen projections, with a CT whose labels project onto every one, are real-image corner labels for the new detector
-at scale (Figure~3b), paired data to fit the simulator's spectrum, scatter and sensor terms by supervision, and, in
-Varian, a second held-out vendor; the cost is export and storage, a Varian bank with a quality look, and GPU hours, an
-Aim 1 task set. Its limits: a linac's kV imager, swept round a supine patient for treatment setup, is not a surgical C-arm; a
-detector that never saw it finds 6.2\pct{} of its vertebrae (18.5\pct{} at 0.25), its median age is 66 with 7
-transitional persons found and 91 calls unread, and naming on it is weak today (the sacrum defined on 18.2\pct{} of
+alone 12.9\pct{}, and cutting the Elekta training frames from 2,640 to 240 costs 47.7 points [$-$53.7, $-$41.8]. The 372,000
+unseen projections, with a CT whose automatic labels project onto every one, are real-image corner labels for the new detector
+at scale (Figure~3b), paired data to fit the simulator's spectrum, scatter and sensor terms, and a second held-out
+vendor (Varian); the cost is export, storage, a quality look at the Varian bank and GPU hours, an Aim 1 task set. Its limits: a linac's kV imager is not a surgical C-arm; a
+detector that never saw it finds 6.2\pct{} of its vertebrae (18.5\pct{} at 0.25), the median age of its exported cases is 66 (known for 115 of 145), 7 transitional persons are found and 91 calls unread, and naming on it is weak today (the sacrum defined on 18.2\pct{} of
 609 test frames): COBRA trains detection and simulation while the surgical C-arm and the cadaver set test naming. \emph{Closing the
 gap.} Today's renders hurt: added to real frames, styled renders lower detection from 80.5 to 63.1\pct{} at 0.74
 (90.6 to 87.8\pct{} at 0.25), and a classifier tells them from real frames 99 to 100\pct{} of the time. Physics
@@ -315,39 +303,40 @@ specimens from WSU's Body Bequest Program are CT-scanned and imaged AP and later
 on WSU's C-arm. A frame grabber records the video output, the set is sealed by hash before any model sees it, and
 registering each specimen's CT to its frames [5] projects the CT's labels onto every frame. The intended use is an
 advisory level label on each C-arm image, which the surgeon confirms; two deployment routes have FDA precedents, an
-app on the C-arm maker's own platform and an external unit reading the C-arm's video output. End-to-end latency is
-unmeasured; Aim 3 measures it first. \emph{H3:} on each held-out C-arm the detector finds 97\pct{} of vertebrae and of
-sacra with no more false detections than today's at 0.74; the stack names a frame in under 1\,s on a workstation GPU;
-and on every cadaver frame it names the right level or abstains. \emph{Measures:} recall at 0.74 and 0.25, false
-detections, exact level, abstention, corner error, latency (median, 95th percentile) and render-to-real
-separability, leave-one-device-out with case-clustered intervals, the cadaver set opened once, models hashed first.
+app on the C-arm maker's own platform and an external unit reading the C-arm's video output. \emph{The RAG-LLM.} The detector and level model become tools of a multimodal model hosted on the grid that
+takes the image, the detectors' boxes and names and the retrieved passages, and answers a clinical question with the
+level, the finding and verbatim quotations. Its first release is fine-tuned on the public corpus (CTSpinoPelvic1K, the
+labeled films, COBRA), its second on images paired with operative notes and radiology reports under
+IRB-26-03-8648, whose stated purposes include a locally hosted multimodal spine LLM, amended as the work requires; a lab swaps
+in its own corpus, detectors and records. On a held-out question set the mentors write on public images, its answers and OpenEvidence's, through a Claude plug-in [31], are graded side by side for correctness and for quotations that support them; the detectors' reading of an image may go to OpenEvidence with the question, while no indexed passage and no patient record leaves the grid. \emph{H3:} on each held-out
+C-arm the detector finds 97\pct{} of vertebrae and of sacra with no more false detections than today's at 0.74; the stack names a frame in under 1\,s on one GPU (no latency of the stack is on file yet); on every cadaver frame it names the right level or abstains;
+and on the question set the RAG-LLM is graded correct at least as often as OpenEvidence where the question needs the
+image, with no unsupported quotation. \emph{Measures:} recall at 0.74 and 0.25, false detections, exact level,
+abstention, corner error, latency (median, 95th percentile), render-to-real separability, graded correctness and
+quotation support against OpenEvidence, leave-one-device-out with case-clustered intervals, the cadaver set opened
+once, models hashed first.
 
-\placefigure{0.58\linewidth}{figures/fig4_results.pdf}{Held-out results; bars are 95\pct{} case-clustered intervals,
+\placefigure{0.48\linewidth}{figures/fig4_results.pdf}{Held-out results; bars are 95\pct{} case-clustered intervals,
 where recorded. (a) Level named exactly: zero-shot points never saw C-ArmLSpine, the others hold out whole cases.
 (b) Vertebrae found, of 287, on a C-arm never trained on, at 0.74 (filled) and 0.25 (open).}
 
-\subsection*{3. Evaluation}
-H1 to H3 and the measures above are written before any run; none is a powered test; H1 and H2 size the CAREER and CyberTraining proposals.
-
-\subsection*{4. Expected outcomes, deliverables and timeline}
-Within the award: Aim 1's tasks, records and report, its benchmark suites (efficiency, orchestration, the taxonomy)
-released through coordbench, the control panel, the wizard and the grid bridge; the cohort's outcomes; the cadaver
+\subsection*{3. Expected outcomes, deliverables and timeline}
+H1 to H3 and the measures above are written before any run; none is a powered test; H1 and H2 size the CAREER and
+CyberTraining proposals. Within the award: Aim 1's tasks, records and report, its benchmark suites (efficiency,
+orchestration, the taxonomy) released through coordbench, the control panel, the wizard and the grid bridge; the
+cohort's outcomes; the RAG-LLM's first release, on the public corpus, with its question set and grades; the cadaver
 set, deposited beside CTSpinoPelvic1K as the Body Bequest Program's terms allow, and a transfer and latency
-manuscript; an FDA Pre-Submission; and the CAREER and R21. The seed buys what does not exist yet:
-the researcher's hours, subscriptions, the cadaver set and regulatory review; the trainee program, grid, Beethoven,
-Symphony, pipelines and faculty time come in kind, and the Gaussian renderer is fitted only as a feasibility test, its
-full build left to the R21. \emph{Quarter 1:} missing checks built, tasks
-and gates sealed, faults planted, the profiler and the COBRA export, recruitment, bookings. \emph{Quarter 2:} Aim 1's
-runs (months 4--8), 1b's routine, wave 1 (months 4--7), cadaver imaging, transfer and latency results,
-Pre-Submission. \emph{Quarter 3:} CAREER, 1c's suites, wave 2 (months 8--11), the renderer's fit, the control panel.
-\emph{Quarter 4:} R21, final report, symposium. \emph{Risks.} If the checks are not all ready by month 4, Aim 1 tests
+manuscript; an FDA Pre-Submission; and the CAREER and R21. The seed buys the researcher's hours,
+subscriptions, the cadaver set and regulatory review; the trainee program, grid, Beethoven, Symphony, pipelines, the RAG-LLM's first release and faculty time come in kind; the Gaussian renderer is fitted as a feasibility test, its full build left to the R21. \emph{Quarter 1:} missing checks built, tasks
+and gates sealed, faults planted, the profiler and the COBRA export, recruitment, bookings. \emph{Quarter 2:} Aim 1's runs (months 4--8), 1b's routine, the wizard and the grid bridge, wave 1 (months 4--7), cadaver imaging, transfer and latency results,
+Pre-Submission. \emph{Quarter 3:} CAREER, 1c's suites, wave 2 (months 8--11), the renderer's fit, the control panel, the RAG-LLM's
+first fine-tune. \emph{Quarter 4:} R21, the question set graded, final report, symposium. \emph{Risks.} If the checks are not all ready by month 4, Aim 1 tests
 those built, wave 1 starts on the 2026 setup and the crossover moves to wave 2; agents run attended, a person
 approving commands blind to faults, until the grid clears unattended runs; if GitHub's or Anthropic's terms bar
 several Actions workers on one plan, 1c runs on the grid; a delayed specimen leaves the held-out devices as the test;
 a transfer result under 97\pct{} becomes the R21's first aim.
 
-\vspace{2pt}
-{\fontsize{5.8}{6.6}\selectfont
+{\fontsize{5.8}{6.6}\selectfont\setlength{\multicolsep}{1pt}
 \begin{multicols}{5}
 \raggedright
 \textbf{References.}
@@ -381,6 +370,7 @@ a transfer result under 97\pct{} becomes the R21's first aim.
 [28] agentprof. github.com/kitaisreal/agentprof, 2026.
 [29] Thummerer A, et al. COBRA2026. arXiv:2607.20037.
 [30] C-ArmLSpine. Med Image Anal 2024;97:103283.
+[31] OpenEvidence, openevidence.com; a Claude Code set-up skill for its API, mcpmarket.com/\allowbreak tools/\allowbreak skills/\allowbreak openevidence-api-setup-auth.
 \end{multicols}}
 \endgroup
 
@@ -401,8 +391,8 @@ plan, the trainees as the education plan. Aim 1's agent then runs the 3-D-to-2-D
   (PAR-25-321) or the parent R21 (PA-25-304), both open through October 2027. Submitted October 18, 2027 (October 16 is a Saturday),
 while the PI is still an Early Stage Investigator. Preliminary data:
   the cadaver set, the held-out-device result and the measured latency; its clinical validation, shaped by FDA's Pre-Submission feedback, draws on the
-  consortium's pending protocol IRB-26-03-8648 (about 4,000 adult DMC spine surgery patients, their CT and records),
-  where 99 patients give 80\pct{} power to show a Wilson lower bound of 90\pct{} if the true accuracy is 97\pct{}.
+  consortium's pending protocol IRB-26-03-8648 (about 4,000 adult DMC spine surgery patients, their CT and records,
+  the RAG-LLM's paired images and charts), where 99 patients give 80\pct{} power to show a Wilson lower bound of 90\pct{} if the true accuracy is 97\pct{}.
 \item \textbf{NSF CyberTraining} (NSF 23-520), a Pilot of up to \$300,000 over two years led by Co-PI Schwiebert:
   agent-assisted training on advanced computing, sized by Aim 2's estimates. Deadline January 20,
   2028; submitted in any case.
@@ -422,16 +412,14 @@ terms allow.
 
 \subsection*{Team, expertise and roles}
 The PI directs the project, writes the FDA Pre-Submission, leads the CAREER and R21 proposals, designs Aim 1
-and builds the 3-D-to-2-D model, including the Gaussian X-ray renderer;
+and builds the 3-D-to-2-D model, the Gaussian X-ray renderer and the multimodal RAG-LLM;
 a computer vision researcher, the PI leads the Machine Perception Lab and publishes on
 3-D Gaussian splatting and neural implicit surfaces (CVPR 2025 and 2026, NeurIPS 2024). The PI's part in the consortium's work so far: \tbd{the PI's role, and since when}. The
 Co-PI, a high-performance computing researcher who accelerates scientific codes on GPUs, builds the evaluation harness,
 plants the faults and keeps the grid measures, and has four such papers with the clinical collaborator
 (2021--2024). The clinical collaborator leads the Open Spine
 Consortium, whose dataset, models, Beethoven, Symphony and trainee program [9] this proposal builds on, builds the
-missing checks and 1b to 1d's tools in kind, and runs the cohort, the IRB determination, the imaging session, the literature index and
-the pending protocol. Beethoven's repositories are the clinical collaborator's proprietary software, given in
-kind; no award funds go to them. Line A's researcher checks Aim 1's runs and curates the cadaver set. Effort: PI \tbd{\%}, Co-PI \tbd{\%}, in kind.
+missing checks and 1b to 1d's tools in kind, and runs the cohort, the IRB determination, the imaging session, the literature index, the RAG-LLM's first release and the pending protocol. Beethoven's repositories are the clinical collaborator's proprietary software, given in kind, with no award funds. Line A's researcher checks Aim 1's runs and curates the cadaver set. Effort: PI \tbd{\%}, Co-PI \tbd{\%}, in kind.
 
 \subsection*{Timeline for external submission}
 {\small
@@ -439,21 +427,18 @@ kind; no award funds go to them. Line A's researcher checks Aim 1's runs and cur
 \toprule
 When & Milestone\\
 \midrule
-January--March 2027 (months 1--3) & One-page concepts to the NSF IIS and NIBIB program officers; Aim 1's tasks and gates
-  sealed; the Pre-Submission package written and reviewed\\
+January--March 2027 (months 1--3) & Concepts to the NSF IIS and NIBIB program officers; Aim 1's gates sealed; the Pre-Submission written\\
 April 2027 (month 4) & FDA Pre-Submission filed; written feedback due within 70 days\\
 July 28, 2027 (month 7) & NSF CAREER submitted, with Aim 1's early results and Aim 2's first wave\\
 September 2027 (month 9) & The sealed cadaver set opened, once, for the R21\\
 October 18, 2027 (month 10) & NIH R21 submitted, with the cadaver set, the latency and FDA's feedback\\
 December 2027 (month 12) & Project ends; AIDaS final report and symposium\\
 January 20, 2028 (month 13) & NSF CyberTraining Pilot submitted, Co-PI leading\\
-2028 & R21 resubmission at the first standard date after its summary statement; CAREER resubmission July 26, 2028,
-  if eligible; NSF Smart Health when its next solicitation opens\\
+2028 & R21 and, if eligible, CAREER (July 26, 2028) resubmitted; NSF Smart Health's next call\\
 \bottomrule
 \end{tabularx}}
 
-The CAREER and R21 meet the expectation of a federal proposal within 12 months of the project's end, and the
-CyberTraining Pilot follows whatever their outcome; publications and proposals from the award acknowledge AIDaS.
+The CAREER and R21 meet the expectation of a federal proposal within 12 months of the project's end; the CyberTraining Pilot follows; publications and proposals from the award acknowledge AIDaS.
 
 \clearpage
 % ---------------------------------------------------------------- budget page
@@ -487,8 +472,7 @@ graduate student support), or else a post-baccalaureate researcher: 520 hours, m
   so A2 is FICA alone: 7.65\pct{} for a hire who is not an enrolled student; hiring a student, at
 WSU's composite rate of 1.7\pct{}, would buy about 30 more hours. Aim 1's hours check 80 runs against
   their hidden checks and records, two hours each, and seal the known answers in 20 hours; Aim 2's go to the cohort's accounts and measures; Aim 3's are 100 curating the cadaver set
-  (de-identifying, labeling, sealing by hash) and 80 checking the agent's leave-one-device-out and latency runs
-  against their gates. At \$18 an hour the total would be \$20,247, over the cap unless the hours fall to 507.
+  (de-identifying, labeling, sealing by hash) and 80 checking the agent's leave-one-device-out, latency and RAG-LLM runs against their gates. At \$18 an hour the total would be \$20,247, over the cap unless the hours fall to 507.
 \item \textbf{B1 to B5.} No public dataset we know of pairs a diagnostic CT of the thoracolumbar spine with C-arm
   frames of the same body: C-ArmLSpine pairs lumbar cone-beam CTs with frames posed by edge registration, and
   DeepFluoro pairs cadaver CTs with fluoroscopy of the pelvis. The cadaver set
@@ -501,7 +485,7 @@ a deployed tool would read \tbd{the C-arm's model and video output}; at \$619 it
   \$180 a year billed annually: four for the trainees, reassigned in wave 2, and two for the people who start Aim 1's runs; the frameworks use no API key. All six
 are bought in January 2027, since the price holds 12 months from sign-up \tbd{P-card route and the PI's
   verification}. The WSU grid's compute is free to WSU researchers and given
-  in kind, and Aim 1's benchmark suites run on GitHub's free standard runners for public repositories. Storage holds the render banks, the COBRA export, the cadaver set and Aim 1's run records for the award year; what review
+  in kind, and Aim 1's benchmark suites run on GitHub's free standard runners for public repositories. Storage holds the render banks, the COBRA export, the literature index, the cadaver set and Aim 1's run records for the award year; what review
   clears goes to Zenodo at its end.
 \item \textbf{D.} FDA charges no fee for a Pre-Submission filed before October 1, 2027, when a fee proposed for fiscal
   year 2028 would begin. The filing asks FDA whether an advisory level label on each C-arm image,
