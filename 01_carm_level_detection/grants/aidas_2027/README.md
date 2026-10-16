@@ -6,7 +6,7 @@ the AIDaS office (aidas@wayne.edu). Three aims across three of the call's four s
 iterating the scientific method on the WSU grid inside the consortium's frameworks, Beethoven, beethoven-qa,
 beethoven-research and Symphony, under tests sealed before each run (Foundational AI), medical trainees driving that
 agent through Beethoven (Education and Workforce Training), and CT-labeled 3-D
-structure carried into 2-D C-arm images at low latency (Health). The call is
+structure carried into 2-D C-arm images and on to a spine RAG-LLM, the case example (Health). The call is
 `../../regulatory/carm_validation_plan_2026-09-21/AIDaS_Seed_Grant_Program.pdf`, read from git history at main 5597197
 (`ARCHIVE.md`).
 
@@ -14,14 +14,14 @@ structure carried into 2-D C-arm images at low latency (Health). The call is
 
 | file | holds |
 |---|---|
-| `latex/main.tex` | the packet: cover (1 page), narrative with four figures and the evaluation table (3), alignment (1), budget and justification (1), then the biosketches; compiles with pdflatex alone |
-| `latex/figures/` | the figure PDFs the packet places, written by `make_figures.py`; Figure 3a, `network_architecture.pdf`, is the archived drawing copied unchanged |
+| `latex/main.tex` | the packet: cover (1 page), narrative with one figure panel (3), alignment (1), budget and justification (1), then the biosketches; compiles with pdflatex alone |
+| `latex/figures/` | `fig1_panel.pdf`, the one figure the packet places, at its own width, written by `make_figures.py` |
 | `latex/contacts.example.tex` | the cover's placeholder contact lines, with how to escape `%`, `_` and `&`; the filled `contacts.tex` and the two biosketch PDFs go beside `main.tex` in the Overleaf copy only, never into git (`latex/.gitignore` and `.gitignore`; root CLAUDE.md rule 12) |
 | `AIDaS_SEED_2027_packet.pdf` | the committed draft build: 8 pages, the contacts as placeholders and one placeholder page for each biosketch |
 | `build_pdf.sh` | builds the packet with pdflatex in a temporary directory and fails when a section spills onto an extra page; with `contacts.tex` and both biosketches in `latex/` it writes the 10-page `AIDaS_SEED_2027_submission.pdf` instead, which git ignores, and refuses while one of the three is missing, a biosketch is not two pages or a [DATA NEEDED] mark is left |
 | `make_overleaf_zip.sh` | makes the Overleaf zip from the tracked files under `latex/` and the three local files beside `main.tex`, refuses while one is missing or a biosketch is not two pages, and writes the zip only once an unzipped copy compiles to 10 pages; the zip carries e-mail addresses, so it is written outside the tree by default and git ignores it |
-| `make_figures.py` | draws Figures 1, 2, 3b and 4 (matplotlib and Pillow) into `latex/figures/`, with a 300 dpi preview of each in `figures/` |
-| `figures/sources/` | the images the figures are made from, each with its origin in `SOURCES.md`: a crop of the Beethoven browser extension's popup, three crops of the record's sixth-lumbar figure, the network drawing |
+| `make_figures.py` | draws Figure 1, one panel of six at the text's width (matplotlib and Pillow), into `latex/figures/`, with a 300 dpi preview in `figures/`; `--check` fails on a label under 7 pt, outside the panel or its box, or over another label |
+| `figures/sources/` | the images the panel is made from, three crops of the record's sixth-lumbar figure, with their origin and the file behind every number drawn in `SOURCES.md` |
 | `RECORD.md` | the file behind every number, the values found on the web with their links, the [DATA NEEDED] list, the open items and caveats; not submitted |
 | `autonomous_spine_agent.py` | a record of the earlier Aim 1, kept since issue #100 rewrote it (`RECORD.md` section 5): a grid simulator with the WSU grid's partitions and refusals, a mock model that drafts and repairs jobs, the agent loop with gates registered by hash, a placeholder evaluation. `python3 autonomous_spine_agent.py --selftest`; run it on a laptop or as an sbatch job, never on the grid's login node |
 | `REVIEW_2026-10-14.md` | the five reviewers' findings on the packet merged in #91, applied in the pull request for issue #94, except where `RECORD.md` section 4 says a change was made another way by design |
