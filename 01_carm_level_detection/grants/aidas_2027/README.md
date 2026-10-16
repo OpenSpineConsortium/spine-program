@@ -1,7 +1,7 @@
 # AIDaS SEED 2026-2027 proposal packet
 
 The Wayne State AIDaS Seed Grant proposal: PI Zhizhong Han, Co-PI Loren Schwiebert, clinical collaborator Gregory
-Schwing (General Surgery); $18,568 for January to December 2027; due October 16, 2026, 11:59 p.m. ET, as one PDF to
+Schwing (General Surgery); $19,987 for January to December 2027; due October 16, 2026, 11:59 p.m. ET, as one PDF to
 the AIDaS office (aidas@wayne.edu). Three aims across three of the call's four strategic areas: Claude Code
 iterating the scientific method on the WSU grid inside the consortium's frameworks, Beethoven, beethoven-qa,
 beethoven-research and Symphony, under tests sealed before each run (Foundational AI), medical trainees driving that
@@ -22,6 +22,7 @@ structure carried into 2-D C-arm images and on to a spine RAG-LLM, the case exam
 | `make_overleaf_zip.sh` | makes the Overleaf zip from the tracked files under `latex/` and the three local files beside `main.tex`, refuses while one is missing or a biosketch is not two pages, and writes the zip only once an unzipped copy compiles to 10 pages; the zip carries e-mail addresses, so it is written outside the tree by default and git ignores it |
 | `make_figures.py` | draws Figure 1, one panel of six as wide as the text (matplotlib and Pillow), into `latex/figures/`, with a 300 dpi preview in `figures/`, and writes nothing when a label is under 7 pt, outside the panel or its box, or over another label, a box, an image or a data point; `--check` checks and writes nothing |
 | `figures/sources/` | the images the panel is made from, three crops of the record's sixth-lumbar figure, with their origin and the file behind every number drawn in `SOURCES.md` |
+| `APPROXIMATIONS.md` | since issue #112, every value that stands in for one the team has not confirmed, with its basis and who can confirm it |
 | `RECORD.md` | the file behind every number, the values found on the web with their links, the [DATA NEEDED] list, the open items and caveats; not submitted |
 | `autonomous_spine_agent.py` | a record of the earlier Aim 1, kept since issue #100 rewrote it (`RECORD.md` section 5): a grid simulator with the WSU grid's partitions and refusals, a mock model that drafts and repairs jobs, the agent loop with gates registered by hash, a placeholder evaluation. `python3 autonomous_spine_agent.py --selftest`; run it on a laptop or as an sbatch job, never on the grid's login node |
 | `REVIEW_2026-10-14.md` | the five reviewers' findings on the packet merged in #91, applied in the pull request for issue #94, except where `RECORD.md` section 4 says a change was made another way by design |
@@ -40,12 +41,13 @@ structure carried into 2-D C-arm images and on to a spine RAG-LLM, the case exam
 
 ## Before submission
 
-1. Fill each red [DATA NEEDED] mark; `RECORD.md` section 3 lists them, and section 2 links every value taken from the
-   web, most of them from search excerpts that need a click-through.
-2. Ask the AIDaS office whether lines B (the cadaver set), D (the FDA Pre-Submission consultant) and F (the poster)
-   are allowable and how line A may be hired; `RECORD.md` section 4 gives the totals without them.
-3. Run the disclosure audit (root CLAUDE.md rule 8): the packet shows SchwingNet's architecture and quotes its
-   held-out results.
+1. Replace each approximation with a confirmed value; `APPROXIMATIONS.md` lists them, `RECORD.md` section 3 the red
+   marks they replaced, and section 2 links every value taken from the web, most of them from search excerpts that
+   need a click-through.
+2. Ask the AIDaS office whether lines B (the cadaver set), C3 (the reimbursement), D (the FDA Pre-Submission consultant)
+   and F (the poster) are allowable and how line A may be hired; `RECORD.md` section 4 gives the totals without them.
+3. Run the disclosure audit (root CLAUDE.md rule 8): the packet quotes SchwingNet's held-out results and draws
+   them in Figure 1f.
 4. Decide the MIT release of Aim 1's tasks, records and report, and the caveats in `RECORD.md` section 4.
 5. Confirm that Elsevier has enabled the Scopus APIs on the key and ask the library for the text and data mining
    amendment to WSU's ScienceDirect agreement; the packet states both as they stood on 2026-10-15 (`RECORD.md`
