@@ -9,21 +9,25 @@ Figure 1, in two rows of three:
   f  the held-out results: naming the level, and finding vertebrae on a C-arm never trained on
 
 The panel is drawn 7.2 in wide, the text width of letter paper less two 0.65 inch margins, and latex/main.tex
-places it at that width, so every label prints at the size it is drawn here, 7 pt or more. Every number drawn is
-typed once, in NAMING, DETECTION, TARGET and COHORT below, beside the file it comes from; RECORD.md lists the same
-rows. figures/sources/SOURCES.md says where each image came from. Run it on a laptop or as an sbatch job, never on
-a login node:
+places it at its own size, so every label prints at the size it is drawn here, 7 pt or more; a text block narrower
+than the panel makes LaTeX report an overfull line rather than shrink the labels. Every number drawn is typed once,
+in NAMING, DETECTION, TARGET and COHORT below, beside the file it comes from; RECORD.md lists the same rows.
+figures/sources/SOURCES.md says where each image came from. Run it on a laptop or as an sbatch job, never on a
+login node:
 
-    python3 make_figures.py            # writes latex/figures/fig1_panel.pdf for the packet and a 300 dpi
-                                       # preview of it, figures/fig1_panel.png
-    python3 make_figures.py --check    # also prints the panel's size, and fails when a label is under 7 pt,
-                                       # leaves the panel or its box, or overlaps another label
+    python3 make_figures.py            # checks the panel and, once it passes, writes latex/figures/fig1_panel.pdf
+                                       # for the packet and a 300 dpi preview of it, figures/fig1_panel.png
+    python3 make_figures.py --check    # checks it and writes nothing
+
+The check fails on a label under 7 pt, one outside the panel, one closer than PAD to the edge of its own box, and
+one over another label, another box, an image or a data point.
 
 Needs matplotlib and Pillow.
 """
 
 import argparse
 import itertools
+import math
 import sys
 from pathlib import Path
 
@@ -31,7 +35,9 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
-from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Rectangle  # noqa: E402
+from matplotlib.collections import PathCollection  # noqa: E402
+from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Polygon, Rectangle  # noqa: E402
+from matplotlib.transforms import Bbox  # noqa: E402
 from matplotlib.text import Text  # noqa: E402
 from PIL import Image  # noqa: E402
 
@@ -41,7 +47,7 @@ PREVIEWS = HERE / "figures"
 PACKET_FIGURES = HERE / "latex" / "figures"
 NAME = "fig1_panel"
 
-WIDTH = 7.2  # inches: letter paper less two 0.65 inch margins, the width main.tex places the panel at
+WIDTH = 7.2  # inches: letter paper less two 0.65 inch margins, main.tex's text width
 HEIGHT = 3.5
 ROW = 1.75  # inches: the height of each of the two rows, its titles included
 LABEL = 7.0  # points: every label at print, the smallest size the check allows
@@ -52,10 +58,9 @@ PAD = 0.03  # inches: the least room the check allows between a box's label and 
 INK = "#1d1d1b"
 MUTED = "#5f5f5a"
 RULE = "#c9c5ba"
-TEAL = "#0f5f55"  # Beethoven's own green: what works or passes
+TEAL = "#0f5f55"  # Beethoven's own green: Beethoven, what passes, the cohort's after and the naming results
 TEAL_PALE = "#e3efec"
-ORANGE = "#eb6834"  # what fails today, or is built and not yet run
-ORANGE_PALE = "#fbe3d8"
+ORANGE = "#eb6834"  # the loop that repeats, what is built and not yet run, and detection, short of its goal
 GREY_PALE = "#f2f1ec"
 DOT_BEFORE = "#9a978e"
 GRID = "#ebe8e0"
@@ -95,6 +100,7 @@ COHORT = [
 ]
 
 BOXED = []  # each box with its label, so that the check can hold the label inside the box
+MASK = {"boxstyle": "square,pad=0.1", "fc": "white", "ec": "none"}  # behind a label set over grid lines
 
 
 def set_style():
@@ -164,6 +170,7 @@ def note(ax, x, y, text, color=INK, ha="left", va="center", weight="normal"):
 
 
 def figure_panel():
+    BOXED.clear()
     fig, ax = new_canvas()
     top, bottom = HEIGHT - 0.24, ROW + 0.05
     draw_research_loop(ax, 0.0, top, bottom)
@@ -214,9 +221,9 @@ def draw_research_loop(ax, x, top, bottom):
 def draw_route(ax, x, top, bottom):
     """Panel b, after the extension's own diagram: where a trainee's question goes."""
     panel_title(ax, x, top + 0.11, "b", "Aim 2: the trainee's agent")
-    browser_h, middle_h, gpu_h = 0.3, 0.42, 0.27
+    browser_h, middle_h, gpu_h = 0.3, 0.4, 0.27
     box(ax, x + 0.02, top - browser_h, 1.96, browser_h, "claude.ai in the trainee's browser,\nwith the Beethoven extension")
-    middle = top - browser_h - 0.3 - middle_h
+    middle = top - browser_h - 0.26 - middle_h
     servers_w, worker_x, worker_w = 0.68, x + 0.9, 1.08
     box(ax, x + 0.02, middle, servers_w, middle_h, "Claude\nservers:\nthe model")
     box(ax, worker_x, middle, worker_w, middle_h, "WSU grid: the\ntrainee's Claude Code\nworker, a Slurm job",
@@ -225,20 +232,23 @@ def draw_route(ax, x, top, bottom):
 
     chat_x, session_x = x + 0.02 + servers_w / 2, worker_x + worker_w / 2
     arrow(ax, (chat_x, top - browser_h), (chat_x, middle + middle_h))
-    note(ax, chat_x - 0.05, middle + middle_h + 0.15, "a chat", color=MUTED, ha="right")
+    gap_middle = middle + middle_h + 0.13
+    note(ax, chat_x - 0.05, gap_middle, "a chat", color=MUTED, ha="right")
     arrow(ax, (session_x, top - browser_h), (session_x, middle + middle_h))
-    note(ax, session_x - 0.05, middle + middle_h + 0.15, "one click:\na Code session", color=MUTED, ha="right")
+    note(ax, session_x - 0.05, gap_middle, "one click:\na Code session", color=MUTED, ha="right")
     arrow(ax, (x + 0.02 + servers_w, middle + middle_h / 2), (worker_x, middle + middle_h / 2), style="<|-|>")
-    # No worker has yet sent a GPU job, only test submissions, so the arrow is drawn as built and not yet run.
-    arrow(ax, (session_x, middle), (session_x, bottom + gpu_h), color=ORANGE)
-    note(ax, worker_x - 0.06, bottom + gpu_h / 2, "built to send\nGPU jobs", color=ORANGE, ha="right")
+    # No worker has yet sent a GPU job, only test submissions, so the arrow is drawn as built and not yet run, with
+    # its label beside it in the gap between the worker and the GPUs.
+    gpu_x = worker_x + 0.18
+    arrow(ax, (gpu_x, middle), (gpu_x, bottom + gpu_h), color=ORANGE)
+    note(ax, gpu_x - 0.05, (middle + bottom + gpu_h) / 2, "built to send GPU jobs", color=ORANGE, ha="right")
 
 
 def draw_cohort(fig, ax, x, top, bottom):
     """Panel c: the 2026 cohort's mean comfort in six domains, recalled before and rated after."""
     panel_title(ax, x, top + 0.11, "c", "2026 cohort, n = 16")
     note(ax, x + 0.16, top, "gray: before (recalled); green: after", va="top")
-    plot = inset(fig, 6.24, bottom + 0.27, 0.9, top - 0.2 - (bottom + 0.27))
+    plot = inset(fig, x + 1.24, bottom + 0.27, 0.9, top - 0.2 - (bottom + 0.27))
     rows = list(range(len(COHORT)))[::-1]
     for y, (_, before, after) in zip(rows, COHORT):
         plot.plot([before, after], [y, y], color=RULE, lw=1.4, zorder=1, solid_capstyle="round")
@@ -249,6 +259,7 @@ def draw_cohort(fig, ax, x, top, bottom):
     plot.set_xlim(1, 5)
     plot.set_xticks([1, 2, 3, 4, 5])
     plot.tick_params(axis="both", length=2, width=0.5, labelsize=LABEL, pad=2)
+    plot.tick_params(axis="y", length=0)
     plot.set_ylim(-0.6, len(COHORT) - 0.4)
     plot.grid(axis="x", color=GRID, lw=0.5)
     plot.set_axisbelow(True)
@@ -270,23 +281,36 @@ def draw_three_images(ax, x, top, bottom):
 
 
 def draw_rag_llm(ax, x, top, bottom):
-    """Panel e: the RAG-LLM, its two inputs and its answer, all on the grid, and what it is graded against."""
+    """Panel e: the RAG-LLM, its two inputs and its answer inside the dashed line of the WSU grid, and OpenEvidence
+    outside it, sent only the question and the detectors' reading. Nothing here is built yet, so no box is green."""
     panel_title(ax, x, top + 0.11, "e", "Aim 3: the spine RAG-LLM")
-    input_w, input_h, width = 1.0, 0.4, 2.06
-    box(ax, x, top - input_h, input_w, input_h, "The image, read by\nthe detectors and\nthe level model")
-    box(ax, x + width - input_w, top - input_h, input_w, input_h,
-        "Scopus and\nScienceDirect spine\nliterature, indexed")
-    model_h, model_top = 0.4, top - input_h - 0.2
-    box(ax, x, model_top - model_h, width, model_h,
-        "Multimodal RAG-LLM on the WSU grid,\nfine-tuned on public images, then on\nimages with charts under the IRB",
-        face=TEAL_PALE, edge=TEAL)
-    for centre, label in ((x + input_w / 2, "reading"), (x + width - input_w / 2, "passages")):
-        arrow(ax, (centre, top - input_h), (centre, model_top))
-        note(ax, centre + 0.05, model_top + 0.1, label, color=MUTED)
-    answer_w, answer_h, answer_top = 1.2, 0.3, model_top - model_h - 0.14
-    box(ax, x, answer_top - answer_h, answer_w, answer_h, "Answer: level, finding,\nverbatim quotations")
-    arrow(ax, (x + answer_w / 2, model_top - model_h), (x + answer_w / 2, answer_top))
-    note(ax, x + answer_w + 0.08, answer_top - answer_h / 2, "graded against\nOpenEvidence", color=MUTED)
+    right, inner = x + 2.06, 0.05
+    # The grid's line leaves out the lower right corner, where OpenEvidence sits.
+    split, notch = x + 1.21, bottom + 0.4
+    corners = [(x + 0.004, bottom + 0.004), (x + 0.004, top), (right - 0.004, top), (right - 0.004, notch),
+               (split, notch), (split, bottom + 0.004)]
+    ax.add_patch(Polygon(corners, closed=True, fill=False, ec=MUTED, lw=0.7, ls=(0, (3, 2)), zorder=2))
+    ax.text(x + 0.08, top, "WSU grid", fontsize=LABEL, color=MUTED, ha="left", va="center", zorder=6,
+            bbox={"boxstyle": "square,pad=0.15", "fc": "white", "ec": "none"})
+
+    input_w, input_h, input_top = 0.94, 0.4, top - 0.09
+    image_x, index_x = x + inner, right - inner - input_w
+    box(ax, image_x, input_top - input_h, input_w, input_h, "The image, read by\nthe detectors and\nthe level model")
+    box(ax, index_x, input_top - input_h, input_w, input_h, "Scopus and\nScienceDirect spine\nliterature, indexed")
+    model_h, model_top = 0.4, input_top - input_h - 0.16
+    box(ax, image_x, model_top - model_h, right - inner - image_x, model_h,
+        "Multimodal RAG-LLM, fine-tuned on\npublic datasets' images, then on images\nwith charts under the pending protocol")
+    arrow_middle = (input_top - input_h + model_top) / 2
+    for centre, label in ((image_x + input_w / 2, "reading"), (index_x + input_w / 2, "retrieved passages")):
+        arrow(ax, (centre, input_top - input_h), (centre, model_top))
+        note(ax, centre - 0.05, arrow_middle, label, color=MUTED, ha="right")
+
+    answer_h, answer_top = 0.3, model_top - model_h - 0.13
+    answer_w = split - inner - image_x
+    box(ax, image_x, answer_top - answer_h, answer_w, answer_h, "Answer: level, finding,\nverbatim quotations")
+    arrow(ax, (image_x + answer_w / 2, model_top - model_h), (image_x + answer_w / 2, answer_top))
+    note(ax, split + 0.06, bottom + 0.02, "OpenEvidence gets\nonly the question\nand the reading", color=MUTED,
+         va="bottom")
 
 
 def draw_results(fig, ax, x, top, bottom):
@@ -305,25 +329,25 @@ def draw_results(fig, ax, x, top, bottom):
         y -= step
         note(ax, plot_x - 0.06, y, label, ha="right")
         interval_bar(plot, interval, y, TEAL)
-        plot.scatter([value], [y], s=9, color=TEAL, zorder=3, linewidths=0, clip_on=False)
+        plot.scatter([value], [y], s=7, color=TEAL, zorder=3, linewidths=0, clip_on=False)
         note(ax, right, y, f"{value:.1f}", ha="right")
 
     y -= step + 0.04
     note(ax, x, y, "Vertebrae found, of 287", weight="bold")
     draw_detection_key(plot, y)
-    target_top = y - step / 2
+    plot.text(TARGET - 2, y, "97 %", fontsize=LABEL, ha="right", va="center", bbox=MASK)
+    target_top = y + 0.04
     for label, value, interval, value_low, interval_low, _ in DETECTION:
         y -= step
         note(ax, plot_x - 0.06, y, label, ha="right")
         # The two thresholds sit just above and below the row's line, so their intervals never cover each other.
-        for point, bar, offset, filled in ((value, interval, 0.022, True), (value_low, interval_low, -0.022, False)):
+        for point, bar, offset, filled in ((value, interval, 0.03, True), (value_low, interval_low, -0.03, False)):
             if bar:
                 interval_bar(plot, bar, y + offset, ORANGE)
             plot.scatter([point], [y + offset], s=9 if filled else 12, facecolors=ORANGE if filled else "white",
                          edgecolors=ORANGE, linewidths=0 if filled else 0.9, zorder=3, clip_on=False)
         note(ax, right, y, f"{value:.1f}, {value_low:.1f}", ha="right")
     plot.plot([TARGET, TARGET], [axis_y, target_top], color=INK, lw=0.6, ls=(0, (3, 2)), zorder=1)
-    plot.text(TARGET - 2, y, "97 % goal", fontsize=LABEL, ha="right", va="center")
 
     plot.set_xticks([0, 25, 50, 75, 100])
     plot.set_xticklabels(["0", "", "50", "", "100 %"])
@@ -344,21 +368,25 @@ def interval_bar(plot, interval, y, color):
 
 
 def draw_detection_key(plot, y):
+    """The two thresholds' points, named on the section's own line; the white behind each name hides the grid."""
     plot.scatter([2], [y], s=9, color=ORANGE, linewidths=0, clip_on=False)
-    plot.text(7, y, "at 0.74", fontsize=LABEL, va="center", ha="left", clip_on=False)
-    plot.scatter([52], [y], s=12, facecolors="white", edgecolors=ORANGE, linewidths=0.9, clip_on=False)
-    plot.text(57, y, "at 0.25", fontsize=LABEL, va="center", ha="left", clip_on=False)
+    plot.text(7, y, "0.74", fontsize=LABEL, va="center", ha="left", clip_on=False, bbox=MASK)
+    plot.scatter([37], [y], s=12, facecolors="white", edgecolors=ORANGE, linewidths=0.9, clip_on=False)
+    plot.text(42, y, "0.25", fontsize=LABEL, va="center", ha="left", clip_on=False, bbox=MASK)
 
 
 def check(fig):
     """The panel's own proof that it can be read at print: every label at LABEL points or more, inside the panel,
-    inside its box with PAD to spare, and clear of every other label. Returns the problems found."""
+    inside its box with PAD to spare, and clear of every other label, every other box, the images and the data
+    points. Lines, arrows and grid lines are not obstacles: a label set over grid lines carries MASK. Returns the
+    problems found."""
     fig.canvas.draw()
     renderer = fig.canvas.get_renderer()
     pad = PAD * fig.dpi
     panel = fig.bbox
     labels = [text for text in fig.findobj(Text) if text.get_visible() and text.get_text().strip()]
     extents = {id(text): text.get_window_extent(renderer) for text in labels}
+    own_box = {id(label): id(patch) for patch, label in BOXED}
     problems = []
     for text in labels:
         extent = extents[id(text)]
@@ -374,33 +402,56 @@ def check(fig):
     for first, second in itertools.combinations(labels, 2):
         if extents[id(first)].overlaps(extents[id(second)]):
             problems.append(f"overlap: {first.get_text()!r} and {second.get_text()!r}")
+    found = obstacles(fig, renderer)
+    for text in labels:
+        for name, owner, extent in found:
+            if owner is not None and owner == own_box.get(id(text)):
+                continue  # a box's own label sits inside it, which the rule above already holds
+            if extents[id(text)].overlaps(extent):
+                problems.append(f"over {name}: {text.get_text()!r}")
     return problems
 
 
-def save(fig, check_it):
+def obstacles(fig, renderer):
+    """What a label must not cover, as (name, owner, extent): each box, each image and each data point, a point as
+    the square its marker fills."""
+    found = [("a box", id(patch), patch.get_window_extent(renderer)) for patch, _ in BOXED]
+    for axes in fig.axes:
+        found += [("an image", None, image.get_window_extent(renderer)) for image in axes.images]
+        for points in axes.collections:
+            if not isinstance(points, PathCollection):
+                continue
+            centres = points.get_offset_transform().transform(points.get_offsets())
+            half = math.sqrt(max(points.get_sizes())) * fig.dpi / 72 / 2
+            found += [("a data point", None, Bbox([[cx - half, cy - half], [cx + half, cy + half]]))
+                      for cx, cy in centres]
+    return found
+
+
+def save(fig):
     # No creation date in the PDF, so a panel redrawn from unchanged sources, with the same matplotlib and the same
     # fonts, is byte for byte the same file.
     fig.savefig(PACKET_FIGURES / f"{NAME}.pdf", facecolor="white", metadata={"CreationDate": None})
     fig.savefig(PREVIEWS / f"{NAME}.png", facecolor="white")
-    problems = []
-    if check_it:
-        width, height = fig.get_size_inches()
-        print(f"{NAME}: {width:.2f} x {height:.2f} in")
-        problems = check(fig)
-        for problem in problems:
-            print(problem, file=sys.stderr)
-    plt.close(fig)
-    if problems:
-        sys.exit(1)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--check", action="store_true", help="print the panel's size and check its labels")
+    parser.add_argument("--check", action="store_true", help="check the panel and write nothing")
     args = parser.parse_args()
     set_style()
-    PACKET_FIGURES.mkdir(parents=True, exist_ok=True)
-    save(figure_panel(), args.check)
+    fig = figure_panel()
+    width, height = fig.get_size_inches()
+    print(f"{NAME}: {width:.2f} x {height:.2f} in")
+    problems = check(fig)
+    for problem in problems:
+        print(problem, file=sys.stderr)
+    if problems:
+        sys.exit(f"{len(problems)} problems; nothing written")
+    if not args.check:
+        PACKET_FIGURES.mkdir(parents=True, exist_ok=True)
+        save(fig)
+    plt.close(fig)
 
 
 if __name__ == "__main__":

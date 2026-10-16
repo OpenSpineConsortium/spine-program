@@ -24,4 +24,5 @@ Every number drawn is typed once in `make_figures.py`, beside the file it comes 
 | `COHORT` | 1c | the 2026 cohort's Table 1, Cureus 2026;18(7):e112661 |
 
 Until issue #110 the packet had four figures, and this folder also held the crop of the Beethoven popup (Figure 2b)
-and the archived network drawing (Figure 3a); both are in git history at the commit before that issue's pull request.
+and the archived network drawing (Figure 3a); both are in git history at e664bd2, the commit that pull request
+started from.

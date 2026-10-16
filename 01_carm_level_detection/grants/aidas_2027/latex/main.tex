@@ -140,7 +140,7 @@ years \pounds535.5 million [24], and one US insurer's 68 wrong-site claims close
 commonest procedure [25].
 
 The Open Spine Consortium at Wayne State has built the parts of a check that needs no CT, only the C-arm image, and
-the data platform under it: a card for each of 211 imaging sources, 115 of them on the grid (5.3 TB), every item keyed to a person, nine leakage checks (seven run on the frozen split), and 563 quoted numbers audited against their models' training persons. Its CT census, 21,622 CTs from 21,603 persons, was mined for the anatomy on which counting fails: two automatic labelers chosen to fail differently filled a registry of 6,108 persons from the collections then in hand, 146 of them with a sixth lumbar vertebra, 103 on an expert read, and 14 with a thirteenth thoracic, and screened 18 further public collections (843 GPU-hours) under a stopping rule, fixed before any download, that turned 29,479 mostly chest CTs away. A labeler's 9.3\pct{} rate of thirteenth rib-bearing vertebrae in 367 chest CTs fell to 1.4\pct{} (5 of 367) once a rib on the named body was required, the check outside the computation that this project's gates make routine. From the platform come CTSpinoPelvic1K, 802 CTs with every vertebra and the sacrum labeled [8],
+the data platform under it: a card for each of 211 imaging sources, 115 of them on the grid (5.3 TB), every item keyed to a person, nine leakage checks (seven run on the frozen split), and 563 quoted numbers audited against their models' training persons. Its CT census, 21,622 CTs from 21,603 persons, was mined for the anatomy on which counting fails: two automatic labelers chosen to fail differently filled a registry of 6,108 persons from the collections then in hand, 146 of them with a sixth lumbar vertebra (Figure~1d), 103 on an expert read, and 14 with a thirteenth thoracic, and screened 18 further public collections (843 GPU-hours) under a stopping rule, fixed before any download, that turned 29,479 mostly chest CTs away. A labeler's 9.3\pct{} rate of thirteenth rib-bearing vertebrae in 367 chest CTs fell to 1.4\pct{} (5 of 367) once a rib on the named body was required, the check outside the computation that this project's gates make routine. From the platform come CTSpinoPelvic1K, 802 CTs with every vertebra and the sacrum labeled [8],
 whose benchmark paper is a NeurIPS 2026 poster; 39,705 plain radiographs, 12,709 of which train a film detector that
 finds 98.8\pct{} (at 0.25) of 161 lumbar vertebrae on 17 spines it never saw; the physics renders and real frames of Aim 3,
 COBRA's 692 cases among them [29]; and a level model that names 96.4\pct{} of the lateral vertebrae the
@@ -172,15 +172,15 @@ CT and C-arm cadaver set imaged at WSU and a differentiable 3-D Gaussian X-ray r
 PI's Gaussian-splatting work, and then on the multimodal model that reads the image and the chart.
 
 \begin{figure}[t]\centering
-\includegraphics[width=\linewidth]{figures/fig1_panel.pdf}
-\caption{Three aims. (a) The agent iterates until a sealed gate passes or its budget runs out. (b) Beethoven starts it on the grid. (c) Mean comfort [9]. (d) A sixth lumbar vertebra (arrow). (e) No indexed passage or patient record leaves the grid. (f) Zero-shot and detection rows never saw C-ArmLSpine; others hold out whole cases. Bars: 95\pct{} case-clustered intervals.}
+\includegraphics{figures/fig1_panel.pdf}
+\caption{Three aims. (a) The agent iterates until a sealed gate passes. (b) Beethoven starts it on the grid. (c) Mean comfort [9]. (d) A sixth lumbar vertebra (arrow). (e) Inside the dashed line: the grid; answers are graded beside OpenEvidence's. (f) Zero-shot and detection rows never saw C-ArmLSpine; others hold out whole cases. Bars: 95\pct{} case-clustered intervals, where recorded.}
 \end{figure}
 
 \subsection*{2. Aims, approach and preliminary work}
 \aim{Aim 1 (Foundational AI, AI for Science): semi-autonomous research under strict frameworks, and the measurement of
 the agents.} The agent is Claude Code at a pinned model version. Semi-autonomous: a person sets each task's question
 and gate (a pass/fail test, sealed by hash before the first job, that the agent can read but not change) and merges
-each result; any other step a person takes, blind to faults, is a logged intervention. The agent iterates: it seals
+each result; any other step a person takes, blind to faults, is a logged intervention. The agent iterates (Figure~1a): it seals
 each hypothesis with its criterion, runs jobs under Beethoven's rules, counts a result only from code beethoven-qa
 passed (contracts searched for counterexamples by CrossHair and Z3) and keeps its REFORMS record, until the gate passes
 or the budget is spent, then marks its Symphony pull request ready. \emph{1a, framework-bound iteration.} Thirty tasks,
@@ -241,8 +241,8 @@ device-styled corpus of 142 TotalSegmentator spines; real frames of three device
 cases, each a cone-beam CT with AP and lateral frames; truth automatic, two CT labelers agreeing) [30], DeepFluoro (cadaver pelvis fluoroscopy) and COBRA (radiotherapy imaging) [29]. \emph{Model}: a
 detector finds each body and the sacrum, a level model names each body, a count up from the sacrum checks the names,
 and the stack abstains where count and shape disagree or the name is unsure. New here, the C-arm detector will learn
-each body's four corners, as the film detector does, from the CT's corners projected at the device's geometry
-(Figure~1d), exact on renders. \emph{Preliminary results} (Figure~1f). With no C-arm image in training, the level
+each body's four corners, as the film detector does, from the CT's corners projected at the device's geometry,
+exact on renders. \emph{Preliminary results} (Figure~1f). With no C-arm image in training, the level
 model names 96.4\pct{} of the 617 lateral bodies the film-trained detector finds on C-ArmLSpine (88.0\pct{} of all 676
 with agreed truth) but 43.7\pct{} of the 631 AP bodies. Fine-tuned on the AP frames of five cases, it names
 90.8\pct{}, and 98.1\pct{} with all other cases, each test case held out. On the 233 frames where the sacrum is found
