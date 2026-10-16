@@ -90,7 +90,7 @@ New Investigator status & The PI is a New Investigator: a tenure-track Assistant
   The Co-PI is a Professor and
   not a New Investigator.\\[2pt]
 Request & \$18,568 for 12 months, January 1 to December 31, 2027. No award funds go to an external collaborator:
-  lines B to D buy goods and services from WSU units and vendors, and Aim 3 uses WSU's own C-arm. The PI leads no other AIDaS
+  lines B to D buy goods and services, and Aim 3 uses WSU's own C-arm. The PI leads no other AIDaS
   proposal this cycle.\\
   % \tbd{confirm}.\\
 \end{tabularx}
@@ -102,12 +102,11 @@ Joint Commission 9 times in 2024, 7 of them spinal [22]; paid US malpractice cla
 \$1.3 billion over 1990--2010 [23]. It persists because surgeons confirm the level by counting vertebrae on an X-ray
 from a C-arm, the operating room's mobile fluoroscope, and the count fails in patients with an extra or missing lumbar
 segment and on images that show too few vertebrae. This project's goal is a customizable, locally hosted
-retrieval-augmented language model for spine care (a RAG-LLM): a multimodal model on the WSU grid that reads the image
-through the Open Spine Consortium's own X-ray detector and level model, retrieves from the consortium's index of Scopus
+retrieval-augmented language model for spine care (a RAG-LLM): a multimodal model on the WSU grid that reads the image through the Open Spine Consortium's X-ray detector and level model, retrieves from the consortium's index of Scopus
 and ScienceDirect spine literature (text, images and multimedia, under WSU's text and data mining rights) and answers
 with verbatim, cited quotations; fine-tuned, in its second release, on images paired with clinical charts under the consortium's pending IRB protocol (about 4,000 Detroit Medical Center spine surgery patients; amended as the work requires); compared with OpenEvidence's clinical evidence service through a Claude plug-in [31]; and customizable in that a lab swaps in its
 own corpus, detectors and records. The consortium's spine program is the case example of what an organized,
-AI-assisted workflow builds in a short time: an imaging platform mined for the problem (211 catalogued sources, 115 on the grid at 5.3 TB: a census of 21,622 public CTs mined for the anatomy on which counting fails, 39,705 plain radiographs,
+AI-assisted workflow builds in a short time: an imaging platform (211 catalogued sources, 115 on the grid at 5.3 TB: a census of 21,622 public CTs mined for the anatomy on which counting fails, 39,705 plain radiographs,
 COBRA's 692 radiotherapy cone-beam cases with 375,618 projections); 802 CTs with every vertebra labeled
 (CTSpinoPelvic1K, a NeurIPS 2026 benchmark); a physics renderer; and a level model that, never trained on a C-arm
 image, names the level of 96.4\pct{} of the lateral vertebrae a film-trained detector finds on a public C-arm dataset,
@@ -117,11 +116,8 @@ agent iterates the scientific method inside the consortium's frameworks (the clu
 reporting protocols, multi-agent coordination on GitHub), a result counting only when a test sealed before the run
 passes and a person merges it, on tasks with a planted fault submitting a wrong result, we expect, in under a fifth of
 runs against over half without the checks; from the same records Aim 1 measures what each run costs in tokens, tool
-calls and context, and Symphony's claim protocol against the worktree and framework orchestrators it competes with, on
-CooperBench's pairs first and SWE-bench after. Aim 2 gives the agent to eight medical trainees and measures, task
-against matched task, what it adds over a coding assistant; their literature questions go to the RAG-LLM's text half
-on the grid. Aim 3 builds the case example through to the RAG-LLM: the detection gap closed with the 372,000 COBRA
-projections no model has seen, learned X-ray simulation and a CT-paired cadaver set imaged at WSU, then the multimodal
+calls and context, and Symphony's claim protocol against the worktree and framework orchestrators it competes with, on CooperBench's pairs and SWE-bench. Aim 2 gives the agent to eight medical trainees and measures, task
+against matched task, what it adds over a coding assistant; their literature questions go to the RAG-LLM on the grid. Aim 3 builds the case example through to the RAG-LLM: the detection gap closed with 372,000 unseen COBRA projections, learned X-ray simulation and a CT-paired cadaver set imaged at WSU, then the multimodal
 model that reads the image and the chart. Deliverables: Aim 1's tasks, records, benchmark suites and report (MIT
 license, as WSU's technology-transfer review clears), the RAG-LLM's first release on the public corpus with its graded
 question set, the cadaver set, an FDA Pre-Submission, and NSF CAREER and NIH R21 proposals.

@@ -424,6 +424,14 @@ Since issue #106 the list is [1] to [31]; [1] to [20] are as before.
   approved"; the references stay 5.8 pt in five columns and the orchestrator frameworks stay named, for room. To hold
   10 pages after it: the narrative on 9.7 pt leading, Figure 2 at 0.46 of the line and Figure 4 at 0.48, two
   timeline rows and the closing line shortened. `review/page_slack.py` now measures against the 0.65 in margins.
+- **The contact lines of 2026-10-16 (issue #108).** The owner's lines in the private `latex/contacts.tex` take two
+  more lines on the cover than the placeholders, which pushed the keywords' second line onto an eleventh page. Six
+  trims win it back without dropping a fact: "own" before the consortium's detector, "mined for the problem" (the
+  census sentence says it), "first" and "after" around CooperBench and SWE-bench, "372,000 unseen COBRA
+  projections", "the RAG-LLM" for "the RAG-LLM's text half" in the abstract (Aim 2 keeps the text half), and "lines
+  B to D buy goods and services" without "from WSU units and vendors". With the real lines page 1 is full; with the
+  example lines it has 18 pt to spare. The PI's line prints two phone numbers with no label between them, as the
+  owner's file has it.
 
 ## 5. The execution skeleton
 
