@@ -17,7 +17,7 @@ grid and are read here from git history at main 5597197 (`ARCHIVE.md`). Row ids 
 | 12.9 % of 550 surgical patients had a transitional vertebra; miscounted in clinic in 54 % [4] | `02_transitional_naming_truth/docs/LEVELCHECK_CLAIM.md` (Nakagawa 2017) |
 | LevelCheck registers the preoperative CT to each image [5], 17 to 72 s in an operating room [6], against the 20 s to one minute surgeons said they would wait [7] | `01_carm_level_detection/docs/MODEL_CARD.md` section 6 (`levelcheck2012`, `manbachi2018`, `desilva2016`) |
 | CTSpinoPelvic1K: 802 CTs, release 11, Zenodo 10.5281/zenodo.22797014 [8] | `03_ctspinopelvic1k_dataset/README.md` |
-| one figure of the consortium's C-arm study took 250 fine-tunes | catalog section A9's header (250 / 250 cells behind Figure 5b) |
+| (cut for room on 2026-10-16) one figure of the consortium's C-arm study took 250 fine-tunes | catalog section A9's header (250 / 250 cells behind Figure 5b); the sentence left the packet in the rewrite for issue #106 |
 | the 2026 cohort [9]: 16 students, seven with no coding and eleven with no imaging experience, ten sub-projects active at the survey, all ten submitted as abstracts to a national meeting; Table 1's six domains, rated retrospectively before and after; the IRB's determination that the program was not human participant research; its success depending on mentors expert in Python, imaging software and Slurm; its limits, no control group and no objective measure | Cureus 2026;18(7):e112661, the PDF under `11_students_grid_access/manuscripts/` at 5597197 (Methods, Results, Limitations) |
 | the grid's H200 partition, 4 nodes of 4 GPUs (gmsap) | `11_students_grid_access/docs/handoff/EXTRACTS_11.md` |
 | 7,045 standard and 1,482 transitional annotated physics renders | `08_render_devices/README.md` (the 7,045 include 1,321 renders of synthetic-implant CTs) |
@@ -48,6 +48,41 @@ grid and are read here from git history at main 5597197 (`ARCHIVE.md`). Row ids 
 | the five planted faults: a patient in both training and test sets, the wrong label scheme, a threshold tuned on the test set, a typed number, a run that does not reproduce | the failures this programme guards against, root `CLAUDE.md` rules 3 to 6 (numbers wrong but plausible, two label schemes, held out means held out, pre-register then score) and `01_carm_level_detection/CLAUDE.md` (the threshold 0.74 is cross-device, never pre-stated; a number enters a manuscript only through a manifest key; resume is not reproduce) |
 | Aim 1's design: 30 tasks, 10 for development and 20 sealed, each with a hidden check and a clean and a faulted copy; two arms, with and without the checks; eight GPU-hours per task, reruns included; each arm runs each copy once (80 runs); H1's under 20 % against over half, with no fewer passes on clean copies | chosen on 2026-10-15 for issue #100 and revised the same day after review (section 4); no file stands behind them, and H1's thresholds are a hypothesis written before any run, not a result |
 | the Co-PI's four high-performance computing papers with the clinical collaborator (2021 to 2024); the PI's Gaussian-splatting and implicit-surface papers (CVPR 2025 and 2026, NeurIPS 2024); the PI's PhD of November 2017 and appointment since January 2021 | the two biosketches (submitted with the packet, not committed) |
+| US neurosurgeons reported 418 wrong-level operations in about 1.3 million, one in 3,110, 17 % followed by legal action [2] | `01_carm_level_detection/docs/PRIOR_ART_LEVEL_ID_HUMANS_AND_AI.md` (Mody 2008: self-report, 415 responses, a 12 % response rate, no interval) and `09_wrong_level_clinical_qi/docs/WRONG_LEVEL_COST_EVIDENCE.md` (73 of the 418 led to legal action or settlement) |
+| surgeons' median naming error 30.4 % unaided and 2.4 % with LevelCheck, on 62 hard intraoperative images [6] | `01_carm_level_detection/docs/PRIOR_ART_LEVEL_ID_HUMANS_AND_AI.md` (Manbachi 2018: five surgeons, the same images, p < 0.01) |
+| wrong-site surgery a serious reportable event, unpaid by Medicare since January 2009 [21] | the web only (section 2): the National Quality Forum's 2011 update, event 1A, and CMS national coverage determinations 140.6 to 140.8, effective January 15, 2009; neither local evidence brief covers them, and CMS's own term is "wrong body part" |
+| the Joint Commission's 2024 review: 127 wrong surgeries, 9 wrong-level, 7 of those spinal, 36 % with severe permanent harm [22] | `09_wrong_level_clinical_qi/docs/WRONG_SITE_BURDEN_EVIDENCE.md` (the primary PDF, read verbatim by three verifiers; reporting is voluntary, so the counts are a floor, and the report draws no frequency from them) |
+| paid US malpractice claims for surgical never events, $1.3 billion over 9,744 claims in 1990 to 2010 [23] | the same file (Mehtsun 2013: all surgical never events, a 21-year total, about $62 million a year; no source supports "billions a year", so the packet never says it) |
+| 978 English spinal negligence claims over five years, 535.5 million pounds [24] | `09_wrong_level_clinical_qi/docs/WRONG_LEVEL_COST_EVIDENCE.md` (Machin 2018: April 2012 to April 2017, every spinal negligence claim, 26 of them never events; an estimate that includes reserves) |
+| one US insurer's 68 wrong-site claims closed in 2013 to 2020 averaged $136,453, 60.3 % settled, spine the commonest procedure [25] | `09_wrong_level_clinical_qi/docs/WRONG_SITE_BURDEN_EVIDENCE.md` (Tan 2023: mean closed claim value $136,452.84, 60.3 % settled; spine or disc surgery the commonest procedure type at 22.1 %; a skewed mean, the poster's median $36,250 unconfirmed) |
+| a card for each of 211 imaging sources (5.3 TB on the grid) | `10_data_platform_grid/code/data_platform/DATA_MANIFEST.md` (211 sources: 176 upstream releases, 7 project releases, 23 derived products, 2 output roots and 3 drafted requests; 115 on disk) and `10_data_platform_grid/docs/grid_read_2026-10-08/census/ceph/census.tsv` (5,333.691 GB in 4,579,361 files on 2026-10-08, six migration batches not yet landed) |
+| every item keyed to a person, which closed the two cross-naming leaks the identity checks found; nine leakage checks | `10_data_platform_grid/docs/handoff/LEAKAGE.md` (NHANES II entered the banks twice, 48 of 54 validation patients with a twin in training; CTSpinoPelvic1K under two names put 371 people on both sides of a split; both closed) and `10_data_platform_grid/STATUS.md` (CHK-1 to CHK-9; seven ran on the frozen person split, CHK-6 and CHK-7 not run; the leak audit passed) |
+| 563 quoted numbers audited against their models' training persons | catalog row A19.2 (CHK-9: after the v9 closure 380 held out, 81 seen, 1 unresolved, 101 not applicable) |
+| the CT census, 21,622 CTs from 21,603 persons | `06_transitional_ct_census/docs/ruleclass/TIERS.md` (catalog D.19, quoted "by the tier lists"; the grid's CORPUS.md says 21,655, a 33-CT difference recorded as unexplained) |
+| two automatic labelers chosen to fail differently screened 18 public collections (843 GPU-hours) | `06_transitional_ct_census/docs/CENSUS_TABLE_2026-09-25.md` (843 GPU-hours: TotalSegmentator 443, SPINEPS 400) and `06_transitional_ct_census/STATUS.md` (catalog D.13: 18 collections, 18,873 listed; the row is DISPUTED for its on-disk and field-gate counts only, which the packet does not quote) |
+| a registry of 6,108 persons holding 146 with a sixth lumbar vertebra, 103 on an expert read, and 14 with a thirteenth thoracic | catalog row D.8 (6,131 rows, 6,108 persons, 782 alias edges; L6 146, of which 103 read by a person; T13 14) |
+| a stopping rule fixed before any download that turned 29,479 chest CTs away | catalog row D.11 (the rule: no collection below 20 expected transitional persons per terabyte, no fetch under 5 TB free, an 8 TB cap, tier 1 before tier 2; 29,479 chest CTs, 2.9 TB, turned down) |
+| one labeler called a thirteenth rib-bearing vertebra in 9.3 % of 367 chest CTs, five to fifteen times the published rate; requiring a rib on the named body brought it to 1.4 % | catalog row D.12 (the NLST pilot: 34 of 367 from labeller A alone; 5 kept with a rib, 1.4 % of 367, which the catalog's own prose rounds to 1.5 %; the prior 0.6 to 2.0 %) |
+| CTSpinoPelvic1K's benchmark paper is a NeurIPS 2026 poster | `03_ctspinopelvic1k_dataset/README.md` (submission 3474, accepted as a poster on 2026-09-24, OpenReview D8yRWDAGQF, the Evaluations and Datasets track) |
+| 39,705 plain radiographs, 12,709 of which train a film detector | `10_data_platform_grid/docs/DATA_COMPLETENESS_AUDIT.md` (12,709 of 39,705 held films) and `01_carm_level_detection/docs/handoff/DATASET_USAGE.md` (the body detector's film corpus); the 39,705 are CSXA 4,963, BUU-LSPINE 7,203, NHANES II 17,073 and VinDr-SpineXR 10,466 |
+| the film detector finds 98.8 % of 161 lumbar vertebrae on 17 spines it never saw | row A14.1 (at confidence 0.25, the threshold the packet uses elsewhere; 99.4 %, 160 / 161, at 0.05; the spines are NHANES II radiographs; the render-trained arm of the row is never quoted, its bank being the leaked one) |
+| device cards fitted to four imagers reproduce held-out real frames at R^2 0.679 to 0.974 | row A12.1 (Cios Fusion 0.905, BV Pulsera 0.952, Elekta XVI 0.974, PIXIUM 4600 0.679, each above uncalibrated physics; fitted on 40 frames or fewer, 14 for PIXIUM) |
+| COBRA: 692 radiotherapy cone-beam cases (467 Elekta XVI, 225 Varian OBI), 375,618 projections, each case with its acquisition geometry and a registered planning CT [29] | `01_carm_level_detection/MANIFEST_GRID.md` (692 of 692 cases, 375,618 projections, 808.615 GB by ls on 2026-10-08; `DATASET_USAGE.md` gives 771 GB) and `01_carm_level_detection/docs/DATASHEET.md` (Elekta XVI, centres A to D, 467 public cases, 0.8 mm at 504 squared, a deformably registered planning CT and RTK geometry per case, CC BY-NC 4.0); the 225 Varian cases are `DATASET_USAGE.md`'s "0 of 225 Varian", and 467 + 225 = 692 |
+| 145 Elekta cases, 24 frames each, are in any training bank; 322 Elekta and all 225 Varian cases train nothing; the 372,000 unseen projections | `01_carm_level_detection/docs/handoff/DATASET_USAGE.md` section 2 (145 Elekta cases of 24 frames in the banks, 0 of 225 Varian); 467 - 145 = 322; 375,618 - 3,480 = 372,138, written as 372,000 |
+| Elekta frames and their styled renders alone find 86.8 % (249 of 287 [81.1, 91.8]) of the held-out C-arm's vertebrae at 0.25 on outline truth; cadaver C-arm frames alone 12.9 %; cutting the Elekta frames from 2,640 to 240 costs 47.7 points [-53.7, -41.8] | rows A7.1, A7.2 and A7.4 (the A7 header: 24 arms, 85 held-out cells, confidence 0.25, outline truth; under body-box truth the same arm reads 11.1 %, which is why the packet names the convention) |
+| a detector that never saw COBRA finds 6.2 % of its vertebrae (18.5 % at 0.25) | row A6.9 (55 / 893 at 0.74, 165 / 893 at 0.25) |
+| COBRA's median age is 66 | row A18.1 (age known on 115 of the 145 exported cases) |
+| 7 transitional persons found and 91 calls unread on COBRA | row A16.6 (7 at-risk persons with an exported frame, 4 two-labeller and 3 single-labeller, L6 3; 91 unread test-side calls: L6 38, T13 45, four-lumbar 8) |
+| the sacrum defined on 18.2 % of 609 COBRA test frames | row A4.4 (111 / 609 at 0.25) |
+| two deployment routes have FDA precedents, an app on the C-arm maker's own platform and an external unit reading the C-arm's video output | `01_carm_level_detection/docs/CARM_DEPLOYMENT_EVIDENCE.md` (Siemens Cios OpenApps on the Cios family, clearances K181560 and K203504; NuVasive/Globus Pulse with LessRay, K180038) |
+| CooperBench: two agents in separate workspaces, talking only by message, passed 183 of 652 feature pairs against 315 for one agent (GPT-5), most failures duplicated or incompatible work [27] | the Symphony taxonomy specification and manual the owner sent on 2026-10-15 (kept out of git), section 7.1 of the specification, which verified the counts in the paper's PDF: GPT-5 315 against 183 of 652, Claude Sonnet 4.5 307 against 168; 33.2 % of failed two-agent runs were work overlap and 29.7 % divergent architecture. These are the paper's published counts; the consortium's own coordbench runs appear nowhere, under the owner's hold of 2026-10-15 until the full suite has run |
+| a shared workspace with optimistic concurrency raised a worktree baseline from 63.8 to 82.5 % on Commit0-Lite [26] | the package-search report the owner sent on 2026-10-15 (kept out of git), quoting STORM's macro pass rates; the paper is arXiv 2605.20563, "Multi-agent collaboration with state management", whose abstract page on export.arxiv.org gave the authors on 2026-10-16 |
+| the orchestrator "as the consortium's own first attempt did" (worktrees, merge, adversarial review, verify); LangGraph's fan-out with checkpointing, Temporal's sagas, OpenHands sandboxes, schema-validated outputs | the owner's Workflow script of 2026-10-15 (three parallel worktree builders, a stack-and-merge step, a four-lens adversarial review, verify, fix) and the package-search report that proposes LangGraph.js's Send API with checkpointing, Temporal.io, OpenHands sandboxes and Zod-validated outputs for it; both kept out of git |
+| gh-aw's work queue, unsorry, Copilot's cloud agent and Claude Code's agent teams, placed on the twelve-axis taxonomy (who pays, how a claim is kept, what decides acceptance) | the taxonomy specification (twelve axes; the three the study rests on are axis 10, who pays for compute and inference, axis 5, how a claim is kept, and axis 11, what decides that work is acceptable; its neighbours include gh-aw's work queue, unsorry, Copilot's cloud agent, Claude Code's agent teams and agentic-setup) and the manual, the owner's documents of 2026-10-15 |
+| agentprof's hooks [28] | github.com/kitaisreal/agentprof, its README read on raw.githubusercontent.com on 2026-10-16: "A profiler for agentic coding tools" that registers PreToolUse and PostToolUse hooks in Claude Code and logs every tool call with timestamps and token counts |
+| Symphony records what each run cost (a usage trailer on every commit, a usage artifact per Actions run, aggregated by its metrics workflow) | `OpenSpineConsortium/symphony-template`, `docs/memory/field-metrics.md` and `.github/workflows/metrics.yml` (the Symphony-Usage trailer on each session's commits, a symphony-usage artifact per Claude run in Actions, read into the economics and coordination keys; symphony-template#57) |
+| its protocol library is checked over every interleaving of a few workers against an oracle written from its spec | `OpenSpineConsortium/symphony-protocol`, `validation/DESIGN.md` and `validation/README.md` (the validation harness: every interleaving of a few workers against an oracle written from the specification's text, with the 93 mutants proving the checks bite; on `main` after release 0.4.1) |
+| compute is GitHub's free standard runners on public repositories (Aim 1c and the budget's C1, C2 note) | the taxonomy specification's table of what GitHub gives (standard runners with 4 vCPUs, 16 GB and a 14 GB SSD on public repositories; concurrent jobs Free 20, Pro 40, Team 60), checked by the owner's documents against GitHub's pages; the packet prints no runner size |
 
 No number in the packet comes from a row marked LEAKED, SUPERSEDED or RECORD ONLY (root CLAUDE.md rule 5). The
 numbers drawn in Figures 2c and 4 are typed once in `make_figures.py` beside their rows; `figures/sources/SOURCES.md`
@@ -111,6 +146,29 @@ and [3] surveyed neurosurgical societies; the cohort's ten abstracts were submit
 check by hand: the first author's initial in [4] and the Zenodo page of [8]. The FICA rate of line A2 is the
 employer's statutory share, Social Security 6.2 % and Medicare 1.45 % (IRS Publication 15,
 https://www.irs.gov/publications/p15).
+
+### Values added on 2026-10-16
+
+The rewrite for issue #106 (the owner's items 5 to 12 of 2026-10-15) added references [21] to [30]. The cost
+literature rests on the project's own evidence briefs under `09_wrong_level_clinical_qi/docs/` and on search snippets
+gathered on 2026-10-15 (`evidence/spine-aim-facts-2026-10-15.md`, whose run could open no publisher page); the three
+arXiv abstract pages were read on export.arxiv.org on 2026-10-16 and agentprof's README on raw.githubusercontent.com.
+Each bibliographic detail marked "snippet" below is checked on PubMed or the publisher's page before submission.
+
+| value in the packet | source |
+|---|---|
+| [21] NQF, Serious Reportable Events, 2011 update (event 1A, wrong site); CMS NCD 140.6 to 140.8, effective January 15, 2009 | snippets of https://qualityforum.org/Publications/2011/12/SRE_2011_Final_Report.aspx and https://www.cms.gov/transmittals/downloads/R101NCD.pdf; in neither local brief |
+| [22] The Joint Commission, Sentinel Event Data, 2024 Annual Review | the primary PDF, verified by the brief's three verifiers (digitalassets.jointcommission.org, content id eac7511986c0442a9c1ae04b1aa02cc0) |
+| [23] Mehtsun WT, et al. Surgery 2013;153(4):465-72 | volume, issue and pages from a snippet of https://pubmed.ncbi.nlm.nih.gov/23257079/; the brief records the claim counts and the total, not the pages |
+| [24] Machin JT, et al. Eur Spine J 2018;27:2693-9 | the brief gives 27(11):2693-2699, PMID 30151803; the issue number was not confirmed on the web, so the packet prints the volume alone; a snippet says a 2019 correction (28(1):195) fixed the first author's name |
+| [25] Tan J, et al. Jt Comm J Qual Patient Saf 2023;49(5):265-73 | the brief gives the journal, volume, issue, pages and PMID 36925434; the author list is from a snippet of the ScienceDirect page |
+| [26] Liu M, et al. Multi-agent collaboration with state management (STORM). arXiv:2605.20563 | https://export.arxiv.org/abs/2605.20563 (Liu, Chen, Xu, Jiang, Dong and others; 2026-05-19); the 63.8 and 82.5 % are the owner's report's reading of the paper, not read in the paper here |
+| [27] Khatua A, et al. CooperBench. arXiv:2601.13295 | https://export.arxiv.org/abs/2601.13295 ("CooperBench: Why Coding Agents Cannot be Your Teammates Yet", Khatua, Zhu, ..., Yang; 2026-01-19); the counts from the taxonomy specification's section 7.1 |
+| [28] agentprof. github.com/kitaisreal/agentprof, 2026 | https://raw.githubusercontent.com/kitaisreal/agentprof/main/README.md |
+| [29] Thummerer A, et al. COBRA2026. arXiv:2607.20037 | https://export.arxiv.org/abs/2607.20037 ("COBRA2026: a large-scale multicenter pelvic cone-beam computed tomography projection dataset", Thummerer, Rit, Kamp, Maspero and others); `10_data_platform_grid/code/data_platform/sources.json` gives the same id and Zenodo 10.5281/zenodo.21322350, v1.0.0 of 2026-07-13 |
+| [30] C-ArmLSpine. Med Image Anal 2024;97:103283 | `10_data_platform_grid/code/data_platform/sources.json` (Zhang et al., Medical Image Analysis 97:103283, 2024; Zenodo 10.5281/zenodo.22768651; doi:10.1016/j.media.2024.103283); no local file holds the author list, so the reference names the dataset, as [8] does |
+
+Since issue #106 the list is [1] to [30]; [1] to [20] are as before.
 
 ## 3. What only the team can supply (the red [DATA NEEDED] marks)
 
@@ -282,6 +340,48 @@ https://www.irs.gov/publications/p15).
 - **The figures.** Figure 2a is redrawn as vector boxes from the labels of the extension's own store diagram, and
   Figure 2b crops the popup's top half, which shows no grid login; the VS Code edition's diagrams have labels that
   overlap at print size and are not used.
+
+- **The rewrite of 2026-10-16 (issue #106; the owner's items 5 to 12 of 2026-10-15).** The abstract and section 1
+  now carry the hospital's stake in cited rules and costs (never "billions a year", which no source supports), the
+  platform's scale and the census that mined it; Aim 1 gained 1b (the cost of the agent: Symphony's usage records, a
+  profiler, four economies run as sealed tasks, a standing routine proposing the next experiment), 1c (the claim
+  protocol against the worktree orchestrator, one framework orchestrator and the published systems, on CooperBench's
+  pairs, SWE-bench instances and Aim 3's tasks, on GitHub's free runners and the grid) and 1d (the control panel, the
+  token wizard, the Actions-to-grid bridge, the extension's click brought to the claude.ai Project); Aim 3 gained
+  "What COBRA adds". To hold three pages the narrative is 8.8 pt on 10 pt leading with 0.65 in margins (was 9 pt and
+  0.7 in), the evaluation table is folded into the Measures clauses and section 3 is one line, Figures 1 and 4 are
+  0.58 of the line and Figure 2 is 0.54, Figure 3's panels are 2.80 and 1.71 in, Figures 2 and 3 are top floats, and
+  the references are 5.8 pt in five columns. Cutting 1d or the Measures clauses would give back 9.5 to 10 pt.
+- **Defaults taken in that rewrite, for the owner to overrule.** (1) CooperBench's published counts are cited as
+  literature [27]; the consortium's own coordbench runs appear nowhere, under the owner's hold of 2026-10-15 until the
+  full suite has run. (2) H1b ("the four economies together pass the same gates at under half the tokens") and H1c
+  ("cost per passing task at or under each orchestrator's on every suite, pass rates inside their paired intervals")
+  are hypotheses written before any run, with thresholds this session chose. (3) Item 9 of the owner's list arrived
+  cut off ("Projects can only be opened in"); 1d reads it as bringing the extension's one click to the claude.ai
+  Project each trainee works in. (4) The strace article the owner linked is "system-call tracing" in 1b, with no
+  reference, since its page was not read. (5) Left out on purpose: the A8 learning curve (its N = 0 floor is a
+  box-convention artefact, A8.1, and would read against A6.1's 80.5 %); A3.1 and A3.2 (beside A9.2's 98.1 % they
+  would look inconsistent); A8.6 (HELD-OUT, NOT QUOTED); the render-trained arm of A14.1 (a leaked bank); and, for
+  room, "(one results figure took 250 fine-tunes)", "(0.42 % in the thoracic spine)", "(88.0 % counting those it
+  misses)" from the abstract only (Aim 3 keeps it) and the runners' "(4 vCPUs, 16 GB)". (6) The costs [21] to [25]
+  rest on the project's briefs and on search snippets; no publisher page was read, so each is checked by hand before
+  submission (section 2). (7) The COBRA sentence names no tube voltage: the Elekta imagers run at 120 kV and the
+  Varian ones at 125 to 140 kV in a research note that calls itself unverified, so the packet says "a linac's kV
+  imager" and no number.
+- **What adding COBRA buys, the owner's question of 2026-10-15, in one place.** Today 145 of COBRA's 692 cases
+  (3,480 frames) are in any training bank, and they already carry cross-device detection: Elekta frames and their
+  styled renders alone find 86.8 % of the held-out surgical C-arm's vertebrae at 0.25 on outline truth, cadaver
+  C-arm frames alone 12.9 %, and cutting the Elekta frames tenfold costs 47.7 points (A7.1, A7.2, A7.4). The other
+  372,000 projections (322 Elekta and all 225 Varian cases) come with each case's acquisition geometry and a
+  registered planning CT, so they are real-image corner labels for the new detector at scale, paired data to fit the
+  simulator's spectrum, scatter and sensor terms by supervision, and a second held-out vendor; the cost is an export,
+  storage, a Varian bank with a quality look and GPU hours, written into Aim 1's task set and quarter 1. The limits
+  the packet states: a linac's kV imager is not a surgical C-arm; a detector that never saw it finds 6.2 % of its
+  vertebrae (A6.9); its median age is 66 (A18.1); 7 transitional persons found and 91 calls unread (A16.6); the sacrum
+  defined on 18.2 % of 609 test frames (A4.4); so COBRA trains detection and simulation while the surgical C-arm and
+  the cadaver set test naming. Not in the packet: CC BY-NC 4.0 terms (research use, no commercial product trains on
+  it without the licensors' leave) and the 74,364 cross-case near-duplicate pairs (different patients at the same
+  gantry angle; no same-case pair, so the by-case split holds; `01_carm_level_detection/docs/DATASHEET.md`).
 
 ## 5. The execution skeleton
 
