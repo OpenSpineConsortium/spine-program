@@ -23,13 +23,13 @@ grid and are read here from git history at main 5597197 (`ARCHIVE.md`). Row ids 
 | 7,045 standard and 1,482 transitional annotated physics renders | `08_render_devices/README.md` (the 7,045 include 1,321 renders of synthetic-implant CTs) |
 | a device-styled corpus of 142 TotalSegmentator spines | `01_carm_level_detection/docs/handoff/DATASET_USAGE.md` (devcorpus; design P; 12,730 styled entries) |
 | C-ArmLSpine: 149 public lumbar cases, each a cone-beam CT with AP and lateral frames; automatic truth from two CT labelers agreeing | `01_carm_level_detection/docs/handoff/DATASET_USAGE.md` section 2.3 (149 is the released count; `MODEL_CARD.md` section 5.1 scores 148) and `MODEL_CARD.md` section 5.1 ([AUTO-TRUTH]) |
-| YOLO11m detector; ResNet-18 encoder; two-layer bidirectional GRU over the run of 2 to 9 bodies; 27 levels | `01_carm_level_detection/docs/MODEL_CARD.md` (the model table); Figure 3a is `figures/schwingnet/fig1c_arch.pdf` at 5597197 |
-| SID 1,140 mm and SOD 745 mm, so 1.53 times larger on the detector (Figure 3b) | `01_carm_level_detection/docs/MODEL_CARD.md` section 6.1 |
-| the sixth lumbar vertebra in a labeled CT, its render and another person's radiograph; scale bars 20 mm, white on the CT and the render and black on the radiograph (Figure 1c) | `01_carm_level_detection/figures/schwingnet/figure1.png` and `figure1.record.json` ("bar, 20 mm") at 5597197 |
+| (left the packet with Figure 3 on 2026-10-16, issue #110) YOLO11m detector; ResNet-18 encoder; two-layer bidirectional GRU over the run of 2 to 9 bodies; 27 levels | `01_carm_level_detection/docs/MODEL_CARD.md` (the model table); Figure 3a was `figures/schwingnet/fig1c_arch.pdf` at 5597197 |
+| (left the packet with Figure 3 on 2026-10-16, issue #110) SID 1,140 mm and SOD 745 mm, so 1.53 times larger on the detector (Figure 3b) | `01_carm_level_detection/docs/MODEL_CARD.md` section 6.1 |
+| the sixth lumbar vertebra in a labeled CT, its render and another person's radiograph; scale bars 20 mm, white on the CT and the render and black on the radiograph (Figure 1d) | `01_carm_level_detection/figures/schwingnet/figure1.png` and `figure1.record.json` ("bar, 20 mm") at 5597197 |
 | 96.4 % of the 617 lateral bodies the film-trained detector finds, with no C-arm frame in training (595 / 617, [92.3, 98.4]) | row A2.1 (the naming boxes come from the film-trained keypoint body detector, `detector_v5z_final` at 0.35; the A2 rows' header) |
 | 88.0 % of all 676 lateral bodies with agreed truth (595 / 676; the detector finds 617 of them) | rows A2.6, A2.7 |
 | 43.7 % of 631 AP bodies (276 / 631, [34.9, 51.9]) | row A2.2 |
-| AP fine-tuned on five cases' frames, 90.8 % [86.7, 94.3]; on all the other cases of each fold, 98.1 % [95.7, 99.8]; test cases held out | row A9.2 (on the catalog's REP truth, 633 AP bodies, where the same encoder's starting point is 33.8 %; Figure 4a sets it beside A2.2's zero-shot 43.7 % on 631 agreed bodies); the intervals are those of `results/schwingnet/indomain/name_fill.json` at 5597197, the file the A9 header names (figure5b, AP to AP, N = 5 and N = all; a case-clustered percentile bootstrap over 142 cases) |
+| AP fine-tuned on five cases' frames, 90.8 % [86.7, 94.3]; on all the other cases of each fold, 98.1 % [95.7, 99.8]; test cases held out | row A9.2 (on the catalog's REP truth, 633 AP bodies, where the same encoder's starting point is 33.8 %; Figure 1f sets it beside A2.2's zero-shot 43.7 % on 631 agreed bodies); the intervals are those of `results/schwingnet/indomain/name_fill.json` at 5597197, the file the A9 header names (figure5b, AP to AP, N = 5 and N = all; a case-clustered percentile bootstrap over 142 cases) |
 | on the 233 frames where the sacrum is found, 81.5 % of the 286 that show one | row A6.6 |
 | count and shape coupled, 98.2 % of 1,009 bodies (991 / 1,009, [96.5, 99.5]) | row A5.1 |
 | the stack abstains on 9.9 % of those 233 frames (13 where count and shape disagree, 10 where the name is unsure) and catches 5 of the 6 that err | row A5.3 |
@@ -41,7 +41,7 @@ grid and are read here from git history at main 5597197 (`ARCHIVE.md`). Row ids 
 | the 97 % set in advance, met by no held-out cell | row A6.13 (`ssn:docs/RSNAI_PLAN.md` C7) |
 | styled renders 99 to 100 % separable from real frames | row A13.3 |
 | for the R21: 99 patients give 80 % power for a Wilson lower bound of 90 % at a true 97 % (exactly 82 %; 98 give 66 %, so the number is exactly 99) | row E.4 (its planning values have no transitional measurement behind them) |
-| Beethoven keeps the grid's profile as checked data and its job rules in writing, and runs Claude Code workers as Slurm jobs (the significance, Aim 1, Figure 2) | `OpenSpineConsortium/beethoven-sites` at 83f34e8, `sites/wayne/site.json`: Slurm, the login node, the CPU partition and its QoS (secp, secondary), the GPU partitions by name only (gmsap, gvohp; the schema has no field for a GPU QoS or a GPU request, which only `11_students_grid_access/docs/handoff/EXTRACTS_11.md` records: QoS gpu, `--gres=gpu:1`, gmsap 4 nodes of 4 H200), the login node's 20-process cap and `scheduler_in_worker` (the host's Slurm client bound into the worker's container, measured on the grid on 2026-09-28), held to the module schema by the repository's checker and 53 tests; the launcher that composes the profile and starts the worker is `OpenSpineConsortium/hpcworker`, which this session could not read, and Figure 2a, from the extension's own store diagram. The job rules are prose, not data: "Grid etiquette" in `beethoven-agents/CLAUDE.md` and `beethoven-research/CLAUDE.md`, and the workspace guide the worker is given (follow a job at most once a minute, cancel only its own jobs, container temp on node-local disk); in code, the engine's guard caps arrays at 200 and refuses a secret in `sbatch --export`, and checks no partition, QoS or wall time. The worker has run as a Slurm job on a CPU node, reached from claude.ai (jobs 40496445 and 40501099, `11_students_grid_access/docs/beethoven/WAYNE_STATE_PILOT.md`), but no worker has yet submitted a real job, GPU or not, only `sbatch --test-only`, so Figure 2's caption says the worker is built to send GPU jobs to H200s |
+| Beethoven keeps the grid's profile as checked data and its job rules in writing, and runs Claude Code workers as Slurm jobs (the significance, Aim 1, Figure 1b) | `OpenSpineConsortium/beethoven-sites` at 83f34e8, `sites/wayne/site.json`: Slurm, the login node, the CPU partition and its QoS (secp, secondary), the GPU partitions by name only (gmsap, gvohp; the schema has no field for a GPU QoS or a GPU request, which only `11_students_grid_access/docs/handoff/EXTRACTS_11.md` records: QoS gpu, `--gres=gpu:1`, gmsap 4 nodes of 4 H200), the login node's 20-process cap and `scheduler_in_worker` (the host's Slurm client bound into the worker's container, measured on the grid on 2026-09-28), held to the module schema by the repository's checker and 53 tests; the launcher that composes the profile and starts the worker is `OpenSpineConsortium/hpcworker`, which this session could not read, and Figure 1b, from the extension's own store diagram. The job rules are prose, not data: "Grid etiquette" in `beethoven-agents/CLAUDE.md` and `beethoven-research/CLAUDE.md`, and the workspace guide the worker is given (follow a job at most once a minute, cancel only its own jobs, container temp on node-local disk); in code, the engine's guard caps arrays at 200 and refuses a secret in `sbatch --export`, and checks no partition, QoS or wall time. The worker has run as a Slurm job on a CPU node, reached from claude.ai (jobs 40496445 and 40501099, `11_students_grid_access/docs/beethoven/WAYNE_STATE_PILOT.md`), but no worker has yet submitted a real job, GPU or not, only `sbatch --test-only`, so Figure 1b labels its arrow to the H200s "built to send GPU jobs" |
 | beethoven-qa's gate: contracts on every public function, searched for counterexamples by CrossHair and Z3, required on the agents' and the research code | `OpenSpineConsortium/beethoven-qa` at 85f0e1c, `README.md` (the gate; most conditions are searched within a 20-second bound rather than proven, which the packet's "checked" allows and "proven" would not); `beethoven-agents` at a40a71a and `beethoven-research` at 7e8fd69 each carry its release 3.0.0, hash-checked, and run the gate as a required check on `main` (their `.github/rulesets/main.json`; GitHub's live settings not checked; organization admins may bypass). The gate governs what lands on `main`, not what a job runs: tying each result to code that passed it is specified, not built, so the packet lists "one-command reruns of gated code" among what the consortium builds. The gate covers neither the C-arm code of Aim 3 nor anything outside those two repositories |
 | beethoven-research holds REFORMS [10] rules and plans the CLAIM [11] checklist; the patient-split check is built; the consortium builds, in kind, the other REFORMS checks, the CLAIM checklist and one-command reruns of gated code | `OpenSpineConsortium/beethoven-research` at 7e8fd69: `CLAUDE.md` writes the split, result-row and rerun rules and names the REFORMS record and the CLAIM checklist as to come (`CLAUDE.md` lines 5 and 251-252, `README.md` lines 37-39); no CLAIM item is written yet, so the packet says beethoven-research plans it; of the rules, only the split rule is built; `src/beethoven_research/splits.py`, with 9 tests and a CrossHair check in its required gate, refuses an evaluation case that shares a patient, study, cadaver or CT source volume with a training case. Specified there and not built: result rows that carry the run, the commit and a clean-tree flag, refusing a row from a dirty tree; the log of every human intervention, written when it happens; and each run's compute and quota record (Slurm job ids, GPU-hours, tokens) |
 | Symphony: each task an issue held by one agent, a person merging; public under MIT; its tests catch all 93 mutated rules | `OpenSpineConsortium/symphony-protocol` at a3a5b4d (2026-10-15): `spec/PROTOCOL.md` (one worker per claim, since GitHub refuses a second push of the branch; the owner merges under the default policy, a registered worker may land by auto-merge), `LICENSE`, `validation/README.md` and `tests/test_validation_mutants.py` (93 mutants, each one rule of the library broken on purpose, each caught in the required check on a recorded trace the unbroken library passes; the full search runs outside the required check). The 93 are on `main` after release 0.4.1, not yet released; this repository vendors 0.4.1 as `tools/sdlc_protocol` and uses its claims and board, and no Beethoven repository uses Symphony yet |
@@ -91,7 +91,7 @@ grid and are read here from git history at main 5597197 (`ARCHIVE.md`). Row ids 
 | "the RAG-LLM's first release, on the public corpus (CTSpinoPelvic1K, the labeled films, COBRA)", its second "on images paired with operative notes and radiology reports under IRB-26-03-8648" (Aim 3, section 3's quarters 3 and 4) | a design of this thread's: the public corpus is the one in hand (section 1's rows for 802 CTs, 39,705 radiographs, COBRA), so the first release and its graded question set fit the award year while the protocol is amended and approved; the films carry their collections' published labels (`10_data_platform_grid/docs/DATA_COMPLETENESS_AUDIT.md` lists the four film collections and their label files), no report and no patient record of the consortium's, which is why the packet says "labeled films" and keeps the reports for the second release |
 
 No number in the packet comes from a row marked LEAKED, SUPERSEDED or RECORD ONLY (root CLAUDE.md rule 5). The
-numbers drawn in Figures 2c and 4 are typed once in `make_figures.py` beside their rows; `figures/sources/SOURCES.md`
+numbers drawn in Figure 1c and 1f are typed once in `make_figures.py` beside their rows; `figures/sources/SOURCES.md`
 says where each image comes from. The narrative quotes no number from the execution skeleton's mock run.
 
 ## 2. Values found on the public web, 2026-10-14
@@ -202,7 +202,7 @@ Since issue #106 the list is [1] to [31]; [1] to [20] are as before.
   student assistant's composite rate is 1.7 %, and the difference, about $464, buys about 30 more hours. The
   sensitivity: at $18 an hour line A makes the total $20,247, over the cap unless the hours fall to 507; at $20,
   $21,367, and 456 hours at most.
-- **The data behind the fold models.** Rows A5.1 and A5.3 (Figure 4a's coupled point and the stop signal) come from
+- **The data behind the fold models.** Rows A5.1 and A5.3 (Figure 1f's point checked by the count, and the stop signal) come from
   the C-ArmLSpine fold models, whose training banks hold 2,632 VinDr crops and 2,100 FluoroCap crops; the catalog's
   A3 header called that a breach of data directive D1 and of the IRB's scope. The owner settled it on 2026-10-14:
   "I don't understand why I would exclude vindr amd fluorocap. Just do whatever gets better results", and "I've
@@ -211,8 +211,8 @@ Since issue #106 the list is [1] to [31]; [1] to [20] are as before.
   Asked whether rule 9 should change, the owner answered "No I don't think fluorocap will help": FluoroCap stays out
   of new training. Rows A2.1, A2.2 and A9.2 come from the v9 encoder, whose training sample holds neither set
   (`DATASET_USAGE.md` section 1, item 4), and the catalog raises no such note on the A6 detector rows.
-- **Disclosure** (root CLAUDE.md rule 8). The packet describes SchwingNet: Figure 3a is its architecture and the
-  narrative quotes its held-out results; paper 1 is held pending the technology-transfer office. Run
+- **Disclosure** (root CLAUDE.md rule 8). The packet describes SchwingNet: the narrative names its parts and quotes
+  its held-out results, which Figure 1f draws, and since issue #110 no figure shows its architecture; paper 1 is held pending the technology-transfer office. Run
   `ssn:tools/disclosure_audit.py` before sending, and decide what the AIDaS reviewers may see.
 - **The MIT release** of Aim 1's tasks, records and report is the owner's call, with only the tasks a disclosure
   review clears. Beethoven's repositories (beethoven-sites, -base, -qa, -agents, -research) are private and
@@ -346,9 +346,9 @@ Since issue #106 the list is [1] to [31]; [1] to [20] are as before.
   the packet says so in the team paragraph, and the WSU conflict-of-interest check is the owner's. (5) Symphony's 93
   mutants are on `main` after release 0.4.1; the packet says "Symphony's tests", which holds of the development
   version whether or not 0.5.0 is released by the deadline.
-- **The figures.** Figure 2a is redrawn as vector boxes from the labels of the extension's own store diagram, and
-  Figure 2b crops the popup's top half, which shows no grid login; the VS Code edition's diagrams have labels that
-  overlap at print size and are not used.
+- **The figures.** Figure 2a, now Figure 1b, is redrawn as vector boxes from the labels of the extension's own store
+  diagram; Figure 2b, which cropped the popup's top half and showed no grid login, left with issue #110; the VS Code
+  edition's diagrams have labels that overlap at print size and are not used.
 
 - **The rewrite of 2026-10-16 (issue #106; the owner's items 5 to 12 of 2026-10-15).** The abstract and section 1
   now carry the hospital's stake in cited rules and costs (never "billions a year", which no source supports), the
@@ -432,6 +432,35 @@ Since issue #106 the list is [1] to [31]; [1] to [20] are as before.
   B to D buy goods and services" without "from WSU units and vendors". With the real lines page 1 is full; with the
   example lines it has 18 pt to spare. The PI's line prints two phone numbers with no label between them, as the
   owner's file has it.
+- **One figure panel (issue #110).** The owner, 2026-10-16: "ALSO THE PICTURES ARE NONVISIBLE, CAN YOU CONSOLIDATE
+  THEM INTO ONE FIGURE PANEL TO SAVE SPACE?" The four figures were drawn 7.1 in wide and placed at 0.46 to 0.50 of the
+  line, so their labels printed near 3.4 pt. Figure 1 is now one panel of six, drawn 7.2 in wide, the text's width,
+  and placed at its own size at the top of page 3, so every label prints at 7 pt or more and a narrower text block
+  would raise an overfull line rather than shrink them. `make_figures.py` checks before it writes and writes nothing
+  when a label is under 7 pt, outside the panel, within 0.03 in of its own box's edge, or over another label, another
+  box, an image or a data point; `--check` only checks. Kept: the research loop (a, was 1b), the trainee's route (b,
+  1a and 2a in one), the cohort (c, was 2c), the sixth lumbar vertebra (d, was 1c) and the held-out results (f, was
+  4), now one dot plot with the values in a column, the 97 % goal named at the top of its line and the counts left to
+  the narrative and section 1. New: (e), the spine RAG-LLM as Aim 3's "The RAG-LLM" describes it, with no number:
+  inside a dashed line marking the grid, the image read by the detectors and the level model, the Scopus and
+  ScienceDirect literature indexed, the model fine-tuned on public datasets' images and then on images with charts
+  under the pending protocol, the retrieved passages and the answer; outside it, OpenEvidence, which gets only the
+  question and the reading. Its boxes are white, since none of it is built. Left out, since none could be read at a
+  size that fits: the Beethoven popup's crop (2b), the archived network drawing (3a) and the projection drawing (3b),
+  with the two rows above that only the drawings used; the text's references to 3a and 3b went with them. The corners
+  sentence cites no panel; the text cites (d) where section 1 first names a sixth lumbar vertebra and (a) where Aim 1
+  says the agent iterates. The caption, 59 words with its letters, says the dashed line is the grid, that answers are
+  graded beside OpenEvidence's, and that the bars are intervals where recorded. The room at the foot of page 4 went
+  from 0.35 in to 1.44 in, so the panel and its caption take about 1.1 in less than the four figures did; 10 pages
+  with the real and the example contact lines, no overfull line. An adversarial review of the first draft found that
+  (e) could be read as sending the answer, and the Elsevier text in it, to OpenEvidence, and that the corners sentence
+  cited a panel with no corners in it; both were fixed as above, with its smaller findings: the goal label off the
+  last row, the threshold key and the goal masked where they cross grid lines, the two thresholds' intervals set
+  further apart, panel c's tick marks, (b)'s GPU label beside its arrow, a check blind to boxes, images and points,
+  and figure files written before the check ran. Two were declined: the Symphony note in (a) stays in ink, since
+  Symphony is one of the frameworks the loop runs in, not an aside, and the naming dots in (f) stay teal, the colour
+  of every naming result there, the zero-shot AP row included, as the colour note in `make_figures.py` now says. The
+  bullets above keep the figure numbers of their day.
 
 ## 5. The execution skeleton
 
@@ -466,7 +495,7 @@ correspondence carries addresses, the form a CV); the facts the packet takes fro
   images and multimedia on the owner's word of that day ("now science direct"), the amendment this correspondence
   left pending; the owner confirms it before submission. The packet sends the trainees'
   literature questions to a language model on the grid, never to the agent, since the agent's model runs on Claude's
-  servers (Figure 2a) and the correspondence told Elsevier that no outside AI service receives its content.
+  servers (Figure 1b) and the correspondence told Elsevier that no outside AI service receives its content.
 - **The pending IRB protocol** (the IRB form's print view of 2026-10-15, protocol IRB-26-03-8648, Wayne State IRB):
   "Creation of a Secure Multimodal Clinical and Radiographic Spine Surgery Dataset for Case-Control Research and
   Locally Hosted AI Development"; study type medical, expedited review requested; "Date Submitted: Draft", created
