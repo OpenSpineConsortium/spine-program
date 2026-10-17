@@ -1,0 +1,403 @@
+<title>Fluoroscopy Data Atlas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a light-box reading room. One narrow column of controls above a list of dataset "film jackets",
+   each labelled the way a radiograph sleeve is: what it is, how it was made, what is drawn on it, how to get it. */
+:root {
+  --bg: #eef2f5;          /* light-box glass */
+  --panel: #ffffff;       /* film sleeve */
+  --ink: #14202b;
+  --muted: #566778;
+  --line: #d4dde5;
+  --accent: #0a6a86;      /* annotation cyan, as a viewer draws it */
+  --accent-soft: #dcecf2;
+  --held: #2c7a4f;  --held-soft: #dff0e6;
+  --req: #a2600a;   --req-soft: #f6e8d2;
+  --none: #6b7886;  --none-soft: #e7ecf0;
+  --warn: #9b2c2c;  --warn-soft: #f6e0e0;
+  --display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d1317; --panel: #151d23; --ink: #e4ecf1; --muted: #93a5b4; --line: #26333d;
+  --accent: #55b9d4; --accent-soft: #11313b;
+  --held: #63c48c; --held-soft: #12301f; --req: #e2a24f; --req-soft: #35270f;
+  --none: #9aa7b3; --none-soft: #1d262d; --warn: #ec8a8a; --warn-soft: #3a1717; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0d1317; --panel: #151d23; --ink: #e4ecf1; --muted: #93a5b4; --line: #26333d;
+  --accent: #55b9d4; --accent-soft: #11313b;
+  --held: #63c48c; --held-soft: #12301f; --req: #e2a24f; --req-soft: #35270f;
+  --none: #9aa7b3; --none-soft: #1d262d; --warn: #ec8a8a; --warn-soft: #3a1717; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--body); margin: 0 }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; letter-spacing: .01em; text-wrap: balance; margin: 0 }
+h1 { font-size: clamp(34px, 6vw, 52px); line-height: 1 }
+h2 { font-size: 30px; line-height: 1.1 }
+h3 { font-size: 21px; line-height: 1.15 }
+a { color: var(--accent) }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+.eyebrow { font: 500 12px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+.lede { color: var(--muted); max-width: 68ch; margin: 10px 0 0 }
+header.top { display: grid; gap: 14px; padding-bottom: 22px; border-bottom: 1px solid var(--line) }
+nav.jump { display: flex; flex-wrap: wrap; gap: 8px }
+nav.jump a { font: 500 13px var(--mono); text-decoration: none; padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); background: var(--panel) }
+nav.jump a:hover { border-color: var(--accent) }
+
+/* summary */
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-top: 18px }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; display: grid; gap: 6px; min-width: 0; cursor: pointer; text-align: left; color: var(--ink); font: inherit }
+.stat:hover { border-color: var(--accent) }
+.stat b { font: 600 13px var(--body) }
+.stat .bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: var(--none-soft); gap: 2px }
+.stat .bar span { display: block; height: 100% }
+.stat .bar .h { background: var(--held) } .stat .bar .q { background: var(--req) } .stat .bar .n { background: var(--none) }
+.stat small { color: var(--muted); font: 12px var(--mono); font-variant-numeric: tabular-nums }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; font: 12px var(--mono); color: var(--muted) }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px }
+
+section { margin-top: 38px; display: grid; gap: 14px }
+.sechead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px }
+
+/* filters */
+.filters { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; border-bottom: 1px solid var(--line); display: grid; gap: 10px }
+.frow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+.frow label { font: 12px var(--mono); color: var(--muted) }
+input[type=search], select { font: 14px var(--body); color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 7px 10px; min-width: 0 }
+input[type=search] { flex: 1 1 260px }
+.toggle { display: inline-flex; align-items: center; gap: 6px; font: 13px var(--body); color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 5px 10px; cursor: pointer }
+.toggle input { accent-color: var(--accent) }
+button.clear { font: 500 13px var(--body); background: none; border: 1px solid var(--line); color: var(--muted); border-radius: var(--r); padding: 6px 10px; cursor: pointer }
+.count { font: 13px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums }
+
+/* dataset list */
+.group { display: grid; gap: 10px }
+.group > h3 { display: flex; gap: 10px; align-items: baseline; margin-top: 14px }
+.group > h3 small { font: 13px var(--mono); color: var(--muted); font-weight: 400 }
+.group .gdesc { color: var(--muted); margin: -4px 0 2px; max-width: 75ch; font-size: 14px }
+.ds { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--none); border-radius: var(--r); padding: 14px 16px; display: grid; gap: 8px; min-width: 0 }
+.ds.held { border-left-color: var(--held) } .ds.requested { border-left-color: var(--req) }
+.ds .row1 { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; justify-content: space-between }
+.ds .name { font: 600 16px var(--body) }
+.ds .aka { color: var(--muted); font-size: 13px }
+.pills { display: flex; flex-wrap: wrap; gap: 6px }
+.pill { font: 500 12px var(--mono); padding: 2px 8px; border-radius: 999px; white-space: nowrap; border: 1px solid transparent }
+.pill.held { background: var(--held-soft); color: var(--held) }
+.pill.requested { background: var(--req-soft); color: var(--req) }
+.pill.notheld { background: var(--none-soft); color: var(--none) }
+.pill.acc { background: var(--accent-soft); color: var(--accent) }
+.pill.flag { border-color: var(--accent); color: var(--accent); background: transparent }
+.pill.unv { background: var(--warn-soft); color: var(--warn) }
+.meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 4px 18px; font-size: 13.5px }
+.meta div { min-width: 0 }
+.meta dt { font: 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted) }
+.meta dd { margin: 0; overflow-wrap: anywhere }
+.ds .notes { font-size: 14px; color: var(--ink) }
+details.how summary { cursor: pointer; font: 500 13px var(--body); color: var(--accent) }
+details.how p { margin: 6px 0 0; font-size: 14px }
+.links { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 13.5px }
+.links a { overflow-wrap: anywhere }
+code, .path { font: 12.5px var(--mono); background: var(--none-soft); padding: 1px 6px; border-radius: 4px; overflow-wrap: anywhere }
+.empty { padding: 26px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--r) }
+
+/* requests */
+.feature { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 20px; display: grid; gap: 12px }
+.feature ol { margin: 0; padding-left: 20px; display: grid; gap: 6px }
+.cautions { background: var(--req-soft); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 18px }
+.cautions ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 5px }
+.req { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 0 }
+.req > summary { list-style: none; cursor: pointer; padding: 12px 16px; display: grid; grid-template-columns: 2.4em 1fr auto; gap: 10px; align-items: baseline }
+.req > summary::-webkit-details-marker { display: none }
+.req .num { font: 700 22px var(--display); color: var(--accent); font-variant-numeric: tabular-nums }
+.req .rt { font: 600 15px var(--body) }
+.req .rg { color: var(--muted); font-size: 13.5px; display: block; font-weight: 400 }
+.req .body { padding: 0 16px 16px; display: grid; gap: 10px; border-top: 1px solid var(--line) }
+.req dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 10px 0 0; font-size: 14px }
+.req dt { font: 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-top: 3px }
+.req dd { margin: 0; min-width: 0; overflow-wrap: anywhere }
+.letter { position: relative; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; white-space: pre-wrap; font: 13px/1.55 var(--mono); max-height: 360px; overflow: auto }
+.copy { font: 500 12px var(--body); background: var(--accent); color: var(--panel); border: 0; border-radius: var(--r); padding: 6px 10px; cursor: pointer }
+.copyrow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+.copied { font: 12px var(--mono); color: var(--held) }
+.nextgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 10px }
+.nx { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; display: grid; gap: 6px; align-content: start; min-width: 0 }
+.nx .rank { font: 700 20px var(--display); color: var(--accent); font-variant-numeric: tabular-nums }
+.nx .hd { display: flex; gap: 10px; align-items: baseline }
+.nx p { margin: 0; font-size: 14px }
+footer { margin-top: 44px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; display: grid; gap: 6px }
+@media (max-width: 560px) { .req > summary { grid-template-columns: 2em 1fr } .req > summary .pill { grid-column: 2 } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">C-arm level identification · data · as of 17 October 2026</div>
+    <h1>Fluoroscopy Data Atlas</h1>
+    <p class="lede">Every fluoroscopy, spine radiograph and paired CT–X-ray dataset found for intraoperative vertebral level identification, sorted by what is drawn on the images, how the images were saved, and how to get them. Green means it is already on the grid, amber means a request letter is ready, grey means you do not have it yet.</p>
+    <nav class="jump" aria-label="Sections">
+      <a href="#next">Worth getting next</a><a href="#catalog">Catalog</a><a href="#requests">Requests to send</a><a href="#radiopaedia">Radiopaedia</a><a href="#notes">How this was built</a>
+    </nav>
+    <div class="summary" id="summary"></div>
+    <div class="legend"><span><i style="background:var(--held)"></i>held on the grid</span><span><i style="background:var(--req)"></i>request ready</span><span><i style="background:var(--none)"></i>not held</span></div>
+  </header>
+
+  <section id="next" aria-labelledby="next-h">
+    <div class="sechead"><h2 id="next-h">Worth getting next</h2><span class="count">ten gaps, by value to CT-to-C-arm parity</span></div>
+    <div class="nextgrid" id="nextlist"></div>
+  </section>
+
+  <section id="catalog" aria-labelledby="cat-h">
+    <div class="sechead"><h2 id="cat-h">Catalog</h2><span class="count" id="count"></span></div>
+    <div class="filters" role="search">
+      <div class="frow">
+        <input type="search" id="q" placeholder="Search name, anatomy, annotation, notes" aria-label="Search datasets">
+        <button class="clear" id="clear" type="button">Clear filters</button>
+      </div>
+      <div class="frow">
+        <label for="f-cat">Kind</label><select id="f-cat"></select>
+        <label for="f-ann">Annotation</label><select id="f-ann"></select>
+        <label for="f-acc">Access</label><select id="f-acc"></select>
+        <label for="f-st">Status</label><select id="f-st"></select>
+      </div>
+      <div class="frow">
+        <label class="toggle"><input type="checkbox" id="f-lvl"> levels named</label>
+        <label class="toggle"><input type="checkbox" id="f-pose"> pose known</label>
+        <label class="toggle"><input type="checkbox" id="f-dicom"> native DICOM or raw</label>
+      </div>
+    </div>
+    <div id="list"></div>
+  </section>
+
+  <section id="requests" aria-labelledby="req-h">
+    <div class="sechead"><h2 id="req-h">Requests to send</h2><span class="count" id="rcount"></span></div>
+    <p class="lede">Sixteen sources can only be had by asking. Each letter below is ready; eleven of them also exist as unsent Outlook drafts in <code>spinesurg-ct-nnunet/docs/fluoro_requests_eml/</code> (double-click, check, send). The full file is <a href="https://github.com/OpenSpineConsortium/spine-program/blob/main/01_carm_level_detection/docs/data_requests/FLUORO_VIDEO_REQUESTS_READY_2026-09-26.md" target="_blank" rel="noopener">FLUORO_VIDEO_REQUESTS_READY_2026-09-26.md</a> in spine-program.</p>
+
+    <div class="feature" id="radiopaedia">
+      <div class="eyebrow">Request 8 · the most appealing</div>
+      <h3>Radiopaedia: seven multi-frame spine fluoroscopy cases</h3>
+      <p style="margin:0">rID 24796 (a rotational C-arm spin around a vertebral body stent), rID 90103 (a 61-projection oblique lumbar puncture series), rID 21585 (a lateral L1 vertebroplasty series) and four lumbar and S1 injection cases. Among the very few public multi-frame spine fluoroscopy series; native DICOM from the contributors would add pixel spacing, C-arm angles and frame timing.</p>
+      <ol>
+        <li>Open <a href="https://radiopaedia.org/licence" target="_blank" rel="noopener">radiopaedia.org/licence</a> in your own browser and read the current machine-learning terms.</li>
+        <li>If the page links an application for non-commercial machine-learning use, file it and paste letter 8 as the project description. Otherwise email the licensing team; published studies cite <span class="path" id="rp-mail">license@radiopaedia.org</span> <button class="copy" type="button" data-copy="rp-mail">Copy address</button> and an approval by the licensing committee under "Non-commercial use of Radiopaedia content for Machine Learning". Confirm the address on the page first.</li>
+        <li>Expect a non-refundable fee: the draft recorded USD 250, which could not be confirmed from public sources on 17 October 2026.</li>
+        <li>Do not save frames until approval arrives. Their terms bar scripted downloading, and the licence is non-commercial: validating the 510(k) product would need a separately negotiated licence.</li>
+      </ol>
+    </div>
+
+    <div class="cautions" aria-label="Before you send">
+      <b>Before you send any letter</b>
+      <ul>
+        <li><b>Commercial use.</b> Every letter says non-commercial academic evaluation. Change that sentence and ask for a commercial licence if the frames might ever validate the level-confirmation product.</li>
+        <li><b>IRB.</b> Ask the WSU IRB whether de-identified data received under a data-use agreement falls under your existing not-human-research determination, or needs its own.</li>
+        <li><b>Training.</b> Letters 1 to 3 promise you will not train on the data. Delete that sentence if you might fine-tune.</li>
+        <li><b>Co-authorship.</b> Letters 1 to 4 offer involvement or co-authorship; check it against your authorship plans.</li>
+        <li><b>YouTube copies.</b> Letters to video uploaders say copies were saved for screening and will be deleted on request. Delete that sentence only if you are prepared to leave those copies unpermitted.</li>
+      </ul>
+    </div>
+    <div id="reqlist" class="group"></div>
+  </section>
+
+  <footer id="notes">
+    <h3>How this was built</h3>
+    <div id="sources"></div>
+  </footer>
+</div>
+
+<script>
+window.ATLAS = /*__ATLAS_DATA__*/null;
+</script>
+<script>
+(function () {
+  "use strict";
+  var A = window.ATLAS || { datasets: [], requests: [], sources: [] };
+  var CAT = {
+    fluoro_video: ["Fluoroscopy video and cine", "Moving fluoroscopy: frame sequences or video. The closest thing to what a C-arm shows during a case."],
+    fluoro_frames: ["Fluoroscopy and C-arm frames", "Single fluoroscopy or C-arm exposures, often with labels."],
+    radiograph: ["Spine radiographs", "Plain films. Same projection physics as a C-arm, different detector, dose and field of view."],
+    paired_ct_xray_real: ["Paired CT and real X-ray", "The same body imaged by CT and by radiograph or fluoroscopy. With pose, these test 3-D to 2-D parity directly."],
+    paired_ct_drr_synthetic: ["Paired CT and synthetic X-ray (DRR)", "Released datasets of radiographs rendered from CT, with the CT and the geometry."],
+    cbct_projections: ["CBCT projections", "Raw cone-beam projection stacks: many calibrated C-arm-like views around one volume."],
+    private_request: ["By request only", "Data that exists but is held privately; a letter is the only route."]
+  };
+  var CAT_ORDER = ["fluoro_video", "fluoro_frames", "paired_ct_xray_real", "cbct_projections", "paired_ct_drr_synthetic", "radiograph", "private_request"];
+  var STATUS = { held: "held", "requested (letter drafted)": "requested", "not held": "notheld" };
+  var STATUS_LABEL = { held: "held on the grid", requested: "request ready", notheld: "not held" };
+  function st(d) { return STATUS[d.greg_status] || "notheld" }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e }
+  function uniq(field) { var s = {}; A.datasets.forEach(function (d) { if (d[field]) s[d[field]] = 1 }); return Object.keys(s).sort() }
+  function fill(sel, label, opts, labels) {
+    sel.innerHTML = ""; var o = el("option", null, "All " + label); o.value = ""; sel.appendChild(o);
+    opts.forEach(function (v) { var x = el("option", null, labels ? labels[v] : v); x.value = v; sel.appendChild(x) });
+  }
+  var $ = function (id) { return document.getElementById(id) };
+  var catsPresent = CAT_ORDER.filter(function (c) { return A.datasets.some(function (d) { return d.category === c }) });
+  var catLabels = {}; catsPresent.forEach(function (c) { catLabels[c] = CAT[c][0] });
+  fill($("f-cat"), "kinds", catsPresent, catLabels);
+  fill($("f-ann"), "annotation", uniq("annotation_level"));
+  fill($("f-acc"), "access", uniq("access"));
+  fill($("f-st"), "statuses", ["held", "requested", "notheld"], STATUS_LABEL);
+
+  var KEY = "atlas-filters-v1";
+  var ids = ["q", "f-cat", "f-ann", "f-acc", "f-st", "f-lvl", "f-pose", "f-dicom"];
+  function save() { try { var o = {}; ids.forEach(function (i) { var e = $(i); o[i] = e.type === "checkbox" ? e.checked : e.value }); localStorage.setItem(KEY, JSON.stringify(o)) } catch (e) {} }
+  function load() { try { var o = JSON.parse(localStorage.getItem(KEY) || "{}"); ids.forEach(function (i) { if (i in o) { var e = $(i); if (e.type === "checkbox") e.checked = !!o[i]; else e.value = o[i] } }) } catch (e) {} }
+
+  function summary() {
+    var box = $("summary"); box.innerHTML = "";
+    catsPresent.forEach(function (c) {
+      var ds = A.datasets.filter(function (d) { return d.category === c });
+      var h = ds.filter(function (d) { return st(d) === "held" }).length, q = ds.filter(function (d) { return st(d) === "requested" }).length, n = ds.length - h - q;
+      var b = el("button", "stat"); b.type = "button"; b.title = "Show only " + CAT[c][0];
+      b.appendChild(el("b", null, CAT[c][0]));
+      var bar = el("div", "bar"); [["h", h], ["q", q], ["n", n]].forEach(function (p) { if (p[1]) { var s = el("span", p[0]); s.style.flex = p[1]; bar.appendChild(s) } });
+      b.appendChild(bar);
+      b.appendChild(el("small", null, ds.length + " datasets · " + h + " held · " + q + " requested · " + n + " not held"));
+      b.addEventListener("click", function () { $("f-cat").value = c; render(); $("catalog").scrollIntoView({ behavior: "smooth" }) });
+      box.appendChild(b);
+    });
+  }
+
+  function matches(d) {
+    var q = $("q").value.trim().toLowerCase();
+    if (q) { var hay = [d.name, d.aka, d.anatomy, d.annotation_detail, d.notes, d.how_to_get, d.paper].join(" ").toLowerCase(); if (hay.indexOf(q) < 0) return false }
+    if ($("f-cat").value && d.category !== $("f-cat").value) return false;
+    if ($("f-ann").value && d.annotation_level !== $("f-ann").value) return false;
+    if ($("f-acc").value && d.access !== $("f-acc").value) return false;
+    if ($("f-st").value && st(d) !== $("f-st").value) return false;
+    if ($("f-lvl").checked && d.level_labels !== true) return false;
+    if ($("f-pose").checked && d.pose_geometry !== true) return false;
+    if ($("f-dicom").checked && !/DICOM|raw/i.test(d.image_quality || "")) return false;
+    return true;
+  }
+
+  function card(d) {
+    var s = st(d), c = el("article", "ds " + s);
+    var r1 = el("div", "row1"); var t = el("div"); t.appendChild(el("span", "name", d.name));
+    if (d.aka) { t.appendChild(document.createTextNode(" ")); t.appendChild(el("span", "aka", d.aka)) }
+    r1.appendChild(t);
+    var p = el("div", "pills");
+    p.appendChild(el("span", "pill " + s, STATUS_LABEL[s]));
+    if (d.access) p.appendChild(el("span", "pill acc", d.access));
+    if (d.level_labels === true) p.appendChild(el("span", "pill flag", "levels named"));
+    if (d.pose_geometry === true) p.appendChild(el("span", "pill flag", "pose known"));
+    if (d.category === "paired_ct_drr_synthetic" && s === "held") p.appendChild(el("span", "pill acc", "your own renders"));
+    if (d.verified === false) p.appendChild(el("span", "pill unv", "link not opened"));
+    r1.appendChild(p); c.appendChild(r1);
+    var m = el("dl", "meta");
+    [["Anatomy", d.anatomy], ["Size", d.size], ["Image quality", d.image_quality], ["Annotation", [d.annotation_level, d.annotation_detail].filter(Boolean).join(": ")], ["License", d.license]].forEach(function (kv) {
+      if (!kv[1] || kv[1] === "not recorded") return; var w = el("div"); w.appendChild(el("dt", null, kv[0])); w.appendChild(el("dd", null, kv[1])); m.appendChild(w);
+    });
+    c.appendChild(m);
+    if (d.notes) c.appendChild(el("div", "notes", d.notes));
+    if (d.how_to_get) { var h = el("details", "how"); h.appendChild(el("summary", null, "How to get it")); h.appendChild(el("p", null, d.how_to_get)); c.appendChild(h) }
+    var L = el("div", "links");
+    if (d.link && /^https?:\/\//.test(d.link)) { var a = el("a", null, "Dataset page"); a.href = d.link; a.target = "_blank"; a.rel = "noopener"; L.appendChild(a) }
+    if (d.paper) {
+      var doi = (d.paper.match(/10\.\d{4,9}\/[^\s;,)]+/) || [])[0], arx = (d.paper.match(/arXiv[: ]\s*(\d{4}\.\d{4,5})/i) || [])[1];
+      if (doi) { var a2 = el("a", null, "Paper"); a2.href = "https://doi.org/" + doi.replace(/[.]$/, ""); a2.target = "_blank"; a2.rel = "noopener"; L.appendChild(a2) }
+      else if (arx) { var a3 = el("a", null, "arXiv " + arx); a3.href = "https://arxiv.org/abs/" + arx; a3.target = "_blank"; a3.rel = "noopener"; L.appendChild(a3) }
+      L.appendChild(el("span", "aka", d.paper));
+    }
+    if (d.grid_path) { L.appendChild(el("span", "path", d.grid_path)) }
+    if (d.found_in) { L.appendChild(el("span", "aka", "Found in " + d.found_in)) }
+    if (L.childNodes.length) c.appendChild(L);
+    return c;
+  }
+
+  function render() {
+    save();
+    var list = $("list"); list.innerHTML = "";
+    var shown = A.datasets.filter(matches);
+    $("count").textContent = shown.length + " of " + A.datasets.length + " datasets";
+    if (!shown.length) { list.appendChild(el("div", "empty", "No dataset matches these filters. Clear a filter to see more.")); return }
+    CAT_ORDER.forEach(function (c) {
+      var ds = shown.filter(function (d) { return d.category === c }); if (!ds.length) return;
+      var order = { held: 2, requested: 1, notheld: 0 };
+      ds.sort(function (a, b) { return (order[st(a)] - order[st(b)]) || ((b.level_labels === true) - (a.level_labels === true)) || ((b.pose_geometry === true) - (a.pose_geometry === true)) || a.name.localeCompare(b.name) });
+      var g = el("div", "group"); var h = el("h3", null, CAT[c][0]); h.appendChild(el("small", null, ds.length + " shown")); g.appendChild(h);
+      g.appendChild(el("p", "gdesc", CAT[c][1]));
+      ds.forEach(function (d) { g.appendChild(card(d)) });
+      list.appendChild(g);
+    });
+  }
+
+  function copyText(text, note) {
+    function done(ok) { if (note) { note.textContent = ok ? "Copied" : "Select the text and copy it"; setTimeout(function () { note.textContent = "" }, 2500) } }
+    try { navigator.clipboard.writeText(text).then(function () { done(true) }, function () { done(false) }) } catch (e) { done(false) }
+  }
+
+  function requests() {
+    var box = $("reqlist"); box.innerHTML = "";
+    $("rcount").textContent = (A.requests || []).length + " letters";
+    (A.requests || []).forEach(function (r) {
+      var d = el("details", "req"); d.id = "req-" + r.n;
+      var s = el("summary"); s.appendChild(el("span", "num", String(r.n)));
+      var t = el("span", "rt", r.title); t.appendChild(el("span", "rg", r.gets || "")); s.appendChild(t);
+      var unv = /UNVERIFIED|hidden/i.test(r.status || "");
+      s.appendChild(el("span", "pill " + (unv ? "unv" : "requested"), unv ? "check address" : "ready"));
+      d.appendChild(s);
+      var b = el("div", "body"); var dl = el("dl");
+      [["Route", r.route], ["Effort", r.effort], ["Status", r.status], ["How to send", r.how], ["Expect", r.expect], ["Subject", r.subject]].forEach(function (kv) {
+        if (!kv[1]) return; dl.appendChild(el("dt", null, kv[0])); dl.appendChild(el("dd", null, kv[1].replace(/\*\*/g, "").replace(/`/g, "")));
+      });
+      b.appendChild(dl);
+      if (r.letter) {
+        var pre = el("div", "letter", r.letter); pre.setAttribute("tabindex", "0"); pre.setAttribute("aria-label", "Letter " + r.n);
+        var row = el("div", "copyrow"); var note = el("span", "copied");
+        var cb = el("button", "copy", "Copy letter"); cb.type = "button"; cb.addEventListener("click", function () { copyText(r.letter, note) });
+        row.appendChild(cb);
+        if (r.subject) { var cs = el("button", "copy", "Copy subject"); cs.type = "button"; cs.addEventListener("click", function () { copyText(r.subject, note) }); row.appendChild(cs) }
+        row.appendChild(note); b.appendChild(row); b.appendChild(pre);
+      }
+      d.appendChild(b); box.appendChild(d);
+    });
+  }
+
+  var NEXT = [
+    ["COVID-19-NY-SBU", "You already hold the CTs of 439 patients. Fetching their CR/DX radiographs from the same TCIA collection gives same-patient CT and X-ray pairs with no request at all."],
+    ["LUMOS", "1,620 real lumbar AP and lateral films in DICOM, with 280 lumbar CTs from the same cohort. Open download, CC BY-NC. Which film goes with which CT is not stated."],
+    ["MIDRC Open Data", "10,100 living cases with both CT and a radiograph of the same patient, about 300 of them spine radiograph studies. Free registration and a click-through agreement. No pose."],
+    ["Balgrist ex-vivo", "13 soft-tissue torsos, about 1,000 real shots on a Siemens Cios Spin and two Ziehm C-arms, with poses from implanted fiducials. The best fit that exists; request letter 15 is ready."],
+    ["UCLA kV/MV", "254 living patients, 2,486 orthogonal kV pairs of the thoraco-abdominal spine registered to the planning CT. Request only; the authors call the data sensitive."],
+    ["PENGWIN Task 2", "50,000 unwindowed DRRs in C-arm geometry with simulated K-wires and screws and sacrum masks. CC BY 4.0, 35 GB. Tests robustness to surgical hardware."],
+    ["SyntheX deposit", "Simulated hip images matched in geometry to real C-arm frames from two systems. A benchmark for your own render physics. Open, CC BY-NC."],
+    ["SPARE", "Real Varian and Elekta kV projections with per-projection geometry and a prior 4D-CT. Open, CC BY-NC; you register the CT to the projections yourself."],
+    ["LIDC-IDRI", "290 patients with CT and a chest radiograph of the same patient. Open on TCIA."],
+    ["Femur multi-view", "Five cadaveric distal femurs with CT and fiducial-calibrated X-rays from a Siemens Fluorospot Compact. Downloadable now under a research-only licence; no spine."]
+  ];
+  function nextList() {
+    var box = $("nextlist"); box.innerHTML = "";
+    NEXT.forEach(function (n, i) {
+      var d = A.datasets.filter(function (x) { return (x.name || "").indexOf(n[0]) >= 0 })[0];
+      var c = el("article", "nx"); var hd = el("div", "hd"); hd.appendChild(el("span", "rank", String(i + 1)));
+      hd.appendChild(el("span", "name", d ? d.name : n[0])); c.appendChild(hd);
+      c.appendChild(el("p", null, n[1]));
+      if (d) {
+        var p = el("div", "pills"); p.appendChild(el("span", "pill " + st(d), STATUS_LABEL[st(d)])); if (d.access) p.appendChild(el("span", "pill acc", d.access)); c.appendChild(p);
+        var L = el("div", "links");
+        if (d.link && /^https?:\/\//.test(d.link)) { var a = el("a", null, "Dataset page"); a.href = d.link; a.target = "_blank"; a.rel = "noopener"; L.appendChild(a) }
+        var j = el("a", null, "Full entry"); j.href = "#catalog"; j.addEventListener("click", function (e) { e.preventDefault(); $("q").value = n[0]; ["f-cat","f-ann","f-acc","f-st"].forEach(function (k) { $(k).value = "" }); ["f-lvl","f-pose","f-dicom"].forEach(function (k) { $(k).checked = false }); render(); $("catalog").scrollIntoView({ behavior: "smooth" }) });
+        L.appendChild(j); c.appendChild(L);
+      }
+      box.appendChild(c);
+    });
+  }
+  function sources() {
+    var s = $("sources"); (A.sources || []).forEach(function (x) { var p = el("p", null, null); p.style.margin = "0"; p.innerHTML = ""; p.appendChild(document.createTextNode(x)); s.appendChild(p) });
+  }
+
+  document.querySelectorAll("button[data-copy]").forEach(function (b) {
+    var note = el("span", "copied"); b.after(note);
+    b.addEventListener("click", function () { copyText($(b.getAttribute("data-copy")).textContent, note) });
+  });
+  ids.forEach(function (i) { $(i).addEventListener(i === "q" ? "input" : "change", render) });
+  $("clear").addEventListener("click", function () { ids.forEach(function (i) { var e = $(i); if (e.type === "checkbox") e.checked = false; else e.value = "" }); render() });
+  load(); summary(); nextList(); render(); requests(); sources();
+})();
+</script>

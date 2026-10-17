@@ -2,6 +2,10 @@
 
 `HANDOFF.md` gives any Claude session the state of this repository, the board and the grid on 2026-10-12; read it first.
 
+`data_mining/` holds the Fluoroscopy Data Atlas of 2026-10-17: 217 fluoroscopy, spine radiograph, paired CT and X-ray,
+CBCT projection and DRR datasets with what is on the grid and how to get the rest, and the 16 ready request letters
+(read `data_mining/CATALOG.md` on GitHub).
+
 One private repository that seeds a set of Claude Code projects, one per numbered folder, dividing the spine imaging
 programme of the Open Spine Consortium (Department of General Surgery, Wayne State University School of Medicine /
 Detroit Medical Center) into self-contained units. It was built on 2026-10-08 from the laptop folders, the memory notes

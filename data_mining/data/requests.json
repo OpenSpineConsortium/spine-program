@@ -1,0 +1,318 @@
+[
+ {
+  "n": 1,
+  "title": "Bournemouth: cervical and lumbar quantitative-fluoroscopy cine",
+  "source": "Bournemouth QF (Branney, Breen)",
+  "gets": "DICOM cine behind the 252 public per-frame, level-named corner tracks (C1–C6), plus the lumbar L2–S1 cine (127 people)",
+  "route": "Email, `01_bournemouth.eml`",
+  "effort": "1 min to send; a UK data-sharing agreement follows",
+  "status": "Ready. 4 addresses verified",
+  "subject": "Request for the DICOM cine behind BORDaR 385 and the lumbar QF reference database, for a vertebra-tracking evaluation",
+  "expect": "a UK GDPR data-sharing agreement, which WSU's Institutional Official will probably have to sign. Weeks to months. The cervical DICOM exists; the README describes it.",
+  "verified": null,
+  "how": null,
+  "notes": [
+   "**[e-mail withheld]:** the contact line on the BORDaR 385 record (https://bordar.bournemouth.ac.uk/385/), and his BU staff profile (https://staffprofiles.bournemouth.ac.uk/display/jbranney, written as \"jbranney at bournemouth dot ac dot uk\"; Principal Academic).",
+   "**[e-mail withheld]:** the correspondence line of Breen et al. 2021 (frontiersin.org, 10.3389/fbioe.2021.745837; also PMC8503612). It is also listed on BORDaR 385.",
+   "**[e-mail withheld]:** Alex Breen, dataset creator, listed on BORDaR 385.",
+   "**[e-mail withheld]:** corresponding author of Branney et al. 2024 (JFMK 9:55, PMC10970965). That article's data statement says the underlying data are available from the corresponding author on request, so he is copied.",
+   "We would use it only to evaluate our detector, its level naming and its frame-to-frame tracking against your corner tracks. We would not use it to train the network unless you agree otherwise.",
+   "Data would be held on Wayne State's secured research computing storage. We would not redistribute it and would delete it at the end of the project if you wish."
+  ],
+  "letter": "Dear Dr Branney and colleagues,\n\nI am a surgeon-scientist at Wayne State University School of Medicine and the Detroit Medical Center. My group develops a neural network that detects vertebrae and names spinal levels on intraoperative C-arm images. We have tested it only on single frames. We would now like to know how it behaves on continuous fluoroscopy: whether it holds each vertebra's identity from frame to frame and how its boxes compare with an established tracker.\n\nYour cervical quantitative-fluoroscopy database (BORDaR 385, doi:10.18746/bmth.data.00000385; Branney et al., J Funct Morphol Kinesiol 2024;9:55) is the best reference we have found for this. It has level-named vertebral-body corners on every frame of 252 flexion and extension sequences. We have downloaded the corner tracks under the CC BY 4.0 licence, but the images themselves are not in the deposit. I am writing to ask whether you would share them. The requests are:\n\n1. The anonymised lateral DICOM sequences, 16-bit and 1024 x 1024 at 15 fps, for the 126 imaging events. Please key them to the ImageEvent identifiers in \"Cervical Database.mat\" (for example HV01a and HV01b), with flexion and extension kept separate.\n2. Confirmation of how frames are indexed. Does row 1 of each template array correspond to the first frame of the exported sequence? Were any frames dropped, cropped or resampled between acquisition and tracking? In 87 of the 252 sequences, MachineAngle has 1 to 59 more rows than the templates; what explains the difference? Are the template coordinates 1-based (MATLAB) pixel positions? Is the grey-scale polarity bone-bright as exported?\n3. The pixel spacing or calibration used, so that we can report corner and box errors in millimetres as well as pixels, and whether image-intensifier distortion was corrected.\n4. Professor Breen, for the lumbar reference database (Breen et al., Front Bioeng Biotechnol 2021, doi:10.3389/fbioe.2021.745837; OSF a27py): the weight-bearing and recumbent L2-S1 cine, and whether per-frame vertebral corner templates exist for it, as they do for the cervical set.\n\nHow we would use and protect the data:\n- We would use it only to evaluate our detector, its level naming and its frame-to-frame tracking against your corner tracks. We would not use it to train the network unless you agree otherwise.\n- Data would be held on Wayne State's secured research computing storage. We would not redistribute it and would delete it at the end of the project if you wish.\n- We are glad to sign a data-sharing agreement and to obtain the corresponding determination from our institutional review board.\n- Any publication would cite both datasets and the companion articles. We would share our per-frame results and evaluation code with you, and we would welcome your involvement and co-authorship if the work leads to a paper.\n\nIf it would help, I would be happy to send a short summary of the evaluation protocol first, or to arrange a call.\n\nWith thanks and kind regards,\n\nGregory J. Schwing, MD, PhD\nDepartment of General Surgery\nWayne State University School of Medicine / Detroit Medical Center\nDetroit, Michigan, USA\ngo2432@wayne.edu"
+ },
+ {
+  "n": 2,
+  "title": "Maastricht UMC+ / Zuyderland: cervical and lumbar flexion-extension cine",
+  "source": "Maastricht UMC+ / Zuyderland (E. van Santbrink, Caelers)",
+  "gets": "112 cervical cines with per-frame C0–C7 contours; lumbar L1–S1 cine (11 men, 7.5 fps)",
+  "route": "Email, `02_maastricht.eml`",
+  "effort": "1 min; GDPR data-transfer agreement",
+  "status": "Ready. 4 addresses verified",
+  "subject": "Request for dynamic cervical and lumbar X-ray recordings for a vertebra-tracking evaluation",
+  "expect": "a GDPR data-transfer agreement under the Dutch WMO framework, possibly with local ethics sign-off for secondary use. Months.",
+  "verified": null,
+  "how": null,
+  "notes": [
+   "**[e-mail withheld]:** the correspondence line of van Santbrink et al. 2026 (Bioengineering 13:351, PMC13024292). Its data statement reads \"available on request from the corresponding author due to privacy restrictions\".",
+   "**[e-mail withheld]:** the affiliation line of the same article.",
+   "**[e-mail withheld]:** the correspondence line of Caelers et al. 2020 (JMIR Res Protoc 9:e14741, PMC7078620). The same address is still her correspondence address in April 2026 (PMC13097038, Zuyderland).",
+   "**[e-mail withheld]:** the author email list of the 2025 Medicina review (PMC12388827). Prof. van Santbrink is senior author on both datasets.",
+   "We would use it only to evaluate our detector, its level naming and its frame-to-frame tracking against your contours. We would not use it to train the network unless you agree otherwise.",
+   "The data would be held on Wayne State's secured research computing storage. We would not redistribute it and would delete it at the end of the project if you wish."
+  ],
+  "letter": "Dear Dr van Santbrink and Dr Caelers,\n\nI am a surgeon-scientist at Wayne State University School of Medicine and the Detroit Medical Center. My group develops a neural network that detects vertebrae and names spinal levels on intraoperative C-arm images. We have tested it only on single frames. We would now like to know how it behaves on continuous fluoroscopy: whether it holds each vertebra's identity from frame to frame, and how well its boxes and corners agree with an established per-frame reference.\n\nYour group has built the two best-annotated collections of dynamic spine X-ray recordings we have found, and I am writing to ask whether you would share them for this evaluation:\n\n1. Cervical flexion-extension recordings (van Santbrink et al., Bioengineering 2026;13:351): the 112 lateral cine recordings, 89 from 39 healthy participants and 23 from pre-operative patients with cervical radicular syndrome, at 1024 x 1024 and 15 fps. We would like them together with the per-frame C0-C7 vertebral contours that carry each level's identity, and a note on which frames were manually adjusted.\n2. Lumbar flexion-extension cinematographic recordings of healthy male participants (Caelers et al., JMIR Res Protoc 2020;9:e14741): the L1-S1 recordings acquired under this protocol, and any per-frame vertebral landmarks, contours or angles derived from them.\n3. For both sets: the pixel spacing or calibration and the frame rate, so that we can report errors in millimetres, plus any record of frames that were dropped or cropped.\n\nHow we would use and protect the data:\n- We would use it only to evaluate our detector, its level naming and its frame-to-frame tracking against your contours. We would not use it to train the network unless you agree otherwise.\n- The data would be held on Wayne State's secured research computing storage. We would not redistribute it and would delete it at the end of the project if you wish.\n- We understand that a data-transfer agreement under the GDPR and your institution's WMO framework is likely to be needed. We are glad to sign one and to obtain the corresponding determination from our institutional review board.\n- Any publication would cite both datasets and papers. We would share our per-frame results and evaluation code with you, and we would welcome your involvement and co-authorship if the work leads to a paper.\n\nI would be glad to send a one-page evaluation protocol or to arrange a call.\n\nWith thanks and kind regards,\n\nGregory J. Schwing, MD, PhD\nDepartment of General Surgery\nWayne State University School of Medicine / Detroit Medical Center\nDetroit, Michigan, USA\ngo2432@wayne.edu"
+ },
+ {
+  "n": 3,
+  "title": "Inselspital Bern: native DICOM for the dynamic myelography videos",
+  "source": "Inselspital Bern (Dobrocky)",
+  "gets": "Native DICOM behind the 4 dynamic-myelography videos (pulsed 7.5 f/s; the detector follows the contrast cranially during tilting). The CC BY MP4s are already on the grid. Also asks about the 62-patient cohort",
+  "route": "Email, `03_bern.eml`",
+  "effort": "1 min; Swiss agreement",
+  "status": "Ready. Verified",
+  "subject": "Request for the native fluoroscopy runs behind the dynamic myelography videos (Clin Neuroradiol 2021), for a vertebra-tracking evaluation",
+  "expect": "a Swiss data-transfer agreement. Further use of coded health data may also need the cantonal ethics committee (KEK Bern) or general consent. Months, and it may be refused. The CC BY MP4s are already in hand, so a refusal costs nothing.",
+  "verified": null,
+  "how": null,
+  "notes": [
+   "**[e-mail withheld]:** the corresponding-author record of Piechowiak et al., \"Role of Conventional Dynamic Myelography for Detection of High-Flow CSF Leaks: Optimizing the Technique\", Clin Neuroradiol, doi:10.1007/s00062-020-00943-w (PMC8463391, JATS corresp=\"yes\").",
+   "The same address is current on his Stroke Research Center Bern member page (https://www.stroke.unibe.ch/about_us/members/pd_dr_med_dobrocky_tomas/index_eng.html; attending, Institute of Diagnostic and Interventional Neuroradiology).",
+   "The article's data statement says the data are not public \"owing to preclusion from dissemination under Swiss Federal Law regulations; however, they are available from the corresponding author on reasonable request.\"",
+   "Only to evaluate our detector, its level naming and its frame-to-frame tracking. We would not use it to train the network unless you agree otherwise.",
+   "The data would stay on Wayne State's secured research storage, would not be redistributed, and would be deleted at the end of the project if you wish.",
+   "We understand the data statement cites Swiss federal law. We are glad to sign whatever agreement Inselspital and the ethics committee require, and to obtain the matching determination from our institutional review board."
+  ],
+  "letter": "Dear Dr Dobrocky,\n\nI am a surgeon-scientist at Wayne State University School of Medicine and the Detroit Medical Center. My group develops a neural network that detects vertebrae and names spinal levels on C-arm images. We have tested it on single frames and now want to test it on continuous fluoroscopy: whether it keeps each vertebra's identity from frame to frame as the field of view moves.\n\nYour article on conventional dynamic myelography (Piechowiak et al., Clin Neuroradiol, doi:10.1007/s00062-020-00943-w) includes four videos from pulsed fluoroscopy runs (7.5 f/s by default), and it describes moving the detector cranially to follow the contrast column during tilting. That is the case we have not found anywhere else: consecutive, overlapping frames of one spine while the field travels along it. We are using the published videos under their CC BY licence, with attribution. I am writing to ask for three things:\n\n1. The native runs behind Videos 1-4 as de-identified DICOM, as acquired on the Artis zee. The web versions are re-encoded and cropped and have lost the frame timing and geometry.\n2. If the DICOM headers do not carry it, the table and detector position for each frame (or the start and end positions of each run), and the vertebral levels covered by each run as you read them.\n3. Whether further runs from the 62-patient cohort, particularly thoracolumbar and lumbosacral ones, could be shared under a data-transfer agreement.\n\nHow we would use and protect the data:\n- Only to evaluate our detector, its level naming and its frame-to-frame tracking. We would not use it to train the network unless you agree otherwise.\n- The data would stay on Wayne State's secured research storage, would not be redistributed, and would be deleted at the end of the project if you wish.\n- We understand the data statement cites Swiss federal law. We are glad to sign whatever agreement Inselspital and the ethics committee require, and to obtain the matching determination from our institutional review board.\n- Any publication would cite your article. We would share our per-frame results and code with you and would welcome your involvement.\n\nWith thanks and kind regards,\n\nGregory J. Schwing, MD, PhD\nDepartment of General Surgery\nWayne State University School of Medicine / Detroit Medical Center\nDetroit, Michigan, USA\ngo2432@wayne.edu"
+ },
+ {
+  "n": 4,
+  "title": "Pittsburgh videofluoroscopic swallow corpus",
+  "source": "Pittsburgh swallow corpus (Sejdić, Coyle)",
+  "gets": "About 1,500 lateral clips with C2 and C4 corners on every frame",
+  "route": "Email, `04_pittsburgh.eml`",
+  "effort": "1 min; Pitt data-use agreement",
+  "status": "Ready. Verified",
+  "subject": "Request for videofluoroscopy clips with per-frame C2/C4 landmarks, for a vertebra-naming evaluation",
+  "expect": "Sejdić moved from Pitt to Toronto in 2021, so the clips are probably held at Pitt, and the data-use agreement would then go through Pitt. Months. The corpus is cervical only and centred on the hyoid.",
+  "verified": null,
+  "how": null,
+  "notes": [
+   "**[e-mail withheld]:** his U of T ECE page (https://www.ece.utoronto.ca/people/sejdic-e/; Professor, and Research Chair in AI for Health Outcomes, North York General). It is also the correspondence address on Li et al. 2024 (PMC11300761). Zhang et al. 2021 (PMC8560570) printed an older address, [e-mail withheld].",
+   "**[e-mail withheld]:** his Pitt SHRS page (https://www.shrs.pitt.edu/person/james-coyle/; now emeritus). He is co-author on both papers, and the data were collected at Pitt under R01HD074819.",
+   "Only to evaluate our detector and its level naming. We would not use it to train the network unless you agree otherwise.",
+   "The data would stay on Wayne State's secured research storage, would not be redistributed, and would be deleted at the end of the project if you wish.",
+   "We are glad to sign a data-use agreement and to obtain the matching determination from our institutional review board.",
+   "Any publication would cite both papers and the grant. We would share our per-frame results and code with you, and would welcome your involvement and co-authorship if it leads to a paper."
+  ],
+  "letter": "Dear Professor Sejdić and Professor Coyle,\n\nI am a surgeon-scientist at Wayne State University School of Medicine and the Detroit Medical Center. My group develops a neural network that detects vertebrae and names spinal levels on fluoroscopic images. We have tested it on single frames and now want to test it on continuous fluoroscopy: whether it names the same vertebra correctly frame after frame.\n\nYour videofluoroscopic swallow corpus (Zhang et al., Med Image Anal 2021;74:102218; Li et al., J Imaging Inform Med 2024;37:1922; NIH R01HD074819) carries anterior corner landmarks of C2 and C4 on every frame of roughly 1,500 lateral clips. For us, those are two named cervical levels per frame, which is exactly the reference we lack. I am writing to ask whether you would share:\n\n1. The clips with their per-frame C2 and C4 landmarks (and C3 where labelled), for the patient cohort and the healthy-volunteer set, with the subject identifiers kept so that we can split by subject.\n2. The capture details: final frame rate, any cropping or resizing, and a pixel scale if one is known.\n3. If the data are now held at Pitt, the right person there to approach for a data-use agreement.\n\nHow we would use and protect the data:\n- Only to evaluate our detector and its level naming. We would not use it to train the network unless you agree otherwise.\n- The data would stay on Wayne State's secured research storage, would not be redistributed, and would be deleted at the end of the project if you wish.\n- We are glad to sign a data-use agreement and to obtain the matching determination from our institutional review board.\n- Any publication would cite both papers and the grant. We would share our per-frame results and code with you, and would welcome your involvement and co-authorship if it leads to a paper.\n\nWith thanks and kind regards,\n\nGregory J. Schwing, MD, PhD\nDepartment of General Surgery\nWayne State University School of Medicine / Detroit Medical Center\nDetroit, Michigan, USA\ngo2432@wayne.edu"
+ },
+ {
+  "n": 5,
+  "title": "Seattle Science Foundation: one request covering all 12 videos",
+  "source": "Seattle Science Foundation",
+  "gets": "Raw C-arm recordings behind 12 procedure demos (kyphoplasty, SCS, percutaneous fixation; mostly lumbar and thoracolumbar), and whether each was a cadaver",
+  "route": "Email, `05_seattle_science_foundation_CHECK_ADDRESS.eml`",
+  "effort": "Confirm the address first (30 s)",
+  "status": "**Address UNVERIFIED** (the site hides it; see entry)",
+  "subject": "Research request: original C-arm recordings from 12 Seattle Science Foundation spine videos",
+  "expect": "SSF is a non-profit education foundation that records its own labs. If the labs were cadaveric, the permission is simple. The raw C-arm output may not have been kept separately from the composited video. Weeks.",
+  "verified": "**UNVERIFIED.**",
+  "how": null,
+  "notes": [
+   "The address comes from a search engine's index of seattlesciencefoundation.org/overview.",
+   "The live site (https://www.seattlesciencefoundation.org/) shows its footer email to people but hides it from scripts, so the address was not decoded here.",
+   "Open the home page in your browser, scroll to the footer, and check the address before sending.",
+   "The phone number, [phone withheld], and the address, 550 17th Avenue, James Tower Suite 600, Seattle, WA 98122, are verified on the home page and on /pages/about-us.",
+   "Dr Rod Oskouian, whose video is on the list, sits on the SSF board (about-us page); a word from him may speed this up.",
+   "Yme7AxnIRWI  Live Demonstration - Lumbar Spinal Cord Stimulation Trial, Brett Stacey, MD"
+  ],
+  "letter": "Dear Seattle Science Foundation team,\n\nI am a surgeon-scientist at Wayne State University School of Medicine and the Detroit Medical Center. My group develops a neural network that detects vertebrae and names spinal levels on intraoperative C-arm images. We are building a small test set of continuous spine fluoroscopy, to check whether the network keeps each vertebra's identity from frame to frame. Your procedure demonstrations are among the clearest recordings of live C-arm spine imaging available.\n\nWe have screened these twelve videos on your YouTube channel and saved copies for that screening only; we will delete them if you prefer:\n\n- Yme7AxnIRWI  Live Demonstration - Lumbar Spinal Cord Stimulation Trial, Brett Stacey, MD\n- ot_gIGZdUWw  Spinal Cord Stimulation Procedure Boston Scientific, Brett Stacy, MD\n- RrRN6GMkkEQ  LAB DEMO: Spinal Cord Stimulation Procedure, Jennifer Lee, MD\n- cTvR6wt303k  Live Demo: Kyphoplasty Pearls of the Thoracic Spine, Jeffrey S. Roh, MD\n- eF3gPgRYxy0  Live Demo: Percutaneous Long Segment Fixation, Jeffrey S. Roh, MD\n- B7RHD25tCkU  Vertebral Augmentation Balloon Kyphoplasty, Douglas P. Beall, MD\n- VtmxIlY8S9w  Live Demonstration: Vertebral Augmentation Case, Douglas P. Beall, MD\n- RMM56ibtcQI  Latest Techniques in Vertebral Augmentation Side by Side, Douglas Beall, MD and Glen David, MD\n- 0sbrxbhfts0  Vertebroplasty & Kyphoplasty Demonstration, Glen David, MD\n- szH5DsL8KLM  Surgical Demo: MIS TLIF, Paul Park, MD\n- pufAzs_VpVc  Percutaneous Spinal Fixation with Fenestrated Screws with Cement, Rod J. Oskouian Jr, MD\n- 9imNQTwETCY  Percutaneous Spinal Fixation w/Fenestrated Screws & Cement, Anu Amin, MD\n\nFor any of these you are able to share, we would be grateful for:\n1. The original C-arm recordings rather than the composited video: the fluoroscope's own video output or DICOM export (for example the Ziehm export for the SCS trial).\n2. Whether each session used a cadaver or a patient, and, for patients, whether the consent covers research reuse.\n3. The treated or targeted level in each fluoroscopy segment.\n4. Permission to use the recordings for non-commercial research evaluation, and the attribution wording you would like.\n\nThe recordings would be used only to evaluate our model, would stay on Wayne State's secured research storage, and would not be redistributed. Any publication would credit the Foundation and the faculty involved.\n\nWith thanks and kind regards,\n\nGregory J. Schwing, MD, PhD\nDepartment of General Surgery\nWayne State University School of Medicine / Detroit Medical Center\nDetroit, Michigan, USA\ngo2432@wayne.edu"
+ },
+ {
+  "n": 6,
+  "title": "Mayfield Brain & Spine: kyphoplasty alignment series",
+  "source": "Mayfield Brain & Spine",
+  "gets": "The AP (98-frame) and lateral (65-frame) native series from the kyphoplasty alignment video",
+  "route": "Email, `06_mayfield.eml`",
+  "effort": "1 min",
+  "status": "Ready. Verified",
+  "subject": "Research request: the two fluoroscopy series in \"Fluoroscopic alignment for kyphoplasty\"",
+  "expect": "this is a clinical practice, so the request will be routed. HIPAA de-identification may be asked about. Replies can be slow. It covers only two series, though they are native DICOM.",
+  "verified": null,
+  "how": null,
+  "notes": [
+   "**[e-mail withheld]:** shown on https://mayfieldclinic.com/contact.htm, with the main line [phone withheld].",
+   "The same page lists Public Relations/Events at [phone withheld]. If the email gets no answer in two weeks, call that number.",
+   "The video is on the \"Mayfield Brain & Spine\" YouTube channel (fkRFgkESCgQ). No surgeon is named on it."
+  ],
+  "letter": "Dear Mayfield team,\n\nCould you please forward this to the surgeon who posted \"Video1. Fluoroscopic alignment for kyphoplasty\" on the Mayfield Brain & Spine YouTube channel (https://www.youtube.com/watch?v=fkRFgkESCgQ)?\n\nI am a surgeon-scientist at Wayne State University School of Medicine and the Detroit Medical Center. My group develops a neural network that detects vertebrae and names spinal levels on C-arm images, and we are testing it on consecutive fluoroscopy frames. The video plays two native series in OsiriX, an AP run of about 98 frames and a lateral run of about 65, which are exactly the kind of sequence we need. We have saved a copy of the YouTube version for screening only and will delete it if you prefer.\n\nWe would be grateful for:\n1. The two series as de-identified DICOM.\n2. The level or levels treated, and whether each series was continuous cine or separate exposures (and the frame rate if cine).\n3. Permission to use them for non-commercial research evaluation, with the attribution you would like.\n\nOne small point: the overlay in the posted video appears to show the patient's date of birth. You may wish to review it.\n\nThe images would stay on Wayne State's secured research storage and would not be redistributed.\n\nWith thanks and kind regards,\n\nGregory J. Schwing, MD, PhD\nDepartment of General Surgery\nWayne State University School of Medicine / Detroit Medical Center\nDetroit, Michigan, USA\ngo2432@wayne.edu"
+ },
+ {
+  "n": 7,
+  "title": "DMX Imaging: digital motion X-ray studies",
+  "source": "DMX Imaging",
+  "gets": "Lateral lumbar flexion-extension motion X-ray at 30 frames/s, which is found nowhere public",
+  "route": "Email, `07_dmx.eml`",
+  "effort": "1 min",
+  "status": "Ready. Verified",
+  "subject": "Research request: de-identified lumbar DMX studies for a vertebra-tracking evaluation",
+  "expect": "this is a vendor. It may answer quickly, or may want a commercial arrangement or an NDA. Ask for a small sample first.",
+  "verified": null,
+  "how": null,
+  "notes": [
+   "**[e-mail withheld]:** shown, with a mailto link, on https://www.dmxworks.com/ together with [phone withheld] and 4159 Corporate Ct, Palm Harbor, FL 34683.",
+   "The site states that \"The DMX acquires 30 sequential radiographs per second\".",
+   "\"Dr John\" is not named in full anywhere on the site."
+  ],
+  "letter": "Dear DMX Imaging team,\n\nI am a surgeon-scientist at Wayne State University School of Medicine and the Detroit Medical Center. My group develops a neural network that detects vertebrae and names spinal levels on X-ray images, and we are testing whether it keeps each vertebra's identity across consecutive frames. Lateral lumbar flexion-extension at video frame rates is the view we most need, and we have found none publicly available. Your digital motion X-ray at 30 frames per second is the closest thing to it. We have saved a copy of your \"Scoliosis Patient - DMX\" video (https://www.youtube.com/watch?v=WUWfgkEIYTs) for screening only and will delete it if you prefer.\n\nWould you be willing to share a small set, say 10 to 20 de-identified studies, of:\n1. Lateral lumbar flexion-extension, and AP lumbar or thoracolumbar side-bending.\n2. In the native format, with the frame rate and any pixel-scale or calibration information.\n3. With the levels reported, where the report names them, and the consent status for research reuse.\n\nThe studies would be used only for non-commercial research evaluation, kept on Wayne State's secured research storage, and not redistributed. Any publication would credit DMX Imaging as you wish. I am happy to discuss terms or to start with a single study.\n\nWith thanks and kind regards,\n\nGregory J. Schwing, MD, PhD\nDepartment of General Surgery\nWayne State University School of Medicine / Detroit Medical Center\nDetroit, Michigan, USA\ngo2432@wayne.edu"
+ },
+ {
+  "n": 8,
+  "title": "Radiopaedia: permission and native DICOM for seven cases",
+  "source": "Radiopaedia",
+  "gets": "7 cases, including the rotational spin (rID 24796) and the 61-projection series (rID 90103)",
+  "route": "Open radiopaedia.org/licence in your browser, then file the application or send `08_radiopaedia_CHECK_ADDRESS.eml`",
+  "effort": "5 min; fee reported as USD 250",
+  "status": "**Address UNVERIFIED** (the site was deliberately not fetched)",
+  "subject": "Research-use request and native DICOM for seven fluoroscopy cases (vertebra-tracking evaluation)",
+  "expect": "an application, with a fee reported as USD 250, non-refundable. Non-commercial use only; commercial AI use needs a negotiated licence. The contributors keep their rights.",
+  "verified": "**UNVERIFIED.**",
+  "how": "open https://radiopaedia.org/licence in your browser. - If it links an application form for non-commercial machine-learning use, file that, pasting the text below as the project description. - Otherwise email the address the page shows. Their stated rule is not to email first to ask whether you qualify.",
+  "notes": [
+   "The address comes from a search snippet in the earlier draft. Today's search engine results show it only as a hidden \"[email protected]\".",
+   "Radiopaedia was deliberately not fetched, because its terms bar automated access.",
+   "The images would be used only to evaluate an existing model, not to train it. The work is non-commercial academic research, for publication.",
+   "The images would stay on Wayne State's secured research storage and would not be redistributed. Any figure would carry the attribution your licence requires, with links to each case.",
+   "The first three cases matter most. If their contributors still have the native DICOM, it would be far more useful than the web images, because it carries the pixel spacing, the C-arm angles and the frame timing. We would be glad to credit or involve them as they wish."
+  ],
+  "letter": "Dear Radiopaedia team,\n\nI am a surgeon-scientist at Wayne State University School of Medicine and the Detroit Medical Center. My group develops a neural network that detects vertebrae and names spinal levels on intraoperative C-arm images. We would like to test how it behaves across consecutive fluoroscopy frames. A few Radiopaedia cases are among the very few public multi-frame spine fluoroscopy series.\n\nYour licence page says that machine-learning research goes through an application process. I would be grateful to know whether the use below needs that application, and to start it if so. The cases are:\n\n1. rID 24796, compression fracture with vertebral body stenting: the rotational C-arm spin (contributor Dr Salem Bauones)\n2. rID 90103, oblique sublaminar lumbar puncture: the 61-projection series (contributor Dr Jeffrey Hocking)\n3. rID 21585, percutaneous vertebroplasty: the lateral L1 series (contributor Dr Chris O'Donnell)\n4. https://radiopaedia.org/cases/lumbar-transforaminal-epidural-steroid-injection-fluoroscopic-guided\n5. https://radiopaedia.org/cases/lumbar-transforminal-epidural-steroid-injection-fluoroscopic-guided\n6. https://radiopaedia.org/cases/s1-transforaminal-epidural-steroid-injection-fluoroscopic-guided\n7. https://radiopaedia.org/cases/l5-nerve-root-block-fluoroscopic\n\nThe intended use:\n- The images would be used only to evaluate an existing model, not to train it. The work is non-commercial academic research, for publication.\n- The images would stay on Wayne State's secured research storage and would not be redistributed. Any figure would carry the attribution your licence requires, with links to each case.\n- The first three cases matter most. If their contributors still have the native DICOM, it would be far more useful than the web images, because it carries the pixel spacing, the C-arm angles and the frame timing. We would be glad to credit or involve them as they wish.\n\nThank you for considering this. I am happy to provide any further detail the application needs.\n\nWith kind regards,\n\nGregory J. Schwing, MD, PhD\nDepartment of General Surgery\nWayne State University School of Medicine / Detroit Medical Center\nDetroit, Michigan, USA\ngo2432@wayne.edu"
+ },
+ {
+  "n": 9,
+  "title": "The Procedure Guide (Rohit Puranik, MD): contact form",
+  "source": "The Procedure Guide (Puranik)",
+  "gets": "Original C-arm exports for 4 live-contrast lumbar clips",
+  "route": "Contact form: paste the text",
+  "effort": "2 min",
+  "status": "Ready",
+  "subject": "not a form field; the text below opens with one line saying what the message is about",
+  "expect": "a small site that may reply quickly. The original exports may not have been kept.",
+  "verified": null,
+  "how": null,
+  "notes": [
+   "**Form fields:** First name, Last name, Email, and \"Comment or Message\", all required.",
+   "**Founder:** Rohit Puranik, MD, \"founder and primary editor\", named on https://theprocedureguide.com/about-our-team/.",
+   "**Site licence:** the footer reads \"Everything on the site is under a creative commons license (CC BY-NC-SA 4.0)\". The site does not say whether that covers its YouTube clips.",
+   "KXz2k8lOt9U and 4q8LjcE0vsI (L3 transforaminal injection; we believe the same patient)",
+   "6MBj9SBZrno (interlaminar lumbar epidural, lateral)",
+   "DCLd6DsoUSg (caudal epidural)"
+  ],
+  "letter": "Research request: original C-arm exports for four of your live fluoroscopy clips.\n\nDear Dr Puranik,\n\nI am a surgeon-scientist at Wayne State University School of Medicine / Detroit Medical Center. My group develops a neural network that detects vertebrae and names spinal levels on C-arm images, and we are testing it on consecutive fluoroscopy frames. Your live-contrast clips are unusually clean. We have saved copies of these YouTube versions for screening only and will delete them if you prefer:\n- KXz2k8lOt9U and 4q8LjcE0vsI (L3 transforaminal injection; we believe the same patient)\n- 6MBj9SBZrno (interlaminar lumbar epidural, lateral)\n- DCLd6DsoUSg (caudal epidural)\n\nCould you tell us: (1) whether your site's CC BY-NC-SA 4.0 licence covers these clips; (2) whether the original C-arm exports (DICOM or the fluoroscope's video output) still exist and could be shared, de-identified; (3) the level targeted in each, and the frame rate if known.\n\nUse would be non-commercial research evaluation only, kept on Wayne State's secured storage, not redistributed, and credited to The Procedure Guide.\n\nMany thanks,\nGregory J. Schwing, MD, PhD, Department of General Surgery, Wayne State University School of Medicine / Detroit Medical Center, go2432@wayne.edu"
+ },
+ {
+  "n": 10,
+  "title": "Konica Minolta Healthcare Americas: DDR source sequences",
+  "source": "Konica Minolta Healthcare",
+  "gets": "Source DDR sequences (flat-panel dynamic radiography, not fluoroscopy)",
+  "route": "Email, `10_konica.eml`, or the web form",
+  "effort": "1 min",
+  "status": "Ready. Verified",
+  "subject": "Research request: de-identified lumbar Dynamic Digital Radiography sequences",
+  "expect": "corporate marketing will route the request. It may lead to a research agreement or an NDA, or to a pointer to a DDR clinical site. These are flat-panel sequences, not fluoroscopy, so keep them in a separate arm.",
+  "verified": null,
+  "how": null,
+  "notes": [
+   "**[e-mail withheld]:** shown on https://healthcare.konicaminolta.us/contact-us, with [phone withheld].",
+   "**Alternative:** the web form on the same page, where you tick \"Radiography\" under Areas of Interest and paste the body into \"More Info / Message\". Email and Contact Number are required fields."
+  ],
+  "letter": "Dear Konica Minolta Healthcare team,\n\nI am a surgeon-scientist at Wayne State University School of Medicine and the Detroit Medical Center. My group develops a neural network that detects vertebrae and names spinal levels on X-ray images, and we are testing whether it keeps each vertebra's identity across sequential frames. Your video \"Explore Spine Movement with Dynamic Digital Radiography (DDR)\" (https://www.youtube.com/watch?v=Eq8m0e6AGGw) shows exactly the kind of sequence we would like to test on. We have saved a copy for screening only and will delete it if you prefer.\n\nWould Konica Minolta, or a DDR research site you work with, be able to share a small set of de-identified lumbar DDR sequences: AP side-bending and lateral flexion-extension, in the native format with frame timing and pixel spacing, and the levels in the report where given? If there is a DDR research-collaboration programme, I would be glad to apply through it.\n\nUse would be non-commercial research evaluation only, on Wayne State's secured storage, not redistributed, and credited as you wish.\n\nWith thanks and kind regards,\n\nGregory J. Schwing, MD, PhD\nDepartment of General Surgery\nWayne State University School of Medicine / Detroit Medical Center\nDetroit, Michigan, USA\ngo2432@wayne.edu"
+ },
+ {
+  "n": 11,
+  "title": "Jefferson Neurosurgery (Kevin Hines, MD): DRG stimulation video",
+  "source": "Jefferson (Hines)",
+  "gets": "Original file of the DRG lead-placement video (L5, S1); the YouTube copy is CC BY",
+  "route": "Email, `11_jefferson.eml`",
+  "effort": "1 min",
+  "status": "Ready. The address comes from the 2020 article; he is still listed at Jefferson Health",
+  "subject": "Original file for your Neurosurgical Focus: Video article on DRG stimulation (10.3171/2020.7.FOCVID2034)",
+  "expect": "an academic request, weeks. The original file may sit with JNS/AANS rather than the authors; if so, he will say so.",
+  "verified": null,
+  "how": null,
+  "notes": [
+   "**[e-mail withheld]:** the correspondence line of Hines et al., \"Dorsal root ganglion stimulation for treatment of complex regional pain syndrome of the foot\", Neurosurg Focus Video 2020;3(2) (PMC9542308).",
+   "He is still listed by Jefferson Health (https://www.jeffersonhealth.org/find-a-doctor/h/hines-kevin-j), but the address itself is from 2020.",
+   "**Licence:** the YouTube copy (_1xMxFZa6tU, AANS channel) is marked \"Creative Commons Attribution license (reuse allowed)\" in its metadata. The PMC text says \"distributed under the CC BY-NC-ND license\" while linking the CC BY 4.0 URL."
+  ],
+  "letter": "Dear Dr Hines,\n\nI am a surgeon-scientist at Wayne State University School of Medicine and the Detroit Medical Center. My group develops a neural network that detects vertebrae and names spinal levels on C-arm images, and we are testing it on consecutive fluoroscopy frames. Your video article on DRG stimulation for CRPS of the foot (Neurosurg Focus Video 2020, doi:10.3171/2020.7.FOCVID2034) shows lumbosacral fluoroscopy with the L5 and S1 levels named, which gives us level ground truth.\n\nThe YouTube copy carries a CC BY licence, and we have saved it for screening. Would you be able to share:\n1. The original-resolution video file, or the underlying C-arm runs if they were kept, de-identified.\n2. Which segments are live fluoroscopy rather than saved images, and the level in each.\n3. Which licence applies: the article text says CC BY-NC-ND but links CC BY 4.0.\n\nUse would be non-commercial research evaluation only, on Wayne State's secured storage, not redistributed, and cited to your article.\n\nWith thanks and kind regards,\n\nGregory J. Schwing, MD, PhD\nDepartment of General Surgery\nWayne State University School of Medicine / Detroit Medical Center\nDetroit, Michigan, USA\ngo2432@wayne.edu"
+ },
+ {
+  "n": 12,
+  "title": "Manual Therapy Foundation of India (Prof. Umasankar Mohanty)",
+  "source": "MTFI (Mohanty)",
+  "gets": "Original of a 10 s lumbar coupling videofluoroscopy",
+  "route": "Email (copy the address from the site) or WhatsApp",
+  "effort": "2 min",
+  "status": "**Address hidden** from scripts; the phone number is verified",
+  "subject": "Research request: original file of \"Lumbar Coupling (Video Fluoroscopy)\"",
+  "expect": "low value. The clip is 10 s and the YouTube copy films a monitor. It is worth sending only because it costs a minute.",
+  "verified": null,
+  "how": null,
+  "notes": [
+   "The founder, \"Prof. Umasankar Mohanty\", is named on https://www.mtfi.net/.",
+   "The address and phone numbers are on its Contact Us page: 301-302 Janvi Plaza, Bunts Hostel Road, Mangalore 575003.",
+   "The video (56Sxu0thpcU, 10 s) is titled \"... by Prof. Mohanty and Dr. Shamla Pazare of MTFI\"."
+  ],
+  "letter": "Dear Prof. Mohanty,\n\nI am a surgeon-scientist at Wayne State University School of Medicine and the Detroit Medical Center. My group develops a neural network that detects vertebrae and names spinal levels on X-ray images, and we are testing it on consecutive fluoroscopy frames. Your YouTube video \"Lumbar Coupling (Video Fluoroscopy)\" with Dr Shamla Pazare (https://www.youtube.com/watch?v=56Sxu0thpcU) shows AP lumbar side-bending with rotation, which is a view we lack. We have saved a copy for screening only and will delete it if you prefer.\n\nWould you be able to share the original recording file (the YouTube version appears to be filmed from a monitor), with the frame rate, the equipment used and the levels in view? Use would be non-commercial research evaluation only, not redistributed, and credited to you and MTFI.\n\nWith thanks and kind regards,\n\nGregory J. Schwing, MD, PhD\nDepartment of General Surgery\nWayne State University School of Medicine / Detroit Medical Center\nDetroit, Michigan, USA\ngo2432@wayne.edu"
+ },
+ {
+  "n": 13,
+  "title": "Christopher Faubel, MD (ThePainSource / OrthoIllinois): fax or phone",
+  "source": "Christopher Faubel MD",
+  "gets": "Originals of 2 short lumbar injection clips",
+  "route": "Fax the letter, or phone",
+  "effort": "3 min",
+  "status": "No email published; fax verified",
+  "subject": "Research request: original fluoroscopy clips from ThePainSource videos",
+  "expect": "low value. These are two clips of a few seconds each, and the site reserves all rights.",
+  "verified": null,
+  "how": null,
+  "notes": [
+   "The fax, phone and address (650 S. Randall Road, Algonquin, IL 60102) are on https://www.faubelmd.com/contact-us and on his OrthoIllinois provider page.",
+   "ThePainSource.com footer: \"© The Pain Source, All Rights Reserved\"; it names Dr Faubel as creator.",
+   "**Easiest route:** call the office, ask for an email address for Dr Faubel, and send the text below. Otherwise fax it as a letter.",
+   "6Y2QDj_xUbQ, \"Right L5-S1 facet injection under fluoroscopic guidance\"",
+   "CTyIu-EGby8, \"Lumbar Transforaminal Epidural - Neurogram to Epidural with an Extra Millimeter\""
+  ],
+  "letter": "Dear Dr Faubel,\n\nI am a surgeon-scientist at Wayne State University School of Medicine and the Detroit Medical Center. My group develops a neural network that detects vertebrae and names spinal levels on C-arm images, and we are testing it on consecutive fluoroscopy frames. Two of your ThePainSource videos show short live runs that would help. We have saved copies of the YouTube versions for screening only and will delete them if you prefer:\n- 6Y2QDj_xUbQ, \"Right L5-S1 facet injection under fluoroscopic guidance\"\n- CTyIu-EGby8, \"Lumbar Transforaminal Epidural - Neurogram to Epidural with an Extra Millimeter\"\n\nWould you be able to share the original clips, de-identified, with the level in each (and the frame rate if known), and permit their use for non-commercial research evaluation? They would stay on Wayne State's secured storage, would not be redistributed, and would be credited to you and ThePainSource.\n\nWith thanks and kind regards,\n\nGregory J. Schwing, MD, PhD\nDepartment of General Surgery\nWayne State University School of Medicine / Detroit Medical Center\nDetroit, Michigan, USA\ngo2432@wayne.edu"
+ },
+ {
+  "n": 14,
+  "title": "DARADIA: The Pain Clinic (Kolkata)",
+  "source": "DARADIA (Kolkata)",
+  "gets": "Original vertebroplasty fluoroscopy and patient consent status",
+  "route": "Email, `14_daradia.eml`",
+  "effort": "1 min",
+  "status": "Ready. Verified",
+  "subject": "Research request: original fluoroscopy from your percutaneous vertebroplasty video",
+  "expect": "low value. The patient is live and in front of an audience, and a skin grid lies over the spine. Consent for research reuse is the deciding question.",
+  "verified": null,
+  "how": null,
+  "notes": [
+   "**[the address on daradia.com]:** shown on https://daradia.com/, with +91 92 0559 0559 and the Daradia Pain Hospital address in New Town, Kolkata.",
+   "The video (xciOcPXLcGs) credits \"Procedure Performed by: Dr. Gautam Das MD, FIPP\"."
+  ],
+  "letter": "Dear Dr Das and the DARADIA team,\n\nI am a surgeon-scientist at Wayne State University School of Medicine and the Detroit Medical Center. My group develops a neural network that detects vertebrae and names spinal levels on C-arm images, and we are testing it on consecutive fluoroscopy frames. Your video \"Percutaneous Vertebroplasty | Step-by-Step Technique Under Fluoroscopy\" (https://www.youtube.com/watch?v=xciOcPXLcGs) shows the kind of sequence we need. We have saved a copy for screening only and will delete it if you prefer.\n\nWould you be able to share:\n1. The original fluoroscopy recording, de-identified.\n2. The level treated.\n3. Whether the patient's consent covers research reuse of the images.\n\nUse would be non-commercial research evaluation only, on Wayne State's secured storage, not redistributed, and credited to Dr Das and DARADIA.\n\nWith thanks and kind regards,\n\nGregory J. Schwing, MD, PhD\nDepartment of General Surgery\nWayne State University School of Medicine / Detroit Medical Center\nDetroit, Michigan, USA\ngo2432@wayne.edu"
+ },
+ {
+  "n": 15,
+  "title": "Balgrist (Jecklin et al., Medical Image Analysis 2024): ex-vivo lumbar CT with real C-arm X-rays",
+  "source": "Balgrist University Hospital, Zurich",
+  "gets": "13 + 6 ex-vivo lumbar specimens: CT volumes, every real X-ray, the fiducial projection matrix per image, and the C-arm that took it (three devices)",
+  "route": "Email (letter below)",
+  "effort": "5 min; a data-transfer agreement through WSU",
+  "status": "Ready. Set is restricted because of pending patents",
+  "subject": "Data request: ex-vivo lumbar CT and C-arm X-rays from Jecklin et al., Medical Image Analysis 2024",
+  "expect": "A data-use or transfer agreement on their terms; restricted set, so it may be refused or limited.",
+  "verified": null,
+  "how": "Email the corresponding author of the Medical Image Analysis 2024 paper (address on the paper).",
+  "notes": [],
+  "letter": "Dear Dr. Jecklin,\n\nI am [a neurosurgery resident; confirm title] at Wayne State University and the Detroit Medical Center. I work on counting vertebral levels on intraoperative fluoroscopy, to prevent wrong-level spine surgery. I read your Medical Image Analysis paper on domain adaptation for lumbar reconstruction from real fluoroscopy, and your 2025 Scientific Reports follow-up. Your ex-vivo set is the only one I have found that pairs CT with real mobile C-arm images of the lumbar spine inside an intact torso, on more than one device. I am writing to ask whether you would share the full dataset under a data use agreement.\n\nWhat I would use it for. We train a vertebra detector on simulated fluoroscopy rendered from CT, and we calibrate the rendering against real frames. So far the only real frames with known pose we have are DeepFluoro: six cadaveric pelves on one Siemens Cios Fusion. On those, the calibrated renderer explains about 90 per cent of the variance of held-out real frames. We also found that the device stores log-compressed display images, not raw transmission. Neither result can be trusted until it is repeated on the lumbar spine and on other C-arms. Your Cios Spin, Ziehm Vision and Ziehm Vision FD images would let us test both.\n\nWhat I am asking for:\n1. All 13 specimens from the Medical Image Analysis paper and the six validation specimens: the CT volumes, every real X-ray, the fiducial-based projection matrix for each image, and the device that took it.\n2. The specimens from the Scientific Reports paper, if they are not among these.\n3. The X-rays as the C-arms exported them (original DICOM with headers, if you have them), rather than the 512-pixel crops. We need kVp, detector type and the Pixel Intensity Relationship tag.\n\nWhat I can offer:\n- A data use or transfer agreement through Wayne State on your terms: research use only, no redistribution, secure storage, no attempt to re-identify donors.\n- Citation of both papers, and acknowledgement or co-authorship as you judge appropriate.\n- Our calibration code and the device terms fitted for your three C-arms. I would share any result with you before submission.\n\nI understand the set is restricted because of pending patents, and I will work within whatever terms that requires.\n\nWith thanks,\n\nGregory Schwing, MD, PhD\n[title], Department of General Surgery\nWayne State University School of Medicine / Detroit Medical Center\n[e-mail withheld]"
+ },
+ {
+  "n": 16,
+  "title": "SX-Stitch (Li et al., arXiv 2409.05681): overlapping intraoperative C-arm series",
+  "source": "SUSTech / Peking Union Medical College Hospital",
+  "gets": "1,032 intraoperative C-arm spine images in consecutive overlapping series (20 to 90 % overlap) with vertebra masks",
+  "route": "Email (SUSTech and PUMCH directory addresses; none printed in the arXiv paper)",
+  "effort": "5 min",
+  "status": "Ready",
+  "subject": "Request for the SX-Stitch C-arm image series for a non-commercial validation study",
+  "expect": "An academic request; the only published set of real overlapping C-arm sweeps, the acquisition your sweep protocol simulates.",
+  "verified": null,
+  "how": "Find the corresponding authors' institutional addresses (Wei Liu, SUSTech; Jinqian Liang, PUMCH) and email the letter.",
+  "notes": [],
+  "letter": "Subject: Request for the SX-Stitch C-arm image series for a non-commercial validation study\n\nDear Professor Liu and Dr Liang,\n\nI am a general surgery resident at Wayne State University / Detroit Medical Center working on\nintraoperative vertebral level confirmation from limited-field C-arm images. We have built and\npublished a protocol in which a short series of overlapping C-arm exposures, taken from the sacrum\nupward, is linked into one map so that a later spot image containing no landmark can still be named.\nEvery number we have so far comes from CT renders and from single lateral radiographs cut into\noverlapping frames; we have no real overlapping intraoperative series to test on.\n\nYour SX-Stitch paper (arXiv:2409.05681) describes 1,032 intraoperative C-arm images in consecutive\noverlapping series with 20–90 % overlap. That is precisely the acquisition our method assumes, and it\nwould let us report the protocol on real intraoperative frames rather than simulated ones.\n\nI would like to ask whether the image series, with or without the segmentation masks, could be shared\nfor non-commercial research use. Specifically:\n\n- the consecutive image series grouped by patient, with the acquisition order;\n- any vertebra-level labels or masks that exist;\n- the licence or data-use terms you require.\n\nWe would use the data only to evaluate (not train) our level-naming pipeline, would not redistribute\nit, would cite SX-Stitch as the source in any resulting publication, and would be glad to share our\nresults on your series with you before publication. If a data-use agreement through Wayne State\nUniversity is needed, I can initiate it.\n\nThank you for considering this.\n\nGregory Schwing, MD, PhD\nDepartment of General Surgery, Wayne State University School of Medicine / Detroit Medical Center\ngo2432@wayne.edu"
+ }
+]
