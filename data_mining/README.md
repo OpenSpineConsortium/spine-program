@@ -28,7 +28,7 @@ by what is drawn on the images, how the images were saved and how to get them, w
 | `data/sources/web_fluoro.json` | 44 fluoroscopy and spine radiograph datasets from a web search on 2026-10-17 |
 | `data/sources/web_paired.json` | 30 paired CT and X-ray, CBCT projection and DRR datasets from a web search on 2026-10-17 |
 | `data/sources/idc_ct_plus_radiograph_patients_v25.csv` | Per TCIA collection (Imaging Data Commons v25): patients with CT, with CR/DX, and with both |
-| `build/` | `merge_atlas.py`, `parse_requests.py`, `make_catalog_md.py` and the page template |
+| `scripts/` | `merge_atlas.py`, `parse_requests.py`, `make_catalog_md.py` and the page template |
 
 ## How it was built
 
@@ -39,7 +39,7 @@ by what is drawn on the images, how the images were saved and how to get them, w
 - **Web search** (`web_*.json`): official dataset pages, repositories and papers, opened one by one. A record with
   `verified: false` came from search results only; the page marks it "link not opened". Radiopaedia's site was not
   fetched, because its terms bar automated access.
-- **Merge** (`build/merge_atlas.py`): Greg's records are the base and are never merged with one another, since the
+- **Merge** (`scripts/merge_atlas.py`): Greg's records are the base and are never merged with one another, since the
   manifest lists separate banks on purpose. Each web record joins the record it names (same name, or the same dataset
   family and a compatible kind), filling only empty fields; Greg's records win for status, grid path and notes. Web
   records with no match are added. Three TCIA collections whose CT Greg holds but whose radiographs he does not
@@ -53,13 +53,13 @@ by what is drawn on the images, how the images were saved and how to get them, w
 From the repository root, with Python 3.10 or later and nothing else installed:
 
 ```
-python data_mining/build/merge_atlas.py
+python data_mining/scripts/merge_atlas.py
 ```
 
 It parses the letters in `01_carm_level_detection/docs/data_requests/` into `data/requests.json`, merges the three
 source catalogs, and rewrites `data/datasets.json`, the page and `CATALOG.md`. To add or correct a dataset, edit the
 source record in `data/sources/` and rebuild; the ten "worth getting next" items are listed twice, in
-`build/atlas_template.html` and `build/make_catalog_md.py`, and should be changed together.
+`scripts/atlas_template.html` and `scripts/make_catalog_md.py`, and should be changed together.
 
 Each record has these keys: `name`, `aka`, `category` (`fluoro_video`, `fluoro_frames`, `radiograph`,
 `paired_ct_xray_real`, `paired_ct_drr_synthetic`, `cbct_projections`, `private_request`), `anatomy`, `size`,

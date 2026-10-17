@@ -582,4 +582,4 @@ Data that exists but is held privately; a letter is the only route. 16 datasets.
 
 ## How this was built
 
-From Greg's records (spinesurg-ct-nnunet `data_platform/DATA_MANIFEST.md` and `sources.json`, `HANDOFF/literature_state/`, this repository's `01_carm_level_detection/docs/data_requests/`, `FLUORO_VIDEO_SOURCES_2026-09-26.md` and `docs/external_reports/`, and the project memory notes), and from a web search on 17 October 2026. Rebuild with `python data_mining/build/merge_atlas.py`; [README.md](README.md) explains the inputs.
+From Greg's records (spinesurg-ct-nnunet `data_platform/DATA_MANIFEST.md` and `sources.json`, `HANDOFF/literature_state/`, this repository's `01_carm_level_detection/docs/data_requests/`, `FLUORO_VIDEO_SOURCES_2026-09-26.md` and `docs/external_reports/`, and the project memory notes), and from a web search on 17 October 2026. Rebuild with `python data_mining/scripts/merge_atlas.py`; [README.md](README.md) explains the inputs.
