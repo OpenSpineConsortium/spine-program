@@ -1,0 +1,199 @@
+{
+  "epic": {
+    "title": "data_mining: every fluoroscopy video dataset, solved one by one",
+    "body": "One issue per fluoroscopy video dataset of the Fluoroscopy Data Atlas (21 records of category fluoro_video in data_mining/data/datasets.json), each with its next step by status. The plan is data_mining/video_issues.json; data_mining/scripts/make_video_issues.py opened them. Linked under #142, the AIDaS C-arm training epic, since real C-arm cine is what closes its detection gap.",
+    "parent": 142,
+    "issue": 185
+  },
+  "tasks": [
+    {
+      "key": "V01",
+      "record": "Bern dynamic myelography Videos 1-4 (Clin Neuroradiol 2021)",
+      "owner": "aschehr",
+      "kind": "screen",
+      "title": "Screen the Bern dynamic myelography videos on the grid",
+      "body": "Atlas record: **Bern dynamic myelography Videos 1-4 (Clin Neuroradiol 2021)** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: held\n- Grid path: /rs/rs_grp_oschome/go2432/data/external/fluoro_video\n- Access: open download\n- How to get it: PMC supplementary files of PMC8463391 (CC BY 4.0, with attribution).\n- Licence: CC BY 4.0\n- Link: https://pmc.ncbi.nlm.nih.gov/articles/PMC8463391/\n- Size: 4 MP4s, 5-21 s each; pulsed 7.5 f/s, about 10-14 s per clip estimated from captions\n- Notes: The closest public case to overlapping frames along one spine (the detector pans cranially with the contrast), but the step is not known and the web versions are re-encoded, cropped and have lost frame timing and geometry.\n\n## What to do\n\nScreen it on the grid: list every file under the grid path with its duration, frame rate, resolution and codec (ffprobe, in an sbatch job), and read the fluoro_video pipeline's clips.csv and REPORT.md for these files if the earlier run covered them (01_carm_level_detection/code/fluoro_video/README.md; the 1,269 extracted clips of the atlas record for the YouTube set); run the pipeline on them if it did not. Record for each file whether it holds live fluoroscopy or held frames, the view (AP, lateral), the levels in the field and any level named on screen.\n\nAlso measure, frame by frame, how far the field moves between frames where the detector pans cranially, so the step can be compared with the native DICOM that request letter 3 asks for.\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 186
+    },
+    {
+      "key": "V02",
+      "record": "Bournemouth cervical quantitative-fluoroscopy corner tracks (BORDaR 385)",
+      "owner": "aschehr",
+      "kind": "verify",
+      "title": "Verify the Bournemouth cervical corner tracks and make them load",
+      "body": "Atlas record: **Bournemouth cervical quantitative-fluoroscopy corner tracks (BORDaR 385)** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: held\n- Grid path: /rs/rs_grp_oschome/go2432/data/realxray/bournemouth_qf/raw\n- Access: open download\n- How to get it: Download Cervical Database.mat and README.pdf from https://bordar.bournemouth.ac.uk/385/ and verify md5 aec3d16d031f62c4a4b7725cd5e0a0be.\n- Licence: CC BY 4.0 (README.rtf alone CC BY-ND)\n- Link: https://bordar.bournemouth.ac.uk/385/\n- Size: 63 people, 126 imaging events x (flexion, extension) = 252 sequences, 181-339 frames each (median 301, 15 Hz); Cervical Database.mat 24,380,812 B; no pixels\n- Notes: Ready-made per-frame level-named track labels with no images attached; the harness tools/bournemouth_qf_eval.py scores against them the day the DICOM cine (request 1) arrives.\n\n## What to do\n\nCheck the md5 of Cervical Database.mat on the grid against aec3d16d031f62c4a4b7725cd5e0a0be in a job, load it and write a per-sequence summary (person, event, direction, frames, NaN count, levels filled), and confirm tools/bournemouth_qf_eval.py reads it, so scoring can start the day the DICOM cine of request letter 1 arrives.\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 187
+    },
+    {
+      "key": "V03",
+      "record": "Bournemouth/AECC quantitative fluoroscopy frames (OSF z2jby)",
+      "owner": "aschehr",
+      "kind": "download",
+      "title": "Download the Bournemouth/AECC lumbar fluoroscopy frames (OSF z2jby)",
+      "body": "Atlas record: **Bournemouth/AECC quantitative fluoroscopy frames (OSF z2jby)** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: not held\n- Access: open download\n- How to get it: OSF project z2jby (not fetched).\n- Licence: not recorded\n- Link: osf.io/z2jby (OSF project id as recorded)\n- Size: sizes disagree: 45,968 frames in 139 folders, about 58 or 89 subjects, or 28,894 frames; 224 px\n- Notes: Judged useless in the sweep (224 px, no CT, no labels), but it is open real lumbar fluoroscopy.\n\n## What to do\n\nDownload it to the grid in an sbatch job (never on the login node), under /rs/rs_grp_oschome/go2432/data/external/fluoro_video/<short name>/, keep the licence and README beside it, and write the sha256 of every file to a manifest beside it. Then screen it as a held source is screened: files, frame rate, resolution, live or held frames, view, levels in the field.\n\nOpen osf.io/z2jby first and record its licence and its real size, since the records disagree (45,968 frames in 139 folders, or 28,894; about 58 or 89 subjects). Use all of it (root CLAUDE.md rule 9).\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 188
+    },
+    {
+      "key": "V04",
+      "record": "DysphagiaBank UNM corpus (TalkBank)",
+      "owner": "aschehr",
+      "kind": "screen",
+      "title": "Screen the DysphagiaBank UNM swallow corpus on the grid",
+      "body": "Atlas record: **DysphagiaBank UNM corpus (TalkBank)** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: held\n- Grid path: /rs/rs_grp_oschome/go2432/data/external/fluoro_video/dysphagiabank_unm\n- Access: free registration\n- How to get it: TalkBank registration at https://talkbank.org/aphasia/access/English/Dysphagia/UNM.html.\n- Licence: CC BY-NC-SA 3.0; no commercial use and no LLM use; users responsible for claims from people in the videos\n- Link: https://talkbank.org/aphasia/access/English/Dysphagia/UNM.html\n- Size: 87 files, 19 GB on the grid; the scan counted about 53 adults, the UNM corpus page lists 7 participants\n- Notes: Whole swallow studies of about a minute or more at 30 f/s, useful only as a cervical stability test.\n\n## What to do\n\nScreen it on the grid: list every file under the grid path with its duration, frame rate, resolution and codec (ffprobe, in an sbatch job), and read the fluoro_video pipeline's clips.csv and REPORT.md for these files if the earlier run covered them (01_carm_level_detection/code/fluoro_video/README.md; the 1,269 extracted clips of the atlas record for the YouTube set); run the pipeline on them if it did not. Record for each file whether it holds live fluoroscopy or held frames, the view (AP, lateral), the levels in the field and any level named on screen.\n\nSettle the participant count (the scan counted about 53 adults; the corpus page lists 7). Its licence forbids LLM use: no frame or transcript goes to Claude or any outside AI service.\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 189
+    },
+    {
+      "key": "V05",
+      "record": "Neurosurgical Focus: Video MP4s (seven articles)",
+      "owner": "aschehr",
+      "kind": "screen",
+      "title": "Screen the seven Neurosurgical Focus videos on the grid",
+      "body": "Atlas record: **Neurosurgical Focus: Video MP4s (seven articles)** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: held\n- Grid path: /rs/rs_grp_oschome/go2432/data/external/fluoro_video\n- Access: open download\n- How to get it: Full MP4s from PMC in a browser (scripted download hits a JavaScript proof-of-work cookie gate).\n- Licence: CC BY 4.0 (journal policy); the AANS site footer reserves TDM/AI-training rights\n- Link: https://pmc.ncbi.nlm.nih.gov/articles/PMC13418632/\n- Size: six MP4s plus PMC13418632 (200.3 MB, about 8 min 26 s)\n- Notes: Legally reusable surgical video, but the one article checked shows saved AP and lateral stills under an instrument-tracking overlay, not continuous cine of moving vertebrae.\n\n## What to do\n\nScreen it on the grid: list every file under the grid path with its duration, frame rate, resolution and codec (ffprobe, in an sbatch job), and read the fluoro_video pipeline's clips.csv and REPORT.md for these files if the earlier run covered them (01_carm_level_detection/code/fluoro_video/README.md; the 1,269 extracted clips of the atlas record for the YouTube set); run the pipeline on them if it did not. Record for each file whether it holds live fluoroscopy or held frames, the view (AP, lateral), the levels in the field and any level named on screen.\n\nRecord, for each of the seven articles, whether it shows continuous cine of moving vertebrae or saved stills under an overlay; only one article was checked. Record the AANS footer's reservation of TDM and AI-training rights beside the CC BY licence.\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 190
+    },
+    {
+      "key": "V06",
+      "record": "PMC CC BY supplementary fluoroscopy clips",
+      "owner": "aschehr",
+      "kind": "screen",
+      "title": "Screen the three PMC CC BY fluoroscopy clips on the grid",
+      "body": "Atlas record: **PMC CC BY supplementary fluoroscopy clips** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: held\n- Grid path: /rs/rs_grp_oschome/go2432/data/external/fluoro_video\n- Access: open download\n- How to get it: PMC supplementary files by PMCID (Europe PMC / PMC).\n- Licence: CC BY (CC BY 4.0 for PMC4852439 per the scan)\n- Link: https://pmc.ncbi.nlm.nih.gov/articles/PMC10242080/\n- Size: 3 files: PMC10242080 AVI (15.7 MB), PMC11328828 clip, PMC4852439 MOV (126.6 MB)\n- Notes: Licence-clean real clips for screening, but whether they hold live fluoroscopy rather than held frames was not verified when the scan ran.\n\n## What to do\n\nScreen it on the grid: list every file under the grid path with its duration, frame rate, resolution and codec (ffprobe, in an sbatch job), and read the fluoro_video pipeline's clips.csv and REPORT.md for these files if the earlier run covered them (01_carm_level_detection/code/fluoro_video/README.md; the 1,269 extracted clips of the atlas record for the YouTube set); run the pipeline on them if it did not. Record for each file whether it holds live fluoroscopy or held frames, the view (AP, lateral), the levels in the field and any level named on screen.\n\nSettle what PMC4852439 holds (unverified) and whether each of the three clips is live fluoroscopy or held frames.\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 191
+    },
+    {
+      "key": "V07",
+      "record": "VFSS_analysis (GitHub BSEL-UC3M)",
+      "owner": "aschehr",
+      "kind": "screen",
+      "title": "Describe the VFSS_analysis repository held on the grid",
+      "body": "Atlas record: **VFSS_analysis (GitHub BSEL-UC3M)** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: held\n- Grid path: /rs/rs_grp_oschome/go2432/data/external/fluoro_video/github\n- Access: open download\n- How to get it: git clone https://github.com/BSEL-UC3M/VFSS_analysis.\n- Licence: not recorded\n- Link: https://github.com/BSEL-UC3M/VFSS_analysis\n- Size: not recorded\n- Notes: Held under github/ of the clip corpus; its contents are not described in any file read.\n\n## What to do\n\nScreen it on the grid: list every file under the grid path with its duration, frame rate, resolution and codec (ffprobe, in an sbatch job), and read the fluoro_video pipeline's clips.csv and REPORT.md for these files if the earlier run covered them (01_carm_level_detection/code/fluoro_video/README.md; the 1,269 extracted clips of the atlas record for the YouTube set); run the pipeline on them if it did not. Record for each file whether it holds live fluoroscopy or held frames, the view (AP, lateral), the levels in the field and any level named on screen.\n\nNo file read so far describes its contents: list what the clone holds (code, images, videos, labels), its licence file and its last commit, and say whether it holds any data or only code.\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 192
+    },
+    {
+      "key": "V08",
+      "record": "Wikimedia Commons fluoroscopy items (three)",
+      "owner": "aschehr",
+      "kind": "screen",
+      "title": "Screen the three Wikimedia Commons fluoroscopy items on the grid",
+      "body": "Atlas record: **Wikimedia Commons fluoroscopy items (three)** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: held\n- Grid path: /rs/rs_grp_oschome/go2432/data/external/fluoro_video\n- Access: open download\n- How to get it: Download from Wikimedia Commons with attribution; the scan's Commons candidates are Fluoroscopy_of_normal_barium_swallow.ogg (28.7 s at 3 f/s, CC BY-SA 4.0), ZenkerSeitlichZiel.gif and the BMC transforaminal dry-needling .ogv (1471-2474-11-180-S1).\n- Licence: CC BY or CC BY-SA, per item\n- Link: https://commons.wikimedia.org/wiki/File:Fluoroscopy_of_normal_barium_swallow.ogg\n- Size: three items (which three is listed in manifest.tsv, not in the files read)\n- Notes: The barium-swallow clip is one of only two public sources whose field pans down the spine, at an unknown step.\n\n## What to do\n\nScreen it on the grid: list every file under the grid path with its duration, frame rate, resolution and codec (ffprobe, in an sbatch job), and read the fluoro_video pipeline's clips.csv and REPORT.md for these files if the earlier run covered them (01_carm_level_detection/code/fluoro_video/README.md; the 1,269 extracted clips of the atlas record for the YouTube set); run the pipeline on them if it did not. Record for each file whether it holds live fluoroscopy or held frames, the view (AP, lateral), the levels in the field and any level named on screen.\n\nName the three items from manifest.tsv, record each one's licence and attribution line, and measure the barium-swallow clip's step down the spine between frames.\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 193
+    },
+    {
+      "key": "V09",
+      "record": "YouTube re-encodes of 28 spine fluoroscopy videos",
+      "owner": "aschehr",
+      "kind": "screen",
+      "title": "Screen the 28 YouTube spine fluoroscopy videos and map each to its request letter",
+      "body": "Atlas record: **YouTube re-encodes of 28 spine fluoroscopy videos** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: held\n- Grid path: /rs/rs_grp_oschome/go2432/data/external/fluoro_video\n- Access: request to authors\n- How to get it: yt-dlp from WSL at best quality (job 40477816); YouTube's terms restrict downloading without permission, so the clean route is the uploader's written permission and original file (request letters 5-7 and 9-14).\n- Licence: mostly unknown (one watch page, KWwGMIoDrmU, shows CC BY); kept for screening without permission\n- Size: 28 video ids (youtube/ 12 GB); 43 extra ids attempted, success tally never made; part of the 1,269 extracted clips (776 live)\n- Notes: A small internal stress test at best: lossy re-encodes with the C-arm image in 30-60 % of a split-screen frame, burned-in dates, levels rarely named and the C-arm usually parked on one level.\n\n## What to do\n\nScreen it on the grid: list every file under the grid path with its duration, frame rate, resolution and codec (ffprobe, in an sbatch job), and read the fluoro_video pipeline's clips.csv and REPORT.md for these files if the earlier run covered them (01_carm_level_detection/code/fluoro_video/README.md; the 1,269 extracted clips of the atlas record for the YouTube set); run the pipeline on them if it did not. Record for each file whether it holds live fluoroscopy or held frames, the view (AP, lateral), the levels in the field and any level named on screen.\n\nMake the tally the scan never made (which of the 43 extra ids downloaded), list each id with its uploader, its licence as the watch page shows it and the request letter (5 to 7, 9 to 14) that asks for its original. Keep them for screening only until permission arrives; say whether Samuel Ralls's two ids (V15) are among them.\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 194
+    },
+    {
+      "key": "V10",
+      "record": "DIAS",
+      "owner": "aschehr",
+      "kind": "download",
+      "title": "Download DIAS (intracranial DSA sequences) to the grid",
+      "body": "Atlas record: **DIAS** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: not held\n- Access: open download\n- How to get it: Download DIAS.zip from Zenodo record 11637181 (linked from github.com/lseventeen/DIAS).\n- Licence: CC BY 4.0\n- Link: https://zenodo.org/records/11637181\n- Size: DSA sequences from intracranial interventions (120 in the arXiv paper; a later paper cites 60); 292 MB zip\n- Notes: Subtraction removes bone, so it says little about spine appearance.\n\n## What to do\n\nDownload it to the grid in an sbatch job (never on the login node), under /rs/rs_grp_oschome/go2432/data/external/fluoro_video/<short name>/, keep the licence and README beside it, and write the sha256 of every file to a manifest beside it. Then screen it as a held source is screened: files, frame rate, resolution, live or held frames, view, levels in the field.\n\nDownload DIAS.zip from Zenodo record 11637181 and settle its sequence count (120 in the arXiv paper, 60 cited later).\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 195
+    },
+    {
+      "key": "V11",
+      "record": "Guide3D",
+      "owner": "aschehr",
+      "kind": "download",
+      "title": "Download Guide3D (bi-planar phantom fluoroscopy) to the grid",
+      "body": "Atlas record: **Guide3D** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: not held\n- Access: open download\n- How to get it: huggingface-cli download airvlab/guide3d --repo-type dataset; code at github.com/airvlab/guide3d.\n- Licence: CC BY-NC 4.0\n- Link: https://huggingface.co/datasets/airvlab/guide3d\n- Size: 8,746 bi-planar frames at about 1024x1024 (6,136 Radifocus, 2,610 Nitrex); 4.07 GB\n- Notes: Bi-planar phantom fluoroscopy of instruments only, marginal for spine.\n\n## What to do\n\nDownload it to the grid in an sbatch job (never on the login node), under /rs/rs_grp_oschome/go2432/data/external/fluoro_video/<short name>/, keep the licence and README beside it, and write the sha256 of every file to a manifest beside it. Then screen it as a held source is screened: files, frame rate, resolution, live or held frames, view, levels in the field.\n\nDownload with `huggingface-cli download airvlab/guide3d --repo-type dataset` in a job; it is 4.07 GB.\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 196
+    },
+    {
+      "key": "V12",
+      "record": "XMAPortal biplanar XROMM collections",
+      "owner": "aschehr",
+      "kind": "download",
+      "title": "List the XMAPortal XROMM trunk studies and download the open ones",
+      "body": "Atlas record: **XMAPortal biplanar XROMM collections** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: not held\n- Access: open download\n- How to get it: Open but animal and off-target; the trunk studies on request; UNLV10 gated (judged useless).\n- Licence: Set per study by its owner\n- Link: https://xmaportal.org/webportal/\n- Size: 3 to 85 animals per collection\n- Notes: Biplanar X-ray video with poses, all animal.\n\n## What to do\n\nDownload it to the grid in an sbatch job (never on the login node), under /rs/rs_grp_oschome/go2432/data/external/fluoro_video/<short name>/, keep the licence and README beside it, and write the sha256 of every file to a manifest beside it. Then screen it as a held source is screened: files, frame rate, resolution, live or held frames, view, levels in the field.\n\nList the trunk studies with their owners' licences and the calibration each carries; download the open ones, and draft a short request for the trunk studies offered on request. UNLV10 stays out (gated, judged useless).\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 197
+    },
+    {
+      "key": "V13",
+      "record": "CAMS-Knee",
+      "owner": "greg",
+      "kind": "form",
+      "title": "Request the CAMS-Knee institutional licence",
+      "body": "Atlas record: **CAMS-Knee** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: not held\n- Access: EULA/form\n- How to get it: Signed institutional licence, not requested.\n- Licence: Not stated on the portal home page (research use on request)\n- Link: https://cams-knee.orthoload.com\n- Size: 6 subjects\n- Notes: Knee only.\n\n## What to do\n\nThe licence must be signed for the institution, so it is Greg's to sign. Ashley can prepare the form from https://cams-knee.orthoload.com; once it is granted, download and screen it as V03 does.\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 198
+    },
+    {
+      "key": "V14",
+      "record": "CathAction",
+      "owner": "greg",
+      "kind": "form",
+      "title": "File the CathAction access form and download it",
+      "body": "Atlas record: **CathAction** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: not held\n- Access: EULA/form\n- How to get it: Fill in the Google Form on the download page and accept the licence; the files are on huggingface.co/datasets/airvlab/CathAction.\n- Licence: CC BY-NC-SA 4.0\n- Link: https://airvlab.github.io/cathaction/docs/download/\n- Size: About 500,000 annotated frames and 25,000 catheter/guidewire masks (paper v1); 56.2 GB on Hugging Face\n- Notes: A large volume of real fluoroscopy video, but vascular phantom and animal scenes with no skeletal labels.\n\n## What to do\n\nFill in the Google Form on https://airvlab.github.io/cathaction/docs/download/ and accept the CC BY-NC-SA 4.0 licence, as the researcher the data is licensed to; then download it from huggingface.co/datasets/airvlab/CathAction in a job (56.2 GB).\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 199
+    },
+    {
+      "key": "V15",
+      "record": "Samuel Ralls DC cervical cine (YouTube T3vsvpkRR14, b8ZgL4mBqdA)",
+      "owner": "aschehr",
+      "kind": "request",
+      "title": "Draft a request letter for the Samuel Ralls cervical cine",
+      "body": "Atlas record: **Samuel Ralls DC cervical cine (YouTube T3vsvpkRR14, b8ZgL4mBqdA)** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: not held\n- Access: request to authors\n- How to get it: Not drafted: no email found (the video description gives a website and phone); add a letter like no. 12 if the cervical arm needs more.\n- Licence: not recorded\n- Size: 2 videos\n- Notes: Clean direct cervical cine rated good; whether these two ids are among the 28 YouTube ids saved on the grid is not recorded.\n\n## What to do\n\nFind a contact address from the video descriptions' website, and draft letter 17 in 01_carm_level_detection/docs/data_requests/ on the pattern of letter 12, asking for the originals and written permission. Greg sends it; the issue is done when the letter is drafted and parsed into requests.json.\n\n## Done when\n\nThe dataset's source record in data_mining/data/sources/ is corrected with what was found (status, grid path, size, licence, notes), `python data_mining/scripts/merge_atlas.py` rebuilt datasets.json, the page and CATALOG.md, and the pull request says what the job ids and outputs were. Nothing of the frames goes into git.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 200
+    },
+    {
+      "key": "V16",
+      "record": "AJR Rosas and Lee 2012 interlaminar lumbar epidural teaching video",
+      "owner": "aschehr",
+      "kind": "route",
+      "title": "Find out whether the AJR Rosas and Lee video is live fluoroscopy and reusable",
+      "body": "Atlas record: **AJR Rosas and Lee 2012 interlaminar lumbar epidural teaching video** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: not held\n- Access: license/fee\n- How to get it: Needs a subscription; the AJR page returned HTTP 403 to automated fetches.\n- Licence: not recorded\n- Link: https://www.ajronline.org/doi/10.2214/AJR.12.8541\n- Size: one teaching video article\n- Notes: Lowest value: whether it holds live fluoroscopy and whether AJR reuse terms allow frames are unknown.\n\n## What to do\n\nOpen it through the WSU library's AJR subscription in a browser, record whether it holds live fluoroscopy, and read AJR's reuse terms for frames. If it is worth having, draft a permission request.\n\n## Done when\n\nThe source record is corrected with the route found (or with what was not found), and the atlas is rebuilt with `python data_mining/scripts/merge_atlas.py`; no data is downloaded in this issue.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 201
+    },
+    {
+      "key": "V17",
+      "record": "Pediatric IRI abdominal angiography",
+      "owner": "aschehr",
+      "kind": "route",
+      "title": "Find the source and access route of the pediatric IRI abdominal angiography set",
+      "body": "Atlas record: **Pediatric IRI abdominal angiography** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: not held\n- How to get it: Access not recorded; not fetched (tier 2 plan).\n- Licence: not recorded\n- Size: 95,308 images, 1,357 sequences\n- Notes: Real sequences with the lumbar spine in the field, unlabelled.\n\n## What to do\n\nNo file records where it comes from or how to get it: find its paper or page, its licence and its access route, and record them; then it becomes a download or a request.\n\n## Done when\n\nThe source record is corrected with the route found (or with what was not found), and the atlas is rebuilt with `python data_mining/scripts/merge_atlas.py`; no data is downloaded in this issue.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 202
+    },
+    {
+      "key": "V18",
+      "record": "Stan knee fluoroscopy datasets",
+      "owner": "aschehr",
+      "kind": "route",
+      "title": "Verify the Stan knee fluoroscopy datasets exist",
+      "body": "Atlas record: **Stan knee fluoroscopy datasets** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: not held\n- How to get it: not recorded\n- Licence: not recorded\n- Size: not recorded\n- Notes: Named only in the AI-generated contacts PDF, together with CAMS-Knee; not verified.\n\n## What to do\n\nNamed only in an AI-generated contacts PDF: find a paper or page that shows the dataset exists and how to get it, or record that none was found and mark the record refuted.\n\n## Done when\n\nThe source record is corrected with the route found (or with what was not found), and the atlas is rebuilt with `python data_mining/scripts/merge_atlas.py`; no data is downloaded in this issue.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 203
+    },
+    {
+      "key": "V19",
+      "record": "VFSS-5k videofluoroscopy segmentation dataset",
+      "owner": "aschehr",
+      "kind": "route",
+      "title": "Find the access route of VFSS-5k (C1-C7 masks on videofluoroscopy)",
+      "body": "Atlas record: **VFSS-5k videofluoroscopy segmentation dataset** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: not held\n- How to get it: Access not recorded (named only in the landscape PDF).\n- Licence: not recorded\n- Link: https://arxiv.org/html/2501.18474v1\n- Size: over 5,000 labelled frames, 10 structures\n- Notes: Level-named cervical masks on real videofluoroscopy; never verified by a project sweep.\n\n## What to do\n\nRead arXiv:2501.18474 and its code page for where the data lives, its licence and whether it is released; if it is on request, draft the letter. It is the one record here with level-named cervical masks on real frames.\n\n## Done when\n\nThe source record is corrected with the route found (or with what was not found), and the atlas is rebuilt with `python data_mining/scripts/merge_atlas.py`; no data is downloaded in this issue.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 204
+    },
+    {
+      "key": "V20",
+      "record": "Vimeo 1109076785 AP lumbar fluoroscopy",
+      "owner": "aschehr",
+      "kind": "route",
+      "title": "Ask the uploader of Vimeo 1109076785 for the original and permission",
+      "body": "Atlas record: **Vimeo 1109076785 AP lumbar fluoroscopy** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: not held\n- How to get it: Needs a browser cookie; not downloaded.\n- Licence: CC BY-NC-ND\n- Link: https://vimeo.com/1109076785\n- Size: 30 s, all fluoroscopy (possibly a montage of saved shots)\n- Notes: ND forbids derivatives, and annotations may count as derivatives.\n\n## What to do\n\nIts CC BY-NC-ND licence forbids derivatives, and annotations may count as derivatives: find the uploader's contact and draft a request for the original file and permission to annotate. Watching it in a browser to record whether it is live fluoroscopy or a montage is part of the task.\n\n## Done when\n\nThe source record is corrected with the route found (or with what was not found), and the atlas is rebuilt with `python data_mining/scripts/merge_atlas.py`; no data is downloaded in this issue.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 205
+    },
+    {
+      "key": "V21",
+      "record": "VFSS2022",
+      "owner": "aschehr",
+      "kind": "route",
+      "title": "Ask the VFSS2022 authors whether the frames can be shared under an agreement",
+      "body": "Atlas record: **VFSS2022** (`data_mining/data/datasets.json`, category fluoro_video).\n\n- Status: not held\n- Access: not available\n- How to get it: None: the repository says ethics approval covers use and display in the paper only, not release.\n- Licence: Not released\n- Link: https://github.com/SimonZeng7108/Video-TransUNet\n- Size: 440 frames per the TIB listing\n- Notes: Indexed as a dataset by TIB but the images are not released, so it is a dead end.\n\n## What to do\n\nThe repository says its ethics approval covers use in the paper only. Draft one short letter asking whether a data use agreement is possible; if they say no, or nothing comes back, record it as a dead end and close.\n\n## Done when\n\nThe source record is corrected with the route found (or with what was not found), and the atlas is rebuilt with `python data_mining/scripts/merge_atlas.py`; no data is downloaded in this issue.\n\nWork it by docs/agents/PROTOCOL.md: a claim branch `claude/<this issue>`. Every computation is an sbatch job (root CLAUDE.md rule 7); no frame, video or patient data goes into git or to an outside AI service.",
+      "issue": 206
+    }
+  ]
+}
