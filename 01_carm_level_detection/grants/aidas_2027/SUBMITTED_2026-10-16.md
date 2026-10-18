@@ -31,27 +31,24 @@ Its value is not written here or anywhere in git: Elsevier issued WSU's institut
   address bar; it represents full access to WSU's account and may be revoked at any time without notice.
 - Every request goes over HTTPS with the API key in the header `X-ELS-APIKey` and the token in `X-ELS-Insttoken`,
   never as a query parameter.
-- ScienceDirect's text and data mining amendment was still not finalized: Elsevier asks to be told once it is, to
-  update the key's configuration. Elsevier's account manager had written on 2026-10-15 that the amendment would reach
-  the WSU Library within days for review and approval.
+- Elsevier asks to be told once ScienceDirect's text and data mining amendment is finalized, to update the key's
+  configuration.
 
-For the packet this means the reading `RECORD.md` section 1 and section 6 left for the owner to confirm, that the
-owner's "now science direct" of 2026-10-16 meant the amendment had come through, did not hold when the packet was
-sent: Scopus's text and data mining and AI rights were in place, ScienceDirect's were in process. The submitted PDF says
-"under WSU's text and data mining rights" (the abstract) and "under WSU's text and data mining and AI rights from
-Elsevier" (Aim 2) for both. Whether to tell the AIDaS office, or to leave it, since the amendment is expected well
-before the award year begins in January 2027, is the owner's call.
+The owner corrected the reading of that last point on 2026-10-18: Elsevier gave WSU ScienceDirect's and Scopus's text
+and data mining rights preemptively, so both were in place when the packet was sent, and the submitted PDF's "under
+WSU's text and data mining rights" (the abstract) and "under WSU's text and data mining and AI rights from Elsevier"
+(Aim 2) stand as written. What remains is Elsevier's own paperwork on the key's configuration once the amendment is
+signed. This settles the reading `RECORD.md` section 1 and section 6 left for the owner to confirm: the owner's "now
+science direct" of 2026-10-16 meant the rights had come through.
 
 ## Changes proposed for the next submissions, none made
 
 Each waits for the owner's word, and Dr. Han's edits stay word for word.
 
-1. Say the Elsevier rights as they stand: Scopus's in place, ScienceDirect's amendment in process (the abstract,
-   section 1's premise, Aim 2's grounding sentence and Aim 3's "The RAG-LLM"), until the amendment is signed.
-2. Add one clause to Aim 2's grounding sentence: Elsevier's key and institutional token are held server-side on the
+1. Add one clause to Aim 2's grounding sentence: Elsevier's key and institutional token are held server-side on the
    grid and sent only in request headers over HTTPS, never in browser code or a URL.
-3. Run the disclosure audit on the PDF before each further submission.
-4. For Anthropic's AI for Science program and the other fits named in the owner's e-mail of 2026-10-16, the parts
+2. Run the disclosure audit on the PDF before each further submission.
+3. For Anthropic's AI for Science program and the other fits named in the owner's e-mail of 2026-10-16, the parts
    written for AIDaS (the cover's call line, the alignment page, the budget held to the $20,000 cap and line C3's
    reason) are rewritten for that venue's own form; the narrative carries over.
 
@@ -60,4 +57,5 @@ Each waits for the owner's word, and Dr. Han's edits stay word for word.
 1. The allowability question to the AIDaS office (`HANDOFF_2026-10-16.md`, step 4): lines B, C3, D and F, and how line A
    may be hired.
 2. The approximations, as values come in (`APPROXIMATIONS.md`).
-3. Tell Elsevier once the ScienceDirect amendment is signed, and keep the token on the grid as its terms say.
+3. Tell Elsevier once the ScienceDirect amendment is signed, so it updates the key's configuration, and keep the token
+   on the grid as its terms say.
