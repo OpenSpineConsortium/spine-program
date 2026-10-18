@@ -29,6 +29,7 @@ by what is drawn on the images, how the images were saved and how to get them, w
 | `data/sources/web_paired.json` | 30 paired CT and X-ray, CBCT projection and DRR datasets from a web search on 2026-10-17 |
 | `data/sources/idc_ct_plus_radiograph_patients_v25.csv` | Per TCIA collection (Imaging Data Commons v25): patients with CT, with CR/DX, and with both |
 | `scripts/` | `merge_atlas.py`, `parse_requests.py`, `make_catalog_md.py` and the page template |
+| `video_issues.json` | The 21 fluoroscopy video datasets as tasks, one issue each under epic #185 (#186 to #206), opened by `scripts/make_video_issues.py` |
 
 ## How it was built
 
