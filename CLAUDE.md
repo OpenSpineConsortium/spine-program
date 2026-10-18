@@ -29,6 +29,7 @@ traps. Nothing here is imaging data or a weight; the grid and the named reposito
 10_data_platform_grid        student     211 sources, the Ceph migration, identity and leakage, the registry, grid rules; the dependency of all
 11_students_grid_access      mixed       Beethoven, onboarding, the lab recipe, the med-ed record; waits on 10
 12_website_pacs_demo         student     the public site, the PACS demo, the level-service client; waits on 01 S2, 04, 05
+13_aidas_program             mixed       the AIDaS program map: workflow, IRB, data and literature mining, C-arm training, recruitment, the LLM; REFORMS
 99_archive                   Greg-only   superseded, refuted, dormant; never run, never quoted
 _plan/                                   the division, the disposition of every row, the exclusions, the inventories, the build record
 ```

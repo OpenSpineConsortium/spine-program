@@ -1,0 +1,655 @@
+{
+  "about": "The AIDaS 2027 program as data: one goal, its epics and their tasks. render_plan.py writes PLAN.md from this file; each item's issue is its number on OpenSpineConsortium/spine-program, linked to its parent as a sub-issue. Owners: aschehr is Ashley's worker label; greg is the owner's; han and schwiebert are the PI and Co-PI, who have no login here.",
+  "goal": {
+    "key": "G",
+    "title": "AIDaS 2027: a customizable spine RAG-LLM in one year, built by agents under REFORMS",
+    "issue": 121,
+    "body": "The program the AIDaS Seed Grant proposal of 2026-10-16 describes (01_carm_level_detection/grants/aidas_2027/latex/main.tex at 88871de): Aim 1, Claude Code iterating the scientific method on the WSU grid inside Beethoven, beethoven-qa, beethoven-research and Symphony; Aim 2, eight medical trainees driving that agent; Aim 3, CT-labeled structure carried into C-arm images and on to a spine RAG-LLM. Award period January 1 to December 31, 2027, pending the award. Each epic below is a sub-issue of this one, and each task a sub-issue of its epic; 13_aidas_program/PLAN.md is the same tree as prose."
+  },
+  "epics": [
+    {
+      "key": "E1",
+      "title": "Workflow: the folder's way of working, REFORMS records and the two gates",
+      "body": "How every task in this program is done: a question and a pass/fail gate sealed by hash before the first job, the REFORMS record kept as the work goes, code passing beethoven-qa, every evaluation passing beethoven-research's split check, one pull request per task. 13_aidas_program/REFORMS.md maps the checklist to the tasks.",
+      "tasks": [
+        {
+          "key": "E1.1",
+          "owner": "aschehr",
+          "title": "Onboard to the program: grid account, Beethoven, CITI, the folder's rules",
+          "reforms": "",
+          "gate": "a grid job of Ashley's own runs through Beethoven and its log returns to a claim branch; CITI Biomedical and HIPS courses current",
+          "body": "Read 13_aidas_program/CLAUDE.md and README.md, the root CLAUDE.md rules and 11_students_grid_access/STUDENT_ENV.md. Confirm grid access and Beethoven, and that CITI training is current for the IRB personnel list (E2.2).",
+          "issue": 123
+        },
+        {
+          "key": "E1.2",
+          "owner": "aschehr",
+          "title": "Write the REFORMS record template and the sealed-gate template",
+          "reforms": "all modules",
+          "gate": "templates/REFORMS_RECORD.md and templates/GATE.md exist, each REFORMS item has a field, and sealing a gate prints its sha256",
+          "body": "One record per study, filled as the work goes, not at the end. The gate template names the question, the pass/fail test, the data split and the budget, and is hashed before the first job (root CLAUDE.md rule 6). Start from 13_aidas_program/REFORMS.md.",
+          "issue": 124
+        },
+        {
+          "key": "E1.3",
+          "owner": "aschehr",
+          "title": "Wire beethoven-qa's gate into the program's code",
+          "reforms": "2 computational reproducibility, 5 modeling",
+          "gate": "a pull request that adds a public function without a contract fails the gate; one with a contract passes",
+          "body": "beethoven-qa requires contracts on every public function and searches them for counterexamples with CrossHair and Z3 (OpenSpineConsortium/beethoven-qa README). Bring that gate to the code this program writes, as a required check where the code lives.",
+          "issue": 125
+        },
+        {
+          "key": "E1.4",
+          "owner": "aschehr",
+          "title": "Run beethoven-research's split check on every evaluation",
+          "reforms": "6 data leakage",
+          "gate": "every evaluation in the program has a split check result on file; a planted shared patient is refused",
+          "body": "beethoven-research's splits.py refuses an evaluation case that shares a patient, study, cadaver or CT source volume with a training case. Every held-out number in this program goes through it, and through the evaluation gate (root CLAUDE.md rule 5).",
+          "issue": 126
+        },
+        {
+          "key": "E1.5",
+          "owner": "aschehr",
+          "title": "Write the CLAIM checklist for imaging AI into beethoven-research",
+          "reforms": "8 generalizability and limitations",
+          "gate": "every CLAIM 2024 item has a field and a check or a reason it is checked by hand",
+          "body": "The proposal says beethoven-research plans the CLAIM checklist [11]; no item is written yet (RECORD.md section 1). Write it, as REFORMS is, as data with checks.",
+          "issue": 127
+        },
+        {
+          "key": "E1.6",
+          "owner": "aschehr",
+          "title": "Monthly status to the PI and Co-PI, and the final report's skeleton",
+          "reforms": "",
+          "gate": "one status note a month in 13_aidas_program/reports/, each epic's state in a line",
+          "body": "The AIDaS final report and symposium come in December 2027 (the proposal's timeline). Keep the record as it goes, so the report is assembled, not written.",
+          "issue": 128
+        }
+      ],
+      "issue": 122
+    },
+    {
+      "key": "E2",
+      "title": "IRB and regulatory: the protocol, the trainee study, DMC access, the FDA Pre-Submission",
+      "body": "What must be approved before the data work starts. The change list for IRB-26-03-8648 is outside git (the project's files, grant-irb/), since it is drawn from the IRB form (root CLAUDE.md rule 12).",
+      "tasks": [
+        {
+          "key": "E2.1",
+          "owner": "greg",
+          "title": "Apply the change list to IRB-26-03-8648 and submit it",
+          "reforms": "1 study goals",
+          "gate": "the protocol's status in eProtocol is Submitted, then Approved",
+          "body": "Seven changes: patient data kept away from the Claude agent, intraoperative C-arm images and the level aim named, the literature retrieval and the OpenEvidence boundary, the investigators, the funding source, the trainee study filed apart, weights trained on patient data kept on the grid. Sponsor sign-off by the faculty sponsor.",
+          "issue": 130
+        },
+        {
+          "key": "E2.2",
+          "owner": "greg",
+          "title": "Add the PI, the Co-PI and the research assistant to the protocol",
+          "reforms": "",
+          "gate": "each is listed in eProtocol with current CITI courses",
+          "waits_on": [
+            "E1.1"
+          ],
+          "body": "Computer Science personnel reach only the de-identified files on the grid, never the EMR, PACS or the linking key.",
+          "issue": 131
+        },
+        {
+          "key": "E2.3",
+          "owner": "aschehr",
+          "title": "Draft the exempt application for the trainee study (Aim 2)",
+          "reforms": "1 study goals",
+          "gate": "the application is filed in eProtocol and a determination number is recorded",
+          "body": "Exempt categories 1 and 2: volunteer medical students and residents, recruited by someone who neither teaches nor supervises them, an information sheet in place of signed consent, the comfort survey and the coded task scores. The proposal promises the determination in month 1.",
+          "issue": 132
+        },
+        {
+          "key": "E2.4",
+          "owner": "greg",
+          "title": "DMC data access: the EMR and PACS request for the cohort",
+          "reforms": "3 data quality",
+          "gate": "the DMC approval and the access route are recorded",
+          "waits_on": [
+            "E2.1"
+          ],
+          "body": "The protocol's study site is the Detroit Medical Center (Cerner and PACS); its administrative approval is separate from the IRB's.",
+          "issue": 133
+        },
+        {
+          "key": "E2.5",
+          "owner": "han",
+          "title": "FDA Pre-Submission package for the advisory level label",
+          "reforms": "8 generalizability and limitations",
+          "gate": "the package is filed by April 2027, before FDA's proposed fee from October 1, 2027",
+          "body": "Three questions (the proposal's line D): whether an advisory level label on each C-arm image, which the surgeon confirms, is the right intended use; whether the held-out-device and cadaver tests suffice as analytical validation; and what clinical study the R21 should plan. A regulatory consultant reviews it in months 1 to 3.",
+          "issue": 134
+        },
+        {
+          "key": "E2.6",
+          "owner": "aschehr",
+          "title": "Cadaver set paperwork: Body Bequest Program, DLAR session, dosimetry and OEHS",
+          "reforms": "3 data quality",
+          "gate": "two specimens requested, the C-arm session booked, the dosimetry enrolment and OEHS form filed 15 business days before it",
+          "body": "Deceased donors are not human subjects; the donor authorization permits de-identified images released on the program's terms (the proposal's lines B1 to B5).",
+          "issue": 135
+        }
+      ],
+      "issue": 129
+    },
+    {
+      "key": "E3",
+      "title": "Clinical data mining: the DMC spine surgery cohort under the IRB",
+      "body": "About 4,000 adult DMC spine surgery patients, imaging with operative notes and radiology reports, coded with the key in REDCap, de-identified to NIfTI on the grid. Nothing here starts before E2.1 and E2.4 are approved, and no patient data reaches any cloud AI service, the Claude agent included.",
+      "tasks": [
+        {
+          "key": "E3.1",
+          "owner": "aschehr",
+          "title": "Build the data dictionary in REDCap",
+          "reforms": "3 data quality",
+          "gate": "every variable has a type, a source field and a coding rule; a test record round-trips",
+          "waits_on": [
+            "E2.1"
+          ],
+          "body": "Demographics, surgical details, radiographic variables (transitional anatomy, level counts), outcomes. Dates become intervals.",
+          "issue": 137
+        },
+        {
+          "key": "E3.2",
+          "owner": "aschehr",
+          "title": "Write the cohort query: codes, surgical logs, inclusion and exclusion",
+          "reforms": "3 data quality, 4 preprocessing",
+          "gate": "the query and its counts at each step are written before the first extraction, and the final count is recorded",
+          "waits_on": [
+            "E2.4"
+          ],
+          "body": "CPT and ICD/DRG codes and the departmental surgical logs, ten years, adults, imaging and text both present.",
+          "issue": 138
+        },
+        {
+          "key": "E3.3",
+          "owner": "aschehr",
+          "title": "De-identification pipeline: DICOM to NIfTI, text scrubbing, the coded key",
+          "reforms": "4 preprocessing",
+          "gate": "a header check finds no identifier in any output, and a sample of scrubbed notes is read by a person",
+          "waits_on": [
+            "E3.2"
+          ],
+          "body": "All 18 identifiers removed before any file reaches the analysis tree; the key stays in REDCap with the PI. Never print a header field (01_carm_level_detection/CLAUDE.md).",
+          "issue": 139
+        },
+        {
+          "key": "E3.4",
+          "owner": "aschehr",
+          "title": "Double-code 15 percent and report agreement",
+          "reforms": "3 data quality, 7 metrics and uncertainty",
+          "gate": "Cohen's kappa and ICC with intervals for every variable, about 600 charts",
+          "waits_on": [
+            "E3.3"
+          ],
+          "body": "Independent reviewers, supervised medical students among them.",
+          "issue": 140
+        },
+        {
+          "key": "E3.5",
+          "owner": "aschehr",
+          "title": "Pre-register the case-control analyses",
+          "reforms": "1 study goals, 7 metrics and uncertainty",
+          "gate": "the analysis plan is sealed by hash before any outcome is looked at",
+          "waits_on": [
+            "E3.1"
+          ],
+          "body": "Complications, readmission and their predictors, transitional anatomy against complications and adjacent segment disease, by multivariable logistic regression and survival analysis.",
+          "issue": 141
+        }
+      ],
+      "issue": 136
+    },
+    {
+      "key": "E4",
+      "title": "C-arm training: close the detection gap (Aim 3)",
+      "body": "The level model names 96.4 percent of the lateral vertebrae a film-trained detector finds on a public C-arm, while detection there stays at 80.5 percent (90.6 at 0.25) against the 97 percent set in advance (the proposal's Figure 1f; RECORD.md section 1). These tasks close that gap with COBRA's unseen projections, corner labels, learned simulation and the cadaver set. The level-identification code and weights stay private (root CLAUDE.md rule 8).",
+      "tasks": [
+        {
+          "key": "E4.1",
+          "owner": "aschehr",
+          "title": "Export COBRA's 372,000 unseen projections and look at the Varian bank",
+          "reforms": "3 data quality, 4 preprocessing",
+          "gate": "every exported case has its geometry and registered CT; a rendered sample of the Varian bank is looked at and recorded",
+          "body": "322 Elekta and all 225 Varian cases train nothing today (the proposal, Aim 3). sbatch jobs only, outputs on Ceph.",
+          "issue": 143
+        },
+        {
+          "key": "E4.2",
+          "owner": "aschehr",
+          "title": "Corner labels by projecting each CT's corners at the device geometry",
+          "reforms": "4 preprocessing",
+          "gate": "projected corners rendered on 50 random frames and looked at; exact on renders",
+          "waits_on": [
+            "E4.1"
+          ],
+          "body": "Labels with ostk.labels.labels_for, never a fixed map (root CLAUDE.md rule 4).",
+          "issue": 144
+        },
+        {
+          "key": "E4.3",
+          "owner": "aschehr",
+          "title": "Train the corner-learning C-arm detector, leave one device out",
+          "reforms": "5 modeling, 6 data leakage, 7 metrics and uncertainty",
+          "gate": "sealed before training: 97 percent of vertebrae and sacra on each held-out C-arm at 0.74, with no more false detections than today",
+          "waits_on": [
+            "E4.2",
+            "E1.4"
+          ],
+          "body": "Case-clustered intervals; the split check and the evaluation gate on every number.",
+          "issue": 145
+        },
+        {
+          "key": "E4.4",
+          "owner": "aschehr",
+          "title": "Learned X-ray simulation until a classifier cannot tell renders from real frames",
+          "reforms": "5 modeling",
+          "gate": "the render-versus-real classifier at chance on held-out frames, the anatomy and labels unchanged",
+          "waits_on": [
+            "E4.1"
+          ],
+          "body": "Fit spectrum, scatter and sensor response; today a classifier tells renders from real frames 99 to 100 percent of the time (the proposal). The full Gaussian renderer is the R21's.",
+          "issue": 146
+        },
+        {
+          "key": "E4.5",
+          "owner": "aschehr",
+          "title": "Image and seal the cadaver set",
+          "reforms": "3 data quality, 6 data leakage",
+          "gate": "two specimens CT-scanned and imaged AP and lateral at lumbar and thoracic positions, the set sealed by hash before any model sees it",
+          "waits_on": [
+            "E2.6"
+          ],
+          "body": "The frame grabber records the C-arm's video output; registering each CT to its frames projects the labels onto every frame. Opened once, for the R21.",
+          "issue": 147
+        },
+        {
+          "key": "E4.6",
+          "owner": "aschehr",
+          "title": "Measure the stack's latency on one GPU",
+          "reforms": "7 metrics and uncertainty",
+          "gate": "median and 95th percentile per frame on one GPU, recorded with the job id",
+          "body": "No latency of the reported stack is on file (01_carm_level_detection/CLAUDE.md). H3 asks under 1 s per frame.",
+          "issue": 148
+        }
+      ],
+      "issue": 142
+    },
+    {
+      "key": "E5",
+      "title": "Literature data mining: the Scopus and ScienceDirect spine corpus on the grid",
+      "body": "Elsevier granted WSU text and data mining on Scopus and ScienceDirect, text, images and multimedia. Its content stays on the grid: it never trains a model, never reaches an outside AI service (Claude included), and only short quotations with citation and DOI appear in anything published. The API key and the institutional token stay server-side on the grid, sent only in request headers over HTTPS.",
+      "tasks": [
+        {
+          "key": "E5.1",
+          "owner": "greg",
+          "title": "Store the Elsevier key and institutional token on the grid",
+          "reforms": "2 computational reproducibility",
+          "gate": "both are files readable by their owner alone, outside every repository; the harvester reads them by path",
+          "body": "Never in git, a browser, a URL or a command line (Elsevier's terms of 2026-10-16; root CLAUDE.md rule 10).",
+          "issue": 150
+        },
+        {
+          "key": "E5.2",
+          "owner": "aschehr",
+          "title": "Harvest the spine corpus as sbatch jobs",
+          "reforms": "3 data quality",
+          "gate": "the query, the counts and a checksum of every file recorded; no token in any log",
+          "waits_on": [
+            "E5.1"
+          ],
+          "body": "Scopus Search and Abstract Retrieval for the index, ScienceDirect full text with images and multimedia under the TDM grant; X-ELS-APIKey and X-ELS-Insttoken headers, HTTPS only, within Elsevier's rate limits.",
+          "issue": 151
+        },
+        {
+          "key": "E5.3",
+          "owner": "aschehr",
+          "title": "Build the passage index with citations and DOIs",
+          "reforms": "4 preprocessing",
+          "gate": "every passage traces to its article, page and DOI; the index deletes itself when the project or key ends",
+          "waits_on": [
+            "E5.2"
+          ],
+          "body": "Access-controlled storage on the grid; nothing shared outside WSU.",
+          "issue": 152
+        },
+        {
+          "key": "E5.4",
+          "owner": "aschehr",
+          "title": "Host the grid text model that answers with verbatim quotations",
+          "reforms": "5 modeling, 7 metrics and uncertainty",
+          "gate": "a misquoted passage fails the gate; quotation support graded on a held-out question set",
+          "waits_on": [
+            "E5.3"
+          ],
+          "body": "Literature questions go to this grid-hosted model, never to Claude. This is the RAG-LLM's text half and the trainees' literature tool (Aim 2).",
+          "issue": 153
+        }
+      ],
+      "issue": 149
+    },
+    {
+      "key": "E6",
+      "title": "The spine RAG-LLM (Aim 3): detectors as tools, two releases, graded against OpenEvidence",
+      "body": "A multimodal model hosted on the grid that takes the image, the detectors' boxes and names and the retrieved passages, and answers with the level, the finding and verbatim quotations; customizable in that a lab swaps in its own corpus, detectors and records.",
+      "tasks": [
+        {
+          "key": "E6.1",
+          "owner": "han",
+          "title": "Choose and host the multimodal base model on the grid's GPUs",
+          "reforms": "5 modeling",
+          "gate": "the model's licence, version and weights hash recorded; it serves one request on a grid GPU",
+          "body": "An open-weights model the grid can host; nothing leaves the grid.",
+          "issue": 155
+        },
+        {
+          "key": "E6.2",
+          "owner": "aschehr",
+          "title": "Give the model the detector and the level model as tools",
+          "reforms": "5 modeling",
+          "gate": "on 20 public images the model's answer names the level the tools returned",
+          "waits_on": [
+            "E6.1"
+          ],
+          "body": "The level-identification code stays private; the tool interface is what the model sees.",
+          "issue": 156
+        },
+        {
+          "key": "E6.3",
+          "owner": "han",
+          "title": "First release: fine-tune on the public corpus",
+          "reforms": "5 modeling, 6 data leakage",
+          "gate": "trained only on public data, its split checked, its weights hashed",
+          "waits_on": [
+            "E6.2",
+            "E5.4"
+          ],
+          "body": "CTSpinoPelvic1K, the labeled films and COBRA. This release may be public; Elsevier text never trains it.",
+          "issue": 157
+        },
+        {
+          "key": "E6.4",
+          "owner": "aschehr",
+          "title": "Write the held-out question set on public images and its grading rubric",
+          "reforms": "7 metrics and uncertainty",
+          "gate": "the questions and rubric sealed by hash before any model answers them",
+          "body": "Written by the mentors on public images; graded for correctness and for quotations that support the answer.",
+          "issue": 158
+        },
+        {
+          "key": "E6.5",
+          "owner": "aschehr",
+          "title": "Grade the RAG-LLM against OpenEvidence",
+          "reforms": "7 metrics and uncertainty, 8 generalizability",
+          "gate": "H3's comparison reported, a loss reported as one",
+          "waits_on": [
+            "E6.3",
+            "E6.4"
+          ],
+          "body": "OpenEvidence gets only the question on a public image and the detectors' reading, through its Claude plug-in [31]; no indexed passage and no patient record leaves the grid.",
+          "issue": 159
+        },
+        {
+          "key": "E6.6",
+          "owner": "han",
+          "title": "Second release: fine-tune on images paired with charts under the IRB",
+          "reforms": "5 modeling, 6 data leakage",
+          "gate": "trained on the grid only; its weights stay on the grid; split checked by patient",
+          "waits_on": [
+            "E2.1",
+            "E3.4"
+          ],
+          "body": "Operative notes and radiology reports under IRB-26-03-8648 once approved.",
+          "issue": 160
+        }
+      ],
+      "issue": 154
+    },
+    {
+      "key": "E7",
+      "title": "Aim 1: the agent doing research under the frameworks, and its cost",
+      "body": "Claude Code at a pinned model version iterates hypotheses on the grid; a result counts only when a test sealed before the run passes and a person merges it. The agent never reads patient data or Elsevier content.",
+      "tasks": [
+        {
+          "key": "E7.1",
+          "owner": "aschehr",
+          "title": "Write the 30 tasks: 10 for development, 20 sealed with hidden checks",
+          "reforms": "1 study goals, 6 data leakage",
+          "gate": "each sealed task has a hidden check, a clean copy and a faulted copy, all hashed",
+          "waits_on": [
+            "E1.2"
+          ],
+          "body": "From questions Aim 3 and the consortium have answered.",
+          "issue": 162
+        },
+        {
+          "key": "E7.2",
+          "owner": "schwiebert",
+          "title": "Plant the faults",
+          "reforms": "6 data leakage",
+          "gate": "someone who did not write the checks plants one fault per faulted copy: a shared patient, a wrong label scheme, a threshold tuned on the test set, a typed number, a run that does not reproduce",
+          "waits_on": [
+            "E7.1"
+          ],
+          "body": "The Co-PI plants the faults and keeps the grid measures (the proposal's team section).",
+          "issue": 163
+        },
+        {
+          "key": "E7.3",
+          "owner": "aschehr",
+          "title": "Run the 80 runs, with and without the checks",
+          "reforms": "2 computational reproducibility, 7 metrics",
+          "gate": "H1 reported: wrong results on faulted copies, passes on clean copies, reruns within a sealed tolerance",
+          "waits_on": [
+            "E7.2",
+            "E1.3",
+            "E1.4"
+          ],
+          "body": "Months 4 to 8; eight GPU-hours a task, reruns included.",
+          "issue": 164
+        },
+        {
+          "key": "E7.4",
+          "owner": "aschehr",
+          "title": "The profiler and the four economies (1b)",
+          "reforms": "2 computational reproducibility",
+          "gate": "H1b reported: tokens per passing gate with and without the economies",
+          "waits_on": [
+            "E7.1"
+          ],
+          "body": "Context compression, fewer tool calls, less code reading, profiled prompts.",
+          "issue": 165
+        },
+        {
+          "key": "E7.5",
+          "owner": "greg",
+          "title": "The protocol against its competitors (1c)",
+          "reforms": "7 metrics and uncertainty",
+          "gate": "waits for Greg's word before any run",
+          "body": "Symphony, a worktree orchestrator and a framework orchestrator on the same suites (coordbench, SWE-bench, Aim 3's tasks). No coordination run starts without Greg's word and number.",
+          "issue": 166
+        }
+      ],
+      "issue": 161
+    },
+    {
+      "key": "E8",
+      "title": "Recruitment and Aim 2: eight trainees drive the agent",
+      "body": "Two waves of four medical students and residents, each with a grid account, Beethoven and a gated sub-project; a preregistered within-trainee crossover against the 2026 setup. Waits on E2.3's exempt determination.",
+      "tasks": [
+        {
+          "key": "E8.1",
+          "owner": "aschehr",
+          "title": "Recruit eight trainees in two waves",
+          "reforms": "1 study goals",
+          "gate": "eight enrolled under the determination, by someone who neither teaches nor supervises them",
+          "waits_on": [
+            "E2.3"
+          ],
+          "body": "Wave 1 months 4 to 7, wave 2 months 8 to 11.",
+          "issue": 168
+        },
+        {
+          "key": "E8.2",
+          "owner": "aschehr",
+          "title": "Accounts and seats: grid, Beethoven, Claude Team seats",
+          "reforms": "",
+          "gate": "each trainee runs one grid job through Beethoven",
+          "waits_on": [
+            "E8.1"
+          ],
+          "body": "Six Premium seats bought in January 2027 (the proposal's line C1), four for the trainees, reassigned in wave 2.",
+          "issue": 169
+        },
+        {
+          "key": "E8.3",
+          "owner": "aschehr",
+          "title": "Write and pre-register the matched starter tasks",
+          "reforms": "1 study goals, 7 metrics",
+          "gate": "task pairs, order counterbalancing and H2's measures sealed by hash before wave 1",
+          "body": "None of Aim 1's tasks; public data only.",
+          "issue": 170
+        },
+        {
+          "key": "E8.4",
+          "owner": "aschehr",
+          "title": "Run the comfort survey before and after each wave",
+          "reforms": "7 metrics and uncertainty",
+          "gate": "both surveys collected and coded with no names",
+          "waits_on": [
+            "E8.1"
+          ],
+          "body": "The 2026 cohort's six domains (the proposal's Figure 1c) as the secondary measure.",
+          "issue": 171
+        },
+        {
+          "key": "E8.5",
+          "owner": "aschehr",
+          "title": "Run the waves and report H2",
+          "reforms": "7 metrics and uncertainty",
+          "gate": "H2's two measures with 95 percent intervals",
+          "waits_on": [
+            "E8.2",
+            "E8.3"
+          ],
+          "body": "The estimate sizes the CyberTraining proposal.",
+          "issue": 172
+        }
+      ],
+      "issue": 167
+    },
+    {
+      "key": "E9",
+      "title": "Award administration: allowability, hiring, purchases",
+      "body": "The budget of $19,987 (the proposal's budget page) once awarded.",
+      "tasks": [
+        {
+          "key": "E9.1",
+          "owner": "greg",
+          "title": "Get the AIDaS office's answer on lines A, B, C3, D and F",
+          "reforms": "",
+          "gate": "the answer recorded with its date",
+          "body": "The draft question is in Greg's Outlook drafts.",
+          "issue": 174
+        },
+        {
+          "key": "E9.2",
+          "owner": "han",
+          "title": "Hire the part-time researcher (line A)",
+          "reforms": "",
+          "gate": "a hire in place by month 3",
+          "waits_on": [
+            "E9.1"
+          ],
+          "body": "515 hours at $15.00, most in months 4 to 9.",
+          "issue": 175
+        },
+        {
+          "key": "E9.3",
+          "owner": "han",
+          "title": "Buy the Claude seats, the storage and the frame grabber",
+          "reforms": "",
+          "gate": "six seats in January 2027, 2 TB of C&IT storage, the Magewell capture unit",
+          "waits_on": [
+            "E9.1"
+          ],
+          "body": "Lines C1, C2 and B5.",
+          "issue": 176
+        }
+      ],
+      "issue": 173
+    },
+    {
+      "key": "E10",
+      "title": "Proposals and dissemination: CAREER, R21, CyberTraining, the symposium",
+      "body": "The federal proposals the award must lead to within 12 months, and the record they need.",
+      "tasks": [
+        {
+          "key": "E10.1",
+          "owner": "han",
+          "title": "NSF CAREER, due July 28, 2027",
+          "reforms": "",
+          "gate": "submitted with Aim 1's early results and Aim 2's first wave",
+          "waits_on": [
+            "E7.3"
+          ],
+          "body": "NSF 22-586, CISE IIS; eligibility judged at the deadline.",
+          "issue": 178
+        },
+        {
+          "key": "E10.2",
+          "owner": "han",
+          "title": "NIH R21 at NIBIB, due October 18, 2027",
+          "reforms": "",
+          "gate": "submitted with the cadaver set, the latency and FDA's feedback",
+          "waits_on": [
+            "E4.5",
+            "E4.6",
+            "E2.5"
+          ],
+          "body": "Trailblazer if reissued, else PAR-25-321 or PA-25-304.",
+          "issue": 179
+        },
+        {
+          "key": "E10.3",
+          "owner": "schwiebert",
+          "title": "NSF CyberTraining Pilot, due January 20, 2028",
+          "reforms": "",
+          "gate": "submitted, sized by H2",
+          "waits_on": [
+            "E8.5"
+          ],
+          "body": "NSF 23-520, up to $300,000 over two years, the Co-PI leading.",
+          "issue": 180
+        },
+        {
+          "key": "E10.4",
+          "owner": "aschehr",
+          "title": "The AIDaS symposium poster and the final report",
+          "reforms": "8 generalizability and limitations",
+          "gate": "the poster printed and the report sent in December 2027",
+          "waits_on": [
+            "E1.6"
+          ],
+          "body": "Run the disclosure audit before anything leaves (root CLAUDE.md rule 8).",
+          "issue": 181
+        },
+        {
+          "key": "E10.5",
+          "owner": "greg",
+          "title": "Submit the proposal to Anthropic's AI for Science program and the other fits",
+          "reforms": "",
+          "gate": "each submission recorded with its date",
+          "body": "The parts written for AIDaS (the cover line, the alignment page, the budget) are rewritten for each venue; the disclosure audit runs first.",
+          "issue": 182
+        }
+      ],
+      "issue": 177
+    }
+  ]
+}
