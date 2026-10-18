@@ -29,6 +29,7 @@ structure carried into 2-D C-arm images and on to a spine RAG-LLM, the case exam
 | `HANDOFF_2026-10-14c.md` | the checkpoint that set that work |
 | `HANDOFF_2026-10-14e.md` | where the work for #94 stopped when the owner's usage ran low: the next steps to Friday's deadline, how to build the submission and the Overleaf zip, and what waits on the owner; its 2026-10-15 updates record #95's merge and the build of the zip and the 10-page PDF with the biosketches |
 | `HANDOFF_2026-10-16.md` | the owner's checkpoint of 2026-10-16 (issue #114): where the packet stands after #113, what was sent and what the PI and Co-PI answered, what remains before the deadline, and how a thread on another account carries on |
+| `SUBMITTED_2026-10-16.md` | the packet as submitted to the AIDaS office on 2026-10-16: when, the PDF's checksum, that its narrative is `latex/main.tex` at 88871de, what Elsevier's message of 2026-10-16 changes, and the changes proposed for the next submissions, none made (issue #118) |
 | `review/` | the second review round's writing edits (`r6_line_edits.patch`, then `r6_hidden_check.patch` and `r6_figure_edits.patch`), applied to `main.tex` and `make_figures.py` on 2026-10-15 with the choices `RECORD.md` section 4 records; the reviewer's report `r6_panel_writing.md`; and `page_slack.py`, which prints the room left at the foot of each page; `review/2026-10-16/` keeps the one-shot scripts of 2026-10-16 behind #107 to #113, for reference, with a README |
 
 ## Building it
