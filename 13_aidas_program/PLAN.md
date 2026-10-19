@@ -59,7 +59,7 @@ The level model names 96.4 percent of the lateral vertebrae a film-trained detec
 
 ## E5: Literature data mining: the Scopus and ScienceDirect spine corpus on the grid ([#149](https://github.com/OpenSpineConsortium/spine-program/issues/149))
 
-Elsevier granted WSU text and data mining on Scopus and ScienceDirect, text, images and multimedia. Its content stays on the grid: it never trains a model, never reaches an outside AI service (Claude included), and only short quotations with citation and DOI appear in anything published. The API key and the institutional token stay server-side on the grid, sent only in request headers over HTTPS.
+Elsevier granted WSU text and data mining on Scopus and ScienceDirect, text, images and multimedia. Its content is never made public: the WSU library and Elsevier confirmed on 2026-10-19 that Claude may read it on that condition; it never trains a model, as WSU told Elsevier, and only short quotations with citation and DOI appear in anything published. The API key and the institutional token stay server-side on the grid, sent only in request headers over HTTPS.
 
 | task | issue | owner | gate | REFORMS | waits on |
 |---|---|---|---|---|---|
@@ -83,7 +83,7 @@ A multimodal model hosted on the grid that takes the image, the detectors' boxes
 
 ## E7: Aim 1: the agent doing research under the frameworks, and its cost ([#161](https://github.com/OpenSpineConsortium/spine-program/issues/161))
 
-Claude Code at a pinned model version iterates hypotheses on the grid; a result counts only when a test sealed before the run passes and a person merges it. The agent never reads patient data or Elsevier content.
+Claude Code at a pinned model version iterates hypotheses on the grid; a result counts only when a test sealed before the run passes and a person merges it. The agent never reads patient data; it may read Elsevier content, which is never made public.
 
 | task | issue | owner | gate | REFORMS | waits on |
 |---|---|---|---|---|---|

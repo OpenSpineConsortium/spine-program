@@ -10,12 +10,13 @@ here; these are this folder's.
   aggregate results only, under a grid account with no read access to the cohort's directories; jobs that touch the
   cohort are started by study personnel and return aggregates. Nothing from E3 or E6.6 starts before IRB-26-03-8648 is
   approved (E2.1) and DMC access is recorded (E2.4).
-- **Elsevier content stays on the grid.** WSU's text and data mining grant covers Scopus and ScienceDirect, text,
-  images and multimedia. Their content never trains a model, never reaches an outside AI service (Claude included),
-  and appears in anything published only as short quotations with citation and DOI. Literature questions go to the
-  grid-hosted model of E5.4, never to Claude. The API key and the institutional token are files on the grid readable
-  by their owner alone, sent only in the headers X-ELS-APIKey and X-ELS-Insttoken over HTTPS; never in git, a browser,
-  a URL, a log or a command line.
+- **Elsevier content is never made public.** WSU's text and data mining grant covers Scopus and ScienceDirect, text,
+  images and multimedia. On 2026-10-19 the WSU library confirmed that academic access is unrestricted, and Elsevier
+  clarified that Claude may read the text, so long as the token and the text are never made publicly accessible
+  (Greg, `memory/elsevier-grant-and-terms.md`). It never trains or fine-tunes a model, as WSU told Elsevier on
+  2026-10-15, and appears in anything published only as short quotations with citation and DOI. The API key and the
+  institutional token are kept server-side, readable by their owner alone, sent only in the headers X-ELS-APIKey and
+  X-ELS-Insttoken over HTTPS; never in git, a browser, a URL, a log or a command line.
 - **OpenEvidence gets only the question on a public image and the detectors' reading**, never a passage or a record.
 - **Seal, then score.** Each task's gate is sealed by hash before its first job; a number produced before that is
   calibration (root rule 6). The REFORMS record is kept as the work goes (`REFORMS.md`).

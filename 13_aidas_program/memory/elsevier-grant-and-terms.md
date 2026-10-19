@@ -11,3 +11,7 @@ Elsevier's text and data mining grant for WSU, and the terms the institutional t
   Elsevier content trains or improves any model or reaches an outside AI service; everything on the grid in
   access-controlled storage; only brief quotations with citation and DOI published; the index and full text deleted
   when the project ends or the key lapses.
+- Claude may read the text (Greg, 2026-10-19): the WSU library confirmed that for academic use there is no
+  restriction on how the content is accessed, and Elsevier clarified that Claude reading it is fine, so long as the
+  institutional token and the text are never made publicly accessible. This lifts the earlier rule that literature
+  questions went only to a grid-hosted model, never to Claude; training on the content stays off.
