@@ -12,9 +12,9 @@ sdlc_protocol board ...":
          comment on the pull requests that wait, or render a JSON
          snapshot with --dry-run FIXTURE and no network
   check  hold the pull request in GITHUB_EVENT_PATH to the claim protocol
-  team   [--repo OWNER/NAME] seed, route, next or schema, the clerk; seed,
-         next and schema read the workers from the registry with
-         --registry DIR
+  team   [--repo OWNER/NAME] seed, route, next, deal or schema, the clerk;
+         seed, next, deal and schema read the workers from the registry
+         with --registry DIR
   workers check, list, describe, get or from-form: the registry of
          workers, .github/symphony/workers/<name>.json, read offline
   guard  the PreToolUse hook: the tool call's JSON on stdin, and exit 2
@@ -36,6 +36,7 @@ time of urllib is no use to it.
 import argparse
 import json
 import os
+import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -80,7 +81,10 @@ def board_arguments(argv):
     parser.add_argument("--out", help=f"where to write the board (default: {board.STATE_PATH} in the current "
                                       "directory; stdout with --dry-run)")
     parser.add_argument("--default-branch", default="main", help="the default branch's name (default: main)")
-    parser.add_argument("--sha", help="the default branch's commit the board describes (default: GITHUB_SHA)")
+    parser.add_argument("--sha", help="the default branch's head, which the board describes and names in its "
+                        "main-moved comments on every event (default: GITHUB_SHA where that is the default "
+                        "branch's head, which it is not on a pull_request event or a push to another branch; "
+                        "then no main-moved comment is made)")
     return parser.parse_args(argv)
 
 
@@ -95,28 +99,124 @@ def board_dry_run(args):
     return 0
 
 
+def plan_board(api, sha, default_branch, now, render_only=False, say=print, started_by=""):
+    """The first half of a board run: read the repository as GitHub holds
+    it, release the claims due and tell overlapping work (the coordinator),
+    and render the page; with render_only, the command's --render-only,
+    the coordinator is skipped and the half only reads and renders. The
+    snapshot as the coordinator left it, which the second half acts on,
+    and the page. The run is in two halves so that the validation harness
+    can run them on its own clock with other work between them, as the
+    half-minute of a workflow run allows; say takes each log line as it is
+    made, and started_by is the branch whose push started the run
+    (pushed_branch), "" for none, whose claim no read of the activity
+    dates, or one dates only by an entry from before the run began, is
+    dated at the run's start (adapters.github.head_since)."""
+    github = github_adapter()
+    snap = github.snapshot(api, sha, default_branch, now, started_by)
+    for line in github.unread_claim_lines(snap) + github.pushed_refused_lines(snap) + github.began_refused_lines(snap):
+        say(line)
+    if not render_only:
+        for line in github.coordinate(api, snap, now):
+            say(line)
+    return snap, board.render(snap)
+
+
+def act_on_board(api, snap, event_name, ref_name, now, say=print):
+    """The second half, once the page is written: rename the released
+    claims' branches, then post the comments the pull requests are owed,
+    both from the snapshot the first half read; the event and the ref are
+    passed on, though since F12's fix no comment depends on them."""
+    github = github_adapter()
+    for line in github.release_claims(api, snap):
+        say(line)
+    for line in github.post_comments(api, board.comments_due(snap, event_name, ref_name, now)):
+        say(line)
+
+
+def default_head_sha(environ, default_branch):
+    """GITHUB_SHA where it is the default branch's head: on a push to that
+    branch, and on every event but a pull request's and a push to another
+    branch, which carry the pull request's merge commit or that branch's
+    head, no commit of the default branch at all; there it is "", so the
+    board names no commit and tells nobody that main moved (board.
+    comments_due), since the word now goes out on every event and would
+    otherwise carry a sha that is not main's, once per such event. A
+    workflow that passes --sha from a checkout of the default branch, as
+    the template's does, never comes here."""
+    event, ref = environ.get("GITHUB_EVENT_NAME", ""), environ.get("GITHUB_REF_NAME", "")
+    if event.startswith("pull_request") or (event == "push" and ref != default_branch):
+        return ""
+    return environ.get("GITHUB_SHA", "")
+
+
+def pushed_branch(environ):
+    """The branch whose push started the run, as the workflow's event names
+    it, "" where none did: on a push or a branch's creation the ref pushed
+    (GITHUB_REF), when it is a branch's and no tag's; on a pull request's
+    synchronize, the head branch the push moved, read from the event's
+    payload, when the head is this repository's, since a fork's branch is
+    no claim here; and nothing on any other event, nor on a pull request
+    event whose action is not synchronize, whose payload is read all the
+    same, since the action is in it, nor on a payload that cannot be read
+    or where the environment does not name the repository the run is in
+    (GITHUB_REPOSITORY). A claim on that branch whose push no read of the
+    activity dates, or one dates only by an entry from before the run
+    began, is dated at the run's start, for that run alone
+    (spec/PROTOCOL.md, Release; adapters.github.head_since): the push
+    that started the run is the one the activity is likeliest not to list
+    yet. A synchronize that GitHub fires for a change of the pull request's
+    base, with no push, holds such a claim one run too, which the next run
+    reads afresh."""
+    event = environ.get("GITHUB_EVENT_NAME", "")
+    if event in ("push", "create"):
+        ref = environ.get("GITHUB_REF", "")
+        return ref[len("refs/heads/"):] if ref.startswith("refs/heads/") else ""
+    if event != "pull_request":
+        return ""
+    payload, _ = read_event(environ)
+    if payload is None or payload.get("action") != "synchronize":
+        return ""
+    head = (payload.get("pull_request") or {}).get("head") or {}
+    repo = environ.get("GITHUB_REPOSITORY")
+    if not repo or (head.get("repo") or {}).get("full_name") != repo:
+        return ""
+    ref = head.get("ref")
+    return ref if isinstance(ref, str) else ""
+
+
+def say_what_it_cost(api):
+    """The board run's last line (adapters.github.calls_line), which never
+    takes the place of the run's own outcome: a client that keeps no count,
+    or keeps one in another shape, as a stand-in may, or a time no clock
+    writes, says nothing."""
+    try:
+        print(github_adapter().calls_line(api))
+    except (AttributeError, LookupError, TypeError, ValueError, OverflowError, OSError):
+        return
+
+
 def board_live_run(args, environ):
+    """A board run on GitHub: the two halves, the page written between
+    them, and last, whether the run ended or GitHub refused it on the way,
+    the calls GitHub answered and what the token had left (say_what_it_cost),
+    the one figure of what a board run costs taken in the repository
+    itself."""
     token, repo = environ.get("GITHUB_TOKEN"), environ.get("GITHUB_REPOSITORY")
     if not token or not repo:
         raise CommandError("GITHUB_TOKEN and GITHUB_REPOSITORY must be set")
-    github = github_adapter()
-    api = github.GitHub(token, repo)
+    api = github_adapter().GitHub(token, repo)
     now = datetime.now(timezone.utc)
-    snap = github.snapshot(api, args.sha or environ.get("GITHUB_SHA", ""), args.default_branch, now)
-    for line in github.unread_claim_lines(snap):
-        print(line)
-    if not args.render_only:
-        for line in github.coordinate(api, snap, now):
-            print(line)
-    out = Path(args.out) if args.out else board.STATE_PATH
-    changed = board.write_if_changed(out, board.render(snap))
-    print(f"{out.as_posix()}: {'rewritten' if changed else 'unchanged'}")
-    if not args.render_only:
-        for line in github.release_claims(api, snap):
-            print(line)
-        due = board.comments_due(snap, environ.get("GITHUB_EVENT_NAME", ""), environ.get("GITHUB_REF_NAME", ""), now)
-        for line in github.post_comments(api, due):
-            print(line)
+    try:
+        snap, page = plan_board(api, args.sha or default_head_sha(environ, args.default_branch), args.default_branch,
+                                now, args.render_only, started_by=pushed_branch(environ))
+        out = Path(args.out) if args.out else board.STATE_PATH
+        changed = board.write_if_changed(out, page)
+        print(f"{out.as_posix()}: {'rewritten' if changed else 'unchanged'}")
+        if not args.render_only:
+            act_on_board(api, snap, environ.get("GITHUB_EVENT_NAME", ""), environ.get("GITHUB_REF_NAME", ""), now)
+    finally:
+        say_what_it_cost(api)
     return 0
 
 
@@ -146,10 +246,202 @@ def read_event(environ):
     return event, ""
 
 
+# How long one git call of the check may take: a fetch is of a few
+# commits' objects, or of the history down to a merge base.
+GIT_SECONDS = 120
+# What git is run with whatever the environment or the checkout's own
+# configuration say: no automatic housekeeping, and pathspecs read with
+# their magic, never literally (F31's second review).
+GIT_SETTINGS = ("--no-literal-pathspecs", "-c", "gc.auto=0", "-c", "maintenance.auto=false",
+                "-c", "diff.ignoreSubmodules=none")
+UNREAD = "the claim files this pull request changes could not be read: "
+# How far a shallow clone is deepened, in turn, to find where a pull
+# request's branch left its base; the last step takes the whole history.
+DEEPENINGS = (("--deepen=64",), ("--deepen=512",), ("--unshallow",))
+# How much of git's last words a reason quotes.
+STDERR_TAIL = 200
+
+
+class Git:
+    """git run in one checkout, with every GIT_* variable of the
+    environment left out, since an earlier step of the job can set any of
+    them through $GITHUB_ENV (GIT_LITERAL_PATHSPECS, which empties the
+    diff, GIT_DIR, which reads another repository, GIT_CONFIG_*), and the
+    last failure's words kept for the reason the check gives."""
+
+    def __init__(self, root):
+        self.root = root
+        self.environ = {k: v for k, v in os.environ.items() if not k.upper().startswith("GIT_")}
+        self.why = ""
+
+    def __call__(self, *args):
+        """git's standard output, or None, with why saying what went
+        wrong: git missing, a timeout, or the tail of what git wrote to
+        its standard error."""
+        try:
+            done = subprocess.run(["git", *GIT_SETTINGS, *args], cwd=self.root, env=self.environ,
+                                  capture_output=True, timeout=GIT_SECONDS)
+        except subprocess.TimeoutExpired:
+            self.why = f"git {args[0]} timed out after {GIT_SECONDS} s"
+            return None
+        except (OSError, subprocess.SubprocessError, ValueError) as error:
+            self.why = f"git could not be run ({error.__class__.__name__})"
+            return None
+        if done.returncode != 0:
+            self.why = f"git {args[0]} failed: {last_words(done.stderr)}"
+            return None
+        return done.stdout
+
+    def said(self, what):
+        """A reason, with git's own last words where it gave any."""
+        return f"{what} ({self.why})" if self.why else what
+
+
+def last_words(stderr):
+    """The last line git wrote to its standard error, as plain ASCII of
+    bounded length, or how it ended where it wrote nothing."""
+    lines = [line.strip() for line in stderr.decode("utf-8", "replace").splitlines() if line.strip()]
+    text = (lines[-1] if lines else "no message").encode("ascii", "replace").decode("ascii")
+    return text[:STDERR_TAIL]
+
+
+def event_sha(side):
+    """A commit an event's head or base names, or None where it names
+    none git could take as one."""
+    sha = (side or {}).get("sha")
+    return sha if isinstance(sha, str) and 7 <= len(sha) <= 64 and sha.isascii() and sha.isalnum() else None
+
+
+def parents_of(git, commit):
+    """The parents a commit's own object names, which a clone of depth 1
+    still holds where commit^1 is not there; None where git cannot read
+    it."""
+    text = git("cat-file", "commit", commit)
+    if text is None:
+        return None
+    return [line.split()[1] for line in text.decode("ascii", "replace").splitlines()
+            if line.startswith("parent ") and len(line.split()) == 2]
+
+
+def fetched(git, sha):
+    """Whether the commit is in the clone, fetched one deep from origin
+    where it was not, as actions/checkout's default depth of 1 leaves it
+    out; origin is the base repository, which holds a fork's head too."""
+    if git("cat-file", "-e", f"{sha}^{{commit}}") is not None:
+        return True
+    if git("fetch", "--quiet", "--no-tags", "--depth=1", "origin", sha) is None:
+        return False
+    return git("cat-file", "-e", f"{sha}^{{commit}}") is not None
+
+
+def merge_bases(git, one, two):
+    """Every commit where the branch at two left one, git's merge bases
+    (`merge-base --all`, so criss-cross history, which has several, hides
+    nothing behind the one git would pick), deepening a shallow clone step
+    by step until git finds one; () where it never does, which the check
+    fails on rather than guess. one and two are shas, so a deepening
+    fetches the pull request's own commits."""
+    for deepening in ((),) + DEEPENINGS:
+        if deepening:
+            shallow = git("rev-parse", "--is-shallow-repository")
+            if shallow is None or shallow.strip() != b"true":
+                return ()
+            git("fetch", "--quiet", "--no-tags", *deepening, "origin", one, two)
+        found = git("merge-base", "--all", one, two)
+        if found is not None and found.split():
+            return tuple(line.decode("ascii", "replace") for line in found.split())
+    return ()
+
+
+def checkout_of(git, pull, base):
+    """What the checkout is: the commit whose change is the pull request's
+    own, whether HEAD is GitHub's test merge, and whether HEAD is the pull
+    request at all. HEAD is the test merge where it is a merge whose first
+    parent is the base and whose second is the head the event names, or
+    any second where the event names none; the tip is the event's head
+    wherever it names one, so a checkout of something else, the base as
+    pull_request_target leaves it among them, still has the pull request's
+    own change judged; and where the event names none, HEAD itself, as a
+    sha, a head commit that is itself a merge among them. None for the tip
+    where git cannot read HEAD."""
+    here = git("rev-parse", "--verify", "--quiet", "HEAD^{commit}")
+    parents = parents_of(git, "HEAD") if here is not None else None
+    if parents is None:
+        return None, False, False
+    here = here.decode("ascii", "replace").strip()
+    head = event_sha(pull.get("head"))
+    test_merge = len(parents) == 2 and parents[0] == base and (head is None or parents[1] == head)
+    tip = parents[1] if test_merge else (head or here)
+    return tip, test_merge, test_merge or head is None or here == head
+
+
+def change_of(git, pull):
+    """The diffs a pull request's change is judged by, read with git from
+    the checkout the check runs in, over every path, since a path that
+    folds into the claim folder may be spelt in letters git's own icase
+    pathspec does not fold (F31's second review), or why they could not
+    be read: the
+    branch's own change, from each commit where it left the base to its
+    tip (git's three dots, from every merge base), so a file the base
+    also holds, which the merge leaves alone, still counts where the
+    branch added it; and, in GitHub's test merge, the merge's change
+    against the base as well. A checkout that is neither the test merge
+    nor the event's head is no reading of the pull request's claim file,
+    so it is a reason too, beside the change judged."""
+    base = event_sha(pull.get("base"))
+    if base is None:
+        return None, "the event names no base commit"
+    if not fetched(git, base):
+        return None, git.said(f"the base commit {base[:12]} could not be fetched")
+    tip, test_merge, is_pull = checkout_of(git, pull, base)
+    if tip is None:
+        return None, git.said("git could not read the checked-out commit")
+    if not fetched(git, tip):
+        return None, git.said(f"the head commit {tip[:12]} could not be fetched")
+    lefts = merge_bases(git, base, tip)
+    if not lefts:
+        return None, git.said(f"git found no commit where the branch left {base[:12]}")
+    pairs = [(left, tip) for left in lefts] + ([(base, "HEAD")] if test_merge else [])
+    diffs = [git("diff", "--no-renames", "--raw", "-z", older, newer) for older, newer in pairs]
+    if any(d is None for d in diffs):
+        return None, git.said(f"git could not compare {base[:12]} with the checkout")
+    away = "" if is_pull else (f"the checkout is neither the head the event names, {tip[:12]}, nor GitHub's test "
+                               f"merge of it, so the claim file looked for there is not the pull request's")
+    return diffs, away
+
+
+def changed_claims_in(root, pull):
+    """The issues whose claim files the pull request adds or changes and
+    the problems of what it does to the claim folder, read from the
+    checkout (change_of), as (numbers, problems): ((), []) where root holds
+    no .git, as a test's scratch folder does, where nothing is judged;
+    and where it holds one, every problem, a reason the change could not
+    be read among them, since a claim file the check cannot see may be the
+    one it is there to stop (F31 and its reviews): git missing or refusing
+    the checkout, a checkout whose top is another folder, a base or head
+    that cannot be fetched, a branch whose merge base is never found, or a
+    checkout that is not the pull request."""
+    if not (Path(root) / ".git").exists():
+        return (), []
+    git = Git(root)
+    top = git("rev-parse", "--show-toplevel")
+    if top is None:
+        return (), [UNREAD + git.said("git is missing or will not read the checkout")]
+    if Path(os.fsdecode(top.strip())).resolve() != Path(root).resolve():
+        return (), [UNREAD + f"the checkout's top is {os.fsdecode(top.strip())}, not the folder the check runs in"]
+    diffs, why = change_of(git, pull)
+    if diffs is None:
+        return (), [UNREAD + why]
+    numbers = sorted({n for diff in diffs for n in protocol_check.claim_files_changed(diff)})
+    problems = list(dict.fromkeys(p for diff in diffs for p in protocol_check.claim_folder_problems(diff)))
+    return tuple(numbers), problems + ([why] if why else [])
+
+
 def run_check(argv, environ=None, root="."):
     """The protocol check: a run outside a pull request event passes, so
     the check never breaks a push build; the claim file is looked for in
-    the checkout, root."""
+    the checkout, root, and the claim files the pull request adds or
+    changes are read from it with git (changed_claims_in)."""
     argparse.ArgumentParser(
         prog=f"{PROG} check",
         description="Hold the claude/<issue> pull request in GITHUB_EVENT_PATH to the claim protocol.",
@@ -158,8 +450,11 @@ def run_check(argv, environ=None, root="."):
     if event is None:
         print(why_not)
         return 0
+    pull = event.get("pull_request") or {}
+    changed, unread = changed_claims_in(root, pull) if pull else ((), [])
     problems = protocol_check.problems_for(
-        event.get("pull_request") or {}, lambda number: (Path(root) / claims.claim_path(number)).is_file())
+        pull, lambda number: (Path(root) / claims.claim_path(number)).is_file(), changed)
+    problems += unread
     for problem in problems:
         print(problem)
     if problems:
@@ -191,6 +486,12 @@ def team_arguments(argv, environ=None):
                                             "Actions, each by its area")
     nexting.add_argument("--label", default=None,
                          help="the worker's label, made before a take so the session can add it")
+    dealing = sub.add_parser("deal", help="the next move of every worker in Actions of this registry, from one "
+                                          "look at the repository, as a JSON object by worker on one line")
+    dealing.add_argument("--registry", required=True, help="the registry whose workers in Actions are dealt to")
+    dealing.add_argument("--workers", default=None,
+                         help="a JSON list of the workers of this run (default: every worker in Actions): "
+                              "theirs are the moves printed and the labels made before a take")
     schema = sub.add_parser("schema", help="the JSON schema of the coordinator's plan, on one line")
     schema.add_argument("--registry", help="the registry whose workers a task may go to")
     return parser.parse_args(argv)
@@ -198,20 +499,46 @@ def team_arguments(argv, environ=None):
 
 def team_answer(client, args):
     """The one line the workflow reads, from the clerk's rules. With a
-    registry, seed gives tasks to every registered worker, and next deals
-    the shared work among the workers in Actions, which ask at the same
-    moment, each by its area."""
+    registry, seed gives tasks to every registered worker, next deals the
+    shared work among the workers in Actions, each by its area, from the
+    asking worker's own look, and deal deals it once for the whole run,
+    from one look, and answers for every worker of the run."""
     registered = workers.load(args.registry) if getattr(args, "registry", None) else None
     if args.command == "seed":
         names = [w.name for w in registered] if registered is not None else team.team_members(args.team)
         return team.seed(client, args.epic, load_json(args.plan), names)
     if args.command == "route":
         return team.route(client, args.event, args.issue, args.label)
+    if args.command == "deal":
+        return deal_answer(client, registered, args.workers)
     if registered is None:
         return team.next_move(client, args.agent, team.team_members(args.team), args.label)
     in_actions = workers.in_actions(registered)
     areas = {w.name: w.area for w in registered}
     return team.next_move(client, args.agent, [w.name for w in in_actions], args.label, areas)
+
+
+def deal_answer(client, registered, run_json):
+    """The deal's one line: a JSON object, worker to move, for the workers
+    of the run, the registry's workers in Actions unless --workers names
+    them; a name that is no worker here, or a value that is not JSON, is a
+    ValueError naming the flag and the shape it takes, since the workflow
+    took its list from the same registry; so is an empty --registry, which
+    argparse lets through and which names no folder."""
+    if registered is None:
+        raise ValueError("--registry must name the registry folder")
+    in_actions = workers.in_actions(registered)
+    names = [w.name for w in in_actions]
+    shape = f"--workers must be a JSON list of the registry's workers in Actions, {json.dumps(names)}"
+    try:
+        run = names if run_json is None else json.loads(run_json)
+    except ValueError as problem:
+        raise ValueError(f"{shape}; the value given is not JSON: {problem}") from None
+    if not isinstance(run, list) or any(name not in names for name in run):
+        raise ValueError(shape)
+    moves = team.deal_moves(client, names, {w.name: w.area for w in registered},
+                            {w.name: w.label for w in in_actions}, run)
+    return json.dumps(moves, sort_keys=True, separators=(",", ":"))
 
 
 def team_schema(args):
