@@ -6,6 +6,9 @@
 CBCT projection and DRR datasets with what is on the grid and how to get the rest, and the 16 ready request letters
 (read `data_mining/CATALOG.md` on GitHub).
 
+`provisional_patent/` holds the SchwingNet provisional packet of 2026-09-18 and the WSU invention disclosure package of
+2026-09-25, confidential parts included; its `README.md` says which is current and what must never leave this repository.
+
 One private repository that seeds a set of Claude Code projects, one per numbered folder, dividing the spine imaging
 programme of the Open Spine Consortium (Department of General Surgery, Wayne State University School of Medicine /
 Detroit Medical Center) into self-contained units. It was built on 2026-10-08 from the laptop folders, the memory notes
