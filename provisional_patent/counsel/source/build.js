@@ -7,7 +7,7 @@ const {
   Table, TableRow, TableCell, WidthType, ShadingType, BorderStyle, ImageRun, Header, Footer,
   PageNumber, TableOfContents, PageBreak, LevelFormat,
 } = require("docx");
-const { L, c } = require("./content.js");
+const { L, c, packagePath } = require("./content.js");
 const SECTIONS = require("./answers.js");
 
 const [FIGDIR, OUT] = process.argv.slice(2);
@@ -153,9 +153,10 @@ body.push(new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRu
 
 // ---------- executive summary
 body.push(h1("1. What counsel should know first"));
-body.push(p("Most answers are routine: ranges, alternatives and examples to widen the specification. Nine points change what is filed or when, and they are listed here in order of consequence."));
+body.push(p("Most answers are routine: ranges, alternatives and examples to widen the specification. Ten points change what is filed or when, and they are listed here in order of consequence."));
 const EXEC = [
   "**The draft provisional does not describe Part A, and the WSU disclosure does not describe the draft.** The draft (18 September) is a third invention: overlapping C-arm exposures linked into a chain, alternative alphabets, a confidence that commands the next move, and a persistent digital marker. The disclosure form (25 September) covers Part A (preoperative CT) and Part B (single C-arm exposure) and never mentions a chain, overlap or sweep. A supplemental disclosure to WSU should cover the chain (Q1, Figure 1).",
+  "**The disclosure timeline given to WSU is incomplete for Parts A and B.** It says no public item discloses either part. A later review of the public repositories (SCRUB_PLAN.md, 26 September) found that some did: documents pushed by mistake to the public CTSpinoPelvic1K repository on 4 September disclosed Part B concepts (an anchor at the sacral base, a transitional flag, the evaluation design); scripts public from 7 September implemented Part A elements (a rule-based call per record, the call printed with the scores behind it); a design note public by 27 August stated Part A's name-free premise in part; and a Zenodo build archive of 7 September carries Part A results. These cannot be withdrawn; for the United States they start the one-year grace period on the dates given, and abroad they count at once. The same review found nothing public about the chain. The GitHub Support purge requests drafted that day have no record of being filed. Section 6 of SCRUB_PLAN.md lists the corrections owed to the WSU package (Q1, Q5).",
   "**Part A is design only.** Its features are extracted on 3,524 CT and segmenter pairs, but no classifier has been trained. I recommend it go in a later provisional (Q1).",
   "**The measured numbers in the draft must be replaced before filing.** On the morning of 18 September, 681 of the 801 render subjects were found to be in the naming network's training set (commit d6f407a); the draft, written that evening, still carries those numbers. On 19 September every earlier render was found to have the wrong field size. Section 2 lists each affected paragraph with its corrected, held-out value. The claims recite no accuracy, so this is a support and candour matter, not a claim matter.",
   "**Three statements of mechanism or result are now known to be overstated.** [0048]: widening the search window barely changes counting, so the window is not the mechanism (Q20, Figure 7). [0073]: the reduced-resolution search has not been shown to lose nothing; a real-frame check disagreed (Q42). [0083a]: on a later phantom about one in four asserted marker positions still fell on the neighbouring vertebra (Q47).",
@@ -179,7 +180,7 @@ body.push(table([3400, BODY_W - 3400], [
   ["Design only", "Written down as a plan; not built"],
 ]));
 body.push(p(""));
-body.push(p("**Links.** Source links point to two private GitHub repositories at fixed commits (OpenSpineConsortium/spine-program and the inventor's spinesurg-ct-nnunet). They open only for an account given access. If counsel prefers, I can supply any linked file as an excerpt instead of granting access. Numbers marked RECORD ONLY are held-out results on renders with the annotation's boxes; they support the description and are not for marketing claims."));
+body.push(p("**Links.** Source links point to two private GitHub repositories at fixed commits (OpenSpineConsortium/spine-program and the inventor's spinesurg-ct-nnunet), which open only for an account given access. **Every linked file is also in this package, in the folder 05_Evidence; Appendix D maps each link to its file.** Numbers marked RECORD ONLY are held-out results on renders with the annotation's boxes; they support the description and are not for marketing claims."));
 body.push(p("**Ranges.** Where a question asks for a working range, the value actually used is stated first; the range around it is my judgement unless the answer says it was measured."));
 
 // ---------- numbers to replace
@@ -245,12 +246,19 @@ body.push(h1("Appendix B. References for the information disclosure statement"))
 ].forEach(t => body.push(bullet(t)));
 body.push(p("Not yet done: the INPADOC family search for continuations of the four patents above."));
 
+body.push(h1("Appendix D. Where each linked file is in this package"));
+body.push(p("Every source link in this document is to a file at a fixed commit. The same file is in the package at the path below. Commit links point to the dated commit record, 05_Evidence/CONCEPTION_RECORD.txt."));
+{
+  const seen = new Map();
+  Object.values(L).forEach(([label, url]) => { const k = url.split("#")[0]; if (!seen.has(k)) seen.set(k, [label.split(",")[0].split(" (")[0].split(" section")[0].split(" L")[0], packagePath(url)]); });
+  body.push(table([3600, BODY_W - 3600], [["Linked as", "Path in the package"], ...[...seen.values()].sort((x, y) => x[1].localeCompare(y[1]))]));
+}
 body.push(h1("Appendix C. Open items for the meeting"));
 [
   "Which invention the first provisional covers: the chain alone, the chain with Part B, or all three (Q1).",
   "A supplemental WSU disclosure for the chain.",
   "Re-running the 18-September measurements on held-out sweep_v3 data, or filing those paragraphs without numbers (Section 2).",
-  "Whether counsel needs repository access, or excerpts of the linked files.",
+  "Correcting the WSU disclosure timeline for the public items SCRUB_PLAN.md lists, and whether the GitHub purge requests should be filed.",
   "Confirming the disc-based convention (Q30) and the intended hardware (Q49).",
   "The order of filing and the held disclosures: the Part B manuscript, the SX-Stitch data request, the CNS talk of 2 November 2026.",
 ].forEach(t => body.push(bullet(t)));

@@ -10,6 +10,7 @@ const L = {
   claims: [`CLAIMS.md`, SP + "provisional_patent/provisional/CLAIMS.md"],
   readme: [`00_README_for_TTO.md`, SP + "provisional_patent/wsu_tto/TTO_package_2026-09-25/00_README_for_TTO.md"],
   timeline: [`06_disclosure_timeline.md`, SP + "provisional_patent/wsu_tto/TTO_package_2026-09-25/06_disclosure_timeline.md"],
+  scrub: [`SCRUB_PLAN.md`, SP + "provisional_patent/wsu_tto/TTO_package_2026-09-25/SCRUB_PLAN.md"],
   memo: [`DISCLOSURE_MEMO.md`, SP + "provisional_patent/DISCLOSURE_MEMO.md"],
   guidedP: [`GUIDED_ACQUISITION.md`, SP + "provisional_patent/GUIDED_ACQUISITION.md"],
   idfP: [`INVENTION_DISCLOSURE.md`, SP + "provisional_patent/INVENTION_DISCLOSURE.md"],
@@ -56,3 +57,20 @@ const L = {
 const c = (sha, what) => [`commit ${sha} (${what})`, SC + sha];
 
 module.exports = { SP, SS, SC, L, c };
+
+// Where each linked file sits in the package sent to counsel.
+function packagePath(url) {
+  if (url.startsWith(SC)) return "05_Evidence/CONCEPTION_RECORD.txt";
+  const clean = url.split("#")[0];
+  if (clean.startsWith(SP)) {
+    const p = clean.slice(SP.length);
+    if (p.startsWith("provisional_patent/provisional/")) return "02_Draft_Provisional/" + p.split("/").pop();
+    if (p.startsWith("provisional_patent/wsu_tto/TTO_package_2026-09-25/SCRUB_PLAN.md")) return "03_Disclosure_Records/SCRUB_PLAN.md";
+    if (p.startsWith("provisional_patent/wsu_tto/TTO_package_2026-09-25/")) return "04_WSU_TTO_Package/" + p.split("/").pop();
+    if (p.startsWith("provisional_patent/")) return "03_Disclosure_Records/" + p.split("/").pop();
+    return "05_Evidence/spine-program/" + p;
+  }
+  if (clean.startsWith(SS)) return "05_Evidence/spinesurg-ct-nnunet/" + clean.slice(SS.length);
+  return null;
+}
+module.exports.packagePath = packagePath;
