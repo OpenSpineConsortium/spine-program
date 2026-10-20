@@ -60,6 +60,7 @@ No provisional draft written after 25 September was found on this computer.
 | `wsu_tto/TTO_package_2026-09-25/` | The package for the WSU Office for Technology Commercialization, items 00–06; `00_README_for_TTO.md` lists them |
 | `wsu_tto/TTO_package_2026-09-25/followup/` | Part B manuscript revisions 2–5 and the CNS 2026 talk drafts (7 Sep draft, v2–v10) |
 | `wsu_tto/idf_work/` | The scripts that filled the WSU form, and the form's unpacked Word XML |
+| `counsel/` | The inventor's responses to counsel's 60 questions for WSU 26-1902 (20 Oct 2026), as a Word document with its figures and build scripts |
 | `wsu_tto/*.docx` | The modified blank form, and the completed form of 25 Sep (identical to item 01's .docx) |
 | `wsu_tto/github_purge_requests/` | The three GitHub Support requests and the commit lists they attach |
 | `wsu_patent_policy.pdf` | The WSU patent policy |
