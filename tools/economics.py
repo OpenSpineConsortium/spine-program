@@ -17,7 +17,9 @@ merge and fewer failed checks.
 It is pure: the caller reads GitHub and hands in plain values, and every
 answer is a dict of numbers with fixed keys, so the record says what the
 work cost and nothing about what was built or by whom. Standard library
-only, like every tool here.
+only, like every tool here. The same records carry each run's profile,
+which tools/profile.py sums for PROFILE.json over the same two sides
+(sides, overhead).
 """
 
 import math
@@ -30,11 +32,13 @@ import usage
 
 # Anthropic's API list prices in US dollars per million tokens, as of
 # PRICES_AS_OF: uncached input, cache writes kept five minutes (1.25 times
-# input) and an hour (2 times input), cache reads, and output. The
+# input) and an hour (2 times input), cache reads (0.1 times input, but
+# 0.05 times on Opus 5.5 and Sonnet 5.5 and 0.025 times on Fable 5.1, as
+# the page's footnotes say), and output. The
 # estimate is what the same tokens would cost on the API, whatever plan
 # actually paid for them; a model this table does not know is left out of
 # the estimate and its tokens counted as unpriced.
-PRICES_AS_OF = "2026-10-06"
+PRICES_AS_OF = "2026-10-16"
 PRICES = {
     "claude-fable-5-1": (10.0, 12.5, 20.0, 0.25, 50.0),
     "claude-opus-5-5": (4.0, 5.0, 8.0, 0.20, 20.0),
@@ -45,7 +49,7 @@ PRICES = {
     "claude-opus-4-5": (5.0, 6.25, 10.0, 0.50, 25.0),
     "claude-opus-4-1": (15.0, 18.75, 30.0, 1.50, 75.0),
     "claude-opus-4": (15.0, 18.75, 30.0, 1.50, 75.0),
-    "claude-sonnet-5-5": (2.0, 2.5, 4.0, 0.20, 10.0),
+    "claude-sonnet-5-5": (2.0, 2.5, 4.0, 0.10, 10.0),
     "claude-sonnet-5": (2.0, 2.5, 4.0, 0.20, 10.0),
     "claude-sonnet-4-6": (3.0, 3.75, 6.0, 0.30, 15.0),
     "claude-sonnet-4-5": (3.0, 3.75, 6.0, 0.30, 15.0),
@@ -147,10 +151,11 @@ def number(value, whole=True):
 def actions_record(data):
     """An Actions run's record as the economics read it, or None when it is
     not one: its counts by model whole numbers, under a name a model can
-    have (usage.MODEL_KEY), its seconds a number, and its words the
-    workflows' own. Any workflow run of the repository can upload a record,
-    so each part of it is read as anyone's JSON: a part of the wrong kind or
-    past the bound is passed over, and nothing in it is ever raised on."""
+    have (usage.MODEL_KEY), its seconds a number, its words the workflows'
+    own, and its profile the counts profile_counts reads. Any workflow run
+    of the repository can upload a record, so each part of it is read as
+    anyone's JSON: a part of the wrong kind or past the bound is passed
+    over, and nothing in it is ever raised on."""
     if not isinstance(data, dict) or data.get("v") != 1 or data.get("source") != "actions":
         return None
     listed = data.get("models") if isinstance(data.get("models"), dict) else {}
@@ -164,7 +169,22 @@ def actions_record(data):
         "pull": data.get("pull") if number(data.get("pull")) else None,
         "seconds": float(seconds) if number(seconds, whole=False) else 0.0,
         "models": models,
+        "profile": profile_counts(data.get("profile")),
     }
+
+
+def profile_counts(block):
+    """A run's profile as the record carries it: the counts of a commit's
+    Symphony-Profile line (tools/profile.py, TRAILER_FIELDS), each a whole
+    number below the bound, the rest passed over; None where the record
+    has none of them, as a record from a workflow that copied no profile.py
+    beside the recorder has none, or a run that made no call, whose counts
+    are all 0 (profile.measured)."""
+    if not isinstance(block, dict):
+        return None
+    profiler = usage.profiler()
+    counts = {key: block[key] for key in profiler.TRAILER_FIELDS if number(block.get(key))}
+    return counts if profiler.measured(counts) else None
 
 
 def kept_record(data):
@@ -255,6 +275,13 @@ def unattributed(works, records):
     return [r for r in records if not any(names(r, w) for w in works)]
 
 
+def overhead(works, window_records):
+    """The coordinator's runs recorded in the window that name none of the
+    window's pull requests (works): its planning of epics and its weekly
+    tidy, the cost of working in parallel."""
+    return [r for r in unattributed(works, window_records) if r["workflow"] == "coordinator"]
+
+
 # --- the window -------------------------------------------------------------------
 
 def per(part, whole):
@@ -325,14 +352,27 @@ def covered_seconds(works, now):
     return total
 
 
+def median_seconds(values):
+    """The median, rounded half up to whole seconds; None for no values.
+    Every median in the record is taken by this one rule, the durations'
+    in tools/metrics.py and the coordination block's here, so the
+    durations' open_to_merge_median and each side's agree on the same
+    waits."""
+    return int(math.floor(statistics.median(values) + 0.5)) if values else None
+
+
 def group(works, spent, now, extra_usd=0.0, extra_tokens=0):
     """One side of the comparison, as GROUP_KEYS. Its tokens and dollars are
     those of its measured pull requests, the ones with usage recorded, and
     what it costs beside them (extra_usd, extra_tokens), so they are divided
-    by its measured merges and never by merges whose cost is unknown."""
+    by its measured merges and never by merges whose cost is unknown. Its
+    median wait to merge counts each wait in whole seconds and leaves out
+    a merge dated before its opening, as the durations do with a wait
+    against the clock."""
     merged = [w for w in works if w.merged is not None]
     measured = [w for w in works if spent[w.number].tokens]
-    waits = [(w.merged - w.opened).total_seconds() for w in merged if w.opened is not None]
+    waits = [int((w.merged - w.opened).total_seconds()) for w in merged
+             if w.opened is not None and w.merged >= w.opened]
     verdicts = [w.first_check for w in works if w.first_check is not None]
     usd = sum(spent[w.number].usd for w in measured) + extra_usd
     return dict(zip(GROUP_KEYS, (
@@ -340,7 +380,7 @@ def group(works, spent, now, extra_usd=0.0, extra_tokens=0):
         sum(spent[w.number].tokens for w in measured) + extra_tokens, round(usd, 4),
         int(sum(spent[w.number].seconds for w in works)), sum(len(w.commits) for w in works),
         sum(w.check_failures for w in works), sum(verdicts), len(verdicts),
-        int(statistics.median(waits)) if waits else None, int(covered_seconds(works, now)),
+        median_seconds(waits), int(covered_seconds(works, now)),
     )))
 
 
@@ -379,19 +419,25 @@ def ratios(alone, parallel):
     )))
 
 
-def coordination(works, records, now, others=(), window_records=()):
-    """The comparison: the window's pull requests of people and of the
-    repository's Claude workflows that ended in it, split by whether other
-    such work was at work beside them, the window's or work that did not
-    end in it (others), and the ratios. The coordinator's runs recorded in
-    the window that name none of them are the cost of working in parallel,
-    so they count on that side."""
+def sides(works, now, others=()):
+    """The window's pull requests of people and of the repository's Claude
+    workflows that ended in it, split in two: alone, with no other such
+    work at work beside them, the window's or work that did not end in it
+    (others), and parallel, the rest."""
     working = [w for w in works if w.kind in WORKING_KINDS and w.start is not None]
     everyone = working + [o for o in others if o.kind in WORKING_KINDS and o.start is not None]
     alone = [w for w in working if not any(beside(w, o, now) for o in everyone)]
-    parallel = [w for w in working if w not in alone]
-    spent = {w.number: spent_on(w, records) for w in working}
-    overhead = coordinator_models(unattributed(works, window_records))
+    return alone, [w for w in working if w not in alone]
+
+
+def coordination(works, records, now, others=(), window_records=()):
+    """The comparison: the two sides of the window's pull requests (sides)
+    and the ratios. The coordinator's runs recorded in the window that name
+    none of them are the cost of working in parallel, so they count on that
+    side."""
+    alone, parallel = sides(works, now, others)
+    spent = {w.number: spent_on(w, records) for w in alone + parallel}
+    extra = coordinator_models(overhead(works, window_records))
     alone_side = group(alone, spent, now)
-    parallel_side = group(parallel, spent, now, priced(overhead)[0], sum(sum(c) for c in overhead.values()))
+    parallel_side = group(parallel, spent, now, priced(extra)[0], sum(sum(c) for c in extra.values()))
     return {"alone": alone_side, "parallel": parallel_side, "ratios": ratios(alone_side, parallel_side)}
