@@ -27,7 +27,7 @@ GlobalProtect once; Greg approves the student, which adds a named ACL entry on `
 | 5 | With Greg, pick one item from `OPEN_QUESTIONS.md` or `students:BOARD.md`; write its `PREREG.md` (rule, success criterion, inputs) before running anything; submit nothing on the login node. | Greg has signed the PREREG |
 
 Questions only Greg can answer (ask in week one): was SchwingNet uploaded; was the Medical Physics packet uploaded and
-under what number; what is the VinDr determination number; is the NeurIPS camera-ready deadline past; does Greg want the
+under what number; (the VinDr determination number was a question here until 2026-10-20: it is HPR 2026-330 of 29 September 2026); is the NeurIPS camera-ready deadline past; does Greg want the
 ratio sweep, the per-level supplement table and seeds above N = 25 (`OPEN_QUESTIONS.md` part A); is the reader split of
 this folder confirmed (A29). Greg's own questions are in `GREG_ONLY/PRIVATE_STATE.md` §3.
 

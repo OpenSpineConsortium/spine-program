@@ -47,7 +47,7 @@ was rebuilt 2026-10-08 09:41 (file timestamp; 10 pages); who rebuilt it is not r
 
 | # | work | venue / purpose | state as recorded | main files |
 |---|---|---|---|---|
-| 1 | SchwingNet, paper 1: "SchwingNet: a convolutional-recurrent network for level naming in spine surgery" | Radiology: Artificial Intelligence, Original Research | complete in two copies (review, camera-ready); ONE placeholder (VinDr determination number) blocks it; HELD from submission pending the WSU technology transfer office; supplement now 13 pages against a 12-page cap; Word packet stale | `sscn/SchwingNet/` (section 2) |
+| 1 | SchwingNet, paper 1: "SchwingNet: a convolutional-recurrent network for level naming in spine surgery" | Radiology: Artificial Intelligence, Original Research | complete in two copies (review, camera-ready); ONE placeholder (the VinDr determination number, HPR 2026-330 of 29 September 2026, not yet printed) blocks it; HELD from submission pending the WSU technology transfer office; supplement now 13 pages against a 12-page cap; Word packet stale | `sscn/SchwingNet/` (section 2) |
 | 2 | Paper 2: SchwingNet versus registration-assisted surgeons (LevelCheck) | not chosen | moved out of paper 1 on 2026-09-24; comparator frozen; blinded gate job cancelled 2026-09-27; needs human reads of transitional test persons | `sscn/SchwingNet/paper2_levelcheck/`, `LEVELCHECK_MODEL.md`, `LEVELCHECK_CLAIM.md` (section 3) |
 | 3 | Older C-arm drafts: "Naming Vertebrae Without an Anchor", "Making the Intraoperative Count Exact", "Navigation from the C-arm alone", the k-devices skeleton | Radiology: AI (each, in turn) | superseded; sources to lift from; two disclose the undisclosed sweep | `sscn/paper/rsnai/`, `sscn/paper/focused/` (section 4) |
 | 4 | QI paper: "The Universal Protocol with a level in it ..." | The Joint Commission Journal on Quality and Patient Safety | 8-9 page draft, builds; not submitted; discloses the sweep and the digital fiducial | `sscn/paper/qi_universal_protocol/main.tex` (section 5) |
@@ -162,7 +162,7 @@ Builds of record: grid jobs 40483839 (review) and 40483840 (camera-ready), 2026-
 supplement 13 pages, zero LaTeX warnings, RESULT_PENDING 0 (commit 05e05dc). The concurrent pair 40483834/40483835 raced on
 `main.aux` and was discarded. `check_limits.py` fails on exactly one thing: the `\PENDING{G0}` token for the VinDr-SpineXR
 determination number and date in the Ethics paragraph (RESUME 13:20 block; the 2026-09-27 PDFs print
-"[PENDING G0: VinDr determination number and date]", checked by text extraction for this note).
+"[PENDING G0: VinDr determination number and date]", checked by text extraction for this note; the number is HPR 2026-330 of 29 September 2026).
 
 There is no TeX on the Windows workstation; build on the grid (`SchwingNet/README.md` "How to build"); ship code by commit,
 push, and `git pull --ff-only` on the grid checkout (`memory/resume-2026-09-24.md`), never run jobs on the login node
@@ -194,10 +194,10 @@ Leak-free source rule: nothing is quoted from allspine v2, v6, v7, v8-for-VerSe,
 `packet_src/build/BUILD_REPORT.md` (built 2026-09-27 13:26 at 1af5828 with 28 uncommitted SchwingNet paths) lists seven
 decisions only the author can make; `build_packet_src.py --strict` fails while any is open:
 
-1. **vindr_irb**: VinDr-SpineXR is outside HPR determination 2026-269; its films are in the C-arm fold banks behind the
-   fine-tuned naming numbers. Obtain a determination (the HPR tool was filled and sent to Greg on 2026-09-25:
-   `ctsp/IRB_VinDr_2026-09-25/` and `.zip`, gitignored; draft `sscn/docs/IRB/HPR_determination_VinDr-SpineXR_draft.md`)
-   and print its number and date, or retrain the fold models without VinDr. Greg's instruction of 2026-09-25 was to assume
+1. **vindr_irb**: VinDr-SpineXR is covered by WSU IRB HPR 2026-330 of 29 September 2026, the supplement to 2026-269; its films are in the C-arm fold banks behind the
+   fine-tuned naming numbers. Print that number and date where the manuscript carries its token (the HPR tool was filled and sent to Greg on 2026-09-25:
+   `ctsp/IRB_VinDr_2026-09-25/` and `.zip`, gitignored; draft `sscn/docs/IRB/HPR_determination_VinDr-SpineXR_draft.md`; the
+   notice of 2026-09-29 stays on Greg's laptop, out of every repository), or retrain the fold models without VinDr. Greg's instruction of 2026-09-25 was to assume
    it granted and leave only the number token (comment in `main.tex` Ethics paragraph).
 2. **hf_mirror_v11**: the Hugging Face mirror serves v10 labels, a cc-by-nc-4.0 card and an Apache-2.0 LICENSE against
    Zenodo's CC BY-NC-SA 4.0 (re-checked 2026-09-24). Bring it to v11 under one licence or delete the mirror sentence.
@@ -246,7 +246,7 @@ filed, is not recorded.
 
 1. Ask Greg whether the manuscript was uploaded (the ERAS CV says "Submitted", the repository says held; contradiction C4).
 2. Get the TTO/counsel answer on Part B and the provisional; do nothing public before it (section 15).
-3. Close the seven author decisions in `packet_src/front_matter.json` (above), including the VinDr determination number.
+3. Close the seven author decisions in `packet_src/front_matter.json` (above), including the VinDr determination number (HPR 2026-330, 29 September 2026).
 4. Trim the supplement to 12 pages (REVISION_LOG3 §8 "supplement length" and §11 "Supplement page cap" show what was cut
    before and how), give `tabS4_ablation` its `.md` and `.sources.md`.
 5. Rebuild both copies on the grid one after the other (compile.sh holds a flock), fetch to `packet_build/{review,cameraready}/`,

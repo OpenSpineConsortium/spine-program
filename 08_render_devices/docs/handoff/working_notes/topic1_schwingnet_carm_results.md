@@ -133,7 +133,7 @@ deleted, so every number from it is UNRESOLVED (EVAL_LEAKS U1: 57 of 58 unresolv
 - Packets: `SchwingNet/packet/` (review) and `SchwingNet/packet_cameraready/` (docx manuscript, figures, cover letter,
   title pages, CLAIM checklist, ATLAS cards); PDFs in `SchwingNet/packet_build/` (latest names dated 2026-09-27).
   Built by `SchwingNet/tools/make_packet.py`; one source, `\ifcameraready` flag (`REVISION_LOG3.md` §10).
-- One placeholder remains in the manuscript sources: `\PENDING{G0}{VinDr determination number and date}` (Ethics
+- One placeholder remains in the manuscript sources: `\PENDING{G0}{VinDr determination number and date}`, which takes HPR 2026-330 and 29 September 2026 (Ethics
   paragraph, `main.tex` line 137); none in Results, the supplement or the printed tables (grep 2026-10-08), and
   `generated/pending.json` resolved every `\RESULT` key on 2026-09-27.
 
@@ -722,7 +722,7 @@ Counts rows; `docs/MANIFEST_DATA_MODELS_RESULTS.md` §7.4).
 |---|---|---|
 | supplement 13 pages against the 12-page cap | text cut needed | commit 05e05dc; `RSNA_AI_REQUIREMENTS.md` line 21 |
 | ATLAS cards and twins carry superseded numbers | regenerate | section 8 |
-| VinDr determination number and date | Greg (HPR office) | `main.tex` `\PENDING{G0}` |
+| VinDr determination number and date | known: HPR 2026-330, 29 September 2026; print it | `main.tex` `\PENDING{G0}` |
 | per-level supplement table S5 (L1-L5 × view × field) | Greg's yes/no | `PER_LEVEL_DOMAIN_ANGLE.md` "Getting it in front of a doctor"; RESUME 2026-09-27 18:05 "FOR GREG" |
 | ratio sweep (`real_share` 0.1-0.9 at N = 25 and all, 3 seeds, ~45 cells) | Greg's yes/no | same |
 | seeds 1-2 above N = 25 (18 cells × 2 arms) — the BUU-all reversal rests on one seed | Greg's yes/no | same |

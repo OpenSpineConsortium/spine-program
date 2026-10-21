@@ -41,7 +41,7 @@ run is an `sbatch -D <dir>` job with its ids and ETA written to this file's chec
 
 ## Decisions reserved to Greg, collected
 
-The BUU licence reading (step 3); the VinDr determination number (OQ A5); the history rewrite of
+The BUU licence reading (step 3); the VinDr determination number (OQ A5, answered: HPR 2026-330 of 29 September 2026); the history rewrite of
 XRSpinoPelvic1K (step 1); amendment 47 with the PI (step 4); the venue and the optional arms A9
 (step 5); whether the student lead's name appears in `regulatory/` (`_plan/PLAN.md` section 5); the
 submissions (OQ A8); FINALIZE and deletions (OQ A26); readers for the DRR reader study and the

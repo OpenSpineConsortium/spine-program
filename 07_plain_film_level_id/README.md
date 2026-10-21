@@ -56,8 +56,8 @@ replacement.
 
 **What is open.** The XRSpinoPelvic1K `data/ct` and `data/labels` links dangle on a deleted export
 built from 822 pre-release cases (DATA_MANIFEST defect 36); the repository tracks a Cerner `.ica` file
-and a `.crdownload`; the BUU licence reading is undecided; the VinDr determination number is not
-recorded (OPEN_QUESTIONS A5); the BIBM 2026 (5 July) and SPIE MI 2027 (5 August) windows passed with no
+and a `.crdownload`; the BUU licence reading is undecided; the VinDr determination is HPR 2026-330 of 29 September 2026
+(OPEN_QUESTIONS A5, answered); the BIBM 2026 (5 July) and SPIE MI 2027 (5 August) windows passed with no
 submission recorded (`docs/handoff/MANUSCRIPTS.md` section 10; OPEN_QUESTIONS A8); amendment 47 to
 IRB-21-10-4123 is drafted, with its record count [N] unfilled, and not recorded as submitted
 (`regulatory/`); no held-out per-level film table exists (OPEN_QUESTIONS C4); the competitor ensemble
@@ -72,8 +72,8 @@ result is in no repository document (C1.17).
 2. No document in this folder or in the repositories quotes 97.47, 99.02 or 98.7-99.4 % as held out;
    `slurm/recurrent_head.sh` line 16 and `tools/recurrent_order.py` line 56 of `spinesurg-ct-nnunet`
    say `films_ann`, not `films_all2`.
-3. Greg's written BUU licence reading and the VinDr determination number (or a written VinDr
-   exclusion) on file before any BUU-trained weight leaves the grid.
+3. Greg's written BUU licence reading on file before any BUU-trained weight leaves the grid (the VinDr
+   determination, HPR 2026-330 of 29 September 2026, is on file).
 4. Amendment 47 approved, its scope sentence written into this README.
 5. The paper: every number regenerated from a result file through a manifest key on the v11 rebuild;
    every held-out claim through `eval_gate.py`; the two-click femoral-head annotation protocol stated;

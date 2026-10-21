@@ -165,7 +165,7 @@ Selected from the cards' "known defects and gaps" fields: the ones that change a
 | 27 | spinesac | No data licence anywhere; the docs say one phantom where there are three; device count five or six. | reuse terms unstated: index, never redistribute | [C] docs/research_datasets_fourth_pass_verified_2026-09-22.json; docs/DATA_COMPLETENESS_AUDIT.md lines 734, 889 |
 | 28 | nhanes2_cdc_films, nhanes2_zenodo_landmarks | NHANES entered banks v2, v6 and v7 twice under two names split independently: 48 of 54 validation patients had a copy in training. | the subject view v_subjects_in_several_sources exists to catch this | [D] sscn:docs/NHANES_DOUBLE_INCLUSION_2026-09-22.md; mem:nhanes-double-inclusion.md |
 | 29 | nhanes2_zenodo_landmarks | Zenodo page 600 annotated, VertXNet 544, the zip ships 543; extracted pickles take 159 GB for a 1.0 GB zip. | a deletion candidate (regenerable) | [D] sscn:docs/DATA_COMPLETENESS_AUDIT.md; sscn:docs/MANIFEST_DATA_MODELS_RESULTS.md section 2.1 |
-| 30 | vindr_spinexr | The release test split was consumed for training pseudo-labels; VinDr crops sit in fold models while no IRB determination covers VinDr; 77.8 % of vindrps val cases have a same-study sibling in train. | restricted folder; not a held-out benchmark | [D] sscn:docs/DATASHEET.md section 2.6; sscn:SchwingNet/packet_src/statements.md item 5; sscn:docs/PATIENT_IDENTITY_SPEC.md section 2 |
+| 30 | vindr_spinexr | The release test split was consumed for training pseudo-labels; VinDr crops sit in fold models (IRB: covered by HPR 2026-330 since 2026-09-29; the open defect is the fold-model lineage, not the determination); 77.8 % of vindrps val cases have a same-study sibling in train. | restricted folder; not a held-out benchmark | [D] sscn:docs/DATASHEET.md section 2.6; sscn:SchwingNet/packet_src/statements.md item 5; sscn:docs/PATIENT_IDENTITY_SPEC.md section 2 |
 | 31 | buu_lspine_3600, buu_lspine_2000 | The 3,600 AP films are in no level bank; BUU (2000) is mislabelled 'AASCE test split' in tools/xray_dataset_usage.py. | unannotated-film queries will show them | [D] sscn:docs/DATA_COMPLETENESS_AUDIT.md 'Unknown' rows |
 | 32 | aasce2019_boostnet | The 128 labelled BoostNet test films never reached aasce_drr; the grid copy differs from the mirror in 98 challenge-test files. | keep both copies | [D] sscn:docs/DATA_COMPLETENESS_AUDIT.md AASCE row |
 | 33 | mendeley_5jdfdgp762 | A redistribution: about 500 BUU persons and 12 VinDr studies. | subject keys must fold these into BUU | [D] sscn:docs/PATIENT_IDENTITY_SPEC.md section 2 mendeley row |
@@ -16734,7 +16734,7 @@ AP and lateral. The DICOM tags are stripped (`MANIFEST_DATA_MODELS_RESULTS.md` 2
 *[D]*
 
 PhysioNet credentialed access under the PhysioNet Restricted Health Data License and Use Agreement 1.5.0, signed by a
-named person; outside WSU IRB determination 2026-269, a separate determination is pending
+named person; outside WSU IRB determination 2026-269 and covered by its supplement HPR 2026-330 (notice 2026-09-29, not human participant research)
 (sscn:SchwingNet/packet_src/statements.md rows 25 and 61; sscn:slurm/reproduce_all.sh header). It stays on the grid
 and is never redistributed (mem:xray-corner-detector-status.md). Terms for derived labels: not recorded locally.
 
@@ -16830,7 +16830,7 @@ release lesion boxes only. Levels are pseudo-labelled on 10,274 images (`DATASHE
 - The 744-film route ran over the 5,136 lesion-box images only; the 5,330 normal films never reached the view classifier (sscn:docs/DATA_COMPLETENESS_AUDIT.md re-count).
 - `vindrps_fov96_ctx` puts 1,199 of 1,541 val cases next to a same-study sibling in train (77.8 %; computed on cases, 391 of which have no crop) (sscn:docs/PATIENT_IDENTITY_SPEC.md section 2; sscn:docs/DATA_COMPLETENESS_AUDIT.md re-count).
 - `pseudolabel_report.json` was overwritten by the test pass (says 2,077) (sscn:docs/DATA_COMPLETENESS_AUDIT.md).
-- VinDr crops sit in the C-ArmLSpine fold models while no IRB determination covers VinDr (sscn:SchwingNet/packet_src/statements.md item 5).
+- VinDr crops sit in the C-ArmLSpine fold models (IRB: covered by HPR 2026-330 since 2026-09-29; the open defect is the fold-model lineage, not the determination) (sscn:SchwingNet/packet_src/statements.md item 5).
 
 *[E]*
 
@@ -19024,7 +19024,7 @@ Every fact this family needed and could not find on disk. "Where to look" names 
 | 8 | nhanes2_cdc_films | start date of the download; the text of `slurm/download_nhanes_full.sh` (grid-only); patient posture | audit, local repo |
 | 9 | nhanes2_zenodo_landmarks | download date and command; why the zip ships 543 when the page says 600 | audit, refs.bib |
 | 10 | vindr_spinexr | exact wget command, start date, whose PhysioNet credential | PATHOLOGY_SOURCE_SWEEP, statements.md, memory |
-| 11 | vindr_spinexr | number and date of the separate IRB determination; DUA terms for derived labels | statements.md ("PENDING G0") |
+| 11 | vindr_spinexr | the determination is HPR 2026-330, 2026-09-29 (closed 2026-10-10); DUA terms for derived labels still open | statements.md ("PENDING G0") |
 | 12 | vindr_spinexr | lesion class count (8 in MANIFEST vs 13 in the audit release row) | MANIFEST section 2.1, audit |
 | 13 | aasce2019_boostnet | date and outcome of the SpineWeb request that produced the grid raw copy; reuse terms of the images in the MIT-licensed mirror | audit, thoracic_xr_fetch.py |
 | 14 | aasce2019_boostnet | how many people the 217 index groups are (MANIFEST says 251) | PATIENT_IDENTITY_SPEC, MANIFEST |
