@@ -278,7 +278,7 @@ were not copied), plus `GREG_ONLY/PRIVATE_STATE.md` for Greg's own project, then
 
 | thread | state | source |
 |---|---|---|
-| SchwingNet paper 1 | complete in review and camera-ready copies; one placeholder (VinDr determination number); supplement 13 pages against a 12-page cap; Word packets stale; held from submission by Greg (the ERAS CV says "Submitted": contradiction MAN-C4; why it is held: `GREG_ONLY/PRIVATE_STATE.md` §3) | `MANUSCRIPTS.md` §2 |
+| SchwingNet paper 1 | complete in review and camera-ready copies; one placeholder (the VinDr determination number, HPR 2026-330 of 29 September 2026, not yet printed); supplement 13 pages against a 12-page cap; Word packets stale; held from submission by Greg (the ERAS CV says "Submitted": contradiction MAN-C4; why it is held: `GREG_ONLY/PRIVATE_STATE.md` §3) | `MANUSCRIPTS.md` §2 |
 | Paper 2 (LevelCheck comparison) | comparator frozen; open gate scored names only (a path bug in `sn:tools/fig6_score.py`); blinded gate cancelled 2026-09-27; needs human reads of transitional test persons | `MANUSCRIPTS.md` §3 |
 | CTSpinoPelvic1K dataset article (Medical Physics) | third packet built 2026-09-25; whether uploaded not recorded | `MANUSCRIPTS.md` §6 |
 | NeurIPS 2026 paper 3474 | accepted (poster); the committed camera-ready (38b0cb9) is 21 pages; the uncommitted 2026-09-27 working copy is 31 pages with 134 `[pending]` slots whose jobs were cancelled 2026-09-27; recomputation scripts only in a Temp scratchpad | `MANUSCRIPTS.md` §7 |
@@ -300,7 +300,7 @@ were not copied), plus `GREG_ONLY/PRIVATE_STATE.md` for Greg's own project, then
 | 5 | With Greg, pick one item from `OPEN_QUESTIONS.md` or `students:BOARD.md`; write its `PREREG.md` (rule, success criterion, inputs) before running anything; submit nothing on the login node. | Greg has signed the PREREG |
 
 Questions only Greg can answer (ask in week one): was SchwingNet uploaded; was the Medical Physics packet uploaded and
-under what number; what is the VinDr determination number; is the NeurIPS camera-ready deadline past; does Greg want the
+under what number; (the VinDr determination number was a question here until 2026-10-20: it is HPR 2026-330 of 29 September 2026); is the NeurIPS camera-ready deadline past; does Greg want the
 ratio sweep, the per-level supplement table and seeds above N = 25 (`OPEN_QUESTIONS.md` part A); is the reader split of
 this folder confirmed (A29). Greg's own questions are in `GREG_ONLY/PRIVATE_STATE.md` §3.
 

@@ -22979,7 +22979,7 @@ sources:
       cite:
         - "sscn:docs/XRAY_DATASET_USAGE.md; sscn:slurm/vindr_pseudolabel.sh"
         - "`MANIFEST_DATA_MODELS_RESULTS.md` 2.1"
-    licence: "PhysioNet Restricted Health Data License 1.5.0 (named-person DUA); outside WSU determination 2026-269 (separate determination pending)"
+    licence: "PhysioNet Restricted Health Data License 1.5.0 (named-person DUA); outside WSU determination 2026-269; covered by its supplement HPR 2026-330 (notice 2026-09-29)"
     access: "credentialed_dua"
     acquired:
       method: "credentialed PhysioNet wget"
@@ -23193,7 +23193,7 @@ sources:
       - "The 744-film route ran over the 5,136 lesion-box images only; the 5,330 normal films never reached the view classifier (sscn:docs/DATA_COMPLETENESS_AUDIT.md re-count)."
       - "`vindrps_fov96_ctx` puts 1,199 of 1,541 val cases next to a same-study sibling in train (77.8 %; computed on cases, 391 of which have no crop) (sscn:docs/PATIENT_IDENTITY_SPEC.md section 2; sscn:docs/DATA_COMPLETENESS_AUDIT.md re-count)."
       - "`pseudolabel_report.json` was overwritten by the test pass (says 2,077) (sscn:docs/DATA_COMPLETENESS_AUDIT.md)."
-      - "VinDr crops sit in the C-ArmLSpine fold models while no IRB determination covers VinDr (sscn:SchwingNet/packet_src/statements.md item 5)."
+      - "VinDr crops sit in the C-ArmLSpine fold models (IRB: covered by HPR 2026-330 since 2026-09-29; the open defect is the fold-model lineage, not the determination) (sscn:SchwingNet/packet_src/statements.md item 5)."
     reacquire:
       route: "physionet_wget"
       mode: "manual"
@@ -23213,7 +23213,7 @@ sources:
       gated_steps:
         - "PhysioNet credentialing (CITI training) and signing the DUA for vindr-spinexr 1.0.0 by a named person"
         - "wget --ask-password is interactive: run it in an interactive compute-node session (srun --pty), not in a batch job"
-        - "A separate IRB determination for VinDr is pending (SchwingNet/packet_src/statements.md)"
+        - "Covered by HPR 2026-330 (notice 2026-09-29), the supplement to 2026-269 (SchwingNet/packet_src/statements.md)"
       cite:
         - "sscn:docs/PATHOLOGY_SOURCE_SWEEP_2026-09-14.md"
         - "sscn:docs/DATA_COMPLETENESS_AUDIT.md re-count"

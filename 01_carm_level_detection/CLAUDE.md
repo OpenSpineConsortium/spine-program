@@ -141,6 +141,6 @@ C-arm the model never saw (96.4 %, Wilson on effective n [92.3, 98.4]; `docs/han
 ## How to be useful here
 
 The hospital's C-arm make, model and software version are recorded in no file; no capture path from a C-arm exists in
-code; no DMC protocol is recorded as submitted; the VinDr determination number is not recorded. When one of these becomes
+code; no DMC protocol is recorded as submitted; the VinDr determination is WSU IRB HPR 2026-330 of 29 September 2026 (the notice is on Greg's laptop and in spinesurg-ct-nnunet's data platform, not in this repository). When one of these becomes
 known, replace "not recorded" with the fact and its source in `README.md` and `MANIFEST_GRID.md`. Say plainly what is not
 known rather than guess; the preferred form is `docs/handoff/OPEN_QUESTIONS.md`.

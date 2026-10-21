@@ -58,7 +58,7 @@ and the sample size written before the first frame is scored. The ordered steps 
 - A sha256 in the registry for the sacrum detector, the fold encoders and the fold heads; `seed` and `code_sha` in
   `devcorpus_train.py` and the CV scorer (`docs/MODEL_CARD.md` sections 1.2, 1.3).
 - A human-read level truth on any real intraoperative frame: none anywhere in the programme (`docs/MODEL_CARD.md` 5.1).
-- A DMC protocol recorded as submitted: none. The VinDr-SpineXR determination number: not recorded
+- A DMC protocol recorded as submitted: none. The VinDr-SpineXR determination: WSU IRB HPR 2026-330, 29 September 2026 (the notice is on Greg's laptop; spinesurg-ct-nnunet's data platform recorded it 2026-10-10)
   (`docs/handoff/OPEN_QUESTIONS.md` A5).
 - A DMC-specific PREREG, reading protocol and named readers: none.
 - Posterior calibration (reliability diagram, ECE, Brier): none (`OPEN_QUESTIONS.md` C12).

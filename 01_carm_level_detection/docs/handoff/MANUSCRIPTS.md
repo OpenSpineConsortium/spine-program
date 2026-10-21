@@ -168,10 +168,10 @@ numbers.
 `sn:packet_src/build/BUILD_REPORT.md` (2026-09-27 13:26) lists seven author decisions; `build_packet_src.py --strict`
 fails while any is open:
 
-1. **vindr_irb**: VinDr-SpineXR is outside HPR determination 2026-269 and its films are in the C-arm fold banks behind the
-   fine-tuned numbers. Obtain a determination (the HPR tool was filled and sent to Greg 2026-09-25:
-   `ctsp:IRB_VinDr_2026-09-25/`, gitignored; draft `ssn:docs/IRB/HPR_determination_VinDr-SpineXR_draft.md`) and print its
-   number and date, or retrain the fold models without VinDr (`DATASET_USAGE.md` §5); the measured version of option (b) already exists: the 250 Figure 5b `name_fill` cells are v9-base fold models with no VinDr or FluoroCap (N = all lateral 98.1 %, AP 97.0 %; `RESULTS_CATALOG.md` A9.4; `DATASET_USAGE.md` §3.2), scored on REP truth per protocol cell, so not identical to Table 3. Greg's instruction of
+1. **vindr_irb**: VinDr-SpineXR is covered by WSU IRB HPR 2026-330 of 29 September 2026, the supplement to 2026-269, and its films are in the C-arm fold banks behind the
+   fine-tuned numbers. Print that number and date where the manuscript carries its token (the HPR tool was filled and sent to Greg 2026-09-25:
+   `ctsp:IRB_VinDr_2026-09-25/`, gitignored; draft `ssn:docs/IRB/HPR_determination_VinDr-SpineXR_draft.md`; the notice of
+   2026-09-29 stays on Greg's laptop, out of every repository), or retrain the fold models without VinDr (`DATASET_USAGE.md` §5); the measured version of option (b) already exists: the 250 Figure 5b `name_fill` cells are v9-base fold models with no VinDr or FluoroCap (N = all lateral 98.1 %, AP 97.0 %; `RESULTS_CATALOG.md` A9.4; `DATASET_USAGE.md` §3.2), scored on REP truth per protocol cell, so not identical to Table 3. Greg's instruction of
    2026-09-25: assume it granted, leave only the number token.
 2. **hf_mirror_v11**: the Hugging Face mirror serves v10 labels, a cc-by-nc-4.0 card and an Apache-2.0 LICENSE against
    Zenodo's CC BY-NC-SA 4.0; bring it to v11 under one licence or delete the mirror sentence.
@@ -216,7 +216,7 @@ correcting.
 
 1. Ask Greg whether it was uploaded (C4).
 2. Get the TTO / counsel answer on Part B and the provisional; do nothing public before it.
-3. Close the seven decisions in `packet_src/front_matter.json`, including the VinDr determination number; if the
+3. Close the seven decisions in `packet_src/front_matter.json`, including the VinDr determination number (HPR 2026-330, 29 September 2026); if the
    determination is refused, the measured version of option (b) already exists: the 250 Figure 5b `name_fill` cells are v9-base fold models with no VinDr or FluoroCap (N = all lateral 98.1 %, AP 97.0 %; `RESULTS_CATALOG.md` A9.4; `DATASET_USAGE.md` §3.2), scored on REP truth per protocol cell, so not identical to Table 3.
 4. Correct Table 1's TotalSegmentator rows (`DATASET_USAGE.md` §6) and decide the FluoroCap "refused by the guard"
    wording (`DATASET_USAGE.md` §5).
