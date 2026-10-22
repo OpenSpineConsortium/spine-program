@@ -1,0 +1,44 @@
+name: Checks
+
+# The required check "check" on every pull request and every push to the default branch:
+# bash scripts/check.sh, which holds the claim protocol's copy to its record and to the library,
+# runs the tests under tests/, and on a pull request holds a claude/<issue> branch to the claim
+# protocol and a pull request marked ready to its review record (CONTRIBUTING.md). The ruleset
+# "Protect the default branch" requires it (.github/workflows/required-check.yml makes it so), so
+# it binds every contributor, a person or a session, as it does in symphony-template.
+# The extra pull request types are the moments those facts change without a push: marked ready,
+# converted back to draft, the body edited. The push trigger leaves out the claim branches, whose
+# pull request runs the check, so no run is ever skipped under the name "check", and the protocol
+# sync branch, whose pull request runs it too. No job names a secret.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, converted_to_draft, edited]
+  push:
+    branches-ignore: ["claude/**", "symphony-protocol/**", "metrics", "board"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      # the checkout keeps the job's read-only token, as symphony-template's does: the claim
+      # protocol check fetches the base commit of a pull request, which this private repository
+      # serves only to a token
+      - uses: actions/checkout@v7
+
+      - name: Clone symphony-protocol, the library the copy is held to
+        run: git clone --quiet https://github.com/OpenSpineConsortium/symphony-protocol "$RUNNER_TEMP/symphony-protocol"
+
+      - name: Run the checks
+        env:
+          SDLC_PROTOCOL: ${{ runner.temp }}/symphony-protocol
+        run: bash scripts/check.sh
