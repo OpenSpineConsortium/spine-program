@@ -30,9 +30,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      # the checkout keeps the job's read-only token, as symphony-template's does: the claim
+      # protocol check fetches the base commit of a pull request, which this private repository
+      # serves only to a token
       - uses: actions/checkout@v7
-        with:
-          persist-credentials: false
 
       - name: Clone symphony-protocol, the library the copy is held to
         run: git clone --quiet https://github.com/OpenSpineConsortium/symphony-protocol "$RUNNER_TEMP/symphony-protocol"
