@@ -23,6 +23,8 @@ Outside the numbered folders, `data_mining/` holds the Fluoroscopy Data Atlas of
 
 `provisional_patent/` holds the SchwingNet patent material (issue #211): the provisional packet of 2026-09-18, the invention disclosure and its counsel memorandum, and the WSU technology-transfer package of 2026-09-25 with its follow-up. It is Greg's alone: no issue is cut from it, and nothing in it goes to a public repository, the website, a Space or a talk.
 
+`cns2026_talks/` holds Greg's two CNS 2026 talks (issue #224): Abstract 418 on LITT in the U251 xenograft, and Not All Spines Are Created Equal, each with every deck version and the scripts, figures, result files and documents its decks were built from, laid out as the trees the scripts expect. It is Greg's alone like `provisional_patent/`; the only files meant to be shown are the two decks its `README.md` names, at their sessions.
+
 The plan, the disposition of every inventory row, the exclusions, the seven inventories and the build record are in `_plan/` (`PLAN.md`, `DISPOSITION.tsv`, `EXCLUDED.md`, `inventories/`, `BUILD_RECORD.md`); the disposition counts above are `PLAN.md` section 1 and are superseded by each folder's `MANIFEST_LOCAL.md` final-pass section.
 
 Built 2026-10-08 from spinesurg-ct-nnunet `L6_Class` 097933a, CTSpinoPelvic1K `master` 7ddfe38, OpenSpineToolkit `main` cb43197, XRSpinoPelvic1K `main` 4f22935, OpenSpineConsortium/beethoven 2f90319, beethoven-vscode 8d7fc65, openspineconsortium.github.io c1800f8 (behind a17ea39), SpineSurg-CT 0051074, lstv-fusion 3c8f5c1, the memory notes to 2026-10-08 16:43 and the grid pass of 2026-10-08 22:20 UTC.

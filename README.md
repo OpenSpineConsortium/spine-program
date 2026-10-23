@@ -9,6 +9,10 @@ CBCT projection and DRR datasets with what is on the grid and how to get the res
 `provisional_patent/` holds the SchwingNet provisional packet of 2026-09-18 and the WSU invention disclosure package of
 2026-09-25, confidential parts included; its `README.md` says which is current and what must never leave this repository.
 
+`cns2026_talks/` holds Greg's two CNS 2026 talks, Abstract 418 (LITT) and Not All Spines Are Created Equal, with every deck
+version, the scripts, figures and result files they were built from (issue #224); its `README.md` names the one deck to
+show at each talk and what must never leave this repository.
+
 One private repository that seeds a set of Claude Code projects, one per numbered folder, dividing the spine imaging
 programme of the Open Spine Consortium (Department of General Surgery, Wayne State University School of Medicine /
 Detroit Medical Center) into self-contained units. It was built on 2026-10-08 from the laptop folders, the memory notes
