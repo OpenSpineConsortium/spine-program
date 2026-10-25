@@ -1,0 +1,75 @@
+% ============================================================================
+%  SUPPORTING INFORMATION -- uploaded as ONE separate document.
+%
+%  One document, not six. The 2026-09-21 packet uploaded these floats as six files titled
+%  "Supplemental Material 1..6" while the article cites Fig. S1-S3 and Table S1-S3; the
+%  editorial office read the inventory as S1-S6 against an article naming S1-S3 and asked
+%  for "all supplementary figures and tables in the correct sequential order". Figure S1,
+%  S2, S3, then Table S1, S2, S3, in one file, numbered as the text cites them.
+%
+%  MPDA allows supplementary material and it does not count against the ten published
+%  pages, so the floats that would not fit the main article live here: the hardware
+%  gallery, the spinopelvic distributions, the level-coverage plot, the pseudolabeller's
+%  per-fold Dice, the manifest completeness table, and the per-identifier census.
+%
+%  The journal estimates published pages as 4.3 + words/3000 + floats/1.9, which charges
+%  1/1.9 of a page per float whatever its size; that is why these six are here.
+%
+%  SAME DOCUMENT CLASS AS THE MANUSCRIPT, DELIBERATELY. This was an `article` once, and
+%  the tables use REVTeX's `ruledtabular`: LaTeX hit an undefined environment, bailed out
+%  of each table, and silently produced a supplement with the tables mangled and the three
+%  figures missing altogether. It still wrote a PDF and still reported a page count. The
+%  floats are shared verbatim with the manuscript through supplement_body.tex, so the
+%  class that sets them has to be the one they were written for.
+% ============================================================================
+\documentclass[aapm,mph,amsmath,amssymb,reprint]{revtex4-2}
+
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+
+% Carried over from the manuscript preamble, unchanged: the floats call \maxwidth and a
+% re-implementation here would be a second version free to drift.
+\newsavebox{\fitbox}
+\newcommand{\maxwidth}[1]{%
+  \sbox{\fitbox}{#1}%
+  \ifdim\wd\fitbox>\linewidth
+    \resizebox{\linewidth}{!}{\usebox{\fitbox}}%
+  \else
+    \usebox{\fitbox}%
+  \fi
+}
+
+\begin{document}
+
+% REVTeX's maketitle needs a real author; an empty one raises a vertical-mode error.
+% A plain centred heading is all this document needs.
+\onecolumngrid
+\begin{center}
+{\large\bfseries Supporting Information}\\[3pt]
+CT Spinopelvic One-thousand: spine, pelvis, ribs and femora in one coordinate frame,\\
+annotated for lumbosacral transitional anatomy
+\end{center}
+\vspace{6pt}
+% "Figure S1", not the aapm substyle's small-caps "Fig. S1": the article cites Fig. S1 and
+% Table S1, the office checks those names against the file inventory, so spell them out.
+\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{Table}
+\noindent Figures S1--S3 and Tables S1--S3, in that order, as cited in the article.
+\vspace{6pt}
+
+\input{supplement_body}
+
+% One entry only: the sole citation inside the supplement. The manuscript's full list is
+% generated from ctspinopelvic1k.bib through medphy.bst; this is not a second copy of it.
+\begin{thebibliography}{1}
+\bibitem{vialle2005}
+R.~Vialle, N.~Levassor, L.~Rillardon, A.~Templier, W.~Skalli, and P.~Guigui,
+\newblock Radiographic analysis of the sagittal alignment and balance of the spine in asymptomatic subjects,
+\newblock J. Bone Joint Surg. Am. {\bf 87}, 260--267 (2005),
+\newblock doi:10.2106/JBJS.D.02043.
+\end{thebibliography}
+
+\end{document}

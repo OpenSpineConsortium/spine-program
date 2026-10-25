@@ -1,0 +1,142 @@
+% ============================================================================
+%  TITLE PAGE -- uploaded as a SEPARATE document from main.tex.
+%
+%  Medical Physics uses double-anonymized review, so everything that identifies the
+%  authors lives here and nowhere in the manuscript: names, affiliations, the author
+%  contribution statement, the conflict-of-interest declaration, the acknowledgements
+%  and the repository URL (which carries the corresponding author's account name).
+%
+%  Per the author guidelines: "Include acknowledgements, author information/contributions,
+%  and author name order in the title page, not in the manuscript" and "Include your
+%  complete conflicts of interest declaration in the title page and NOT in the submission
+%  system."
+%
+%  Contributions, conflicts of interest (none) and funding (NIH F30GM147909 for the corresponding author, per Greg 2026-09-25) confirmed by the
+%  corresponding author on 2026-09-06. Nothing on this page is a placeholder.
+% ============================================================================
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}   % sans serif, per the author guidelines
+\newcommand{\buildarchivedoi}{10.5281/zenodo.22647933}   % build archive, reserved 2026-09-07
+\usepackage{hyperref}
+\linespread{1.5}
+\setlength{\parindent}{5ex}                 % classic five-letter indentation
+\raggedright                                % left aligned only, not justified
+
+\begin{document}
+
+\begin{center}
+{\large\bfseries CT Spinopelvic One-thousand: spine, pelvis, ribs and femora in one coordinate frame,
+annotated for lumbosacral transitional anatomy}
+\end{center}
+
+\vspace{1em}
+\noindent\textbf{Article type:} Dataset and Software Article
+
+\vspace{1em}
+\noindent\textbf{Authors}
+
+\begin{enumerate}\itemsep0pt
+\item Gregory Schwing, MD, PhD\,$^{1}$
+\item Ashley Schehr, BS\,$^{2}$
+\item Annika Tekumulla, BS\,$^{2}$
+\item Margret Khoushi, BS\,$^{2}$
+\item Ryan Christian, BS\,$^{2}$
+\item Dane Hubers, BS\,$^{2}$
+\item Faris Mahjoub, BS\,$^{2}$
+\item Hassan Saad, BS\,$^{2}$
+\item Mia Sooch, BA\,$^{2}$
+\item Sathyagopal Siddapureddy, BS\,$^{2}$
+\item Michael McLellan, BS\,$^{2}$
+\item Jerick Kim, BS\,$^{2}$
+\item Miraziz Ismoilov, MD\,$^{3}$
+\item Nizar Alnabahneh, MD\,$^{3}$
+\end{enumerate}
+
+\noindent $^{1}$Department of Surgery, Detroit Medical Center and Wayne State University,
+Detroit, Michigan, United States of America\\
+$^{2}$School of Medicine, Wayne State University, Detroit, Michigan, United States of America\\
+$^{3}$Department of Radiology, Detroit Medical Center and Wayne State University, Detroit,
+Michigan, United States of America
+
+\vspace{1em}
+\noindent\textbf{Corresponding author}
+
+\noindent Gregory Schwing\\
+Department of Surgery, Detroit Medical Center and Wayne State University\\
+Detroit, Michigan, United States of America\\
+Email: \texttt{gregory.schwing@med.wayne.edu}
+
+\vspace{1em}
+\noindent\textbf{Author contribution statement}
+
+\noindent G.S. conceived the dataset and was its intellectual lead. He designed the label
+scheme, implemented the processing pipeline and the quality-control procedures, and wrote the
+manuscript. A.S. led the data annotation, annotated data, and edited the manuscript. A.T.,
+M.K., R.C., D.H., F.M., H.S., M.S., S.S., M.M. and J.K. annotated data. M.I. and N.A.
+performed the Castellvi grading, each reading every case independently and resolving
+disagreements by consensus, and trained the student annotators in CT reading. G.S.
+reviewed the candidate instrumentation. Every author therefore contributed to the acquisition of
+the data. All authors revised the manuscript critically for important intellectual content,
+approved the final version, and agree to be accountable for all aspects of the work, so
+that questions about the accuracy or integrity of any part of it are investigated and
+resolved. The corresponding author, a faculty surgeon, holds supervisory responsibility for
+the student and resident co-authors.
+% CRediT: G.S. conceptualization, methodology, software, data curation, validation, writing
+% (original draft). A.S. investigation (annotation lead), data curation, writing (review and
+% editing). A.T.--J.K. investigation (annotation). M.I., N.A. formal analysis (Castellvi
+% grading, hardware adjudication), supervision (CT-reading training of the annotators).
+
+\vspace{1em}
+\noindent\textbf{Conflict of interest statement}
+
+\noindent The authors have no relevant conflicts of interest to disclose.
+
+\vspace{1em}
+\noindent\textbf{Acknowledgements}
+
+\noindent The imaging analyzed here was made available by The Cancer Imaging Archive and by
+the investigators who published the source annotations. G.J.S. was supported by the National Institutes of Health (National Institute of General Medical Sciences, F30GM147909) during the first months of this work; the work received no other funding.
+
+\vspace{1em}
+\noindent\textbf{Data and code availability (unblinded)}
+
+\noindent Dataset, archived before submission:
+\url{https://doi.org/10.5281/zenodo.22139642} (concept identifier, resolves to the current
+version); the version described in the manuscript is v11,
+\url{https://doi.org/10.5281/zenodo.22797014}.\\
+Code: \url{https://github.com/Gregory-Schwing-MD-PhD/CTSpinoPelvic1K}, tagged at the release
+commit.\\
+Mirror: \url{https://huggingface.co/datasets/OpenSpineConsortium/CTSpinoPelvic1K}, a
+convenience mirror, not the archive of record.\\
+Pseudolabel model checkpoints (Sec.~II.E of the manuscript):
+\url{https://huggingface.co/OpenSpineConsortium/spinopelvic-seg-checkpoints}. The five folds
+were trained from 3 May 2026 with trainer
+\texttt{nnUNetTrainerWandB\_500ep\_LSTVOversample}, plans \texttt{nnUNetResEncUNetPlans\_100G},
+configuration \texttt{3d\_fullres}, 500 epochs per fold, on the nine-class merged dataset
+(Dataset803); inference used \texttt{checkpoint\_best.pth} of the fold that held each record
+out. The trainer, the training scripts and the inference code are released at
+\url{https://github.com/OpenSpineConsortium/spinopelvic-seg}; the development repository
+they were copied from (commit \texttt{50b209f}, 2 May 2026) is not public.\\
+Measurement toolkit, which computes every per-level dimension reported in the
+manuscript: \url{https://github.com/OpenSpineConsortium/OpenSpineToolkit}.\\
+Build archive, every input to v11 that no script regenerates (source-mask placements, the
+model-output base the students corrected, the review ledgers, the hand corrections and the
+hardware reads), with the step-by-step chain from the public sources:
+\url{https://doi.org/\buildarchivedoi}.
+
+\vspace{1em}
+\noindent\textbf{Ethics}
+
+\noindent This work uses publicly available, de-identified imaging and annotations derived
+from it. The Wayne State University Institutional Review Board issued a Notice of IRB
+Administrative Determination of Non-Human Participant Research on 2 September 2026
+(WSU IRB HPR Number 2026-269, ``Open Spine Consortium: Secondary Analysis of Publicly
+Available, De-Identified Imaging Datasets and the Derived Annotations, Software, and Models
+Produced From Them''), finding that the project does not constitute human participant
+research under the Common Rule at 45 CFR 46 and that IRB review and oversight are not
+required.
+
+\end{document}
