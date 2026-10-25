@@ -158,6 +158,41 @@ Whether the 21 rib-normal disagreements are false positives or unrecorded thorac
 is **not known**: no record in this release carries a T13, and thoracic ground truth is
 field-of-view limited.
 
+### Accuracy by anomaly class
+
+`scripts/anomaly_classes.py` assigns each case ONE class, most specific first, so the groups are
+disjoint and the thoracolumbar phenotypes are tested before the lumbosacral ones. A case can
+carry both, and the order is stated rather than left to the reader.
+
+| Class | Corpus | In field | Junction correct | |
+|---|---|---|---|---|
+| Rib on a lumbar body (L1) | 19 | 14 | 4 | **28.6%** |
+| No rib on T12 | 13 | 10 | 5 | **50.0%** |
+| Six lumbar vertebrae (L6) | 18 | 18 | 16 | 88.9% |
+| Four lumbar identifiers | 10 | 10 | 10 | 100% |
+| Castellvi grade, usual count | 5 | 5 | 4 | 80% |
+| Typical column | 737 | 656 | 638 | 97.3% |
+| **All** | 802 | 713 | 677 | **95.0%** |
+
+The two thoracolumbar classes are the only ones that break it, and they break it badly. The
+lumbosacral classes sit at or near the typical column, which is what a thoracolumbar classifier
+should do: an L6 or a Castellvi grade changes the bottom of the column, not the T12/L1 border.
+`four_lumbar` scoring 100% is on ten cases and should be read as "no failures seen", not as a
+better result than `typical`.
+
+`talk_figures/anomaly_benzel_<measure>.png` plots this the way the textbook plates read:
+vertebral body class on the y axis, the measurement on the x axis, one panel per class. The
+typical column is the same grey distribution behind every panel so a class is read against it
+rather than against its neighbour, and each anomalous case is a point, because a violin over
+n=14 would imply a density the data cannot support.
+
+`talk_figures/anomaly_renders.png` is the same six classes as real 3-D renders of the released
+label volumes (`scripts/render_anchors.py`), one exemplar each, chosen as the most ordinary
+member of its class. Red is the lowest rib-bearing vertebra with its rib, yellow the lumbar
+bodies, blue the sacrum. Colour is by ROLE, not by identifier: in a lumbar-rib case the red
+vertebra sits a level lower than usual, and colouring T12 specifically would assert the count
+the figure is supposed to be deriving.
+
 ### The T12/L1 disc space
 
 `scripts/measure_t12l1_disc.py`. The release ships disc heights for L1L2 down to L5S1 and nothing
