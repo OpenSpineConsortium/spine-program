@@ -193,6 +193,36 @@ bodies, blue the sacrum. Colour is by ROLE, not by identifier: in a lumbar-rib c
 vertebra sits a level lower than usual, and colouring T12 specifically would assert the count
 the figure is supposed to be deriving.
 
+### Are the failures simply mislabelled?
+
+`scripts/test_relabel_hypothesis.py`. No scan here contains C2, so the border vertebra's name
+is a reader's call. If the reader is wrong where the shape disagrees, the failures are theirs
+and relabelling should fit better. Three arms, each retrained from scratch and scored out of
+fold:
+
+| Labels | Whole span AUC | T12/L1 pair AUC | Vertebrae moved |
+|---|---|---|---|
+| reader, as released | 0.9981 | 0.9880 | — |
+| **rib-defined border** | **0.9986** | **0.9916** | 26 of 5,233 |
+| model's own call | 1.0000 | 0.9998 | 44 |
+
+**The third arm is circular and is in there as a control.** Relabel every disagreement to the
+model's own prediction and the score must rise: the target has been moved to where the model
+already points. Run alone it would look like a result. It is the scale against which the
+honest arm is read.
+
+The honest arm moves the border using the **ribs**, which are not among the features. It moves
+26 vertebrae — 16 where L1 bears a rib, 10 where T12 bears none — and recovers roughly a third
+of the circular arm's gain at the adjacent pair (+0.0036 against +0.0118).
+
+So the answer is partly yes: the shape fits the rib-defined border better than the reader's
+name, and that is evidence rather than a restatement because the rib is independent of every
+feature. But most of the remaining disagreement is **not** explained by mislabelling.
+
+What this still cannot settle: a rib on L1 may be a thirteenth thoracic vertebra above five
+lumbar ones, or a rudimentary rib on a true L1. Different columns, same rib, and only a count
+from C2 separates them.
+
 ### The T12/L1 disc space
 
 `scripts/measure_t12l1_disc.py`. The release ships disc heights for L1L2 down to L5S1 and nothing
