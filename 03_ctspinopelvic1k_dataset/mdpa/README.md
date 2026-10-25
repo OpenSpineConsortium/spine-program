@@ -89,6 +89,89 @@ Two numbers come out and they answer different questions:
   level. Easier, because it includes levels far from the boundary; not a reproduction of the 0.990
   and not quotable as one.
 
+## Handoff: how the violin plots came about, and how the transition performs
+
+### How they came about
+
+Asked for on 2026-10-25, for a talk: the thoracolumbar transition as violins with ground-truth
+vertebral class on the y axis and Panjabi's reference over the morphometry. Two claims were
+made while building them and both were false; they are written down because each would have
+put a wrong number on a slide.
+
+1. *"`level_atlas.csv` has the data."* It does not. It is summary statistics per level and
+   draws published Figure 5. Violins need `level_gradients.csv`, one row per case.
+2. *"The violin script reproduces the article's AUC."* It does not. It prints **0.998**, which
+   is T11/T12 against all of L1–L5. The article's **0.990** is the adjacent T12-versus-L1 pair
+   over 1,486 vertebrae. Quoting 0.998 as the paper's number would overstate it.
+
+### Where the classifier puts the junction
+
+`scripts/junction_vs_labels.py`, out of fold, folds grouped by case. Of 798 cases scored, 713
+have both T12 and L1 in the field of view, and 712 of those give a clean top-down run of
+thoracic calls.
+
+| predicted junction | cases | share |
+|---|---|---|
+| at the labelled T12/L1 interspace | 677 | **95.1%** |
+| one level caudal (L1 called thoracic) | 28 | 3.9% |
+| one level cranial (T12 called lumbar) | 7 | 1.0% |
+
+Per vertebra: T11 called thoracic 99.9%, T12 98.7%, L1 4.3%, L2 0.1%. The two vertebrae either
+side of the predicted point are T12 and L1 in 677 cases, L1 and L2 in 27, T11 and T12 in 7.
+
+### How it performs at predicting anomalies
+
+Two tests, both independent of the name the reader gave the border vertebra.
+
+**By the count down to the sacrum.** Five is the usual count. The labels' own count calls 28 of
+712 anomalous; the predicted junction calls 61. They agree on 27. So the predicted count adds 34
+records the labels' count does not call, and most of those are not recorded anomalies — as a
+standalone detector by count it is noisy.
+
+**By the ribs**, which the classifier never sees: its features are body and canal measures, no
+rib among them. The lowest rib-bearing vertebra is T12 in the usual column.
+
+| offset | lowest rib-bearing | cases | reading |
+|---|---|---|---|
+| −1 | T11 | 5 | T12 bears no rib, so it looks lumbar |
+| −1 | T12 | 2 | |
+| 0 | T12 | 668 | |
+| 0 | T11 or L1 | 9 | anomaly the shape did not show |
+| +1 | L1 | 10 | L1 bears a rib, so it looks thoracic |
+| +1 | T12 | 18 | |
+
+Against that criterion: **sensitivity 62.5%** (15 of 24 rib-anomalous cases disagree),
+**specificity 97.0%** (21 of 689 rib-normal cases disagree), **precision 41.7%** (15 of 36
+disagreements are rib-anomalous).
+
+**The direction is the part worth trusting.** Every disagreement runs the way the rib does: a
+vertebra carrying a rib is called thoracic, one without is called lumbar. Of the 14 cases whose
+lowest rib-bearing vertebra is L1, ten are called one level caudal and in every one the vertebra
+called thoracic is the L1 carrying the rib (`P(thoracic)` 0.54 to 0.99). None run the other way.
+A rate alone could not tell that from noise.
+
+**What this is not.** The classifier is trained on these labels, so it cannot find an anomaly the
+labels do not already encode; a disagreement says only that the vertebra's shape is atypical for
+the name it carries. The lumbosacral flags behave as they should for a thoracolumbar classifier
+and barely move: L6 11.1%, LSTV 12.5%, Castellvi 12.5%, against 3.6% for records with no flag.
+Whether the 21 rib-normal disagreements are false positives or unrecorded thoracolumbar variants
+is **not known**: no record in this release carries a T13, and thoracic ground truth is
+field-of-view limited.
+
+### The T12/L1 disc space
+
+`scripts/measure_t12l1_disc.py`. The release ships disc heights for L1L2 down to L5S1 and nothing
+at T12/L1, so the junction had no measured ground truth and the labelled name was standing in for
+one. The disc is the gap between the inferior surface of T12 (19) and the superior surface of L1
+(20), and both are in the label volumes, so it is measured rather than assumed. It is independent
+of the classifier, whose features contain no disc height.
+
+The method is `extract_degenerative.py`'s, not a new one: per column through the overlap of the
+two bodies, then the median. End-plates are concave, so a rim-to-rim gap reads 4 to 6 mm against a
+published lumbar 8 to 12. The same run recomputes L1L2 as a control, and **reproduced
+`degenerative.csv` exactly** on the records checked (100% identical, largest difference 0.0 mm),
+which is what licenses the T12L1 column beside it.
+
 ## Rebuilding the article
 
 `paper/mpda/build.sh` compiles it; `build.sh --reprint` is the only thing that measures the
