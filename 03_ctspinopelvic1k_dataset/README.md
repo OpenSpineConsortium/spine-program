@@ -21,6 +21,12 @@ Release v11 (2026-09-18) differs from v10 in one step: the carved S1 (identifier
 half the sacrum; `docs/handoff/RESULTS_CATALOG.md` F.5), is dissolved back into the sacrum (26) and the id
 retired (`memory/s1-carve-changed-spinopelvic.md`; `ctsp:scripts/merge_s1_into_sacrum.py`).
 
+**`mdpa/` holds the dataset article and every table its figures read** (issue #226), in the source
+repository's own layout so each script runs unchanged. It is the one place in this folder that does not
+need the grid: `manuscripts/mpda/` and `figures/` above are archive symlinks, `mdpa/` is real files.
+`mdpa/README.md` names the script and the table behind every figure, and carries the violin plot of the
+thoracolumbar transition with Panjabi's cadaveric reference over it.
+
 ## Goal
 
 Close out the public dataset so that it can be cited, used and built upon without the people who built
