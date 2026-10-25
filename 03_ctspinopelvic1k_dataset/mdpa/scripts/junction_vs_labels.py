@@ -228,6 +228,43 @@ def main() -> int:
     print("    of all %d disagreements, %d are rib-anomalous  precision %.1f%%"
           % (len(bad), len(hit), 100.0 * len(hit) / len(bad) if bad else 0))
 
+    # ---- THE MEASURED T12/L1 DISC, IF IT HAS BEEN RUN --------------------------------
+    disc = {}
+    dp = os.path.join(DATA, "t12l1_disc.csv")
+    if os.path.exists(dp):
+        for r in csv.DictReader(open(dp)):
+            try:
+                disc[r["case"]] = (float(r["disc_T12L1_mm"]), float(r["disc_L1L2_mm"]))
+            except (TypeError, ValueError):
+                pass
+    if disc:
+        print("\nTHE MEASURED T12/L1 DISC (measure_t12l1_disc.py), by offset and by rib")
+        print("  the ratio to L1L2 is carried because it removes patient size")
+
+        def _d(sel, lab):
+            t = np.array([disc[c][0] for c in sel if c in disc], float)
+            rr = np.array([disc[c][0] / disc[c][1] for c in sel
+                           if c in disc and disc[c][1] > 0], float)
+            if len(t) < 3:
+                print("  %-34s n=%3d  too few" % (lab, len(t)))
+                return
+            print("  %-34s n=%3d   %.1f mm [%.1f-%.1f]   ratio %.2f"
+                  % (lab, len(t), np.median(t), np.percentile(t, 25),
+                     np.percentile(t, 75), np.median(rr)))
+
+        for off, lab in ((0, "junction at T12/L1"), (1, "+1 caudal"), (-1, "-1 cranial")):
+            _d([c for c in usable if c not in nonmono
+                and _offset(per_case[c], order) == off], lab)
+        for rb, lab in (("T12", "lowest rib-bearing T12 (usual)"),
+                        ("L1", "lowest rib-bearing L1"),
+                        ("T11", "lowest rib-bearing T11")):
+            _d([c for c in usable
+                if flags.get(c, {}).get("lowest_rib_bearing") == rb], lab)
+        print("  NEGATIVE RESULT: these do not separate. The tidy reading, that a rib-bearing")
+        print("  L1 should sit under a thinner thoracic-like disc, is not what the data show.")
+        print("  The measure is quantised to one slice (1.0-1.25 mm), so a sub-millimetre")
+        print("  difference could not be seen here either way.")
+
     rib = sorted(c for c in usable if flags.get(c, {}).get("lumbar_rib"))
     sc = {(g, l): v for g, l, v in zip(groups, lv, s)}
     print("\n  the lumbar-rib cases, P(thoracic) by level:")
