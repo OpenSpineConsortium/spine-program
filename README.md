@@ -9,6 +9,12 @@ CBCT projection and DRR datasets with what is on the grid and how to get the res
 `provisional_patent/` holds the SchwingNet provisional packet of 2026-09-18 and the WSU invention disclosure package of
 2026-09-25, confidential parts included; its `README.md` says which is current and what must never leave this repository.
 
+`synthetic_spine/` holds the published per-level vertebral morphometry series collected in CTSpinoPelvic1K to compare
+ostk's measurements against, Panjabi's and the rest: 40 series in two tables, Panjabi's whole-spine table beside them, 42
+papers. It gives each paper's citation and its DOI, PubMed and PMC links, a check of every value against the paper
+itself where it can be read, and the code that redoes each step; its `README.md` lists what the checks found. It is a
+collection, not a systematic review.
+
 One private repository that seeds a set of Claude Code projects, one per numbered folder, dividing the spine imaging
 programme of the Open Spine Consortium (Department of General Surgery, Wayne State University School of Medicine /
 Detroit Medical Center) into self-contained units. It was built on 2026-10-08 from the laptop folders, the memory notes
