@@ -12,6 +12,10 @@ WHERE THE NUMBERS COME FROM. Every value below was read off the printed tables o
   Human lumbar vertebrae. Quantitative three-dimensional anatomy.
   Spine 1992;17(3):299-306.      Tables 2-5
 
+  Panjabi MM, Duranceau J, Goel V, Oxland T, Takata K.
+  Cervical human vertebrae. Quantitative three-dimensional anatomy of the middle and
+  lower regions. Spine 1991;16(8):861-869.      Table 2 p.863, Tables 3 and 4 p.864
+
 Pages 892 and 894 are IMAGE ONLY in the publisher's scan, which is what every library's
 Ovid subscription serves, so the thoracic body and pedicle tables cannot be extracted as
 text and were read from the page images instead. That is also why the automatic text
@@ -29,12 +33,10 @@ if it were an SD gives an interval sqrt(12) = 3.5x too narrow.
 PEDICLE WIDTH IS THE MEAN OF LEFT AND RIGHT, with the two standard errors averaged, which
 is the convention the existing table already used and is kept here so the two agree.
 
-STILL MISSING: the cervical companion paper, Panjabi MM, Duranceau J, Goel V, Oxland T,
-Takata K. Cervical human vertebrae. Quantitative three-dimensional anatomy of the middle
-and lower regions. Spine 1991;16(8):861-869 (PMID 1948369,
-doi:10.1097/00007632-199108000-00001). Same journal and issue as the thoracic paper, 27
-pages earlier. Until it is on hand there is NO cervical reference here, and a cervical
-border plotted with --reference will simply have no interval drawn rather than a wrong one.
+THE CERVICAL PAPER (PMID 1948369, doi:10.1097/00007632-199108000-00001) is a scan with no
+text layer, so C2-C7 were read from its page images; it has no overlap with the
+CTSpinoPelvic1K table, so no second pass checks it. C2 has no upper end-plate row (below).
+C1 is not in any of the three papers.
 """
 from __future__ import annotations
 
@@ -85,7 +87,7 @@ CERV_SRC = "Panjabi MM et al. Spine 1991;16(8):861-869"
 LUMBAR = {
     "endplate": [("L1", 41.2, 1.03), ("L2", 42.6, 0.74), ("L3", 44.1, 0.88),
                  ("L4", 46.6, 1.2), ("L5", 47.3, 1.2)],
-    "h_post":   [("L1", 23.8, 0.92), ("L2", 24.3, 0.95), ("L3", 23.8, 1.1),
+    "h_post":   [("L1", 23.8, 1.03), ("L2", 24.3, 0.95), ("L3", 23.8, 1.1),
                  ("L4", 24.1, 1.1), ("L5", 22.9, 0.95)],
     "canal_w":  [("L1", 23.7, 0.92), ("L2", 23.8, 0.71), ("L3", 24.3, 0.64),
                  ("L4", 25.4, 0.49), ("L5", 27.1, 0.88)],
@@ -147,12 +149,12 @@ for (measure, lv), (mean, sem) in EXPECT.items():
 
 out = os.path.join(HERE, "panjabi_full_spine.csv")
 with open(out, "w", newline="", encoding="utf-8") as fh:
-    fh.write("# Panjabi's quantitative three-dimensional anatomy, thoracic (1991) and\n"
-             "# lumbar (1992). Dispersion is the STANDARD ERROR as printed; the population\n"
-             "# SD is sem*sqrt(n). Cervical levels are absent: see build_panjabi.py.\n")
+    fh.write("# Panjabi's quantitative three-dimensional anatomy, cervical C2-C7 (1991),\n"
+             "# thoracic (1991) and lumbar (1992). Dispersion is the STANDARD ERROR as printed;\n"
+             "# the population SD is sem*sqrt(n). Sources and checks: see build_panjabi.py.\n")
     w = csv.DictWriter(fh, fieldnames=["measure", "level", "mean", "sem", "n",
                                        "panjabi_name", "source_table", "source_page",
-                                       "citation"])
+                                       "citation"], lineterminator="\n")
     w.writeheader()
     for r in sorted(ROWS, key=lambda x: (x["measure"], x["level"])):
         w.writerow(r)
