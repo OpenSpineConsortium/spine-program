@@ -34,9 +34,13 @@ PEDICLE WIDTH IS THE MEAN OF LEFT AND RIGHT, with the two standard errors averag
 is the convention the existing table already used and is kept here so the two agree.
 
 THE CERVICAL PAPER (PMID 1948369, doi:10.1097/00007632-199108000-00001) is a scan with no
-text layer, so C2-C7 were read from its page images; it has no overlap with the
-CTSpinoPelvic1K table, so no second pass checks it. C2 has no upper end-plate row (below).
+text layer, so C2-C7 were read from its page images. C2 has no upper end-plate row (below).
 C1 is not in any of the three papers.
+
+A SECOND, BLIND READING of all three papers' tables, made from the page images by a reader
+not shown these values, is synthetic_spine/verification/panjabi_page_reading.csv;
+synthetic_spine/code/check_page_reading.py compares every row of this table with it, and
+all 108 agree (2026-10-27).
 """
 from __future__ import annotations
 

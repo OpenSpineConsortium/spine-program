@@ -76,8 +76,8 @@ All values are in millimetres.
 
 The four files from CTSpinoPelvic1K are copied byte for byte from `morphometrics/` at commit e887274 (2026-10-27),
 which corrected Panjabi 1992's posterior body height SEM at L1 to 1.03 (Table 2, p. 301), where every earlier commit had
-0.92. The two from 06 are byte-identical to 06's own copies, which this pull request also corrects (the same SEM, and
-a header that said the cervical levels were absent). `03_ctspinopelvic1k_dataset/mdpa/morphometrics/` keeps the
+0.92. The two from 06 are byte-identical to 06's own copies, which this pull request also corrects (the same SEM, a header
+that said the cervical levels were absent, and a docstring that said no second reading checks them). `03_ctspinopelvic1k_dataset/mdpa/morphometrics/` keeps the
 figure data as the article was built, with 0.92.
 
 ## How to redo each step (from `synthetic_spine/`)
@@ -101,9 +101,10 @@ To read a paper, use `SOURCES.md`.
 - **A PMC link** opens the full text free to read.
 - **A paper with no PMC link** is behind the publisher's paywall, at its DOI: through the library or interlibrary loan.
   Panjabi 1991 (thoracic) came that way on 2026-09-13; the scan Ovid serves skips its page 892.
-- **The PDFs are not committed**, as they are the publishers' copyright. The laptop holds the Panjabi copies:
-  `CTSpinoPelvic1K-1/PANJABI_1991_FULL.pdf` and `PANJABI_1991_FULL_fixed.pdf` (thoracic, complete),
-  `MANUAL_REFS/panjabi1991.pdf` (thoracic, without p. 892) and `MANUAL_REFS/panjabi1992.pdf`.
+- **The PDFs are not committed**, as they are the publishers' copyright. The laptop holds the Panjabi copies the page
+  reading used: in `CTSpinoPelvic1K-1/`, `PANJABI_1991_FULL.pdf` and `PANJABI_1991_FULL_fixed.pdf` (thoracic, complete)
+  and `cervical-human-vertebrae-quantitative-three-dimensional.pdf` (cervical); in `CTSpinoPelvic1K-1/MANUAL_REFS/`,
+  `panjabi1991.pdf` (thoracic, without p. 892) and `panjabi1992.pdf` (lumbar).
 
 ## Read before using a value
 
@@ -175,9 +176,13 @@ and van der Houwen. Cizmic and Makino (from its abstract) are confirmed in all t
 
 **Panjabi, read from the page.** Panjabi's papers are scans with no text layer, so no machine reads them. A reader who
 was not shown any table here transcribed his printed tables from the page images
-(`verification/panjabi_page_reading.csv`, every cell as printed, with its table and page). `code/check_page_reading.py`
-compares every Panjabi row in the four tables with that reading: 95 agree, none disagrees, and 78 are not
-covered by the reading.
+(`verification/panjabi_page_reading.csv`: 138 cells of the cervical, thoracic and lumbar papers, each as printed, with
+its table, page, PDF and page index). `code/check_page_reading.py` compares every Panjabi row in the four tables with
+that reading, deriving pedicle width as the mean of right and left: all 173 agree, among them every row of 06's
+whole-spine table, whose cervical and upper thoracic values had been read only once. The reading also records what the
+papers print oddly: the thoracic text gives T1's posterior height as 14.3 mm where Tables 3 and 8 print 14.1; the
+cervical PDWl SEM at C2 is printed 0.07, against 0.32 to 0.64 elsewhere; C2 prints a dash for the upper end plate and
+posterior height.
 
 ### Discrepancies
 
