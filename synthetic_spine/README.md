@@ -9,6 +9,7 @@ and every other series that was collected. For each source this folder gives:
 - the code that redoes each step.
 
 Asked for by Greg on 2026-10-27 (spine-program #235). It is a collection, not a systematic review (below).
+`HANDOFF.md` says what was attempted, what failed and why, and what is left for a person.
 
 ## Where these come from
 
