@@ -72,6 +72,9 @@ All values are in millimetres.
 | `verification/series.csv` | The same per series. |
 | `verification/panjabi_page_reading.csv`, `verification/panjabi_page_reading_check.csv` | A blind reading of Panjabi's printed tables, and every Panjabi row here against it. |
 | `verification/closed_page_reading.csv`, `verification/closed_page_reading_check.csv` | A blind reading of the tables of sixteen of the 29 closed papers, those with no full text a script here may read (`sources.csv`), and every value here from those sixteen against it. |
+| `data/corrected/level_references.csv`, `data/corrected/pedicle_width_references.csv` | The two tables with the decisions of 2026-10-28 applied (below, "Decided"), written by `code/apply_decisions.py`; a model reads these. |
+| `verification/decisions.csv` | Every field a decision changed, per series, sex and field: what it was, what it is, the cell it came from and why. |
+| `verification/open_questions_reading.csv` | The cells behind the two open data questions, Cizmic 2023's Table 5 and Yadav 2020's Table 3, read for #240 from the publishers' text layers beside the page images. |
 | `verification/spread.csv` | How far the series disagree, per measure and level. |
 | `figures/series_by_level.png`, `.pdf` | Every series by level, one panel per measure. |
 | `code/` | The scripts below. All but the plot are standard library only. |
@@ -91,13 +94,14 @@ figure data as the article was built, with 0.92.
 | Check every value against its paper, in context | `python3 code/verify_tables.py` | network on the first run (full texts and abstracts cached in `.cache/`, not committed) |
 | Check Panjabi's values against the blind page reading | `python3 code/check_page_reading.py` | nothing |
 | Check the closed papers' values against their blind page reading | `python3 code/check_closed_reading.py` | nothing |
+| Write the corrected tables and the record of the decisions | `python3 code/apply_decisions.py` | nothing |
 | How far the series disagree | `python3 code/spread.py` | nothing |
 | Write `sources.csv` and `SOURCES.md` | `python3 code/render_sources.py` | nothing |
 | Draw every series | `python3 code/plot_series.py` | matplotlib |
 
 On Windows the interpreter is `python`. `bash scripts/check.sh` at the repository root runs every step that needs no
-network: the copies, the two page readings, the spread, and whether the generated pages are current (`--check` on
-each).
+network: the copies, the two page readings, the spread, the decisions, and whether the generated pages and the
+corrected tables are current (`--check` on each).
 Do not run a generator inside `data/`: Python's csv writer ends rows with CRLF and would rewrite a committed table;
 `check_copies.py` runs both in a temporary folder.
 
@@ -136,7 +140,8 @@ To read a paper, use `SOURCES.md`.
   - Pedicle width endosteal (Makino) against outer cortical differs by about 5 mm at L5.
   - An axial pedicle reading overestimates one taken perpendicular to the axis by about 12%.
 - **Primary and secondary are marked.** A secondary row was read from a later paper's comparison table and is
-  provisional; for all seven secondary pedicle series that later paper is not named.
+  provisional; for all seven secondary pedicle series of the copy that later paper is not named. In
+  `data/corrected/` six of the seven are primary, and Krag's citation names Yu 2015 (below, "Decided").
 - **The series disagree by 17 to 71% of their own median** (`verification/spread.csv`: largest minus smallest, over
   the median, at each level where three or more series report). By measure, with the most series at any level in
   brackets:
@@ -150,6 +155,65 @@ To read a paper, use `SOURCES.md`.
   | canal depth (12) | 35-54% |
   | disc height (5) | 28-71% |
   | pedicle width (13) | 61-69% |
+
+## Decided (2026-10-28)
+
+Greg merged #239 on 2026-10-28 and, asked for his word on the decisions it left open, answered at 23:03 UTC: "yes i
+merged it, but i want you to figure out those decisions". They are decided here (spine-program #240). The copies
+under `data/` stay the bytes of the public CTSpinoPelvic1K at e887274, which changes only on Greg's word, so
+`code/apply_decisions.py` writes the two tables again under `data/corrected/` with every decision applied, and
+`verification/decisions.csv` gives one line for each field a decision changed in a series of one sex: what it was,
+what it is, the cell it came from and why. A model reads `data/corrected/`. The script refuses to run once a copy is
+not the one the decisions were made on, so no decision outlives the copy it corrects; making the same change in
+CTSpinoPelvic1K's `morphometrics/` (HANDOFF item 6) waits for Greg to ask for it.
+
+Every number a decision writes is read from a page reading when the script runs: the blind reading of #239, or
+`verification/open_questions_reading.csv`, the cells of Cizmic 2023's Table 5 and Yadav 2020's Table 3, read for #240
+from the publishers' text layers beside the page images, and so not blind. A series the decisions make primary is
+first held to its own table, cell by cell. The words of the cohort, modality, notes and citation columns are typed,
+from the pages this README cites.
+
+1. **The four wrong pedicle rows are corrected.** Olsewski's cohort is the 21 embalmed cadaver spines, 12 men and 9
+   women, measured directly (Table II, p. 544). Robertson's is 10 dry-bone spines of no stated origin, each pedicle
+   wire-marked and radiographed coaxially. Zindrick's modality is radiographs and CT. Krag's cohort is its 41 living
+   patients; its five stay secondary, cited through Yu 2015's Table 5, the only page read that prints them, since
+   Krag prints no table of mean widths. Olsewski, Robertson and Zindrick, each of whose values is a cell of its own
+   table, become primary and cite that table and page. The header names Robertson's specimens in place of "the New
+   Zealand series" and counts thirteen series.
+2. **n is the count of the people, or specimens, a row's values are of, as the paper prints it.** In a series split
+   by sex it is that sex's count: Bach's 109 men and 131 women, Griffith's 540 of each, Alonge's 54 and 66, Ahmed's
+   36 and 44, Chaudhary's 150 of each, Yadav's 174 and 128. Where the paper counts by level, each level takes its
+   own: Tang's 107 and 105. Where printed counts fix the people by arithmetic, n is that number: Olsewski's 41 or 42
+   pedicles are both of its 21 spines but one, and Robertson's left side is one pedicle of each of its 10 spines.
+   Where the paper counts something else, n is that count with its unit named, by level: Zindrick's 26 to 56 studies,
+   Krag's 14 to 24 pedicles, Hinck's 50 to 59 films. Where nothing is printed, n is a dash, and the notes name the
+   nearest count: Twomey's Table 2, beside Table 1's 24 men and 24 women of about that age. n is never a range, and
+   never the whole sample in one sex's row. Not taken: a blank n with two columns of bounds beside it, since the
+   copies carry no such columns and the count's unit says what a bound would. Eight sex-split series whose papers
+   #239 did not read keep their whole sample in each sex's row, as the copy has them, until their papers' counts are
+   read: Abbas, Amonoo-Kuofi 1982 and 1985, Chen, Duman, the Italian MRI series, Masharawi and van der Houwen.
+3. **Yu holds Yu's own means, and Mitra one method.** Yu's five become its Table 5 means over its 503 dry skeletons,
+   8.52, 8.66, 10.46, 13.19 and 18.33 (p. 1645), where the copy held midpoints of two age groups' means. Mitra's
+   become its direct means over all 20 cadavers, Table 1's men's and women's weighted by their 18 and 2: 6.94, 7.72,
+   8.86, 11.37 and 15.85, which the script holds to the same five in Yu's Table 5 under Mitra's name, where the copy
+   mixed the men's direct means with CT means of all 20. Both become primary. Not taken: a sex column in the pedicle
+   table with Yu's Table 4 and Mitra's Table 1 by sex, which would give Yu SDs, since it changes the copy's columns,
+   the reading holds no caption saying what Yu's Table 4 +/- is, and Mitra's two women would be a row of n 2.
+4. **The women's rows and the SDs the papers print beside the tables' rows are added.** Ahmed's women (Tables 1 and
+   2), Chaudhary's women (Table I) and Alonge's women's canal depth (Table 3) become rows of their own, with their own
+   n. Olsewski's, Robertson's and Hou's SDs (Table II; Table 1, left side; Table 1) fill the empty sd column, and Hou
+   becomes primary.
+5. **Eisenstein is read from his own Table I.** The series is primary and cites Table I (p. 174); its cohort is the
+   Caucasoid men of the Raymond Dart Collection, whose alone the five are; and n is 78, those men's skeletons (p.
+   173), with a note that 49 of the 2,215 lumbar vertebrae of his 443 skeletons were missing or damaged at levels
+   not given, so n may be fewer at a level. Hinck, read the same way from Hinck 1966 itself, becomes primary too,
+   with its own people and its films uncorrected for magnification.
+6. **Cizmic 2023's five canal-depth SDs are printed nowhere, and are replaced.** The paper prints the depth by sex
+   only (Table 5, p. 202), so the SD over both sexes is computed from its two sexes' n, mean and SD. The same
+   calculation gives the paper's own printed width SDs over both sexes to within 0.01 at every level, and the script
+   holds it to them before it writes a depth.
+7. **Yadav 2020's women's L3-L4 disc SD of 6.87 is what the paper prints** (Table 3, p. 178), 4.2 times its
+   neighbours, and stays, with a note: a likely misprint the paper does not correct is kept, as Chaudhary's are.
 
 ## What the checks found (2026-10-27)
 

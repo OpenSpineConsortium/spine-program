@@ -39,6 +39,13 @@ was attempted, what failed and why, and what is left, so nothing is redone blind
   Robertson questions below and how Eisenstein measured (item 3), and it found that each sex-split series' n is its
   whole sample, in every sex's row (item 4 below). The pull request that added the check, spine-program #239, records
   its three adversarial reviews, and what was checked of the Eisenstein commit that came after them.
+- **#239's open decisions taken (2026-10-28, spine-program #240).** Asked for his word on them, Greg answered "i want
+  you to figure out those decisions". Each is decided in the README ("Decided"), with its reason and page: the four
+  wrong pedicle rows corrected, n as the count of the people a row is of, Yu's own means and Mitra's one method, the
+  women's rows and the SDs the papers print, Eisenstein from his own Table I, and the two open data questions. The
+  copies stay as they are; `code/apply_decisions.py` writes `data/corrected/` and `verification/decisions.csv`, every
+  number from a page reading, and `scripts/check.sh` fails once a copy changes under a decision or a written file goes
+  stale. A model reads `data/corrected/`.
 
 ## How it was done, and what failed on the way
 
@@ -137,27 +144,19 @@ sources have them, because each needs the paper or your decision:
    Raymond Dart Collection with a vernier caliper, the canal's width taken as the greatest interpedicular distance (p.
    173), so the modality column's dry bone, typed in `data/make_reference_table.py` (line 82) with no source given, is
    right, and Chaudhary's naming him among the workers who used plain radiography (p. 34) does not describe these
-   values. Three decisions are yours, each a change to the copied level table: whether to cite Eisenstein's own Table
-   I and call the series primary, where it now says secondary, via Chaudhary; whether the cohort column should say the
-   Caucasoid men, where it now names both groups Chaudhary copies, Caucasoid and Zulu; and whether n should stay a
-   dash, since Table I prints no count, or hold 78, the Caucasoid men's skeletons (p. 173), which is not the count of
-   vertebrae at any level (item 4).
-4. **Correct the four cohort rows of the pedicle table** the page reading found wrong (Olsewski, Robertson, Zindrick,
-   Krag; README, "What follows from the reading"). Decide what the level table's n should hold in a series split by
-   sex: its whole sample in every sex's row, as now, or the count of the people the row is of, which the check sets
-   beside n for six series (`n_printed`: Bach's 109 men and 131 women of 240, Griffith's 540 of each of 1,080,
-   Alonge's 54 and 66 of 120, Ahmed's 36 men of 80, Chaudhary's 150 men of 300, and Tang's 107 and 105 of 109). Six
-   more series carry an n that is not the count of the people a value is of, and `n_printed` leaves them out: Twomey's
-   20 carry 204, every cadaver of every age, where its Table 2 prints no n and Table 1's young adults are 24 men and
-   24 women; Mitra's L1 and L5 are of 18 men, where n is 20; Olsewski's are of 41 or 42 examples, as Table II's
-   footnote calls them, of 21 spines, and Robertson's of 10 specimens (p. 709, a passage the reading does not hold),
-   where n is 100; and Zindrick prints 26 to 56 studies per level and Hinck a sample size of 59 to 50 per level, whose
-   ranges are their n (README, "What follows from the reading"). Eisenstein's five carry a dash, not a count (item 3).
-   Decide whether Yu's row should hold Yu's own means and Mitra's one method, and whether the women's columns that
-   Ahmed, Chaudhary and Alonge print should be added.
+   values. The three decisions this left, his own Table I and primary, the Caucasoid men as the cohort, and n, were
+   taken on 2026-10-28 (#240; README, "Decided", 5): n is 78, the Caucasoid men's skeletons (p. 173).
+4. **Decided on 2026-10-28 (#240; README, "Decided", 1 to 4).** The four wrong cohort rows of the pedicle table are
+   corrected; n is the count of the people a row's values are of, where the copy's sex-split series carry their whole
+   sample in every sex's row (README, "What follows from the reading"); Yu holds Yu's own means and Mitra one method;
+   and the women's rows that Ahmed, Chaudhary and Alonge print, and Hou's, Olsewski's and Robertson's SDs, are added.
 5. **Read Pierro 2017's table images** (open access).
-6. **Decide the two open data questions**, and the corrections of items 3 and 4. Then correct them in CTSpinoPelvic1K
-   `morphometrics/`, as e887274 did for Panjabi, and re-copy here with `code/check_copies.py`.
+6. **The two open data questions were decided on 2026-10-28** (#240; README, "Decided", 6 and 7): Cizmic's five
+   canal-depth SDs, printed nowhere, become the SD over both sexes of its Table 5, and Yadav's 6.87 is what its Table
+   3 prints and stays. What is left of this item is Greg's word: to make these corrections and those of items 3 and 4
+   in the public CTSpinoPelvic1K `morphometrics/`, as e887274 did for Panjabi, and re-copy here with
+   `code/check_copies.py`. `code/apply_decisions.py` then stops, as it should, until each decision the new copy
+   carries is taken out of it.
 
 ## Not started: every measurement, not seven
 
