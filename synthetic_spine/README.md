@@ -71,7 +71,7 @@ All values are in millimetres.
 | `verification/values.csv` | Every value against its paper: the result, and the table cell or the sentence that confirms it. |
 | `verification/series.csv` | The same per series. |
 | `verification/panjabi_page_reading.csv`, `verification/panjabi_page_reading_check.csv` | A blind reading of Panjabi's printed tables, and every Panjabi row here against it. |
-| `verification/closed_page_reading.csv`, `verification/closed_page_reading_check.csv` | A blind reading of the tables of fifteen closed papers, those with no full text a script here may read, and every value here from those papers against it. |
+| `verification/closed_page_reading.csv`, `verification/closed_page_reading_check.csv` | A blind reading of the tables of fifteen of the 29 closed papers, those with no full text a script here may read (`sources.csv`), and every value here from those fifteen against it. |
 | `verification/spread.csv` | How far the series disagree, per measure and level. |
 | `figures/series_by_level.png`, `.pdf` | Every series by level, one panel per measure. |
 | `code/` | The scripts below. All but the plot are standard library only. |
@@ -191,26 +191,32 @@ papers print oddly: the thoracic text gives T1's posterior height as 14.3 mm whe
 cervical PDWl SEM at C2 is printed 0.07, against 0.32 to 0.64 elsewhere; C2 prints a dash for the upper end plate and
 posterior height.
 
-**The closed papers, read from the page (2026-10-28).** Fifteen papers here have no full text that a script of this
-folder may read. Greg sent the PDFs of ten of them (spine-program #238): the own papers of the seven secondary pedicle
-series, Hinck 1966, Tang 2016 and Bach 2019. Another thread of this project fetched the other five the same day from
-their publishers' own free copies: Griffith 2016, Twomey 1985, Alonge 2021, Ahmed 2019 and Chaudhary 2015, through
-whose comparison table Eisenstein 1977's values were read. Readers who were not shown any table here transcribed, from
-the page images, every table these values could come from (`verification/closed_page_reading.csv`: 6,316 rows, one
-per printed cell and statistic, each as printed, with its table and pages). Fifteen of the rows were added after the
-blind reading, each read from its page image and found on the text layer too, and their notes say so: the counts
-of people by sex in Ahmed's, Chaudhary's and Tang's Methods, the discs Tang left out, and the three widths Yu's
-abstract and Results give. Each reader
-was told to read every table twice, from fresh crops, and to mark a cell whose two reads differed as unclear. Nine of
+**The closed papers, read from the page (2026-10-28).** 29 of the 42 papers here have no full text that a script of
+this folder may read (`sources.csv`, `full_text_as_text_in_pmc`: 19 have no PMC copy, and PMC holds the other 10
+outside its open-access text subset). Fifteen of them were read from the page on 2026-10-28. Greg sent the PDFs of
+ten of the fifteen (spine-program #238): the own papers of the seven secondary pedicle series, Hinck 1966, Tang 2016
+and Bach 2019. Another thread of this project fetched the other five the same day from their publishers' own free
+copies: Griffith 2016, Twomey 1985, Alonge 2021, Ahmed 2019 and Chaudhary 2015, through whose comparison table
+Eisenstein 1977's values were read. The other 14 closed papers are not in this reading: Panjabi's three, read from
+the page before (above); Ahn 2001, which supplies no value of its own (the level table cites it for Hinck 1966's
+ten, read here from Hinck's own paper); Eisenstein 1977, whose five values were read through Chaudhary's copy; and
+the nine that PMC holds outside its open-access subset, whose 227 values neither a page reading nor an abstract has
+checked (discrepancy 10). Readers who were not shown any table here transcribed, from the page images, the tables
+these values could come from, whole or at the levels the values are at (`verification/closed_page_reading.csv`:
+6,316 rows, one per printed cell and statistic, each as printed, with its table and pages); what the reading leaves
+out is set out below the table. Fifteen of the rows were added after the blind reading, each read from its page
+image and found on the text layer too, and their notes say so: the counts of people by sex in Ahmed's, Chaudhary's
+and Tang's Methods, the discs Tang left out, and the three widths Yu's abstract and Results give. Each reader was
+told to read every table twice, from fresh crops, and to mark a cell whose two reads differed as unclear. Nine of
 the papers are typeset (Mitra, Robertson, Yu, Tang, Bach, Griffith, Alonge, Ahmed, Chaudhary), and every number read
 from their tables and text was also found on the publisher's own text layer. The figures of Bach, Griffith and Ahmed
 are pictures, so the 144 data labels read from them (108, 30 and 6) have no text layer to be found on.
 `code/check_closed_reading.py` sets the 203 values these papers carry beside the cells. Where a value differs, the
 script also holds the calculation, or the other paper's table, that reproduces it, and fails if it stops doing so.
 Of the 203:
-- **190 agree** with their own paper's cells. Tang's four agree once its centimetres are read as millimetres; Bach's
-  24 are printed in its Results and abstract, not in a table; and Eisenstein's five agree with Chaudhary's copy of
-  them, since Eisenstein's own paper was not read.
+- **190 agree**: 185 with their own paper's cells, and Eisenstein's five with Chaudhary's copy of them, since
+  Eisenstein's own paper was not read. Tang's four agree once its centimetres are read as millimetres, and Bach's 24
+  are printed in its Results and abstract, not in a table.
 - **13 do not, and each is reproduced by a calculation or by another paper's table:**
   - Mitra's L2 to L4 (3) are its CT means over all 20 cadavers, where its L1 and L5 are the men's direct means.
   - Krag's five are printed only in Yu 2015's comparison table, not in Krag's paper.
@@ -220,7 +226,7 @@ Of the 203:
 |---|---|---|
 | Zindrick 1987 | post-mortem specimens, on radiographs of the disarticulated vertebrae and on CT; its counts are of studies (547 by Table 1's footnote, though its N column sums to 551), and it gives no count of specimens or people | Table 1, the transverse isthmus width (p. 161): all ten agree |
 | Hou 1993 | 40 dry columns, T9 to L5, 25 male and 15 female, Chinese; Vernier caliper | Table 1, both sexes (p. 1852): all five agree |
-| Olsewski 1990 | 21 embalmed cadaver spines, 12 men and 9 women, 41 or 42 pedicles per level; the paper's other parts are 49 cadavers and 51 patients | Table II, measured directly, sexes pooled (p. 544): all five agree |
+| Olsewski 1990 | 21 embalmed cadaver spines, 12 men and 9 women (p. 543), 41 or 42 pedicles per level; the paper's other parts are 49 cadavers and 51 patients | Table II, measured directly (p. 544), the sexes combined (p. 545): all five agree |
 | Mitra 2002 | 20 cadavers, 18 male and 2 female, Indian; measured directly and on CT | L1 and L5 are the men's direct means, as the abstract gives them; L2 to L4 are the CT means of all 20 (Table 1, p. 455) |
 | Robertson 2000 | 10 dry-bone lumbosacral spines, 100 lumbar pedicles, wire-marked and radiographed coaxially, corrected for magnification | Table 1's left "Width" (p. 711), the transverse width at the isthmus: all five agree (below) |
 | Krag 1988 | CT of 91 vertebrae of 41 living patients, 14 women and 27 men; 8 cadaver vertebrae sectioned to validate it | none: Krag prints no table of mean widths, and its text gives about 7 mm from T9 to L1 and about 13 mm at L5 (12.6 mm by the 0 deg method, pp. 29-30); Yu 2015's Table 5 (p. 1645) prints the five under Krag's name, 15.15 at L5 |
@@ -232,18 +238,48 @@ Of the 203:
 | Alonge 2021 | abdominal CT of 120 adults of Nigerian heritage in Lagos, 54 men and 66 women aged 18 to 65, not known to have lumbar symptoms; the width between the pedicles' inner borders where the pedicles are widest, the depth on the mid-sagittal cut from the body to the lamina | Tables 4 (width, p. 74) and 3 (depth, p. 73), by sex and level: all 30 agree |
 | Ahmed 2019 | 1.5 T MRI of 80 adults referred for low back pain in Karimnagar, Telangana, 36 men and 44 women aged 20 to 70; the width between the pedicles' inner borders on an axial image, the depth on the mid-sagittal image | Tables 2 (width, p. 24) and 1 (depth, p. 22), the men's columns: all 20 agree |
 | Chaudhary 2015 | plain AP radiographs of 300 adults read as normal in Sonepat, Haryana, 150 men and 150 women aged 25 to 40; the least distance between the pedicle shadows, with a scale calibrated to 0.5 mm, and no correction for magnification stated | Table I, the men's rows (p. 34): all ten agree |
-| Eisenstein 1977 | not read here; Chaudhary does not say how Eisenstein measured | Chaudhary's Table II, the South African Caucasoid men (p. 35): all five agree with that copy |
+| Eisenstein 1977 | not read here; Chaudhary names it among the workers who used plain radiography (p. 34), Alonge 2021 calls it a study of Caucasian and Negroid bone specimens (p. 75), and the level table says dry bone | Chaudhary's Table II, the South African Caucasoid men (p. 35): all five agree with that copy |
 | Twomey 1985 | 204 post-mortem lumbar spines, T12 to S2, of every age, 37 of them children's; disc height as the area of the disc's median section, traced with an image analyser, divided by its antero-posterior diameter | Table 2, the group it heads 20-35, by sex (p. 497): all 20 agree |
+
+What the reading leaves out. A last pass on 2026-10-28 set each paper's reading beside its pages, table by table,
+figure by figure and passage by passage. None of what the reading leaves out prints a value of the data that the
+reading does not hold.
+- **Read whole.** The tables of Olsewski, Mitra, Robertson, Ahmed, Chaudhary and Alonge; Twomey's, but for three
+  numbers in two captions (Table 1's total of 204 cadavers, Table 3's t test); Bach's Tables 1 to 8 and the labels
+  of Figures 2 to 8, but not its Tables 9 to 12, of the people's age, height, weight and body mass index; and
+  Griffith's tables and figures of the canal, but not its Tables 5, S4 and S5 and a section of Table 7, all of
+  vertebral body area, nor its Table 1, of correlations.
+- **Read at the values' levels.** Zindrick's, Krag's, Hou's and Hinck's tables are read from T11 down. That leaves
+  out Zindrick's T1 to T10 and the counts of studies under its tables, Krag's and Hou's T9 and T10 and Krag's Mean %
+  rows, and Hinck's C3 to T10 and its Age rows. Tang's Tables 4 to 7 are read but for the L3/L4 column, except its
+  caudal end plate, which is L4's, and but for the Age, Ht and Wt columns of Tables 5 to 7, which the rows' notes
+  give; its Tables 1 to 3 (the measures' definitions, the subjects, the measurements' reliability) are not read.
+  Yu's Tables 3 to 5 are read but for the P rows of Tables 3 and 4, and its Tables 1 (the specimens by age, sex and
+  race) and 2 (regressions) are not.
+- **Text and figures.** 111 numbers were read from the text, from the passages a value or its count could come from,
+  and 144 from figures, the data labels printed on them. The passages left out that print a value's measure give a
+  table's cells again: Zindrick p. 161; Mitra's abstract, Results and Discussion, though one sentence gives the
+  women's L1 width as the men's and another prints the CT widths in cm; Robertson p. 713; Ahmed pp. 22 and 23; and
+  Alonge p. 73, whose sexes at L3 are the other way round from its Table 3 (below). The figures that draw the
+  measure print no number on it, among them Krag's Figure 5, the only place Krag gives a mean diameter at each
+  level, and Yu's Figure 2, the only place Yu gives an SD over all its specimens. Alonge's Figures 1 to 3 carry
+  labels on single CT images that could not be read even at 600 dpi; no level is printed beside them.
 
 What follows from the reading:
 - **The level table's n is a study's whole sample, in every sex's row.** Every series split by sex carries one n in
-  both sexes' rows, and the men-only rows of Ahmed and Chaudhary carry both sexes' total. Where a paper prints the
-  count of the people a value is of, the check sets it beside the data's n (`n_printed`): Bach's men are 109 and its
-  women 131 of 240, Griffith's 540 of each of 1,080, Alonge's 54 and 66 of 120, Ahmed's men 36 of 80 and Chaudhary's
-  men 150 of 300; Tang's cells count 107 and 105 of its 109. That is 128 of the 203 values. A model that weights a
-  row by its n would give each of these rows about twice the people it has, or more. Twomey's 204 is every cadaver
-  of every age; its Table 2 prints no n, and Table 1's young adults, the nearest group to the 20-35 that Table 2
-  describes, are 24 men aged 20 to 36 and 24 women aged 18 to 35.
+  both sexes' rows, and the men-only rows of Ahmed and Chaudhary carry both sexes' total. For six series, whose
+  papers print the count of the people a value is of as a cell the reading holds, the check sets that count beside
+  the data's n (`n_printed`): Bach's men are 109 and its women 131 of 240, Griffith's 540 of each of 1,080, Alonge's
+  54 and 66 of 120, Ahmed's men 36 of 80 and Chaudhary's men 150 of 300, and Tang's cells count 107 and 105 of its
+  109. That is 128 of the 203 values. A model that weights a row by its n would give the 124 values of one sex 1.8 to
+  2.2 times the people they are of (Ahmed's men and Alonge's 2.22, Bach's men 2.20, Chaudhary's and Griffith's 2.00,
+  Bach's women 1.83, Alonge's women 1.82), and Tang's four 1.02 and 1.04 times, its grade V discs left out. Twomey's
+  204 is every cadaver of every age; its Table 2 prints no n, and Table 1's young adults, the nearest group to the
+  20-35 that Table 2 describes, are 24 men aged 20 to 36 and 24 women aged 18 to 35. Four more series print a count
+  that n is not, and `n_printed` leaves them out: Mitra's L1 and L5 are of its 18 men, where n is 20 (Table 1, p.
+  455); Olsewski's five are of 41 or 42 pedicles (Table II, p. 544) of 21 spines (p. 543), where n is 100; Robertson's
+  of 10 specimens (p. 709), where n is 100; and Hinck prints a sample size of 59, 57, 53, 52 and 50 at L1 to L5
+  (Table II, p. 145), whose range is its n, "50-59 per level".
 - **Three papers print columns the tables leave out.** Ahmed's women (Tables 1 and 2) and Chaudhary's women (Table
   I) are printed with their SDs beside the men the tables carry, and so is Alonge's women's canal depth (Table 3).
 - **Twomey's disc height is an area over a length**, for one age group. The data's rows are Table 2's "true average
@@ -254,7 +290,9 @@ What follows from the reading:
   4.00 at L4 and 6.00 at L5, where its SD column prints 3.9 and 5.9; the data holds the column's.
 - **Eisenstein's values are Chaudhary's copy of them.** The cohort column names both of Eisenstein's groups,
   Caucasoid and Zulu, but the five are the Caucasoid men's alone; the Zulu men's are a separate row of Chaudhary's
-  Table II. Eisenstein's own paper was not read, and Chaudhary does not say how Eisenstein measured.
+  Table II. Eisenstein's own paper was not read, so how it measured is not known here: Chaudhary names Eisenstein
+  1977 among the workers who used plain radiography (p. 34), Alonge 2021 calls it a study of Caucasian and Negroid
+  bone specimens (p. 75), and the level table says dry bone.
 - **Griffith's and Alonge's people are patients having abdominal CT**, not volunteers; the cohort column calls them
   adults. Alonge's text names the sexes the other way round from its Table 3 for the narrowest canal depth, at L3
   (p. 73); the data follows the table.
@@ -324,7 +362,8 @@ They are recorded here; the copied tables are left as their sources have them.
    table's five.
 2. **Olsewski 1990's pedicle widths** (8.20, 8.40, 10.20, 13.20, 20.10) disagree at L2 to L5 with Arockiaraj 2025's
    transcription of the same paper (8.2, 8.3, 10.1, 12.9, 18.2). Answered from the page (2026-10-28): the table's
-   five are Olsewski's Table II, measured directly on 21 disarticulated cadaver spines, sexes pooled (p. 544).
+   five are Olsewski's Table II (p. 544), measured directly on 21 disarticulated cadaver spines (p. 543), the
+   sexes combined (p. 545).
    None of Arockiaraj's 10.1, 12.9 and 18.2 is printed as a transverse diameter in the paper's three tables (18.2
    is Table II's sagittal diameter on radiographs at L1), and its 8.3 at L2 is also Table II's radiographic
    transverse diameter there. The mean of Table II's direct and radiographic transverse diameters is 8.2, 8.35,

@@ -3,37 +3,53 @@
     python3 code/check_closed_reading.py            # from synthetic_spine/; standard library only, no network
     python3 code/check_closed_reading.py --check    # write nothing; exit 1 also when the committed result is stale
 
-A closed paper, here, is one whose full text no script of this folder may read: 203 values in
-data/level_references.csv and data/pedicle_width_references.csv come from fifteen of them, and
-verification/values.csv could check only 26 of those, in an abstract. greg supplied ten as PDFs on 28 October 2026;
-another thread of the project fetched the other five the same day from their publishers' own free copies (Griffith
-2016, Twomey 1985, Alonge 2021, Ahmed 2019, Chaudhary 2015). None is committed. verification/closed_page_reading.csv is
-a transcription of their tables made from the page images by readers who were not shown any of the tables here, as
-Panjabi's were read (code/check_page_reading.py): one row per printed cell and statistic, with the cell as printed
-(printed_as) and where it is (table, pdf_page, journal_page). For the nine typeset papers (Mitra 2002, Robertson
-2000, Yu 2015, Tang 2016, Bach 2019, Griffith, Alonge, Ahmed and Chaudhary) every value read from a table or the
-text was also found on the publisher's own text layer; the data labels read from figures are pictures and have no
-text layer. A few rows, counts of people and three of Yu's widths from the text, were added after the blind
-reading, and each says so in its note.
+A closed paper, here, is one whose full text no script of this folder may read; sources.csv counts 29 of the 42.
+203 values in data/level_references.csv and data/pedicle_width_references.csv come from sixteen of them: 198 from
+fifteen that were read from the page, and Eisenstein 1977's five through Chaudhary 2015's copy of them.
+verification/values.csv could check only 26 of the 203, in an abstract. greg supplied ten of the fifteen as PDFs on
+28 October 2026; another thread of the project fetched the other five the same day from their publishers' own free
+copies (Griffith 2016, Twomey 1985, Alonge 2021, Ahmed 2019, Chaudhary 2015). None is committed.
+verification/closed_page_reading.csv is a transcription of the tables these values could come from, whole or at
+the values' levels (README, "What the reading leaves out"), made from the page images by readers who
+were not shown any of the tables here, as Panjabi's were read (code/check_page_reading.py): one row per printed cell
+and statistic, with the cell as printed (printed_as) and where it is (table, pdf_page, journal_page). For the nine
+typeset papers (Mitra 2002, Robertson 2000, Yu 2015, Tang 2016, Bach 2019, Griffith, Alonge, Ahmed and Chaudhary)
+every value read from a table or the text was also found on the publisher's own text layer; the data labels read
+from figures are pictures and have no text layer. Fifteen rows were added after the blind reading, the counts of
+people in three papers' Methods, the discs Tang left out and three of Yu's widths from the text, and each says so in
+its note.
 
 SOURCES names, for each series, the cells of its own paper that its values should be, as the reading labels them. A
-value agrees when its cell, rounded half up to the decimals the table records, equals it. FINDINGS says, for each
-value that does not, what the paper prints instead and the calculation, or the other paper's table, that reproduces
-the value, which is then held to it like a cell. NOTES records what a reader of an agreeing value should still know.
-Every number a finding or a note gives from a paper is computed from the reading, not typed. COUNTS names the cell
-that counts the people a value is of, where the paper prints one: n_printed beside the data's n. SCALE turns a
-paper's printed unit into the data's: Tang prints centimetres. VALUES holds how many values each series has here.
+value agrees when its cell, rounded half up to the most decimals its series is written with for that statistic,
+equals it: a value written with a trailing zero dropped still agrees, and one cut short does not. FINDINGS says, for
+each value that does not agree, what the paper prints instead and the calculation, or the other paper's table, that
+reproduces the value, which is then held to it like a cell. NOTES records what a reader of an agreeing value should
+still know. The means, SDs, ranges and counts a finding or a note quotes, the cells its calculations take and their
+results, and the pages of those cells are computed from the reading when the script runs, and the comparisons its
+words make (lower, highest, misprinted, within the cells' rounding) are tested on the reading. A group's size or ages
+that its words give are the ones its selector's label prints or its cells hold, so a reading that printed others
+stops the script. Typed, and held by nothing, are the pages of passages the reading does not hold (Robertson's method,
+figure captions and tilt, pp. 709-711; the sentences of Chaudhary, p. 34, and Alonge, p. 75, on how Eisenstein
+measured) and the words that give no number. DATA_SAID holds what a note says a column of the data holds, and a
+note fails when the column holds another. COUNTS names, for six series, the cell that counts the people a value is
+of: n_printed beside the data's n. Mitra's men, Olsewski's spines, Robertson's specimens and Hinck's sample size at
+each level are printed too and have no entry (README). SCALE turns a paper's printed unit into the data's: Tang
+prints centimetres. VALUES holds how many values each series has here.
+
 The script writes verification/closed_page_reading_check.csv and exits 1 on a value that neither agrees nor has a
 finding, on a finding with no calculation or whose calculation no longer reproduces its value, on a finding or a
-note for a value that is not here, on a selector that picks other than one cell (or other than one SD cell beside a
-mean the data gives no SD for, where the paper prints SDs), on a series with another count of values than VALUES
-holds, and on a row of the reading whose value is not a number its printed_as prints.
+note for a value that is not here, on a finding, a note or a count that needs a cell the reading does not hold once
+or whose words the reading no longer bears out, on a note whose DATA_SAID the data no longer holds, on a selector
+that picks other than one cell (or other than one SD cell beside a mean the data gives no SD for, where the paper
+prints SDs), on a series with another count of values than VALUES holds, and on a row of the reading whose value is
+not a number its printed_as prints, where a minus sign is one only with no digit, slash or closing bracket before it.
 """
 import csv
 import io
+import math
 import re
 import sys
-from decimal import ROUND_HALF_UP, Decimal
+from decimal import ROUND_HALF_UP, Decimal, InvalidOperation
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[1]
@@ -112,8 +128,9 @@ VALUES = {
 MEANS_ONLY = {(PEDICLES, "Mitra", "PDW"), (PEDICLES, "Yu", "PDW"), (LEVELS, "Eisenstein 1977", "canal_w")}
 
 # (data file, series, measure) -> (paper, the reading's labels of the cell that counts the people a value is of, and
-# that cell's level, None where it is the value's own), for the series whose paper prints such a count. The sex is
-# the value's own.
+# that cell's level, None where it is the value's own), for six series whose paper prints such a count as a cell the
+# reading holds. The sex is the value's own. Mitra's men, Olsewski's spines, Robertson's specimens and Hinck's sample
+# size at each level are printed too and have none (README).
 COUNTS = {
     (LEVELS, "Tang 2016", "endplate"): ("tang2016", {"table": "Table 4", "measure_label": "FD_CaEP"}, None),
     (LEVELS, "Bach 2019", "disc"): ("bach2019", {"table": "Table 1", "group": "Total"}, ""),
@@ -135,11 +152,63 @@ def in_data_units(paper, number):
     return Decimal(number) * SCALE.get(paper, 1)
 
 
-def mitra_ct(level):
-    """Mitra's CT transverse diameter over all 20 cadavers: the 18 men's and the 2 women's means, weighted."""
+class Untrue(Exception):
+    """Words of a finding or a note that the reading they are computed from no longer bears out."""
+
+
+def require(holds, what):
+    """Stop a finding or a note whose words the reading no longer bears out, naming what failed."""
+    if not holds:
+        raise Untrue(what)
+
+
+def bracketed_count(group):
+    """The count a group label prints in brackets, as Mitra's "CS direct M(18)" or Yu's "CS, American (N = 503)"."""
+    count = re.fullmatch(r".*\((?:N = )?(\d+)\)", group)
+    require(count, "the group %r prints no count" % group)
+    return int(count.group(1))
+
+
+def age_words(group):
+    """A group label of ages in the prose's words: "Age <=30 yr" is 30 years or less, "Age 50-69 yr" is 50 to 69
+    years, and "60+" or "Age >=70 yr" is 60 or 70 and over."""
+    ages = re.fullmatch(r"(?:Age )?(<=|>=)?(\d+)(\+|-\d+)?(?: yr)?", group)
+    require(ages, "the group %r names no ages" % group)
+    below, first, rest = ages.groups()
+    if below == "<=":
+        return "%s years or less" % first
+    if below == ">=" or rest == "+":
+        return "%s and over" % first
+    require(rest, "the group %r names one age" % group)
+    return "%s to %s years" % (first, rest[1:])
+
+
+# Mitra's Table 1 groups of its own cadavers, as their labels print them, with the sex the reading gives each
+MITRA_GROUPS = (("M(18)", "male"), ("F(2)", "female"))
+
+
+def mitra_rows(method, level):
+    """Mitra's transverse diameter by one method over all its cadavers: the men's and the women's means of Table 1,
+    each weighted by the count its label prints."""
     cell = {"table": "Table 1", "measure_label": "TD"}
-    return [("mitra2002", dict(cell, group="CS CT M(18)", sex="male"), level, 18),
-            ("mitra2002", dict(cell, group="CS CT F(2)", sex="female"), level, 2)]
+    return [("mitra2002", dict(cell, group="CS %s %s" % (method, who), sex=sex), level, bracketed_count(who))
+            for who, sex in MITRA_GROUPS]
+
+
+def mitra_ct(level):
+    return mitra_rows("CT", level)
+
+
+def mitra_direct(level):
+    return mitra_rows("direct", level)
+
+
+def mitra_people():
+    """Mitra's men and women, as the labels of Table 1's rows count them.
+
+    The selectors hold the labels to the reading.
+    """
+    return [weight for *_, weight in mitra_direct("L1")]
 
 
 def yu_table5(group, level):
@@ -147,18 +216,19 @@ def yu_table5(group, level):
     return [("yu2015", {"table": "Table 5", "measure_label": "PW", "group": group, "sex": ""}, level, 1)]
 
 
+YU_AGES = ("Age <=30 yr", "Age 31-49 yr", "Age 50-69 yr", "Age >=70 yr")
+
+
 def yu_age_midpoint(level):
-    """The midpoint of two of Yu 2015's four age groups in Table 3: up to 30 years and 50 to 69 years."""
+    """The midpoint of two of Yu 2015's four age groups in Table 3: the youngest and 50 to 69 years."""
     cell = {"table": "Table 3", "measure_label": "PW"}
-    return [("yu2015", dict(cell, group="Age <=30 yr"), level, 1),
-            ("yu2015", dict(cell, group="Age 50-69 yr"), level, 1)]
+    return [("yu2015", dict(cell, group=YU_AGES[0]), level, 1), ("yu2015", dict(cell, group=YU_AGES[2]), level, 1)]
 
 
-def mitra_direct(level):
-    """Mitra's direct transverse diameter over all 20 cadavers: the 18 men's and the 2 women's means, weighted."""
-    cell = {"table": "Table 1", "measure_label": "TD"}
-    return [("mitra2002", dict(cell, group="CS direct M(18)", sex="male"), level, 18),
-            ("mitra2002", dict(cell, group="CS direct F(2)", sex="female"), level, 2)]
+def yu_age_means(reading, level):
+    """Yu's Table 3 means of its four age groups at one level, youngest first."""
+    cell = {"table": "Table 3", "measure_label": "PW"}
+    return [Decimal(one_cell(reading, "yu2015", dict(cell, group=g), level, "all", "mean")["value"]) for g in YU_AGES]
 
 
 KRAG_IN_YU = "Krag et al, American (N = 14-24)"
@@ -171,55 +241,63 @@ def plain(value):
 
 def krag_finding(reading):
     """What Krag prints in place of a mean width, from the reading: Table 2's bins and the widths the text gives."""
-    bins = sorted({c["column_label"][:-len(" mm")] for c in reading if c["paper"] == "krag1988"
-                   and c["table"] == "Table 2" and c["column_label"].endswith(" mm")},
-                  key=lambda b: Decimal(b.split("-")[0]))
+    table2 = [c for c in reading if c["paper"] == "krag1988" and c["table"] == "Table 2"]
+    bins = sorted({tuple(c["column_label"][:-len(" mm")].split("-")) for c in table2
+                   if c["column_label"].endswith(" mm")}, key=lambda b: Decimal(b[0]))
+    widths = {math.ceil(Decimal(high) - Decimal(low)) for low, high in bins[:-1]}
+    require(len(widths) == 1, "Krag's Table 2 bins below the top one are not of one width")
+    page, = {c["journal_page"] for c in table2}
     text = {"table": "Text: Results", "measure_label": "pedicle diameter (Figure 5)"}
     upper, lower = (one_cell(reading, "krag1988", text, level, "all", "approximately") for level in ("L1", "L5"))
     zero = one_cell(reading, "krag1988", dict(text, measure_label="pedicle diameter perpendicular to the 0 deg axis"),
                     "L5", "all", "mean")
     in_yu = one_cell(reading, "yu2015", yu_table5(KRAG_IN_YU, "L5")[0][1], "L5", "all", "mean")
-    return ("Krag prints no table of mean widths: Table 2 (p. 30) counts pedicles in bins of 1 mm from %s mm and a "
+    require(Decimal(zero["value"]) < Decimal(in_yu["value"]), "Krag's 0 deg width at L5 is not below Yu's")
+    return ("Krag prints no table of mean widths: Table 2 (p. %s) counts pedicles in bins of %d mm from %s mm and a "
             "top bin of %s to %s mm, the figures plot means with no printed values, and the text gives about %s mm "
             "from T9 to L1 and about %s mm at L5 (p. %s), and %s mm at L5 by the 0 deg method (p. %s), below the %s at "
             "L5 here. The five values are Yu 2015's Table 5 row for Krag et al (p. %s), where the series was evidently "
             "read; how Yu came by them is not said"
-            % (bins[0].split("-")[0], *bins[-1].split("-"), upper["value"], lower["value"], lower["journal_page"],
+            % (page, *widths, bins[0][0], *bins[-1], upper["value"], lower["value"], lower["journal_page"],
                zero["value"], zero["journal_page"], in_yu["value"], in_yu["journal_page"]))
 
 
 def mitra_finding(reading, level):
     """What Mitra prints at L2 to L4, and how the series' value is had from it, from the reading."""
-    men = one_cell(reading, "mitra2002", SOURCES[(PEDICLES, "Mitra", "PDW")][1], level, "all", "mean")
+    men, women = mitra_people()
+    printed = one_cell(reading, "mitra2002", SOURCES[(PEDICLES, "Mitra", "PDW")][1], level, "all", "mean")
     in_yu = one_cell(reading, "yu2015", yu_table5(MITRA_IN_YU, level)[0][1], level, "all", "mean")
     direct, _ = reproduce(reading, mitra_direct(level), "all", "mean")
-    return ("Table 1 (p. %s) prints %s for the 18 men measured directly. The value is the mean of the CT rows over "
-            "all 20 cadavers, 18 men and 2 women weighted; L1 and L5 are the men's direct means, which the abstract "
+    return ("Table 1 (p. %s) prints %s for the %d men measured directly. The value is the mean of the CT rows over "
+            "all %d cadavers, %d men and %d women weighted; L1 and L5 are the men's direct means, which the abstract "
             "quotes, so the series mixes two methods. Yu 2015's Table 5 (p. %s) prints %s under Mitra's name, the "
-            "direct means over all 20 (%s)" % (men["journal_page"], men["printed_as"], in_yu["journal_page"],
-                                               in_yu["value"], plain(direct)))
+            "direct means over all %d (%s)"
+            % (printed["journal_page"], printed["printed_as"], men, men + women, men, women, in_yu["journal_page"],
+               in_yu["value"], men + women, plain(direct)))
 
 
 def mitra_note(reading, level):
-    """What Mitra's L1 and L5 are, beside its means over all 20 cadavers, from the reading."""
+    """What Mitra's L1 and L5 are, beside its means over all its cadavers, from the reading."""
+    men, women = mitra_people()
     in_yu = one_cell(reading, "yu2015", yu_table5(MITRA_IN_YU, level)[0][1], level, "all", "mean")
     direct, _ = reproduce(reading, mitra_direct(level), "all", "mean")
     ct, _ = reproduce(reading, mitra_ct(level), "all", "mean")
-    return ("The value is the 18 men's direct mean, which the abstract quotes; the n column's 20 counts the 2 women "
-            "too. Over all 20 cadavers the direct means give %s and the CT means %s; L2 to L4 are the CT means over "
-            "all 20, so the series mixes two methods and two groups. Yu 2015's Table 5 (p. %s) prints %s under "
-            "Mitra's name, the direct mean over all 20" % (plain(direct), plain(ct), in_yu["journal_page"],
-                                                         in_yu["value"]))
+    return ("The value is the %d men's direct mean, which the abstract quotes; the n column's %d counts the %d women "
+            "too. Over all %d cadavers the direct means give %s and the CT means %s; L2 to L4 are the CT means over "
+            "all %d, so the series mixes two methods and two groups. Yu 2015's Table 5 (p. %s) prints %s under "
+            "Mitra's name, the direct mean over all %d"
+            % (men, men + women, women, men + women, plain(direct), plain(ct), men + women, in_yu["journal_page"],
+               in_yu["value"], men + women))
 
 
 def yu_finding(reading, level):
     """What Yu prints as its own means, and where the series' value comes from instead, from the reading."""
     own = [one_cell(reading, "yu2015", SOURCES[(PEDICLES, "Yu", "PDW")][1], at, "all", "mean") for at in LUMBAR]
+    specimens = bracketed_count(own[0]["group"])
     pw = {"measure_label": "PW"}
     abstract = one_cell(reading, "yu2015", dict(pw, table="Abstract (text)"), "L5", "all", "mean")
     first, last = (one_cell(reading, "yu2015", dict(pw, table="Results (text)"), at, "all", "mean")
                    for at in ("L1", "L5"))
-    oldest = one_cell(reading, "yu2015", dict(pw, table="Table 3", group="Age >=70 yr"), "L5", "all", "mean")
     young = one_cell(reading, "yu2015", yu_age_midpoint(level)[0][1], level, "all", "mean")
     middle, _ = reproduce(reading, yu_age_midpoint(level), "all", "mean")
     shown = middle.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
@@ -227,15 +305,23 @@ def yu_finding(reading, level):
             and c["level"] == level and c["statistic"] == "mean" and Decimal(c["value"]) == shown]
     extra = "".join(" as Yu's own, though %s's mean for the %s specimens is also %s" % (c["table"], c["group"],
                                                                                       c["value"]) for c in same)
-    return ("Yu's own means, over 503 specimens with the two sides averaged, are printed %s, %s, %s, %s and %s (Table "
+    taken = (YU_AGES.index(yu_age_midpoint(level)[0][1]["group"]), YU_AGES.index(yu_age_midpoint(level)[1][1]["group"]))
+    extremes = [at for at in LUMBAR if (min(range(4), key=yu_age_means(reading, at).__getitem__),
+                                        max(range(4), key=yu_age_means(reading, at).__getitem__)) == taken]
+    require(extremes and extremes == list(LUMBAR[:len(extremes)]) and len(extremes) < len(LUMBAR),
+            "Yu's two age groups are not the lowest and highest from L1 up to a level below L5")
+    beyond = yu_age_means(reading, LUMBAR[-1])
+    require(max(range(4), key=beyond.__getitem__) == len(YU_AGES) - 1, "Yu's oldest group is not the highest at L5")
+    return ("Yu's own means, over %s specimens with the two sides averaged, are printed %s, %s, %s, %s and %s (Table "
             "5, p. %s); the abstract gives %s at L5 (p. %s), and the Results %s at L1 and %s at L5 (p. %s). The "
             "series' value is printed nowhere in the paper%s. It is the midpoint of Table 3's means for the youngest "
-            "age group (30 years or less) and for 50 to 69 years (p. %s), at all five levels. From L1 to L4 those two "
-            "are the lowest and highest of the four age groups, which fits the table's citation, \"midpoint of "
-            "published range\"; at L5 the oldest group's %s is higher still, and the same two groups were taken "
-            "there too"
-            % (*(c["value"] for c in own), own[0]["journal_page"], abstract["value"], abstract["journal_page"],
-               first["value"], last["value"], first["journal_page"], extra, young["journal_page"], oldest["value"]))
+            "age group (%s) and for %s (p. %s), at all five levels. From %s to %s those two are the lowest and "
+            "highest of the four age groups, which fits the table's citation, \"midpoint of published range\"; at %s "
+            "the oldest group's %s is higher still, and the same two groups were taken there too"
+            % (specimens, *(c["value"] for c in own), own[0]["journal_page"], abstract["value"],
+               abstract["journal_page"], first["value"], last["value"], first["journal_page"], extra,
+               age_words(YU_AGES[taken[0]]), age_words(YU_AGES[taken[1]]), young["journal_page"], extremes[0],
+               extremes[-1], LUMBAR[-1], plain(beyond[-1])))
 
 
 # (series, measure, level, sex, kind) -> (what the paper prints instead, or how to compute it from the reading; the
@@ -253,19 +339,26 @@ FINDINGS.update({
 })
 
 
+def robertson_left(reading, measure, level):
+    """One of Robertson's Table 1 rows on the left side, at one level."""
+    cell = {"table": "Table 1", "measure_label": measure, "side": "left"}
+    return one_cell(reading, "robertson2000", cell, level, "all", "mean")
+
+
 def robertson_note(reading, level):
     """Which side and which width Robertson's series is, and its isthmus row beside it, from the reading."""
-    cell = {"table": "Table 1", "side": "left"}
-    isthmus, axis = (one_cell(reading, "robertson2000", dict(cell, measure_label=m), level, "all", "mean")
-                     for m in ("Isthmus", "Axis"))
+    isthmus, axis = (robertson_left(reading, m, level) for m in ("Isthmus", "Axis"))
+    widths, diameters = ([Decimal(robertson_left(reading, m, at)["value"]) for at in LUMBAR]
+                         for m in ("Width", "Isthmus"))
+    gaps = [width - diameter for width, diameter in zip(widths, diameters)]
+    require(min(gaps[3:]) > max(gaps[:3]), "Robertson's width is not furthest above its isthmus diameter at L4 and L5")
     return ("The left side only, as Table 1 (p. %s) prints it; the table does not say whose left, and the captions of "
             "Figures 3 and 4 give left and right as viewed by the reader (p. 710). Robertson's width is the "
             "medial-to-lateral extent of the wire drawn tight around the pedicle's isthmus, on its outer cortex, on "
             "the coaxial radiograph (pp. 709-710): the transverse width at the isthmus. Its isthmus diameter, %s on "
             "the left here, is the short axis of the pedicle's ellipse at the isthmus, whose long axis lies %s deg "
             "from the vertical at this level; the paper puts the gap between the two at L4 and L5 down to that tilt "
-            "(p. %s)"
-            % (isthmus["journal_page"], isthmus["printed_as"], axis["value"], axis["journal_page"]))
+            "(p. 711)" % (isthmus["journal_page"], isthmus["printed_as"], axis["value"]))
 
 
 def tang_note(reading, level, disc):
@@ -274,14 +367,20 @@ def tang_note(reading, level, disc):
     everyone, women, men = (one_cell(reading, "tang2016", subjects, "", sex, "n") for sex in ("all", "F", "M"))
     left_out = one_cell(reading, "tang2016", {"table": "Methods (text)", "measure_label": "IVDs of Pfirrmann grade "
                                               "V, excluded"}, disc, "M", "n")
-    counted = [one_cell(reading, "tang2016", COUNTS[(LEVELS, "Tang 2016", "endplate")][1], level, sex, "n")
-               for sex in ("F", "M")]
-    return ("Tang prints centimetres and the data holds millimetres, so the cell is read times 10. FD_CaEP is the "
+    labels = COUNTS[(LEVELS, "Tang 2016", "endplate")][1]
+    counted = [one_cell(reading, "tang2016", labels, level, sex, "n") for sex in ("F", "M")]
+    require(int(everyone["value"]) == int(women["value"]) + int(men["value"]), "Tang's subjects are not its women "
+                                                                               "and men")
+    require(counted[0]["value"] == women["value"], "Tang's Table 4 does not count every woman at %s" % level)
+    require(int(counted[1]["value"]) == int(men["value"]) - int(left_out["value"]),
+            "Tang's Table 4 does not count the men less the discs left out at %s" % level)
+    return ("Tang prints centimetres and the data holds millimetres, so the cell is read times %s. %s is the "
             "frontal diameter, the right-to-left extent, of the caudal end plate of the %s disc, which is %s's upper "
             "end plate. The study's %s subjects are %s women and %s men, and the %s men's discs of Pfirrmann grade V "
             "at %s were left out with their end plates (p. %s): Table 4 counts %s women and %s men here (p. %s)"
-            % (disc, level, everyone["value"], women["value"], men["value"], left_out["value"], disc,
-               everyone["journal_page"], counted[0]["value"], counted[1]["value"], counted[0]["journal_page"]))
+            % (SCALE["tang2016"], labels["measure_label"], disc, level, everyone["value"], women["value"],
+               men["value"], left_out["value"], disc, everyone["journal_page"], counted[0]["value"],
+               counted[1]["value"], counted[0]["journal_page"]))
 
 BACH_DECADES = ("First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh")
 BACH_SEX = {"M": ("men", "Table 2"), "F": ("women", "Table 3")}
@@ -316,93 +415,166 @@ def pooled_sd(reading, terms, sex):
     return (total / (people - 1)).sqrt()
 
 
-def at_top_of_rounding(reading, terms, sex):
-    """The weighted mean of the cells a calculation names, each taken at the top of its own printed rounding."""
+def half_unit(value):
+    """Half a unit of the last decimal a value is printed with: as far as its rounding may have moved it."""
+    return Decimal(5).scaleb(-decimals(value) - 1)
+
+
+def at_edge_of_rounding(reading, terms, sex, side):
+    """The weighted mean of the cells a calculation names, each taken at one edge of its own printed rounding: the
+    top for side 1, the bottom for side -1."""
     total, weights = Decimal(0), 0
     for paper, labels, level, weight in terms:
         value = one_cell(reading, paper, labels, level, sex, "mean")["value"]
-        total += (Decimal(value) + Decimal(5).scaleb(-decimals(value) - 1)) * weight
+        total += (Decimal(value) + side * half_unit(value)) * weight
         weights += weight
     return total / weights
 
 
-def rounding_said(printed, pooled, top):
-    """Nothing when the pooled mean rounds to the printed value; else how far the cells' own rounding reaches."""
+def rounding_said(reading, terms, sex, printed, pooled):
+    """Nothing when the pooled mean rounds to the printed value; else whether the cells, each moved within its own
+    printed rounding toward the printed value, can give it."""
     if rounds_to(printed, pooled):
         return ""
+    side = 1 if pooled < Decimal(printed) else -1
+    edge = at_edge_of_rounding(reading, terms, sex, side)
+    reached = (edge > Decimal(printed) - half_unit(printed) if side == 1 else
+               edge < Decimal(printed) + half_unit(printed))
     shown = pooled.quantize(Decimal(1).scaleb(-decimals(printed)), rounding=ROUND_HALF_UP)
-    reach = ("within" if rounds_to(printed, top) else "beyond")
-    return (", which rounds to %s, not the printed %s; with each decade cell at the top of its own printed rounding "
-            "they give %s, so the printed value is %s the cells' rounding" % (shown, printed, thousandths(top), reach))
+    return (", which rounds to %s, not the printed %s; with each decade cell at the %s of its own printed rounding "
+            "they give %s, so the printed value is %s the cells' rounding"
+            % (shown, printed, "top" if side == 1 else "bottom", thousandths(edge), "within" if reached else "beyond"))
+
+
+def bach_printed(reading, level, sex, kind):
+    """The Results' cell of one of Bach's averages and the abstract's, which must print the same."""
+    labels = SOURCES[(LEVELS, "Bach 2019", "disc")][1]
+    results = one_cell(reading, "bach2019", labels, level, sex, kind)
+    abstract = one_cell(reading, "bach2019", dict(labels, table="Abstract (text)"), level, sex, kind)
+    require(results["value"] == abstract["value"], "Bach's Results and abstract print another %s at %s"
+            % (kind, level))
+    return results, abstract
 
 
 def bach_note(reading, level, sex, kind):
     """What the Results' average is, beside Table 6's, and what its unnamed +/- is, computed from the reading."""
     who, table = BACH_SEX[sex]
     three = bach_decades(reading, "Average disc height", level, sex)
+    printed, abstract = bach_printed(reading, level, sex, kind)
     if kind == "mean":
         pooled, _ = reproduce(reading, three, sex, "mean")
-        printed = one_cell(reading, "bach2019", SOURCES[(LEVELS, "Bach 2019", "disc")][1], level, sex, "mean")
         a, p, t6 = (Decimal(one_cell(reading, "bach2019", {"table": "Table 6", "measure_label": m + " disc height"},
                                      level, sex, "mean")["value"]) for m in ("Anterior", "Posterior", "Average"))
-        return ("Printed in the Results (p. e108) and the abstract (p. e106): the mean of the anterior, middle and "
+        require(abs(t6 - (a + p) / 2) <= half_unit(str(t6)) + (half_unit(str(a)) + half_unit(str(p))) / 2,
+                "Bach's Table 6 average at %s is not the mean of its anterior and posterior rows" % level)
+        require(not rounds_to(printed["value"], t6), "Bach's Table 6 average at %s is the Results' one" % level)
+        return ("Printed in the Results (p. %s) and the abstract (p. %s): the mean of the anterior, middle and "
                 "posterior heights over all ages, which %s's decade rows of that mean, weighted by Table 1's counts, "
                 "give as %s%s. Table 6's 'Average disc height' for all ages is another quantity, %s, the mean of its "
                 "anterior and posterior rows alone, (%s + %s) / 2 = %s"
-                % (table, thousandths(pooled),
-                   rounding_said(printed["value"], pooled, at_top_of_rounding(reading, three, sex)),
-                   t6, a, p, format((a + p) / 2, "f")))
-    return ("The Results and the abstract do not say what this +/- is. %s's decade rows of the mean of three, pooled "
-            "as SDs with their means and Table 1's counts, give %s: the size of an SD over all the %s, not of an SE, "
-            "which would be about a tenth of it" % (table, hundredths(pooled_sd(reading, three, sex)), who))
+                % (printed["journal_page"], abstract["journal_page"], table, thousandths(pooled),
+                   rounding_said(reading, three, sex, printed["value"], pooled), t6, a, p, format((a + p) / 2, "f")))
+    sd = pooled_sd(reading, three, sex)
+    people = sum(weight for *_, weight in three)
+    se = sd / Decimal(people).sqrt()
+    require(abs(Decimal(printed["value"]) - sd) < abs(Decimal(printed["value"]) - se),
+            "Bach's +/- at %s is nearer the SE of its mean than the SD" % level)
+    return ("The Results (p. %s) and the abstract (p. %s) do not say what this +/- is. %s's decade rows of the mean "
+            "of three, pooled as SDs with their means and Table 1's counts, give %s: the size of an SD over all the "
+            "%d %s, not of the SE of their mean, which would be %s"
+            % (printed["journal_page"], abstract["journal_page"], table, hundredths(sd), people, who, hundredths(se)))
+
+
+TWOMEY_COUNT = {"table": "Table 1", "measure_label": "number of cadavers"}
+
+
+def twomey_groups(reading):
+    """Twomey's Table 1 cells that count the cadavers of each of its groups."""
+    return [c for c in reading if c["paper"] == "twomey1985" and c["statistic"] == "n"
+            and all(c[k] == v for k, v in TWOMEY_COUNT.items())]
+
+
+def twomey_cadavers(reading):
+    """Every cadaver Twomey's Table 1 counts, of every age and sex, and the children among them, whose groups count
+    the sexes together."""
+    groups = twomey_groups(reading)
+    return sum(int(c["value"]) for c in groups), sum(int(c["value"]) for c in groups if c["sex"] == "all")
+
+
+def twomey_ages(reading, groups, sex):
+    """The youngest and the oldest age Table 1 prints for some of its groups of one sex, in the prose's words."""
+    age = {"table": "Table 1", "measure_label": "age"}
+    young, old = (bound([Decimal(one_cell(reading, "twomey1985", dict(age, group=g), "", sex, kind)["value"])
+                         for g in groups]) for bound, kind in ((min, "min"), (max, "max")))
+    return "%s to %s" % (plain(young), plain(old))
 
 
 def twomey_note(reading, level, sex, kind):
     """What Twomey's Table 2 measures and counts, and its oddities at L1-L2, computed from the reading."""
-    count = {"table": "Table 1", "measure_label": "number of cadavers"}
-    every = [c for c in reading if c["paper"] == "twomey1985" and c["statistic"] == "n"
-             and all(c[k] == v for k, v in count.items())]
-    children = sum(int(c["value"]) for c in every if c["sex"] == "all")
-    men = one_cell(reading, "twomey1985", dict(count, group="20-36"), "", "M", "n")
-    women = one_cell(reading, "twomey1985", dict(count, group="18-35"), "", "F", "n")
-    cell = one_cell(reading, "twomey1985", dict(TWOMEY, group="20-35"), level, sex, kind)
+    total, children = twomey_cadavers(reading)
+    pooled = [c["group"] for c in twomey_groups(reading) if c["sex"] == "all"]
+    men = one_cell(reading, "twomey1985", dict(TWOMEY_COUNT, group="20-36"), "", "M", "n")
+    women = one_cell(reading, "twomey1985", dict(TWOMEY_COUNT, group="18-35"), "", "F", "n")
+    labels = SOURCES[(LEVELS, "Twomey 1985", "disc")][1]
+    cell = one_cell(reading, "twomey1985", labels, level, sex, kind)
+    require(not [c for c in reading if c["paper"] == "twomey1985" and c["table"] == TWOMEY["table"]
+                 and c["statistic"] == "n"], "Twomey's Table 2 prints an n")
     said = ("Table 2's true average disc height, the area of the disc's median section divided by its "
-            "antero-posterior diameter, for the group it heads 20-35 (p. %s). The n column's %d counts every "
-            "cadaver of Table 1, of every age, %d of them children aged 0 to 12 with the sexes pooled. Table 2 "
-            "prints no n; Table 1's young adults are %s men aged 20 to 36 and %s women aged 18 to 35 (p. %s). The "
+            "antero-posterior diameter, for the group it heads %s (p. %s). The n column's %d counts every "
+            "cadaver of Table 1, of every age, %d of them children aged %s with the sexes pooled. Table 2 "
+            "prints no n; Table 1's young adults are %s men aged %s and %s women aged %s (p. %s). The "
             "paper names no population; its authors worked in Western Australia"
-            % (cell["journal_page"], sum(int(c["value"]) for c in every), children, men["value"], women["value"],
-               men["journal_page"]))
+            % (cell["group"], cell["journal_page"], total, children, twomey_ages(reading, pooled, "all"),
+               men["value"], twomey_ages(reading, [men["group"]], "M"), women["value"],
+               twomey_ages(reading, [women["group"]], "F"), men["journal_page"]))
     if (level, sex, kind) == ("L1L2", "M", "sd"):
+        require("," in cell["printed_as"], "Twomey's men's SD at L1-L2 is printed with no decimal comma")
         said += ". The cell is printed %s, the SD with a decimal comma" % cell["printed_as"]
     if (level, sex) == ("L1L2", "F"):
-        others = [Decimal(one_cell(reading, "twomey1985", dict(TWOMEY, group="20-35"), other, sex, "mean")["value"])
+        mean = Decimal(one_cell(reading, "twomey1985", labels, level, sex, "mean")["value"])
+        others = [Decimal(one_cell(reading, "twomey1985", labels, other, sex, "mean")["value"])
                   for other in ("L2L3", "L3L4", "L4L5", "L5S1")]
-        old = one_cell(reading, "twomey1985", dict(TWOMEY, group="60+"), level, sex, "mean")["value"]
+        old = one_cell(reading, "twomey1985", dict(TWOMEY, group="60+"), level, sex, "mean")
+        require(cell["legibility"] == "clear", "Twomey's women's cell at L1-L2 is not read as clear")
+        require(mean < min(others) and mean < Decimal(old["value"]), "Twomey's women's mean at L1-L2 is not below "
+                                                                      "their other levels and their elders'")
         said += (". The cell, %s, is printed clearly, yet its mean is below these women's other four levels (%s to "
-                 "%s) and below the same level at 60 and over (%s)"
-                 % (cell["printed_as"], min(others), max(others), old))
+                 "%s) and below the same level at %s (%s)"
+                 % (cell["printed_as"], min(others), max(others), age_words(old["group"]), old["value"]))
     return said
 
 
+# What the two papers read here say of how Eisenstein measured; the reading holds neither sentence, so their pages
+# are typed (above)
+EISENSTEIN_METHOD = ("Chaudhary names Eisenstein 1977 among the workers who used plain radiography (p. 34), Alonge "
+                     "2021 calls it a study of Caucasian and Negroid bone specimens (p. 75)")
+
+
 def eisenstein_note(reading, level):
-    """Where the Eisenstein values come from, and the other group Chaudhary prints beside them."""
+    """Where the Eisenstein values come from, the other group Chaudhary prints beside them, and what the two papers
+    read here say of how Eisenstein measured."""
+    own = one_cell(reading, "chaudhary2015", SOURCES[(LEVELS, "Eisenstein 1977", "canal_w")][1], level, "M", "mean")
     zulu = one_cell(reading, "chaudhary2015", {"table": "Table II", "group": "Eisenstein 1977 (Zulus)"},
-                    level, "M", "mean")["printed_as"]
-    return ("Chaudhary's Table II (p. 35) prints these as Eisenstein's South African Caucasoid men; Eisenstein's own "
-            "paper has not been read, so this checks Chaudhary's copy, not Eisenstein. The cohort column names both "
-            "of Eisenstein's groups, but the values are the Caucasoid men's alone: the Zulu men's %s is another row. "
-            "Chaudhary does not say how Eisenstein measured, so the modality is not checked" % zulu)
+                    level, "M", "mean")
+    data = DATA_SAID[(LEVELS, "Eisenstein 1977", "canal_w")]
+    return ("Chaudhary's Table II (p. %s) prints these as Eisenstein's South African Caucasoid men; Eisenstein's own "
+            "paper has not been read, so this checks Chaudhary's copy, not Eisenstein. The cohort column, %s, names "
+            "both of Eisenstein's groups, but the values are the Caucasoid men's alone: the Zulu men's %s is another "
+            "row (p. %s). How Eisenstein measured is not known here: %s, and the modality column says %s"
+            % (own["journal_page"], data["cohort"], zulu["printed_as"], zulu["journal_page"], EISENSTEIN_METHOD,
+               data["modality"]))
 
 
 def chaudhary_range_note(reading, level):
     """The SD that Table I's range of mean +/- 3 SD implies, beside the SD it prints."""
-    cell = {"table": "Table I", "measure_label": "Interpedicular distance (mm)"}
-    low, high = (one_cell(reading, "chaudhary2015", cell, level, "M", k)["value"] for k in ("mean-3sd", "mean+3sd"))
+    cell = SOURCES[(LEVELS, "Chaudhary 2015", "canal_w")][1]
+    low, high = (one_cell(reading, "chaudhary2015", cell, level, "M", k) for k in ("mean-3sd", "mean+3sd"))
     sd = one_cell(reading, "chaudhary2015", cell, level, "M", "sd")["value"]
-    return ("Table I's range of mean +/- 3 SD, %s to %s (p. 34), gives an SD of %s, where its SD column prints %s; "
+    implied = (Decimal(high["value"]) - Decimal(low["value"])) / 6
+    require(not rounds_to(sd, implied), "Chaudhary's range at %s gives the SD its column prints" % level)
+    return ("Table I's range of mean +/- 3 SD, %s to %s (p. %s), gives an SD of %s, where its SD column prints %s; "
             "one of the two is misprinted, and the data holds the column's"
-            % (low, high, format((Decimal(high) - Decimal(low)) / 6, "f"), sd))
+            % (low["value"], high["value"], low["journal_page"], hundredths(implied), sd))
 
 
 # (series, measure, level, sex, kind) -> what a reader of an agreeing value should still know, or how to compute it
@@ -440,6 +612,14 @@ NOTES.update({
     for level in ("L4", "L5")
 })
 
+# (data file, series, measure) -> {a column of the data: what the series' notes say it holds, or how to compute that
+# from the reading}; a note fails when its value's data row holds another, so it cannot outlive the data it describes
+DATA_SAID = {
+    (LEVELS, "Twomey 1985", "disc"): {"n": lambda reading: str(twomey_cadavers(reading)[0])},
+    (PEDICLES, "Mitra", "PDW"): {"n": lambda reading: str(sum(mitra_people()))},
+    (LEVELS, "Eisenstein 1977", "canal_w"): {"cohort": "Caucasoid and Zulu", "modality": "dry bone"},
+}
+
 
 def rows_of(name):
     lines = [l for l in (DATA / name).read_text(encoding="utf-8").splitlines() if not l.startswith("#")]
@@ -455,10 +635,21 @@ def level_key(level):
     return level.replace("-", "").replace("/", "").replace(" ", "")
 
 
-def rounds_to(recorded, number):
-    """A number agrees with a recorded value when, rounded half up to the recorded decimals, it equals it."""
-    q = Decimal(1).scaleb(-decimals(recorded))
+def rounds_to(recorded, number, places=None):
+    """A number agrees with a recorded value when, rounded half up to the recorded decimals, or to places where they
+    are given, it equals it."""
+    q = Decimal(1).scaleb(-(decimals(recorded) if places is None else places))
     return Decimal(number).quantize(q, rounding=ROUND_HALF_UP) == Decimal(recorded).quantize(q)
+
+
+def most_decimals(every):
+    """The most decimals each series is written with here, for each statistic: (file, series, measure, kind) ->
+    places."""
+    most = {}
+    for name, series, measure, _, _, kind, recorded, _ in every:
+        key = (name, series, measure, kind)
+        most[key] = max(most.get(key, 0), decimals(recorded))
+    return most
 
 
 def values():
@@ -527,31 +718,53 @@ def count_said(data_n, count, other, sex):
     return "The n column has %s; the %s are %s (%s)" % (data_n, WHO[sex], count["value"], where)
 
 
-def judge(reading, value):
-    """One output row for one value, and the problems it raises."""
+def data_unsaid(reading, data_key, data_row, key):
+    """The problems of a value's note that says a column of its data row holds what the row does not."""
+    problems = []
+    for column, said in DATA_SAID.get(data_key, {}).items():
+        said = said(reading) if callable(said) else said
+        if data_row[column] != said:
+            problems.append("%s: the note says the %s column holds %s, where it holds %s"
+                            % (key, column, said, data_row[column]))
+    return problems
+
+
+def judge(reading, value, places):
+    """One output row for one value, and the problems it raises: a finding, a note or a count that needs a cell the
+    reading does not hold once, or whose words the reading no longer bears out, is one of them."""
+    name, series, measure, level, sex, kind, recorded, data_row = value
+    row = {"file": name, "series": series, "measure": measure, "level": level, "sex": sex, "kind": kind,
+           "value": recorded, "paper": SOURCES[(name, series, measure)][0], "printed_as": "", "where": "",
+           "legibility": "", "result": "", "sd_printed": "", "n": data_row["n"], "n_printed": "", "finding": "",
+           "reproduced_by": "", "note": ""}
+    try:
+        return row, compare(reading, value, places, row)
+    except (LookupError, Untrue) as failed:
+        return row, ["%s: %s" % ((series, measure, level, sex, kind), failed)]
+
+
+def compare(reading, value, places, row):
+    """Fill one value's output row from the reading and give the problems it raises."""
     name, series, measure, level, sex, kind, recorded, data_row = value
     paper, labels = SOURCES[(name, series, measure)]
     key = (series, measure, level, sex, kind)
     finding, terms = FINDINGS.get(key, ("", None))
-    finding = finding(reading) if callable(finding) else finding
+    row["finding"] = finding(reading) if callable(finding) else finding
     note = NOTES.get(key, "")
-    note = note(reading) if callable(note) else note
-    row = {"file": name, "series": series, "measure": measure, "level": level, "sex": sex, "kind": kind,
-           "value": recorded, "paper": paper, "printed_as": "", "where": "", "legibility": "", "result": "",
-           "sd_printed": "", "n": data_row["n"], "n_printed": "", "finding": finding, "reproduced_by": "", "note": note}
+    row["note"] = note(reading) if callable(note) else note
+    problems = data_unsaid(reading, (name, series, measure), data_row, key) if key in NOTES else []
     if (name, series, measure) in COUNTS:
         count, other = count_of(reading, (name, series, measure), level, sex)
         row["n_printed"] = count["value"]
         if count["value"] != data_row["n"]:
-            row["note"] = ". ".join(s for s in (note, count_said(data_row["n"], count, other, sex)) if s)
-    problems = []
+            row["note"] = ". ".join(s for s in (row["note"], count_said(data_row["n"], count, other, sex)) if s)
     found = [] if labels is None else cells(reading, paper, labels, level, sex, kind)
     if labels is not None and len(found) != 1:
-        return row, ["%s: the selector picks %d cells" % (key, len(found))]
+        return problems + ["%s: the selector picks %d cells" % (key, len(found))]
     if found:
         c = found[0]
         row.update(printed_as=c["printed_as"], legibility=c["legibility"], where=where_of(paper, c))
-        row["result"] = "agrees" if rounds_to(recorded, in_data_units(paper, c["value"])) else "differs"
+        row["result"] = "agrees" if rounds_to(recorded, in_data_units(paper, c["value"]), places) else "differs"
         if kind == "mean" and not data_row["sd"]:
             sd = cells(reading, paper, labels, level, sex, "sd")
             if len(sd) != (0 if (name, series, measure) in MEANS_ONLY else 1):
@@ -561,30 +774,38 @@ def judge(reading, value):
     else:
         row["result"] = "not printed"
     if row["result"] == "agrees":
-        if finding:
+        if row["finding"]:
             problems.append("%s: agrees, yet FINDINGS explains a difference" % (key,))
-    elif not finding:
+    elif not row["finding"]:
         problems.append("%s: %s, and FINDINGS does not explain it" % (key, row["result"]))
     elif not terms:
         problems.append("%s: %s, and its finding names no calculation that reproduces it" % (key, row["result"]))
     else:
         number, where = reproduce(reading, terms, sex, kind)
         row["reproduced_by"] = "%s (%s)" % (format(number.normalize(), "f"), where)
-        if not rounds_to(recorded, number):
+        if not rounds_to(recorded, number, places):
             problems.append("%s: the finding's calculation gives %s, not %s" % (key, number, recorded))
-    return row, problems
+    return problems
 
 
 NUMBER = re.compile(r"\d+(?:[.,]\d+)*")
 
 
 def printed_numbers(text):
-    """Every number a printed cell shows, either sign, a comma read both as a decimal comma and as a thousands
-    separator."""
+    """Every number a printed cell shows, a comma read both as a decimal comma and as a thousands separator. A minus
+    sign directly before a number is its sign only with no digit, slash or closing bracket before it, so that the
+    dash of a range and the minus of +/- are not."""
     found = set()
-    for token in NUMBER.findall(text):
-        for spelled in {token.replace(",", ""), token.replace(",", ".")}:
-            found |= {Decimal(spelled), -Decimal(spelled)}
+    for match in NUMBER.finditer(text):
+        sign_at = match.start() - 1
+        before = text[sign_at - 1] if sign_at >= 1 else ""
+        negative = sign_at >= 0 and text[sign_at] == "-" and not (before.isdigit() or before in ("/", ")"))
+        for spelled in {match.group().replace(",", ""), match.group().replace(",", ".")}:
+            try:
+                number = Decimal(spelled)
+            except InvalidOperation:
+                continue
+            found.add(-number if negative else number)
     return found
 
 
@@ -608,8 +829,11 @@ def miscounted(out):
 def main(argv):
     reading = list(csv.DictReader(READING.read_text(encoding="ascii").splitlines()))
     out, problems = [], unprinted(reading)
-    for value in values():
-        row, found = judge(reading, value)
+    every = values()
+    most = most_decimals(every)
+    for value in every:
+        name, series, measure, _, _, kind, _, _ = value
+        row, found = judge(reading, value, most[(name, series, measure, kind)])
         out.append(row)
         problems += found
     problems += miscounted(out)
@@ -634,7 +858,8 @@ def main(argv):
     for k, v in sorted(counts.items()):
         print(f"{v:4d}  {k}")
     other_n = sum(1 for o in out if o["n_printed"] and o["n_printed"] != o["n"])
-    print(f"{other_n:4d}  values whose n is not the count of people the paper prints for them (n_printed)")
+    print(f"{other_n:4d}  values whose n_printed, the count of people the paper prints for them, is not their n "
+          f"(the six series COUNTS names)")
     for p in problems:
         print("  " + p)
     return 1 if problems else 0

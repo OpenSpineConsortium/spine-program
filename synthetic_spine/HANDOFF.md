@@ -21,15 +21,20 @@ was attempted, what failed and why, and what is left, so nothing is redone blind
   0.92 as published.
 - **Two adversarial reviews.** The first found the checker was blind to level and sex, so planted wrong values
   passed; everything since was rebuilt against its findings. The pull request records the second.
-- **The fifteen closed papers read from the page (2026-10-28, spine-program #238).** These are the papers whose full
-  text no script here may read. Greg sent ten as PDFs: the seven secondary pedicle series' own papers, Hinck 1966,
-  Tang 2016 and Bach 2019. Another thread of this project fetched the other five the same day from their publishers'
-  free copies: Griffith 2016, Twomey 1985, Alonge 2021, Ahmed 2019 and Chaudhary 2015. None is committed. Readers not
-  shown our values transcribed their tables from the page images (`verification/closed_page_reading.csv`), and the
-  nine typeset papers were also matched against their text layer. Of the 203 values these papers carry, 190 agree,
-  and each of the other 13 is reproduced by a calculation or by another paper's table
-  (`code/check_closed_reading.py`, run by `scripts/check.sh`). It answers the Olsewski and Robertson questions
-  below, and it found that the level table's n is each study's whole sample in every sex's row (item 4 below).
+- **The fifteen closed papers read from the page (2026-10-28, spine-program #238).** They are fifteen of the 29
+  papers whose full text no script here may read (`sources.csv`). The other 14 are Panjabi's three, read from the
+  page before; Ahn 2001, which supplies no value of its own; Eisenstein 1977, read through Chaudhary 2015; and the
+  nine PMC-held papers still unread (README, discrepancy 10; item 1 below). Greg sent ten as PDFs: the seven
+  secondary pedicle series' own papers, Hinck 1966, Tang 2016 and Bach 2019. Another thread of this project fetched
+  the other five the same day from their publishers' free copies: Griffith 2016, Twomey 1985, Alonge 2021, Ahmed
+  2019 and Chaudhary 2015. None is committed. Readers not shown our values transcribed the tables these values could
+  come from, whole or at the values' levels, from the page images (`verification/closed_page_reading.csv`), and the
+  nine typeset papers were also matched against their text layer. What the reading leaves out holds no value of the
+  data that the reading does not (README, "What the reading leaves out"). Of the 203 values these papers carry, 185
+  agree with their own papers and Eisenstein's five with Chaudhary's copy of them, and each of the other 13 is
+  reproduced by a calculation or by another paper's table (`code/check_closed_reading.py`, run by
+  `scripts/check.sh`). It answers the Olsewski and Robertson questions below, and it found that the level table's n
+  is each study's whole sample in every sex's row (item 4 below).
 
 ## How it was done, and what failed on the way
 
@@ -78,11 +83,12 @@ since:
 | Paywalled, no PMC copy | 3 | 34 | all | Ahn 2001 (Hinck 1966's values, read here from Hinck's own paper; Ahn's copy was not read), Tang 2016, and Twomey 1985, which is free in Acta Orthopaedica's archive. |
 | Tables are images | 1 | 20 | none | Pierro 2017 is open access, but PMC holds its tables as pictures. Not attempted; it needs the same page reading Panjabi had. |
 
-Panjabi's 70 values also fall outside the machine check, but the page reading covers them. The reading of the
-closed papers covers 177 more: the 38 secondary pedicle values, Hinck's 10, Tang's 4, Twomey's 20, the 65 of the
-three unindexed papers and Griffith's 40. It also checks from the page the 26 values of those papers that only an
-abstract had confirmed (Bach's 24 and two of Mitra's). That leaves 247 values that no reading has checked: the 227
-of the nine PMC-held papers still unread (README, discrepancy 10) and Pierro's 20.
+Panjabi's 70 values also fall outside the machine check, but the page reading covers them. The reading of the closed
+papers covers 177 more: the 38 secondary pedicle values, Hinck's 10, Tang's 4, Twomey's 20, the 65 read from the
+three unindexed papers (Eisenstein's five through Chaudhary's copy) and Griffith's 40. It also checks from the page
+the 26 values of those papers that only an abstract had confirmed (Bach's 24 and two of Mitra's). That leaves 247
+values that no reading has checked: the 227 of the nine PMC-held papers still unread (README, discrepancy 10) and
+Pierro's 20.
 
 **Of four data questions, two are answered from the page and two are open.** The copied tables are left as their
 sources have them, because each needs the paper or your decision:
@@ -91,9 +97,9 @@ sources have them, because each needs the paper or your decision:
   - the combined-sample SD from the paper's per-sex Table 5 gives 1.64, 1.98, 2.00, 2.21, 2.69 (the same formula
     reproduces the paper's printed canal-width SDs within 0.01);
   - the average of the two sexes' SDs gives 1.62, 1.92, 1.93, 2.19, 2.70.
-- **Olsewski 1990's pedicle widths**, answered: they are the paper's Table II, 21 cadaver spines measured directly,
-  sexes pooled (p. 544), and Arockiaraj 2025's transcription is the one that differs. Its five values need no
-  change; its cohort row does (item 4 below).
+- **Olsewski 1990's pedicle widths**, answered: they are the paper's Table II (p. 544), 21 cadaver spines (p. 543)
+  measured directly, the sexes combined (p. 545), and Arockiaraj 2025's transcription is the one that differs. Its
+  five values need no change; its cohort row does (item 4 below).
 - **Robertson 2000's cohort columns**, answered: 10 dry-bone lumbosacral spines, wire-marked and radiographed
   coaxially, not 100 CT patients; the paper gives no origin, sex or age for them, and New Zealand is only where its
   authors worked. The series is Table 1's transverse width at the isthmus, the measure the table's
@@ -116,16 +122,24 @@ sources have them, because each needs the paper or your decision:
    the tenth, was read from the page on 2026-10-28.
 2. **Done on 2026-10-28:** the values of the paywalled, secondary and unindexed papers were read from their own
    papers' pages, Twomey 1985, Alonge 2021, Ahmed 2019 and Chaudhary 2015 among them; Hinck's from Hinck 1966
-   itself, since Ahn 2001, which the level table cites for them, was not read.
+   itself, since Ahn 2001, which the level table cites for them, was not read; and Eisenstein 1977's five from
+   Chaudhary's copy of them (item 3).
 3. **Read Eisenstein 1977 (J Bone Joint Surg Br) itself**, if its five values matter: they agree with Chaudhary's
-   copy of them, and Eisenstein's own paper has not been read here.
-4. **Correct the four cohort rows of the pedicle table** the page reading found wrong (Olsewski, Robertson, Zindrick,
-   Krag; README, "What follows from the reading"). Decide what the level table's n should hold: each study's whole
-   sample in every sex's row, as now, or the count of the people the row is of, which the reading gives for six
-   series (`n_printed` in the check: Bach's 109 men and 131 women of 240, Griffith's 540 of each of 1,080, Alonge's
-   54 and 66 of 120, Ahmed's 36 men of 80, Chaudhary's 150 men of 300, and Tang's 107 and 105 of 109). Decide
-   whether Yu's row should hold Yu's own means and Mitra's one method, and whether the women's columns that Ahmed,
-   Chaudhary and Alonge print should be added.
+   copy of them, and Eisenstein's own paper has not been read here. It would also say how Eisenstein measured, which
+   is not known here: Chaudhary names Eisenstein 1977 among the workers who used plain radiography (p. 34), Alonge
+   2021 calls it a study of Caucasian and Negroid bone specimens (p. 75), and the level table's modality, dry bone,
+   is typed in `data/make_reference_table.py` (line 82) with no source given.
+4. **Correct the four cohort rows of the pedicle table** the page reading found wrong (Olsewski, Robertson,
+   Zindrick, Krag; README, "What follows from the reading"). Decide what the level table's n should hold: each
+   study's whole sample in every sex's row, as now, or the count of the people the row is of, which the check sets
+   beside n for six series (`n_printed`: Bach's 109 men and 131 women of 240, Griffith's 540 of each of 1,080,
+   Alonge's 54 and 66 of 120, Ahmed's 36 men of 80, Chaudhary's 150 men of 300, and Tang's 107 and 105 of 109). Five
+   more series carry an n that is not the count of the people a value is of, and `n_printed` leaves them out:
+   Twomey's 20 carry 204, every cadaver of every age, where its Table 2 prints no n and Table 1's young adults are
+   24 men and 24 women; Mitra's L1 and L5 are of 18 men, where n is 20; Olsewski's are of 41 or 42 pedicles of 21
+   spines, and Robertson's of 10 specimens, where n is 100; and Hinck prints 59 to 50 per level, whose range is its
+   n (README, "What follows from the reading"). Decide whether Yu's row should hold Yu's own means and Mitra's one
+   method, and whether the women's columns that Ahmed, Chaudhary and Alonge print should be added.
 5. **Read Pierro 2017's table images** (open access).
 6. **Decide the two open data questions**, and the corrections of item 4. Then correct them in CTSpinoPelvic1K
    `morphometrics/`, as e887274 did for Panjabi, and re-copy here with `code/check_copies.py`.
