@@ -1,4 +1,4 @@
-# Handoff: what was done, where it falls short, and what needs a person (2026-10-27)
+# Handoff: what was done, where it falls short, and what needs a person (2026-10-27, updated 2026-10-28)
 
 Written for Greg, who takes this on from here. README.md describes the folder and its findings; this file says what
 was attempted, what failed and why, and what is left, so nothing is redone blind.
@@ -21,6 +21,13 @@ was attempted, what failed and why, and what is left, so nothing is redone blind
   0.92 as published.
 - **Two adversarial reviews.** The first found the checker was blind to level and sex, so planted wrong values
   passed; everything since was rebuilt against its findings. The pull request records the second.
+- **The ten closed-access papers read from the page (2026-10-28, spine-program #238).** Greg sent their PDFs, which
+  are not committed: the seven secondary pedicle series' own papers, Hinck 1966, Tang 2016 and Bach 2019. Readers
+  not shown our values transcribed their tables from the page images (`verification/closed_page_reading.csv`), and
+  the five typeset papers were also matched against their text layer. Of the 78 values these papers carry,
+  65 agree, and each of the other 13 is reproduced by a calculation or by another paper's table
+  (`code/check_closed_reading.py`, run by `scripts/check.sh`). It answers the Olsewski and Robertson questions
+  below.
 
 ## How it was done, and what failed on the way
 
@@ -63,24 +70,28 @@ Each of these was tried, failed, and was replaced. They are listed so the same m
 | cause | papers | values | why the machine stops |
 |---|---|---|---|
 | PMC holds the paper, outside its open-access subset | 10 | 267 | NCBI serves full text for text mining only from the open-access subset. A person can read these on PMC's site; a script may not fetch them in bulk. |
-| Paper not found anywhere | 3 | 65 | Alonge 2021, Ahmed 2019 and Chaudhary 2015 are in neither Crossref nor PubMed; their journals are not indexed there. |
-| Secondary series, transcribing paper not named | 7 | 38 | The pedicle table took these from a later paper's comparison table and did not record which. |
-| Paywalled, no PMC copy | 3 | 34 | Ahn 2001 (Hinck 1966's values), Twomey 1985, Tang 2016. |
+| Not indexed in Crossref or PubMed | 3 | 65 | Alonge 2021, Ahmed 2019 and Chaudhary 2015. Each is open on its journal's own site (README, discrepancy 9), but this session's proxy refuses those sites to scripts. |
+| Secondary series, transcribing paper not named | 7 | 38 | The pedicle table took these from a later paper's comparison table and did not record which. Read from their own papers' pages since. |
+| Paywalled, no PMC copy | 3 | 34 | Ahn 2001 (Hinck 1966's values) and Tang 2016, both read from the page since; Twomey 1985, free in Acta Orthopaedica's archive, behind the same proxy refusal. |
 | Tables are images | 1 | 20 | Pierro 2017 is open access, but PMC holds its tables as pictures. Not attempted; it needs the same page reading Panjabi had. |
 
-Panjabi's 70 values also fall outside the machine check, but the page reading covers them.
+Panjabi's 70 values also fall outside the machine check, but the page reading covers them. The reading of the
+closed-access papers covers 52 more: the 38 secondary pedicle values, Hinck's 10 and Tang's 4. It also checks from
+the page the 26 values of those papers that only an abstract had confirmed (Bach's 24 and two of Mitra's).
 
-**Four data questions are open.** The copied tables are left as their sources have them, because each needs the
-paper or your decision:
+**Of four data questions, two are answered from the page and two are open.** The copied tables are left as their
+sources have them, because each needs the paper or your decision:
 - **Cizmic 2023's five canal-depth SDs** (1.66, 1.93, 1.95, 2.2, 2.71) are printed nowhere in the paper, and a08c821
   does not say where they came from. Two derivations were tried and neither reproduces them:
   - the combined-sample SD from the paper's per-sex Table 5 gives 1.64, 1.98, 2.00, 2.21, 2.69 (the same formula
     reproduces the paper's printed canal-width SDs within 0.01);
   - the average of the two sexes' SDs gives 1.62, 1.92, 1.93, 2.19, 2.70.
-- **Olsewski 1990's pedicle widths** disagree at L2 to L5 with Arockiaraj 2025's transcription of the same paper. The
-  JBJS paper decides.
-- **Robertson 2000's cohort columns** say 100 CT patients from New Zealand. The paper's abstract describes cadaveric
-  vertebrae on coaxial radiographs, and Bonczar lists it as radiographs of 10.
+- **Olsewski 1990's pedicle widths**, answered: they are the paper's Table II, 21 cadaver spines measured directly,
+  sexes pooled (p. 544), and Arockiaraj 2025's transcription is the one that differs. The table needs no change.
+- **Robertson 2000's cohort columns**, answered: 10 dry-bone lumbosacral spines, wire-marked and radiographed
+  coaxially, not 100 CT patients. The series is also the pedicle's full width, not its isthmus, which is a separate
+  row of the same table (left 9.9, 10.0, 12.3, 13.4, 13.2 at L1 to L5). Correcting the cohort columns, and choosing
+  between the width and the isthmus, is yours.
 - **Yadav 2020, women, L3-L4 disc SD of 6.87** is four to five times its neighbours. The paper is in PMC but outside
   the open-access subset.
 
@@ -95,16 +106,18 @@ paper or your decision:
 
 1. **Read the 10 PMC-held papers on PMC's site** and compare their values with `verification/values.csv` (filter
    `paper`). Yadav and Tan carry the most values (72 and 60). The links are in `SOURCES.md`.
-2. **Get the paywalled and secondary papers** through the library or interlibrary loan: Ahn 2001, Twomey 1985,
-   Tang 2016, and the seven secondary pedicle series' own papers (Zindrick, Yu, Olsewski, Hou, Krag, Mitra,
-   Robertson). For a scan, a blind reading of the page images, as Panjabi had, is the check. Olsewski settles
-   question 2 above.
-3. **Find Alonge 2021, Ahmed 2019 and Chaudhary 2015** on their journals' own sites or in print. If they cannot be
-   found, their 65 values have no checkable source. Eisenstein 1977 (JBJS Br) can be read directly instead of through
-   Chaudhary.
-4. **Read Pierro 2017's table images** (open access).
-5. **Decide the four open data questions.** Then correct them in CTSpinoPelvic1K `morphometrics/`, as e887274 did for
-   Panjabi, and re-copy here with `code/check_copies.py`.
+2. **Done on 2026-10-28 but for Twomey 1985:** the paywalled and secondary papers were read from the page. Twomey
+   1985 is free in Acta Orthopaedica's archive (https://actaorthop.org/actao/article/view/23300); download it and
+   read it from the page the same way.
+3. **Read Alonge 2021, Ahmed 2019 and Chaudhary 2015**, found open on their journals' own sites (README, discrepancy
+   9), from the page. Eisenstein 1977 (JBJS Br) can be read directly instead of through Chaudhary.
+4. **Correct the four cohort rows of the pedicle table** the page reading found wrong (Olsewski, Robertson, Zindrick,
+   Krag; README, "What follows from the reading"), and Bach 2019's n in the level table, 240 in each sex's row where
+   the men are 109 and the women 131. Decide whether Yu's row should hold Yu's own means, Mitra's one method, and
+   Robertson's the isthmus.
+5. **Read Pierro 2017's table images** (open access).
+6. **Decide the two open data questions**, and the corrections of item 4. Then correct them in CTSpinoPelvic1K
+   `morphometrics/`, as e887274 did for Panjabi, and re-copy here with `code/check_copies.py`.
 
 ## Not started: every measurement, not seven
 

@@ -71,6 +71,7 @@ All values are in millimetres.
 | `verification/values.csv` | Every value against its paper: the result, and the table cell or the sentence that confirms it. |
 | `verification/series.csv` | The same per series. |
 | `verification/panjabi_page_reading.csv`, `verification/panjabi_page_reading_check.csv` | A blind reading of Panjabi's printed tables, and every Panjabi row here against it. |
+| `verification/closed_page_reading.csv`, `verification/closed_page_reading_check.csv` | A blind reading of the tables of ten closed-access papers, and every value here from those papers against it. |
 | `verification/spread.csv` | How far the series disagree, per measure and level. |
 | `figures/series_by_level.png`, `.pdf` | Every series by level, one panel per measure. |
 | `code/` | The scripts below. All but the plot are standard library only. |
@@ -89,12 +90,14 @@ figure data as the article was built, with 0.92.
 | Resolve every paper to DOI, PubMed and PMC, keeping the raw answers | `python3 code/resolve_sources.py [paper ...]` | network (Crossref, NCBI) |
 | Check every value against its paper, in context | `python3 code/verify_tables.py` | network on the first run (full texts and abstracts cached in `.cache/`, not committed) |
 | Check Panjabi's values against the blind page reading | `python3 code/check_page_reading.py` | nothing |
+| Check the closed-access papers' values against their blind page reading | `python3 code/check_closed_reading.py` | nothing |
 | How far the series disagree | `python3 code/spread.py` | nothing |
 | Write `sources.csv` and `SOURCES.md` | `python3 code/render_sources.py` | nothing |
 | Draw every series | `python3 code/plot_series.py` | matplotlib |
 
 On Windows the interpreter is `python`. `bash scripts/check.sh` at the repository root runs every step that needs no
-network: the copies, the page reading, the spread, and whether the generated pages are current (`--check` on each).
+network: the copies, the two page readings, the spread, and whether the generated pages are current (`--check` on
+each).
 Do not run a generator inside `data/`: Python's csv writer ends rows with CRLF and would rewrite a committed table;
 `check_copies.py` runs both in a temporary folder.
 
@@ -106,6 +109,7 @@ To read a paper, use `SOURCES.md`.
   reading used: in `CTSpinoPelvic1K-1/`, `PANJABI_1991_FULL.pdf` and `PANJABI_1991_FULL_fixed.pdf` (thoracic, complete)
   and `cervical-human-vertebrae-quantitative-three-dimensional.pdf` (cervical); in `CTSpinoPelvic1K-1/MANUAL_REFS/`,
   `panjabi1991.pdf` (thoracic, without p. 892) and `panjabi1992.pdf` (lumbar).
+  The ten closed-access papers read on 2026-10-28 came from Greg the same way, and are not committed either.
 
 ## Read before using a value
 
@@ -185,6 +189,79 @@ papers print oddly: the thoracic text gives T1's posterior height as 14.3 mm whe
 cervical PDWl SEM at C2 is printed 0.07, against 0.32 to 0.64 elsewhere; C2 prints a dash for the upper end plate and
 posterior height.
 
+**The closed-access papers, read from the page (2026-10-28).** Greg sent the PDFs of ten papers that have no open full
+text (spine-program #238): the own papers of the seven secondary pedicle series, Hinck 1966, Tang 2016 and Bach 2019.
+Readers who were not shown any table here transcribed, from the page images, every table these values could come
+from (`verification/closed_page_reading.csv`: 4,943 rows, one per printed cell and statistic, each as printed, with
+its table and pages). Each reader was told to read every table twice, from fresh crops, and to mark a cell whose two
+reads differed as unclear. Five of the papers are typeset (Mitra, Robertson, Yu, Tang, Bach), and every number read
+from their tables and text was also found on the publisher's own text layer; Bach's figures are pictures, so the
+108 data labels read from them have none. `code/check_closed_reading.py` sets the 78 values these
+papers carry beside the cells. Where a value differs, the script also holds the calculation, or the other paper's
+table, that reproduces it, and fails if it stops doing so. Of the 78:
+- **65 agree** with their own paper's cells. Tang's four agree once its centimetres are read as millimetres, and
+  Bach's 24 are printed in its Results and abstract, not in a table.
+- **13 do not, and each is reproduced by a calculation or by another paper's table:**
+  - Mitra's L2 to L4 (3) are its CT means over all 20 cadavers, where its L1 and L5 are the men's direct means.
+  - Krag's five are printed only in Yu 2015's comparison table, not in Krag's paper.
+  - Yu's five are the midpoints of two of its age groups' means, not its overall means.
+
+| series | what the paper measured | where the series' values are in it |
+|---|---|---|
+| Zindrick 1987 | post-mortem specimens, on radiographs of the disarticulated vertebrae and on CT; its counts are of studies (547 in Table 1), and it gives no count of specimens or people | Table 1, the transverse isthmus width (p. 161): all ten agree |
+| Hou 1993 | 40 dry columns, T9 to L5, 25 male and 15 female, Chinese; Vernier caliper | Table 1, both sexes (p. 1852): all five agree |
+| Olsewski 1990 | 21 embalmed cadaver spines, 12 men and 9 women, 41 or 42 pedicles per level; the paper's other parts are 49 cadavers and 51 patients | Table II, measured directly, sexes pooled (p. 544): all five agree |
+| Mitra 2002 | 20 cadavers, 18 male and 2 female, Indian; measured directly and on CT | L1 and L5 are the men's direct means, as the abstract gives them; L2 to L4 are the CT means of all 20 (Table 1, p. 455) |
+| Robertson 2000 | 10 dry-bone lumbosacral spines, 100 lumbar pedicles, wire-marked and radiographed coaxially, corrected for magnification | Table 1's left "Width" (p. 711): all five agree, but it is not the isthmus (below) |
+| Krag 1988 | CT of 91 vertebrae of 41 living patients, 14 women and 27 men; 8 cadaver vertebrae sectioned to validate it | none: Krag prints no mean width; Yu 2015's Table 5 (p. 1645) prints the five under Krag's name |
+| Yu 2015 | 503 dry skeletons of the Hamann-Todd collection, Cleveland, 404 male and 99 female; digital caliper, the two sides averaged | none as Yu's own, whose overall means are 8.52, 8.66, 10.46, 13.19 and 18.33 (Table 5, p. 1645); the five are midpoints of Table 3's age groups (p. 1642) |
+| Hinck 1966 | 474 AP spine radiographs of white patients of the University of Oregon, taken for other reasons, 121 of them of adults; calipers on 40-inch films, no correction for magnification | Tables IA and II, adults over 18, sexes combined (pp. 142, 145): all ten agree, so Ahn 2001's copy is exact |
+| Tang 2016 | T2-weighted 1.5 T MRI of 109 adults aged 20 to 40, 55 women and 54 men, from the University Hospital of the University of Utah, Salt Lake City; discs of Pfirrmann grade V left out with their end plates | Table 4's frontal diameter of the caudal end plate, all subjects, of the disc above each level (p. 4120): all four agree once its centimetres are read as millimetres |
+| Bach 2019 | CT of 240 people scanned for complaints other than the spine at the University of South Florida, Tampa, 109 men and 131 women from their teens to their eighties (its age ranges disagree between abstract, methods and results); one neuroradiologist placed the points on 3D reconstructions | the Results' average disc height by sex (p. e108), which the abstract repeats: all 24 agree; Table 6 prints another average (below) |
+
+What follows from the reading:
+- **Part of the pedicle table's spread is definitional, not population.** Robertson's width is "the dimension from
+  the most medial to lateral extent of the pedicle" on the coaxial view (p. 710); the narrowest diameter, the isthmus,
+  is a separate row of the same table. At L5 the width is 21.6 mm and the isthmus 13.2 mm, so the pedicle table's
+  header, which calls the New Zealand series high, compares a different measure. The table carries the left side
+  only; whether that is the specimen's left or the reader's is not said.
+- **One series mixes two methods.** Mitra's L1 and L5 are the men's direct means, 7.05 and 16.19, which the abstract
+  quotes. L2 to L4 are CT means over all 20 cadavers: (18 x 7.59 + 2 x 6.15) / 20 = 7.446 at L2, and likewise 8.51
+  and 9.709. The table's modality column says "direct".
+- **Two secondary series hold values their own papers do not print.** Krag's five are in Yu 2015's Table 5, which
+  says Krag measured on CT; the series was evidently read there, and how Yu came by them is not said. Yu's five (8.55,
+  8.65, 10.43, 13.06, 18.03) are, at every level, the midpoint of Table 3's means for its youngest age group (30 years
+  or less) and for 50 to 69 years: (8.41 + 8.68) / 2 = 8.545 at L1. From L1 to L4 those two are the lowest and highest
+  of its four age groups, which fits the table's citation, "midpoint of published range". At L5 the oldest group's
+  19.15 is higher still, so the same two groups were taken there too. The midpoint of two group means is not a mean
+  of the 503 specimens.
+- **Yu 2015's Table 5 holds Zindrick's, Olsewski's and Hou's values exactly as the pedicle table has them**, beside
+  Krag's. That makes it the likeliest paper the table read those four from, though the three agree with their own
+  papers too. Mitra's values in it (6.94, 7.72, 8.86, 11.37, 15.85) are not the table's, and Robertson is not in it.
+- **The cohort columns are wrong in four pedicle rows.** Olsewski's "cadaveric + patients, 100" adds the paper's 49
+  cadavers and 51 patients, but the values are 21 cadaver spines. Robertson's "patients New Zealand, 100, CT" is 10
+  dry-bone spines on radiographs. Zindrick's "caliper" was radiographs and CT. Krag's "CT vs cut cadaver" was CT of
+  living patients, with a sectioned-cadaver check of 8 vertebrae.
+- **Three series print an SD the table leaves out:** Hou (1.2, 1.3, 1.6, 1.8, 2.7), Olsewski (2.3, 2.1, 2.5, 2.5, 3.7)
+  and Robertson's left width (2.5, 3.0, 2.6, 3.7, 3.9), each at L1 to L5 (`sd_printed` in the check). Yu prints SDs
+  only by group, not overall.
+- **Hinck's canal widths are film distances.** They were measured on 40-inch anteroposterior films with no correction
+  for magnification, as Chaudhary's row says of its own values ("uncorrected") and Hinck's does not.
+- **Tang names an end plate by its disc, in centimetres.** The data's L4 upper end-plate width, 50.5 mm, is Tang's
+  frontal diameter of the caudal end plate of the L3/L4 disc, 5.05 cm (Table 4, p. 4120). Its 109 subjects were 20
+  to 40 years old, and its cells count 107 and 105 people, since discs of Pfirrmann grade V were left out with their
+  end plates.
+- **Bach's own Table 6 prints another average disc height.** The 24 values are the Results' and the abstract's
+  average, the mean of the anterior, middle and posterior heights over all ages: Tables 2 and 3's decade rows of that
+  mean, weighted by Table 1's counts, give them to their rounding (5.57 for men at T12/L1, printed 5.6; `note` in the
+  check). Table 6, the paper's table of all ages by sex, prints an "Average disc height" 0.2 to 0.9 mm lower (5.02
+  for men at T12/L1), which is the mean of its anterior and posterior rows alone. Figure 8, which the Results cite for
+  the values, prints a third set (5.656725 for men at T12/L1). The Results do not say what their +/- is; pooled from
+  the decade rows it is the size of an SD over all the people of one sex (1.10 for men at T12/L1, printed 1.1), not
+  of an SE. The table's n of 240 counts both sexes in each sex's row: the men are 109 and the women 131. And 16 of
+  the 240, 8 of each sex, are in the decade Table 1 labels 10, whose ages start at 14 by the abstract; the cohort
+  column calls them all adults.
+
 ### Discrepancies
 
 They are recorded here; the copied tables are left as their sources have them.
@@ -197,10 +274,13 @@ They are recorded here; the copied tables are left as their sources have them.
    2.00, 2.21 and 2.69, and the average of the two sexes' SDs gives 1.62, 1.92, 1.93, 2.19 and 2.70. Neither is the
    table's five.
 2. **Olsewski 1990's pedicle widths** (8.20, 8.40, 10.20, 13.20, 20.10) disagree at L2 to L5 with Arockiaraj 2025's
-   transcription of the same paper (8.2, 8.3, 10.1, 12.9, 18.2). The paper (JBJS Am, paywalled) decides; the table
-   does not record where its values were read.
+   transcription of the same paper (8.2, 8.3, 10.1, 12.9, 18.2). Answered from the page (2026-10-28): the table's
+   five are Olsewski's Table II, measured directly on 21 disarticulated cadaver spines, sexes pooled (p. 544).
+   Arockiaraj's 8.3 at L2 is the same table's radiograph column, and its 10.1, 12.9 and 18.2 are in none of the
+   paper's three tables.
 3. **Zindrick 1987's SD at L3** is 2.60 in the table, where Arockiaraj 2025's Table 3, whose Zindrick row holds all
-   five of the series' means and the other four SDs, prints 2.61.
+   five of the series' means and the other four SDs, prints 2.61. Answered from the page: Zindrick's Table 1 prints
+   2.6 (p. 161), so the table agrees with the paper to its printed precision, and 2.61 is not what Zindrick prints.
 4. **Citations that do not match their papers** (`SOURCES.md` notes, generated from the resolver):
    - "Masharawi Y et al." is Abu-Leil S et al. (Masharawi a co-author), and article 1026, not 1023.
    - "Otsuki B et al." is Irie TY et al., and issue 7, not 6. The DOI built from the citation's article number
@@ -209,10 +289,15 @@ They are recorded here; the copied tables are left as their sources have them.
    - "van der Houwen 2009" is printed 2010 (Ann Biomed Eng 38(1)); "Shin 2024" is printed 2025 (Brain Spine
      5:104162).
 
+   - Both Amonoo-Kuofi papers and Eisenstein 1977 have one author, as PubMed's records in `sources_raw/` show, but
+     `SOURCES.md` writes "et al." after them: `code/render_sources.py` writes it after every first author.
+
    The figure's labels use the resolved first authors.
 5. **Robertson 2000's cohort columns are wrong.** The pedicle table says 100 CT patients from New Zealand; the paper's
    abstract describes cadaveric vertebrae marked with radiopaque material and imaged in the coaxial projection, and
-   Bonczar's Table 1 lists it as radiographs of 10.
+   Bonczar's Table 1 lists it as radiographs of 10. Answered from the page: 10 dry-bone lumbosacral spines, 100
+   lumbar pedicles, each wrapped in wire, radiographed coaxially and corrected for magnification (pp. 709-710). The
+   series is Table 1's left "Width", the pedicle's full medial-to-lateral extent, not its isthmus (above).
 6. **Moncada-Habib 2025 is the left pedicle only.** Its Table 2 prints the left (LPW) and right (RPW) widths apart; the
    table carries LPW. The right differs by up to 0.6 mm.
 7. **Yadav 2020, women, L3-L4 disc SD 6.87** is four to five times its neighbours (1.41, 1.65). The full text is not
@@ -221,13 +306,25 @@ They are recorded here; the copied tables are left as their sources have them.
    `panjabi_reference.csv` says the T11 and T12 end-plate widths exist only as a curve; Table 3 p. 892 prints them, and
    the generator has those values. The article's figure code labels "Otsuki 2020" and "Moncada-Habib 2023" carry the
    wrong years (Irie 2021; 2025).
-9. **Not found anywhere**: Alonge 2021 (Afr J Med Med Sci), Ahmed 2019 (J Chalmeda Anand Rao Inst Med Sci) and
-   Chaudhary 2015 (Int J Adv Res), in neither Crossref nor PubMed. Their citations are all there is, and Eisenstein
+9. **Not indexed**: Alonge 2021, Ahmed 2019 and Chaudhary 2015 are in neither Crossref nor PubMed, but each is open
+   on its journal's own site (2026-10-28):
+   - Alonge OJ, Adeolu AA, Omololu AB, Atalabi OM, "Lumbar spinal canal dimensions in Nigerians using computed
+     tomography scan", Afr J Med Med Sci 50(2), June 2021, pp. 69-76:
+     https://www.ojshostng.com/index.php/ajmms/en/article/view/1782
+   - Ahmed MA, Aditya M, Anitha T, Sailaja TK, "Radiological anatomy of the lumbar canal: a MRI study", J Chalmeda
+     Anand Rao Inst Med Sci 17(1), 2019, pp. 21-26 as its pages print them, not 21-27:
+     https://caims.in/assets/journal/2019_1/CAIMS%20JOURNAL___05.pdf
+   - Chaudhary S, Sarvesh, Batra APS, Gupta R, Swami S, "A radiographic study of interpedicular distance of the
+     lumbar vertebrae measured in plain antero-posterior radiographs", Int J Adv Res 3(8), 2015, pp. 33-36:
+     https://www.journalijar.com/uploads/2015/08/684_IJAR-4961.pdf
+
+   None was read here, since the proxy of the session that wrote this refuses those sites to scripts. Eisenstein
    1977's values were read through Chaudhary.
-10. **Not checkable here**: every paper with neither open full text nor an abstract that prints the values, among them
-    Tan 2004, Griffith 2016, Yadav 2020, Gilad 1985, Twomey 1985, Kunkel 2011, Tang 2016, Chen 2011 and both
-    Amonoo-Kuofi papers; Hinck 1966, read through Ahn 2001; and the six secondary pedicle series whose transcribing
-    paper is not named (Yu, Olsewski, Hou, Krag, Mitra, Robertson).
+10. **Not checkable here**: every paper with neither open full text nor an abstract that prints the values: Tan
+    2004, Griffith 2016, Yadav 2020, Gilad 1985, Twomey 1985, Kunkel 2011, Chen 2011 and both Amonoo-Kuofi papers.
+    Twomey 1985 is free in Acta Orthopaedica's archive (https://actaorthop.org/actao/article/view/23300, which
+    gives Twomey L, Taylor J, 56(6):496-499), behind the same refusal. Hinck 1966, Tang 2016, Bach 2019 and the
+    seven secondary pedicle series were checked against their own papers from the page instead (above).
 
 ### What the resolver does, and what it found
 
