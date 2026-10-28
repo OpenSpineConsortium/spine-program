@@ -29,12 +29,14 @@ was attempted, what failed and why, and what is left, so nothing is redone blind
   the other five the same day from their publishers' free copies: Griffith 2016, Twomey 1985, Alonge 2021, Ahmed
   2019 and Chaudhary 2015. None is committed. Readers not shown our values transcribed the tables these values could
   come from, whole or at the values' levels, from the page images (`verification/closed_page_reading.csv`), and the
-  nine typeset papers were also matched against their text layer. What the reading leaves out holds no value of the
-  data that the reading does not (README, "What the reading leaves out"). Of the 203 values these papers carry, 185
-  agree with their own papers and Eisenstein's five with Chaudhary's copy of them, and each of the other 13 is
-  reproduced by a calculation or by another paper's table (`code/check_closed_reading.py`, run by
-  `scripts/check.sh`). It answers the Olsewski and Robertson questions below, and it found that the level table's n
-  is each study's whole sample in every sex's row (item 4 below).
+  nine typeset papers were also matched against their text layer. What the reading leaves out holds no mean or SD of
+  the data that the reading does not; of the counts the papers print only in their text, the reading holds Ahmed's,
+  Chaudhary's and Tang's, and Hou's, Olsewski's and Robertson's are named in the README ("What the reading leaves
+  out"). Of the 203 values these papers carry, 185 agree with their own papers and Eisenstein's five with
+  Chaudhary's copy of them, and each of the other 13 is reproduced by a calculation or by another paper's table
+  (`code/check_closed_reading.py`, run by `scripts/check.sh`). It answers the Olsewski and Robertson questions
+  below, and it found that each sex-split series' n is its whole sample, in every sex's row (item 4 below). The pull
+  request that added the check, spine-program #239, records its three adversarial reviews.
 
 ## How it was done, and what failed on the way
 
@@ -130,16 +132,18 @@ sources have them, because each needs the paper or your decision:
    2021 calls it a study of Caucasian and Negroid bone specimens (p. 75), and the level table's modality, dry bone,
    is typed in `data/make_reference_table.py` (line 82) with no source given.
 4. **Correct the four cohort rows of the pedicle table** the page reading found wrong (Olsewski, Robertson,
-   Zindrick, Krag; README, "What follows from the reading"). Decide what the level table's n should hold: each
-   study's whole sample in every sex's row, as now, or the count of the people the row is of, which the check sets
-   beside n for six series (`n_printed`: Bach's 109 men and 131 women of 240, Griffith's 540 of each of 1,080,
-   Alonge's 54 and 66 of 120, Ahmed's 36 men of 80, Chaudhary's 150 men of 300, and Tang's 107 and 105 of 109). Five
-   more series carry an n that is not the count of the people a value is of, and `n_printed` leaves them out:
-   Twomey's 20 carry 204, every cadaver of every age, where its Table 2 prints no n and Table 1's young adults are
-   24 men and 24 women; Mitra's L1 and L5 are of 18 men, where n is 20; Olsewski's are of 41 or 42 pedicles of 21
-   spines, and Robertson's of 10 specimens, where n is 100; and Hinck prints 59 to 50 per level, whose range is its
-   n (README, "What follows from the reading"). Decide whether Yu's row should hold Yu's own means and Mitra's one
-   method, and whether the women's columns that Ahmed, Chaudhary and Alonge print should be added.
+   Zindrick, Krag; README, "What follows from the reading"). Decide what the level table's n should hold in a series
+   split by sex: its whole sample in every sex's row, as now, or the count of the people the row is of, which the
+   check sets beside n for six series (`n_printed`: Bach's 109 men and 131 women of 240, Griffith's 540 of each of
+   1,080, Alonge's 54 and 66 of 120, Ahmed's 36 men of 80, Chaudhary's 150 men of 300, and Tang's 107 and 105 of
+   109). Six more series carry an n that is not the count of the people a value is of, and `n_printed` leaves them
+   out: Twomey's 20 carry 204, every cadaver of every age, where its Table 2 prints no n and Table 1's young adults
+   are 24 men and 24 women; Mitra's L1 and L5 are of 18 men, where n is 20; Olsewski's are of 41 or 42 examples, as
+   Table II's footnote calls them, of 21 spines, and Robertson's of 10 specimens (p. 709, a passage the reading does
+   not hold), where n is 100; and Zindrick prints 26 to 56 studies per level and Hinck a sample size of 59 to 50 per
+   level, whose ranges are their n (README, "What follows from the reading"). Decide whether Yu's row should hold
+   Yu's own means and Mitra's one method, and whether the women's columns that Ahmed, Chaudhary and Alonge print
+   should be added.
 5. **Read Pierro 2017's table images** (open access).
 6. **Decide the two open data questions**, and the corrections of item 4. Then correct them in CTSpinoPelvic1K
    `morphometrics/`, as e887274 did for Panjabi, and re-copy here with `code/check_copies.py`.

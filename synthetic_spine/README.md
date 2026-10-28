@@ -200,17 +200,23 @@ copies: Griffith 2016, Twomey 1985, Alonge 2021, Ahmed 2019 and Chaudhary 2015, 
 Eisenstein 1977's values were read. The other 14 closed papers are not in this reading: Panjabi's three, read from
 the page before (above); Ahn 2001, which supplies no value of its own (the level table cites it for Hinck 1966's
 ten, read here from Hinck's own paper); Eisenstein 1977, whose five values were read through Chaudhary's copy; and
-the nine that PMC holds outside its open-access subset, whose 227 values neither a page reading nor an abstract has
-checked (discrepancy 10). Readers who were not shown any table here transcribed, from the page images, the tables
-these values could come from, whole or at the levels the values are at (`verification/closed_page_reading.csv`:
-6,316 rows, one per printed cell and statistic, each as printed, with its table and pages); what the reading leaves
-out is set out below the table. Fifteen of the rows were added after the blind reading, each read from its page
-image and found on the text layer too, and their notes say so: the counts of people by sex in Ahmed's, Chaudhary's
-and Tang's Methods, the discs Tang left out, and the three widths Yu's abstract and Results give. Each reader was
-told to read every table twice, from fresh crops, and to mark a cell whose two reads differed as unclear. Nine of
-the papers are typeset (Mitra, Robertson, Yu, Tang, Bach, Griffith, Alonge, Ahmed, Chaudhary), and every number read
-from their tables and text was also found on the publisher's own text layer. The figures of Bach, Griffith and Ahmed
-are pictures, so the 144 data labels read from them (108, 30 and 6) have no text layer to be found on.
+the nine that PMC holds outside its open-access subset, whose 232 values were not read from the page: Makino's
+abstract confirms its five means, and the other 227 are not checked (discrepancy 10). Readers who were not shown any
+table here transcribed, from the page images, the tables these values could come from, whole or at the levels the
+values are at (`verification/closed_page_reading.csv`: 6,316 rows, each as printed, with its table and pages: 6,061
+from 4,161 table cells, a row for each statistic a cell prints, 111 numbers from the text and 144 labels read off
+figures; 80 of the rows hold no value, 56 for a cell or a count the page leaves blank and 24 for a mark printed in
+place of a number); what the reading leaves out is set out below the table. Fifteen of the rows were added after the
+blind reading, each read from its page image and found on the text layer too, and their notes say so: the counts of
+people by sex in Ahmed's, Chaudhary's and Tang's Methods, the discs Tang left out, and the three widths Yu's
+abstract and Results give. Each reader was told to read every table twice, from fresh crops, and to mark as unclear
+a cell whose two reads differed or that the print leaves in doubt. Four rows are marked unclear, none of them used
+by the check: Zindrick's 38.6 at T12 in Table 5, beside a stray mark that may be a minus sign; Bach's SD printed
+"1." at L1/2 in Table 4, read so in both reads; and two labels of Bach's Figure 7 at L5/S1, 9.15 and 9.19, whose
+points nearly coincide, so that which sex each belongs to comes from the chart's convention. Nine of the papers are
+typeset (Mitra, Robertson, Yu, Tang, Bach, Griffith, Alonge, Ahmed, Chaudhary), and every number read from their
+tables and text was also found on the publisher's own text layer. The figures of Bach, Griffith and Ahmed are
+pictures, so the 144 data labels read from them (108, 30 and 6) have no text layer to be found on.
 `code/check_closed_reading.py` sets the 203 values these papers carry beside the cells. Where a value differs, the
 script also holds the calculation, or the other paper's table, that reproduces it, and fails if it stops doing so.
 Of the 203:
@@ -219,31 +225,31 @@ Of the 203:
   are printed in its Results and abstract, not in a table.
 - **13 do not, and each is reproduced by a calculation or by another paper's table:**
   - Mitra's L2 to L4 (3) are its CT means over all 20 cadavers, where its L1 and L5 are the men's direct means.
-  - Krag's five are printed only in Yu 2015's comparison table, not in Krag's paper.
+  - Krag's five are not in Krag's paper; Yu 2015's comparison table prints them under Krag's name.
   - Yu's five are the midpoints of two of its age groups' means, not its overall means.
 
 | series | what the paper measured | where the series' values are in it |
 |---|---|---|
 | Zindrick 1987 | post-mortem specimens, on radiographs of the disarticulated vertebrae and on CT; its counts are of studies (547 by Table 1's footnote, though its N column sums to 551), and it gives no count of specimens or people | Table 1, the transverse isthmus width (p. 161): all ten agree |
-| Hou 1993 | 40 dry columns, T9 to L5, 25 male and 15 female, Chinese; Vernier caliper | Table 1, both sexes (p. 1852): all five agree |
-| Olsewski 1990 | 21 embalmed cadaver spines, 12 men and 9 women (p. 543), 41 or 42 pedicles per level; the paper's other parts are 49 cadavers and 51 patients | Table II, measured directly (p. 544), the sexes combined (p. 545): all five agree |
-| Mitra 2002 | 20 cadavers, 18 male and 2 female, Indian; measured directly and on CT | L1 and L5 are the men's direct means, as the abstract gives them; L2 to L4 are the CT means of all 20 (Table 1, p. 455) |
-| Robertson 2000 | 10 dry-bone lumbosacral spines, 100 lumbar pedicles, wire-marked and radiographed coaxially, corrected for magnification | Table 1's left "Width" (p. 711), the transverse width at the isthmus: all five agree (below) |
-| Krag 1988 | CT of 91 vertebrae of 41 living patients, 14 women and 27 men; 8 cadaver vertebrae sectioned to validate it | none: Krag prints no table of mean widths, and its text gives about 7 mm from T9 to L1 and about 13 mm at L5 (12.6 mm by the 0 deg method, pp. 29-30); Yu 2015's Table 5 (p. 1645) prints the five under Krag's name, 15.15 at L5 |
-| Yu 2015 | 503 dry skeletons of the Hamann-Todd collection, Cleveland, 404 male and 99 female; digital caliper, the two sides averaged | none as Yu's own, whose overall means are 8.52, 8.66, 10.46, 13.19 and 18.33 (Table 5, p. 1645); the five are midpoints of Table 3's age groups (p. 1642) |
-| Hinck 1966 | 474 AP spine radiographs of white patients of the University of Oregon, taken for other reasons, 121 of them of adults; calipers on 40-inch films, no correction for magnification | Tables IA and II, adults over 18, sexes combined (pp. 142, 145): all ten agree; Ahn 2001's copy, which the level table cites, was not read |
-| Tang 2016 | T2-weighted 1.5 T MRI of 109 adults aged 20 to 40, 55 women and 54 men, from the University Hospital of the University of Utah, Salt Lake City; discs of Pfirrmann grade V left out with their end plates | Table 4's frontal diameter of the caudal end plate, all subjects, of the disc above each level (p. 4120): all four agree once its centimetres are read as millimetres |
-| Bach 2019 | CT of 240 people scanned for complaints other than the spine at the University of South Florida, Tampa, 109 men and 131 women from their teens to their eighties (its age ranges disagree between abstract, methods and results); one neuroradiologist placed the points on 3D reconstructions | the Results' average disc height by sex (p. e108), which the abstract repeats: all 24 agree; Table 6 prints another average (below) |
-| Griffith 2016 | CT of 1,080 ambulatory patients having abdominopelvic CT in Hong Kong, 540 men and 540 women, 90 of each sex in each decade from 21 to 80; one axial image per level through the mid-pedicles; the width from one pedicle's inner margin to the other's, the depth from the body's posterior margin to the arch at the base of the spinous process | Tables 4 (width) and 3 (depth), by sex (p. 675): all 40 agree |
-| Alonge 2021 | abdominal CT of 120 adults of Nigerian heritage in Lagos, 54 men and 66 women aged 18 to 65, not known to have lumbar symptoms; the width between the pedicles' inner borders where the pedicles are widest, the depth on the mid-sagittal cut from the body to the lamina | Tables 4 (width, p. 74) and 3 (depth, p. 73), by sex and level: all 30 agree |
-| Ahmed 2019 | 1.5 T MRI of 80 adults referred for low back pain in Karimnagar, Telangana, 36 men and 44 women aged 20 to 70; the width between the pedicles' inner borders on an axial image, the depth on the mid-sagittal image | Tables 2 (width, p. 24) and 1 (depth, p. 22), the men's columns: all 20 agree |
-| Chaudhary 2015 | plain AP radiographs of 300 adults read as normal in Sonepat, Haryana, 150 men and 150 women aged 25 to 40; the least distance between the pedicle shadows, with a scale calibrated to 0.5 mm, and no correction for magnification stated | Table I, the men's rows (p. 34): all ten agree |
+| Hou 1993 | 40 dry columns, T9 to L5, 25 male and 15 female, Chinese; Vernier caliper (pp. 1850-1851) | Table 1, both sexes (p. 1852): all five agree |
+| Olsewski 1990 | 21 embalmed cadaver spines, 12 men and 9 women (p. 543), 41 or 42 examples per level, as Table II's footnote calls them (p. 544), which fits both pedicles of each spine; the paper's other parts are 49 cadavers (p. 542) and 51 patients (p. 543) | Table II, measured directly (p. 544), the sexes combined (p. 545): all five agree |
+| Mitra 2002 | 20 cadavers, 18 male and 2 female, Indian; measured directly and on CT (p. 453) | L1 and L5 are the men's direct means, as the abstract gives them; L2 to L4 are the CT means of all 20 (Table 1, p. 455) |
+| Robertson 2000 | 10 dry-bone lumbosacral spines, 100 lumbar pedicles, wire-marked and radiographed coaxially (p. 709), corrected for magnification (p. 710) | Table 1's left "Width" (p. 711), the transverse width at the isthmus: all five agree (below) |
+| Krag 1988 | CT of 91 vertebrae of 41 living patients, 14 women and 27 men (p. 27); 8 cadaver vertebrae sectioned to validate it (pp. 27-28) | none: Krag prints no table of mean widths, and its text gives about 7 mm from T9 to L1 and about 13 mm at L5 (12.6 mm by the 0 deg method, pp. 29-30); Yu 2015's Table 5 (p. 1645) prints the five under Krag's name, 15.15 at L5 |
+| Yu 2015 | 503 dry skeletons of the Hamann-Todd collection, Cleveland, 404 male and 99 female; digital caliper, the two sides averaged (pp. 1639-1640) | none as Yu's own, whose overall means are 8.52, 8.66, 10.46, 13.19 and 18.33 (Table 5, p. 1645); the five are midpoints of Table 3's age groups (p. 1642) |
+| Hinck 1966 | 474 AP spine radiographs of white patients of the University of Oregon, taken for other reasons, 121 of them of adults (pp. 141-142); calipers on 40-inch films (p. 141), no correction for magnification described | Tables IA and II, adults over 18, sexes combined (pp. 142, 145): all ten agree; Ahn 2001's copy, which the level table cites, was not read |
+| Tang 2016 | T2-weighted 1.5 T MRI of 109 adults aged 20 to 40, 55 women and 54 men, from the University Hospital of the University of Utah, Salt Lake City; discs of Pfirrmann grade V left out with their end plates (p. 4117) | Table 4's frontal diameter of the caudal end plate, all subjects, of the disc above each level (p. 4120): all four agree once its centimetres are read as millimetres |
+| Bach 2019 | CT of 240 people scanned for complaints other than the spine at the University of South Florida, Tampa, 109 men and 131 women (p. e107) from their teens to their eighties, though its age ranges disagree: 14 to 83 and 14 to 89 in the abstract (p. e106), 10 to 80 in the methods (p. e107) and 14 to 79 in the results (p. e108); one neuroradiologist placed the points on 3D reconstructions (p. e107) | the Results' average disc height by sex (p. e108), which the abstract's results repeat: all 24 agree; Table 6 prints another average (below) |
+| Griffith 2016 | CT of 1,080 ambulatory patients having abdominopelvic CT in Hong Kong, 540 men and 540 women, 90 of each sex in each decade from 21 to 80 (p. 672); one axial image per level through the mid-pedicles (p. 672); the width from one pedicle's inner margin to the other's, the depth from the body's posterior margin to the arch at the base of the spinous process (p. 673) | Tables 4 (width) and 3 (depth), by sex (p. 675): all 40 agree |
+| Alonge 2021 | abdominal CT of 120 adults of Nigerian heritage in Lagos, 54 men and 66 women (Tables 1 to 4, pp. 73-74) aged 18 to 65, not known to have lumbar symptoms (pp. 69-71); the width between the pedicles' inner borders where the pedicles are widest (pp. 71, 75), the depth on the mid-sagittal cut from the body to the lamina (p. 71) | Tables 4 (width, p. 74) and 3 (depth, p. 73), by sex and level: all 30 agree |
+| Ahmed 2019 | 1.5 T MRI of 80 adults referred for low back pain in Karimnagar, Telangana, 36 men and 44 women aged 20 to 70 (pp. 21-22); the width between the pedicles' inner borders on an axial image, the depth on the mid-sagittal image | Tables 2 (width, p. 24) and 1 (depth, p. 22), the men's columns: all 20 agree |
+| Chaudhary 2015 | plain AP radiographs of 300 adults read as normal in Sonepat, Haryana, 150 men and 150 women aged 25 to 40 (pp. 33-34); the least distance between the pedicle shadows, with a scale calibrated to 0.5 mm (p. 34), and no correction for magnification stated | Table I, the men's rows (p. 34): all ten agree |
 | Eisenstein 1977 | not read here; Chaudhary names it among the workers who used plain radiography (p. 34), Alonge 2021 calls it a study of Caucasian and Negroid bone specimens (p. 75), and the level table says dry bone | Chaudhary's Table II, the South African Caucasoid men (p. 35): all five agree with that copy |
-| Twomey 1985 | 204 post-mortem lumbar spines, T12 to S2, of every age, 37 of them children's; disc height as the area of the disc's median section, traced with an image analyser, divided by its antero-posterior diameter | Table 2, the group it heads 20-35, by sex (p. 497): all 20 agree |
+| Twomey 1985 | 204 post-mortem lumbar spines, T12 to S2, of every age, 37 of them children's (Table 1, p. 496); disc height as the area of the disc's median section, traced with an image analyser, divided by its antero-posterior diameter | Table 2, the group it heads 20-35, by sex (p. 497): all 20 agree |
 
 What the reading leaves out. A last pass on 2026-10-28 set each paper's reading beside its pages, table by table,
-figure by figure and passage by passage. None of what the reading leaves out prints a value of the data that the
-reading does not hold.
+figure by figure and passage by passage. None of what the reading leaves out prints a value of the data, a mean or
+an SD, that the reading does not hold; the counts it leaves out are named below.
 - **Read whole.** The tables of Olsewski, Mitra, Robertson, Ahmed, Chaudhary and Alonge; Twomey's, but for three
   numbers in two captions (Table 1's total of 204 cadavers, Table 3's t test); Bach's Tables 1 to 8 and the labels
   of Figures 2 to 8, but not its Tables 9 to 12, of the people's age, height, weight and body mass index; and
@@ -256,30 +262,47 @@ reading does not hold.
   give; its Tables 1 to 3 (the measures' definitions, the subjects, the measurements' reliability) are not read.
   Yu's Tables 3 to 5 are read but for the P rows of Tables 3 and 4, and its Tables 1 (the specimens by age, sex and
   race) and 2 (regressions) are not.
-- **Text and figures.** 111 numbers were read from the text, from the passages a value or its count could come from,
-  and 144 from figures, the data labels printed on them. The passages left out that print a value's measure give a
-  table's cells again: Zindrick p. 161; Mitra's abstract, Results and Discussion, though one sentence gives the
-  women's L1 width as the men's and another prints the CT widths in cm; Robertson p. 713; Ahmed pp. 22 and 23; and
-  Alonge p. 73, whose sexes at L3 are the other way round from its Table 3 (below). The figures that draw the
-  measure print no number on it, among them Krag's Figure 5, the only place Krag gives a mean diameter at each
-  level, and Yu's Figure 2, the only place Yu gives an SD over all its specimens. Alonge's Figures 1 to 3 carry
-  labels on single CT images that could not be read even at 600 dpi; no level is printed beside them.
+- **Text and figures.** 111 numbers were read from the text: 90 from the passages a value or its count could come
+  from, Alonge's six Torg ratios (pp. 73-74), and the fifteen rows added after the blind reading (above). 144 were
+  read from figures, the data labels printed on them. The passages left out that print a mean or an SD of a value's
+  measure give a table's cells again, some of them cells above the rows read: Zindrick p. 161, at L5, L1 and T5;
+  Hou's T9 widths by sex (pp. 1850-1851); Mitra's abstract, Results and Discussion, though two sentences give a
+  women's L1 width as the men's (5.95, measured directly, p. 454; 5.85, on CT and printed in cm, p. 456); Robertson
+  p. 713; Ahmed pp. 22 and 23; Alonge's means and SDs over all levels (pp. 69, 73 and 75), its Tables 1 and 2
+  rounded; and Alonge p. 73, whose sexes at L3 are the other way round from its Table 3 (below). Other passages left
+  out print numbers that are no table's cells and no value of the data: Hou's smallest widths (p. 1852); Mitra's two
+  specimens under 5, printed in cm (p. 454), and a few as low as 3 mm (p. 457); Yu's ranges, 9.09 to 29.06 mm at L5
+  and 3.92 to 18.74 mm at L1, and its share of pedicles under 4.5 mm (p. 1640); Griffith's lowest-quartile cut-offs
+  (p. 678), which repeat labels of Figures S2 and S1 that the reading holds; and Hinck's pp. 143-144, left out
+  whole, whose numbers are on the difference between the sexes, on growth and on the SDs. The figures left out print
+  no number on the measure but Alonge's Figures 1 to 3, whose labels on single CT images could not be read even at
+  600 dpi and have no level beside them. Among those that print none are Krag's Figure 5, the only place Krag gives
+  a mean diameter at each level, and Yu's Figure 2, the only place Yu gives an SD over all its specimens.
+- **Counts in the text.** Three papers print the count of what their values are of only in their text, and the
+  reading leaves it out: Hou's 40 specimens, 25 male and 15 female (pp. 1850-1851), whose 40 is the data's n;
+  Olsewski's 21 spines, 12 men and 9 women (p. 543), whose 21 the reading holds only in the label of its group; and
+  Robertson's ten specimens, 100 lumbar pedicles and 20 at S1 (p. 709). The counts the reading holds from the text
+  are Ahmed's, Chaudhary's and Tang's, added after the blind reading (above).
 
 What follows from the reading:
-- **The level table's n is a study's whole sample, in every sex's row.** Every series split by sex carries one n in
-  both sexes' rows, and the men-only rows of Ahmed and Chaudhary carry both sexes' total. For six series, whose
-  papers print the count of the people a value is of as a cell the reading holds, the check sets that count beside
-  the data's n (`n_printed`): Bach's men are 109 and its women 131 of 240, Griffith's 540 of each of 1,080, Alonge's
-  54 and 66 of 120, Ahmed's men 36 of 80 and Chaudhary's men 150 of 300, and Tang's cells count 107 and 105 of its
-  109. That is 128 of the 203 values. A model that weights a row by its n would give the 124 values of one sex 1.8 to
-  2.2 times the people they are of (Ahmed's men and Alonge's 2.22, Bach's men 2.20, Chaudhary's and Griffith's 2.00,
-  Bach's women 1.83, Alonge's women 1.82), and Tang's four 1.02 and 1.04 times, its grade V discs left out. Twomey's
-  204 is every cadaver of every age; its Table 2 prints no n, and Table 1's young adults, the nearest group to the
-  20-35 that Table 2 describes, are 24 men aged 20 to 36 and 24 women aged 18 to 35. Four more series print a count
-  that n is not, and `n_printed` leaves them out: Mitra's L1 and L5 are of its 18 men, where n is 20 (Table 1, p.
-  455); Olsewski's five are of 41 or 42 pedicles (Table II, p. 544) of 21 spines (p. 543), where n is 100; Robertson's
-  of 10 specimens (p. 709), where n is 100; and Hinck prints a sample size of 59, 57, 53, 52 and 50 at L1 to L5
-  (Table II, p. 145), whose range is its n, "50-59 per level".
+- **In a series split by sex, the level table's n is the whole sample, in every sex's row.** Every such series
+  carries one n in both sexes' rows, and the men-only rows of Ahmed and Chaudhary carry both sexes' total. For six
+  series, whose papers print the count of the people a value is of as a cell the reading holds and whose n is one
+  number, the check sets that count beside the data's n (`n_printed`): Bach's men are 109 and its women 131 of 240,
+  Griffith's 540 of each of 1,080, Alonge's 54 and 66 of 120, Ahmed's men 36 of 80 and Chaudhary's men 150 of 300,
+  and Tang's cells count 107 and 105 of its 109. That is 128 of the 203 values. A model that weights a row by its n
+  would give the 124 values of one sex 1.8 to 2.2 times the people they are of (Ahmed's men and Alonge's 2.22,
+  Bach's men 2.20, Chaudhary's and Griffith's 2.00, Bach's women 1.83, Alonge's women 1.82), and Tang's four 1.02
+  and 1.04 times, its grade V discs left out. Twomey's 204 is every cadaver of every age; its Table 2 prints no n,
+  and Table 1's young adults, the nearest group to the 20-35 that Table 2 describes, are 24 men aged 20 to 36 and 24
+  women aged 18 to 35. Five more series, 32 values, print a count that n is not, and `n_printed` leaves them out. In
+  the pedicle table, Mitra's L1 and L5 are of its 18 men, where n is 20 (Table 1, p. 455); Olsewski's five are of 41
+  or 42 examples, as Table II's footnote calls them (p. 544), which fits both pedicles of the 21 spines (p. 543),
+  where n is 100; Robertson's are of 10 specimens (p. 709, a passage the reading does not hold), where n is 100; and
+  Zindrick prints N of 26, 30, 49, 36 and 56 studies at L1 to L5 (Table 1, p. 161), whose range is its n, "26-56 per
+  level". In the level table, Hinck prints a sample size of 59, 57, 53, 52 and 50 at L1 to L5 (Table II, p. 145),
+  cells of the reading too, whose range is its n, "50-59 per level". With the 128, 160 of the 203 values carry an n
+  that is not the count their paper prints for them, besides Twomey's 20.
 - **Three papers print columns the tables leave out.** Ahmed's women (Tables 1 and 2) and Chaudhary's women (Table
   I) are printed with their SDs beside the men the tables carry, and so is Alonge's women's canal depth (Table 3).
 - **Twomey's disc height is an area over a length**, for one age group. The data's rows are Table 2's "true average
@@ -308,13 +331,17 @@ What follows from the reading:
 - **One series mixes two methods.** Mitra's L1 and L5 are the men's direct means, 7.05 and 16.19, which the abstract
   quotes. L2 to L4 are CT means over all 20 cadavers: (18 x 7.59 + 2 x 6.15) / 20 = 7.446 at L2, and likewise 8.51
   and 9.709. The table's modality column says "direct".
-- **Two secondary series hold values their own papers do not print.** Krag's five are in Yu 2015's Table 5, which
-  says Krag measured on CT; the series was evidently read there, and how Yu came by them is not said. Yu's five (8.55,
-  8.65, 10.43, 13.06, 18.03) are, at every level, the midpoint of Table 3's means for its youngest age group (30 years
-  or less) and for 50 to 69 years: (8.41 + 8.68) / 2 = 8.545 at L1. From L1 to L4 those two are the lowest and highest
-  of its four age groups, which fits the table's citation, "midpoint of published range". At L5 the oldest group's
-  19.15 is higher still, so the same two groups were taken there too. The midpoint of two group means is not a mean
-  of the 503 specimens.
+- **Two secondary series hold values their own papers do not print as theirs.** Krag's five are in Yu 2015's Table
+  5, which says Krag measured on CT; no other paper's cells read here print them, so Yu is the likeliest place the
+  table read them from, and how Yu came by them is not said. Yu's five (8.55, 8.65, 10.43, 13.06, 18.03) are, at
+  every level, the midpoint of Table 3's means for its youngest age group (30 years or less) and for 50 to 69 years:
+  (8.41 + 8.68) / 2 = 8.545 at L1. From L1 to L4 those two are the lowest and highest of its four age groups, which
+  fits the citation on the data's L1 row, "midpoint of published range". At L5 the oldest group's 19.15 is higher
+  still, so the same two groups were taken there too. The midpoint of two group means is not a mean of the 503
+  specimens. The 10.43 at L3 is also Table 4's mean for the Caucasian specimens (p. 1643). That Yu prints the five
+  nowhere as its own rests on every cell of Yu's the reading holds, which leaves out its Tables 1 and 2 and the P
+  rows of Tables 3 to 5, and on a search of the publisher's text layer of all eight pages, made once for
+  spine-program #238 and not committed, which finds 8.55, 8.65, 13.06 and 18.03 nowhere and 10.43 only in Table 4.
 - **Yu 2015's Table 5 prints Zindrick's, Olsewski's and Hou's means exactly as the pedicle table has them**, beside
   Krag's, and no SDs. For Olsewski, Hou and Krag, whose rows carry no SD, that makes Yu the likeliest paper the
   table read them from, though Olsewski's and Hou's agree with their own papers too. Zindrick's row carries SDs,
@@ -322,32 +349,36 @@ What follows from the reading:
   SDs, so where the table read Zindrick is not known. Mitra's values in Yu's Table 5 (6.94, 7.72, 8.86, 11.37,
   15.85) are not the table's: they are Mitra's direct means over all 20 cadavers. Robertson is not in it.
 - **The cohort columns are wrong in four pedicle rows.** Olsewski's "cadaveric + patients, 100" adds the paper's 49
-  cadavers and 51 patients, but the values are 21 cadaver spines. Robertson's "patients New Zealand, 100, CT" is 10
-  dry-bone spines on radiographs, whose origin, sex and age the paper does not give: New Zealand is where its authors
-  worked (Auckland Hospital, p. 709), so the header's "New Zealand series high" is not shown to be a population's.
-  Zindrick's "caliper" was radiographs and CT. Krag's "CT vs cut cadaver" was CT of living patients, with a
-  sectioned-cadaver check of 8 vertebrae.
+  cadavers (p. 542) and 51 patients (p. 543), but the values are of 21 cadaver spines (p. 543). Robertson's
+  "patients New Zealand, 100, CT" is 10 dry-bone spines on radiographs, whose origin, sex and age the paper does not
+  give: New Zealand is where its authors worked (Auckland Hospital, p. 709), so the header's "New Zealand series
+  high" is not shown to be a population's. Zindrick's "caliper" was radiographs and CT. Krag's "CT vs cut cadaver"
+  was CT of living patients, with a sectioned-cadaver check of 8 vertebrae (pp. 27-28).
 - **Three series print an SD the table leaves out:** Hou (1.2, 1.3, 1.6, 1.8, 2.7), Olsewski (2.3, 2.1, 2.5, 2.5, 3.7)
   and Robertson's left width (2.5, 3.0, 2.6, 3.7, 3.9), each at L1 to L5 (`sd_printed` in the check). Yu prints SDs
   only by group, not overall.
-- **Hinck's canal widths are film distances.** They were measured on 40-inch anteroposterior films with no correction
-  for magnification, as Chaudhary's row says of its own values ("uncorrected") and Hinck's does not.
+- **Hinck's canal widths are film distances.** They were measured on 40-inch anteroposterior films (p. 141), and the
+  paper describes no correction for magnification, as Chaudhary's row says of its own values ("uncorrected") and
+  Hinck's does not.
 - **Tang names an end plate by its disc, in centimetres.** The data's L4 upper end-plate width, 50.5 mm, is Tang's
   frontal diameter of the caudal end plate of the L3/L4 disc, 5.05 cm (Table 4, p. 4120). Its 109 subjects were 20
-  to 40 years old, and its cells count 107 and 105 people, since discs of Pfirrmann grade V were left out with their
-  end plates.
+  to 40 years old (p. 4117), and its cells count 107 and 105 people, since discs of Pfirrmann grade V were left out
+  with their end plates.
 - **Bach's own Table 6 prints another average disc height.** The 24 values are the Results' and the abstract's
-  average, the mean of the anterior, middle and posterior heights over all ages: Tables 2 and 3's decade rows of that
-  mean, weighted by Table 1's counts, give eleven of the twelve to their rounding (5.568 for men at T12/L1, printed
-  5.6; `note` in the check). The men's L2/L3 gives 8.049, which rounds to 8.0 against the printed 8.1; with each
-  decade cell at the top of its own printed rounding it reaches 8.064, so the printed value is within the cells'
-  rounding. Table 6, the paper's table of all ages by sex, prints an "Average disc height" 0.2 to 0.9 mm lower (5.02
-  for men at T12/L1), which is the mean of its anterior and posterior rows alone. Figure 8, which the Results cite for
-  the values, prints a third set (5.656725 for men at T12/L1). The Results do not say what their +/- is; pooled from
-  the decade rows it is the size of an SD over all the people of one sex (1.10 for men at T12/L1, printed 1.1), not
-  of an SE. The table's n of 240 counts both sexes in each sex's row: the men are 109 and the women 131. And 16 of
-  the 240, 8 of each sex, are in the decade Table 1 labels 10, whose ages start at 14 by the abstract; the cohort
-  column calls them all adults.
+  average, the mean of the anterior, middle and posterior heights over all ages: Tables 2 and 3's decade rows of
+  that mean, weighted by Table 1's counts, give eleven of the twelve to their rounding (5.568 for men at T12/L1,
+  printed 5.6; `note` in the check). The men's L2/L3 gives 8.049, which rounds to 8.0 against the printed 8.1; with
+  each decade cell at the top of its own printed rounding it reaches 8.064, so the printed value is within the
+  cells' rounding. Table 6, the paper's table of all ages by sex, prints an "Average disc height" 0.2 to 0.9 mm
+  lower (5.02 for men at T12/L1), which is the mean of its anterior and posterior rows alone. Figure 8, which the
+  Results cite for the values, prints a third set (5.656725 for men at T12/L1). The Results do not say what their
+  +/- is; pooled from the decade rows it is the size of an SD over all the people of one sex (1.10 for men at
+  T12/L1, printed 1.1), not of an SE. The table's n of 240 counts both sexes in each sex's row: the men are 109 and
+  the women 131. And 16 of the 240, 8 of each sex, are in the decade Table 1 labels 10, whose ages start at 14 by
+  the abstract; the cohort column calls them all adults. The abstract's conclusions and the Conclusions (pp. e106,
+  e117) give the largest disc, at L4/5, as 8.9 +/- 1.7 mm for men and 8.6 +/- 1.8 for women, not the Results' 9.2
+  and 8.5 at L4/5: the women's pair is their L5/S1, and where the men's comes from is not known. The data follows
+  the Results.
 
 ### Discrepancies
 
