@@ -1,23 +1,24 @@
-"""The values here from fifteen closed papers against a blind reading of those papers' printed tables.
+"""The values here from sixteen closed papers against a blind reading of those papers' printed tables.
 
     python3 code/check_closed_reading.py            # from synthetic_spine/; standard library only, no network
     python3 code/check_closed_reading.py --check    # write nothing; exit 1 also when the committed result is stale
 
 A closed paper, here, is one whose full text no script of this folder may read; sources.csv counts 29 of the 42. 203
-values in data/level_references.csv and data/pedicle_width_references.csv come from sixteen of them: 198 from
-fifteen that were read from the page, and Eisenstein 1977's five through Chaudhary 2015's copy of them.
-verification/values.csv could check only 26 of the 203, in an abstract. Greg supplied ten of the fifteen as PDFs on
-28 October 2026; another thread of the project fetched the other five the same day from their publishers' own free
-copies (Griffith 2016, Twomey 1985, Alonge 2021, Ahmed 2019, Chaudhary 2015). None is committed.
+values in data/level_references.csv and data/pedicle_width_references.csv come from sixteen of them, and all sixteen
+were read from the page. verification/values.csv could check only 26 of the 203, in an abstract. Greg supplied eleven
+of the sixteen as PDFs on 28 October 2026, Eisenstein 1977 the last; another thread of the project fetched the other
+five the same day from their publishers' own free copies (Griffith 2016, Twomey 1985, Alonge 2021, Ahmed 2019,
+Chaudhary 2015). None is committed.
 verification/closed_page_reading.csv is a transcription of the tables these values could come from, whole or at the
 values' levels (README, "What the reading leaves out"), made from the page images by readers who were not shown any
 of the tables here, as Panjabi's were read (code/check_page_reading.py): one row per cell and statistic, with the
 cell as printed (printed_as, empty where the page leaves a cell blank) and where it is (table, pdf_page,
 journal_page). For the nine typeset papers (Mitra 2002, Robertson 2000, Yu 2015, Tang 2016, Bach 2019, Griffith,
 Alonge, Ahmed and Chaudhary) every value read from a table or the text was also found on the publisher's own text
-layer; the data labels read from figures are pictures and have no text layer. Fifteen rows were added after the
-blind reading, the counts of people in three papers' Methods, the discs Tang left out and three of Yu's widths from
-the text, and each says so in its note.
+layer, and Eisenstein's Table I and counts, which two readers read apart, on his scan's text layer, made by optical
+character recognition; the data labels read from figures are pictures and have no text layer. Fifteen rows were
+added after the blind reading, the counts of people in three papers' Methods, the discs Tang left out and three of
+Yu's widths from the text, and each says so in its note.
 
 SOURCES names, for each series, the cells of its own paper that its values should be, as the reading labels them. A
 value agrees when its cell, rounded half up to the most decimals its series is written with for that statistic,
@@ -29,14 +30,15 @@ results, and the pages of those cells are computed from the reading when the scr
 words make (lower, highest, misprinted, within the cells' rounding, the same as another cell, printed in no other
 cell, adding up) are tested on the reading. A group's size or ages that its words give are the ones its selector's
 label prints or its cells hold, so a reading that printed others stops the script. Typed, and held by nothing, are
-the pages of passages the reading does not hold (Robertson's method, figure captions and tilt, pp. 709-711; the
-sentences of Chaudhary, p. 34, and Alonge, p. 75, on how Eisenstein measured) and the words that give no number.
-DATA_SAID holds what a note says a column of the data holds, and a note fails when the column holds another; Yu's
-finding quotes the citation on the data's L1 row and fails when that row cites otherwise. COUNTS names, for six
-series, the cell that counts the people a value is of: n_printed beside the data's n, which for a value of one sex
-must be the two sexes' counts together. Mitra's men, Olsewski's examples, Robertson's and Hou's specimens, Zindrick's
-studies and Hinck's sample size at each level are printed too and have no entry (README). SCALE turns a paper's
-printed unit into the data's: Tang prints centimetres. VALUES holds how many values each series has here.
+the pages of passages the reading does not hold (Robertson's method, figure captions and tilt, pp. 709-711;
+Eisenstein's method, p. 173; the sentences of Chaudhary, p. 34, and Alonge, p. 75, on how Eisenstein measured) and
+the words that give no number. DATA_SAID holds what a note says a column of the data holds, and a note fails when the
+column holds another; Yu's finding quotes the citation on the data's L1 row and fails when that row cites otherwise.
+COUNTS names, for six series, the cell that counts the people a value is of: n_printed beside the data's n, which for
+a value of one sex must be the two sexes' counts together. Mitra's men, Olsewski's examples, Robertson's and Hou's
+specimens, Zindrick's studies, Hinck's sample size at each level and Eisenstein's skeletons are printed too and have
+no entry (README). SCALE turns a paper's printed unit into the data's: Tang prints centimetres. VALUES holds how many
+values each series has here.
 
 The script writes verification/closed_page_reading_check.csv and exits 1 on a value that neither agrees nor has a
 finding, on a finding with no calculation or whose calculation no longer reproduces its value, on a finding or a
@@ -44,7 +46,8 @@ note for a value that is not here, on a finding, a note or a count that needs a 
 or whose words the reading no longer bears out, on a note whose DATA_SAID the data no longer holds, on a selector
 that picks other than one cell (or other than one SD cell beside a mean the data gives no SD for, where the paper
 prints SDs), on a series with another count of values than VALUES holds, and on a row of the reading whose value is
-not a number its printed_as prints, where a minus sign is one only with no digit, slash or closing bracket before it.
+not a number its printed_as prints, where a minus sign is one only with no digit, slash or closing bracket before it,
+and a number spelled in words, as Eisenstein prints most of his counts, is the number it spells.
 """
 import csv
 import io
@@ -71,6 +74,7 @@ ALONGE_W = {"table": "Table 4", "measure_label": "Transverse diameter (TD)"}
 ALONGE_AP = {"table": "Table 3", "measure_label": "Antero-posterior diameter (APD)"}
 TWOMEY = {"table": "Table 2", "measure_label": "true average disc height (median-section area / AP diameter)"}
 METHODS = {"table": "Methods (text)", "measure_label": "Subjects"}
+EISENSTEIN_CANAL = {"table": "Table I", "measure_label": "Canal I.P."}
 
 # (data file, series, measure) -> (paper, the reading's labels that pick the series' cells); labels None where the
 # paper prints no cell the series could be. The sex is the value's own unless the labels name one.
@@ -106,8 +110,7 @@ SOURCES = {
         ("ahmed2019", {"table": "Table 1", "measure_label": "Mean Mid-sagittal diameter Mean+/-SD (mm)"}),
     (LEVELS, "Chaudhary 2015", "canal_w"):
         ("chaudhary2015", {"table": "Table I", "measure_label": "Interpedicular distance (mm)"}),
-    (LEVELS, "Eisenstein 1977", "canal_w"):
-        ("chaudhary2015", {"table": "Table II", "group": "Eisenstein 1977. (South African Caucasoids)"}),
+    (LEVELS, "Eisenstein 1977", "canal_w"): ("eisenstein1977", dict(EISENSTEIN_CANAL, group="Caucasoid")),
     (LEVELS, "Twomey 1985", "disc"): ("twomey1985", dict(TWOMEY, group="20-35")),
 }
 
@@ -124,16 +127,17 @@ VALUES = {
     (LEVELS, "Eisenstein 1977", "canal_w"): 5, (LEVELS, "Twomey 1985", "disc"): 20,
 }
 
-# The series whose cells are means with no SD printed beside them: Mitra's Table 1, Yu's Table 5 and Chaudhary's
-# Table II, where Eisenstein's values are, print means only. Beside any other mean the data gives no SD for, the
-# paper prints one, which the output shows (sd_printed).
+# The series whose cells are means with no SD printed beside them: Mitra's Table 1, Yu's Table 5 and Eisenstein's
+# Table I print means only. Beside any other mean the data gives no SD for, the paper prints one, which the output
+# shows (sd_printed).
 MEANS_ONLY = {(PEDICLES, "Mitra", "PDW"), (PEDICLES, "Yu", "PDW"), (LEVELS, "Eisenstein 1977", "canal_w")}
 
 # (data file, series, measure) -> (paper, the reading's labels of the cell that counts the people a value is of, and
 # that cell's level, None where it is the value's own), for the six series whose paper prints that count as a cell the
 # reading holds and whose n is one number. The sex is the value's own. Mitra counts its men in its labels, Olsewski
-# its examples and Zindrick its studies in cells, Hinck its people in cells whose range is its n, and Hou and
-# Robertson their specimens only in text the reading leaves out; these have none (README).
+# its examples and Zindrick its studies in cells, Hinck its people in cells whose range is its n, Hou and Robertson
+# their specimens only in text the reading leaves out, and Eisenstein his skeletons in text the reading holds, where
+# the data's n is a dash, not a number; these have none (README).
 COUNTS = {
     (LEVELS, "Tang 2016", "endplate"): ("tang2016", {"table": "Table 4", "measure_label": "FD_CaEP"}, None),
     (LEVELS, "Bach 2019", "disc"): ("bach2019", {"table": "Table 1", "group": "Total"}, ""),
@@ -589,25 +593,121 @@ def twomey_note(reading, level, sex, kind):
     return said
 
 
-# What the two papers read here say of how Eisenstein measured; the reading holds neither sentence, so their pages
-# are typed (above)
-EISENSTEIN_METHOD = ("Chaudhary names Eisenstein 1977 among the workers who used plain radiography (p. 34), Alonge "
-                     "2021 calls it a study of Caucasian and Negroid bone specimens (p. 75)")
+# How Eisenstein says he measured (p. 173), and what the two other papers read here say of it; the reading holds
+# none of these sentences, so their pages are typed (above)
+EISENSTEIN_METHOD = ("with a vernier caliper, the canal's transverse diameter taken as the greatest interpedicular "
+                     "distance (p. 173)")
+ALONGE_ON_EISENSTEIN = "Alonge 2021's study of Caucasian and Negroid bone specimens (p. 75)"
+CHAUDHARY_ON_EISENSTEIN = "Chaudhary's plain radiography (p. 34)"
+
+# Chaudhary's Table II labels for the groups of Eisenstein's that it copies, by his Table I's labels
+EISENSTEIN_IN_CHAUDHARY = {"Caucasoid": "Eisenstein 1977. (South African Caucasoids)",
+                           "Zulu Negroid": "Eisenstein 1977 (Zulus)"}
+
+
+def eisenstein_count(reading, table, measure, group="", sex="all"):
+    """One of the counts of skeletons or vertebrae Eisenstein's text prints."""
+    return one_cell(reading, "eisenstein1977", {"table": table, "measure_label": measure, "group": group}, "", sex, "n")
+
+
+def number_of(cell):
+    return int(cell["value"])
+
+
+def eisenstein_groups(reading):
+    """Eisenstein's groups as his Table I names them, in the order it prints them."""
+    groups = []
+    for c in reading:
+        if c["paper"] == "eisenstein1977" and c["table"] == EISENSTEIN_CANAL["table"] and c["group"] not in groups:
+            groups.append(c["group"])
+    return groups
+
+
+def eisenstein_skeletons(reading):
+    """Eisenstein's skeletons by group and sex as his Methods count them, each group's men and women adding up to it,
+    and the cells of the total the Methods, the Results and the Summary print: the first two must be the groups'
+    sum, and the Summary's is another."""
+    each = {}
+    for group in eisenstein_groups(reading):
+        sexes_add_up(reading, "eisenstein1977", {"table": "Methods (text)", "measure_label": "Skeletons",
+                                                 "group": group}, "")
+        each[group] = {sex: number_of(eisenstein_count(reading, "Methods (text)", "Skeletons", group, sex))
+                       for sex in ("all", "M", "F")}
+    total, results, summary = (eisenstein_count(reading, table, "Skeletons")
+                               for table in ("Methods (text)", "Results (text)", "Summary (text)"))
+    require(sum(e["all"] for e in each.values()) == number_of(total) == number_of(results),
+            "Eisenstein's groups do not add up to the skeletons his Methods and Results count")
+    require(number_of(summary) != number_of(total), "Eisenstein's Summary counts the skeletons his Methods do")
+    return each, total, summary
+
+
+def eisenstein_vertebrae(reading, skeletons):
+    """Eisenstein's vertebrae missing or damaged, and the cell of those measured, which his Summary, Methods and
+    Results must all print alike; the two must make five for each skeleton."""
+    missing = eisenstein_count(reading, "Methods (text)", "Vertebrae missing or damaged")
+    measured = [eisenstein_count(reading, table, measure) for table, measure in (
+        ("Results (text)", "Vertebrae measured"), ("Methods (text)", "Complete vertebrae available for study"),
+        ("Summary (text)", "Lumbar vertebrae measured directly"))]
+    require(len({number_of(c) for c in measured}) == 1,
+            "Eisenstein's Summary, Methods and Results print other counts of the vertebrae measured")
+    require(number_of(missing) + number_of(measured[0]) == 5 * skeletons,
+            "Eisenstein's vertebrae measured and missing do not make five for each skeleton")
+    return missing, measured[0]
+
+
+def chaudhary_copy_of_eisenstein(reading):
+    """Chaudhary's Table II means under Eisenstein's name, each of which must be his own Table I's, at the same level
+    for the same group and sex: how many there are, their page, and the groups of Eisenstein's they leave out."""
+    copied = [c for c in reading if c["paper"] == "chaudhary2015" and c["table"] == "Table II"
+              and "Eisenstein" in c["group"]]
+    require({c["group"] for c in copied} == set(EISENSTEIN_IN_CHAUDHARY.values()),
+            "Chaudhary's Table II names other groups of Eisenstein's")
+    by_label = {label: group for group, label in EISENSTEIN_IN_CHAUDHARY.items()}
+    for c in copied:
+        sex = {v: k for k, v in SEX.items()}[c["sex"]]
+        own = one_cell(reading, "eisenstein1977", dict(EISENSTEIN_CANAL, group=by_label[c["group"]]), c["level"], sex,
+                       c["statistic"])
+        require(Decimal(c["value"]) == Decimal(own["value"]), "Chaudhary's copy of Eisenstein's %s %s at %s is not his"
+                % (by_label[c["group"]], WHO.get(sex, sex), c["level"]))
+    pages = {c["journal_page"] for c in copied}
+    require(len(pages) == 1, "Chaudhary's copy of Eisenstein is not on one page")
+    left_out = [group for group in eisenstein_groups(reading) if group not in EISENSTEIN_IN_CHAUDHARY]
+    return len(copied), pages.pop(), left_out
 
 
 def eisenstein_note(reading, level):
-    """Where the Eisenstein values come from, the other group Chaudhary prints beside them, and what the two papers
-    read here say of how Eisenstein measured."""
-    own = one_cell(reading, "chaudhary2015", SOURCES[(LEVELS, "Eisenstein 1977", "canal_w")][1], level, "M", "mean")
-    zulu = one_cell(reading, "chaudhary2015", {"table": "Table II", "group": "Eisenstein 1977 (Zulus)"},
-                    level, "M", "mean")
+    """Eisenstein's own cell, how he measured it, Chaudhary's copy of his table, and the counts his text prints, from
+    the reading."""
+    labels = SOURCES[(LEVELS, "Eisenstein 1977", "canal_w")][1]
+    group = labels["group"]
+    own = one_cell(reading, "eisenstein1977", labels, level, "M", "mean")
+    zulu = one_cell(reading, "eisenstein1977", dict(labels, group="Zulu Negroid"), level, "M", "mean")
+    copied, copy_page, left_out = chaudhary_copy_of_eisenstein(reading)
+    each, total, summary = eisenstein_skeletons(reading)
+    missing, measured = eisenstein_vertebrae(reading, number_of(total))
+    radiographed, of = (eisenstein_count(reading, "Methods (text)", m) for m in ("Vertebrae radiographed",
+                                                                                 "Skeletons radiographed"))
+    men = eisenstein_count(reading, "Methods (text)", "Skeletons", group, "M")
     data = DATA_SAID[(LEVELS, "Eisenstein 1977", "canal_w")]
-    return ("Chaudhary's Table II (p. %s) prints these as Eisenstein's South African Caucasoid men; Eisenstein's own "
-            "paper has not been read, so this checks Chaudhary's copy, not Eisenstein. The cohort column, %s, names "
-            "both of Eisenstein's groups, but the values are the Caucasoid men's alone: the Zulu men's %s is another "
-            "row (p. %s). How Eisenstein measured is not known here: %s, and the modality column says %s"
-            % (own["journal_page"], data["cohort"], zulu["printed_as"], zulu["journal_page"], EISENSTEIN_METHOD,
-               data["modality"]))
+    return ("Eisenstein's own Table I (p. %s) prints it as the mean interpedicular width of the canal (I.P.) of his "
+            "%s men. The level table read it from Chaudhary's Table II (p. %s), as its citation and its source_kind, "
+            "%s, say; Chaudhary's %d means under Eisenstein's name are his %s rows of both sexes, each the same as "
+            "his, and leave out his %s rows. Eisenstein measured the vertebrae of %s adult skeletons of the Raymond Dart "
+            "Collection %s, and Table I is of the %s vertebrae so measured (p. %s); radiographs of %s vertebrae of %s "
+            "skeletons repeated the measures (p. %s). So the modality column's %s is right, as is %s, while %s does "
+            "not describe these values. The cohort column, %s, names the two groups Chaudhary copies; this value is of "
+            "the %s men alone, %s of the %d %s skeletons (p. %s), and the Zulu men's is %s. Table I prints no count, "
+            "and %s vertebrae were missing or damaged, which with the %s measured makes five for each of the %s "
+            "skeletons (p. %s), so the count of men's vertebrae behind the mean at %s is not printed; the n column "
+            "holds \"%s\". The Summary's %s skeletons (p. %s) is a misprint: the Methods and the Results print %s, the "
+            "sum of his %d groups"
+            % (own["journal_page"], group, copy_page, data["source_kind"], copied,
+               " and ".join(EISENSTEIN_IN_CHAUDHARY), " and ".join(left_out), total["value"], EISENSTEIN_METHOD,
+               format(number_of(measured), ","), measured["journal_page"], radiographed["value"], of["value"],
+               radiographed["journal_page"], data["modality"], ALONGE_ON_EISENSTEIN, CHAUDHARY_ON_EISENSTEIN,
+               data["cohort"], group, men["value"], each[group]["all"], group, men["journal_page"], zulu["value"],
+               missing["value"], format(number_of(measured), ","), total["value"], missing["journal_page"], level,
+               data["n"], summary["value"], summary["journal_page"], total["value"], len(each)))
 
 
 def chaudhary_range_note(reading, level):
@@ -666,7 +766,9 @@ NOTES.update({
 DATA_SAID = {
     (LEVELS, "Twomey 1985", "disc"): {"n": lambda reading: str(twomey_cadavers(reading)[0])},
     (PEDICLES, "Mitra", "PDW"): {"n": lambda reading: str(sum(mitra_people()))},
-    (LEVELS, "Eisenstein 1977", "canal_w"): {"cohort": "Caucasoid and Zulu", "modality": "dry bone"},
+    (LEVELS, "Eisenstein 1977", "canal_w"): {"cohort": "Caucasoid and Zulu", "modality": "dry bone", "n": "-",
+                                             "source_kind": "secondary",
+                                             "citation": "Eisenstein S 1977, via Chaudhary S et al. 2015 (whole mm)"},
 }
 
 
@@ -854,12 +956,44 @@ def compare(reading, value, places, row):
 
 NUMBER = re.compile(r"\d+(?:[.,]\d+)*")
 
+# Numbers spelled in English words, as Eisenstein prints most of his counts: "seventy-eight", "Four hundred and
+# forty-three". An "and" is read only after a hundred or a thousand, so "five and six" is two numbers, not eleven.
+UNIT_WORDS = "one two three four five six seven eight nine".split()
+TEEN_WORDS = "ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen".split()
+TEN_WORDS = "twenty thirty forty fifty sixty seventy eighty ninety".split()
+WORD_VALUE = {word: value for words, first, step in ((UNIT_WORDS, 1, 1), (TEEN_WORDS, 10, 1), (TEN_WORDS, 20, 10))
+              for word, value in zip(words, range(first, 100, step))}
+
+
+def one_of(words):
+    return "(?:%s)" % "|".join(words)
+
+
+BELOW_HUNDRED = r"(?:%s(?:-%s)?|%s|%s)" % (one_of(TEN_WORDS), one_of(UNIT_WORDS), one_of(TEEN_WORDS),
+                                          one_of(UNIT_WORDS))
+BELOW_THOUSAND = r"(?:%s\s+hundred(?:\s+and\s+%s)?|%s)" % (one_of(UNIT_WORDS), BELOW_HUNDRED, BELOW_HUNDRED)
+SPELLED = re.compile(r"\b(?:%s\s+thousand(?:\s+(?:and\s+)?%s)?|%s)\b" % (BELOW_THOUSAND, BELOW_THOUSAND,
+                                                                      BELOW_THOUSAND), re.IGNORECASE)
+
+
+def spelled_value(words):
+    """The number some English words spell, as SPELLED matches them: "Four hundred and forty-three" is 443."""
+    total = current = 0
+    for word in re.split(r"[\s-]+", words.lower()):
+        if word == "hundred":
+            current *= 100
+        elif word == "thousand":
+            total, current = total + current * 1000, 0
+        elif word != "and":
+            current += WORD_VALUE[word]
+    return total + current
+
 
 def printed_numbers(text):
-    """Every number a printed cell shows, a comma read both as a decimal comma and as a thousands separator. A minus
-    sign directly before a number is its sign only with no digit, slash or closing bracket before it, so that the
-    dash of a range and the minus of +/- are not."""
-    found = set()
+    """Every number a printed cell shows, a comma read both as a decimal comma and as a thousands separator, and every
+    number it spells in words. A minus sign directly before a number is its sign only with no digit, slash or closing
+    bracket before it, so that the dash of a range and the minus of +/- are not."""
+    found = {Decimal(spelled_value(match.group())) for match in SPELLED.finditer(text)}
     for match in NUMBER.finditer(text):
         sign_at = match.start() - 1
         before = text[sign_at - 1] if sign_at >= 1 else ""
