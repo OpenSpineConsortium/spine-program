@@ -7,7 +7,7 @@
 # request, the claim protocol (tools/check_protocol.py) and the review record
 # (tools/review_record.py, CONTRIBUTING.md). Outside a pull request event the last two pass.
 # synthetic_spine/'s offline checks run too: its copies against their record, its generated
-# pages and its Panjabi values against the page reading.
+# pages, its Panjabi values and its closed-access papers' values against their page readings.
 #
 # The numbered folders' code is salvaged from the repositories MANIFEST_CODE.md names and is
 # kept as the record, unrefactored: its tests need the grid, its data and libraries this
@@ -49,13 +49,14 @@ PY
 step "the tests"
 python3 -m unittest discover -s tests -p "test_*.py" || fail=1
 
-step "synthetic_spine: the copies, the generated pages, the spread and the Panjabi page reading"
+step "synthetic_spine: the copies, the generated pages, the spread and the two page readings"
 # code/verify_tables.py and code/resolve_sources.py need the network and are run by hand (synthetic_spine/README.md)
 (cd synthetic_spine \
   && python3 code/check_copies.py \
   && python3 code/render_sources.py --check \
   && python3 code/spread.py --check \
-  && python3 code/check_page_reading.py --check) || fail=1
+  && python3 code/check_page_reading.py --check \
+  && python3 code/check_closed_reading.py --check) || fail=1
 
 step "the claim protocol (a claude/<issue> pull request)"
 python3 tools/check_protocol.py || fail=1
