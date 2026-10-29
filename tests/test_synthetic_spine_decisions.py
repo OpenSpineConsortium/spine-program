@@ -3,8 +3,9 @@ decisions #239 left open applied, and verification/decisions.csv beside them.
 
 Each way the script refuses is planted and must fail: a copy that is not the one the decisions were made on, a
 written file that is stale, a reading value its printed_as does not print, a cell that no longer holds what a
-decision is held to, a decision that sets a field to what it holds or one another decision set, a selector that
-picks the wrong number of rows, and two rows with one key. The faults that touch files are planted in a scratch copy
+decision is held to, a sex's count that is not part of the copy's total, endplates that are not ten to a patient, a
+decision that sets a field to what it holds or one another decision set, a selector that picks the wrong number of
+rows, and two rows with one key. The faults that touch files are planted in a scratch copy
 of synthetic_spine/, run as its own process, so the clone is never written."""
 
 import csv
@@ -85,21 +86,37 @@ class Planted(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertIn("does not print the copy's 6.87", out)
 
-    def test_a_combined_sd_that_misses_the_printed_widths_is_refused(self):
+    def replace_cell(self, printed_as, value, **where):
+        """Change the one cell of the open questions' reading that where picks, and print what it now holds."""
         reading = self.folder / "verification" / "open_questions_reading.csv"
         with open(reading, newline="", encoding="ascii") as f:
             rows = list(csv.DictReader(f))
-        width_sd = [r for r in rows if r["paper"] == "cizmic2023" and r["row_label"] == "L1 IPD canal"
-                    and r["sex"] == "male" and r["statistic"] == "sd"]
-        self.assertEqual(len(width_sd), 1)
-        width_sd[0].update(printed_as="9", value="9")
+        found = [r for r in rows if all(r[k] == v for k, v in where.items())]
+        self.assertEqual(len(found), 1)
+        found[0].update(printed_as=printed_as, value=value)
         with open(reading, "w", newline="", encoding="ascii") as f:
             w = csv.DictWriter(f, fieldnames=list(rows[0]), lineterminator="\n")
             w.writeheader()
             w.writerows(rows)
+
+    def test_a_combined_sd_that_misses_the_printed_widths_is_refused(self):
+        self.replace_cell("9", "9", paper="cizmic2023", row_label="L1 IPD canal", sex="male", statistic="sd")
         code, out = run(self.folder, "--check")
         self.assertEqual(code, 1)
         self.assertIn("is not the", out)
+
+    def test_a_sex_count_that_is_not_part_of_the_copys_total_is_refused(self):
+        self.replace_cell("a final cohort of 517 patients (278 men and 240 women)", "278", paper="duman2026",
+                          sex="male", statistic="n")
+        code, out = run(self.folder, "--check")
+        self.assertEqual(code, 1)
+        self.assertIn("together are 518, not the copy's n of 517", out)
+
+    def test_endplates_that_are_not_ten_to_a_patient_are_refused(self):
+        self.replace_cell("Male (n = 431)", "431", paper="chen2011", sex="male", statistic="n")
+        code, out = run(self.folder, "--check")
+        self.assertEqual(code, 1)
+        self.assertIn("are not 10 to a patient", out)
 
 
 class Refusals(unittest.TestCase):

@@ -12,25 +12,27 @@ data/pedicle_width_references.csv stay byte-for-byte copies of the public CTSpin
 tables again under data/corrected/ with the decisions applied, and verification/decisions.csv, one line for each
 field a decision changes in a series of one sex, its levels' values side by side.
 
-Every number a decision writes comes from a page reading when the script runs and is never typed: the blind reading
-of #239, verification/closed_page_reading.csv, or verification/open_questions_reading.csv, the cells behind the two
-open data questions (Cizmic 2023's Table 5, Yadav 2020's Table 3), read for #240 from the publishers' text layers and
-each set beside its page image. A value is its cell rounded half up to the decimals its series is written with for
-that statistic, or to the cell's own where the series has no such value yet, and is written as the copy writes its
-numbers: two decimals in the pedicle table, and in the level table the shortest decimal that is the number, as the
-generator writes them. Mitra's means over all its cadavers and Cizmic's SD over both sexes are computed from the
-cells their decisions name, and each calculation is first held to a number the paper or another paper prints. Typed,
-and held by nothing, are the words of the cohort, modality, notes and citation columns and the pages of passages the
-readings do not hold, which each decision names.
+Every number a decision writes comes from a page reading when the script runs and is never typed: the blind reading of
+#239, verification/closed_page_reading.csv, or verification/open_questions_reading.csv, read for #240 and each cell
+set beside its page image: the cells behind the two open data questions (Cizmic 2023's Table 5, Yadav 2020's Table 3),
+the counts of men and women of the eight sex-split series #239 did not read, and Pierro 2017's Table 2. The citations
+decision 9 writes are held to the resolver's record of each paper in sources.csv. A value is its cell rounded half up
+to the decimals its series is written with for that statistic, or to the cell's own where the series has no such value
+yet, and is written as the copy writes its numbers: two decimals in the pedicle table, and in the level table the
+shortest decimal that is the number, as the generator writes them. Mitra's means over all its cadavers, Cizmic's SD
+over both sexes and Chen's men and women from its endplates are computed from the cells their decisions name, and each
+calculation is first held to a number the paper or another paper prints. Typed, and held by nothing, are the words of
+the cohort, modality, notes and citation columns and the pages of passages the readings do not hold, which each
+decision names.
 
 The script exits 1 when a copy is not the one the decisions were made on (its SHA-256 in DECIDED_ON), so that no
 decision outlives the copy it corrects: a copy taken again after a change in CTSpinoPelvic1K stops the script until
 each decision the change carries is taken out and the rest are checked against the new copy. It exits 1 too when a
 selector picks other than the rows or the one cell it names, when a decision changes a field to what it holds or a
 field another decision changed, when two rows of a corrected table share a key, when a copy written again with no
-decision is not the copy byte for byte, when a calculation no longer gives the number it is held to, when a row of the
-open questions' reading holds a value its printed_as does not print, and, with --check, when a written file is not
-what the script writes.
+decision is not the copy byte for byte, when a calculation no longer gives the number it is held to, when a sex's
+count and the other sex's are not the copy's n, when a row of the open questions' reading holds a value its
+printed_as does not print, and, with --check, when a written file is not what the script writes.
 """
 import csv
 import hashlib
@@ -336,8 +338,9 @@ def counts(d):
     n_from_counts(d, LEVELS, "Tang 2016", "endplate", tang)
     n_by_level(d, LEVELS, d.rows(LEVELS, 5, series="Hinck 1966"), "hinck1966",
                {"group": "Adult (>18 yr)", "table": "Table II"}, "films",
-               "Table II's sample size at each level counts the films on which that vertebra was measured; how many "
-               "people the films are of is not on the pages read")
+               "Table II's sample size at each level counts the films on which that vertebra was measured, of the 121 "
+               "roentgenograms of adults the method counts (pp. 141-142, typed), which it nowhere says are one to a "
+               "person")
     yadav = d.rows(LEVELS, 12, series="Yadav 2020", measure="disc")
     for row in yadav:
         c = d.cell("yadav2020", dict(YADAV_IVD, column_label="n"), YADAV_DISC[row["level"]], row["sex"], "n")
@@ -350,6 +353,9 @@ def counts(d):
                   "174 men and 128 women)")
     twomey(d)
     pedicle_counts(d)
+    sex_counts(d)
+    chen(d)
+    houwen(d)
 
 
 def twomey(d):
@@ -380,6 +386,90 @@ def pedicle_counts(d):
                {"table": "Table 2", "column_label": "# of Pedicle"}, "pedicles",
                "Krag's Table 2 counts the pedicles measured at each level, 14 to 24, the N Yu's Table 5 prints beside "
                "these values")
+
+
+# The per-sex counts of the sex-split series #239 did not read, read for #240 (verification/open_questions_reading.csv)
+METHODS_TEXT = "Methods (text)"
+PIERRO = {"table": "Table 2", "measure_label": "Sagittal spinal canal diameter (SCD)"}
+SEX_COUNTS = {  # the series, its rows in the copy, and the cells of its paper that count each sex
+    "Abbas 2021": (20, "abbas2021", {"table": METHODS_TEXT, "measure_label": "control patients"}),
+    "Amonoo-Kuofi 1982": (10, "amonookuofi1982", {"table": METHODS_TEXT, "measure_label": "patients"}),
+    "Amonoo-Kuofi 1985": (10, "amonookuofi1985", {"table": METHODS_TEXT, "measure_label": "complete sets of lumbar "
+                                                                                          "vertebrae"}),
+    "Duman 2026": (12, "duman2026", {"table": METHODS_TEXT, "measure_label": "patients"}),
+    "Italian MRI": (10, "italianmri", PIERRO),
+    "Masharawi 2021": (20, "masharawi2021", {"table": "Table 1", "group": "Control"}),
+}
+CHEN_SUBJECTS = {"table": METHODS_TEXT, "measure_label": "patients"}
+CHEN_ENDPLATES = {"table": "Table 3", "measure_label": "endplates"}
+CHEN_ROWS = 10  # Table 3's endplates of each patient, T10 inferior to L3 superior (p. 1818)
+HOUWEN_PATIENTS = {"table": "Patients (text)", "measure_label": "patients analysed"}
+HOUWEN_EACH = {"table": "End Plate Geometry (text)", "measure_label": "patients per endplate"}
+
+
+def sexes_of(d, paper, labels):
+    """A paper's count of each sex, as cells."""
+    return {sex: d.cell(paper, labels, "", sex, "n") for sex in SEXES}
+
+
+def both_sexes_are_the_copy(rows, counts, what):
+    total = sum(int(c["value"]) for c in counts.values())
+    for row in rows:
+        require(str(total) == row["n"], "%s's %s together are %d, not the copy's n of %s" % (row["series"], what,
+                                                                                            total, row["n"]))
+
+
+def sex_counts(d):
+    for series, (count, paper, labels) in SEX_COUNTS.items():
+        rows = d.rows(LEVELS, count, series=series)
+        counts = sexes_of(d, paper, labels)
+        both_sexes_are_the_copy(rows, counts, "men and women")
+        for row in rows:
+            c = counts[row["sex"]]
+            d.put(2, LEVELS, row, "n", c["value"], where_of(c),
+                  "the people of the row's own sex the paper counts, where the copy gave both sexes' total")
+
+
+def chen(d):
+    """Chen's Table 3 counts each sex's endplates, CHEN_ROWS to a patient, so its 430 and 400 are 43 men's and 40
+    women's, which with the 83 patients of the text are all of them."""
+    endplates = sexes_of(d, "chen2011", CHEN_ENDPLATES)
+    people = {}
+    for sex, c in endplates.items():
+        people[sex], rest = divmod(int(c["value"]), CHEN_ROWS)
+        require(rest == 0, "Chen's %s endplates of the %s are not %d to a patient" % (c["value"], SEXES[sex],
+                                                                                       CHEN_ROWS))
+    patients = d.cell("chen2011", CHEN_SUBJECTS, "", "all", "n")
+    require(sum(people.values()) == int(patients["value"]),
+            "Chen's endplates are not of its %s patients" % patients["value"])
+    rows = d.rows(LEVELS, 8, series="Chen 2011")
+    require(all(row["n"] == patients["value"] for row in rows), "the copy's n of Chen is not its %s patients" %
+            patients["value"])
+    for row in rows:
+        c = endplates[row["sex"]]
+        d.put(2, LEVELS, row, "n", str(people[row["sex"]]), where_of(c),
+              "Table 3 counts the %s's endplates, %d to a patient from T10 inferior to L3 superior; %s of them are "
+              "%d patients, and the two sexes' are all %s of the text (%s)" % (
+                  SEXES[row["sex"]], CHEN_ROWS, c["value"], people[row["sex"]], patients["value"],
+                  where_of(patients)))
+
+
+def houwen(d):
+    """van der Houwen counts 25 patients of both sexes at each endplate and no sex's count there, so n is a dash."""
+    rows = d.rows(LEVELS, 10, series="van der Houwen 2009")
+    counts = sexes_of(d, "vanderhouwen2009", HOUWEN_PATIENTS)
+    both_sexes_are_the_copy(rows, counts, "patients analysed")
+    each = d.cell("vanderhouwen2009", HOUWEN_EACH, "", "all", "n")
+    d.put_all(2, LEVELS, rows, "n", "-", where_of(each),
+              "the paper counts %s patients of both sexes at each endplate and not how many are of each sex; the "
+              "copy's 77 is every patient analysed at any endplate" % each["value"])
+    for row in rows:
+        d.put(2, LEVELS, row, "notes", "%s; n not printed by sex: %s patients of both sexes at each endplate (p. %s), "
+                                       "of the %s men and %s women analysed (p. %s)" % (
+                                           row["notes"], each["value"], each["journal_page"],
+                                           counts["M"]["value"], counts["F"]["value"],
+                                           counts["M"]["journal_page"]),
+              where_of(each), "the counts nearest the row, which n does not claim")
 
 
 # Decision 3: Yu's own means, and Mitra's by one method over all its cadavers
@@ -485,6 +575,30 @@ def eisenstein(d):
     return each
 
 
+CHAUDHARY_EISENSTEIN = {"table": "Table II", "group": "Eisenstein 1977. (South African Caucasoids)"}
+
+
+def eisenstein_women(d):
+    """Decision 4 for Eisenstein's Caucasoid women, whose Table I row is printed beside the men's; made after
+    decision 5, so that the women's rows take the men's corrected columns. Each mean is held to Chaudhary's Table II,
+    which copies it."""
+    women = closed.eisenstein_count(d.reading, METHODS_TEXT, "Skeletons", EISENSTEIN["group"], "F")
+    for like in d.rows(LEVELS, 5, series="Eisenstein 1977", sex="M"):
+        c = d.cell("eisenstein1977", EISENSTEIN, like["level"], "F", "mean")
+        copy = d.cell("chaudhary2015", CHAUDHARY_EISENSTEIN, like["level"], "F", "mean")
+        require(Decimal(c["value"]) == Decimal(copy["value"]),
+                "Eisenstein's women at %s are %s, where Chaudhary copies %s" % (like["level"], c["value"],
+                                                                               copy["value"]))
+        mean = d.value(LEVELS, "Eisenstein 1977", "canal_w", "mean", Decimal(c["value"]))
+        d.add(4, LEVELS, like, {
+            "sex": "F", "mean": (mean, where_of(c)), "n": (women["value"], where_of(women)),
+            "cohort": ("Caucasoid women, Raymond Dart Collection", where_of(women)),
+            "citation": ("%s (Table I, Caucasoid women, canal I.P., p. 174; whole mm)" % EISENSTEIN_CITATION,
+                         where_of(c))},
+              "Table I prints the Caucasoid women's widths beside the men's the table holds, as Chaudhary's Table II "
+              "copies them")
+
+
 def hinck(d):
     rows = d.rows(LEVELS, 5, series="Hinck 1966")
     where = "hinck1966 Tables IA and II, adults over 18, pp. 142 and 145"
@@ -555,8 +669,56 @@ def yadav(d):
           where_of(c), "the paper prints it; a misprint the paper does not correct is kept, as Chaudhary's SDs are")
 
 
+# Decision 8: the Italian MRI series is Pierro 2017's own Table 2, which prints none of the copy's twenty values
+
+def pierro(d):
+    rows = d.rows(LEVELS, 10, series="Italian MRI")
+    means = {Decimal(c["value"]) for c in d.reading if c["paper"] == "italianmri" and c["statistic"] == "mean"}
+    require(not means & {Decimal(r["mean"]) for r in rows}, "Pierro's Table 2 prints a mean of the copy's")
+    for row in rows:
+        for kind in ("mean", "sd"):
+            d.put_cell(8, LEVELS, row, kind, d.cell("italianmri", PIERRO, row["level"], row["sex"], kind),
+                       "Pierro's sagittal canal diameter by sex (Table 2), which prints none of the copy's ten means; "
+                       "where the copy's twenty values came from is not recorded")
+    d.put_all(8, LEVELS, rows, "citation", "Pierro A et al. J Clin Imaging Sci 2017;7:35 (Table 2, sagittal canal "
+                                           "diameter, p. 4)", "italianmri Table 2 p. 4",
+              "the series' own table and page, where the copy cited the title alone")
+
+
+# Decision 9: the citations the resolver found do not match their papers (README, discrepancy 4)
+
+CITATIONS = {
+    (LEVELS, "Masharawi 2021"): ("masharawi2021", "Abu-Leil S et al.", "BMC Musculoskelet Disord 2021;22(1):1026"),
+    (LEVELS, "van der Houwen 2009"): ("vanderhouwen2009", "van der Houwen EB et al.",
+                                      "Ann Biomed Eng 2010;38(1):33-40"),
+    (LEVELS, "Shin 2024"): ("shin2024", "Shin D et al.", "Brain Spine 2025;5:104162"),
+    (PEDICLES, "Otsuki"): ("otsuki2021", "Irie TY et al.", "PLoS One 2021;16(7):e0253019"),
+}
+
+
+def resolved(paper):
+    rows = [r for r in csv.DictReader((HERE / "sources.csv").read_text(encoding="ascii").splitlines())
+            if r["paper"] == paper]
+    if len(rows) != 1:
+        raise Refused("sources.csv holds %d rows of %s, not one" % (len(rows), paper))
+    return rows[0]
+
+
+def citations(d):
+    for (name, series), (paper, authors, where) in CITATIONS.items():
+        source = resolved(paper)
+        cited = source["resolved_citation"]
+        require(cited.startswith(authors) and cited.endswith(where),
+                "the resolver cites %s as %r, not %s ... %s" % (paper, cited, authors, where))
+        rows = [r for r in d.tables[name].rows if r["series"] == series]
+        require(rows and all(r["citation"] == source["cited_in_tables_as"] for r in rows),
+                "the copy no longer cites %s as the resolver found it" % series)
+        d.put_all(9, name, rows, "citation", "%s %s" % (authors, where), "sources.csv %s: %s" % (paper, cited),
+                  "the paper's own authors, year and number, as Crossref and PubMed give them (SOURCES.md)")
+
+
 DECIDE = (olsewski, robertson, zindrick, krag, pedicle_header, counts, yu, mitra, women, pedicle_sds, eisenstein,
-          hinck, cizmic, yadav)
+          eisenstein_women, hinck, cizmic, yadav, pierro, citations)
 
 
 def grouped(record):
