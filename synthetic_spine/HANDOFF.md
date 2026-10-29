@@ -39,6 +39,16 @@ was attempted, what failed and why, and what is left, so nothing is redone blind
   Robertson questions below and how Eisenstein measured (item 3), and it found that each sex-split series' n is its
   whole sample, in every sex's row (item 4 below). The pull request that added the check, spine-program #239, records
   its three adversarial reviews, and what was checked of the Eisenstein commit that came after them.
+- **#239's open decisions taken (2026-10-28, spine-program #240).** Asked for his word on them, Greg answered "i want
+  you to figure out those decisions". Each is decided in the README ("Decided"), with its reason and page: the four
+  wrong pedicle rows corrected, n as the count of the people a row is of, Yu's own means and Mitra's one method, the
+  women's rows and the SDs the papers print, Eisenstein from his own Table I, and the two open data questions. The
+  same pull request read the per-sex counts of the eight sex-split series #239 had not read, and Pierro 2017's Table 2,
+  beside their page images (`verification/open_questions_reading.csv`, not blind), so each of the eight carries its own
+  sex's n, the Italian MRI series is Pierro's own table, whose values the copy did not hold, and four citations name
+  their papers as the papers' own records do. The copies stay as they are; `code/apply_decisions.py` writes
+  `data/corrected/` and `verification/decisions.csv`, every number from a page reading, and `scripts/check.sh` fails
+  once a copy changes under a decision or a written file goes stale. A model reads `data/corrected/`.
 
 ## How it was done, and what failed on the way
 
@@ -85,22 +95,24 @@ since:
 | Not indexed in Crossref or PubMed | 3 | 65 | all | Alonge 2021, Ahmed 2019 and Chaudhary 2015, with Eisenstein 1977's five, which the level table took from Chaudhary's copy and which were also read from Eisenstein's own Table I. Each is open on its journal's own site (README, discrepancy 9), which this session's proxy refuses to scripts; another thread fetched them. |
 | Secondary series, transcribing paper not named | 7 | 38 | all | The pedicle table took these from a later paper's comparison table and did not record which. |
 | Paywalled, no PMC copy | 3 | 34 | all | Ahn 2001 (Hinck 1966's values, read here from Hinck's own paper; Ahn's copy was not read), Tang 2016, and Twomey 1985, which is free in Acta Orthopaedica's archive. |
-| Tables are images | 1 | 20 | none | Pierro 2017 is open access, but PMC holds its tables as pictures. Not attempted; it needs the same page reading Panjabi had. |
+| Tables are images | 1 | 20 | all, for #240 | Pierro 2017 is open access, but PMC holds its tables as pictures. Read from the page for #240: none of the 20 is Pierro's (README, "Decided", 8). |
 
 Panjabi's 70 values also fall outside the machine check, but the page reading covers them. The reading of the closed
 papers covers 177 more: the 38 secondary pedicle values, Hinck's 10, Tang's 4, Twomey's 20, the 65 read from the three
 unindexed papers (Eisenstein's five from his own Table I and Chaudhary's copy of it) and Griffith's 40. It also checks
 from the page the 26 values of those papers that only an abstract had confirmed (Bach's 24 and two of Mitra's). That
-leaves 247 values that no reading has checked: the 227 of the nine PMC-held papers still unread (README, discrepancy
-10) and Pierro's 20.
+leaves 227 values that no reading has checked, those of the nine PMC-held papers still unread (README, discrepancy
+10). Pierro's 20 were read for #240 and are none of his; `data/corrected/` holds his Table 2 in their place.
 
-**Of four data questions, two are answered from the page and two are open.** The copied tables are left as their
-sources have them, because each needs the paper or your decision:
+**Of four data questions, two were answered from the page by #239 and two by #240.** The copied tables are left as
+their sources have them; `data/corrected/` holds each answer (README, "Decided"):
 - **Cizmic 2023's five canal-depth SDs** (1.66, 1.93, 1.95, 2.2, 2.71) are printed nowhere in the paper, and a08c821
   does not say where they came from. Two derivations were tried and neither reproduces them:
   - the combined-sample SD from the paper's per-sex Table 5 gives 1.64, 1.98, 2.00, 2.21, 2.69 (the same formula
     reproduces the paper's printed canal-width SDs within 0.01);
   - the average of the two sexes' SDs gives 1.62, 1.92, 1.93, 2.19, 2.70.
+
+  Decided for #240: `data/corrected/` holds the first (README, "Decided", 6).
 - **Olsewski 1990's pedicle widths**, answered: they are the paper's Table II (p. 544), 21 cadaver spines (p. 543)
   measured directly, the sexes combined (p. 545), and Arockiaraj 2025's transcription is the one that differs. Its
   five values need no change; its cohort row does (item 4 below).
@@ -108,12 +120,13 @@ sources have them, because each needs the paper or your decision:
   coaxially, not 100 CT patients; the paper gives no origin, sex or age for them, and New Zealand is only where its
   authors worked. The series is Table 1's transverse width at the isthmus, the measure the table's
   header names; the paper's "isthmus diameter" row is the short axis of the pedicle's ellipse, which tilts 31 deg
-  from the vertical at L4 and 55 deg at L5, so it is not a transverse width. Correcting the cohort columns is yours.
-- **Yadav 2020, women, L3-L4 disc SD of 6.87** is four to five times its neighbours. The paper is in PMC but outside
-  the open-access subset.
+  from the vertical at L4 and 55 deg at L5, so it is not a transverse width. `data/corrected/` corrects the cohort
+  columns (README, "Decided", 1).
+- **Yadav 2020, women, L3-L4 disc SD of 6.87** is four to five times its neighbours. Read from the page for #240: its
+  Table 3 prints it (p. 178), and it stays (README, "Decided", 7).
 
 **Not fixed upstream, because each would change a copied file:**
-- The pedicle table's header still says twelve series; it has thirteen.
+- The pedicle table's header still says twelve series; it has thirteen, as `data/corrected/`'s header says.
 - `panjabi_reference.csv` still says the T11 and T12 end-plate widths exist only as a curve.
 - The article's figure code labels "Otsuki 2020" and "Moncada-Habib 2023" have the wrong years (Irie 2021; 2025).
 
@@ -137,27 +150,27 @@ sources have them, because each needs the paper or your decision:
    Raymond Dart Collection with a vernier caliper, the canal's width taken as the greatest interpedicular distance (p.
    173), so the modality column's dry bone, typed in `data/make_reference_table.py` (line 82) with no source given, is
    right, and Chaudhary's naming him among the workers who used plain radiography (p. 34) does not describe these
-   values. Three decisions are yours, each a change to the copied level table: whether to cite Eisenstein's own Table
-   I and call the series primary, where it now says secondary, via Chaudhary; whether the cohort column should say the
-   Caucasoid men, where it now names both groups Chaudhary copies, Caucasoid and Zulu; and whether n should stay a
-   dash, since Table I prints no count, or hold 78, the Caucasoid men's skeletons (p. 173), which is not the count of
-   vertebrae at any level (item 4).
-4. **Correct the four cohort rows of the pedicle table** the page reading found wrong (Olsewski, Robertson, Zindrick,
-   Krag; README, "What follows from the reading"). Decide what the level table's n should hold in a series split by
-   sex: its whole sample in every sex's row, as now, or the count of the people the row is of, which the check sets
-   beside n for six series (`n_printed`: Bach's 109 men and 131 women of 240, Griffith's 540 of each of 1,080,
-   Alonge's 54 and 66 of 120, Ahmed's 36 men of 80, Chaudhary's 150 men of 300, and Tang's 107 and 105 of 109). Six
-   more series carry an n that is not the count of the people a value is of, and `n_printed` leaves them out: Twomey's
-   20 carry 204, every cadaver of every age, where its Table 2 prints no n and Table 1's young adults are 24 men and
-   24 women; Mitra's L1 and L5 are of 18 men, where n is 20; Olsewski's are of 41 or 42 examples, as Table II's
-   footnote calls them, of 21 spines, and Robertson's of 10 specimens (p. 709, a passage the reading does not hold),
-   where n is 100; and Zindrick prints 26 to 56 studies per level and Hinck a sample size of 59 to 50 per level, whose
-   ranges are their n (README, "What follows from the reading"). Eisenstein's five carry a dash, not a count (item 3).
-   Decide whether Yu's row should hold Yu's own means and Mitra's one method, and whether the women's columns that
-   Ahmed, Chaudhary and Alonge print should be added.
-5. **Read Pierro 2017's table images** (open access).
-6. **Decide the two open data questions**, and the corrections of items 3 and 4. Then correct them in CTSpinoPelvic1K
-   `morphometrics/`, as e887274 did for Panjabi, and re-copy here with `code/check_copies.py`.
+   values. The three decisions this left, his own Table I and primary, the Caucasoid men as the cohort, and n, were
+   taken on 2026-10-28 (#240; README, "Decided", 5): n is 78, the Caucasoid men's skeletons (p. 173).
+4. **Decided on 2026-10-28 (#240; README, "Decided", 1 to 4).** The four wrong cohort rows of the pedicle table are
+   corrected; n is the count of the people a row's values are of, where the copy's sex-split series carry their whole
+   sample in every sex's row (README, "What follows from the reading"); Yu holds Yu's own means and Mitra one method;
+   and the women's rows that Ahmed, Chaudhary and Alonge print, and Hou's, Olsewski's and Robertson's SDs, are added.
+   The eight sex-split series #239 did not read take their own counts, read for #240: Abbas 90 and 90, Amonoo-Kuofi
+   1982 150 and 140, Amonoo-Kuofi 1985 79 and 43, Chen 43 and 40 (Table 3's 430 and 400 endplates, ten to a
+   patient), Duman 277 and 240, Pierro 302 and 302, Masharawi 25 and 25, and van der Houwen a dash, since it measured
+   25 patients of both sexes at each endplate; Eisenstein's Caucasoid women are added, 35 skeletons.
+5. **Done for #240: Pierro 2017's Table 2 read from the page.** Its sagittal canal diameters (p. 4) hold none of
+   the copy's twenty values at its level, sex and statistic, nor do its dural sac diameters (Table 4), and where the
+   copy's came from is not recorded; `data/corrected/` holds Table 2 (README, "Decided", 8). Its Tables 3 and 5, vertebral body diameters
+   and the dural sac ratio, are measures the tables do not carry, and were not taken.
+6. **The two open data questions were decided on 2026-10-28** (#240; README, "Decided", 6 and 7): Cizmic's five
+   canal-depth SDs, printed nowhere, become the SD over both sexes of its Table 5, and Yadav's 6.87 is what its Table
+   3 prints and stays. What is left of this item is Greg's word: to make these corrections and those of items 3 to 5
+   and of the four citations (README, "Decided", 9) in the public CTSpinoPelvic1K `morphometrics/`, as e887274 did
+   for Panjabi, and re-copy here with
+   `code/check_copies.py`. `code/apply_decisions.py` then stops, as it should, until each decision the new copy
+   carries is taken out of it.
 
 ## Not started: every measurement, not seven
 
