@@ -92,7 +92,7 @@ C-arm the model never saw (96.4 %, Wilson on effective n [92.3, 98.4]; `docs/han
   read the BUU licence.
 - **People.** In the code repositories this folder names, and on Greg's laptop, commit only when Greg asks (then
   directly to the main branch, both remotes where two exist, through WSL); in spine-program itself the account doing
-  the work pushes only its claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10).
+  the work pushes only its claim branch `claude/<issue>` and the pull request merges as root `CLAUDE.md` rule 10 says.
   Ashley Schehr is a person and a published co-author, never a product name. The affiliation is General Surgery (Wayne
   State University School of Medicine / Detroit Medical Center), never Neurosurgery. Student names and usernames,
   researcher e-mail addresses and personal contact details are not written into this repository.

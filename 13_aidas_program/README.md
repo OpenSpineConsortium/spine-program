@@ -39,7 +39,7 @@ in the Queue.
 3. Seal the gate before the first job (`templates/GATE.md`, from task E1.2) and keep the REFORMS record as the work
    goes (`templates/REFORMS_RECORD.md`; `REFORMS.md` says which module each task feeds).
 4. Code passes beethoven-qa; every held-out number passes beethoven-research's split check and the evaluation gate.
-5. The pull request deletes the claim file and closes the issue; Greg merges.
+5. The pull request deletes the claim file and closes the issue; it merges as root `CLAUDE.md` rule 10 says.
 
 ## Changing the map
 

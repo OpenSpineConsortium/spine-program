@@ -89,7 +89,7 @@ workers. No finding is expected from this project; its product is students produ
 - On Greg's laptop, network goes through WSL (`wsl -e bash -lc '...'`) for git push, ssh and rsync; tokens are read
   from files only and never echoed, never on a command line, never in a job file. In the code repositories this folder
   names, commit only when Greg asks, directly to `main` or `master` as each repository does it; in spine-program itself
-  the account doing the work pushes only its claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10).
+  the account doing the work pushes only its claim branch `claude/<issue>` and the pull request merges as root `CLAUDE.md` rule 10 says.
 - Ashley Schehr is a person (senior scientist and co-PI, first author of the medical-education study, annotation
   lead, the first tester); she is never renamed and never a product name. The product is Beethoven. Student names
   and usernames, researcher e-mail addresses and Greg's personal e-mail appear nowhere in this folder's text;

@@ -76,7 +76,7 @@ hold is on the grid (`MANIFEST_GRID.md`) or in a repository (`MANIFEST_CODE.md`)
     Tokens are read from files, never echoed, never on a command line; the Semantic Scholar key the review tools use
     lives in a credentials file on the grid and the laptop and is never copied (`MANIFEST_GRID.md`). In the code
     repositories this folder names, commit only when Greg asks; Greg pushes. In spine-program itself the account doing
-    the work pushes only its claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10). Write scripts as files and run them by path (`memory/bash-heredoc-backslashes.md`); never name a scratch
+    the work pushes only its claim branch `claude/<issue>` and the pull request merges as root `CLAUDE.md` rule 10 says. Write scripts as files and run them by path (`memory/bash-heredoc-backslashes.md`); never name a scratch
     script `numbers.py`, `io.py` or `pdb.py` (`memory/scratchpad-shadows-stdlib.md`).
 11. **Personal data.** No student name or username, no researcher or personal e-mail address enters any file here; the
     copies in this folder were redacted by kind and `MANIFEST_LOCAL.md` records each redaction.

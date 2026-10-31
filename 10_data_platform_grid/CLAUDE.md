@@ -87,7 +87,7 @@ B30). This is support work, not a hypothesis. Every other project folder depends
     echoed, never on a command line or in `sbatch --export`; this folder names credential files (for example
     `/wsu/home/go/go24/go2432/github`, `/wsu/home/go/go24/go2432/CTSpinoPelvic1K/.token`) only so that Greg rotates and deletes them. In the code repositories
     this folder names, commit only when Greg asks; push CTSpinoPelvic1K to both `origin` and `osc`. In spine-program itself
-    the account doing the work pushes only its claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10).
+    the account doing the work pushes only its claim branch `claude/<issue>` and the pull request merges as root `CLAUDE.md` rule 10 says.
 
 ## Traps that bind this project
 

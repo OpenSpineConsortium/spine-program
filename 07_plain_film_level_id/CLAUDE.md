@@ -131,7 +131,7 @@ use its path prefixes. In this folder they resolve to repositories, never to a l
 10. **Git, network, credentials.** On Greg's laptop, network through `wsl -e bash -lc '...'`. Tokens
     are read from files, never echoed, never on a command line. In the code repositories this folder
     names, commit only when Greg asks; in spine-program itself the account doing the work pushes only its
-    claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10). Write scripts as files
+    claim branch `claude/<issue>` and the pull request merges as root `CLAUDE.md` rule 10 says. Write scripts as files
     and run them by path (heredocs collapse backslashes).
 
 ## Traps that bind this project

@@ -30,9 +30,9 @@ Detroit time unless marked UTC).
   label (`worker:<GitHub login>`, which the claim skill makes; since 2026-10-13, in place of `account:main`, which the
   board still reads) on the issue and the claim file posted as a comment
   (`gh issue comment N --body-file docs/agents/claims/N.md`); a draft pull request with "Closes #N"; the work; the claim
-  file deleted; the pull request marked ready; the label `in-review`. Greg merges. GitHub does not enforce that: the
-  ruleset needs a pull request but zero approvals and no check, auto-merge is allowed, and a session on Greg's machine acts
-  as Greg's own GitHub account. So a session never merges and never turns on auto-merge unless Greg says so. Opening
+  file deleted; the pull request marked ready; the label `in-review`. A session of Greg's then merges it once the
+  required check is green, never waiting for him (his word of 2026-10-31 03:45 UTC, root `CLAUDE.md` rule 10); a
+  student's or another collaborator's pull request waits for Greg. Opening
   issues, labels and comments is fine; that is the board, not the tree.
 - origin has three branches, `main`, `board` and `metrics`, and a `claude/<N>` branch only while a claim is open
   (`git ls-remote origin 'refs/heads/claude/*'`). Workflows force-push `board` and `metrics` (`metrics` shares anonymous

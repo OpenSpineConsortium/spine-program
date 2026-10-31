@@ -86,7 +86,7 @@ project `01_carm_level_detection`, step S2. Pushing the site publishes it: every
 10. **Git, network, credentials.** On Greg's laptop, network (git push, ssh, rsync) goes through `wsl -e bash -lc '...'`.
     Tokens are read from files only, never echoed, never on a command line. In the site repository and the other code
     repositories this folder names, commit only when Greg asks; in spine-program itself the account doing the work pushes
-    only its claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10). The Google site-verification file
+    only its claim branch `claude/<issue>` and the pull request merges as root `CLAUDE.md` rule 10 says. The Google site-verification file
     is tracked in the site repository and is never copied elsewhere.
 
 ## Traps that cost time here

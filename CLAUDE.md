@@ -95,7 +95,7 @@ service client while 12 waits on 01 S2.
    (`memory/no-unexplained-subsets-fix-not-disclose.md`, `memory/data-directives-2026-09-23.md`.)
 10. **Git, network, credentials.** In spine-program the worker doing the work, a person's sessions under the person's
     GitHub login, commits and pushes only its own branch `claude/<issue>`, as `docs/agents/PROTOCOL.md` says; it never
-    commits to or pushes `main`; Greg merges. The claim push
+    commits to or pushes `main`; a session of Greg's merges its own pull request once the required checks are green, never waiting for him (his word of 2026-10-31 03:45 UTC: "REMOVE ALL OWNER REQUIRED PERMISSION FOR MERGING PRS"), while a student's or another collaborator's pull request still waits for Greg to merge it. The claim push
     is a plain `git push -u origin claude/<N>` in the Bash tool, never wrapped in `wsl`. In the code repositories
     (`CTSpinoPelvic1K`, `OpenSpineToolkit`, `spinesurg-ct-nnunet`, `XRSpinoPelvic1K`, `openspineconsortium.github.io`,
     `beethoven`) and on Greg's laptop: commit only when Greg asks; `CTSpinoPelvic1K` commits directly to master, no

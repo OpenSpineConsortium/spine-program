@@ -107,7 +107,7 @@ review-tree code; project 01 holds the shared stack, `alphabet_couple.py` and th
 - **Network and credentials.** On Greg's laptop, network goes through `wsl -e bash -lc '...'`. Tokens are read from
   files, never echoed, never on a command line or in `sbatch --export`. In the code repositories this folder names,
   commit only when Greg asks; in spine-program itself the account doing the work pushes only its claim branch
-  `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10).
+  `claude/<issue>` and the pull request merges as root `CLAUDE.md` rule 10 says.
 - **People.** Ashley Schehr is a person (senior scientist, co-PI, stage-1 screener of the transitional review),
   never a product name. The affiliation is the Department of General Surgery, Wayne State University School of
   Medicine / Detroit Medical Center, never Neurosurgery; paper 2's reserved title says "registration-assisted

@@ -95,7 +95,7 @@ was cut on 2026-06-30, so the paths matter).
   from files only, never echoed or put on a command line; nothing under the vendor key folder is read.
 - In the code repositories this folder names, commit only when Greg asks; CTSpinoPelvic1K commits go directly to master
   and are pushed to both remotes. In spine-program itself the account doing the work pushes only its claim branch
-  `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10).
+  `claude/<issue>` and the pull request merges as root `CLAUDE.md` rule 10 says.
 - Ashley Schehr is a person (a published co-author), never a product name; the student product is Beethoven.
 - The affiliation is the Department of General Surgery, Wayne State University School of Medicine / Detroit Medical
   Center, never Neurosurgery. Four historical documents named in `MANIFEST_LOCAL.md` say Neurosurgery; they are not edited.

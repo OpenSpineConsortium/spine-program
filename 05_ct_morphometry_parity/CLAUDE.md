@@ -119,7 +119,7 @@ within-patient AUC is already 0.990 (F.28). Every gate is written before the run
 10. On Greg's laptop, network through WSL (`wsl -e bash -lc '...'`); tokens read from files only, never echoed. In the
     code repositories, commit only when Greg asks; CTSpinoPelvic1K pushes to `origin` and `osc`, OpenSpineToolkit on
     `main` to both. In spine-program itself the account doing the work pushes only its claim branch `claude/<issue>` and
-    Greg merges (root `CLAUDE.md` rule 10).
+    the pull request merges as root `CLAUDE.md` rule 10 says.
 11. Ashley Schehr is a person, never a product name. The affiliation is General Surgery (Wayne State University School of
     Medicine / Detroit Medical Center), never Neurosurgery.
 
