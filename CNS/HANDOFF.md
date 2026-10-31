@@ -25,6 +25,14 @@ bordercall's morphometry engine; the aggregates are `generator/figs_v15_6min/pro
 40906591 and 40906695 (`generator/grid/`). Benzel's lines are black as in the book, the gold tier mean and SD blue,
 on Benzel's own axes and ranges with T13 and L6 added. The brief below is kept as the record of the ask.
 
+v16, the same evening (`make_cns_deck_v16_6min.py`, `prep_v16_benzel_profile.py`, `figs_v16_6min/`): Panjabi's 12
+cadavers added in red, and each gold tier line drawn only where the measuring code read the measure by its own
+definition (profile job 40906874, `as_defined`). The neck's widths are not drawn: the code finds the foramen
+transversarium closed in under one cervical vertebra in ten and both pedicles in about one in a hundred, so the body
+is cut at the canal's walls and the canal's width is a stand-in; every label source and slice thickness agrees, so
+it is the code, not the labels. Canal width is now the greatest interpedicular distance (Eisenstein 1977, Panjabi's
+SCW), 0.6 mm from Panjabi on average from T2 to L4. Use v16.
+
 Slide 4 is the textbook: Benzel, chapter 1, Fig. 1.1 (vertebral body width and depth by level) and
 Fig. 1.9 (spinal canal width and depth by level). Slide 5 today is a violin of end-plate width.
 Greg rejected it. He wants, in his words, "an actual rerendition of the slide exactly the same ...
