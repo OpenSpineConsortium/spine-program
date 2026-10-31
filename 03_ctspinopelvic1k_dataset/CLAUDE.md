@@ -121,7 +121,7 @@ lineage, the CNS 2026 deck) is the record that makes those three defensible.
 10. **Git, network, credentials.** In CTSpinoPelvic1K, commit directly to master, no feature branches,
     and push to both `origin` and `osc` (`memory/commit-directly-to-master.md`,
     `memory/push-both-github-remotes.md`); commit only when Greg asks. In spine-program itself the account
-    doing the work pushes only its claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10).
+    doing the work pushes only its claim branch `claude/<issue>` and the pull request merges as root `CLAUDE.md` rule 10 says.
     On Greg's laptop, network (git push, ssh, Hugging Face, Zenodo) goes through
     `wsl -e bash -lc '...'`; the one exception is `manuscripts/mpda/make_submission.py`, which shells out
     to `wsl` and runs from Windows. Tokens are read from files only (`~/.zenodo_token`, the Hugging Face

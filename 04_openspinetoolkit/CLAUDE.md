@@ -89,7 +89,7 @@ The ordered steps, gates and deciders are in `TODO.md`; the results in hand are 
    rerun; identity comes from metadata first and the file name last.
 10. **Git, network, credentials.** In OpenSpineToolkit, ostk commits go to `main` and are pushed to both
     remotes; commit only when Greg asks. In spine-program itself the account doing the work pushes only its
-    claim branch `claude/<issue>` and Greg merges (root `CLAUDE.md` rule 10). On Greg's laptop, network
+    claim branch `claude/<issue>` and the pull request merges as root `CLAUDE.md` rule 10 says. On Greg's laptop, network
     (push, ssh, rsync) goes through `wsl -e bash -lc '...'`. Tokens are
     read from files only, never echoed, never on a command line. Write scripts as files and run them
     by path (heredocs collapse backslashes). Ashley Schehr is a person, never a product name. The
