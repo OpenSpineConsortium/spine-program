@@ -31,7 +31,13 @@ definition (profile job 40906874, `as_defined`). The neck's widths are not drawn
 transversarium closed in under one cervical vertebra in ten and both pedicles in about one in a hundred, so the body
 is cut at the canal's walls and the canal's width is a stand-in; every label source and slice thickness agrees, so
 it is the code, not the labels. Canal width is now the greatest interpedicular distance (Eisenstein 1977, Panjabi's
-SCW), 0.6 mm from Panjabi on average from T2 to L4. Use v16.
+SCW), 0.6 mm from Panjabi on average from T2 to L4. 
+
+v17, the same night: the canal read on the CT itself (soft tissue flood-filled behind the body inside a ring of bone,
+200 HU), 0.7 mm from Panjabi's SCW on average and within 1.8 at every level, the neck included; the body's width
+the upper end plate's over its front half on its own layer (pedicle bases and transverse-process roots left out),
+from T1 down. Every full spine, grid job 40906993 (`generator/grid/`, `figs_v17_6min/`); the gaps that remain and
+why are SchwingNet docs/research/morphometry-against-panjabi.md. Use v17.
 
 Slide 4 is the textbook: Benzel, chapter 1, Fig. 1.1 (vertebral body width and depth by level) and
 Fig. 1.9 (spinal canal width and depth by level). Slide 5 today is a violin of end-plate width.
