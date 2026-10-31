@@ -37,7 +37,11 @@ v17, the same night: the canal read on the CT itself (soft tissue flood-filled b
 200 HU), 0.7 mm from Panjabi's SCW on average and within 1.8 at every level, the neck included; the body's width
 the upper end plate's over its front half on its own layer (pedicle bases and transverse-process roots left out),
 from T1 down. Every full spine, grid job 40906993 (`generator/grid/`, `figs_v17_6min/`); the gaps that remain and
-why are SchwingNet docs/research/morphometry-against-panjabi.md. Use v17.
+why are SchwingNet docs/research/morphometry-against-panjabi.md.
+
+v18 (Greg's words of the same night): the body's width drawn from C3, read at the lower end plate (beside Panjabi's
+EPWl), whose width no uncinate process joins, and the depth at the upper end plate (EPDu), whose depth no anterior
+lip joins; no standard deviation drawn, means alone. Use v18.
 
 Slide 4 is the textbook: Benzel, chapter 1, Fig. 1.1 (vertebral body width and depth by level) and
 Fig. 1.9 (spinal canal width and depth by level). Slide 5 today is a violin of end-plate width.
