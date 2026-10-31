@@ -47,7 +47,17 @@ v19 (Greg's ask the same night): the gold tier means reweighted to Panjabi's twe
 specimen matched to our adults of its sex within 5 years of its age; 984 adults whose sex and age are read;
 `make_profile_v19.py`, `grid/standardise.py`, job 40912660). Against Panjabi within 1 mm: the canal's width at 14
 of 17 levels, the body's depth at 11 of 16, its width at 10 of 17; height as well or instead matched no better.
-Use v19.
+
+v20 (Greg's ask the same night): slide 5 in four clicks, four slides (5 to 8) joined by Morph so the lines move:
+the v19 line in purple; divided into men (blue) and women (red), each matched to Panjabi's own 8 men and 4 women;
+our adults inside Tan 2004's age, height and weight ranges (73, 16 of them men; green) beside Tan's ten Chinese
+Singaporean cadavers; our adults reweighted to Alonge 2021's sex and age (orange) beside Alonge's 120 Nigerian CTs,
+the lumbar canal only. No series in the 39 papers measures these chords in African Americans (Yu 2015's Hamann-Todd
+skeletons give pedicles, Shin 2024 discs). The lines and reference points are PowerPoint shapes of one name on all
+four slides (`prep_v20_benzel_profile.py` writes `figs_v20_6min/geometry.json`, `grid/reweight.py`, job 40915304);
+an older PowerPoint fades instead. Panjabi is gray now, since red is the women. Slide 7 (now 10) is redrawn in
+Benzel's style (`prep_v20_spinopelvic.py`): grey histograms, closed black frame, inward ticks, the published means as
+black dashed and dotted lines. Later slides are numbered three higher; the clock is 5:26. Use v20.
 
 Slide 4 is the textbook: Benzel, chapter 1, Fig. 1.1 (vertebral body width and depth by level) and
 Fig. 1.9 (spinal canal width and depth by level). Slide 5 today is a violin of end-plate width.
