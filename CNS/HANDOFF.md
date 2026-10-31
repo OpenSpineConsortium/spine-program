@@ -41,7 +41,13 @@ why are SchwingNet docs/research/morphometry-against-panjabi.md.
 
 v18 (Greg's words of the same night): the body's width drawn from C3, read at the lower end plate (beside Panjabi's
 EPWl), whose width no uncinate process joins, and the depth at the upper end plate (EPDu), whose depth no anterior
-lip joins; no standard deviation drawn, means alone. Use v18.
+lip joins; no standard deviation drawn, means alone.
+
+v19 (Greg's ask the same night): the gold tier means reweighted to Panjabi's twelve cadavers' sex and age (each
+specimen matched to our adults of its sex within 5 years of its age; 984 adults whose sex and age are read;
+`make_profile_v19.py`, `grid/standardise.py`, job 40912660). Against Panjabi within 1 mm: the canal's width at 14
+of 17 levels, the body's depth at 11 of 16, its width at 10 of 17; height as well or instead matched no better.
+Use v19.
 
 Slide 4 is the textbook: Benzel, chapter 1, Fig. 1.1 (vertebral body width and depth by level) and
 Fig. 1.9 (spinal canal width and depth by level). Slide 5 today is a violin of end-plate width.
