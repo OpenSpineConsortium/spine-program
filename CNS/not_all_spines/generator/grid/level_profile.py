@@ -23,7 +23,8 @@ import statistics
 import sys
 
 KEYS = ("endplate", "endplate_depth", "endplate_lower", "endplate_lower_depth", "body_w_mid", "body_d_mid",
-        "canal_w", "canal_ap")
+        "canal_w", "canal_ap", "canal_ap_min", "interpedicular", "interpedicular_max")
+RESOLUTION = ((1.25, "slices to 1.25 mm"), (2.5, "slices to 2.5 mm"), (float("inf"), "slices over 2.5 mm"))
 GOLD3_ROWS = {"autopet": "enhance/rows.csv", "enhance_pet": "enhance/rows.csv",
               "verse": "verse/rows.csv", "totalseg": "verse/totalseg/rows.csv"}
 EXTRA = ("T13", "L6")
@@ -66,8 +67,10 @@ def number(text):
     return value if math.isfinite(value) else None
 
 
-def read_rows(path: str, studies, source: str, values: dict, spines: dict) -> None:
-    """Every chosen study's readings of KEYS by level into VALUES, and the levels it shows into SPINES."""
+def read_rows(path: str, studies, source: str, values: dict, spines: dict, member: str = "", strata: dict = None,
+              coarsest: dict = None, flags: dict = None) -> None:
+    """Every chosen study's readings of KEYS by level into VALUES, and the levels it shows into SPINES; with STRATA,
+    each reading again under its member and its study, and each study's coarsest spacing into COARSEST."""
     with open(path, newline="", encoding="utf-8") as handle:
         for row in csv.DictReader(handle):
             study = row["study"]
@@ -75,13 +78,19 @@ def read_rows(path: str, studies, source: str, values: dict, spines: dict) -> No
                 continue
             level = row["level"]
             if level == "study":
+                if coarsest is not None and row["key"] == "coarsest_mm" and number(row["value"]) is not None:
+                    coarsest[(path, study)] = number(row["value"])
                 continue
             spine = spines.setdefault((source, path, study), set())
             spine.add(level)
+            if flags is not None and row["key"].startswith("flag:"):
+                flags.setdefault((path, study, level), set()).add(row["key"][5:])
             if row["key"] in KEYS:
                 value = number(row["value"])
                 if value is not None:
                     values.setdefault((row["key"], level), []).append((source, value))
+                    if strata is not None:
+                        strata.setdefault((row["key"], level), []).append((member, path, study, value))
 
 
 def quantile(ordered, share):
@@ -108,16 +117,83 @@ def summary(pairs):
     return out
 
 
+def resolution(spacing):
+    if spacing is None:
+        return "spacing not read"
+    return next(name for top, name in RESOLUTION if spacing <= top)
+
+
+def brief(readings):
+    n = len(readings)
+    return {"n": n, "mean": statistics.fmean(readings) if n else None,
+            "sd": statistics.stdev(readings) if n > 1 else None,
+            "median": statistics.median(readings) if n else None}
+
+
+def by_stratum(strata, coarsest):
+    """Each key and level's mean and SD again by member (label source) and by the CT's coarsest spacing."""
+    members, resolutions = {}, {}
+    for (key, level), rows in sorted(strata.items()):
+        groups_m, groups_r = {}, {}
+        for member, path, study, value in rows:
+            groups_m.setdefault(member, []).append(value)
+            groups_r.setdefault(resolution(coarsest.get((path, study))), []).append(value)
+        members.setdefault(key, {})[level] = {name: brief(v) for name, v in sorted(groups_m.items())}
+        resolutions.setdefault(key, {})[level] = {name: brief(v) for name, v in sorted(groups_r.items())}
+    return members, resolutions
+
+
+FLAGGED_KEYS = ("body_w_mid", "body_d_mid", "endplate", "canal_w", "interpedicular_max")
+# The engine's stand-ins: where it cannot read a measure by its definition it reads something else and flags it.
+# canal.py: no pedicle found on both sides, the hole's width through the middle stands in for the interpedicular
+# distances (interpedicular_band); anatomy.clip_to_foramina: no foramen transversarium found closed, the cervical body
+# is cut at the canal's side walls and a millimetre beyond, so its width is the canal's plus two (body_foramina).
+STAND_INS = {"interpedicular_max": ("interpedicular_band",), "interpedicular": ("interpedicular_band",),
+             "body_w_mid": ("body_foramina",), "endplate": ("body_foramina",)}
+
+
+def as_defined(strata, flags):
+    """Each stand-in measure's summary over the vertebrae the engine read by the measure's own definition."""
+    out = {}
+    for (key, level), rows in strata.items():
+        if key not in STAND_INS:
+            continue
+        kept = [(member, value) for member, path, study, value in rows
+                if not set(STAND_INS[key]) & flags.get((path, study, level), set())]
+        out.setdefault(key, {})[level] = summary([("gold4" if m == "gold4" else "gold3", v) for m, v in kept])
+    return out
+
+
+def by_flag(strata, flags):
+    """For the body and canal widths, each level's mean again by whether the vertebra carries each flag, and how many
+    vertebrae carry each flag at each level."""
+    out = {"counts": {}, "means": {}}
+    for (path, study, level), names in flags.items():
+        for name in names:
+            out["counts"].setdefault(level, {}).setdefault(name, 0)
+            out["counts"][level][name] += 1
+    for (key, level), rows in strata.items():
+        if key not in FLAGGED_KEYS:
+            continue
+        groups = {}
+        for member, path, study, value in rows:
+            for name in flags.get((path, study, level), {"none"}):
+                groups.setdefault(name, []).append(value)
+        out["means"].setdefault(key, {})[level] = {name: brief(v) for name, v in sorted(groups.items()) if len(v) >= 5}
+    return out
+
+
 def profile(morphometry: str, persons: str, gold4: str, out: str) -> None:
     chosen = {}
     with open(persons, newline="", encoding="utf-8") as handle:
         for row in csv.DictReader(handle):
             chosen.setdefault(GOLD3_ROWS[row["member"]], set()).add(row["study"])
-    values, spines = {}, {}
+    values, spines, strata, coarsest, flags = {}, {}, {}, {}, {}
     for rows, studies in sorted(chosen.items()):
-        read_rows(os.path.join(morphometry, rows), studies, "gold3", values, spines)
+        member = {"enhance/rows.csv": "enhance_pet", "verse/rows.csv": "verse", "verse/totalseg/rows.csv": "totalseg"}[rows]
+        read_rows(os.path.join(morphometry, rows), studies, "gold3", values, spines, member, strata, coarsest, flags)
     if gold4 and os.path.isfile(gold4):
-        read_rows(gold4, None, "gold4", values, spines)
+        read_rows(gold4, None, "gold4", values, spines, "gold4", strata, coarsest, flags)
     measured = {k for k, levels in spines.items() if levels}
     result = {
         "spines": {source: sum(1 for k in measured if k[0] == source) for source in ("gold3", "gold4")},
@@ -129,6 +205,9 @@ def profile(morphometry: str, persons: str, gold4: str, out: str) -> None:
     result["spines"]["all"] = result["spines"]["gold3"] + result["spines"]["gold4"]
     for (key, level), pairs in sorted(values.items()):
         result["measures"].setdefault(key, {})[level] = summary(pairs)
+    result["by_member"], result["by_resolution"] = by_stratum(strata, coarsest)
+    result["by_flag"] = by_flag(strata, flags)
+    result["as_defined"] = as_defined(strata, flags)
     with open(out, "w", encoding="utf-8") as handle:
         json.dump(result, handle, indent=1, sort_keys=True)
     print(json.dumps({"spines": result["spines"], "extra_levels": result["extra_levels"]}, sort_keys=True))
