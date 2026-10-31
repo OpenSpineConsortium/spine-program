@@ -105,7 +105,7 @@ Two conditions. Do not drop either without Greg's word.
 ## Waiting on Greg
 
 - Slide 8 of Not All Spines is unpublished, shows only crops the model read correctly, and has the
-  same disclosure question. Delete it if he is unsure; the talk then runs about 4:15 by word count.
+  same disclosure question. Delete it if he is unsure; the talk then runs about 4:10 by word count.
 - Benzel permission (Thieme). Both figures are marked permission pending.
 - Whether the invention disclosure changes the ACCME financial relationship (education@cns.org).
 - U251: Nagaraja 2021 video permission; whether the contralateral slides go in before the
