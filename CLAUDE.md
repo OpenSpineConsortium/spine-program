@@ -143,6 +143,16 @@ Beethoven worker or by Greg, and their job ids and outputs come back to the clai
 lands as `<folder>/patches/<N>-<slug>.patch` (`git format-patch` against the commit `MANIFEST_CODE.md` names) in the
 claim's pull request, and Greg applies it.
 
+## Continuing locally
+
+Since 2026-10-31 the owner runs this project from a local Claude Code session instead of claude.ai project threads. Start every local session the same way:
+
+1. Clone the four private repositories side by side and keep them current: `git clone git@github.com:OpenSpineConsortium/<name>.git` for SchwingNet, bordercall, symphony-template and spine-program, then `git fetch origin` before any work.
+2. Read SchwingNet's docs/checkpoints/2026-10-31-final/README.md (the latest handoff: every thread's state, open pull requests, grid jobs and next steps) and the project memory beside it in memory/MEMORY.md.
+3. Work one piece at a time on its own branch, open a pull request, and merge it yourself once CI is green: no merge waits for the owner (his word of 2026-10-31 03:45 UTC). Test what you change before pushing.
+4. Grid work: ssh to the grid and run `cd ~/SchwingNet && git pull && bash grid/gate.sh <word>`, or dispatch symphony-template's grid-accounts.yml (action=job, job=schwingnet-<word>); the size rule holds; the login node only submits jobs.
+5. Never public, sign nothing about the provisional, no usage credits, never run archived code, and be frugal with tokens.
+
 ## How work is claimed
 
 @docs/agents/PROTOCOL.md
