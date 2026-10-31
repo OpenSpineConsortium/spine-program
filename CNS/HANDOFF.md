@@ -18,6 +18,13 @@ annotators' names replaced by [student A-K] as this repo's text copies do.
 
 ## Job 1, issue #247: replace slide 5
 
+Done 2026-10-31: `CNS2026_Schwing_NotAllSpines_public_v15_6min.pptx` and its instructions, built from v14 by
+`generator/make_cns_deck_v15_6min.py` (slide 5 alone changes) from the panels `generator/prep_v15_benzel_profile.py`
+draws. Gold tier 3 and 4 is 2,290 whole-spine CTs, one a person (1,620 tier 3, 670 tier 4), measured by
+bordercall's morphometry engine; the aggregates are `generator/figs_v15_6min/profile.json` from SchwingNet grid jobs
+40906591 and 40906695 (`generator/grid/`). Benzel's lines are black as in the book, the gold tier mean and SD blue,
+on Benzel's own axes and ranges with T13 and L6 added. The brief below is kept as the record of the ask.
+
 Slide 4 is the textbook: Benzel, chapter 1, Fig. 1.1 (vertebral body width and depth by level) and
 Fig. 1.9 (spinal canal width and depth by level). Slide 5 today is a violin of end-plate width.
 Greg rejected it. He wants, in his words, "an actual rerendition of the slide exactly the same ...
