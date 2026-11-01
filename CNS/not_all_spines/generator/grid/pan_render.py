@@ -10,6 +10,19 @@ frame of 260 mm at 30 frames a second, opening on the sacrum and L5, centred on 
 C-arm's round field, its vignette and fresh quantum noise in every frame. Cutting every frame from one edit
 keeps the anatomy still from frame to frame, where editing each frame alone would make it boil.
 
+The shoulders are what hide the upper thoracic spine in a true lateral, so three things are done to the CT
+before it is projected, none of which draws an edge in the frame. The shoulder girdle and arm bones are taken
+down to soft tissue (bone to 40 HU, air and fat left alone). From T6 up the ray is cut to a slab about the spine,
+170 mm either side at T6, 110 mm at T3 and 80 mm from T1 up, which leaves the humeral heads, the arms and the
+shoulders' bulk out and the lungs in; the slab runs along the ray and is cut after the body is found, so the chest
+stays whole. And the vertebrae from C5 to T5 are weighted up, C7 and T1 by 60 per cent, as a swimmer's view lifts
+them, and T6 to T12, behind the heart and the diaphragm's dome, by a fifth. The first cut
+(an arm's reach of 45 mm taken out of the body, v21) punched holes in the chest that FLUX filled black, and T1 to
+T4 went unseen; the second (a 75 mm slab before the body was found) cut the chest wall loose from the spine, slice
+by slice, and banded the heart; with the slab after the body and only C7 to T5 lifted (run 6) the count reached
+T2, and with the shoulders cut to 80 mm but the mid thoracic unlifted (run 7) it broke at T10. These settings
+(run 8) are the first whose boxes the linker counts unbroken from L5 to C3.
+
     python pan_render.py OUT [SUBJECT]
 
 Writes OUT/raw.png and OUT/flux_s<seed>.png (the panoramas), OUT/frames/f####.png, OUT/pan.json (the subject,
@@ -36,6 +49,10 @@ FRAME = 1024                    # 260 mm square, the round field 240 mm across
 FPS, HOLD, PAN, REST = 30, 45, 420, 30   # frames a second; held on the sacrum; the pan; held on C2
 HALF_MM = FRAME * PX / 2
 ARM_BONES = (1, 2, 9, 10, 11, 12, 13, 14, 19, 20, 30, 31)   # carpals, fingers, humeri, metacarpals, radii, ulnae
+GIRDLE = (3, 4, 21, 22)                                      # clavicles, scapulae
+SLAB = (("T6", 170.0), ("T3", 110.0), ("T1", 80.0))          # mm either side of the spine, by level, eased between
+LIFT = {"C5": 1.3, "C6": 1.5, "C7": 1.6, "T1": 1.6, "T2": 1.5, "T3": 1.5, "T4": 1.5, "T5": 1.25,   # under the shoulders
+        **{f"T{k}": 1.2 for k in range(6, 13)}}                                                    # behind heart and dome
 LEVELS = {i: n for i, n in enumerate([f"C{k}" for k in range(1, 8)] + [f"T{k}" for k in range(1, 13)]
                                      + [f"L{k}" for k in range(1, 6)], start=1)}
 SACRUM, L6 = 28, 25
@@ -98,13 +115,13 @@ def spine_track(vert):
     return np.stack([xs, ys], 1)
 
 
-def body_mask(hu, vert, away):
-    """The patient alone in every slice: tissue above -400 HU, less the arms, the part that holds the spine once
-    thin bridges (a hand on the chin, an arm against the chest, the table's pad) are eroded away."""
+def body_mask(hu, vert):
+    """The patient alone in every slice: tissue above -400 HU, the part that holds the spine once thin bridges
+    (a hand on the chin, the table's pad) are eroded away."""
     keep = np.zeros(hu.shape, bool)
     track = spine_track(vert)
     for k in range(hu.shape[2]):
-        m = (hu[:, :, k] > -400) & ~away[:, :, k]
+        m = hu[:, :, k] > -400
         core = ndimage.binary_erosion(ndimage.binary_opening(m, iterations=2), iterations=6)
         lab, n = ndimage.label(core)
         if n == 0:
@@ -116,15 +133,6 @@ def body_mask(hu, vert, away):
         part = ndimage.binary_dilation(lab == pick, iterations=6) & m
         keep[:, :, k] = ndimage.binary_fill_holes(part)
     return keep
-
-
-def arm_reach(bones, zoom):
-    """Every voxel within 45 mm of an arm bone, the arm's soft tissue with it, found on a grid half as fine."""
-    arms = np.isin(bones, ARM_BONES)[::2, ::2, ::2]
-    if not arms.any():
-        return np.zeros(bones.shape, bool)
-    near = ndimage.distance_transform_edt(~arms, sampling=zoom * 2) < 45
-    return np.repeat(np.repeat(np.repeat(near, 2, 0), 2, 1), 2, 2)[:bones.shape[0], :bones.shape[1], :bones.shape[2]]
 
 
 def centres(vert, zoom):
@@ -145,19 +153,48 @@ def attenuation(hu):
     return mu * (1 + 0.5 * bone)
 
 
+def slab(hu, vert, zoom, pts):
+    """Air outside the slab about the spine, its half-width set at each level of SLAB and eased between, held
+    below the first and above the last, each slice about the spine's own centre in that slice."""
+    track = spine_track(vert)
+    z = (np.arange(hu.shape[2]) + 0.5) * zoom[2]
+    half = np.interp(z, [pts[n][2] for n, _ in SLAB], [w for _, w in SLAB])
+    half = ndimage.gaussian_filter1d(half, 15 / zoom[2])
+    x = (np.arange(hu.shape[0]) + 0.5) * zoom[0]
+    for k in range(hu.shape[2]):
+        out = np.abs(x - (track[k, 0] + 0.5) * zoom[0]) > half[k]
+        hu[out, :, k] = -1000.0
+
+
+def soften(hu, bones):
+    """The shoulder girdle and the arms as soft tissue: their bone taken down to 40 HU, air and fat left alone."""
+    near = ndimage.binary_dilation(np.isin(bones, GIRDLE + ARM_BONES), iterations=2)
+    hu[near] = np.minimum(hu[near], 40.0)
+
+
+def lift(mu, vert):
+    """The bodies under the shoulders weighted up, label by label."""
+    names = {n: i for i, n in LEVELS.items()}
+    for name, weight in LIFT.items():
+        mu[vert == names[name]] *= weight
+
+
 def project(subject):
     hu, zoom = canonical(CT / f"{subject}.nii.gz")
     hu = hu.astype(np.float32)
     vert, _ = canonical(LABELS / "Vertebrae" / f"{subject}.nii.gz")
+    pts = centres(vert, zoom)
     bones = LABELS / "Peripheral-Bones" / f"{subject}.nii.gz"
-    away = arm_reach(canonical(bones)[0], zoom) if bones.is_file() else np.zeros(hu.shape, bool)
-    inside = body_mask(hu, vert, away)
+    if bones.is_file():
+        soften(hu, canonical(bones)[0])
+    inside = body_mask(hu, vert)
     hu[~inside] = -1000.0
-    cx = ndimage.center_of_mass(vert > 0)[0]
-    half = int(round(170 / zoom[0]))
-    lo, hi = max(0, int(cx) - half), min(hu.shape[0], int(cx) + half)
-    line = attenuation(hu[lo:hi]).sum(axis=0) * zoom[0]          # (y, z) line integrals, mm
-    return line, zoom, centres(vert, zoom), vert
+    slab(hu, vert, zoom, pts)
+    mu = attenuation(hu)
+    del hu
+    lift(mu, vert)
+    line = mu.sum(axis=0) * zoom[0]                              # (y, z) line integrals, mm; air adds nothing
+    return line, zoom, pts, vert
 
 
 def label_projection(vert):
@@ -227,7 +264,8 @@ def exposure(line):
     out = 0.45 * base + 2.4 * (out - base)                     # the processor's range compression and edge lift
     lo, hi = np.percentile(out[body], (0.5, 99.7))
     edge = ndimage.gaussian_filter(body.astype(np.float32), 2 / PX)
-    return np.clip((out - lo) / (hi - lo), 0, 1) * np.clip(edge * 1.6, 0, 1)
+    shown = 0.06 + 0.94 * np.clip((out - lo) / (hi - lo), 0, 1)   # air in the chest dark, never a hole
+    return shown * np.clip(edge * 1.6, 0, 1)
 
 
 def flux(raw, out, seed, pipe, log):
@@ -253,7 +291,7 @@ def flux(raw, out, seed, pipe, log):
         weight[s:s + TILE] += ramp[:, None]
         log.append({"seed": seed, "tile": i, "start": int(s), "seconds": round(time.time() - tick, 1)})
     edited = acc / np.maximum(weight, 1e-6)
-    edited[raw < 0.03] = 0.0
+    edited[raw < 0.01] = 0.0                                   # outside the body only
     save(out / f"flux_s{seed}.png", edited)
     return edited
 
