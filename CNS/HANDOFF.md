@@ -190,6 +190,21 @@ Two conditions. Do not drop either without Greg's word.
    Part B and the sweep was in no filing. Build the video and keep it in this internal repo. Do
    not put it in the public deck, upload it or show it until Greg confirms after hearing that.
 
+## U251 v8 (2026-11-01)
+
+`u251_litt/CNS2026_Schwing_Abstract418_CNStemplate_v8_6min.pptx` and its instructions replace v7 for the 7:00 AM talk,
+5:41 by word count. Greg asked for the figures a Cell or Nature recurrence paper uses, no slide offering the
+opposite-hemisphere U251N as contamination, Raj's ablation video at 4K, and the pre- and post-LITT biology and drug
+targets emphasized. The model is Varn FS, et al. Cell 2022;185:2184-2199: slide 4 is per-lesion composition columns
+with an arm track and arm averages (tumor share p = 0.10, microglia p = 0.40 by the exact test over the 20 splits, so
+no star), slide 10 the recurrence-phenotype schematic in place of v7's two readings, and slide 11 new: the DSigDB drug
+screen on the published ranking and on the two RUVSeq rankings whose factors come from the three control samples
+(job 40935350). 6 of the 16 published signatures hold at two factors, all hypoxia-led (ciclopirox, deferoxamine,
+dimethyloxalylglycine); the ribosomal-protein drugs fall to q > 0.8; at one factor the direction holds but q is
+0.62-0.67. The sizing slide drops the pieces cut after a tumor. The video is a 2160-pixel render of the 64-pixel
+original. Built by `SLIDES/20_v8_figures.py`, `21_build_deck_v8.py` and `22_instructions_v8.py` in the U251 study's
+folder, with the screen in its `ANALYSIS/drug_controls/`; that repository is public, so none of it is pushed there.
+
 ## Waiting on Greg
 
 - Slide 8 of Not All Spines is unpublished, shows only crops the model read correctly, and has the
@@ -203,5 +218,5 @@ Two conditions. Do not drop either without Greg's word.
 
 Never use the word Greg bans in this repo's docs. Captions 60 words or fewer. Charts as lines or
 donuts, never a sideways bar. A slide is the figure plus one caption line; text cut from it goes in
-the notes. No number from memory: read it from the result file. The instrument sentences in the
-U251 talk stay conditional: migration in life and carry-over at dissection cannot be separated.
+the notes. No number from memory: read it from the result file. In the U251 talk, Greg's word of 2026-11-01: the
+opposite-hemisphere slides show the measurement and raise no alternative reading of it.
