@@ -16,12 +16,14 @@ down to soft tissue (bone to 40 HU, air and fat left alone). From T6 up the ray 
 170 mm either side at T6, 110 mm at T3 and 80 mm from T1 up, which leaves the humeral heads, the arms and the
 shoulders' bulk out and the lungs in; the slab runs along the ray and is cut after the body is found, so the chest
 stays whole. And the vertebrae from C5 to T5 are weighted up, C7 and T1 by 60 per cent, as a swimmer's view lifts
-them, and T6 to T12, behind the heart and the diaphragm's dome, by a fifth. The first cut
+them, and T7 to T12, behind the heart and the diaphragm's dome, by 40 per cent (T6 by a quarter). The first cut
 (an arm's reach of 45 mm taken out of the body, v21) punched holes in the chest that FLUX filled black, and T1 to
 T4 went unseen; the second (a 75 mm slab before the body was found) cut the chest wall loose from the spine, slice
 by slice, and banded the heart; with the slab after the body and only C7 to T5 lifted (run 6) the count reached
-T2, and with the shoulders cut to 80 mm but the mid thoracic unlifted (run 7) it broke at T10. These settings
-(run 8) are the first whose boxes the linker counts unbroken from L5 to C3.
+T2, and with the shoulders cut to 80 mm but the mid thoracic unlifted (run 7) it broke at T10. With T6 to T12
+lifted by a fifth (run 8) the count ran unbroken from L5 to C3, but the detector boxed nothing at T12 to T8 while
+the lumbar bodies filled the field; lifted by 40 per cent (run 9) and read at a floor of 0.10 with the mirrored
+frames pooled (pan_link.py), each body from T12 up is boxed within about half a second of entering the field.
 
     python pan_render.py OUT [SUBJECT]
 
@@ -52,7 +54,7 @@ ARM_BONES = (1, 2, 9, 10, 11, 12, 13, 14, 19, 20, 30, 31)   # carpals, fingers, 
 GIRDLE = (3, 4, 21, 22)                                      # clavicles, scapulae
 SLAB = (("T6", 170.0), ("T3", 110.0), ("T1", 80.0))          # mm either side of the spine, by level, eased between
 LIFT = {"C5": 1.3, "C6": 1.5, "C7": 1.6, "T1": 1.6, "T2": 1.5, "T3": 1.5, "T4": 1.5, "T5": 1.25,   # under the shoulders
-        **{f"T{k}": 1.2 for k in range(6, 13)}}                                                    # behind heart and dome
+        "T6": 1.25, **{f"T{k}": 1.4 for k in range(7, 13)}}                                      # behind heart and dome
 LEVELS = {i: n for i, n in enumerate([f"C{k}" for k in range(1, 8)] + [f"T{k}" for k in range(1, 13)]
                                      + [f"L{k}" for k in range(1, 6)], start=1)}
 SACRUM, L6 = 28, 25

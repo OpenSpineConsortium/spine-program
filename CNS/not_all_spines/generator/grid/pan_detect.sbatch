@@ -6,16 +6,22 @@
 # reported stack: detector 797de71a, encoder v9 rung 1 aug2 (registry 188f9fcb), head v9 mixed kmax4 seed0.
 # The frames are upright, cranial up; the facing is whichever of the two the detector finds more bodies in on
 # every tenth frame. No film histogram match: ~/films_drr was pruned, and the frames are FLUX's, not raw DRRs.
+# CONF sets the detector's floor (0.35, the reported stack's, unless given); DET names the folder the records go to
+# (det); FACING, when given, skips the facing test and uses that side. A low floor keeps every box with its own
+# confidence in the record, so the linker can choose its floor afterwards without running the detector again.
 set -uo pipefail
 OUT=${OUT:?}
+CONF=${CONF:-0.35}
+DET=${DET:-det}
 FL=$HOME/mambaforge/envs/fluorogen/bin/python
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
 cd "$HOME/spinesurg-ct-nnunet" || exit 2
 STACK=(--detector /wsu/home/go/go24/go2432/model_registry/797de71a9e0e42f7/detect_v5z_final_best.pt
        --model /wsu/home/go/go24/go2432/model_registry/188f9fcbfa3c6de1/model_rung_1_aug2.pt
        --head /wsu/home/go/go24/go2432/model_night/heads_mixed/head_allspine_v9_mixed_kmax4_seed0.pt
-       --no-orient --conf 0.35 --dump-posterior --hist-match ""
+       --no-orient --conf "$CONF" --dump-posterior --hist-match ""
        --not-held-out "CNS demo frames rendered from an ENHANCE.PET CT the encoder never saw; not an evaluation")
+if [ -z "${FACING:-}" ]; then
 "$FL" - "$OUT" <<'PY'
 import sys
 from pathlib import Path
@@ -41,6 +47,9 @@ print("L" if n["L"] >= n["R"] else "R")
 print(n, file=sys.stderr)
 PY
 )
+else
+SIDE=$FACING
+fi
 echo "facing $SIDE"
 FRAMES=$OUT/frames
 if [ "$SIDE" = R ]; then
@@ -54,7 +63,7 @@ for p in sorted((out / "frames").glob("f*.png")):
 PY
   FRAMES=$OUT/frames_R
 fi
-echo "$SIDE" > "$OUT/facing.txt"
-"$FL" tools/level_prototype.py --image "$FRAMES/*.png" --out "$OUT/det" "${STACK[@]}" > "$OUT/det.log" 2>&1
+[ -z "${FACING:-}" ] && echo "$SIDE" > "$OUT/facing.txt"
+"$FL" tools/level_prototype.py --image "$FRAMES/*.png" --out "$OUT/$DET" "${STACK[@]}" > "$OUT/$DET.log" 2>&1
 echo "DET_RC=$?"
-ls "$OUT/det" | wc -l
+ls "$OUT/$DET" | wc -l

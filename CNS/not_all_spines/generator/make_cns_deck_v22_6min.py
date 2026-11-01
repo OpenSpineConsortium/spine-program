@@ -16,8 +16,8 @@ and 3 stay as Greg left them. Built from v14 as v21 was, through v21's own steps
     python paper/cns2026/prep_v22_bodies.py
     python paper/cns2026/render_v22_anomalies.py
     python paper/cns2026/prep_v22_site.py
-    python paper/cns2026/pan_link.py figs_v22_6min/pan8
-    python paper/cns2026/render_v22_pan.py figs_v22_6min/pan8
+    python paper/cns2026/pan_link.py figs_v22_6min/pan9 --det det_low_L --floor 0.1 --flip det_low_R
+    python paper/cns2026/render_v22_pan.py figs_v22_6min/pan9
     python paper/cns2026/make_cns_deck_v22_6min.py
 """
 from __future__ import annotations
@@ -42,7 +42,7 @@ from prep_v22_bodies import BOX as PLOT_BOX  # noqa: E402
 TARGET = DECK / "CNS2026_Schwing_NotAllSpines_public_v22_6min.pptx"
 FIG = HERE / "figs_v22_6min"
 V21 = HERE / "figs_v21_6min"
-RUN = FIG / "pan8"                                             # the grid run the pan film was drawn from
+RUN = FIG / "pan9"                                             # the grid run the pan film was drawn from
 GALLERY = SITE + "/data/gallery/"
 FILM_HEIGHT = 6230000 - 1420000
 FILM_BOX = ((12192000 + 1750000 - FILM_HEIGHT * 16 // 9) // 2, 1420000, FILM_HEIGHT * 16 // 9, FILM_HEIGHT)
@@ -92,7 +92,8 @@ def more_words():
     t["pan"]["asked"] = (
         "If asked: the frames are made from a public CT, not a patient exposure: its shoulder bones softened, the "
         "shoulders cut away and the thoracic bodies weighted up, as a swimmer's view would show them. Boxes are the "
-        f"detector's own; {named}, every one as the CT labels it.")
+        "detector's own, read at a lower floor over each frame and its mirror image, and kept only on the spine's "
+        f"column; {named}, every one as the CT labels it.")
     t["pan"]["script"] = ("Last, a lateral pan up from the sacrum, prone, as in the room. Each body is found as it "
                           "comes into view and named counting up from the sacrum, through the thoracic spine to the "
                           "neck, and the three-dimensional map fills in as it goes.")
