@@ -221,6 +221,10 @@ opposite-hemisphere slide drawn as a journal figure.
 
 Built by `SLIDES/23_v9_figures.py`, `24_build_deck_v9.py` and `25_instructions_v9.py` in the U251 study's folder.
 
+## U251 v10 (2026-11-01, night)
+
+v10 adds main slide 10, the far-side tumor against its own core thinned to its depth (SPREAD_RESULTS.md section 2.2): whole transcriptome d 0.153 and cell-state mix 0.102, both outside 1,000 draws (p < 0.001), less mesenchymal (descriptive). The prior-art notes are shorter; 14 slides, 5:50. Built by SLIDES/26_v10_farside.py, 27_build_deck_v10.py and 28_instructions_v10.py in the U251 study folder.
+
 ## Waiting on Greg
 
 - Slide 8 of Not All Spines is unpublished, shows only crops the model read correctly, and has the
