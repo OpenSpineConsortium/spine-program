@@ -1,0 +1,233 @@
+{
+ "image": "/rs/rs_grp_oschome/go2432/cns-profile/video/run4/frames_R/f0315.png",
+ "preprocess": {},
+ "direction_known": true,
+ "boxes": [
+  [
+   451,
+   707,
+   598,
+   796
+  ]
+ ],
+ "det_conf": [
+  0.577
+ ],
+ "hw_boxes": [],
+ "width": 1024,
+ "height": 1024,
+ "sacrum_box": null,
+ "sacrum_source": null,
+ "decode_score": -1.156,
+ "anchor_source": "model",
+ "vertebrae": [
+  {
+   "box": [
+    451,
+    707,
+    598,
+    796
+   ],
+   "det_conf": 0.577,
+   "level": "L4",
+   "level_prob": 0.315,
+   "single_crop": "L3",
+   "single_crop_prob": 0.315,
+   "top3": [
+    [
+     "L4",
+     0.315
+    ],
+    [
+     "L2",
+     0.212
+    ],
+    [
+     "L3",
+     0.202
+    ]
+   ],
+   "entropy": 1.801,
+   "region": "lumbar",
+   "abstain": true,
+   "posterior": [
+    0.000152023,
+    0.00222065,
+    0.00778105,
+    0.00140961,
+    0.000135501,
+    4.96213e-05,
+    0.000337748,
+    0.000404317,
+    0.000393645,
+    0.000845171,
+    0.00741034,
+    0.0294338,
+    0.0142687,
+    0.00152929,
+    0.000128031,
+    8.10617e-05,
+    0.000123561,
+    0.000147818,
+    0.00144313,
+    0.00070037,
+    0.104873,
+    0.212407,
+    0.202238,
+    0.31474,
+    0.0941145,
+    0.00111789,
+    0.00151436
+   ],
+   "posterior_single": [
+    5.36098e-07,
+    7.92518e-05,
+    0.000101638,
+    0.000250697,
+    9.15556e-06,
+    3.3566e-07,
+    3.6169e-06,
+    3.44807e-05,
+    5.16196e-05,
+    0.000174573,
+    0.000274135,
+    0.000156248,
+    0.00011985,
+    6.32754e-05,
+    2.68815e-05,
+    2.88776e-05,
+    2.65422e-05,
+    0.000102257,
+    0.0017963,
+    1.07821e-05,
+    0.100925,
+    0.259424,
+    0.314856,
+    0.251166,
+    0.0702678,
+    4.83378e-05,
+    6.10529e-07
+   ]
+  }
+ ],
+ "transitional_flags": [
+  {
+   "target": "LSTV",
+   "abstain": true,
+   "needs": [
+    "sacrum"
+   ],
+   "missing_in_frame": [
+    "sacrum"
+   ]
+  },
+  {
+   "target": "TLTV",
+   "abstain": true,
+   "needs": [
+    "T12"
+   ],
+   "missing_in_frame": [
+    "T12"
+   ]
+  },
+  {
+   "target": "no_reference_landmark",
+   "kind": "rule",
+   "detects": "precondition",
+   "flag": true,
+   "abstain": false,
+   "needs": [],
+   "missing_in_frame": [],
+   "reason": "no fixed landmark in the field: neither the sacrum nor C2 is among the named vertebrae, so a count has no anchor and the level names rest on the classifier alone",
+   "evidence": {
+    "n_vertebrae": 1,
+    "sacrum_in_frame": false,
+    "c2_in_frame": false
+   }
+  },
+  {
+   "target": "lumbar_count_anomaly",
+   "kind": "rule",
+   "detects": "transitional",
+   "flag": false,
+   "abstain": true,
+   "needs": [
+    "sacrum",
+    "thoracic level"
+   ],
+   "missing_in_frame": [
+    "sacrum",
+    "a thoracic level above the lumbar run"
+   ],
+   "reason": "the frame does not show both ends of the lumbar column, so the count cannot be made",
+   "evidence": {
+    "distinct_lumbar_named": 1,
+    "lumbar_names": [
+     "L4"
+    ]
+   }
+  },
+  {
+   "target": "count_vs_morphology",
+   "kind": "rule",
+   "detects": "transitional",
+   "flag": false,
+   "abstain": true,
+   "needs": [
+    "at least 4 vertebrae"
+   ],
+   "missing_in_frame": [
+    "only 1 vertebrae in the run"
+   ],
+   "reason": "the run is too short for a disagreement rate to mean anything",
+   "evidence": {
+    "n_disagreements": 1,
+    "n_compared": 1,
+    "disagreement_fraction": 1.0
+   }
+  },
+  {
+   "target": "direction_unknown",
+   "kind": "rule",
+   "detects": "precondition",
+   "flag": false,
+   "abstain": false,
+   "needs": [],
+   "missing_in_frame": [],
+   "reason": "cranial-caudal direction was established",
+   "evidence": {
+    "direction_known": true
+   }
+  },
+  {
+   "target": "hardware_in_field",
+   "kind": "rule",
+   "detects": "precondition",
+   "flag": false,
+   "abstain": false,
+   "needs": [],
+   "missing_in_frame": [],
+   "reason": "no hardware detected in the field",
+   "evidence": {
+    "n_hardware": 0
+   }
+  },
+  {
+   "target": "low_confidence_run",
+   "kind": "rule",
+   "detects": "precondition",
+   "flag": true,
+   "abstain": false,
+   "needs": [],
+   "missing_in_frame": [],
+   "reason": "the run's median decoded probability is 0.32, below 0.35: this frame is outside what the classifier can read, and a confident-looking name here is the majority class rather than a reading",
+   "evidence": {
+    "median_level_prob": 0.315,
+    "n_vertebrae": 1,
+    "n_vertebrae_abstained": 1
+   }
+  }
+ ],
+ "seconds": 0.08
+}
