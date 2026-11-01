@@ -96,6 +96,16 @@ level by level moves from the backup to slide 6. The end slide shows the website
 linked to the site (`prep_v22_site.py`). The scripts of slides 5, 7 and 15 were cut to pay for the new slides.
 Use v22.
 
+The same afternoon Greg saw the detector stop at the lumbar-thoracic turn and then box the thoracic bodies all at
+once. At the reported floor of 0.35, and even at 0.05, the detector boxed nothing from T12 to T8 while the lumbar
+bodies filled the field; the mirrored frame boxed T12 at 0.8. So the film now uses run 9: T7 to T12 weighted up by
+40 per cent, the detector run over each frame and its mirror image at a floor of 0.05 (`grid/pan_detect.sbatch` takes
+CONF, DET and FACING), and the linker reading both at 0.10, pooled, a weaker box kept only on the column the
+reported floor's boxes trace (`pan_link.py --det det_low_L --floor 0.1 --flip det_low_R`). It names 23 of 23 by count
+from L5 to C2, and each body from T12 up is boxed within about half a second of entering the field; the film carries
+a named box through up to 8 frames the detector misses. At 0.05 a stray box enters the count and every name above it
+is one level off, so the floor is not a free choice.
+
 Slide 4 is the textbook: Benzel, chapter 1, Fig. 1.1 (vertebral body width and depth by level) and
 Fig. 1.9 (spinal canal width and depth by level). Slide 5 today is a violin of end-plate width.
 Greg rejected it. He wants, in his words, "an actual rerendition of the slide exactly the same ...

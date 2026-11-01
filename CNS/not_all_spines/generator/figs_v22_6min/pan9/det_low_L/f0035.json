@@ -1,0 +1,329 @@
+{
+ "image": "/rs/rs_grp_oschome/go2432/cns-profile/video/run9/frames/f0035.png",
+ "preprocess": {},
+ "direction_known": true,
+ "boxes": [
+  [
+   348,
+   0,
+   505,
+   92
+  ],
+  [
+   355,
+   108,
+   522,
+   247
+  ]
+ ],
+ "det_conf": [
+  0.846,
+  0.905
+ ],
+ "hw_boxes": [],
+ "width": 1024,
+ "height": 1024,
+ "sacrum_box": null,
+ "sacrum_source": null,
+ "decode_score": -0.079,
+ "anchor_source": "model",
+ "vertebrae": [
+  {
+   "box": [
+    348,
+    0,
+    505,
+    92
+   ],
+   "det_conf": 0.846,
+   "level": "L4",
+   "level_prob": 0.927,
+   "single_crop": "L4",
+   "single_crop_prob": 0.86,
+   "top3": [
+    [
+     "L4",
+     0.927
+    ],
+    [
+     "L5",
+     0.024
+    ],
+    [
+     "T11",
+     0.019
+    ]
+   ],
+   "entropy": 0.383,
+   "region": "lumbar",
+   "abstain": false,
+   "posterior": [
+    0.000142216,
+    2.31713e-05,
+    2.18884e-05,
+    0.000344574,
+    0.000300492,
+    0.00050303,
+    0.000219439,
+    0.000370334,
+    0.000178472,
+    5.18438e-05,
+    1.70077e-06,
+    1.79703e-06,
+    3.8349e-06,
+    1.55421e-05,
+    9.35204e-05,
+    0.00147741,
+    0.0178388,
+    0.0186521,
+    0.000741153,
+    6.27189e-09,
+    0.00137256,
+    0.000640498,
+    0.00579941,
+    0.927151,
+    0.0240541,
+    8.25673e-07,
+    4.1238e-08
+   ],
+   "posterior_single": [
+    0.00028402,
+    4.53511e-05,
+    3.93701e-05,
+    0.00068707,
+    0.000599596,
+    0.00100334,
+    0.000436285,
+    0.000739892,
+    0.000356808,
+    0.000103512,
+    2.9144e-06,
+    1.23325e-06,
+    7.3123e-06,
+    3.07607e-05,
+    0.000186997,
+    0.00295472,
+    0.0356758,
+    0.0373033,
+    0.00147977,
+    7.45975e-09,
+    0.00273891,
+    0.00126092,
+    0.00649807,
+    0.85988,
+    0.0476833,
+    1.10506e-06,
+    7.08419e-08
+   ]
+  },
+  {
+   "box": [
+    355,
+    108,
+    522,
+    247
+   ],
+   "det_conf": 0.905,
+   "level": "L5",
+   "level_prob": 0.997,
+   "single_crop": "L5",
+   "single_crop_prob": 0.998,
+   "top3": [
+    [
+     "L5",
+     0.997
+    ],
+    [
+     "L4",
+     0.002
+    ],
+    [
+     "L1",
+     0.0
+    ]
+   ],
+   "entropy": 0.022,
+   "region": "lumbar",
+   "abstain": false,
+   "posterior": [
+    3.12473e-07,
+    8.97403e-08,
+    4.119e-06,
+    3.86034e-05,
+    7.99731e-06,
+    8.74822e-07,
+    1.19848e-05,
+    3.33494e-06,
+    2.11518e-06,
+    1.22035e-06,
+    8.25307e-08,
+    9.18095e-08,
+    1.25594e-07,
+    2.53842e-08,
+    5.97941e-08,
+    2.50621e-07,
+    4.55203e-06,
+    3.7016e-05,
+    4.36598e-05,
+    5.92945e-08,
+    0.000267694,
+    1.10678e-05,
+    6.21623e-06,
+    0.00240023,
+    0.997113,
+    4.33972e-05,
+    1.45297e-06
+   ],
+   "posterior_single": [
+    3.36297e-07,
+    1.26148e-07,
+    7.1899e-06,
+    6.93667e-05,
+    1.2557e-05,
+    1.36789e-06,
+    2.18841e-05,
+    2.94474e-06,
+    3.06121e-06,
+    1.82908e-06,
+    4.54808e-08,
+    1.98551e-09,
+    9.41114e-10,
+    9.24333e-09,
+    6.67964e-08,
+    4.86536e-07,
+    8.78763e-06,
+    7.28798e-05,
+    8.6857e-05,
+    9.19095e-10,
+    0.000532558,
+    1.93666e-05,
+    5.17626e-06,
+    0.00156836,
+    0.99753,
+    5.43643e-05,
+    7.45372e-08
+   ]
+  }
+ ],
+ "transitional_flags": [
+  {
+   "target": "LSTV",
+   "abstain": true,
+   "needs": [
+    "sacrum"
+   ],
+   "missing_in_frame": [
+    "sacrum"
+   ]
+  },
+  {
+   "target": "TLTV",
+   "abstain": true,
+   "needs": [
+    "T12"
+   ],
+   "missing_in_frame": [
+    "T12"
+   ]
+  },
+  {
+   "target": "no_reference_landmark",
+   "kind": "rule",
+   "detects": "precondition",
+   "flag": true,
+   "abstain": false,
+   "needs": [],
+   "missing_in_frame": [],
+   "reason": "no fixed landmark in the field: neither the sacrum nor C2 is among the named vertebrae, so a count has no anchor and the level names rest on the classifier alone",
+   "evidence": {
+    "n_vertebrae": 2,
+    "sacrum_in_frame": false,
+    "c2_in_frame": false
+   }
+  },
+  {
+   "target": "lumbar_count_anomaly",
+   "kind": "rule",
+   "detects": "transitional",
+   "flag": false,
+   "abstain": true,
+   "needs": [
+    "sacrum",
+    "thoracic level"
+   ],
+   "missing_in_frame": [
+    "sacrum",
+    "a thoracic level above the lumbar run"
+   ],
+   "reason": "the frame does not show both ends of the lumbar column, so the count cannot be made",
+   "evidence": {
+    "distinct_lumbar_named": 2,
+    "lumbar_names": [
+     "L4",
+     "L5"
+    ]
+   }
+  },
+  {
+   "target": "count_vs_morphology",
+   "kind": "rule",
+   "detects": "transitional",
+   "flag": false,
+   "abstain": true,
+   "needs": [
+    "at least 4 vertebrae"
+   ],
+   "missing_in_frame": [
+    "only 2 vertebrae in the run"
+   ],
+   "reason": "the run is too short for a disagreement rate to mean anything",
+   "evidence": {
+    "n_disagreements": 0,
+    "n_compared": 2,
+    "disagreement_fraction": 0.0
+   }
+  },
+  {
+   "target": "direction_unknown",
+   "kind": "rule",
+   "detects": "precondition",
+   "flag": false,
+   "abstain": false,
+   "needs": [],
+   "missing_in_frame": [],
+   "reason": "cranial-caudal direction was established",
+   "evidence": {
+    "direction_known": true
+   }
+  },
+  {
+   "target": "hardware_in_field",
+   "kind": "rule",
+   "detects": "precondition",
+   "flag": false,
+   "abstain": false,
+   "needs": [],
+   "missing_in_frame": [],
+   "reason": "no hardware detected in the field",
+   "evidence": {
+    "n_hardware": 0
+   }
+  },
+  {
+   "target": "low_confidence_run",
+   "kind": "rule",
+   "detects": "precondition",
+   "flag": false,
+   "abstain": false,
+   "needs": [],
+   "missing_in_frame": [],
+   "reason": "the run's median decoded probability is 0.96",
+   "evidence": {
+    "median_level_prob": 0.962,
+    "n_vertebrae": 2,
+    "n_vertebrae_abstained": 0
+   }
+  }
+ ],
+ "seconds": 0.11
+}
