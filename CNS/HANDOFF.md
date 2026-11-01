@@ -205,6 +205,22 @@ dimethyloxalylglycine); the ribosomal-protein drugs fall to q > 0.8; at one fact
 original. Built by `SLIDES/20_v8_figures.py`, `21_build_deck_v8.py` and `22_instructions_v8.py` in the U251 study's
 folder, with the screen in its `ANALYSIS/drug_controls/`; that repository is public, so none of it is pushed there.
 
+## U251 v9 (2026-11-01, evening)
+
+`u251_litt/CNS2026_Schwing_Abstract418_CNStemplate_v9_6min.pptx` replaces v8: 13 slides, no backups, 5:38 by word count.
+Greg asked for the significant results brought forward, the backups removed, a more polished deck, and the
+opposite-hemisphere slide drawn as a journal figure.
+- Slide 6: a volcano of the published DESeq2 result. 107 genes at FDR < 0.05: 33 lower (extracellular-matrix genes) and
+  74 higher (neuronal and synaptic genes).
+- Slide 7: nine programs on the published ranking and the two control-adjusted rankings (job 40935633). Translation
+  initiation passes the strict sample-permutation test at FDR 0.02; all nine stay lower at q < 0.05 after the two-factor
+  adjustment. The bubbles are gene-ranked GSEA, the looser test, and the caption says so.
+- Slide 9: panels a-d, as a journal shows a cell line's identity at a distant site: human reads against the empty piece,
+  chromosome Y reads, genotype against its permutation null, and copy-number correlation against the null band.
+- Slide 13: four numbered conclusions. The sizing moves into one line there.
+
+Built by `SLIDES/23_v9_figures.py`, `24_build_deck_v9.py` and `25_instructions_v9.py` in the U251 study's folder.
+
 ## Waiting on Greg
 
 - Slide 8 of Not All Spines is unpublished, shows only crops the model read correctly, and has the
