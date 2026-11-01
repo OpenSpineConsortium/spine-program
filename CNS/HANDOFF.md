@@ -59,6 +59,29 @@ an older PowerPoint fades instead. Panjabi is gray now, since red is the women. 
 Benzel's style (`prep_v20_spinopelvic.py`): grey histograms, closed black frame, inward ticks, the published means as
 black dashed and dotted lines. Later slides are numbered three higher; the clock is 5:26. Use v20.
 
+v21 (Greg's asks of the same night, the provisional filed): `make_cns_deck_v21_6min.py`. Benzel's two scans are
+every click's base, in slide 4's exact boxes, with the lines laid over them in the scans' own calibration
+(`prep_v21_benzel_profile.py`) and his vertebra drawing laid over the lines as a transparent copy, so the step from
+slide 5 (Benzel) to 6 and every click after it moves only the lines. Slides 6 to 10 share one title: purple
+(reweighted to Panjabi), men and women, Tan, Alonge, then every decade of each sex (blue and red, deeper the farther
+from his cadavers' 46; `grid/bands.py`, job 40928273). Slide 11 is a film (`render_v21_fingerprint.py`) that opens
+on slide 10 exactly: the decades turned into depth, four ideal spines (the pan's CT, scaled to a decade's means)
+lit gold with their lines, the lines leaving as snakes and settling as a fingerprint. Slide 12 is that fingerprint
+beside bordercall's synthetic naming against bodies in view (`prep_v21_bodies.py`). Slide 13 is v14's masks slide.
+Slide 14 is the pan film (`render_v21_pan.py`), patent pending on the slide's foot and nothing written in the film:
+ENHANCE.PET CT 0036 (thinnest slices, normal by its labels, no metal under C2) projected laterally, made real by
+FLUX.2 klein-9B as released (`grid/pan_render.py`), cut as a 30 fps prone pan from the sacrum to C2; the reported
+detector, encoder and head on every frame (`grid/pan_detect.sbatch`); names from `pan_link.py` (frames registered by
+phase correlation, counted up from the L5 the model named, the model's own reads above the shoulders; on this CT 17
+named, all as its labels; T4 to C6 never seen, placed between the two ends in a muted shade); the CT's vertebrae in
+3D filling in below. The spinopelvic slide moves to 4 and the canal rows go after the end as a backup.
+
+The grid, for the next run of it: hpcworker's gpu class offers gmsap, gvohp and galhp only, all full of month-long
+jobs that night; the films' FLUX job ran on reqp's RTX PRO 4500 (32 GB) by `sbatch --partition=reqp --qos=requeue
+--gres=gpu:nvidia_rtx_pro_4500_blackwell:1`, inside SchwingNet's bookworm container (`grid/box.sh`), since the realism
+venv needs a newer glibc than the nodes' CentOS 7; the detector ran on reqp's A30 in the fluorogen env. The film
+histogram reference `~/films_drr` was pruned, so the prototype ran without it. Use v21.
+
 Slide 4 is the textbook: Benzel, chapter 1, Fig. 1.1 (vertebral body width and depth by level) and
 Fig. 1.9 (spinal canal width and depth by level). Slide 5 today is a violin of end-plate width.
 Greg rejected it. He wants, in his words, "an actual rerendition of the slide exactly the same ...
