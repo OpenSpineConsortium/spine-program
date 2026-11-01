@@ -82,6 +82,20 @@ jobs that night; the films' FLUX job ran on reqp's RTX PRO 4500 (32 GB) by `sbat
 venv needs a newer glibc than the nodes' CentOS 7; the detector ran on reqp's A30 in the fluorogen env. The film
 histogram reference `~/films_drr` was pruned, so the prototype ran without it. Use v21.
 
+v22 (Greg's asks of 1 November): `make_cns_deck_v22_6min.py`, 17 slides, about 6:00. The pan film missed the
+thoracic, so its frames were made again (`grid/pan_render.py`, runs 6 to 8 on the same CT 0036): the shoulder
+girdle and arm bones taken down to soft tissue, a slab about the spine from T6 up cut after the body is found
+(170 mm at T6, 110 at T3, 80 from T1 up), and the bodies from C5 to T12 weighted up as a swimmer's view lifts
+them. On run 8 the linker counts unbroken from the L5 the model named to C3, 22 of 22 as the CT labels them;
+the detector boxed no C2, which stays unlit in the 3D map (`render_v22_pan.py` also lights a counted body only
+after the one below it). Slide 14's plot is bordercall's smooth build-up figure (records/curve-2026-10-28,
+`prep_v22_bodies.py`): named exactly, named at 99 per cent certainty, and right when so named, against measures
+added, for 1, 3 and 9 bodies. New slide 4 turns the gallery's eight anomalous spines (`render_v22_anomalies.py`,
+the website's own meshes, the focus structures gold), its gallery page linked on the slide and the film. The canal
+level by level moves from the backup to slide 6. The end slide shows the website's home page in a browser window
+linked to the site (`prep_v22_site.py`). The scripts of slides 5, 7 and 15 were cut to pay for the new slides.
+Use v22.
+
 Slide 4 is the textbook: Benzel, chapter 1, Fig. 1.1 (vertebral body width and depth by level) and
 Fig. 1.9 (spinal canal width and depth by level). Slide 5 today is a violin of end-plate width.
 Greg rejected it. He wants, in his words, "an actual rerendition of the slide exactly the same ...
